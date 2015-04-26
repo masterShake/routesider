@@ -12,7 +12,19 @@
   -------------------------------------*/
 
 
+/* logo */
 
+.logo{
+	text-transform: uppercase;
+}
+.logo>div{
+	float: left;
+	background-color: #5CB85C;
+	color: #fff;
+}
+.logo>div, .logo>span{
+	line-height: 30px;
+}
 
 
 
@@ -21,6 +33,14 @@
 				navbar
 
   -------------------------------------*/
+
+.navbar-brand{
+	padding: 10px;
+}
+.navbar-brand .logo>div{
+	padding: 0 5px;
+	margin-right: 3px;
+}
 
 
 

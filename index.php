@@ -33,7 +33,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Brand</a>
+                    <a class="navbar-brand" href="#">
+                        <div class="logo">
+                            <div>Route</div>
+                            <span>sider</span>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,6 +80,40 @@
             </div><!-- /.container-fluid -->
         </nav>
 
+        <!-- main -->
+        <div class="container" role="main">
+
+            <!-- featured deals -->
+            <section>
+                <article>
+                    ...
+                </article>
+            </section>
+
+            <!-- search & map -->
+            <section class="row">
+
+                <!-- search -->
+                <article>
+                    ...
+                </article>
+
+                <!-- results -->
+                <article>
+                    ...
+                </article>
+
+                <!-- map -->
+                <article>
+                    ...
+                </article>
+
+            </section>
+
+            <!-- register & about -->
+
+        </div>
+
         <!-- jumbotron -->
         <div class="jumbotron">
             <div class="container">
@@ -87,19 +126,10 @@
 
                 </div>
 
-                <!-- local featured products, deals, companies -->
-
             </div>
         </div>
 
-        <!-- main -->
-        <div class="container" role="main">
-
-            <!-- search & map -->
-
-            <!-- register & about -->
-
-        </div>
+        <!-- about & register -->
 
     </body>
 </html>
