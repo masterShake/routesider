@@ -33,14 +33,57 @@
 				navbar
 
   -------------------------------------*/
-
+.navbar-toggle, .navbar-search-toggle{
+	margin: 8px;
+}
+.navbar-header>button{
+	float: left;
+}
 .navbar-brand{
+	position: relative;
+	left: 50%;
+	margin-left: -130px;
 	padding: 10px;
 }
 .navbar-brand .logo>div{
 	padding: 0 5px;
 	margin-right: 3px;
 }
+.user-pic{
+	outline: 1px solid #181818;
+	padding: 7px 8px;
+	margin-right: 6px;
+}
 
+
+
+
+
+/*-------------------------------------
+
+				responsive
+
+  -------------------------------------*/
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	.navbar-brand{
+		position: static;
+	}
+	.navbar-form, .navbar-form>div{
+		min-width: 268px;
+	}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
 
 
