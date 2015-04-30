@@ -87,28 +87,54 @@
         <div class="container" role="main">
 
             <!-- featured deals -->
-            <section>
-                <article>
-                    ...
+            <section class="row">
+                <article class="col-sm-12">
+                    
+                    <h3>Featured Local Deals &amp; Products</h3>
+
+                    <!-- deals swiper -->
+
+
                 </article>
             </section>
 
             <!-- search & map -->
-            <section class="row">
+            <section class="row search-map">
 
-                <!-- search -->
-                <article>
-                    ...
-                </article>
+                <article class="col-sm-6 col-md-4">
 
-                <!-- results -->
-                <article>
-                    ...
+                    <h3>Search Products, Businesses, &amp; More</h3>
+                    
+                    <!-- search -->
+                    <form class="" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="products, businesses, locations, etc...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                
+                    <!-- results -->
+                    <div class="search-results">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="..." alt="...">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Weedica</h4>
+                                Medical cannabis delivery in Alameda County, CA.
+                            </div>
+                        </div>
+                    </div>
+
                 </article>
 
                 <!-- map -->
-                <article>
-                    ...
+                <article class="col-sm-6 col-md-8">
+                    <div class="search-results-map"></div>
                 </article>
 
             </section>

@@ -59,6 +59,31 @@
 
 
 
+
+
+/*-------------------------------------
+
+			   search map
+
+  -------------------------------------*/
+
+section.search-map>article{
+	float:left;
+}
+.search-results-map{
+	height: 400px;
+	outline: 1px solid #181818;
+}
+
+
+
+
+
+
+
+
+
+
 /*-------------------------------------
 
 				responsive
