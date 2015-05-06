@@ -16,14 +16,20 @@
 
 .logo{
 	text-transform: uppercase;
+	text-align: left;
 }
 .logo>div{
 	float: left;
 	background-color: #5CB85C;
 	color: #fff;
+	padding: 0 2%;
+	margin-right: 0px;
+}
+.logo>span{
+	margin-left: .5%;
 }
 .logo>div, .logo>span{
-	line-height: 30px;
+	line-height: 167%;
 }
 
 
@@ -43,11 +49,8 @@
 	position: relative;
 	left: 50%;
 	margin-left: -130px;
-	padding: 10px;
-}
-.navbar-brand .logo>div{
-	padding: 0 5px;
-	margin-right: 3px;
+	padding: 10px 6px;
+	min-width: 136px;
 }
 .user-pic{
 	outline: 1px solid #181818;
@@ -71,9 +74,37 @@ section.search-map>article{
 	float:left;
 }
 .search-results-map{
-	height: 400px;
-	outline: 1px solid #181818;
+	float:right;
 }
+
+
+
+
+
+
+
+
+
+
+/*-------------------------------------
+
+			   	 about
+
+  -------------------------------------*/
+
+/*.jumbo-logo{
+	float:right;
+}
+
+.jumbo-hook{
+	text-align:right; 
+	float:right;
+}*/
+
+
+
+
+
 
 
 
@@ -93,16 +124,29 @@ section.search-map>article{
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+	
+	/* navbar */
 	.navbar-brand{
 		position: static;
 	}
 	.navbar-form, .navbar-form>div{
 		min-width: 268px;
 	}
+
+	/* search */
+	.search-results{
+		position: absolute;
+		margin-top: 70px;
+	}
+
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+
+	.jumbo-logo{
+		float:none;
+	}
 
 }
 

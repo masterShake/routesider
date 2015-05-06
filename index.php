@@ -88,25 +88,22 @@
 
             <!-- featured deals -->
             <section class="row">
-                <article class="col-sm-12">
-                    
-                    <h3>Featured Local Deals &amp; Products</h3>
-
-                    <!-- deals swiper -->
-
-
+    
+                <h3>Local &amp; Awesome</h3>
+                
+                <!-- deals swiper -->
+                <article class="col-sm-12 deals-swiper">
+                    <div style="width:100%;height:200px;outline: 1px solid #000"></div>
                 </article>
+
             </section>
 
             <!-- search & map -->
             <section class="row search-map">
 
-                <article class="col-sm-6 col-md-4">
-
-                    <h3>Search Products, Businesses, &amp; More</h3>
-                    
-                    <!-- search -->
-                    <form class="" role="search">
+                <!-- search -->
+                <article class="col-sm-6 col-md-4 search-map-input">
+                    <form role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="products, businesses, locations, etc...">
                             <span class="input-group-btn">
@@ -114,27 +111,35 @@
                             </span>
                         </div><!-- /input-group -->
                     </form>
+                </article>
+
+                <!-- map -->
+                <article class="col-sm-6 col-md-8 search-results-map">
+                    <div style="width:100%;height:250px;outline: 1px solid #000"></div>
+                </article>
                 
-                    <!-- results -->
-                    <div class="search-results">
-                        <div class="media">
+                <!-- results -->
+                <article class="col-sm-6 col-md-4 search-results">
+                    
+                    <!-- PLACEHOLDER -->
+                    <ul class="media-list">
+                        <li class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img class="media-object" src="..." alt="...">
+                                    <img class="media-object" 
+                                         src="http://i.imgur.com/gZdXm8G.jpg" 
+                                         alt="username"
+                                         style="max-width:64px;"
+                                         >
                                 </a>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">Weedica</h4>
-                                Medical cannabis delivery in Alameda County, CA.
+                                <p>Medical cannabis delivery in Alameda County, CA.</p>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
 
-                </article>
-
-                <!-- map -->
-                <article class="col-sm-6 col-md-8">
-                    <div class="search-results-map"></div>
                 </article>
 
             </section>
@@ -150,8 +155,21 @@
                 <div class="row">
 
                     <!-- logo & tagline -->
+                    <div class="col-sm-8 col-md-6 jumbo-logo">
+                        <h1 class="logo">
+                            <div>Route</div>
+                            <span>sider</span>
+                        </h1>
+                        <p>Local Products &amp; Services</p>
+                    </div>
 
                     <!-- lead & register link -->
+                    <div class="col-sm-8 col-md-6 jumbo-hook">
+                        <h2>Showcase Your Business</h2>
+                        <p>Listing your products on Routesider can help you garner the online attention that you deserve.</p>
+                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a></p>
+                        <p>(It's free!)</p>
+                    </div>
 
                 </div>
 
@@ -159,6 +177,10 @@
         </div>
 
         <!-- about & register -->
+        <div class="container">
+            
+
+        </div>
 
     </body>
 </html>
