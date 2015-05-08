@@ -178,7 +178,25 @@
 
         <!-- about & register -->
         <div class="container">
-            
+
+            <!-- three panel about -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Shop Local</h2>
+                    <p>Look for local treasures. Learn about the products in your area. Order online!</p>
+                    <p><a class="btn btn-default" href="#" role="button">Shop &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Display Your Goods</h2>
+                    <p>Create a profile on Routesider and show the world what your what you're made of! List up to 5 products for free!</p>
+                    <p><a class="btn btn-default" href="#" role="button">Business Account &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Connect</h2>
+                    <p>Build relationships with customers, suppliers, distributes, everybody! Routesider is a place for shopping AND networking.</p>
+                    <p><a class="btn btn-default" href="#" role="button">Sign Up &raquo;</a></p>
+                </div>
+            </div>
 
         </div>
 
