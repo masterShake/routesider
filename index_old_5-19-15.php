@@ -11,8 +11,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Routesider styles -->
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet">
+        <link href="css/routesider.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -90,11 +89,110 @@
         <!-- map -->
         <iframe id="map-bg" 
                 frameborder="0"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis
+                src="http://www.google.com/maps/embed/v1/place?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis
                      &amp;q=Space+Needle,Seattle+WA">
         </iframe>
 
-        
+        <!-- featured deals -->
+        <section class="promo-feed">
+
+            <h3>Local &amp; Deals</h3>
+            
+            <!-- deals swiper -->
+            <div style="width:200px;height:200px;outline: 1px solid #000"></div>
+            
+        </section>
+
+                <!-- search -->
+                <!-- <article class="col-sm-6 col-md-4 search-map-input">
+                    <form role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="products, businesses, locations, etc...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </form>
+                </article> -->
+                
+                <!-- results -->
+                <!-- <article class="col-sm-6 col-md-4 search-results">
+                    
+                    
+                    <ul class="media-list">
+                        <li class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" 
+                                         src="http://i.imgur.com/gZdXm8G.jpg" 
+                                         alt="username"
+                                         style="max-width:64px;"
+                                         >
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Weedica</h4>
+                                <p>Medical cannabis delivery in Alameda County, CA.</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                </article> -->
+
+            <!-- register & about -->
+
+
+        <!-- jumbotron -->
+        <!-- <div class="jumbotron">
+            <div class="container">
+
+                <div class="row">
+
+                    
+                    <div class="col-sm-8 col-md-6 jumbo-logo">
+                        <h1 class="logo">
+                            <div>Route</div>
+                            <span>sider</span>
+                        </h1>
+                        <p>Local Products &amp; Services</p>
+                    </div>
+
+                    
+                    <div class="col-sm-8 col-md-6 jumbo-hook">
+                        <h2>Showcase Your Business</h2>
+                        <p>Listing your products on Routesider can help you garner the online attention that you deserve.</p>
+                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a></p>
+                        <p>(It's free!)</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div> -->
+
+        <!-- about & register -->
+        <!-- <div class="container">
+
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Shop Local</h2>
+                    <p>Look for local treasures. Learn about the products in your area. Order online!</p>
+                    <p><a class="btn btn-default" href="#" role="button">Shop &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Display Your Goods</h2>
+                    <p>Create a profile on Routesider and show the world what your what you're made of! List up to 5 products for free!</p>
+                    <p><a class="btn btn-default" href="#" role="button">Business Account &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Connect</h2>
+                    <p>Build relationships with customers, suppliers, distributes, everybody! Routesider is a place for shopping AND networking.</p>
+                    <p><a class="btn btn-default" href="#" role="button">Sign Up &raquo;</a></p>
+                </div>
+            </div>
+
+        </div> -->
 
     </body>
 </html>

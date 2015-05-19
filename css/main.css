@@ -1,19 +1,25 @@
 
-/* Routesider */
+/*------------------------------------
+
+		   site wide styles
+
+  ------------------------------------*/
 
 
 
 
 
-/*-------------------------------------
+/* --- elements laid over the map --- */
+.navbar-default{
+	z-index: 1;
+}
 
-			site wide styles
-
-  -------------------------------------*/
 
 
-/* logo */
 
+
+
+/* ------ logo ---------------------- */
 .logo{
 	text-transform: uppercase;
 	text-align: left;
@@ -31,14 +37,16 @@
 .logo>div, .logo>span{
 	line-height: 167%;
 }
+/* ------ end logo ------------------ */
 
 
 
-/*-------------------------------------
 
-				navbar
 
-  -------------------------------------*/
+
+
+
+/* ------- navbar ------------------- */
 .navbar-toggle, .navbar-search-toggle{
 	margin: 8px;
 }
@@ -57,6 +65,7 @@
 	padding: 7px 8px;
 	margin-right: 6px;
 }
+/* ------ end navbar ---------------- */
 
 
 
@@ -64,42 +73,15 @@
 
 
 
-/*-------------------------------------
-
-			   search map
-
-  -------------------------------------*/
-
-section.search-map>article{
-	float:left;
+/* --- google map background -------- */
+#map-bg{
+	  border: 0;
+	  position: absolute;
+	  height: 100%;
+	  margin-top: -71px;
+	  width: 100%;
 }
-.search-results-map{
-	float:right;
-}
-
-
-
-
-
-
-
-
-
-
-/*-------------------------------------
-
-			   	 about
-
-  -------------------------------------*/
-
-/*.jumbo-logo{
-	float:right;
-}
-
-.jumbo-hook{
-	text-align:right; 
-	float:right;
-}*/
+/* --- end map background ----------- */
 
 
 
@@ -111,15 +93,24 @@ section.search-map>article{
 
 
 
+/* -------- footer ------------------ */
+
+/* ------ end footer ---------------- */
 
 
 
 
-/*-------------------------------------
+
+
+
+
+
+
+/*------------------------------------
 
 				responsive
 
-  -------------------------------------*/
+  ------------------------------------*/
 
 
 /* Small devices (tablets, 768px and up) */
@@ -133,17 +124,12 @@ section.search-map>article{
 		min-width: 268px;
 	}
 
-	/* search */
-	.search-results{
-		position: absolute;
-		margin-top: 70px;
-	}
-
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
 
+	/* homepage jumbotron */
 	.jumbo-logo{
 		float:none;
 	}
