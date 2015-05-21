@@ -22,28 +22,6 @@
 
 
 
-/* ------ search bar ---------------- */
-.big-logo{
-	z-index: 1;
-	position: absolute;
-}
-.big-logo h1{
-	font-size: 44px;
-	font-weight: 600;
-}
-.big-logo p{
-    font-size: 24px;
-    font-weight: 600;
-    line-height: .8;
-}
-/* ---- end search bar -------------- */
-
-
-
-
-
-
-
 
 /* ---- results swiper -------------- */
 
@@ -57,7 +35,21 @@
 
 
 /* ------- jumbotron ---------------- */
-
+.jumbo-container{
+	z-index: 1;
+}
+.jumbotron{
+	position: relative;
+}
+.jumbo-lead h1{
+	font-size: 44px;
+	font-weight: 600;
+}
+.jumbo-lead p{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: .8;
+}
 /* ----- end jumbotron -------------- */
 
 

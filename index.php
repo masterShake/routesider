@@ -26,7 +26,7 @@
 
 
         <!-- navbar -->
-        <nav class="navbar navbar-map">
+        <nav class="navbar navbar-map map-overlay">
             <div class="container">
                 <div class="navbar-header">
                     
@@ -103,13 +103,44 @@
                      &amp;q=Space+Needle,Seattle+WA">
         </iframe>
 
-        <div class="big-logo">
-            <h1 class="logo">
-                <div>Route</div>
-                <span>sider</span>
-            </h1>
-            <p>Local Products &amp; Services</p>
+        <!-- jumbotron -->
+        <div class="container jumbo-container">
+                
+            <!-- pull tab -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active" role="presentation">
+                    <a href="#" role="tab">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <section class="jumbotron">
+
+                <!-- lead -->
+                <div class="row">                
+                    <article class="col-sm-8 col-md-6 jumbo-lead">
+                        <h1 class="logo">
+                            <div>Route</div>
+                            <span>sider</span>
+                        </h1>
+                        <p>Local Products &amp; Services</p>
+                    </article>
+                </div>
+
+                <!-- hook -->
+                <div class="row">
+                    <article class="col-sm-8 col-md-6 jumbo-hook">
+                        <h2>Showcase Your Business</h2>
+                        <p>Listing your products on Routesider can help you garner the online attention that you deserve.</p>
+                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a></p>
+                        <p>(It's free!)</p>
+                    </article>
+                </div>
+            
+            </section>
         </div>
+        <!-- end jumbotron -->
 
     </body>
 </html>

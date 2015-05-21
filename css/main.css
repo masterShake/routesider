@@ -10,7 +10,7 @@
 
 
 /* --- elements laid over the map --- */
-.navbar-map{
+.map-overlay{
 	z-index: 1;
 	box-shadow: 0.5px 0.5px 2px #999;
 }
