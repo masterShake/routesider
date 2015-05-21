@@ -28,14 +28,29 @@
         <!-- navbar -->
         <nav class="navbar navbar-map">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                    
+                    <!-- toggle mobile menu -->
+                    <button type="button" 
+                            class="navbar-toggle collapsed"
+                            id="navbar-toggle-menu"
+                            aria-describedby="Toggle navigation menu">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
+
+                    <!-- search input -->
+                    <div class="input-group" id="navbar-search">
+                        <input type="text" 
+                               class="form-control"
+                               placeholder="Search for anything" 
+                               aria-describedby="Search Routesider for products, brands, places, hashtags, anything">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </span>
+                    </div>
 
                 </div>
 
