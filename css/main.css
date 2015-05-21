@@ -10,7 +10,7 @@
 
 
 /* --- elements laid over the map --- */
-.navbar-default{
+.navbar-map{
 	z-index: 1;
 }
 
@@ -47,18 +47,16 @@
 
 
 /* ------- navbar ------------------- */
+.navbar-map{
+	background: rgba(255, 255, 255, 0.9);
+	margin: 8px;
+	width: calc(100% - 16px);
+}
 .navbar-toggle, .navbar-search-toggle{
 	margin: 8px;
 }
 .navbar-header>button{
 	float: left;
-}
-.navbar-brand{
-	position: relative;
-	left: 50%;
-	margin-left: -130px;
-	padding: 10px 6px;
-	min-width: 136px;
 }
 .user-pic{
 	outline: 1px solid #181818;
@@ -82,6 +80,9 @@
 	  width: 100%;
 }
 /* --- end map background ----------- */
+
+
+
 
 
 

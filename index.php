@@ -26,7 +26,7 @@
 
 
         <!-- navbar -->
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-map">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -36,13 +36,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">
-                        <div class="logo">
-                            <div>Route</div>
-                            <span>sider</span>
-                        </div>
-                    </a>
-                    <button style="float:right;" class="btn btn-default navbar-search-toggle visible-xs" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -94,7 +88,13 @@
                      &amp;q=Space+Needle,Seattle+WA">
         </iframe>
 
-        
+        <div class="big-logo">
+            <h1 class="logo">
+                <div>Route</div>
+                <span>sider</span>
+            </h1>
+            <p>Local Products &amp; Services</p>
+        </div>
 
     </body>
 </html>
