@@ -36,10 +36,12 @@
 
 /* ------- jumbotron ---------------- */
 .jumbo-container{
+	position: relative;
+	top: 400px;
 	z-index: 1;
 	padding: 0;
 }
-.jumbotron{
+.container .jumbotron{
 	position: relative;
 	border-radius: 0px;
 }

@@ -9,18 +9,6 @@
 
 
 
-/* --- elements laid over the map --- */
-.map-overlay-n{ /* light comes from north */
-	z-index: 1;
-	box-shadow: 0.5px 0.5px 2px #999;
-}
-.map-overlay-s{ /* light comes from south */
-	z-index: 1;
-	box-shadow: 0.5px -0.5px 2px #999;	
-}
-
-
-
 
 
 
@@ -90,16 +78,25 @@
 /* ---- google map & components ---- */
 #map-bg{
 	  border: 0;
-	  position: absolute;
-	  height: 100%;
-	  margin-top: -71px;
+	  position: fixed;
+	  height: 120%;
+	  margin-top: -200px;
 	  width: 100%;
 }
-/* --- end map background ----------- */
-
-
-
-
+/* elements laid over the map */
+.map-overlay-n{ /* light comes from north */
+	z-index: 1;
+	box-shadow: 0.5px 0.5px 2px #999;
+}
+.map-overlay-s{ /* light comes from south */
+	z-index: 1;
+	box-shadow: 0.5px -0.5px 2px #999;	
+}
+.map-pull-tab{
+	background-color: #eee !important;
+  	z-index: 2;
+  	box-shadow: 1.5px -1.5px 1.5px -0.9px #bbb;
+}
 
 
 

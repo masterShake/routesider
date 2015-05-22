@@ -99,8 +99,7 @@
         <!-- map -->
         <iframe id="map-bg" 
                 frameborder="0"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis
-                     &amp;q=Space+Needle,Seattle+WA">
+                src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;q=san+francisco+bay+area">
         </iframe>
 
         <!-- jumbotron -->
@@ -110,8 +109,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active" role="presentation">
                     <a href="#" 
-                       class="map-pull-tab map-overlay-s"
-                       style="background-color: #eee; z-index: 2; "
+                       class="map-pull-tab"
                        role="tab">
                         <span class="glyphicon glyphicon-chevron-up"></span>
                     </a>
