@@ -10,9 +10,13 @@
 
 
 /* --- elements laid over the map --- */
-.map-overlay{
+.map-overlay-n{ /* light comes from north */
 	z-index: 1;
 	box-shadow: 0.5px 0.5px 2px #999;
+}
+.map-overlay-s{ /* light comes from south */
+	z-index: 1;
+	box-shadow: 0.5px -0.5px 2px #999;	
 }
 
 
@@ -83,7 +87,7 @@
 
 
 
-/* --- google map background -------- */
+/* ---- google map & components ---- */
 #map-bg{
 	  border: 0;
 	  position: absolute;

@@ -26,7 +26,7 @@
 
 
         <!-- navbar -->
-        <nav class="navbar navbar-map map-overlay">
+        <nav class="navbar navbar-map map-overlay-n">
             <div class="container">
                 <div class="navbar-header">
                     
@@ -109,13 +109,16 @@
             <!-- pull tab -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active" role="presentation">
-                    <a href="#" role="tab">
+                    <a href="#" 
+                       class="map-pull-tab map-overlay-s"
+                       style="background-color: #eee; z-index: 2; "
+                       role="tab">
                         <span class="glyphicon glyphicon-chevron-up"></span>
                     </a>
                 </li>
             </ul>
 
-            <section class="jumbotron">
+            <section class="jumbotron map-overlay-s">
 
                 <!-- lead -->
                 <div class="row">                

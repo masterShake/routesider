@@ -37,9 +37,11 @@
 /* ------- jumbotron ---------------- */
 .jumbo-container{
 	z-index: 1;
+	padding: 0;
 }
 .jumbotron{
 	position: relative;
+	border-radius: 0px;
 }
 .jumbo-lead h1{
 	font-size: 44px;
