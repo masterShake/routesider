@@ -105,6 +105,7 @@
                 src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;q=san+francisco+bay+area">
         </iframe>
 
+        
         <!-- jumbotron -->
         <div class="container jumbo-container">
                 
@@ -145,6 +146,10 @@
             </section>
         </div>
         <!-- end jumbotron -->
+
+
+        <!-- javascripts -->
+
 
     </body>
 </html>
