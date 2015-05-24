@@ -16,6 +16,7 @@
 .logo{
 	text-transform: uppercase;
 	text-align: left;
+	font-weight: 600;
 }
 .logo>div{
 	float: left;
@@ -26,6 +27,7 @@
 }
 .logo>span{
 	margin-left: .5%;
+	color:#333;
 }
 .logo>div, .logo>span{
 	line-height: 167%;
@@ -40,12 +42,13 @@
 
 
 /* ------- navbar ------------------- */
+
+/* solid white [mobile] */
 .navbar-map{
-	background: rgba(255, 255, 255, 0.9);
 	margin: 8px;
 	width: calc(100% - 16px);
 	min-height: 36px;
-	border-radius: 2px;
+	position: fixed;
 }
 .navbar-header>button{
 	float: left;
@@ -53,14 +56,12 @@
 .navbar-map .navbar-header>button{
 	margin: 0;
 }
-#navbar-search>input, 
-#navbar-search>span{
-	background-color: transparent;
-	border: 0px;
-} 
-#navbar-search>input{
-	border-radius: 2px;
-	/*box-shadow: inset 0.5px 0.5px 2px #ccc;*/
+.navbar-brand{
+	position: relative;
+	left: 50%;
+	margin-left: -109px;
+	padding: 3px 6px;
+	min-width: 136px;
 }
 .user-pic{
 	outline: 1px solid #181818;
@@ -79,9 +80,9 @@
 #map-bg{
 	  border: 0;
 	  position: fixed;
-	  height: 120%;
-	  margin-top: -200px;
+	  height: 100%;
 	  width: 100%;
+	  margin-top: 53px;
 }
 /* elements laid over the map */
 .map-overlay-n{ /* light comes from north */
@@ -131,6 +132,13 @@
 @media (min-width: 768px) {
 	
 	/* navbar */
+	.navbar-map{
+		background: rgba(255, 255, 255, 0.9);
+		margin: 8px;
+		width: calc(100% - 16px);
+		min-height: 36px;
+		border-radius: 2px;
+	}
 	.navbar-brand{
 		position: static;
 	}

@@ -26,7 +26,7 @@
 
 
         <!-- navbar -->
-        <nav class="navbar navbar-map map-overlay-n">
+        <nav class="navbar navbar-map">
             <div class="container">
                 <div class="navbar-header">
                     
@@ -38,19 +38,22 @@
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </button>
 
-                    <!-- search input -->
-                    <div class="input-group" id="navbar-search">
-                        <input type="text" 
-                               class="form-control"
-                               placeholder="Search for anything" 
-                               aria-describedby="Search Routesider for products, brands, places, hashtags, anything">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </span>
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-cog"></span>
-                        </span>
-                    </div>
+                    <!-- routesider logo -->
+                    <a class="navbar-brand" href="#">
+                        <div class="logo">
+                            <div>Route</div>
+                            <span>sider</span>
+                        </div>
+                    </a>
+
+                    <!-- search routesider -->
+                    <button type="button"
+                            style="float:right;"
+                            class="navbar-toggle"
+                            id="navbar-toggle-search"
+                            aria-describedby="Click to display search bar.">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
 
                 </div>
 
