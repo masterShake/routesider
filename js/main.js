@@ -10,55 +10,58 @@
 //   functions that can be found on every page.
 //
 
-(function(){
 
-	/* routesider app */
- 
-	window.rs = function(){
+/* routesider app */
 
-		// properties //
-		
+window.rs = function(){
 
-		// constructor //
- 
-		this.userLocation = this.setUserLocation();
-		this.initMobileMenu();
-	}
+	// properties //
+	
+	this.userLocation;
 
-	/* methods */
+	// constructor //
 
-	//--------------------------------------
-	// - request permission for user geoloc.
-	// - display map based on user location 
-	//   & db query.
-	//
-	rs.prototype.setUserLocation = function(){
+	this.initMobileMenu();
+}
 
-		// trigger prompt for permission and/or callback
-	    navigator.geolocation.getCurrentPosition(
+/* methods */
 
-	    	// permission granted
-	    	function(position){
+//--------------------------------------
+// - request permission for user geoloc.
+// - display map based on user location 
+//   & db query.
+//
+rs.prototype.setUserLocation = function(){
 
-	    		// position.coords.longitude
-	    		// position.coords.latitude
+	// trigger prompt for permission and/or callback
+    navigator.geolocation.getCurrentPosition(
 
-	    		// display user geographic area
+    	this.locationSuccess(position),
+    	this.locationError(error)
+    );
+}
 
-	    	}, 
+// each page may overwrite this function
+rs.prototype.locationSuccess = function(position){
 
-	    	// permission denied
-	    	function(){}
+	// position.coords.longitude
+	// position.coords.latitude
 
-	    );
+	return false;
+}
 
-	}
+// each page may overwrite this function
+rs.prototype.locationError = function(error){
 
-	rs.prototype.initMobileMenu = function(){
+	// default map
+	console.log(error);
 
-		// add event listener to menu button
+}
 
-	}
+rs.prototype.initMobileMenu = function(){
 
+	// add event listener to menu button
+	console.log("pretend mobile menu initialized");
 
-})();
+}
+

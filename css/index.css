@@ -35,11 +35,17 @@
 
 
 /* ------- jumbotron ---------------- */
-.jumbo-container{
-	position: relative;
-	top: 400px;
+#jumbo-container{
+  position: absolute;
+  top: calc(100% - 54px);
 	z-index: 1;
 	padding: 0;
+}
+#jumbo-pull-tab{
+	margin-top: -41px;
+	max-width: 47px;
+	position: relative;
+	left: 53px;
 }
 .container .jumbotron{
 	position: relative;

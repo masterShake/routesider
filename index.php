@@ -108,17 +108,21 @@
 
 
         <!-- map -->
-        <iframe id="map-bg" 
+        <iframe id="map-canvas" 
                 frameborder="0"
                 src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;q=san+francisco+bay+area">
         </iframe>
+        <!-- <div id="map-canvas"></div> -->
 
         
         <!-- jumbotron -->
-        <div class="container jumbo-container">
+        <div class="container jumbo-container"
+             id="jumbo-container">
                 
             <!-- pull tab -->
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" 
+                id="jumbo-pull-tab"
+                role="tablist">
                 <li class="active" role="presentation">
                     <a href="#" 
                        class="map-pull-tab"
@@ -156,8 +160,8 @@
 
 
         <!-- javascripts -->
-        <script src="js/routesider.js"></script>
-        <script src="js/<?= $page ?>.js"></script>
+        <!-- <script src="js/routesider.js"></script> -->
+        <!-- <script src="js/<?= $page ?>.js"></script> -->
 
     </body>
 </html>

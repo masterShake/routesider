@@ -14,41 +14,36 @@
 //   of the rs object.
 //
 
-(function(){
-
-	/* index methods */
-
-	//--------------------------------------
-	// - set the css to size the map 
-	rs.prototype.sizeMap = function(){
-
-		// get the size of the window
-
-		// set the height of the map
-
-		// set the position-top of jumbotron		
-
-	}
-
-	//--------------------------------------
-	// - callback function after user grants
-	//   or rejects access to location data
-	// - use geocode to ajax query for local
-	//   promos.
-	rs.prototype.displayUserLocation = function(){
-
-		
-
-	}
 
 
-	/* initialize */
+/* index methods */
 
-    document.addEventListener("DOMContentLoaded", function(){
 
-        // create new rs object
+//--------------------------------------
+// - callback function after user grants
+//   or rejects access to location data
+// - use geocode to ajax query for local
+//   promos.
+rs.prototype.locationSuccess = function(position){
 
-    }, false);
-            
+	// position.coords.longitude
+	// position.coords.latitude
 
-})():
+	console.log(position.coords);
+
+}
+//-------------------------------------
+// rs.prototype.locationError = function(error){}
+
+
+/* initialize */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    // create new rs object
+    window.routesiderApp = new rs();
+
+}, false);
+        
+
+
