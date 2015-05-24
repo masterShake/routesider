@@ -16,16 +16,22 @@
  
 	window.rs = function(){
 
-		// properties
-		this.userLocation = null;
+		// properties //
+		
 
-		// initialization
+		// constructor //
+ 
 		this.userLocation = this.setUserLocation();
-
+		this.initMobileMenu();
 	}
 
 	/* methods */
 
+	//--------------------------------------
+	// - request permission for user geoloc.
+	// - display map based on user location 
+	//   & db query.
+	//
 	rs.prototype.setUserLocation = function(){
 
 		// trigger prompt for permission and/or callback
@@ -37,6 +43,8 @@
 	    		// position.coords.longitude
 	    		// position.coords.latitude
 
+	    		// display user geographic area
+
 	    	}, 
 
 	    	// permission denied
@@ -45,5 +53,12 @@
 	    );
 
 	}
+
+	rs.prototype.initMobileMenu = function(){
+
+		// add event listener to menu button
+
+	}
+
 
 })();

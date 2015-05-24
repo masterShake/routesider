@@ -1,3 +1,11 @@
+<?php
+
+    // get the page name
+    $page = substr($_SERVER['PHP_SELF'], 0, -4);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -145,11 +153,11 @@
             
             </section>
         </div>
-        <!-- end jumbotron -->
 
 
         <!-- javascripts -->
-
+        <script src="js/routesider.js"></script>
+        <script src="js/<?= $page ?>.js"></script>
 
     </body>
 </html>
