@@ -26,22 +26,61 @@
 //   promos.
 rs.prototype.locationSuccess = function(position){
 
-	// position.coords.longitude
-	// position.coords.latitude
+	// the the longitude and latitude properties
+	this.userLatitude = position.coords.latitude;
+	this.userLongitude = position.coords.longitude;
 
-	console.log(position.coords);
+	// ajax call with the coordinates
+	this.ajax(
+				"POST",
+				"index.php",
+				"latitude="+this.userLatitude+"&longitude="+this.userLongitude,
+				this.locationCallback
+
+	);
+
+	// initialize the google map
+	// this.initGoogleMap( document.getElementById("map-canvas") );
+}
+
+//-------------------------------------
+// - If user does not grant access to
+//   current location, display default
+//   map.
+rs.prototype.locationError = function(){
+
+	// the the longitude and latitude properties
+	this.userLatitude = 0;
+	this.userLongitude = 0;
+
+	// ajax call for default map
+	this.ajax(
+				"POST",
+				"index.php",
+				"latitude=0&longitude=0",
+				this.locationCallback
+	);
+}
+
+//-------------------------------------
+// - Callback from ajax request
+// - Assemble the map using the data
+//   that is returned.
+rs.prototype.locationCallback = function(response){
+
+	console.log(response);
 
 }
-//-------------------------------------
-// rs.prototype.locationError = function(error){}
 
 
 /* initialize */
 
+var rsApp;
+
 document.addEventListener("DOMContentLoaded", function(){
 
     // create new rs object
-    window.routesiderApp = new rs();
+    rsApp = new rs();
 
 }, false);
         

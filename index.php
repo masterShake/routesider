@@ -2,6 +2,8 @@
 
     // get the page name
     $page = substr($_SERVER['PHP_SELF'], 0, -4);
+    $page = explode("/", $page);
+    $page = end($page);
 
 
 ?>
@@ -108,16 +110,15 @@
 
 
         <!-- map -->
-        <iframe id="map-canvas" 
+        <!-- <iframe id="map-canvas" 
                 frameborder="0"
                 src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;q=san+francisco+bay+area">
-        </iframe>
-        <!-- <div id="map-canvas"></div> -->
+        </iframe> -->
+        <div id="map-canvas"></div>
 
         
         <!-- jumbotron -->
-        <div class="container jumbo-container"
-             id="jumbo-container">
+        <div class="container jumbo-container" id="jumbo-container">
                 
             <!-- pull tab -->
             <ul class="nav nav-tabs" 
@@ -160,8 +161,9 @@
 
 
         <!-- javascripts -->
-        <!-- <script src="js/routesider.js"></script> -->
-        <!-- <script src="js/<?= $page ?>.js"></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rs.setUserLocation"></script>
+        <script src="js/main.js"></script>
+        <script src="js/<?= $page ?>.js"></script>
 
     </body>
 </html>
