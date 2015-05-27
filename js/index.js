@@ -20,6 +20,20 @@
 
 
 //--------------------------------------
+// - request permission for user geoloc.
+// - display map based on user location 
+//   & db query.
+//
+rs.prototype.setUserLocation = function(){
+
+	// trigger prompt for permission and/or callback
+ 	navigator.geolocation.getCurrentPosition(
+	 	
+	 	rsApp.locationSuccess,
+	 	rsApp.locationError
+    );
+};
+//--------------------------------------
 // - callback function after user grants
 //   or rejects access to location data
 // - use geocode to ajax query for local
@@ -27,20 +41,21 @@
 rs.prototype.locationSuccess = function(position){
 
 	// the the longitude and latitude properties
-	this.userLatitude = position.coords.latitude;
-	this.userLongitude = position.coords.longitude;
+	rsApp.userLatitude = position.coords.latitude;
+	rsApp.userLongitude = position.coords.longitude;
 
 	// ajax call with the coordinates
-	this.ajax(
+	rsApp.ajax(
 				"POST",
-				"index.php",
-				"latitude="+this.userLatitude+"&longitude="+this.userLongitude,
-				this.locationCallback
+				"/routesider/index.php", // change this in production
+				"location_query=1&latitude="+rsApp.userLatitude+"&longitude="+rsApp.userLongitude,
+				rsApp.locationCallback,
+				false
 	);
 
 	// initialize the google map
-	// this.initGoogleMap( document.getElementById("map-canvas") );
-}
+	// this.initGoogleMap();
+};
 
 //-------------------------------------
 // - If user does not grant access to
@@ -48,18 +63,15 @@ rs.prototype.locationSuccess = function(position){
 //   map.
 rs.prototype.locationError = function(){
 
-	// the the longitude and latitude properties
-	this.userLatitude = 0;
-	this.userLongitude = 0;
-
 	// ajax call for default map
-	this.ajax(
+	rsApp.ajax(
 				"POST",
-				"index.php",
-				"latitude=0&longitude=0",
-				this.locationCallback
+				"index.php", // change this in production
+				"/routesider/location_query=1&latitude=0&longitude=0",
+				rsApp.locationCallback,
+				false
 	);
-}
+};
 
 //-------------------------------------
 // - Callback from ajax request
@@ -69,17 +81,16 @@ rs.prototype.locationCallback = function(response){
 
 	console.log(response);
 
-}
+};
 
 
 /* initialize */
-
-var rsApp;
 
 document.addEventListener("DOMContentLoaded", function(){
 
     // create new rs object
     rsApp = new rs();
+    rsApp.setUserLocation();
 
 }, false);
         

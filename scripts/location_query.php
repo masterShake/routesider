@@ -12,10 +12,9 @@
   ------------------------------------------------*/
 
 
+echo Input::get("latitude")."  -  ".Input::get("longitude");
 
-
-
-
+exit();
 
 
 

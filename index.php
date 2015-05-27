@@ -11,7 +11,7 @@
     // STEP 2: instantiate global variables
     //-------------------------------------
 
-    $page = "index" //required
+    $page = "index"; //required
 
     $myErrors = array(); //required
 
@@ -27,6 +27,8 @@
 
             require "scripts/location_query.php";
         }
+
+        exit("no input for now");
     }
 ?>
 
@@ -132,10 +134,7 @@
 
 
         <!-- map -->
-        <!-- <iframe id="map-canvas" 
-                frameborder="0"
-                src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;q=san+francisco+bay+area">
-        </iframe> -->
+        <!-- key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis" -->
         <div id="map-canvas"></div>
 
         
@@ -185,7 +184,7 @@
         <!-- javascripts -->
         <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script> -->
         <script src="js/main.js"></script>
-        <script src="js/<?= $page ?>.js"></script>
+        <script src="js/<?= $page; ?>.js"></script>
 
     </body>
 </html>
