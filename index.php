@@ -1,11 +1,33 @@
 <?php
 
-    // get the page name
-    $page = substr($_SERVER['PHP_SELF'], 0, -4);
-    $page = explode("/", $page);
-    $page = end($page);
+    //---------------------------
+    // STEP 1: load the init file
+    //---------------------------
 
+    require_once 'core/init.php';
 
+    
+    //-------------------------------------
+    // STEP 2: instantiate global variables
+    //-------------------------------------
+
+    $page = "index" //required
+
+    $myErrors = array(); //required
+
+    
+    //-------------------------------
+    // STEP 3: handle GET/POST params
+    //-------------------------------
+
+    if(Input::exists()){
+
+        // initial page load ajax query for local deals
+        if(Input::get("location_query")){
+
+            require "scripts/location_query.php";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -161,7 +183,7 @@
 
 
         <!-- javascripts -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rs.setUserLocation"></script>
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script> -->
         <script src="js/main.js"></script>
         <script src="js/<?= $page ?>.js"></script>
 

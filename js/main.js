@@ -6,8 +6,11 @@
 //--------------------------------------
 
 //
-// - This file contains all the javascript 
-//   functions that can be found on every page.
+// - This file contains all the 
+//   javascript functions that can be 
+//   found on every page.
+// - The global variable representing a 
+//   new rs object must be named rsApp.
 //
 
 
@@ -52,35 +55,35 @@ rs.prototype.ajax = function(meth, url, params, callback, callbackParams){
 }
 
 //--------------------------------------
+// - This function is designed to be
+//   overwritten. It is not used on all
+//   pages. Each page use it uniquely.
+//
 // - request permission for user geoloc.
 // - display map based on user location 
 //   & db query.
 //
 rs.prototype.setUserLocation = function(){
 
-	// trigger prompt for permission and/or callback
-    navigator.geolocation.getCurrentPosition(
+	//// OVERWRITE THIS FUNCTION \\\\
+	return false;
 
-    	this.locationSuccess,
-    	this.locationError
-    );
+	// // trigger prompt for permission and/or callback
+ 	// navigator.geolocation.getCurrentPosition(
+ 	// this.locationSuccess,
+ 	// this.locationError
+    // );
 }
-
-// each page may overwrite this function
+//// OVERWRITE THIS FUNCTION \\\\
 rs.prototype.locationSuccess = function(position){
-
-	// position.coords.longitude
-	// position.coords.latitude
-
+	console.log(position.coords.longitude);
+	console.log(position.coords.latitude);
 	return false;
 }
-
-// each page may overwrite this function
+//// OVERWRITE THIS FUNCTION \\\\
 rs.prototype.locationError = function(error){
-
-	// display default map
 	console.log(error);
-
+	return false;
 }
 
 // initialize a google map given a DOM element

@@ -36,7 +36,6 @@ rs.prototype.locationSuccess = function(position){
 				"index.php",
 				"latitude="+this.userLatitude+"&longitude="+this.userLongitude,
 				this.locationCallback
-
 	);
 
 	// initialize the google map
