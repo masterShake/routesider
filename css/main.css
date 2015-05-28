@@ -12,6 +12,52 @@
 
 
 
+/* ------ animation ---------------------
+
+NOTE: Animations appears to run faster if
+	  if the styles are linked directly to
+	  the elements instead of having a
+	  unique animation class.
+
+-------------------------------------- */
+
+/* 300 ms */
+#page-content{
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+	transition: .3s;
+}
+/* ---- end animations --------------- */
+
+
+
+
+
+
+
+
+#page-content{
+	height: 100%;
+	width:100%;
+	position: absolute;
+	-webkit-transform: translate(0px, 0px);
+	-moz-transform: translate(0px, 0px);
+	-ms-transform: translate(0px, 0px);
+	-o-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+}
+
+
+
+
+
+
+
+
+
+
 /* ------ logo ---------------------- */
 .logo{
 	text-transform: uppercase;
@@ -45,10 +91,11 @@
 
 /* solid white [mobile] */
 .navbar-map{
-	margin: 8px;
-	width: calc(100% - 16px);
+	padding: 8px;
+	width: 100%;
 	min-height: 36px;
 	position: fixed;
+	background-color: #fff;
 }
 .navbar-header>button{
 	float: left;
@@ -68,6 +115,16 @@
 	padding: 7px 8px;
 	margin-right: 6px;
 }
+
+/* slideout menu */
+#slideout-menu{
+	position: fixed;
+	height: 400px;
+	width: 270px;
+	background-color: #ededed;
+	z-index: -1;
+}
+
 /* ------ end navbar ---------------- */
 
 
