@@ -182,7 +182,7 @@
 
 
         <!-- javascripts -->
-        <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script>
         <script src="js/main.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 

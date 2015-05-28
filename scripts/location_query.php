@@ -11,8 +11,14 @@
 
   ------------------------------------------------*/
 
+// create a json array 
+$json = array( 
+				"latitude" => Input::get("latitude"),
+				"longitude" => Input::get("longitude")
+		);
 
-echo Input::get("latitude")."  -  ".Input::get("longitude");
+// return the json 
+echo json_encode($json);
 
 exit();
 

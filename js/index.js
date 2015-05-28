@@ -44,6 +44,9 @@ rs.prototype.locationSuccess = function(position){
 	rsApp.userLatitude = position.coords.latitude;
 	rsApp.userLongitude = position.coords.longitude;
 
+	// generate the google map
+	rsApp.initGoogleMap();
+
 	// ajax call with the coordinates
 	rsApp.ajax(
 				"POST",
@@ -52,9 +55,6 @@ rs.prototype.locationSuccess = function(position){
 				rsApp.locationCallback,
 				false
 	);
-
-	// initialize the google map
-	// this.initGoogleMap();
 };
 
 //-------------------------------------
@@ -75,11 +75,15 @@ rs.prototype.locationError = function(){
 
 //-------------------------------------
 // - Callback from ajax request
-// - Assemble the map using the data
+// - Assembles the map using the data
 //   that is returned.
-rs.prototype.locationCallback = function(response){
+rs.prototype.locationCallback = function(response){ 
 
 	console.log(response);
+
+	// propogate the map with the result pins
+
+	// zoom map to fit
 
 };
 
@@ -90,7 +94,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // create new rs object
     rsApp = new rs();
-    rsApp.setUserLocation();
+    
+    //-------------------------------------
+    // - rsApp.setUserLocation is called by 
+    //   google maps after it has been 
+    //   loaded and initialized.
 
 }, false);
         
