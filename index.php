@@ -180,6 +180,9 @@
                 </section>
             </div>
 
+            <!-- contentent cover to close menu -->
+            <div id="content-cover"></div>
+
         </div><!-- end page content -->
 
 

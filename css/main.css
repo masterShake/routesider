@@ -6,6 +6,9 @@
   ------------------------------------*/
 
 
+body{
+	overflow-x: hidden; 
+}
 
 
 
@@ -22,7 +25,7 @@ NOTE: Animations appears to run faster if
 -------------------------------------- */
 
 /* 300 ms */
-#page-content{
+#page-content, #content-cover{
 	-webkit-transition: .3s;
 	-moz-transition: .3s;
 	-ms-transition: .3s;
@@ -42,11 +45,21 @@ NOTE: Animations appears to run faster if
 	height: 100%;
 	width:100%;
 	position: absolute;
+	box-shadow: -3px 0px 5px #888;
 	-webkit-transform: translate(0px, 0px);
 	-moz-transform: translate(0px, 0px);
 	-ms-transform: translate(0px, 0px);
 	-o-transform: translate(0px, 0px);
 	transform: translate(0px, 0px);
+}
+#content-cover{
+	position: absolute;
+	z-index: 3;
+	width: 100%;
+	height: 101%;
+	opacity: 0;
+	background-color: #000;
+	display: none;
 }
 
 
