@@ -3,11 +3,23 @@
 
 		   site wide styles
 
+
+color schemes I like:
+
+ 	- http://paletton.com/#uid=72P0u0kg0sSqn7Lgl6edxX30rX+
+
+
+
   ------------------------------------*/
+
+
 
 
 body{
 	overflow-x: hidden; 
+}
+a{
+	color: #5CB85C;
 }
 
 
@@ -145,6 +157,41 @@ NOTE: Animations appears to run faster if
 #slideout-menu hr{
 	border-color: #ccc;
 	margin: 20px 30px;
+}
+
+/* round search input [NOT FINAL] */
+/*.round-search-group{
+	padding: 0 10px;
+}
+.round-search-group input{
+	border-top-left-radius: 16px;
+	border-bottom-left-radius: 16px;
+}
+.round-search-group .input-group-btn>.btn{
+	border-left: 0;
+}
+.round-search-group input,
+.round-search-group .input-group-btn>.btn:first-child{
+	border-right: 0;
+}
+.round-search-group .input-group-btn>.btn:last-child{
+	border-top-right-radius: 16px;
+	border-bottom-right-radius: 16px;
+	color:#aaa;
+}*/
+
+/* slideout links */
+#slideout-menu .list-group-item{
+	text-align: center;
+	background-color: transparent;
+	border:none;
+}
+.cool-links a{
+	font-size: 16px;
+	font-weight: 600;
+}
+.lame-links a{
+	color: #666;
 }
 /* ------ end navbar ---------------- */
 

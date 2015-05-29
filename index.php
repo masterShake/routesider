@@ -200,13 +200,24 @@
             </div>         
 
             <!-- search bar -->
-            <div class="input-group">
-                <input type="text" class="form-control" aria-label="search all of routesider">
+            <div class="input-group"
+                 style="padding: 0 10px">
+                <input type="text" 
+                       class="form-control" 
+                       style="border-top-left-radius: 16px; border-bottom-left-radius: 16px;border-right: 0;"
+                       placeholder="Search Routesider"
+                       aria-label="search all of routesider">
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-default" aria-label="search routesider">
+                    <button type="button" 
+                            class="btn btn-default" 
+                            style="border-left: 0;border-right: 0;" 
+                            aria-label="search routesider">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-default" aria-label="search settings">
+                    <button type="button" 
+                            class="btn btn-default" 
+                            style="border-left: 0;border-top-right-radius: 16px;border-bottom-right-radius: 16px;color:#aaa;" 
+                            aria-label="search settings">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -215,7 +226,7 @@
             <hr>
 
             <!-- links -->
-            <ul class="list-group">
+            <ul class="list-group cool-links">
                 <li class="list-group-item">
                     <a href="about">About</a>
                 </li>
@@ -226,7 +237,7 @@
 
             <hr>
 
-            <ul class="list-group">
+            <ul class="list-group lame-links">
                 <li class="list-group-item">
                     <a href="privacy">Privacy</a>
                 </li>
