@@ -36,9 +36,6 @@
 
 /* ------- jumbotron ---------------- */
 #jumbo-container{
-  position: absolute;
-  top: calc(100% - 54px);
-	z-index: 1;
 	padding: 0;
 }
 #jumbo-pull-tab{

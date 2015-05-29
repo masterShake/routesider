@@ -37,7 +37,7 @@ NOTE: Animations appears to run faster if
 -------------------------------------- */
 
 /* 300 ms */
-#page-content, #content-cover{
+#navbar-and-map, #page-content, #content-cover{
 	-webkit-transition: .3s;
 	-moz-transition: .3s;
 	-ms-transition: .3s;
@@ -52,17 +52,29 @@ NOTE: Animations appears to run faster if
 
 
 
-
+#navbar-and-map{
+	position: fixed;
+	height:100%;
+	width:100%;
+}
 #page-content{
 	height: 100%;
 	width:100%;
 	position: absolute;
+	top: calc(100% - 54px);
+	z-index: 1;
 	box-shadow: -3px 0px 5px #888;
+}
+#navbar-and-map,
+#page-content{
 	-webkit-transform: translate(0px, 0px);
 	-moz-transform: translate(0px, 0px);
 	-ms-transform: translate(0px, 0px);
 	-o-transform: translate(0px, 0px);
 	transform: translate(0px, 0px);
+}
+#content-cover{
+	transform: translate(270px, 0px);
 }
 #content-cover{
 	position: absolute;
@@ -119,15 +131,15 @@ NOTE: Animations appears to run faster if
 .navbar-map{
 	padding: 8px;
 	width: 100%;
-	min-height: 36px;
-	position: fixed;
+	max-height: 54px;
 	background-color: #fff;
+}
+.navbar-map, 
+.navbar-map .navbar-header>button{
+	margin: 0;
 }
 .navbar-header>button{
 	float: left;
-}
-.navbar-map .navbar-header>button{
-	margin: 0;
 }
 .navbar-brand{
 	position: relative;
@@ -204,10 +216,8 @@ NOTE: Animations appears to run faster if
 /* ---- google map & components ---- */
 #map-canvas{
 	  border: 0;
-	  position: fixed !important;
 	  height: calc(100% - 106px);
 	  width: 100%;
-	  margin-top: 53px;
 }
 /* elements laid over the map */
 .map-overlay-n{ /* light comes from north */

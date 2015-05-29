@@ -30,7 +30,7 @@ var rs;
 		this.indexer = 1;
 
 		/* constructor */
-		
+
 		// add event listener to menu button
 		document.getElementById("navbar-toggle-menu")
 			.addEventListener("click", this.toggleMobileMenu, false);
@@ -93,13 +93,15 @@ var rs;
 			&& window.innerWidth < 768 ){
 			// open the menu
 			document.getElementById("page-content").style.transform = "translate(270px, 0px)";
+			document.getElementById("navbar-and-map").style.transform = "translate(270px, 0px)";
 			// cover the content
 			document.getElementById("content-cover").style.display = "block";
 			// set timer to reveal #content-cover
-			setTimeout( rsApp.showContentCover , 10 );
+			setTimeout( rsApp.showContentCover , 200 );
 		}else{
 			// close the menu
 			document.getElementById("page-content").style.transform = "translate(0px, 0px)";
+			document.getElementById("navbar-and-map").style.transform = "translate(0px, 0px)"
 			// reveal the content
 			document.getElementById("content-cover").style.opacity = "0";
 			// set timer to hide #content-cover

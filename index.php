@@ -57,9 +57,9 @@
     </head>
     <body>
 
-        <!-- page content -->
-        <div id="page-content">
-
+        <!-- mobile navbar & map -->
+        <div id="navbar-and-map">
+            
             <!-- navbar -->
             <nav class="navbar navbar-map">
                 <div class="container">
@@ -133,11 +133,14 @@
                 </div><!-- /.container-fluid -->
             </nav>
 
-
             <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
             <div id="map-canvas"></div>
+        
+        </div>
 
-            
+        <!-- page content -->
+        <div id="page-content">
+
             <!-- jumbotron -->
             <div class="container jumbo-container" id="jumbo-container">
                     
@@ -180,11 +183,15 @@
                 </section>
             </div>
 
-            <!-- contentent cover to close menu -->
-            <div id="content-cover"></div>
+
+            <!-- footer -->
 
         </div><!-- end page content -->
 
+        
+
+        <!-- contentent cover to close menu -->
+        <div id="content-cover"></div>
 
         <!-- mobile slideout menu -->
         <nav id="slideout-menu">
