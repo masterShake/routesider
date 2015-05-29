@@ -76,15 +76,16 @@ NOTE: Animations appears to run faster if
 	text-transform: uppercase;
 	text-align: left;
 	font-weight: 600;
+	font-size: 18px;
 }
-.logo>div{
+.logo .route{
 	float: left;
 	background-color: #5CB85C;
 	color: #fff;
 	padding: 0 2%;
 	margin-right: 0px;
 }
-.logo>span{
+.logo span{
 	margin-left: .5%;
 	color:#333;
 }
@@ -132,12 +133,19 @@ NOTE: Animations appears to run faster if
 /* slideout menu */
 #slideout-menu{
 	position: fixed;
-	height: 400px;
+	height: 700px;
 	width: 270px;
 	background-color: #ededed;
 	z-index: -1;
 }
-
+#slideout-menu .logo{
+	font-size: 24px;
+	padding: 20px 0px;
+}
+#slideout-menu hr{
+	border-color: #ccc;
+	margin: 20px 30px;
+}
 /* ------ end navbar ---------------- */
 
 

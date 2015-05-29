@@ -30,7 +30,7 @@ var rs;
 		this.indexer = 1;
 
 		/* constructor */
-
+		
 		// add event listener to menu button
 		document.getElementById("navbar-toggle-menu")
 			.addEventListener("click", this.toggleMobileMenu, false);

@@ -76,7 +76,7 @@
                         <!-- routesider logo -->
                         <a class="navbar-brand" href="#">
                             <div class="logo">
-                                <div>Route</div>
+                                <div class="route">Route</div>
                                 <span>sider</span>
                             </div>
                         </a>
@@ -187,12 +187,58 @@
 
 
         <!-- mobile slideout menu -->
-        <div id="slideout-menu">
+        <nav id="slideout-menu">
+
+            <!-- logo -->
             <div class="logo">
-                <div>Route</div>
-                <span>sider</span>
+                <a href="/">
+                    <div style="max-width: 166px; position: relative; left: 50%; margin-left: -83px;"><!-- centers logo -->
+                        <div class="route">Route</div>
+                        <span>sider</span>
+                    </div>
+                </a>
+            </div>         
+
+            <!-- search bar -->
+            <div class="input-group">
+                <input type="text" class="form-control" aria-label="search all of routesider">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" aria-label="search routesider">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" aria-label="search settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </button>
+                </div>
             </div>
-        </div>
+
+            <hr>
+
+            <!-- links -->
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="about">About</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="register">Sign Up</a>
+                </li>
+            </ul>
+
+            <hr>
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="privacy">Privacy</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="terms_of_use">Terms of Use</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Contact Us</a>
+                </li>
+            </ul>
+
+        </nav>
 
         <!-- javascripts -->
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script>
