@@ -74,12 +74,14 @@
                         </button>
 
                         <!-- routesider logo -->
-                        <a class="navbar-brand" href="#">
-                            <div class="logo">
-                                <div class="route">Route</div>
-                                <span>sider</span>
-                            </div>
-                        </a>
+                        <div style="width: 100%;text-align:center;">
+                            <a class="navbar-brand" href="#">
+                                <div class="logo">
+                                    <div class="route">Route</div>
+                                    <span>sider</span>
+                                </div>
+                            </a>
+                        </div>
 
                         <!-- search routesider -->
                         <button type="button"
@@ -185,10 +187,49 @@
 
 
             <!-- footer -->
+            <footer class="row">
 
+                <!-- quick links -->
+                <div class="col-sm-4">
+                    
+                    <div class="logo">
+                        <a href="/">
+                            <div class="route">Route</div>
+                            <span>sider</span>
+                        </a>
+                    </div>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="about">About</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="register">Sign Up</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="privacy">Privacy</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="terms_of_use">Terms of Use</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- contact info -->
+                <div class="col-sm-4">
+                    
+                </div>
+
+                <!-- contact form -->
+                <div class="col-sm-4">
+                    
+                </div>
+
+            </footer>
+        
         </div><!-- end page content -->
 
-        
 
         <!-- contentent cover to close menu -->
         <div id="content-cover"></div>

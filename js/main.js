@@ -94,6 +94,7 @@ var rs;
 			// open the menu
 			document.getElementById("page-content").style.transform = "translate(270px, 0px)";
 			document.getElementById("navbar-and-map").style.transform = "translate(270px, 0px)";
+			document.getElementById("content-cover").style.transform = "translate(270px, 0px)";
 			// cover the content
 			document.getElementById("content-cover").style.display = "block";
 			// set timer to reveal #content-cover
@@ -101,7 +102,8 @@ var rs;
 		}else{
 			// close the menu
 			document.getElementById("page-content").style.transform = "translate(0px, 0px)";
-			document.getElementById("navbar-and-map").style.transform = "translate(0px, 0px)"
+			document.getElementById("navbar-and-map").style.transform = "translate(0px, 0px)";
+			document.getElementById("content-cover").style.transform = "translate(0px, 0px)";
 			// reveal the content
 			document.getElementById("content-cover").style.opacity = "0";
 			// set timer to hide #content-cover

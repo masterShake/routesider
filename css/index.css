@@ -47,6 +47,7 @@
 .container .jumbotron{
 	position: relative;
 	border-radius: 0px;
+	margin: 0;
 }
 .jumbo-lead h1{
 	font-size: 44px;
