@@ -190,7 +190,7 @@
             <footer class="row">
 
                 <!-- quick links -->
-                <div class="col-sm-4">
+                <article class="col-sm-4">
                     
                     <div class="logo">
                         <a href="/">
@@ -214,17 +214,55 @@
                         </li>
                     </ul>
 
-                </div>
+                </article>
 
                 <!-- contact info -->
-                <div class="col-sm-4">
+                <article class="col-sm-4 contact-info">
                     
-                </div>
+                    <div>
+                        <a href="tel:+6506781777">
+                            <span class="glyphicon glyphicon-earphone"></span>
+                        </a>
+                    </div>
+                    <div style="font-size:10px;">
+                        <a href="tel:+6506781777">phone</a>
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <a href="tel:+6506781777">(650) 678-1777</a>
+                    </div>
+
+                    <div class="glyphicon glyphicon-time"></div>
+                    <div style="font-size:10px;">phone hours</div>
+                    <div>10 - 10 <span style="font-size:8px;">(Silicon Valley)</span></div>
+                    <div>everyday</div>
+
+                </article>
 
                 <!-- contact form -->
-                <div class="col-sm-4">
+                <article class="col-sm-4 contact-us">
+
+                    <div class="glyphicon glyphicon-envelope"></div>
+                    <div style="font-size:10px;">contact us</div>
+
+                    <form>
+                        
+                        <div class="input-group">
+                            <input type="text" 
+                                   name="cemail" 
+                                   class="form-control"
+                                   id="cname" 
+                                   placeholder="you@email.com">
+                        </div>
+
+                        <div class="input-group">
+                            <textarea id="cmessage" class="form-control" placeholder="500 characters max"></textarea>
+                        </div>
+
+                        <button type="button" class="btn btn-default" aria-label="send message" style="float:right;">Send</button>
+
+                    </form>
                     
-                </div>
+                </article>
 
             </footer>
         
