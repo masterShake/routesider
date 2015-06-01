@@ -44,10 +44,16 @@
 	position: relative;
 	left: 53px;
 }
-.container .jumbotron{
+.nav-tabs>li.active>a.map-pull-tab{
+	background-color: #5CB85C !important;
+	color:#fff;
+	border: 0;
+}
+.jumbotron{
 	position: relative;
 	border-radius: 0px;
 	margin: 0;
+	background-color: #5CB85C;
 }
 .jumbo-lead h1{
 	font-size: 44px;

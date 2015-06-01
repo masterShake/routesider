@@ -62,14 +62,12 @@
             
             <!-- navbar -->
             <nav class="navbar navbar-map">
-                <div class="container">
                     <div class="navbar-header">
                         
                         <!-- toggle mobile menu -->
                         <button type="button" 
                                 class="navbar-toggle collapsed"
-                                id="navbar-toggle-menu"
-                                aria-describedby="Toggle navigation menu">
+                                id="navbar-toggle-menu">
                             <span class="glyphicon glyphicon-menu-hamburger"></span>
                         </button>
 
@@ -87,8 +85,7 @@
                         <button type="button"
                                 style="float:right;"
                                 class="navbar-toggle"
-                                id="navbar-toggle-search"
-                                aria-describedby="Click to display search bar.">
+                                id="navbar-toggle-search">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 
@@ -132,7 +129,6 @@
                             </div><!-- /input-group -->
                         </form>
                     </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
             </nav>
 
             <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
@@ -159,17 +155,17 @@
                     </li>
                 </ul>
 
-                <section class="jumbotron map-overlay-s">
+                <div class="jumbotron map-overlay-s">
 
                     <!-- lead -->
                     <div class="row">                
-                        <article class="col-sm-8 col-md-6 jumbo-lead">
-                            <h1 class="logo">
+                        <div class="col-sm-8 col-md-6 jumbo-lead">
+                            <div class="logo">
                                 <div>Route</div>
                                 <span>sider</span>
-                            </h1>
+                            </div>
                             <p>Local Products &amp; Services</p>
-                        </article>
+                        </div>
                     </div>
 
                     <!-- hook -->
@@ -182,7 +178,7 @@
                         </article>
                     </div>
                 
-                </section>
+                </div>
             </div>
 
 
@@ -190,7 +186,7 @@
             <footer class="row">
 
                 <!-- quick links -->
-                <article class="col-sm-4">
+                <div class="col-sm-4">
                     
                     <div class="logo">
                         <a href="/">
@@ -214,10 +210,10 @@
                         </li>
                     </ul>
 
-                </article>
+                </div>
 
                 <!-- contact info -->
-                <article class="col-sm-4 contact-info">
+                <div class="col-sm-4 contact-info">
                     
                     <div>
                         <a href="tel:+6506781777">
@@ -236,10 +232,10 @@
                     <div>10 - 10 <span style="font-size:8px;">(Silicon Valley)</span></div>
                     <div>everyday</div>
 
-                </article>
+                </div>
 
                 <!-- contact form -->
-                <article class="col-sm-4 contact-us">
+                <div class="col-sm-4 contact-us">
 
                     <div class="glyphicon glyphicon-envelope"></div>
                     <div style="font-size:10px;">contact us</div>
@@ -262,7 +258,7 @@
 
                     </form>
                     
-                </article>
+                </div>
 
             </footer>
         

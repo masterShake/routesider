@@ -58,7 +58,7 @@ NOTE: Animations appears to run faster if
 #navbar-and-map{
 	position: fixed;
 	height:100%;
-	width:100%;
+	width: calc(100% - 16px);
 }
 #page-content{
 	height: 100%;
@@ -132,7 +132,7 @@ NOTE: Animations appears to run faster if
 .navbar-map{
 	padding: 8px;
 	width: 100%;
-	max-height: 54px;
+	min-height: 52px;
 	background-color: #fff;
 }
 .navbar-map, 
@@ -148,6 +148,7 @@ NOTE: Animations appears to run faster if
 	margin-left: -109px;
 	padding: 3px 6px;
 	min-width: 136px;
+	height:35px;
 }
 .user-pic{
 	outline: 1px solid #181818;
