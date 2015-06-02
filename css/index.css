@@ -42,14 +42,15 @@
 	margin-top: -41px;
 	max-width: 47px;
 	position: relative;
-	left: 53px;
+	left: 75px;
+	z-index: -1;
 }
 .nav-tabs>li.active>a.map-pull-tab{
 	background-color: #5CB85C !important;
 	color:#fff;
 	border: 0;
 }
-.jumbotron{
+.container .jumbotron{
 	position: relative;
 	border-radius: 0px;
 	margin: 0;

@@ -40,7 +40,7 @@ NOTE: Animations appears to run faster if
 -------------------------------------- */
 
 /* 300 ms */
-#navbar, #page-content, #content-cover{
+#navbar, #page-content, #content-cover, #map-canvas{
 	-webkit-transition: .3s;
 	-moz-transition: .3s;
 	-ms-transition: .3s;
@@ -223,18 +223,14 @@ NOTE: Animations appears to run faster if
 #map-canvas{
 	position: fixed !important;
 	border: 0;
-	height: calc(100% - 40px);
+	height: calc(100% - 55px);
 	width: 100%;
 }
 /* elements laid over the map */
+.map-pull-tab,
 .map-overlay-n{ /* light comes from north */
 	z-index: 1;
 	box-shadow: 0.5px 0.5px 2px #999;
-}
-.map-pull-tab{
-	background-color: #eee !important;
-  	z-index: 2;
-  	box-shadow: 1.5px -1.5px 1.5px -0.9px #bbb;
 }
 
 
@@ -252,7 +248,7 @@ footer{
 	color:#fff;
 }
 footer .logo{
-	padding-top: 16px;
+	padding-top: 30px;
 	padding-left: calc(50% - 67px);
 }
 footer .logo .route{
@@ -262,7 +258,8 @@ footer .logo .route{
 footer .logo span{
 	color: #fff;
 }
-footer>.contact-info{
+footer .contact-info,
+footer .contact-us{
 	text-align: center;
 }
 footer .glyphicon{
@@ -271,13 +268,19 @@ footer .glyphicon{
 footer>article{
 	padding: 15px;
 }
-footer>.contact-us{
-	text-align: center;
+footer .contact-us{
 	padding: 15px;
 }
 .contact-us .input-group{
 	width: 100%;
 }	
+footer hr{  
+	border-top: 1px solid #aaa;
+  	margin: 30px;
+}
+footer input, footer textarea{
+	margin:20px 0;
+}
 /* ------ end footer ---------------- */
 
 

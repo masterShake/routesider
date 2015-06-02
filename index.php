@@ -205,6 +205,8 @@
                             </li>
                         </ul>
 
+                        <hr class="hidden-sm">
+
                     </div>
 
                     <!-- contact info -->
@@ -227,6 +229,8 @@
                         <div>10 - 10 <span style="font-size:8px;">(Silicon Valley)</span></div>
                         <div>everyday</div>
 
+                        <hr class="hidden-sm">
+
                     </div>
 
                     <!-- contact form -->
@@ -236,24 +240,27 @@
                         <div style="font-size:10px;">contact us</div>
 
                         <form>
-                            
-                            <div class="input-group">
-                                <input type="text" 
-                                       name="cemail" 
-                                       class="form-control"
-                                       id="cname" 
-                                       placeholder="you@email.com">
+                            <input type="text" 
+                                   name="cemail" 
+                                   class="form-control"
+                                   id="cname" 
+                                   placeholder="your@email.com">
+                          
+                            <textarea id="cmessage" 
+                                      class="form-control" 
+                                      placeholder="500 characters max"
+                                      rows="5"></textarea>
+                          
+                            <div style="text-align:right;">
+                                <button type="button" class="btn btn-default" aria-label="send message">Send</button>
                             </div>
-
-                            <div class="input-group">
-                                <textarea id="cmessage" class="form-control" placeholder="500 characters max"></textarea>
-                            </div>
-
-                            <button type="button" class="btn btn-default" aria-label="send message" style="float:right;">Send</button>
 
                         </form>
                         
                     </div>
+
+                    <!-- copyright -->
+                    <div style="text-align:center;padding:30px;font-size: 12px;color: #aaa;">&#169; Routesider 2015</div>
 
                 </div>
             </footer>
