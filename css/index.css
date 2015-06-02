@@ -71,3 +71,25 @@
 
 
 
+/*------------------------------------
+
+				responsive
+
+  ------------------------------------*/
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+	.container .jumbotron{
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+	}
+
+}
+
+
+
+
+
+

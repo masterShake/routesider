@@ -203,7 +203,7 @@
                             </li>
                         </ul>
 
-                        <hr class="hidden-sm">
+                        <hr class="visible-xs">
 
                     </div>
 
@@ -227,7 +227,7 @@
                         <div>10 - 10 <span style="font-size:8px;">(Silicon Valley)</span></div>
                         <div>everyday</div>
 
-                        <hr class="hidden-sm">
+                        <hr class="visible-xs">
 
                     </div>
 
