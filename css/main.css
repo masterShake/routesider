@@ -128,13 +128,13 @@ NOTE: Animations appears to run faster if
 .navbar-map{
 	padding: 8px;
 	min-height: 52px;
-	background-color: #fff;
+	background-color: rgba(255, 255, 255, .9);
 	position: absolute;
 	height:52px;
 	width: calc(100% - 70px);
 	left:35px;
+	max-width: 760px;
 	top: 30px;
-	opacity: .88;
 	border-radius: 8px;
 	z-index: 1;
 	box-shadow: 0.5px 0.5px 2px #888;
@@ -304,17 +304,23 @@ footer input, footer textarea{
 	
 	/* navbar */
 	.navbar-map{
-		background: rgba(255, 255, 255, 0.9);
-		margin: 8px;
-		width: calc(100% - 16px);
-		min-height: 36px;
-		border-radius: 2px;
+		padding-top: 0px; 
+		width: calc(100% - 100px);
+		right: 50%;
+		margin-right: -380px;
 	}
 	.navbar-brand{
-		position: static;
+		left: 0px;
+		margin: 0px;
+		margin-top: 8px;
 	}
 	.navbar-form, .navbar-form>div{
 		min-width: 268px;
+	}
+
+	/* map canvas */
+	#map-canvas{
+		height: 100%;
 	}
 
 }

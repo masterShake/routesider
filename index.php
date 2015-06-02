@@ -68,14 +68,12 @@
                     </button>
 
                     <!-- routesider logo -->
-                    <div style="width: 100%;text-align:center;">
-                        <a class="navbar-brand" href="#">
-                            <div class="logo">
-                                <div class="route">Route</div>
-                                <span>sider</span>
-                            </div>
-                        </a>
-                    </div>
+                    <a class="navbar-brand" href="#" style="width: 138px;display:block;">
+                        <span class="logo">
+                            <span class="route">Route</span>
+                            <span>sider</span>
+                        </span>
+                    </a>
 
                     <!-- search routesider -->
                     <button type="button"
