@@ -122,9 +122,77 @@
                 </div><!-- /.navbar-collapse -->
             </nav>
             
-            <!-- registration form -->
+            <div class="container">
+                <div class="row">
 
-            <!-- easy as 1 2 3 -->
+                    <!-- registration form -->
+                    <div class="col-sm-6 col-lg-8">
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2>Sign up for Routesider</h2>
+                                <h6>Create a <strong>FREE</strong> profile page for your business.</h6>
+                            </div>
+                            <div class="panel-body">
+                                <form>
+
+                                    <label>Create a Username</label>
+                                    <div class="input-group">
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="create-username"
+                                               placeholder="a-Z 0-9 _ -">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="input-error" id="create-username-error"></div>
+
+                                    <label>Password</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="create-password"
+                                           style="float:left;width: calc(100% - 48px);"
+                                           placeholder="a-Z 0-9 !@#$%^&amp;*">
+                                    <button class="btn btn-default" type="button" style="float:right;">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </button>
+                                    <div class="input-error" id="create-password-error"></div>
+
+                                    <div class="input-group">
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="repeat-password"
+                                               placeholder="repeat password">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="input-error" id="repeat-password-error"></div>
+
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-default">sign up</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- easy as 1 2 3 -->
+                    <div class="col-sm-6 col-lg-4">
+                        
+                    </div>
+
+
+                </div>
+            </div>
 
             <!-- jumbotron -->
 
