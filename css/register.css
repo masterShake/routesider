@@ -9,6 +9,55 @@
 
 
 
+/*----------- sign up form -----------*/
+.sign-up-form label{
+	margin-top: 10px;
+}
+.sign-up-form [type=password],
+.sign-up-form [type=text]{
+	float:left;
+	width: calc(100% - 48px);
+	margin-bottom: 15px;
+}
+/*.sign-up-form [type=checkbox]{
+
+}*/
+.sign-up-form button{
+	float:right;
+}
+/*------------------------------------*/
+
+
+
+
+/*---------- easy as 1 2 3 -----------*/
+.media-right{
+	float:right;
+}
+.body-right{
+	text-align:right;
+}
+.media{
+	height:153px;
+}
+/*------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+/*------------ jumbotron -------------*/
+.jumbotron{
+	margin:0px;
+}
+/*------------------------------------*/
+
 
 
 

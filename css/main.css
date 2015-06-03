@@ -22,6 +22,12 @@ body{
 a{
 	color: #5CB85C;
 }
+input[type=checkbox]{
+	height:17px;
+	width: 17px;
+	margin-right: 8px;
+	margin-top: 4px;
+}
 .list-group-item{
 	background-color: transparent;
 	border: none;

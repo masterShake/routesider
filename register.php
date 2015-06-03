@@ -134,60 +134,112 @@
                                 <h6>Create a <strong>FREE</strong> profile page for your business.</h6>
                             </div>
                             <div class="panel-body">
-                                <form>
+                                
+                                <form class="sign-up-form">
 
+                                    <!-- create username -->
                                     <label>Create a Username</label>
-                                    <div class="input-group">
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="create-username"
-                                               placeholder="a-Z 0-9 _ -">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                            </button>
-                                        </span>
-                                    </div>
+                                    <input type="text"
+                                           name="newuser" 
+                                           class="form-control text-input" 
+                                           id="create-username"
+                                           placeholder="a-Z 0-9 _ -">
+                                    <button class="btn btn-default" type="button">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </button>
                                     <div class="input-error" id="create-username-error"></div>
 
+                                    <!-- create password -->
                                     <label>Password</label>
-                                    <input type="text" 
+                                    <input type="password"
+                                           name="pass" 
                                            class="form-control" 
                                            id="create-password"
-                                           style="float:left;width: calc(100% - 48px);"
                                            placeholder="a-Z 0-9 !@#$%^&amp;*">
-                                    <button class="btn btn-default" type="button" style="float:right;">
+                                    <button class="btn btn-default" type="button">
                                         <span class="glyphicon glyphicon-info-sign"></span>
                                     </button>
                                     <div class="input-error" id="create-password-error"></div>
 
-                                    <div class="input-group">
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="repeat-password"
-                                               placeholder="repeat password">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                            </button>
-                                        </span>
-                                    </div>
+                                    <!-- repeat password -->
+                                    <input type="password" 
+                                           name="repass"
+                                           class="form-control" 
+                                           id="repeat-password"
+                                           placeholder="repeat password">
                                     <div class="input-error" id="repeat-password-error"></div>
 
+                                    <div>
+
+                                        <div class="input-group">
+                                            <input type="checkbox" 
+                                                   name="business" 
+                                                   checked="checked" 
+                                                   id="business-profile">
+                                            <span>Business account (free)</span>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <input type="checkbox" 
+                                                   name="tou" 
+                                                   id="tou">
+                                            <span>I agree to the terms of use</span>
+                                        </div>
+
+                                    </div>
+
                                 </form>
+
                             </div>
                             <div class="panel-footer">
                                 <button type="button" class="btn btn-default">sign up</button>
                             </div>
                         </div>
-
-
-
                     </div>
 
                     <!-- easy as 1 2 3 -->
                     <div class="col-sm-6 col-lg-4">
                         
+                        <!-- STEP 1 -->
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <a href="#">
+                                    <!-- <img class="media-object" src="..." alt="..."> -->
+                                    <div style="padding:32px 34px;border-radius: 17px;background-color:#ccc;"><span class="glyphicon glyphicon-camera"></span></div>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">List Unlimited Products FREE</h4>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2 -->
+                        <div class="media">
+                            <div class="media-right media-middle">
+                                <a href="#">
+                                    <!-- <img class="media-object" src="..." alt="..."> -->
+                                    <div style="padding:32px 34px;border-radius: 17px;background-color:#ccc;"><span class="glyphicon glyphicon-camera"></span></div>
+                                </a>
+                            </div>
+                            <div class="media-body body-right">
+                                <h4 class="media-heading">Business Networking made Easy</h4>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3 -->
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <a href="#">
+                                    <!-- <img class="media-object" src="..." alt="..."> -->
+                                    <div style="padding:32px 34px;border-radius: 17px;background-color:#ccc;"><span class="glyphicon glyphicon-camera"></span></div>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Get Exposure &amp; Grow</h4>
+                            </div>
+                        </div>
+
+
                     </div>
 
 
@@ -195,6 +247,13 @@
             </div>
 
             <!-- jumbotron -->
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Hello, world!</h1>
+                    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                </div>
+            </div>
 
             <!-- footer -->
             <footer>
