@@ -11,7 +11,7 @@
     // STEP 2: instantiate global variables
     //-------------------------------------
 
-    $page = "index"; //required
+    $page = "register"; //required
 
     $myErrors = array(); //required
 
@@ -22,16 +22,9 @@
 
     if(Input::exists()){
 
-        // initial page load ajax query for local deals
-        if(Input::get("location_query")){
-
-            require "scripts/location_query.php";
-        }
-
         exit("no input for now");
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -46,7 +39,7 @@
 
         <!-- Routesider styles -->
         <link href="css/main.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet">
+        <link href="css/register.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,9 +48,13 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>  
-        <!-- navbar -->
-        <nav class="navbar navbar-map" id="navbar">
+    <body>
+
+        <!-- page content -->
+        <div class="page-content">
+
+            <!-- navbar -->
+            <nav class="navbar navbar-dark" id="navbar">
                 <div class="navbar-header">
                     
                     <!-- toggle mobile menu -->
@@ -123,151 +120,106 @@
                         </div><!-- /input-group -->
                     </form>
                 </div><!-- /.navbar-collapse -->
-        </nav>
+            </nav>
+            
+            <!-- registration form -->
 
-        <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
-        <div id="map-canvas"></div>
-
-        <!-- page content -->
-        <div id="page-content">
+            <!-- easy as 1 2 3 -->
 
             <!-- jumbotron -->
-            <div class="container jumbo-container" id="jumbo-container">
-                    
-                <!-- pull tab -->
-                <ul class="nav nav-tabs" 
-                    id="jumbo-pull-tab"
-                    role="tablist">
-                    <li class="active" role="presentation">
-                        <a href="#" 
-                           class="map-pull-tab"
-                           role="tab">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="jumbotron map-overlay-s">
-
-                    <!-- lead -->
-                    <div class="row">                
-                        <div class="col-sm-8 col-md-6 jumbo-lead">
-                            <div class="logo">
-                                <div>Route</div>
-                                <span>sider</span>
-                            </div>
-                            <p>Local Products &amp; Services</p>
-                        </div>
-                    </div>
-
-                    <!-- hook -->
-                    <div class="row">
-                        <article class="col-sm-8 col-md-6 jumbo-hook">
-                            <h2>Showcase Your Business</h2>
-                            <p>Listing your products on Routesider can help you garner the online attention that you deserve.</p>
-                            <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a></p>
-                            <p>(It's free!)</p>
-                        </article>
-                    </div>
-                
-                </div>
-            </div>
-
 
             <!-- footer -->
-            <footer class="container footer-map">
-                <div class="row">
+            <footer>
+                <div class="container">
+                    <div class="row">
 
-                    <!-- quick links -->
-                    <div class="col-sm-4">
-                        
-                        <div class="logo">
-                            <a href="/">
-                                <div class="route">Route</div>
-                                <span>sider</span>
-                            </a>
-                        </div>
-
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="about">About</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="register">Sign Up</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="privacy">Privacy</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="terms_of_use">Terms of Use</a>
-                            </li>
-                        </ul>
-
-                        <hr class="visible-xs">
-
-                    </div>
-
-                    <!-- contact info -->
-                    <div class="col-sm-4 contact-info">
-                        
-                        <div>
-                            <a href="tel:+6506781777">
-                                <span class="glyphicon glyphicon-earphone"></span>
-                            </a>
-                        </div>
-                        <div style="font-size:10px;">
-                            <a href="tel:+6506781777">phone</a>
-                        </div>
-                        <div style="margin-bottom: 30px;">
-                            <a href="tel:+6506781777">(650) 678-1777</a>
-                        </div>
-
-                        <div class="glyphicon glyphicon-time"></div>
-                        <div style="font-size:10px;">phone hours</div>
-                        <div>10 - 10 <span style="font-size:8px;">(Silicon Valley)</span></div>
-                        <div>everyday</div>
-
-                        <hr class="visible-xs">
-
-                    </div>
-
-                    <!-- contact form -->
-                    <div class="col-sm-4 contact-us">
-
-                        <div class="glyphicon glyphicon-envelope"></div>
-                        <div style="font-size:10px;">contact us</div>
-
-                        <form>
-                            <input type="text" 
-                                   name="cemail" 
-                                   class="form-control"
-                                   id="cname" 
-                                   placeholder="your@email.com">
-                          
-                            <textarea id="cmessage" 
-                                      class="form-control" 
-                                      placeholder="500 characters max"
-                                      rows="5"></textarea>
-                          
-                            <div style="text-align:right;">
-                                <button type="button" class="btn btn-default" aria-label="send message">Send</button>
+                        <!-- quick links -->
+                        <div class="col-sm-4">
+                            
+                            <div class="logo">
+                                <a href="/">
+                                    <div class="route">Route</div>
+                                    <span>sider</span>
+                                </a>
                             </div>
 
-                        </form>
-                        
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="about">About</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="register">Sign Up</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="privacy">Privacy</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="terms_of_use">Terms of Use</a>
+                                </li>
+                            </ul>
+
+                            <hr class="visible-xs">
+
+                        </div>
+
+                        <!-- contact info -->
+                        <div class="col-sm-4 contact-info">
+                            
+                            <div>
+                                <a href="tel:+6506781777">
+                                    <span class="glyphicon glyphicon-earphone"></span>
+                                </a>
+                            </div>
+                            <div style="font-size:10px;">
+                                <a href="tel:+6506781777">phone</a>
+                            </div>
+                            <div style="margin-bottom: 30px;">
+                                <a href="tel:+6506781777">(650) 678-1777</a>
+                            </div>
+
+                            <div class="glyphicon glyphicon-time"></div>
+                            <div style="font-size:10px;">phone hours</div>
+                            <div>10 - 10 <span style="font-size:8px;">(Silicon Valley)</span></div>
+                            <div>everyday</div>
+
+                            <hr class="visible-xs">
+
+                        </div>
+
+                        <!-- contact form -->
+                        <div class="col-sm-4 contact-us">
+
+                            <div class="glyphicon glyphicon-envelope"></div>
+                            <div style="font-size:10px;">contact us</div>
+
+                            <form>
+                                <input type="text" 
+                                       name="cemail" 
+                                       class="form-control"
+                                       id="cname" 
+                                       placeholder="your@email.com">
+                              
+                                <textarea id="cmessage" 
+                                          class="form-control" 
+                                          placeholder="500 characters max"
+                                          rows="5"></textarea>
+                              
+                                <div style="text-align:right;">
+                                    <button type="button" class="btn btn-default" aria-label="send message">Send</button>
+                                </div>
+
+                            </form>
+                            
+                        </div>
+
+                        <!-- copyright -->
+                        <div style="text-align:center;padding:30px;font-size: 12px;color: #aaa;">&#169; Routesider 2015</div>
+
                     </div>
-
-                    <!-- copyright -->
-                    <div style="text-align:center;padding:30px;font-size: 12px;color: #aaa;">&#169; Routesider 2015</div>
-
                 </div>
             </footer>
-        
-        </div><!-- end page content -->
 
-
-        <!-- contentent cover to close menu -->
-        <div id="content-cover"></div>
+        </div>
 
         <!-- mobile slideout menu -->
         <nav id="slideout-menu">
@@ -331,13 +283,17 @@
                     <a href="#">Contact Us</a>
                 </li>
             </ul>
-
         </nav>
 
         <!-- javascripts -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script>
         <script src="js/main.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 
     </body>
 </html>
+
+
+
+
+
+
