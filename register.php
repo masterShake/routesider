@@ -22,6 +22,12 @@
 
     if(Input::exists()){
 
+        // username check
+        if(Input::get("namecheck"))
+
+            include "scripts/username_check.php";
+
+
         exit("no input for now");
     }
 ?>
@@ -171,19 +177,19 @@
 
                                     <div>
 
-                                        <div class="input-group">
+                                        <div class="input-group" style="margin: 20px 0; padding-top:10px;">
                                             <input type="checkbox" 
                                                    name="business" 
                                                    checked="checked" 
                                                    id="business-profile">
-                                            <span>Business account (free)</span>
+                                            <div style="float:left;margin-top:2px;">Business account (free)</div>
                                         </div>
 
-                                        <div class="input-group">
+                                        <div class="input-group" style="margin: 20px 0;">
                                             <input type="checkbox" 
                                                    name="tou" 
                                                    id="tou">
-                                            <span>I agree to the terms of use</span>
+                                            <div style="float:left;margin-top:2px;">I agree to the terms of use</div>
                                         </div>
 
                                     </div>
@@ -210,6 +216,7 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">List Unlimited Products FREE</h4>
+                                <p>Zril putent minimum te vix, commodo vivendo scripserit ad mei. No est semper vocent indoctum, nam ad docendi efficiendi comprehensam, integre nostrum electram sit an.</p>
                             </div>
                         </div>
 
@@ -223,6 +230,7 @@
                             </div>
                             <div class="media-body body-right">
                                 <h4 class="media-heading">Business Networking made Easy</h4>
+                                <p>Lorem ipsum dolor sit amet, qui dicit iudico interpretaris ei, te pro habeo cotidieque. Cum civibus molestiae no, delenit blandit eam cu, nec case senserit tractatos eu.</p>
                             </div>
                         </div>
 
@@ -236,10 +244,9 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">Get Exposure &amp; Grow</h4>
+                                <p>Et timeam assueverit mea, ubique mandamus in quo. Vim audiam deserunt vulputate ne, falli numquam ad his, te eum animal argumentum.</p>
                             </div>
                         </div>
-
-
                     </div>
 
 
@@ -347,6 +354,9 @@
             </footer>
 
         </div>
+
+        <!-- contentent cover to close menu -->
+        <div id="content-cover"></div>
 
         <!-- mobile slideout menu -->
         <nav id="slideout-menu">

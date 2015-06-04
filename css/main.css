@@ -27,6 +27,7 @@ input[type=checkbox]{
 	width: 17px;
 	margin-right: 8px;
 	margin-top: 4px;
+	float:left;
 }
 .list-group-item{
 	background-color: transparent;
