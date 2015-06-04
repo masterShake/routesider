@@ -144,36 +144,49 @@
                                 <form class="sign-up-form">
 
                                     <!-- create username -->
-                                    <label>Create a Username</label>
-                                    <input type="text"
-                                           name="newuser" 
-                                           class="form-control text-input" 
-                                           id="create-username"
-                                           placeholder="a-Z 0-9 _ -">
-                                    <button class="btn btn-default" type="button">
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                    </button>
-                                    <div class="input-error" id="create-username-error"></div>
+                                    <div>
+                                        <label>Create a Username</label>
+                                        <input type="text"
+                                               name="newuser" 
+                                               class="form-control text-input" 
+                                               id="create-username"
+                                               placeholder="a-Z 0-9 _ -">
+                                        <div class="glyphicon glyphicon-ok-circle"></div>
+                                        <div class="glyphicon glyphicon-remove-circle"></div>
+                                        <div class="glyphicon glyphicon-hourglass"></div>
+                                        <button class="btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                        </button>
+                                        <div class="input-error" id="create-username-error"></div>
+                                    </div>
 
                                     <!-- create password -->
-                                    <label>Password</label>
-                                    <input type="password"
-                                           name="pass" 
-                                           class="form-control" 
-                                           id="create-password"
-                                           placeholder="a-Z 0-9 !@#$%^&amp;*">
-                                    <button class="btn btn-default" type="button">
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                    </button>
-                                    <div class="input-error" id="create-password-error"></div>
+                                    <div>
+                                        <label>Password</label>
+                                        <input type="password"
+                                               name="pass" 
+                                               class="form-control" 
+                                               id="create-password"
+                                               placeholder="a-Z 0-9 !@#$%^&amp;*">
+                                        <div class="glyphicon glyphicon-ok-circle"></div>
+                                        <div class="glyphicon glyphicon-remove-circle"></div>
+                                        <button class="btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                        </button>
+                                        <div class="input-error" id="create-password-error"></div>
+                                    </div>
 
                                     <!-- repeat password -->
-                                    <input type="password" 
-                                           name="repass"
-                                           class="form-control" 
-                                           id="repeat-password"
-                                           placeholder="repeat password">
-                                    <div class="input-error" id="repeat-password-error"></div>
+                                    <div>
+                                        <input type="password" 
+                                               name="repass"
+                                               class="form-control" 
+                                               id="repeat-password"
+                                               placeholder="repeat password">
+                                        <div class="glyphicon glyphicon-ok-circle"></div>
+                                        <div class="glyphicon glyphicon-remove-circle"></div>
+                                        <div class="input-error" id="repeat-password-error"></div>
+                                    </div>
 
                                     <div>
 

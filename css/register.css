@@ -5,7 +5,40 @@
 
   ------------------------------------*/
 
+@keyframes hourglass {
+    0%{
+    		-webkit-transform: rotate(0deg); /* Safari */
+    		transform: rotate(0deg);
+    	}
+    50%{
+    		-webkit-transform: rotate(0deg); /* Safari */
+    		transform: rotate(0deg);
+    	}
+    100%  {
+    		-webkit-transform: rotate(360deg); /* Safari */
+    		transform: rotate(360deg);
+    	}
+}
+@-webkit-keyframes hourglass {
+    0%{
+    		-webkit-transform: rotate(0deg); /* Safari */
+    		transform: rotate(0deg);
+    	}
+    50%{
+    		-webkit-transform: rotate(0deg); /* Safari */
+    		transform: rotate(0deg);
+    	}
+    100%  {
+    		-webkit-transform: rotate(360deg); /* Safari */
+    		transform: rotate(360deg);
+    	}
+}
 
+.sign-up-form div.glyphicon-hourglass{
+    animation-name: hourglass;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
 
 
 
@@ -19,9 +52,23 @@
 	width: calc(100% - 48px);
 	margin-bottom: 15px;
 }
-/*.sign-up-form [type=checkbox]{
-
-}*/
+.sign-up-form .glyphicon-ok-circle,
+.sign-up-form .glyphicon-remove-circle,
+.sign-up-form .glyphicon-hourglass{
+	position: relative;
+	float: left;
+	margin-left: -25px;
+	font-size: 19px;
+	margin-top: 7px;
+	color:#d9534f;
+	display:none;
+}
+.sign-up-form .glyphicon-ok-circle{  
+	color: #5CB85C;
+}
+.sign-up-form .glyphicon-hourglass{
+	color: #aaa;
+}
 .sign-up-form button{
 	float:right;
 }

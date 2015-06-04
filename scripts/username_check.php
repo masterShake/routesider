@@ -11,7 +11,7 @@
 
   ------------------------------------------------*/
 
-echo $_POST["username"];
+echo "the username is" . $_POST["username"];
 
 exit();
 
