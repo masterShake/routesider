@@ -160,7 +160,7 @@
                                         <button class="btn btn-default" type="button">
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                         </button>
-                                        <div class="input-error" id="create-username-error"></div>
+                                        <div class="input-error"></div>
                                     </div>
 
                                     <!-- create password -->
@@ -176,7 +176,7 @@
                                         <button class="btn btn-default" type="button">
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                         </button>
-                                        <div class="input-error" id="create-password-error"></div>
+                                        <div class="input-error"></div>
                                     </div>
 
                                     <!-- repeat password -->
@@ -188,7 +188,21 @@
                                                placeholder="repeat password">
                                         <div class="glyphicon glyphicon-ok-circle"></div>
                                         <div class="glyphicon glyphicon-remove-circle"></div>
-                                        <div class="input-error" id="repeat-password-error"></div>
+                                        <div class="input-error"></div>
+                                    </div>
+
+                                    <!-- create username -->
+                                    <div>
+                                        <label>Email (optional)</label>
+                                        <input type="text"
+                                               name="newemail" 
+                                               class="form-control text-input" 
+                                               id="new-email"
+                                               placeholder="add email later if you want">
+                                        <div class="glyphicon glyphicon-ok-circle"></div>
+                                        <div class="glyphicon glyphicon-remove-circle"></div>
+                                        <div class="glyphicon glyphicon-hourglass"></div>
+                                        <div class="input-error"></div>
                                     </div>
 
                                     <div>
@@ -205,7 +219,7 @@
                                             <input type="checkbox" 
                                                    name="tou" 
                                                    id="tou">
-                                            <div style="float:left;margin-top:2px;">I agree to the terms of use</div>
+                                            <div style="float:left;margin-top:2px;">I agree to the <a href="#">terms of use</a></div>
                                         </div>
 
                                     </div>
