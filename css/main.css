@@ -160,6 +160,9 @@ NOTE: Animations appears to run faster if
 	float: left;
 }
 .navbar-brand{
+	width: 138px;
+	display:block;
+	margin-top: 10px;
 	position: relative;
 	left: 50%;
 	margin-left: -109px;

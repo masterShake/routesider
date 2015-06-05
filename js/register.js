@@ -30,19 +30,20 @@ var re = /^[a-z0-9_-]{3,32}$/;
 rs.prototype.validateUsername = function(){
 
 	// hide the errors
-	this.parentElement.children[1].style.display = "none";
 	this.parentElement.children[2].style.display = "none";
+	this.parentElement.children[3].style.display = "none";
 
 	if(re.test(this.value)){
 
 		// perform the ajax call
-		this.parentElement.children[3].style.display = "block";
+		this.parentElement.children[4].style.display = "block";
 		rsApp.ajax("POST", "register.php", "namecheck=1&username="+this.value, rsApp.uniqueUsername, false);	
 
 	}else{
 
 		// display the error
-		this.parentElement.children[2].style.display = "block";		
+		this.parentElement.children[4].style.display = "none";
+		this.parentElement.children[3].style.display = "block";		
 	}
 }
 //-------------------------------------------
