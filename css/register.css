@@ -69,6 +69,12 @@
 .sign-up-form .glyphicon-hourglass{
 	color: #aaa;
 }
+.sign-up-form .input-error{
+	position: absolute;
+	font-size: 11px;
+	color:#d9534f;
+	margin-top: 35px;
+}
 .sign-up-form button{
 	float:right;
 }

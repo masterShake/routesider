@@ -32,6 +32,11 @@ rs.prototype.validateUsername = function(){
 	// hide the errors
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
+	this.parentElement.children[4].style.display = "none";
+	document.getElementById("create-username-error").innerHTML = "";
+
+	if(this.value.length == 0)
+		return;
 
 	if(re.test(this.value)){
 
@@ -40,6 +45,14 @@ rs.prototype.validateUsername = function(){
 		rsApp.ajax("POST", "register.php", "namecheck=1&username="+this.value, rsApp.uniqueUsername, false);	
 
 	}else{
+
+		if(this.value.length < 3 || this.value.length > 32){
+			document.getElementById("create-username-error")
+				.innerHTML = "username must be between 3 and 32 characters.";
+		}else{
+			document.getElementById("create-username-error")
+				.innerHTML = "alphanumeric characters, hyphen, &amp; underscores only.";
+		}
 
 		// display the error
 		this.parentElement.children[4].style.display = "none";
