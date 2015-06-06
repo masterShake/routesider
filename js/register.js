@@ -127,7 +127,29 @@ rs.prototype.checkPassword = function(){
 }
 
 //--------------------------------------------
-//
+// - validate the email address
+// - if email already in system, alert user.
+var emre = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+rs.prototype.validateEmail = function(){
+
+	// hide the errors
+	this.parentElement.children[2].style.display = "none";
+	this.parentElement.children[3].style.display = "none";
+
+	// do nothing if blank
+	if(this.value.length == 0)
+		return;
+
+	// if we fit the regex
+	if(emre.test(this.value)){
+
+		// perform the ajax call
+		this.parentElement.children[3].style.display = "block";
+		rsApp.ajax("POST", "register.php", "emailcheck=1&email="+this.value, rsApp.uniqueUsername, false);	
+
+	}
+
+}
 
 
 /* initialize */

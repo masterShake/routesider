@@ -23,10 +23,16 @@
     if(Input::exists()){
 
         // username check
-        if(Input::get("namecheck"))
+        if(Input::get("namecheck")){
 
             include "scripts/username_check.php";
 
+        }else if(Input::get("emailcheck")){
+
+            echo "here is the user email: ".$_POST["email"];
+            exit();
+
+        }
 
         exit("no input for now");
     }
@@ -188,7 +194,7 @@
                                                placeholder="repeat password">
                                         <div class="glyphicon glyphicon-ok-circle"></div>
                                         <div class="glyphicon glyphicon-remove-circle"></div>
-                                        <div class="input-error"></div>
+                                        <div class="input-error" style="margin-top:83px;"></div>
                                     </div>
 
                                     <!-- create username -->
@@ -200,7 +206,6 @@
                                                id="new-email"
                                                placeholder="add email later if you want">
                                         <div class="glyphicon glyphicon-ok-circle"></div>
-                                        <div class="glyphicon glyphicon-remove-circle"></div>
                                         <div class="glyphicon glyphicon-hourglass"></div>
                                         <div class="input-error"></div>
                                     </div>
