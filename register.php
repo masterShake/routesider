@@ -217,6 +217,7 @@
                                                    name="business" 
                                                    checked="checked" 
                                                    id="business-profile">
+                                            <div style="z-index:1;margin-left:-30px;height:25px;width:25px;background:rgba(100, 100, 100, 0.5);float:left;"></div>
                                             <div style="float:left;margin-top:2px;">Business account (free)</div>
                                         </div>
 
@@ -233,7 +234,9 @@
 
                             </div>
                             <div class="panel-footer">
-                                <button type="button" class="btn btn-default">sign up</button>
+                                <button type="button" 
+                                        class="btn btn-default"
+                                        id="submit-new-user">sign up</button>
                             </div>
                         </div>
                     </div>

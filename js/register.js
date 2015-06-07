@@ -34,6 +34,7 @@ rs.prototype.validateUsername = function(){
 	this.parentElement.children[3].style.display = "none";
 	this.parentElement.children[4].style.display = "none";
 	this.parentElement.children[6].innerHTML = "";
+	rsApp.usernameGood = 0;
 
 	// do nothing if blank
 	if(this.value.length == 0)
@@ -68,6 +69,10 @@ rs.prototype.uniqueUsername= function(response){
 
 	// display the success icon
 	// document.getElementById("create-username")
+
+	// set the username property to 1
+	rsApp.usernameGood = 1;
+
 }
 
 //--------------------------------------------
@@ -78,6 +83,7 @@ rs.prototype.validatePassword = function(){
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
 	this.parentElement.children[5].innerHTML = "";
+	rsApp.passwordGood = 0
 
 	// hide the check password errors
 	document.getElementById("repeat-password").parentElement.children[1].style.display = "none";
@@ -97,6 +103,7 @@ rs.prototype.validatePassword = function(){
 			.innerHTML = "password must be between 6 and 64 characters.";
 	}else{
 		this.parentElement.children[2].style.display = "block";
+		rsApp.passwordGood = 1;
 	}
 }
 
@@ -108,6 +115,7 @@ rs.prototype.checkPassword = function(){
 	this.parentElement.children[1].style.display = "none";
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].innerHTML = "";
+	rsApp.repasswordGood = 0;
 
 	// do nothing if blank
 	if(this.value.length == 0)
@@ -122,6 +130,7 @@ rs.prototype.checkPassword = function(){
 			.innerHTML = "passwords do not match";
 	}else{
 		this.parentElement.children[1].style.display = "block";
+		rsApp.repasswordGood = 1;
 	}
 
 }
@@ -135,6 +144,7 @@ rs.prototype.validateEmail = function(){
 	// hide the errors
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
+	rsApp.emailGood = 0;
 
 	// do nothing if blank
 	if(this.value.length == 0)
@@ -145,9 +155,30 @@ rs.prototype.validateEmail = function(){
 
 		// perform the ajax call
 		this.parentElement.children[3].style.display = "block";
-		rsApp.ajax("POST", "register.php", "emailcheck=1&email="+this.value, rsApp.uniqueUsername, false);	
+		rsApp.ajax("POST", "register.php", "emailcheck=1&email="+this.value, rsApp.uniqueEmail, false);	
 
 	}
+
+}
+//----------------------------------------
+// - callback to verify that email is not
+//   already in use
+rs.prototype.uniqueEmail = function(response){
+
+	console.log(response);
+
+	rsApp.emailGood = 1;
+
+}
+
+
+//----------------------------------------
+// - ensures that the form data has been 
+//   validated.
+// - ajax call posts to create new user
+rs.prototype.createUser = function(){
+
+	// compile all the errors into a dismissable alert
 
 }
 
@@ -174,6 +205,10 @@ document.addEventListener("DOMContentLoaded", function(){
 	// valid email
 	document.getElementById("new-email")
 		.addEventListener("keyup", rsApp.validateEmail, false);
+
+	// submit button
+	document.getElementById("submit-new-user")
+		.addEventListener("keyup", rsApp.submitForm, false);
 
 }, false);
 

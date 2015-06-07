@@ -26,7 +26,7 @@ var rs;
 		this.userLongitude = 0;
 		this.map = null;
 		// ajax variables
-		this.ajaxObjs = {};
+		this.tempObjs = {};
 		this.indexer = 1;
 
 		/* constructor */
@@ -47,17 +47,17 @@ var rs;
 	//   memory leaks
 	rs.prototype.ajax = function(meth, url, params, callback, callbackParams){
 	    var i = this.indexer++;
-	    this.ajaxObjs[i] = new XMLHttpRequest();
-	    this.ajaxObjs[i].open(meth, url, true);
-	    this.ajaxObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    this.ajaxObjs[i].onreadystatechange = function() {
-	        if(rsApp.ajaxObjs[i].readyState == 4 && rsApp.ajaxObjs[i].status == 200) {
+	    this.tempObjs[i] = new XMLHttpRequest();
+	    this.tempObjs[i].open(meth, url, true);
+	    this.tempObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    this.tempObjs[i].onreadystatechange = function() {
+	        if(rsApp.tempObjs[i].readyState == 4 && rsApp.tempObjs[i].status == 200) {
 	            if(callback)
-	                callback(rsApp.ajaxObjs[i].responseText, callbackParams);
-	            delete rsApp.ajaxObjs[i];
+	                callback(rsApp.tempObjs[i].responseText, callbackParams);
+	            delete rsApp.tempObjs[i];
 	        }
 	    }
-	    this.ajaxObjs[i].send(params);
+	    this.tempObjs[i].send(params);
 	};
 
 	//--------------------------------------------
@@ -119,6 +119,35 @@ var rs;
 	// timed function to hide the #content-cover
 	rs.prototype.hideContentCover = function(){
 		document.getElementById("content-cover").style.display = "none";
+	}
+
+
+	//---------------------------------------------
+	// - generate a dismissable alert
+	rs.prototype.insertAlert = function(aClass, aHTML, refElem){
+
+		// create the alert elem
+		var i = this.indexer++;
+		this.tempObjs[i] = document.createElement("div");
+
+		// open the alert htmls tags
+		// *NOTE: remove the outer div and use a temp obj instead.
+		var domObj = '<div class="alert alert-'+aClass+'" role="alert">' +
+					 '	<button type="button" class="close" aria-label="Close">' +
+					 '		<span aria-hidden="true">&times;</span>' +
+					 '  </button>' +
+					 aHTML + // insert the html
+					 '</div>';
+
+		//---------------------------------------------
+		// - Insert the html before the reference 
+		//   element as an older sibling to the refElem
+		//
+		// - var insertedElement = parentElement.insertBefore(newElement, referenceElement);
+		//   https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+		
+		//
+
 	}
 
 })();
