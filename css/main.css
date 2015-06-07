@@ -33,7 +33,9 @@ input[type=checkbox]{
 	background-color: transparent;
 	border: none;
 }
-
+.alert{
+	opacity: 0;
+}
 
 
 
@@ -48,13 +50,26 @@ NOTE: Animations appears to run faster if
 -------------------------------------- */
 
 /* 300 ms */
-#navbar, #page-content, #content-cover, #map-canvas{
+#navbar, 
+#page-content, 
+#content-cover, 
+#map-canvas{
 	-webkit-transition: .3s;
 	-moz-transition: .3s;
 	-ms-transition: .3s;
 	-o-transition: .3s;
 	transition: .3s;
 }
+
+/* 500 ms */
+.alert{
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
+
 /* ---- end animations --------------- */
 
 

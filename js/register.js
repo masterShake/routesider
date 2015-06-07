@@ -26,7 +26,7 @@
 // - ajax call to make sure that username is not taken 
 
 var re = /^[a-z0-9_-]{3,32}$/;
-
+var usernameError = "Please enter a username";
 rs.prototype.validateUsername = function(){
 
 	// hide the errors
@@ -34,11 +34,12 @@ rs.prototype.validateUsername = function(){
 	this.parentElement.children[3].style.display = "none";
 	this.parentElement.children[4].style.display = "none";
 	this.parentElement.children[6].innerHTML = "";
-	rsApp.usernameGood = 0;
 
 	// do nothing if blank
-	if(this.value.length == 0)
+	if(this.value.length == 0){
+		usernameError = "Please enter a username";
 		return;
+	}
 
 	// if we fit the regex
 	if(re.test(this.value)){
@@ -50,12 +51,18 @@ rs.prototype.validateUsername = function(){
 	}else{
 		// if the username is the incorrect length
 		if(this.value.length < 3 || this.value.length > 32){
+			// set the error
+			usernameError = "Username must be between 3 and 32 characters."; 
+			// display the error message to the user
 			this.parentElement.children[6]
-				.innerHTML = "username must be between 3 and 32 characters.";
+				.innerHTML = "Username must be between 3 and 32 characters.";
 		// else there are special characters
 		}else{
+			// set the error
+			usernameError = "Username alphanumeric characters, hyphen, &amp; underscores only";
+			// display the error message
 			this.parentElement.children[6]
-				.innerHTML = "alphanumeric characters, hyphen, &amp; underscores only.";
+				.innerHTML = "Username alphanumeric characters, hyphen, &amp; underscores only";
 		}
 		// display the error
 		this.parentElement.children[4].style.display = "none";
@@ -71,19 +78,22 @@ rs.prototype.uniqueUsername= function(response){
 	// document.getElementById("create-username")
 
 	// set the username property to 1
-	rsApp.usernameGood = 1;
-
+	usernameError = 0;
 }
+
+
+
 
 //--------------------------------------------
 // - ensure password is the correct length
+
+var passwordError = "Please set a password";
 rs.prototype.validatePassword = function(){
 
 	// hide the errors
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
 	this.parentElement.children[5].innerHTML = "";
-	rsApp.passwordGood = 0
 
 	// hide the check password errors
 	document.getElementById("repeat-password").parentElement.children[1].style.display = "none";
@@ -91,46 +101,54 @@ rs.prototype.validatePassword = function(){
 	document.getElementById("repeat-password").parentElement.children[3].innerHTML = "";
 
 	// do nothing if blank
-	if(this.value.length == 0)
+	if(this.value.length == 0){
+		passwordError = "Please set a password";
 		return;
+	}
 
 	// if the password is the incorrect length 
 	if(this.value.length < 6 || this.value.length > 64){
 		// display the red x
 		this.parentElement.children[3].style.display = "block";
-
+		// set the error for this elem
+		passwordError = "Password must be between 6 and 64 characters"
+		// display the error
 		this.parentElement.children[5]
-			.innerHTML = "password must be between 6 and 64 characters.";
+			.innerHTML = "Password must be between 6 and 64 characters";
 	}else{
 		this.parentElement.children[2].style.display = "block";
-		rsApp.passwordGood = 1;
+		passwordError = 0;
 	}
 }
 
 //--------------------------------------------
 // - double check the password
+var repassError = "Please re-enter your password";
 rs.prototype.checkPassword = function(){
 
 	// hide the errors
 	this.parentElement.children[1].style.display = "none";
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].innerHTML = "";
-	rsApp.repasswordGood = 0;
 
 	// do nothing if blank
-	if(this.value.length == 0)
+	if(this.value.length == 0){
+		repassError = "Please re-enter your password";
 		return;
+	}
 
 	// if the password is the incorrect length 
 	if(this.value != document.getElementById("create-password").value){
 		// display the red x
 		this.parentElement.children[2].style.display = "block";
-
+		// set the repass error
+		repassError = "Passwords do not match";
+		// display the error
 		this.parentElement.children[3]
-			.innerHTML = "passwords do not match";
+			.innerHTML = "Passwords do not match";
 	}else{
 		this.parentElement.children[1].style.display = "block";
-		rsApp.repasswordGood = 1;
+		repassError = 0;
 	}
 
 }
@@ -139,12 +157,12 @@ rs.prototype.checkPassword = function(){
 // - validate the email address
 // - if email already in system, alert user.
 var emre = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var emailGood = 0;
 rs.prototype.validateEmail = function(){
 
 	// hide the errors
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
-	rsApp.emailGood = 0;
 
 	// do nothing if blank
 	if(this.value.length == 0)
@@ -178,8 +196,42 @@ rs.prototype.uniqueEmail = function(response){
 // - ajax call posts to create new user
 rs.prototype.createUser = function(){
 
-	// compile all the errors into a dismissable alert
+	// start a domStr
+	rsApp.tempStr = "<ul>";
 
+	// if there is a username error message
+	if( usernameError )
+		rsApp.tempStr += "<li>"+ usernameError +"</li>";
+
+	// if there is a password error message
+	if( passwordError )
+		rsApp.tempStr += "<li>"+ passwordError +"</li>";
+	// or if the passwords do not match
+	else if( repassError )
+		rsApp.tempStr += "<li>"+ repassError +"</li>";
+
+	// if the user has not agreed to the terms of use
+	if( !document.getElementById("tou").checked )
+		rsApp.tempStr += "<li>Please agree to the terms of use</li>";
+
+	// if there were any errors
+	if( rsApp.tempStr.length > 4 ){
+
+		rsApp.tempStr += "</ul>";
+
+		// remove previous error alert if present
+		if(this.parentElement.children.length > 1)
+			this.parentElement.removeChild(this.parentElement.children[0])
+
+		// compile all the errors into a dismissable alert
+		rsApp.insertAlert( "danger",
+						   rsApp.tempStr,
+						   this );
+	}else{
+
+		console.log("all clear - submit form - create new user");
+
+	}
 }
 
 
@@ -208,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	// submit button
 	document.getElementById("submit-new-user")
-		.addEventListener("keyup", rsApp.submitForm, false);
+		.addEventListener("click", rsApp.createUser, false);
 
 }, false);
 

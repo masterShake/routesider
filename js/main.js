@@ -28,6 +28,10 @@ var rs;
 		// ajax variables
 		this.tempObjs = {};
 		this.indexer = 1;
+		// new alert elem
+		this.alertElem = null;
+		// empty string variable memory allocation
+		this.tempStr = "";
 
 		/* constructor */
 
@@ -59,6 +63,7 @@ var rs;
 	    }
 	    this.tempObjs[i].send(params);
 	};
+
 
 	//--------------------------------------------
 	// - This method is intended to be overwritten
@@ -126,28 +131,29 @@ var rs;
 	// - generate a dismissable alert
 	rs.prototype.insertAlert = function(aClass, aHTML, refElem){
 
-		// create the alert elem
-		var i = this.indexer++;
-		this.tempObjs[i] = document.createElement("div");
-
-		// open the alert htmls tags
-		// *NOTE: remove the outer div and use a temp obj instead.
-		var domObj = '<div class="alert alert-'+aClass+'" role="alert">' +
-					 '	<button type="button" class="close" aria-label="Close">' +
-					 '		<span aria-hidden="true">&times;</span>' +
-					 '  </button>' +
-					 aHTML + // insert the html
-					 '</div>';
-
-		//---------------------------------------------
-		// - Insert the html before the reference 
-		//   element as an older sibling to the refElem
-		//
-		// - var insertedElement = parentElement.insertBefore(newElement, referenceElement);
-		//   https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
-		
-		//
-
+		//----------------------------------------
+		// - create the alert elem
+		// - totally vulnerable to race conditions but whatevs
+		this.alertElem = document.createElement("div");
+		this.alertElem.className = "alert alert-" + aClass;
+		this.alertElem.setAttribute("role", "alert"); // for srs readers
+		this.alertElem.innerHTML = '<button type="button" class="close" aria-label="Close">' +
+								   '	<span aria-hidden="true">&times;</span>' +
+								   '</button>' +
+								   aHTML;
+		// add an event listener to the close button
+		this.alertElem.children[0].addEventListener("click", rsApp.removeAlert, false); 
+		// insert the html before the reference elem
+		refElem.parentElement.insertBefore(this.alertElem, refElem);
+		setTimeout(this.fadeAlert, 10);
+	}
+	// timeout fade in
+	rs.prototype.fadeAlert = function(){
+		rsApp.alertElem.style.opacity = 1;
+	}
+	// event listener
+	rs.prototype.removeAlert = function(){
+		this.parentElement.parentElement.removeChild(this.parentElement);
 	}
 
 })();
