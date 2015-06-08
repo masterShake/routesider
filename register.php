@@ -158,7 +158,7 @@
                                         <input type="text"
                                                name="newuser" 
                                                class="form-control text-input" 
-                                               id="create-username"
+                                               id="new-username"
                                                placeholder="a-Z 0-9 _ -">
                                         <div class="glyphicon glyphicon-ok-circle"></div>
                                         <div class="glyphicon glyphicon-remove-circle"></div>
@@ -175,7 +175,7 @@
                                         <input type="password"
                                                name="pass" 
                                                class="form-control" 
-                                               id="create-password"
+                                               id="new-password"
                                                placeholder="a-Z 0-9 !@#$%^&amp;*">
                                         <div class="glyphicon glyphicon-ok-circle"></div>
                                         <div class="glyphicon glyphicon-remove-circle"></div>

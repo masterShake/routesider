@@ -75,7 +75,7 @@ rs.prototype.uniqueUsername= function(response){
 	console.log(response);
 
 	// display the success icon
-	// document.getElementById("create-username")
+	// document.getElementById("new-username")
 
 	// set the username property to 1
 	usernameError = 0;
@@ -138,7 +138,7 @@ rs.prototype.checkPassword = function(){
 	}
 
 	// if the password is the incorrect length 
-	if(this.value != document.getElementById("create-password").value){
+	if(this.value != document.getElementById("new-password").value){
 		// display the red x
 		this.parentElement.children[2].style.display = "block";
 		// set the repass error
@@ -157,12 +157,13 @@ rs.prototype.checkPassword = function(){
 // - validate the email address
 // - if email already in system, alert user.
 var emre = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var emailGood = 0;
+var newEmail = 0;
 rs.prototype.validateEmail = function(){
 
 	// hide the errors
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
+	newEmail = 0;
 
 	// do nothing if blank
 	if(this.value.length == 0)
@@ -185,7 +186,7 @@ rs.prototype.uniqueEmail = function(response){
 
 	console.log(response);
 
-	rsApp.emailGood = 1;
+	newEmail = response;
 
 }
 
@@ -229,9 +230,24 @@ rs.prototype.createUser = function(){
 						   this );
 	}else{
 
-		console.log("all clear - submit form - create new user");
-
+		// ajax submit user data
+		rsApp.ajax(
+						"POST",
+						"http://localhost/routesider/register.php",
+						"create_user=1" +
+						"&username=" + document.getElementById("new-username").value +
+						"&password=" + document.getElementById("new-password") +
+						"&email=" + newEmail,
+						rsApp.createUserCB,
+						false
+				  );
 	}
+}
+// new user created callback
+rs.prototype.createUserCB = function(response){
+
+	console.log("new user script callback: ");
+	console.log(response);
 }
 
 
@@ -243,11 +259,11 @@ document.addEventListener("DOMContentLoaded", function(){
     rsApp = new rs();
 
 	// add event listeners to the username field
-	document.getElementById("create-username")
+	document.getElementById("new-username")
 		.addEventListener("keyup", rsApp.validateUsername, false);
 
 	// add event listener to the password
-	document.getElementById("create-password")
+	document.getElementById("new-password")
 		.addEventListener("keyup", rsApp.validatePassword, false);
 
 	// check password
