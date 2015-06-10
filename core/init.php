@@ -35,3 +35,23 @@ function autoload($class) {
 		require_once $path;
 }
 spl_autoload_register('autoload');
+
+
+
+
+/*---------------------------------------------
+
+				   NOTES
+				 ---------
+				 
+ - never use functions inside of loops
+
+ - use single quotes in associative arrays
+
+ - NEVER put phpinfo() in the root directory
+
+-----------------------------------------------*/
+
+
+
+

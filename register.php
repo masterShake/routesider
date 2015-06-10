@@ -13,7 +13,7 @@
 
     $page = "register"; //required
 
-    $myErrors = array(); //required
+    $errors; //required
 
     
     //-------------------------------
@@ -22,14 +22,74 @@
 
     if(Input::exists()){
 
-        // username check
+        // check if username available
         if(Input::get("namecheck")){
 
             include "scripts/username_check.php";
 
+        // check if email already in system
         }else if(Input::get("emailcheck")){
 
             echo "here is the user email: ".$_POST["email"];
+            exit();
+
+        }else if( Input::get("create_user") ){
+
+            /* variables */
+
+            $u = $_POST["username"];
+            $p = $_POST["password"];
+            $e = $_POST["email"];
+
+            /* validate input */
+
+            // make sure we got a username
+            if( ! $u  ){
+
+                // add a message to the error array
+                $errors[] = "Please create a username";
+            }
+            
+            // verify that username fits regex
+            if( preg_match('/^[a-z0-9_-]{3,32}$/', $u) ){
+
+                $errors[] = "invalid username formatting";
+            }
+
+            // verify that username does not already exist in the db
+
+
+            // verify that the password is the correct length
+            if( strlen( $p ) < 6 || strlen( $p ) > 64 ){
+
+                $errors[] = "Password incorrect length";
+            }
+
+            // if there is an email, validate it
+            if( $e && preg_match("/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/", $e) ){
+
+                // verify that email does not already exist in the database
+
+            }else{
+
+                $e = 0;
+
+            }
+
+            // insert user into the database
+
+            // log user in
+
+            // return success or error
+
+            if( count($error) )
+
+                json_encode($error);
+            
+            else
+
+                echo "success";
+
             exit();
 
         }
@@ -390,7 +450,6 @@
                     </div>
                 </div>
             </footer>
-
         </div>
 
         <!-- contentent cover to close menu -->

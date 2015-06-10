@@ -236,7 +236,7 @@ rs.prototype.createUser = function(){
 						"http://localhost/routesider/register.php",
 						"create_user=1" +
 						"&username=" + document.getElementById("new-username").value +
-						"&password=" + document.getElementById("new-password") +
+						"&password=" + document.getElementById("new-password").value +
 						"&email=" + newEmail,
 						rsApp.createUserCB,
 						false
