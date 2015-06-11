@@ -15,6 +15,8 @@
 
     $errors; //required
 
+    $user;
+
     
     //-------------------------------
     // STEP 3: handle GET/POST params
@@ -76,21 +78,23 @@
 
             }
 
-            // insert user into the database
+            // if we have errors
+            if( count($error) ){
 
-            // log user in
-
-            // return success or error
-
-            if( count($error) )
-
+                // return them as json
                 json_encode($error);
             
-            else
+            // if no errors
+            }else{
 
-                echo "success";
+                // create new user
+                $user = new User();
 
-            exit();
+                echo $user->create($u, $p, $e);
+
+                exit();
+
+            }
 
         }
 
