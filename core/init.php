@@ -6,12 +6,12 @@ $GLOBALS['config'] = array(
 	
 	/* database */
 	
-	// 'neo4j' => array(
-	// 	'host' => '127.0.0.1',
-	// 	'protocol' => 'http',
-	// 	'port' => 7474,
-	// 	'user' => 'default'
-	// ),
+	'neo4j' => array(
+		'host' => '127.0.0.1',
+		'protocol' => 'http',
+		'port' => 7474,
+		'user' => 'default'
+	),
 
 	/* cookies */
 
