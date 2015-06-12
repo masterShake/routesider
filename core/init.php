@@ -15,17 +15,17 @@ $GLOBALS['config'] = array(
 
 	/* cookies */
 
-	// 'remember' => array(
-	// 	'cookie_name'	=> 'hash',
-	// 	'cookie_expiry' =>  604800
-	// ),
+	'remember' => array(
+		'cookie_name'	=> 'hash',
+		'cookie_expiry' =>  604800
+	),
 
 	/* sessions */
 
-	// 'session' => array(
-	// 	'user_email'	=> 'user',
-	// 	'token_name'	=> 'token'
-	// )
+	'session' => array(
+		'user_email'	=> 'user',
+		'token_name'	=> 'token'
+	)
 );
 
 // Autoload classes

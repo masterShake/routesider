@@ -13,7 +13,7 @@
 
     $page = "register"; //required
 
-    $errors; //required
+    $errors = []; //required
 
     $user;
 
@@ -53,7 +53,7 @@
             }
             
             // verify that username fits regex
-            if( preg_match('/^[a-z0-9_-]{3,32}$/', $u) ){
+            if( ! preg_match('/^[a-z0-9_-]{3,32}$/', $u) ){
 
                 $errors[] = "invalid username formatting";
             }
@@ -79,23 +79,24 @@
             }
 
             // if we have errors
-            if( count($error) ){
+            if( $errors ){
 
                 // return them as json
-                json_encode($error);
-            
+                echo json_encode($errors);
+
             // if no errors
             }else{
 
                 // create new user
                 $user = new User();
 
-                echo $user->create($u, $p, $e);
+                $user->create($u, $p, $e);
 
-                exit();
+                echo "1";
 
             }
 
+            exit();
         }
 
         exit("no input for now");

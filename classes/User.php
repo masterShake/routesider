@@ -43,9 +43,9 @@ class User {
 
 	}
 
-	public function exists() { 
-		return (!empty($this->_data)) ? true : false;
-	}
+	// public function exists() { 
+	// 	return (!empty($this->_data)) ? true : false;
+	// }
 
 	public function find($user = null) {
 		
@@ -60,28 +60,34 @@ class User {
 
 	public function create($username, $password, $email = 0){
 
+		//-----------------------------------------------------
+		// NOTE: salt not working with neo4j, fix before launch
+		//
 		// salt the password
-		$salt = Hash::salt(32);
+		// $salt = Hash::salt(32);
+		$salt = '55555';
 		$hashpass = Hash::make( $password, $salt );
 
 		// create the cypher query
-		$cypher = "CREATE (u:User 
-								  { username : '{$username}',
-								  	    salt : '{$salt}',
-								  	password : '{$password}',
-								  	reg_date : timestamp()
-								  }
+		$cypher = "CREATE (u:User { 
+									username : '{$username}', 
+									reg_date : ".'timestamp()'.",
+									password : '{$hashpass}',
+									    salt : '{$salt}'
+								  } 
 						  )";
 
 		if( $email )
 
 			$cypher .= "-[:HAS_EMAIL]->(e:Email { address : '{$email}' } )";
 
+		$cypher .= " RETURN u";
+
 		// insert into db
 		$this->_data = $this->_db->query($cypher);
 
 		// log user in
-		$user->login( $username, $password, true );
+		// $user->login( $username, $password, true );
 	}
 
 	// public function login($username = null, $password = null, $remember = false) {
