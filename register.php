@@ -27,7 +27,21 @@
         // check if username available
         if(Input::get("namecheck")){
 
-            include "scripts/username_check.php";
+            $db = neoDB::getInstance();
+
+            $cypher = "MATCH (u:User) WHERE u.username = '".$_POST["username"]."' RETURN u";
+
+            $results = $db->query($cypher);
+
+            if(count($results))
+
+                echo "1";
+
+            else
+
+                echo "0";
+
+            exit();
 
         // check if email already in system
         }else if(Input::get("emailcheck")){

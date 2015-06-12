@@ -71,14 +71,32 @@ rs.prototype.validateUsername = function(){
 }
 //-------------------------------------------
 // - ajax callback 
+// - returns 0 if no match
+// - returns 1 if username taken
 rs.prototype.uniqueUsername= function(response){
-	console.log(response);
 
-	// display the success icon
-	// document.getElementById("new-username")
+	// hide the hourglass icon
+	document.getElementById("new-username").parentElement.children[4].style.display = "none";
+	
+	// if the username is not taken
+	if(response === "0"){
 
-	// set the username property to 1
-	usernameError = 0;
+		// display the success icon
+		document.getElementById("new-username").parentElement.children[2].style.display = "block";
+		// remove any username errors
+		usernameError = 0;
+
+	}else{
+
+		// this line may not be necessary in production, because race conditions & ajax
+		document.getElementById("new-username").parentElement.children[2].style.display = "none";
+		// display the error icon
+		document.getElementById("new-username").parentElement.children[3].style.display = "block";
+		// set the error message
+		usernameError = "This username is already taken";
+		// display the error message
+		document.getElementById("new-username").parentElement.children[6].innerHTML = "This username is already taken";
+	}
 }
 
 
