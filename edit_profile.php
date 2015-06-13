@@ -158,19 +158,34 @@
                       action="index.html" 
                       method="POST" 
                       enctype="multipart/form-data">
-
                     <h4>Edit Avatar &amp; Profile Banner</h4>
 
                     <div id="banner-filedrag" class="filedrag">or drop files here</div>
 
                     <div class="traditional-upload">
-                        <label for="fileselect">Files to upload:</label>
+                        <label for="banner-fileselect">Files to upload:</label>
                         <input type="file" 
-                               id="fileselect" 
+                               id="banner-fileselect" 
                                name="fileselect[]" 
                                multiple="multiple" />
                     </div>
+                </form>
 
+                <!-- edit avatar -->
+                <form id="edit-avatar" 
+                      action="index.html" 
+                      method="POST" 
+                      enctype="multipart/form-data">
+
+                    <div id="avatar-filedrag" class="filedrag">or drop files here</div>
+
+                    <div class="semi-circle-traditional-upload">
+                        <label for="avatar-fileselect">Files to upload:</label>
+                        <input type="file" 
+                               id="avatar-fileselect" 
+                               name="fileselect[]" 
+                               multiple="multiple" />
+                    </div>
                 </form>
 
             </section>

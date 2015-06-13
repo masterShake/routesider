@@ -10,6 +10,10 @@
 
 
 
+input[type=file]{
+	font-size: 12px;
+}
+
 
 
 
@@ -17,15 +21,12 @@
 
 
 /*---------- upload banner -----------*/
-
 #banner-filedrag{
-	height: 300px;
-	border: 3px dashed #444;
+	height: 250px;
 	border-radius: 12px;
 	text-align: right;
 	padding-top: 84px;
 	padding-right: 15px;
-	font-size: 17px;
 }
 .filedrag{
 	-webkit-transition: .3s;
@@ -33,16 +34,68 @@
 	-ms-transition: .3s;
 	-o-transition: .3s;
 	transition: .3s;
+	border: 3px dashed #444;
+	font-size: 17px;
 }
 .traditional-upload{
 	background-color: #ddd;
 	max-width: 220px;
 	border-radius: 10px;
-	margin-top: -290px;
+	margin-top: -240px;
 	float: right;
 	margin-right: 10px;
   	padding: 8px 12px;
+  	z-index: 1;
 }
+
+
+
+
+
+
+
+
+
+/*---------- upload avatar -----------*/
+#edit-avatar{
+	max-width: 225px;
+	height: 225px;
+	position: relative;
+	left: 50%;
+	margin-top: -113px;
+	margin-left: -112.5px;
+	z-index: 1;
+}
+#avatar-filedrag{
+	border: 3px dashed #444;
+	border-radius: 50%;
+	height:225px;
+	padding-top: 118px;
+	text-align: center;
+	background-color: #fff;
+}
+.semi-circle-traditional-upload{
+	background-color: #ddd;
+	border-top-left-radius: 100px;
+	border-top-right-radius: 100px;
+	text-align: center;
+	width: 205px;
+	height: 100px;
+	margin-left: 10px;
+	margin-top: -215px;
+	padding-top: 46px;
+}
+#avatar-fileselect{
+	margin-left: 15px;
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -181,6 +181,9 @@ NOTE: Animations appears to run faster if
 	min-width: 136px;
 	height:35px;
 }
+.navbar-dark .navbar-brand{
+	margin-left: -122px;
+}
 .user-pic{
 	outline: 1px solid #181818;
 	padding: 7px 8px;
