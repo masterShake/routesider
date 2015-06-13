@@ -46,7 +46,20 @@
         // check if email already in system
         }else if(Input::get("emailcheck")){
 
-            echo "here is the user email: ".$_POST["email"];
+            $db = neoDB::getInstance();
+
+            $cypher = "MATCH (e:Email) WHERE e.address = '".$_POST["email"]."' RETURN e";
+
+            $results = $db->query($cypher);
+
+            if(count($results))
+
+                echo "1";
+
+            else
+
+                echo "0";
+
             exit();
 
         }else if( Input::get("create_user") ){
@@ -73,7 +86,15 @@
             }
 
             // verify that username does not already exist in the db
+            $db = neoDB::getInstance();
 
+            $cypher = "MATCH (u:User) WHERE u.username = '".$_POST["username"]."' RETURN u";
+
+            $results = $db->query($cypher);
+
+            if(count($results))
+
+                $errors[] = "Username already taken";
 
             // verify that the password is the correct length
             if( strlen( $p ) < 6 || strlen( $p ) > 64 ){
@@ -85,6 +106,15 @@
             if( $e && preg_match("/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/", $e) ){
 
                 // verify that email does not already exist in the database
+                $db = neoDB::getInstance();
+
+                $cypher = "MATCH (e:Email) WHERE e.address = '".$e."' RETURN e";
+
+                $results = $db->query($cypher);
+
+                if(count($results))
+
+                    $errors[] = "Email address already in use. <a href='#'>Forgot your Password?</a>";
 
             }else{
 
@@ -285,6 +315,7 @@
                                                id="new-email"
                                                placeholder="add email later if you want">
                                         <div class="glyphicon glyphicon-ok-circle"></div>
+                                        <div class="glyphicon glyphicon-remove-circle"></div>
                                         <div class="glyphicon glyphicon-hourglass"></div>
                                         <div class="input-error"></div>
                                     </div>

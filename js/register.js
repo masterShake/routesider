@@ -181,6 +181,8 @@ rs.prototype.validateEmail = function(){
 	// hide the errors
 	this.parentElement.children[2].style.display = "none";
 	this.parentElement.children[3].style.display = "none";
+	this.parentElement.children[4].style.display = "none";
+	this.parentElement.children[5].innerHTML = "";
 	newEmail = 0;
 
 	// do nothing if blank
@@ -191,7 +193,7 @@ rs.prototype.validateEmail = function(){
 	if(emre.test(this.value)){
 
 		// perform the ajax call
-		this.parentElement.children[3].style.display = "block";
+		this.parentElement.children[4].style.display = "block";
 		rsApp.ajax("POST", "register.php", "emailcheck=1&email="+this.value, rsApp.uniqueEmail, false);	
 
 	}
@@ -202,9 +204,27 @@ rs.prototype.validateEmail = function(){
 //   already in use
 rs.prototype.uniqueEmail = function(response){
 
-	console.log(response);
+	// hide the hourglass icon
+	document.getElementById("new-email").parentElement.children[4].style.display = "none";
+	
+	// if the email is not already in the system
+	if(response === "0"){
 
-	newEmail = response;
+		// display the success icon
+		document.getElementById("new-email").parentElement.children[2].style.display = "block";
+		// remove any username errors
+		newEmail = document.getElementById("new-email").value;
+
+	}else{
+
+		// this line may not be necessary in production, because race conditions & ajax
+		document.getElementById("new-email").parentElement.children[2].style.display = "none";
+		// display the error icon
+		document.getElementById("new-email").parentElement.children[3].style.display = "block";
+		// display the error message
+		document.getElementById("new-email").parentElement.children[5].innerHTML = "Email address already in use. <a href='#'>Forgot your Password?</a>";
+		newEmail = "taken";
+	}
 
 }
 
@@ -228,6 +248,12 @@ rs.prototype.createUser = function(){
 	// or if the passwords do not match
 	else if( repassError )
 		rsApp.tempStr += "<li>"+ repassError +"</li>";
+
+	// if the email is already taken
+	if( newEmail == "taken" ){
+		rsApp.tempStr += "<li>Email address already in use. <a href='#'>Forgot your Password?</a></li>";
+		newEmail = 0;
+	}
 
 	// if the user has not agreed to the terms of use
 	if( !document.getElementById("tou").checked )
@@ -264,8 +290,36 @@ rs.prototype.createUser = function(){
 // new user created callback
 rs.prototype.createUserCB = function(response){
 
-	console.log("new user script callback: ");
-	console.log(response);
+	if(response == "1"){
+
+		// display success
+		console.log("success!");
+		// go to next page
+
+	}else{
+
+		response = JSON.parse(response);
+
+		rsApp.tempStr = "<ul>";
+
+		for(var i = 0; i < response.length; i++)
+
+			rsApp.tempStr += "<li>"+response[i]+"</li>";
+
+		rsApp.tempStr += "</ul>";
+
+
+		// remove previous error alert if present
+		if(document.getElementById("submit-new-user").parentElement.children.length > 1)
+			document.getElementById("submit-new-user").parentElement.removeChild(document.getElementById("submit-new-user").parentElement.children[0])
+
+		// compile all the errors into a dismissable alert
+		rsApp.insertAlert( "danger",
+						   rsApp.tempStr,
+						   document.getElementById("submit-new-user") );
+
+	}
+
 }
 
 
