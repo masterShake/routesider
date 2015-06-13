@@ -152,13 +152,16 @@
                     </div>
                 </div>
 
+                <hr>
+
                 <!-- edit banner -->
                 <form id="edit-banner" 
                       style="margin-top:20px;"
                       action="index.html" 
                       method="POST" 
                       enctype="multipart/form-data">
-                    <h4>Edit Avatar &amp; Profile Banner</h4>
+
+                    <h4 style="margin-top:25px;">Edit Avatar &amp; Profile Banner</h4>
 
                     <div id="banner-filedrag" class="filedrag">or drop files here</div>
 
@@ -187,6 +190,19 @@
                                multiple="multiple" />
                     </div>
                 </form>
+                
+                <div class="avatar-shape-btns">
+                    <div style="float:left;">
+                        <div class="avatar-shape" style="border-radius:50%;"></div>
+                        <input type="radio" id="circle-avatar" name="avatar-shape" value="circle" checked>
+                    </div>
+                    <div style="float:right;">
+                        <div class="avatar-shape"></div>
+                        <input type="radio" id="square-avatar" name="avatar-shape" value="square">
+                    </div>
+                </div>
+
+                <hr>
 
             </section>
 
