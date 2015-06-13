@@ -56,7 +56,7 @@
     <body>
 
         <!-- page content -->
-        <div class="page-content">
+        <div id="page-content">
 
             <!-- navbar -->
             <nav class="navbar navbar-dark" id="navbar">
@@ -245,6 +245,9 @@
             </footer>
 
         </div>
+
+        <!-- contentent cover to close menu -->
+        <div id="content-cover"></div>
 
         <!-- mobile slideout menu -->
         <nav id="slideout-menu">

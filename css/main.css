@@ -75,18 +75,6 @@ NOTE: Animations appears to run faster if
 
 
 
-
-
-
-
-#page-content{
-	height: 100%;
-	width:100%;
-	position: absolute;
-	top: calc(100% - 54px);
-	z-index: 1;
-	box-shadow: -3px 0px 5px #888;
-}
 #navbar,
 #page-content,
 #content-cover{
@@ -96,8 +84,12 @@ NOTE: Animations appears to run faster if
 	-o-transform: translate(0px, 0px);
 	transform: translate(0px, 0px);
 }
+#page-content{
+	background-color: #fff;
+}
 #content-cover{
 	position: absolute;
+	top:0px;
 	z-index: 5001;
 	width: 100%;
 	height: 101%;
@@ -174,6 +166,10 @@ NOTE: Animations appears to run faster if
 .navbar-header>button{
 	float: left;
 }
+.navbar-dark .navbar-header{
+	margin: 0px;
+  	width: calc(100% - -15px);
+}
 .navbar-brand{
 	width: 138px;
 	display:block;
@@ -194,6 +190,7 @@ NOTE: Animations appears to run faster if
 /* slideout menu */
 #slideout-menu{
 	position: fixed;
+	top:0px;
 	height: 700px;
 	width: 270px;
 	background-color: #ededed;

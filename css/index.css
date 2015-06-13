@@ -35,6 +35,14 @@
 
 
 /* ------- jumbotron ---------------- */
+#page-content{
+	height: 100%;
+	width:100%;
+	position: absolute;
+	top: calc(100% - 54px);
+	z-index: 1;
+	box-shadow: -3px 0px 5px #888;
+}
 #jumbo-container{
 	padding: 0;
 }

@@ -172,7 +172,7 @@
     <body>
 
         <!-- page content -->
-        <div class="page-content">
+        <div id="page-content">
 
             <!-- navbar -->
             <nav class="navbar navbar-dark" id="navbar">
