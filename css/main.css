@@ -169,6 +169,7 @@ NOTE: Animations appears to run faster if
 .navbar-dark .navbar-header{
 	margin: 0px;
   	width: calc(100% - -15px);
+  	color:#fff;
 }
 .navbar-brand{
 	width: 138px;

@@ -115,6 +115,16 @@ input[type=file]{
 
 
 
+/*----------- text inputs ------------*/
+section.container>.row{
+	margin-bottom: 34px;
+}
+#description{
+	height: 100px;
+}
+
+
+
 
 
 

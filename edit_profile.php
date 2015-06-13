@@ -204,6 +204,32 @@
 
                 <hr>
 
+                <!-- business name -->
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                        <h4>Business Name</h4>
+                        <input type="text" name="business-name" class="form-control" id="business-name">
+                    </div>
+                </div>
+
+                <!-- tagline -->
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                        <h4>Tagline</h4>
+                        <input type="text" name="tagline" class="form-control" id="tagline">
+                    </div>
+                </div>
+
+                <!-- description -->
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                        <h4>Description</h4>
+                        <textarea class="form-control" id="description"></textarea>
+                    </div>
+                </div>
+
+                <hr>
+
             </section>
 
             <!-- footer -->
