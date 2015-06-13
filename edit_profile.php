@@ -27,7 +27,6 @@
 
 
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,23 +133,46 @@
 
                 <h1>Edit Profile</h1>
 
-                <!-- activate/deactivate profile -->
-                <div class="activate">
-                    <h4>page visible</h4>
-                    <div class="onoffswitch" 
-                               data-propname="active">
-                        <input type="checkbox" 
-                               name="onoffswitch" 
-                               class="onoffswitch-checkbox" 
-                               id="myonoffswitch-profile"
-                               checked="checked">
-                        <label class="onoffswitch-label" for="myonoffswitch-profile">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
+                <!-- activate/deactivate profile switch -->
+                <div style="height: 80px;">
+                    <div style="float:right;">
+                        <h4>Page Visible</h4>
+                        <div class="onoffswitch" 
+                                   data-propname="active">
+                            <input type="checkbox" 
+                                   name="onoffswitch" 
+                                   class="onoffswitch-checkbox" 
+                                   id="myonoffswitch-profile"
+                                   checked="checked">
+                            <label class="onoffswitch-label" for="myonoffswitch-profile">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-                
+
+                <!-- edit banner -->
+                <form id="edit-banner" 
+                      style="margin-top:20px;"
+                      action="index.html" 
+                      method="POST" 
+                      enctype="multipart/form-data">
+
+                    <h4>Edit Avatar &amp; Profile Banner</h4>
+
+                    <div id="banner-filedrag" class="filedrag">or drop files here</div>
+
+                    <div class="traditional-upload">
+                        <label for="fileselect">Files to upload:</label>
+                        <input type="file" 
+                               id="fileselect" 
+                               name="fileselect[]" 
+                               multiple="multiple" />
+                    </div>
+
+                </form>
+
             </section>
 
             <!-- footer -->
