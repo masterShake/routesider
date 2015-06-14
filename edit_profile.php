@@ -136,7 +136,7 @@
                 <!-- save button + activate/deactivate profile switch -->
                 <div style="height: 80px;">
 
-                    <div id="save-alert2"></div>
+                    <div id="save-alert1"></div>
 
                     <button class="btn" id="save1" style="margin-top:40px;" aria-label="save changes">Save</button>
 
