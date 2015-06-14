@@ -133,8 +133,13 @@
 
                 <h1>Edit Profile</h1>
 
-                <!-- activate/deactivate profile switch -->
+                <!-- save button + activate/deactivate profile switch -->
                 <div style="height: 80px;">
+
+                    <div id="save-alert2"></div>
+
+                    <button class="btn" id="save1" style="margin-top:40px;" aria-label="save changes">Save</button>
+
                     <div style="float:right;">
                         <h4>Page Visible</h4>
                         <div class="onoffswitch" 
@@ -150,6 +155,7 @@
                             </label>
                         </div>
                     </div>
+
                 </div>
 
                 <hr>
@@ -229,6 +235,10 @@
                 </div>
 
                 <hr>
+
+                <div id="save-alert2"></div>
+
+                <button class="btn" id="save2" style="margin:20px;margin-bottom:38px;" aria-label="save changes">Save</button>
 
             </section>
 
