@@ -18,7 +18,7 @@
 
         // AJAX call
         file_put_contents(
-            $_SERVER['DOCUMENT_ROOT'].'/uploads/' . $ff[0].'.'.$ff[1],
+            $_SERVER['DOCUMENT_ROOT'].'/routesider/uploads/' . $ff[0].'.'.$ff[1],
             file_get_contents('php://input')
         );
 

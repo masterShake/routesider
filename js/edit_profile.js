@@ -59,7 +59,7 @@ rs.prototype.toggleMobileMenu = function(){
 
 
 // file drag hover
-rs.prototype.FileDragHover = function(e) {
+rs.prototype.fileDragHover = function(e) {
 	e.stopPropagation();
 	e.preventDefault();
 	e.target.className = (e.type == "dragover" ? "hover" : "");
@@ -67,18 +67,18 @@ rs.prototype.FileDragHover = function(e) {
 
 
 // file selection
-rs.prototype.FileSelectHandler = function(e) {
+rs.prototype.fileSelectHandler = function(e) {
 
 		// cancel event and hover styling
-		rsApp.FileDragHover(e);
+		rsApp.fileDragHover(e);
 
 		// fetch FileList object
 		var files = e.target.files || e.dataTransfer.files;// process all File objects
 		
 		// 
 		for (var i = 0, f; f = files[i]; i++) {
-			rsApp.ParseFile(f);
-			rsApp.UploadFile(f);
+			rsApp.parseFile(f);
+			rsApp.uploadFile(f);
 		}
 }
 
@@ -90,20 +90,35 @@ rs.prototype.parseFile = function(file){
 }
 
 // ajax upload file
-rs.prototype.UploadFile = function(file){
+rs.prototype.uploadFile = function(file){
+
+	// delete the previous xhr object
+	delete this.xhr;
+	// create a new one
+	this.xhr = new XMLHttpRequest();
 
 	// if file is the correct type and size
 	if( (file.type == "image/jpeg" || 
 							 file.type == "image/jpg"  ||
 							 file.type == "image/png"  ||
 							 file.type == "image/gif")
-	  	&& file.size < 9999999999999999)
+	  	&& file.size < 9999999999999999
 	  ){
 
+	  	// add an event listener to the ajax request
+	  	this.xhr.onreadystatechange = function(){
+	  		if (rsApp.xhr.readyState == 4) {
+				console.log(rsApp.xhr);
+			}
+	  	}
+
 		// generate a random number to store the image
+		this.randomNumber = Math.floor(Math.random()*10000000);
 
 		// ajax
-
+		this.xhr.open("POST", "http://localhost/routesider/edit_profile.php", true);
+		this.xhr.setRequestHeader("X-file-name", file.name+"."+this.randomNumber);
+		this.xhr.send(file);
 	}
 }
 
@@ -115,12 +130,12 @@ document.addEventListener("DOMContentLoaded", function(){
     rsApp = new rs();
 
     // add event listener to banner fileselect
-	document.getElementById("banner-fileselect").addEventListener("change", rsApp.FileSelectHandler, false);
+	document.getElementById("banner-fileselect").addEventListener("change", rsApp.fileSelectHandler, false);
 
 	// add event listener to banner drag and drop elem
-	document.getElementById("banner-filedrag").addEventListener("dragover", rsApp.FileDragHover, false);
-	document.getElementById("banner-filedrag").addEventListener("dragleave", rsApp.FileDragHover, false);
-	document.getElementById("banner-filedrag").addEventListener("drop", rsApp.FileSelectHandler, false);
+	document.getElementById("banner-filedrag").addEventListener("dragover", rsApp.fileDragHover, false);
+	document.getElementById("banner-filedrag").addEventListener("dragleave", rsApp.fileDragHover, false);
+	document.getElementById("banner-filedrag").addEventListener("drop", rsApp.fileSelectHandler, false);
 
 }, false);
 
