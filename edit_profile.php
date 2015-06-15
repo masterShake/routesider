@@ -15,21 +15,23 @@
 
         //getfile information
         $ff = explode(".", $fn);
+        $uFolder = $_SERVER["DOCUMENT_ROOT"]."/routesider/uploads/";
 
         // AJAX call
         file_put_contents(
-            $_SERVER['DOCUMENT_ROOT'].'/routesider/uploads/' . $ff[0].'.'.$ff[1],
+            $uFolder . $ff[0].'.'.$ff[1],
             file_get_contents('php://input')
         );
 
-        /*****************************************
-        /
-        /   change the filepath below
-        /
-        /*****************************************/
-        // rename($_SERVER['DOCUMENT_ROOT'].'/uploads/' . $ff[0].'.'.$ff[1], $_SERVER['DOCUMENT_ROOT'].'./uploads/'.$ff[2].'.'.$ff[1]); //change this
+        $replaceThis = "mooseman"; // REPLACE THIS
+
+        // change the name of the file
+        rename($uFolder . $ff[0].'.'.$ff[1], $uFolder.$replaceThis.'.'.$ff[1]); //change this
     
-        exit("image uploaded");
+        $json = [ "filename" => $replaceThis.'.'.$ff[1], "imgType" => "banner" ];
+        $json = json_encode($json);
+
+        exit( $json );
     }
     // else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

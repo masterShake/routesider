@@ -75,18 +75,13 @@ rs.prototype.fileSelectHandler = function(e) {
 		// fetch FileList object
 		var files = e.target.files || e.dataTransfer.files;// process all File objects
 		
-		// 
+		// display the spinner
+		e.target.innerHTML = "<span class='glyphicon glyphicon-hourglass loading'></span>";
+
+		// upload the files
 		for (var i = 0, f; f = files[i]; i++) {
-			rsApp.parseFile(f);
 			rsApp.uploadFile(f);
 		}
-}
-
-// parse file html/css
-rs.prototype.parseFile = function(file){
-
-	console.log(file);
-
 }
 
 // ajax upload file
@@ -107,17 +102,28 @@ rs.prototype.uploadFile = function(file){
 
 	  	// add an event listener to the ajax request
 	  	this.xhr.onreadystatechange = function(){
-	  		if (rsApp.xhr.readyState == 4) {
-				console.log(rsApp.xhr);
+	  		if (this.readyState == 4) {
+
+	  			// turn the response json into an object
+	  			this.j = JSON.parse( this.responseText ); console.log(this.j);console.log(this.j["filename"]);
+				
+	  			// change the background image of the elem
+	  			document.getElementById( this.j["imgType"] + "-filedrag" )
+	  				.style.backgroundImage = "url(/routesider/uploads/" + this.j["filename"] + ")";
+
+	  			// set the opacity of the traditional upload
+	  			document.getElementById( this.j["imgType"] + "-filedrag" )
+	  				.parentElement.children[2].style.opacity = "0.6";
+			
+	  			// remove animated spinner
+	  			document.getElementById( this.j["imgType"] + "-filedrag" )
+	  				.innerHTML = "or drop files here";
 			}
 	  	}
 
-		// generate a random number to store the image
-		this.randomNumber = Math.floor(Math.random()*10000000);
-
 		// ajax
 		this.xhr.open("POST", "http://localhost/routesider/edit_profile.php", true);
-		this.xhr.setRequestHeader("X-file-name", file.name+"."+this.randomNumber);
+		this.xhr.setRequestHeader("X-file-name", file.name);
 		this.xhr.send(file);
 	}
 }
