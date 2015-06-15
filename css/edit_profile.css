@@ -19,7 +19,6 @@ input[type=file]{
 
 
 
-
 /*---------- upload banner -----------*/
 #banner-filedrag{
 	height: 250px;
@@ -28,14 +27,24 @@ input[type=file]{
 	padding-top: 84px;
 	padding-right: 15px;
 }
-.filedrag{
-	-webkit-transition: .3s;
-	-moz-transition: .3s;
-	-ms-transition: .3s;
-	-o-transition: .3s;
-	transition: .3s;
+#banner-filedrag,
+#avatar-filedrag{
+	-webkit-transition: .15s;
+	-moz-transition: .15s;
+	-ms-transition: .15s;
+	-o-transition: .15s;
+	transition: .15s;
 	border: 3px dashed #444;
 	font-size: 17px;
+}
+#banner-filedrag:hover,
+#avatar-filedrag:hover{
+	border-color: #ccc;
+}
+.hover{
+	border: 3px solid #5CB85C !important;
+	box-shadow: inset 0px 0px 7px 1px #bbb;
+
 }
 .traditional-upload{
 	background-color: #ddd;
@@ -67,7 +76,6 @@ input[type=file]{
 	z-index: 1;
 }
 #avatar-filedrag{
-	border: 3px dashed #444;
 	border-radius: 50%;
 	height:225px;
 	padding-top: 118px;

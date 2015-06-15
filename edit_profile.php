@@ -1,5 +1,57 @@
 <?php
 
+
+    //---------------------------------------
+    // Don't need to worry about tokens here.
+    //
+    // Image only goes to the uploads folder,
+    // and is assigned to the user when they
+    // click save.
+
+    // handle form input
+    $fn = (isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : false);
+
+    if ($fn) {
+
+        //getfile information
+        $ff = explode(".", $fn);
+
+        // AJAX call
+        file_put_contents(
+            $_SERVER['DOCUMENT_ROOT'].'/uploads/' . $ff[0].'.'.$ff[1],
+            file_get_contents('php://input')
+        );
+
+        /*****************************************
+        /
+        /   change the filepath below
+        /
+        /*****************************************/
+        // rename($_SERVER['DOCUMENT_ROOT'].'/uploads/' . $ff[0].'.'.$ff[1], $_SERVER['DOCUMENT_ROOT'].'./uploads/'.$ff[2].'.'.$ff[1]); //change this
+    
+        exit("image uploaded");
+    }
+    // else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    //  // form submit
+    //  $files = $_FILES['fileselect'];
+
+    //  foreach ($files['error'] as $id => $err) {
+    //      if ($err == UPLOAD_ERR_OK) {
+    //          $fn = $files['name'][$id];
+    //          move_uploaded_file(
+    //              $files['tmp_name'][$id],
+    //              '../../uploads/' . $fn
+    //          );
+    //          echo "<p>File $fn uploaded.</p>";
+    //      }
+    //  }
+    // }
+
+
+
+
+
     //---------------------------
     // STEP 1: load the init file
     //---------------------------
@@ -155,7 +207,6 @@
                             </label>
                         </div>
                     </div>
-
                 </div>
 
                 <hr>
@@ -163,13 +214,13 @@
                 <!-- edit banner -->
                 <form id="edit-banner" 
                       style="margin-top:20px;"
-                      action="index.html" 
+                      action="" 
                       method="POST" 
                       enctype="multipart/form-data">
 
                     <h4 style="margin-top:25px;">Edit Avatar &amp; Profile Banner</h4>
 
-                    <div id="banner-filedrag" class="filedrag">or drop files here</div>
+                    <div id="banner-filedrag">or drop files here</div>
 
                     <div class="traditional-upload">
                         <label for="banner-fileselect">Files to upload:</label>
@@ -186,7 +237,7 @@
                       method="POST" 
                       enctype="multipart/form-data">
 
-                    <div id="avatar-filedrag" class="filedrag">or drop files here</div>
+                    <div id="avatar-filedrag">or drop files here</div>
 
                     <div class="semi-circle-traditional-upload">
                         <label for="avatar-fileselect">Files to upload:</label>

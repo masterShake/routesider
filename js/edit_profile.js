@@ -54,12 +54,73 @@ rs.prototype.toggleMobileMenu = function(){
 
 
 
+
+
+
+
+// file drag hover
+rs.prototype.FileDragHover = function(e) {
+	e.stopPropagation();
+	e.preventDefault();
+	e.target.className = (e.type == "dragover" ? "hover" : "");
+}
+
+
+// file selection
+rs.prototype.FileSelectHandler = function(e) {
+
+		// cancel event and hover styling
+		rsApp.FileDragHover(e);
+
+		// fetch FileList object
+		var files = e.target.files || e.dataTransfer.files;// process all File objects
+		
+		// 
+		for (var i = 0, f; f = files[i]; i++) {
+			rsApp.ParseFile(f);
+			rsApp.UploadFile(f);
+		}
+}
+
+// parse file html/css
+rs.prototype.parseFile = function(file){
+
+	console.log(file);
+
+}
+
+// ajax upload file
+rs.prototype.UploadFile = function(file){
+
+	// if file is the correct type and size
+	if( (file.type == "image/jpeg" || 
+							 file.type == "image/jpg"  ||
+							 file.type == "image/png"  ||
+							 file.type == "image/gif")
+	  	&& file.size < 9999999999999999)
+	  ){
+
+		// generate a random number to store the image
+
+		// ajax
+
+	}
+}
+
 /* initialize */
 
 document.addEventListener("DOMContentLoaded", function(){
 
     // create new rs object
     rsApp = new rs();
+
+    // add event listener to banner fileselect
+	document.getElementById("banner-fileselect").addEventListener("change", rsApp.FileSelectHandler, false);
+
+	// add event listener to banner drag and drop elem
+	document.getElementById("banner-filedrag").addEventListener("dragover", rsApp.FileDragHover, false);
+	document.getElementById("banner-filedrag").addEventListener("dragleave", rsApp.FileDragHover, false);
+	document.getElementById("banner-filedrag").addEventListener("drop", rsApp.FileSelectHandler, false);
 
 }, false);
 
