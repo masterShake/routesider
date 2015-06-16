@@ -26,7 +26,7 @@
         $replaceThis = "mooseman"; // REPLACE THIS
 
         // change the name of the file
-        rename($uFolder . $ff[0].'.'.$ff[1], $uFolder.$replaceThis.'.'.$ff[1]); //change this
+        rename($uFolder . $ff[0].'.'.$ff[1], $uFolder . $replaceThis.'.'.$ff[1]); //change this
     
         $json = [ "filename" => $replaceThis.'.'.$ff[1], "imgType" => "banner" ];
         $json = json_encode($json);
@@ -216,6 +216,7 @@
                 <!-- edit banner -->
                 <form id="edit-banner" 
                       style="margin-top:20px;"
+                      data-elem="banner" 
                       action="" 
                       method="POST" 
                       enctype="multipart/form-data">
@@ -235,6 +236,7 @@
 
                 <!-- edit avatar -->
                 <form id="edit-avatar" 
+                      data-elem="avatar" 
                       action="index.html" 
                       method="POST" 
                       enctype="multipart/form-data">

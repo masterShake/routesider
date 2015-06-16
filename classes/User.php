@@ -23,11 +23,14 @@ class User {
 		$this->_db = neoDB::getInstance();
 
 		// Check if a session exists and set user if so.
-		if(Session::exists('user_email') && !$user) {
+		if(Session::exists("username") && !$user){
+
 			// get the user attached to this login token
-			$user = Session::get('user_email');
+			$user = Session::get("username");
+			
 			// if we find the user
 			if($this->find($user)){
+				
 				// log her in
 				$this->login();
 
@@ -43,16 +46,19 @@ class User {
 
 	}
 
-	// public function exists() { 
-	// 	return (!empty($this->_data)) ? true : false;
-	// }
+	public function exists() { 
+		return (!empty($this->_data)) ? true : false;
+	}
 
 	public function find($user = null) {
 		
 		if($user) {
 			
 			// set the data
-	        $this->_data = $this->_db->query( "MATCH (u:User) WHERE u.username = '{$user}'" );
+	        $this->_data = $this->_db->query( "MATCH (u:User) WHERE u.username = '{$user}' RETURN u" );
+
+	        $this->_data = $this->_data["u"][0];
+
 	    	return true;
 		}
 		return false;
@@ -87,79 +93,96 @@ class User {
 		$this->_data = $this->_db->query($cypher);
 
 		// log user in
-		// $user->login( $username, $password, true );
+		$user->login( $username, $password, true );
 	}
 
-	// public function login($username = null, $password = null, $remember = false) {
-	// 	// if not supplied a username or password, but 
-	// 	if(!$username && !$password && $this->exists()) {
-	// 		Session::put('user_email', $this->data()['email']);
-	// 		$this->_isLoggedIn = true;
-	// 		return true;
-	// 	} else {
+	public function login($username = null, $password = null, $remember = false) {
+		
+		// if we already have the data for this person
+		if(!$username && !$password && $this->exists()) {
 
-	// 		$user = $this->find($username); 
+			// create a session with the server
+			Session::put("username", $this->_data["username"]);
+			$this->_isLoggedIn = true;
+			return true;
+
+		// check the databse	
+		} else {
+
+			// fetch the user data
+			$user = $this->find($username); 
 			
-	// 		if($user) {
+			// if we retrieve any data
+			if($user) {
 
-	// 			if($this->data()['password'] == Hash::make($password, $this->data()['salt'])) { 
+				// check the password
+				if($this->_data["password"] == Hash::make($password, $this->_data["salt"])) { 
 					
-	// 				Session::put('user_email', $this->data()['email']);
+					// put a new session for this username
+					Session::put("username", $this->_data["username"]);
 
-	// 				if($remember) { 
+					// stay logged in for 1 month
+					if($remember) { 
 
-	// 					// if the user has a login token already, then we will keep the one we have
-	// 					if(!$this->_loginToken) {
-	// 						// generate a unique hash
-	// 						$this->_loginToken = Hash::unique();
+						// if the user has a login token already, then we will keep the one we have
+						if(!$this->_loginToken) {
 
-	// 						$email = $this->data()['email'];
+							// generate a unique hash
+							$this->_loginToken = Hash::unique();
 
-	// 						$cypher = " MATCH (u:User) WHERE u.email = '{$email}'
+							$username = $this->_data["username"];
 
-	// 									CREATE (u)-[:IS_LOGGED_IN]->(s:Session {login_time : TIMESTAMP(), hash : '{$this->_loginToken}'} )
+							// attache a token to this user in the db
+							$cypher = " MATCH (u:User) WHERE u.username = '{$username}'
 
-	// 									CREATE (s)-[:SESSION_LOG]->(u) ";
+										CREATE (u)-[:IS_LOGGED_IN]->(s:Session {login_time : TIMESTAMP(), hash : '{$this->_loginToken}'} )
 
-	// 						$this->_db->query($cypher);
+										CREATE (s)-[:SESSION_LOG]->(u) ";
 
-	// 					}
+							$this->_db->query($cypher);
 
-	// 					Cookie::put('login_token', $this->_loginToken, 604800);
+						}
 
-	// 				}
+						// attache a cookie with the same token
+						Cookie::put("login_token", $this->_loginToken, 604800);
 
-	// 				$this->_isLoggedIn = true;
+					}
 
-	// 				return true;
-	// 			} // else{ echo 'password does not match'; }
-	// 		}
-	// 	}
+					$this->_isLoggedIn = true;
 
-	// 	return false;
-	// }
+					return true;
+				} // else{ echo 'password does not match'; }
+			}
+		}
 
-	// public function isLoggedIn() {
-	// 	return $this->_isLoggedIn;
-	// }
+		return false;
+	}
 
-	// public function logout() {
+	public function isLoggedIn() {
+		return $this->_isLoggedIn;
+	}
 
-	// 	if($this->_isLoggedIn){
+	public function data($prop){
+		return $this->_data[$prop];
+	}
 
-	// 		// delete the user session from the database
-	// 		$cypher = " MATCH (u:User { email : '".$email = $this->data()['email']."' })-[r:IS_LOGGED_IN]->(s) DELETE r";
+	public function logout() {
 
-	// 		$this->_db->query($cypher);
+		if($this->_isLoggedIn){
 
-	// 	}
+			// delete the user session from the database
+			$cypher = " MATCH (u:User { username : '" . $this->_data["username"] . "' })-[r:IS_LOGGED_IN]->(s) DELETE r";
 
-	// 		Cookie::delete('login_token');
+			$this->_db->query($cypher);
 
-	// 		Session::delete('user_email');
+		}
+
+		Cookie::delete("login_token");
+
+		Session::delete("username");
 	
-	// 	$this->_isLoggedIn = false;
-	// }
+		$this->_isLoggedIn = false;
+	}
 
 }
 

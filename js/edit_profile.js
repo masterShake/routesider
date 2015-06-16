@@ -66,7 +66,7 @@ rs.prototype.fileDragHover = function(e) {
 }
 
 
-// file selection
+// file selection event listener
 rs.prototype.fileSelectHandler = function(e) {
 
 		// cancel event and hover styling
@@ -78,17 +78,16 @@ rs.prototype.fileSelectHandler = function(e) {
 		// display the spinner
 		e.target.innerHTML = "<span class='glyphicon glyphicon-hourglass loading'></span>";
 
-		// upload the files
-		for (var i = 0, f; f = files[i]; i++) {
-			rsApp.uploadFile(f);
-		}
+		// upload the file
+		rsApp.uploadFile(f, e.target.dataset.elem);
 }
 
 // ajax upload file
-rs.prototype.uploadFile = function(file){
+rs.prototype.uploadFile = function(file, elemStr){
 
 	// delete the previous xhr object
 	delete this.xhr;
+
 	// create a new one
 	this.xhr = new XMLHttpRequest();
 
@@ -123,7 +122,7 @@ rs.prototype.uploadFile = function(file){
 
 		// ajax
 		this.xhr.open("POST", "http://localhost/routesider/edit_profile.php", true);
-		this.xhr.setRequestHeader("X-file-name", file.name);
+		this.xhr.setRequestHeader("X-file-name", elem + "." + file.name);
 		this.xhr.send(file);
 	}
 }
