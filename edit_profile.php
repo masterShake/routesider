@@ -1,6 +1,34 @@
 <?php
 
 
+
+    //---------------------------
+    // STEP 1: load the init file
+    //---------------------------
+
+    require_once 'core/init.php';
+
+    
+    //-------------------------------------
+    // STEP 2: instantiate global variables
+    //-------------------------------------
+
+    $page = "register"; //required
+
+    $errors = []; //required
+
+    $user = new User();
+
+    //---------------------------------------
+    // - if the user is not logged in, 
+    //   redirect her to the login page and 
+    //   flash a message
+    if( ! $user->isLoggedIn()){
+
+        exit("you must be logged in to view this page");
+
+    }
+
     //---------------------------------------
     // Don't need to worry about tokens here.
     //
@@ -13,8 +41,13 @@
 
     if ($fn) {
 
-        //getfile information
+        //-------------------------------------------
+        // - getfile information
+        // - $ff[0] = random number
+        // - $ff[1] = file extension
+        // - $ff[2] = img element type (banner or avatar)
         $ff = explode(".", $fn);
+
         $uFolder = $_SERVER["DOCUMENT_ROOT"]."/routesider/uploads/";
 
         // AJAX call
@@ -23,12 +56,17 @@
             file_get_contents('php://input')
         );
 
-        $replaceThis = "mooseman"; // REPLACE THIS
+        //-------------------------------------------
+        // - create a unique name for the file
+        // - e.g. "username_123.jpg";
+        $newName = rand(0, 1000);
+        $newName = $user->data("username") . "_" . $newName . "." . $ff[1]; 
 
-        // change the name of the file
-        rename($uFolder . $ff[0].'.'.$ff[1], $uFolder . $replaceThis.'.'.$ff[1]); //change this
+        // change the name of the file to ensure it is unique
+        rename( $uFolder . $ff[0].'.'.$ff[1], $uFolder . $newName ); //change this
     
-        $json = [ "filename" => $replaceThis.'.'.$ff[1], "imgType" => "banner" ];
+        $json = [ "filename" => $newName, "imgType" => $ff[2] ];
+
         $json = json_encode($json);
 
         exit( $json );
@@ -216,14 +254,13 @@
                 <!-- edit banner -->
                 <form id="edit-banner" 
                       style="margin-top:20px;"
-                      data-elem="banner" 
                       action="" 
                       method="POST" 
                       enctype="multipart/form-data">
 
                     <h4 style="margin-top:25px;">Edit Avatar &amp; Profile Banner</h4>
 
-                    <div id="banner-filedrag">or drop files here</div>
+                    <div id="banner-filedrag" data-elem="banner">or drop files here</div>
 
                     <div class="traditional-upload">
                         <label for="banner-fileselect">Files to upload:</label>
@@ -235,13 +272,12 @@
                 </form>
 
                 <!-- edit avatar -->
-                <form id="edit-avatar" 
-                      data-elem="avatar" 
+                <form id="edit-avatar"  
                       action="index.html" 
                       method="POST" 
                       enctype="multipart/form-data">
 
-                    <div id="avatar-filedrag">or drop files here</div>
+                    <div id="avatar-filedrag" data-elem="avatar">or drop files here</div>
 
                     <div class="semi-circle-traditional-upload">
                         <label for="avatar-fileselect">Files to upload:</label>

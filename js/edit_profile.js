@@ -71,15 +71,15 @@ rs.prototype.fileSelectHandler = function(e) {
 
 		// cancel event and hover styling
 		rsApp.fileDragHover(e);
-
-		// fetch FileList object
-		var files = e.target.files || e.dataTransfer.files;// process all File objects
 		
 		// display the spinner
 		e.target.innerHTML = "<span class='glyphicon glyphicon-hourglass loading'></span>";
 
+		// fetch FileList object
+		var files = e.target.files || e.dataTransfer.files;// process all File objects
+
 		// upload the file
-		rsApp.uploadFile(f, e.target.dataset.elem);
+		rsApp.uploadFile(files[0], e.target.dataset.elem);
 }
 
 // ajax upload file
@@ -101,10 +101,10 @@ rs.prototype.uploadFile = function(file, elemStr){
 
 	  	// add an event listener to the ajax request
 	  	this.xhr.onreadystatechange = function(){
-	  		if (this.readyState == 4) {
+	  		if (this.readyState == 4) { console.log(this.responseText);
 
 	  			// turn the response json into an object
-	  			this.j = JSON.parse( this.responseText ); console.log(this.j);console.log(this.j["filename"]);
+	  			this.j = JSON.parse( this.responseText );
 				
 	  			// change the background image of the elem
 	  			document.getElementById( this.j["imgType"] + "-filedrag" )
@@ -122,7 +122,7 @@ rs.prototype.uploadFile = function(file, elemStr){
 
 		// ajax
 		this.xhr.open("POST", "http://localhost/routesider/edit_profile.php", true);
-		this.xhr.setRequestHeader("X-file-name", elem + "." + file.name);
+		this.xhr.setRequestHeader("X-file-name", file.name + "." + elemStr);
 		this.xhr.send(file);
 	}
 }
