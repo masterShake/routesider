@@ -37,6 +37,18 @@ class User {
 				
 				// $this->logout();
 			}
+
+		// check if a cookie exists and set user
+		}else if( Cookie::exists("login_token") ){
+
+			// set the login token property
+			$this->_loginToken = Cookie::get("login_token");
+
+			// if we find the user associated with this token
+			if( $this->find(false, $this->_loginToken) )
+				// log the user in
+				$this->login();
+
 		}else{
 
 			// $this->find($user);
@@ -48,17 +60,35 @@ class User {
 		return (!empty($this->_data)) ? true : false;
 	}
 
-	public function find($user = null) {
+	public function find( $user = null, $loginToken = null) {
 		
 		if($user) {
 			
 			// match all data related to the user
-			$cypher = "MATCH (u:User) WHERE u.username = '{$user}' "
+			$cypher = "MATCH (u:User) WHERE u.username = '{$user}'"
 				    . "OPTIONAL MATCH (u)-[:MANAGES_BUSINESS]->(b)-[:HAS_PROFILE]->(p) "
 				    . "RETURN u, b, p";
 
 			// set the data
 	        $this->_data = $this->_db->query(  $cypher );
+
+	    }else if($loginToken){
+
+	    	$cypher = "MATCH (u:User)-[:LOG]->(s:Session) WHERE s.hash = '{$loginToken}'"
+				    . "OPTIONAL MATCH (u)-[:MANAGES_BUSINESS]->(b)-[:HAS_PROFILE]->(p) "
+				    . "RETURN u, b, p";
+
+			$this->_data = $this->_db->query( $cypher );
+
+	    }else{
+
+	    	// no arguments
+	    	return false;
+
+	    }
+
+	    // if there were any matching results
+	    if( count($this->_data) ){
 
 	        // if this user runs a business(es)
 	        if( array_key_exists("b", $this->_data) )
@@ -77,8 +107,9 @@ class User {
 	        $this->_data = $this->_data["u"][0];
 
 	    	return true;
+		}else{
+			return false;
 		}
-		return false;
 	}
 
 	public function create($username, $password, $email = 0){
@@ -102,11 +133,22 @@ class User {
 								  } 
 						  ) ";
 
+		// create the session log node
+		$cypher .= "CREATE (u)-[:LOG]->(s:Session)";
+
 		// attach the business node to the user
-		$cypher .= "CREATE (u)-[:MANAGES_BUSINESS]->(b:Business) ";
+		$cypher .= "CREATE (u)-[:MANAGES_BUSINESS]->(b:Business { name : '' } ) ";
 
 		// attach the profile node to the business node
-		$cypher .= "CREATE (b)-[:HAS_PROFILE]->(p:Profile { active : 0, avatar_shape : 'circle' }) ";
+		$cypher .= "CREATE (b)-[:HAS_PROFILE]->(p:Profile { active : 0, 
+															avatar_shape : 'circle', 
+															name : '', 
+															banner : 0, 
+															avatar : 0,
+															tagline : '',
+															description : ''
+														  }
+											   ) ";
 
 		// if the user has provided an email
 		if( $email )
@@ -158,12 +200,12 @@ class User {
 
 							$username = $this->_data["username"];
 
-							// attache a token to this user in the db
-							$cypher = " MATCH (u:User) WHERE u.username = '{$username}'
+							// update the session token and timestamp in the db
+							$cypher = " MATCH (u:User { username : '{$username}' })-[:LOG]->(s) 
 
-										CREATE (u)-[:IS_LOGGED_IN]->(s:Session {login_time : TIMESTAMP(), hash : '{$this->_loginToken}'} )
+										SET s.login_time = TIMESTAMP() 
 
-										CREATE (s)-[:SESSION_LOG]->(u) ";
+										SET s.hash = '{$this->_loginToken}'";
 
 							$this->_db->query($cypher);
 
@@ -193,7 +235,9 @@ class User {
 		if($this->_isLoggedIn){
 
 			// delete the user session from the database
-			$cypher = "MATCH (u:User { username : '" . $this->_data["username"] . "' })-[r:IS_LOGGED_IN]->(s) DELETE r";
+			$cypher = "MATCH (u:User { username : '" . $this->_data["username"] . "' })-[r:LOG]->(s)
+
+					   SET s.logged_in = 0";
 
 			$this->_db->query($cypher);
 
