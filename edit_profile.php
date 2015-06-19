@@ -223,6 +223,9 @@
 
             <section class="container">
 
+                <!-- initial values -->
+                <input type="hidden" value="<?= "poop" ?>" name="initvals" id="initial-values">
+
                 <h1>Edit Profile</h1>
 
                 <!-- save button + activate/deactivate profile switch -->

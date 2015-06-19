@@ -15,8 +15,7 @@ class User {
 			$_data = array(),
 			$_loginToken = '',
 			$_isLoggedIn = false,
-			$_vendor = false,
-			$_admin = false;
+			$_businesses = array();
 
 	public function __construct($user = null) {
 		
@@ -43,7 +42,6 @@ class User {
 			// $this->find($user);
 		
 		}
-
 	}
 
 	public function exists() { 
@@ -54,8 +52,27 @@ class User {
 		
 		if($user) {
 			
+			// match all data related to the user
+			$cypher = "MATCH (u:User) WHERE u.username = '{$user}' "
+				    . "OPTIONAL MATCH (u)-[:MANAGES_BUSINESS]->(b)-[:HAS_PROFILE]->(p) "
+				    . "RETURN u, b, p";
+
 			// set the data
-	        $this->_data = $this->_db->query( "MATCH (u:User) WHERE u.username = '{$user}' RETURN u" );
+	        $this->_data = $this->_db->query(  $cypher );
+
+	        // if this user runs a business(es)
+	        if( array_key_exists("b", $this->_data) )
+	        	// loop through the user's businesses
+	        	for($i = 0, $l = count($this->_data["b"]); $i < $l; $i++)
+	        		// create new Business objects
+	        		array_push( 
+	        					$this->_businesses, 
+	        					new Business( 
+	        									$this->_data["b"][$i], 
+	        									$this->_data["p"][$i] 
+	        								)
+	        				  );
+
 
 	        $this->_data = $this->_data["u"][0];
 
@@ -74,26 +91,35 @@ class User {
 		$salt = '55555';
 		$hashpass = Hash::make( $password, $salt );
 
-		// create the cypher query
+		//-----------------------------------------------------
+		// - cypher query
+		// - create the user node
 		$cypher = "CREATE (u:User { 
 									username : '{$username}', 
 									reg_date : ".'timestamp()'.",
 									password : '{$hashpass}',
 									    salt : '{$salt}'
 								  } 
-						  )";
+						  ) ";
 
+		// attach the business node to the user
+		$cypher .= "CREATE (u)-[:MANAGES_BUSINESS]->(b:Business) ";
+
+		// attach the profile node to the business node
+		$cypher .= "CREATE (b)-[:HAS_PROFILE]->(p:Profile { active : 0, avatar_shape : 'circle' }) ";
+
+		// if the user has provided an email
 		if( $email )
+			// attache the email node to the user node
+			$cypher .= "CREATE (u)-[:HAS_EMAIL]->(e:Email { address : '{$email}' } ) ";
 
-			$cypher .= "-[:HAS_EMAIL]->(e:Email { address : '{$email}' } )";
-
-		$cypher .= " RETURN u";
+		$cypher .= "RETURN u";
 
 		// insert into db
 		$this->_data = $this->_db->query($cypher);
 
 		// log user in
-		$user->login( $username, $password, true );
+		$this->login( $username, $password, true );
 	}
 
 	public function login($username = null, $password = null, $remember = false) {
@@ -162,16 +188,12 @@ class User {
 		return $this->_isLoggedIn;
 	}
 
-	public function data($prop){
-		return $this->_data[$prop];
-	}
-
 	public function logout() {
 
 		if($this->_isLoggedIn){
 
 			// delete the user session from the database
-			$cypher = " MATCH (u:User { username : '" . $this->_data["username"] . "' })-[r:IS_LOGGED_IN]->(s) DELETE r";
+			$cypher = "MATCH (u:User { username : '" . $this->_data["username"] . "' })-[r:IS_LOGGED_IN]->(s) DELETE r";
 
 			$this->_db->query($cypher);
 
@@ -184,5 +206,15 @@ class User {
 		$this->_isLoggedIn = false;
 	}
 
+	public function data($prop = false){
+		if($prop)
+			return $this->_data[$prop];
+		else
+			return $this->_data;
+	}
+
+	public function business(){
+		return $this->_businesses;
+	}
 }
 
