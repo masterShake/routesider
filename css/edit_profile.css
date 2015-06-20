@@ -28,12 +28,16 @@ input[type=file]{
 	padding-right: 15px;
 }
 #banner-filedrag,
-#avatar-filedrag{
+#avatar-filedrag,
+#semi-circle-traditional-upload{
 	-webkit-transition: .15s;
 	-moz-transition: .15s;
 	-ms-transition: .15s;
 	-o-transition: .15s;
 	transition: .15s;
+}
+#banner-filedrag,
+#avatar-filedrag{
 	border: 3px dashed #444;
 	font-size: 17px;
 	background-position: center center;
@@ -83,7 +87,7 @@ input[type=file]{
 	text-align: center;
 	background-color: #fff;
 }
-.semi-circle-traditional-upload{
+#semi-circle-traditional-upload{
 	background-color: #ddd;
 	border-top-left-radius: 100px;
 	border-top-right-radius: 100px;

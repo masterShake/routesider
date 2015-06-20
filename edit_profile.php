@@ -219,7 +219,7 @@
                 <!-- save button + activate/deactivate profile switch -->
                 <div class="alert alert-info" 
                      role="alert" 
-                     style="opacity:1;display:none;" 
+                     style="display:none;" 
                      id="save-alert1">
                     <span>Click the <strong>save</strong> button to keep your changes.</span>
                 </div>
@@ -235,8 +235,7 @@
                             <input type="checkbox" 
                                    name="onoffswitch" 
                                    class="onoffswitch-checkbox" 
-                                   id="myonoffswitch-profile"
-                                   checked="checked">
+                                   id="myonoffswitch-profile">
                             <label class="onoffswitch-label" for="myonoffswitch-profile">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
@@ -275,7 +274,7 @@
 
                     <div id="avatar-filedrag" data-elem="avatar">or drop files here</div>
 
-                    <div class="semi-circle-traditional-upload">
+                    <div id="semi-circle-traditional-upload">
                         <label for="avatar-fileselect">Files to upload:</label>
                         <input type="file" 
                                id="avatar-fileselect" 
@@ -301,7 +300,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                         <h4>Business Name</h4>
-                        <input type="text" name="business-name" class="form-control" id="business-name">
+                        <input type="text" name="name" class="form-control" id="business-name">
                     </div>
                 </div>
 
@@ -317,7 +316,7 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                         <h4>Description</h4>
-                        <textarea class="form-control" id="description"></textarea>
+                        <textarea class="form-control" id="description" name="description"></textarea>
                     </div>
                 </div>
 
@@ -325,7 +324,7 @@
 
                 <div class="alert alert-info" 
                      role="alert" 
-                     style="opacity:1;display:none;" 
+                     style="display:none;" 
                      id="save-alert2">
                     <span>Click the <strong>save</strong> button to keep your changes.</span>
                 </div>

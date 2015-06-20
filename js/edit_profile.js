@@ -56,7 +56,7 @@ rs.prototype.toggleMobileMenu = function(){
 rs.prototype.activatePage = function(){
 
 	// set the newVals active property
-	rsApp.newVals.active = this.checked ? 1 : 0;
+	rsApp.newVals.active = this.checked ? 1 : 0; console.log(rsApp.newVals.active);
 
 	// call the valuesChanged function
 	rsApp.valuesChanged();
@@ -151,45 +151,114 @@ rs.prototype.uploadFile = function(file, elemStr){
 
 
 
+
+
+//-----------------------------------------------
+// - change avatar shape
+rs.prototype.avatarShape = function(){
+
+	// if the element has just been checked
+	if(this.checked){
+
+		// circle
+		if(this.value == "circle"){
+
+			document.getElementById("avatar-filedrag").style.borderRadius = "50%";
+			document.getElementById("semi-circle-traditional-upload").style.borderTopLeftRadius = "100px";
+			document.getElementById("semi-circle-traditional-upload").style.borderTopRightRadius = "100px";
+
+		// square
+		}else{
+
+			document.getElementById("avatar-filedrag").style.borderRadius = "0%";
+			document.getElementById("semi-circle-traditional-upload").style.borderTopLeftRadius = "0px";
+			document.getElementById("semi-circle-traditional-upload").style.borderTopRightRadius = "0px";
+		}
+
+		// change the newVals object avatar_shape property
+		rsApp.newVals["avatar_shape"] = this.value;
+
+		// determine if the initial values have been changed
+		rsApp.valuesChanged();
+	}
+}
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+// - keyup event listener for text inputs
+rs.prototype.textChange = function(){
+
+	// set the new value for this field
+	rsApp.newVals[this.name] = this.value;
+
+	// determine if values have changed
+	rsApp.valuesChanged();
+}
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 // - show the save alert message
 // - change the class of the save buttons
 rs.prototype.showSaveAlert = function(){
 
+	// change the style of the save buttons
+	document.getElementById("save-btn1").className = "btn btn-info";
+	document.getElementById("save-btn2").className = "btn btn-info";
+
 	// display alert messages
 	document.getElementById("save-alert1").style.display = "block";
 	document.getElementById("save-alert2").style.display = "block";
 
-	// change the style of the save buttons
-	document.getElementById("save-btn1").className = "btn btn-info";
-	document.getElementById("save-btn2").className = "btn btn-info";
+	// fade in opacity save alerts
+	setTimeout(rsApp.fadeInSaveAlert, 10);
+}
+//-----------------------------------------------
+// - fade in the save message
+rs.prototype.fadeInSaveAlert = function(){
+
+	// change the opacity
+	document.getElementById("save-alert1").style.opacity = "1";
+	document.getElementById("save-alert2").style.opacity = "1";
 }
 //-----------------------------------------------
 // - hide the save alert message
 // - change the class of the save buttons
 rs.prototype.hideSaveAlert = function(){
 
-	// display alert messages
+	// remove alert messages
 	document.getElementById("save-alert1").style.display = "none";
 	document.getElementById("save-alert2").style.display = "none";
 
 	// change the style of the save buttons
 	document.getElementById("save-btn1").className = "btn";
 	document.getElementById("save-btn2").className = "btn";
-}
 
+	// change the opacity
+	document.getElementById("save-alert1").style.opacity = "0";
+	document.getElementById("save-alert2").style.opacity = "0";
+}
 //-------------------------------------------------------
 // - determine if any of the values have changed.
 rs.prototype.valuesChanged = function(){
 
 	// if the json strings match
 	if( JSON.stringify( this.initialVals ) != JSON.stringify( this.newVals ) )
-
 		// hide the save alerts
 		this.showSaveAlert();
-
 	else
-
 		// display the save alerts
 		this.hideSaveAlert();
 }
@@ -212,17 +281,26 @@ document.addEventListener("DOMContentLoaded", function(){
     rsApp.initialVals = JSON.parse( document.getElementById("initial-values").value );
     rsApp.newVals = JSON.parse( document.getElementById("initial-values").value );
 
-    // add event listener to the active switch
+    // event listener to the active switch
     document.getElementById("myonoffswitch-profile")
     	.addEventListener("change", rsApp.activatePage, false);
 
-    // add event listener to banner fileselect
+    // event listener to banner fileselect
 	document.getElementById("banner-fileselect").addEventListener("change", rsApp.fileSelectHandler, false);
 
-	// add event listener to banner drag and drop elem
+	// event listener to banner drag and drop elem
 	document.getElementById("banner-filedrag").addEventListener("dragover", rsApp.fileDragHover, false);
 	document.getElementById("banner-filedrag").addEventListener("dragleave", rsApp.fileDragHover, false);
 	document.getElementById("banner-filedrag").addEventListener("drop", rsApp.fileSelectHandler, false);
+
+	// event listener change avatar shape
+	document.getElementById("circle-avatar").addEventListener("change", rsApp.avatarShape, false);
+	document.getElementById("square-avatar").addEventListener("change", rsApp.avatarShape, false);
+
+	// event listener change text input
+	document.getElementById("business-name").addEventListener("keyup",rsApp.textChange, false);
+	document.getElementById("tagline").addEventListener("keyup",rsApp.textChange, false);
+	document.getElementById("description").addEventListener("keyup",rsApp.textChange, false);
 
 }, false);
 
