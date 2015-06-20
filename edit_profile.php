@@ -8,32 +8,6 @@
 
     require_once 'core/init.php';
 
-    
-    //-------------------------------------
-    // STEP 2: instantiate global variables
-    //-------------------------------------
-
-    $page = "register"; //required
-
-    $errors = []; //required
-
-    $user = new User();
-
-    $business = $user->business();
-
-    $business = $business[0];
-
-    $profile = $business->profile();
-
-    //---------------------------------------
-    // - if the user is not logged in, 
-    //   redirect her to the login page and 
-    //   flash a message
-    if( ! $user->isLoggedIn()){
-
-        exit("you must be logged in to view this page");
-
-    }
 
     //---------------------------------------
     // Don't need to worry about tokens here.
@@ -46,6 +20,8 @@
     $fn = (isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : false);
 
     if ($fn) {
+
+        $user = new User();
 
         //-------------------------------------------
         // - getfile information
@@ -71,7 +47,7 @@
         // change the name of the file to ensure it is unique
         rename( $uFolder . $ff[0].'.'.$ff[1], $uFolder . $newName ); //change this
     
-        $json = [ "filename" => $newName, "imgType" => $ff[2] ];
+        $json = [ "filename" => $newName, "imgType" => $ff[2], "token" => Token::generate() ];
 
         $json = json_encode($json);
 
@@ -101,9 +77,72 @@
 
     if(Input::exists()){
 
-        // do something
+        // check token
+        if( Token::check( Input::get("token") ) ){
+
+            // set the user
+            $user = new User();
+
+            // create an empty errors array
+            $errors = [];
+
+            // set the business
+            $business = $user->business()
+            $business = $business[0];
+
+            // set the profile
+            $profile = $business->profile();
+            $profile->update( Input::get("vals") );
+
+            // return the json object
+            $json = [ 
+                        "errors" => $errors,
+                        "token"  => Token::generate() 
+                    ];
+
+            echo json_encode($json);
+
+        }else{
+
+            $json = [ 
+                        "errors" => [ "Token Timeout" ],
+                        "token"  => Token::generate()
+                    ];
+
+            echo json_encode( $json );
+
+        }
+
+        exit();
+    }
+
+
+    //-------------------------------------
+    // instantiate global variables
+    //-------------------------------------
+
+    $page = "register"; //required
+
+    $errors = []; //required
+
+    $user = new User();
+
+    $business = $user->business();
+
+    $business = $business[0];
+
+    $profile = $business->profile();
+
+    //---------------------------------------
+    // - if the user is not logged in, 
+    //   redirect her to the login page and 
+    //   flash a message
+    if( ! $user->isLoggedIn()){
+
+        exit("you must be logged in to view this page");
 
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,6 +252,12 @@
                        value='<?= json_encode( $profile->data() ); ?>' 
                        name="initvals" 
                        id="initial-values">
+
+                <!-- token -->
+                <input type="hidden" 
+                       value='<?= Token::generate(); ?>' 
+                       name="token" 
+                       id="token">
 
                 <h1>Edit Profile</h1>
 

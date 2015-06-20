@@ -51,7 +51,7 @@
 
   	// print_r($user->data());
   	
-  	print_r($profile->data());
+  	print_r($profile->business()->data());
 
 
   	?></pre>

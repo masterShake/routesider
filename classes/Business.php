@@ -22,7 +22,7 @@ class Business{
 		$this->_data = $business;
 
 		// create the profile object
-		$this->_profile = new Profile($profile);
+		$this->_profile = new Profile($profile, $this);
 
 	}
 

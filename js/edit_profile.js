@@ -136,6 +136,9 @@ rs.prototype.uploadFile = function(file, elemStr){
 	  			// remove animated spinner
 	  			document.getElementById( this.j["imgType"] + "-filedrag" )
 	  				.innerHTML = "or drop files here";
+
+	  			// reset the token
+	  			document.getElementById("token").value = this.j["token"];
 			}
 	  	}
 
@@ -217,6 +220,8 @@ rs.prototype.showSaveAlert = function(){
 	// change the style of the save buttons
 	document.getElementById("save-btn1").className = "btn btn-info";
 	document.getElementById("save-btn2").className = "btn btn-info";
+	document.getElementById("save-btn1").innerHTML = "save";
+	document.getElementById("save-btn2").innerHTML = "save";
 
 	// display alert messages
 	document.getElementById("save-alert1").style.display = "block";
@@ -269,6 +274,59 @@ rs.prototype.valuesChanged = function(){
 
 
 
+//-----------------------------------------------------
+// - event listener to save changes made
+rs.prototype.saveChanges = function(){
+	
+	//-----------------------------------------------------
+	// - if the values have changed, the button will have a
+	//   classname "btn btn-info"
+	if(this.className == "btn btn-info"){
+
+		// display hourglass inside save buttons
+		document.getElementById("save-btn1").innerHTML = "<span class='glyphicon glyphicon-hourglass'></span>";
+		document.getElementById("save-btn2").innerHTML = "<span class='glyphicon glyphicon-hourglass'></span>";
+
+		// perform the ajax call
+		rsApp.ajax( 
+					"POST",
+					document.URL,
+					"vals=" + JSON.stringify( rsApp.newVals ) + 
+					"&token=" + document.getElementById("token").value,
+					rsApp.saveChangesCallback,
+					false
+				  );
+	}
+}
+// save changes ajax callback
+rs.prototype.saveChangesCallback = function(response){ console.log(response);
+
+	response = JSON.parse( response );
+
+	// reset the token
+	document.getElementById("token").value = response["token"];
+
+	// reset the initial values
+	rsApp.initialVals = JSON.parse( JSON.stringify( rsApp.newVals ) );	
+
+	// remove alert messages
+	document.getElementById("save-alert1").style.display = "none";
+	document.getElementById("save-alert2").style.display = "none";
+
+	// change the style of the save buttons
+	document.getElementById("save-btn1").className = "btn btn-success";
+	document.getElementById("save-btn2").className = "btn btn-success";
+	document.getElementById("save-btn1").innerHTML = "saved!";
+	document.getElementById("save-btn2").innerHTML = "saved!";
+
+	// change the opacity
+	document.getElementById("save-alert1").style.opacity = "0";
+	document.getElementById("save-alert2").style.opacity = "0";
+}
+
+
+
+
 
 /* initialize */
 
@@ -301,6 +359,10 @@ document.addEventListener("DOMContentLoaded", function(){
 	document.getElementById("business-name").addEventListener("keyup",rsApp.textChange, false);
 	document.getElementById("tagline").addEventListener("keyup",rsApp.textChange, false);
 	document.getElementById("description").addEventListener("keyup",rsApp.textChange, false);
+
+	// save button event listeners
+	document.getElementById("save-btn1").addEventListener("click", rsApp.saveChanges, false);
+	document.getElementById("save-btn2").addEventListener("click", rsApp.saveChanges, false);
 
 }, false);
 

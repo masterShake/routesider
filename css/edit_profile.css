@@ -141,3 +141,22 @@ section.container>.row{
 
 
 
+
+
+
+/*----------- save buttons ------------*/
+#save-btn1,
+#save-btn2{
+	cursor: default;
+	min-width: 66px;
+}
+.btn-info{
+	cursor: pointer !important;
+}
+
+
+
+
+
+
+
