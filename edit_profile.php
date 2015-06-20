@@ -87,11 +87,12 @@
             $errors = [];
 
             // set the business
-            $business = $user->business()
+            $business = $user->business();
             $business = $business[0];
 
             // set the profile
             $profile = $business->profile();
+
             $profile->update( Input::get("vals") );
 
             // return the json object

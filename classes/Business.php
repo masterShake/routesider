@@ -13,16 +13,20 @@ class Business{
 	
 	
 	private $_data = array(),
+			$_user, 
 			$_profile;
 
 	// constructor
-	public function __construct( $business, $profile ){
+	public function __construct( $user, $business, $profile ){
+
+		// set the pointer to the user
+		$this->_user = $user;
 
 		// set the data
 		$this->_data = $business;
 
 		// create the profile object
-		$this->_profile = new Profile($profile, $this);
+		$this->_profile = new Profile($user, $this, $profile);
 
 	}
 

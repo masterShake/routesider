@@ -98,6 +98,7 @@ class User {
 	        		array_push( 
 	        					$this->_businesses, 
 	        					new Business( 
+	        									$this,
 	        									$this->_data["b"][$i], 
 	        									$this->_data["p"][$i] 
 	        								)
