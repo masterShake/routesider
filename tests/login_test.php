@@ -10,21 +10,21 @@ require '../core/init.php';
 
 $user = new User();
 
-if($user->isLoggedIn()){
+// if($user->isLoggedIn()){
 
-	echo $user->data("username") . " is logged in.";
+// 	echo $user->data("username") . " is logged in.";
 
-	// $user->logout();
+// 	// $user->logout();
 
-	// echo "The user has been logged out.";
+// 	// echo "The user has been logged out.";
 
-}else{
+// }else{
 
-	echo "not logged in :(";
+// 	echo "not logged in :(";
 
-}
+// }
 
-// $user->login("michael", "stella", true);
+$user->login("michael", "stella", true);
 
 
 

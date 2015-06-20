@@ -51,12 +51,28 @@ rs.prototype.toggleMobileMenu = function(){
 
 
 
+//-------------------------------------------------
+// - event listener for page active button
+rs.prototype.activatePage = function(){
+
+	// set the newVals active property
+	rsApp.newVals.active = this.checked ? 1 : 0;
+
+	// call the valuesChanged function
+	rsApp.valuesChanged();
+}
 
 
 
 
 
 
+
+
+
+//-------------------------------------------------
+// - event listeners and methods for uploading new
+//   images
 
 // file drag hover
 rs.prototype.fileDragHover = function(e) {
@@ -64,8 +80,6 @@ rs.prototype.fileDragHover = function(e) {
 	e.preventDefault();
 	e.target.className = (e.type == "dragover" ? "hover" : "");
 }
-
-
 // file selection event listener
 rs.prototype.fileSelectHandler = function(e) {
 
@@ -81,7 +95,6 @@ rs.prototype.fileSelectHandler = function(e) {
 		// upload the file
 		rsApp.uploadFile(files[0], e.target.dataset.elem);
 }
-
 // ajax upload file
 rs.prototype.uploadFile = function(file, elemStr){
 
@@ -105,6 +118,12 @@ rs.prototype.uploadFile = function(file, elemStr){
 
 	  			// turn the response json into an object
 	  			this.j = JSON.parse( this.responseText );
+
+	  			// change the filename in the newVals object
+	  			rsApp.newVals[this.j["imgType"]] = this.j["filename"];
+
+	  			// alert the user of the need to save changes
+	  			rsApp.showSaveAlert();
 				
 	  			// change the background image of the elem
 	  			document.getElementById( this.j["imgType"] + "-filedrag" )
@@ -127,12 +146,75 @@ rs.prototype.uploadFile = function(file, elemStr){
 	}
 }
 
+
+
+
+
+
+//-----------------------------------------------
+// - show the save alert message
+// - change the class of the save buttons
+rs.prototype.showSaveAlert = function(){
+
+	// display alert messages
+	document.getElementById("save-alert1").style.display = "block";
+	document.getElementById("save-alert2").style.display = "block";
+
+	// change the style of the save buttons
+	document.getElementById("save-btn1").className = "btn btn-info";
+	document.getElementById("save-btn2").className = "btn btn-info";
+}
+//-----------------------------------------------
+// - hide the save alert message
+// - change the class of the save buttons
+rs.prototype.hideSaveAlert = function(){
+
+	// display alert messages
+	document.getElementById("save-alert1").style.display = "none";
+	document.getElementById("save-alert2").style.display = "none";
+
+	// change the style of the save buttons
+	document.getElementById("save-btn1").className = "btn";
+	document.getElementById("save-btn2").className = "btn";
+}
+
+//-------------------------------------------------------
+// - determine if any of the values have changed.
+rs.prototype.valuesChanged = function(){
+
+	// if the json strings match
+	if( JSON.stringify( this.initialVals ) != JSON.stringify( this.newVals ) )
+
+		// hide the save alerts
+		this.showSaveAlert();
+
+	else
+
+		// display the save alerts
+		this.hideSaveAlert();
+}
+
+
+
+
+
+
+
+
 /* initialize */
 
 document.addEventListener("DOMContentLoaded", function(){
 
     // create new rs object
     rsApp = new rs();
+
+    // set the initial values and the new values objects
+    rsApp.initialVals = JSON.parse( document.getElementById("initial-values").value );
+    rsApp.newVals = JSON.parse( document.getElementById("initial-values").value );
+
+    // add event listener to the active switch
+    document.getElementById("myonoffswitch-profile")
+    	.addEventListener("change", rsApp.activatePage, false);
 
     // add event listener to banner fileselect
 	document.getElementById("banner-fileselect").addEventListener("change", rsApp.fileSelectHandler, false);

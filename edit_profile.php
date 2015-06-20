@@ -19,6 +19,12 @@
 
     $user = new User();
 
+    $business = $user->business();
+
+    $business = $business[0];
+
+    $profile = $business->profile();
+
     //---------------------------------------
     // - if the user is not logged in, 
     //   redirect her to the login page and 
@@ -88,27 +94,6 @@
     //  }
     // }
 
-
-
-
-
-    //---------------------------
-    // STEP 1: load the init file
-    //---------------------------
-
-    require_once 'core/init.php';
-
-    
-    //-------------------------------------
-    // STEP 2: instantiate global variables
-    //-------------------------------------
-
-    $page = "register"; //required
-
-    $errors = []; //required
-
-    $user = new User();
-
     
     //-------------------------------
     // STEP 3: handle GET/POST params
@@ -116,7 +101,7 @@
 
     if(Input::exists()){
 
-
+        // do something
 
     }
 ?>
@@ -224,16 +209,24 @@
             <section class="container">
 
                 <!-- initial values -->
-                <input type="hidden" value="<?= "poop" ?>" name="initvals" id="initial-values">
+                <input type="hidden" 
+                       value='<?= json_encode( $profile->data() ); ?>' 
+                       name="initvals" 
+                       id="initial-values">
 
                 <h1>Edit Profile</h1>
 
                 <!-- save button + activate/deactivate profile switch -->
+                <div class="alert alert-info" 
+                     role="alert" 
+                     style="opacity:1;display:none;" 
+                     id="save-alert1">
+                    <span>Click the <strong>save</strong> button to keep your changes.</span>
+                </div>
+
                 <div style="height: 80px;">
 
-                    <div id="save-alert1"></div>
-
-                    <button class="btn" id="save1" style="margin-top:40px;" aria-label="save changes">Save</button>
+                    <button class="btn" id="save-btn1" style="margin-top:40px;" aria-label="save changes">Save</button>
 
                     <div style="float:right;">
                         <h4>Page Visible</h4>
@@ -330,9 +323,14 @@
 
                 <hr>
 
-                <div id="save-alert2"></div>
+                <div class="alert alert-info" 
+                     role="alert" 
+                     style="opacity:1;display:none;" 
+                     id="save-alert2">
+                    <span>Click the <strong>save</strong> button to keep your changes.</span>
+                </div>
 
-                <button class="btn" id="save2" style="margin:20px;margin-bottom:38px;" aria-label="save changes">Save</button>
+                <button class="btn" id="save-btn2" style="margin:20px;margin-bottom:38px;" aria-label="save changes">Save</button>
 
             </section>
 
