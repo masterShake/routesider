@@ -31,42 +31,34 @@
 
 
 /* format toolbar */
-#format-toolbar{
+#components-toolbar{
 	position: absolute;
 	z-index: 1;
-	top: 65px;
-	width: calc(100% - 50px);
-	left: 25px;
+	top: 92px;
+	width: calc(100% - 40px);
+	left: 40px;
 }
-#format-toolbar .btn,
-#page-title{
+#components-toolbar .btn{
 	background-color: rgba(255, 255, 255, .9);
 	box-shadow: 0.5px 0.5px 2px #888;
 }
-#format-toolbar .btn:hover{
+#components-toolbar .btn{
+	color: #3c763d;
+}
+#components-toolbar .btn:hover{
 	color: #fff;
 	background-color: rgba(92, 184, 92, 1);
 }
 #page-title{
-	display: inline-block;
-	padding: 6px 12px;
-	margin-bottom: 0;
-	font-size: 14px;
-	font-weight: 400;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-image: none;
-	border: 1px solid transparent;
-	border-radius: 4px;
+	cursor: default;
+	color: #444 !important;
+	background-color: rgba(255, 255, 255, .9) !important;
+	z-index: 0 !important;
 }
-#page-title button{
-	 /*position: absolute; */
-}
+#page-title h4{
+	margin: 0px;
+	margin-top: 1px;
+}	
 
 
 

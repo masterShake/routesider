@@ -139,7 +139,7 @@ if(Input::exists()){
             </nav>
 
             <!-- format toolbar -->
-            <div id="format-toolbar">
+            <div id="components-toolbar" class="btn-group" role="group" aria-label="formatting toolbar">
                 
                 <!-- view/edit pins -->
                 <button type="button" class="btn" aria-label="view/edit pins">
@@ -152,10 +152,9 @@ if(Input::exists()){
                 </button>
 
                 <!-- page title -->
-                <div id="page-title">
-                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="btn" id="page-title" aria-label="page title, no action">
                     <h4>Edit Maps</h4>
-                </div>
+                </button>
 
                 <!-- drop new pin -->
                 <button type="button" class="btn" aria-label="drop new pin">
@@ -174,8 +173,8 @@ if(Input::exists()){
             <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
             <div id="map-canvas"></div>
 
-            <!-- edit toolbar -->
-            <div id="edit-toolbar"></div> 
+            <!-- formatting toolbar -->
+            <div id="formatting-toolbar"></div> 
 
         </div>
 
