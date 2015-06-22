@@ -58,7 +58,7 @@ class Profile{
 		// ensure that the values are formatted correctly:
 
 		/* active */
-		if( $json->active )
+		if( $json->active !== 1 )
 			
 			// must be 0 or 1
 			$json->active = 0;

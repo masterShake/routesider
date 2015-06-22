@@ -281,7 +281,8 @@
                             <input type="checkbox" 
                                    name="onoffswitch" 
                                    class="onoffswitch-checkbox" 
-                                   id="myonoffswitch-profile">
+                                   id="myonoffswitch-profile"
+                                   <?= $profile->data("active") ? "checked" : ""; ?>>
                             <label class="onoffswitch-label" for="myonoffswitch-profile">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
@@ -292,6 +293,8 @@
 
                 <hr>
 
+                <h4 style="margin-top:25px;">Edit Avatar &amp; Profile Banner</h4>
+                
                 <!-- edit banner -->
                 <form id="edit-banner" 
                       style="margin-top:20px;"
@@ -299,9 +302,9 @@
                       method="POST" 
                       enctype="multipart/form-data">
 
-                    <h4 style="margin-top:25px;">Edit Avatar &amp; Profile Banner</h4>
-
-                    <div id="banner-filedrag" data-elem="banner">or drop files here</div>
+                    <div id="banner-filedrag" 
+                         data-elem="banner"
+                         style='background-image: <?= $profile->data("banner") ? "url(img/business/" . $profile->data("banner") . ");" : "none;" ?>' >or drop files here</div>
 
                     <div class="traditional-upload">
                         <label for="banner-fileselect">Files to upload:</label>
@@ -318,9 +321,12 @@
                       method="POST" 
                       enctype="multipart/form-data">
 
-                    <div id="avatar-filedrag" data-elem="avatar">or drop files here</div>
+                    <div id="avatar-filedrag" 
+                         data-elem="avatar" 
+                         style='background-image: <?= $profile->data("avatar") ? "url(img/business/" . $profile->data("avatar") . ");" : "none;" ?><?= $profile->data("avatar_shape") == "square" ? "border-radius: 0%;" : "" ?>' >or drop files here</div>
 
-                    <div id="semi-circle-traditional-upload">
+                    <div id="semi-circle-traditional-upload"
+                         style='<?= $profile->data("avatar_shape") == "square" ? "border-top-left-radius: 0px; border-top-right-radius: 0px;" : "" ?>'>
                         <label for="avatar-fileselect">Files to upload:</label>
                         <input type="file" 
                                id="avatar-fileselect" 
@@ -346,7 +352,11 @@
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                         <h4>Business Name</h4>
-                        <input type="text" name="name" class="form-control" id="business-name">
+                        <input type="text" 
+                               name="name" 
+                               class="form-control" 
+                               id="business-name"
+                               value="<?= $profile->data("name") ?>">
                     </div>
                 </div>
 
@@ -354,7 +364,11 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                         <h4>Tagline</h4>
-                        <input type="text" name="tagline" class="form-control" id="tagline">
+                        <input type="text" 
+                               name="tagline" 
+                               class="form-control" 
+                               id="tagline"
+                               value="<?= $profile->data("tagline") ?>">
                     </div>
                 </div>
 
@@ -362,7 +376,7 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                         <h4>Description</h4>
-                        <textarea class="form-control" id="description" name="description"></textarea>
+                        <textarea class="form-control" id="description" name="description"><?= $profile->data("description"); ?></textarea>
                     </div>
                 </div>
 

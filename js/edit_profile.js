@@ -131,7 +131,7 @@ rs.prototype.uploadFile = function(file, elemStr){
 
 	  			// set the opacity of the traditional upload
 	  			document.getElementById( this.j["imgType"] + "-filedrag" )
-	  				.parentElement.children[2].style.opacity = "0.6";
+	  				.parentElement.children[1].style.opacity = "0.6";
 			
 	  			// remove animated spinner
 	  			document.getElementById( this.j["imgType"] + "-filedrag" )
@@ -343,13 +343,17 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("myonoffswitch-profile")
     	.addEventListener("change", rsApp.activatePage, false);
 
-    // event listener to banner fileselect
+    // event listener to banner fileselect & drag and drop
 	document.getElementById("banner-fileselect").addEventListener("change", rsApp.fileSelectHandler, false);
-
-	// event listener to banner drag and drop elem
 	document.getElementById("banner-filedrag").addEventListener("dragover", rsApp.fileDragHover, false);
 	document.getElementById("banner-filedrag").addEventListener("dragleave", rsApp.fileDragHover, false);
 	document.getElementById("banner-filedrag").addEventListener("drop", rsApp.fileSelectHandler, false);
+
+    // event listener for avatar fileselect & drag and drop
+	document.getElementById("avatar-fileselect").addEventListener("change", rsApp.fileSelectHandler, false);
+	document.getElementById("avatar-filedrag").addEventListener("dragover", rsApp.fileDragHover, false);
+	document.getElementById("avatar-filedrag").addEventListener("dragleave", rsApp.fileDragHover, false);
+	document.getElementById("avatar-filedrag").addEventListener("drop", rsApp.fileSelectHandler, false);
 
 	// event listener change avatar shape
 	document.getElementById("circle-avatar").addEventListener("change", rsApp.avatarShape, false);
