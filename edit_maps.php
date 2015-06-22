@@ -36,6 +36,16 @@ if(Input::exists()){
 
 }
 
+
+
+//-------------------------------------
+// instantiate more global variables
+//-------------------------------------
+
+$user = new User();
+
+$business = $user->business()[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -139,42 +149,69 @@ if(Input::exists()){
             </nav>
 
             <!-- format toolbar -->
-            <div id="components-toolbar" class="btn-group" role="group" aria-label="formatting toolbar">
-                
-                <!-- view/edit pins -->
-                <button type="button" class="btn" aria-label="view/edit pins">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                </button>
+            <div class="container">
+                <div id="components-toolbar" class="btn-group" role="group" aria-label="formatting toolbar">
+                    
+                    <!-- view/edit pins -->
+                    <button type="button" class="btn" aria-label="view/edit pins">
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    </button>
 
-                <!-- view/edit polygons -->
-                <button type="button" class="btn" aria-label="view/edit polygons">
-                    <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
-                </button>
+                    <!-- view/edit polygons -->
+                    <button type="button" class="btn" aria-label="view/edit polygons">
+                        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                    </button>
 
-                <!-- page title -->
-                <button type="button" class="btn" id="page-title" aria-label="page title, no action">
-                    <h4>Edit Maps</h4>
-                </button>
+                    <!-- page title -->
+                    <button type="button" class="btn" id="page-title" aria-label="page title, no action">
+                        <h4>Edit Maps</h4>
+                    </button>
 
-                <!-- drop new pin -->
-                <button type="button" class="btn" aria-label="drop new pin">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
+                    <!-- drop new pin -->
+                    <button type="button" class="btn" aria-label="drop new pin">
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
 
-                <!-- draw new polygon -->
-                <button type="button" class="btn" aria-label="draw new polygon">
-                    <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
+                    <!-- draw new polygon -->
+                    <button type="button" class="btn" aria-label="draw new polygon">
+                        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
 
+                </div>
             </div>
 
             <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
             <div id="map-canvas"></div>
 
             <!-- formatting toolbar -->
-            <div id="formatting-toolbar"></div> 
+            <div class="container" style="position: absolute; bottom: 10px; z-index: 1;"> 
+                <div id="formatting-toolbar">
+                
+                    <!-- search user maps -->
+                    <div class="input-group">
+                        <input type="text" 
+                               class="form-control" 
+                               id="search-field" 
+                               placeholder="search <?= $business->data("name"); ?> maps" 
+                               aria-describedby="search-button">
+                        <span class="input-group-addon" id="search-button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                    </div>
+
+                    <!-- drop new pin -->
+                    <div id="drop-new-pin-toolbar">
+                        <button type="button" class="close" aria-label="Close new pin toolbar"><span aria-hidden="true">&times;</span></button>
+                        <div style="text-align:right; float:right; font-size:11px; margin-right:12px; line-height:1;">
+                            <span>Search location or <span class="hidden-md hidden-lg">tap</span><span class="hidden-xs hidden-sm">click</span><br> to drop new pin</span>
+                        </div>
+                        <h4><span class="glyphicon glyphicon-map-marker"></span> New Pin</h4>
+                    </div>
+
+                </div>
+            </div> 
 
         </div>
 

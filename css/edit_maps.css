@@ -65,6 +65,9 @@
 
 
 
+
+
+
 /* map canvas */
 #map-canvas{
 	position: static !important;
@@ -77,6 +80,40 @@
 
 
 
+
+
+
+
+
+/* formatting toolbar */
+#formatting-toolbar{
+	padding: 5px;
+	box-shadow: 0.5px 0.5px 2px #888;
+	background-color: rgba(255, 255, 255, .9);
+  	border-radius: 6px;
+}
+#drop-new-pin-toolbar{
+	border: 2px dashed #CCC;
+	border-radius: 4px;
+	padding: 4px 6px;
+	margin-top: 5px;
+}
+#drop-new-pin-toolbar h4{
+	margin: 0px;
+	color: #3c763d;
+}
+
+
+
+
+
+
+
+
+/* content cover */
+#content-cover{
+	height:100%;
+}
 
 
 
