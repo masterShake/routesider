@@ -52,7 +52,7 @@ if(Input::exists()){
 
         <!-- Routesider styles -->
         <link href="css/main.css" rel="stylesheet">
-        <link href="css/register.css" rel="stylesheet">
+        <link href="css/<?= $page; ?>.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,6 +138,45 @@ if(Input::exists()){
                 </div>
             </nav>
 
+            <!-- format toolbar -->
+            <div id="format-toolbar">
+                
+                <!-- view/edit pins -->
+                <button type="button" class="btn" aria-label="view/edit pins">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                </button>
+
+                <!-- view/edit polygons -->
+                <button type="button" class="btn" aria-label="view/edit polygons">
+                    <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                </button>
+
+                <!-- page title -->
+                <div id="page-title">
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Edit Maps</h4>
+                </div>
+
+                <!-- drop new pin -->
+                <button type="button" class="btn" aria-label="drop new pin">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+
+                <!-- draw new polygon -->
+                <button type="button" class="btn" aria-label="draw new polygon">
+                    <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+
+            </div>
+
+            <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
+            <div id="map-canvas"></div>
+
+            <!-- edit toolbar -->
+            <div id="edit-toolbar"></div> 
+
         </div>
 
         <!-- contentent cover to close menu -->
@@ -208,6 +247,7 @@ if(Input::exists()){
         </nav>
 
         <!-- javascripts -->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script>
         <script src="js/main.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 
