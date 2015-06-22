@@ -2,10 +2,12 @@
 
 /*-----------------------------------------
 
-				Business
-			  ------------
+				Profile
+			  -----------
 
- - 
+ -> update() method used to update database 
+    when user makes changes on the
+    edit_profile.php page.
 
 -----------------------------------------*/
 
