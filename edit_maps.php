@@ -193,10 +193,10 @@ $business = $user->business()[0];
                     <div class="input-group">
                         <input type="text" 
                                class="form-control" 
-                               id="search-field" 
+                               id="search-maps-field" 
                                placeholder="search <?= $business->data("name"); ?> maps" 
                                aria-describedby="search-button">
-                        <span class="input-group-addon" id="search-button">
+                        <span class="input-group-addon" id="search-maps-button">
                             <span class="glyphicon glyphicon-search"></span>
                         </span>
                     </div>
@@ -282,8 +282,14 @@ $business = $user->business()[0];
             </ul>
         </nav>
 
+        <!-- token -->
+        <input type="hidden" id="token" name="token" value='<?= Token::generate(); ?>' >
+
+        <!-- business name -->
+        <input type="hidden" id="business-name" name="business-name" value='<?= $business->data("name"); ?>' >
+
         <!-- javascripts -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;callback=rsApp.setUserLocation"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places&amp;callback=rsApp.setUserLocation"></script>
         <script src="js/main.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 

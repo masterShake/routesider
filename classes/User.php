@@ -35,7 +35,7 @@ class User {
 
 			}else{
 				
-				// $this->logout();
+				$this->logout();
 			}
 
 		// check if a cookie exists and set user
@@ -51,7 +51,7 @@ class User {
 
 		}else{
 
-			// $this->find($user);
+			$this->find($user);
 		
 		}
 	}

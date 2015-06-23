@@ -115,6 +115,31 @@ rs.prototype.locationError = function(){
 
 
 
+//---------------------------------------------------
+// - event listener for search bar
+// - expand the height to accomodate the autocomplete
+//   results.
+rs.prototype.autoExpand = function(){
+	// if the field is not blank
+	if( this.value )
+		// expand the margin
+		this.parentElement.style.marginBottom = "180px";
+	// if blank
+	else
+		// contract the margin
+		this.parentElement.style.marginBottom = "0px";
+}
+// - blur even contract
+rs.prototype.blurContract = function(){
+	this.parentElement.style.marginBottom = "0px";
+}
+
+
+
+
+
+
+
 
 
 
@@ -145,40 +170,94 @@ rs.prototype.toggleNewPinMode = function(){
 // - add event listeners
 rs.prototype.initNewPinMode = function(){
 
+	/* css */
+
 	// change the class of the new pin button
 	document.getElementById("components-toolbar").children[3].className = "btn selected";
-
 	// display the drop-new-pin-toolbar element
 	document.getElementById("drop-new-pin-toolbar").style.display = "block";
-
+	// change placeholder text for search maps input
+	document.getElementById("search-maps-field").placeholder = "Enter location to drop pin";
 	// change the icon in the search button to indicate drop pin function
-	document.getElementById("search-button").innerHTML = "<span class='glyphicon glyphicon-map-marker'></span>";
+	document.getElementById("search-maps-button").innerHTML = "<span class='glyphicon glyphicon-map-marker'></span>";
 
-	// change the cursor on the map to a crosshair
+	/* google map */
 
-	// add event listeners to google map
-
+	this.initGooglePinDrop();
 }
 // - terminate new pin mode
 // - hide elements
 // - remove event listeners
 rs.prototype.terminateNewPinMode = function(){
 
+	/* css */
+
 	// restore the class of the new pin button
 	document.getElementById("components-toolbar").children[3].className = "btn";
-
 	// display the drop-new-pin-toolbar element
 	document.getElementById("drop-new-pin-toolbar").style.display = "none";
-
+	// change placeholder text for search maps input
+	document.getElementById("search-maps-field")
+		.placeholder = "Search " + document.getElementById("business-name").value + " maps";
 	// change the icon in the search button to indicate drop pin function
-	document.getElementById("search-button").innerHTML = "<span class='glyphicon glyphicon-search'></span>";
+	document.getElementById("search-maps-button").innerHTML = "<span class='glyphicon glyphicon-search'></span>";
 
-	// change the cursor on the map to back to grab
+	/* google map */
 
-	// remove event listeners
+	this.termGooglePinDrop();
+}
+// - initialize the google maps drop new pin functionality
+rs.prototype.initGooglePinDrop = function(){
+
+	// change the cursor on the map to a crosshair
+	this.map.setOptions({ 
+							draggableCursor : "crosshair",
+						  	draggingCursor  : "crosshair"
+					   });
+
+	// create the google maps Autocomplete object
+	this.autocomp = new google.maps.places.Autocomplete( document.getElementById("search-maps-field") );
+
+	// apply callback when location is selected
+	google.maps.event.addListener(this.autocomp, 'place_changed', rsApp.dropPin);
+}
+// - autocomplete event listener
+// - drop pin when google place is selected
+rs.prototype.dropPin = function(){
+
+	rsApp.pins.push( new google.maps.Marker({
+      position: new google.maps.LatLng(
+      									rsApp.autocomp.getPlace().geometry.location.A,
+      									rsApp.autocomp.getPlace().geometry.location.F
+      								  ),
+      map: rsApp.map,
+      title: 'Hello World!'
+  }) );
+
+	setTimeout( rsApp.timeoutShrink, 100 );
 
 }
+rs.prototype.timeoutShrink = function(){
 
+	document.getElementById("search-maps-field").parentElement.style.marginBottom = "0px";
+
+};
+// - terminate the google maps drop new pin functionality
+rs.prototype.termGooglePinDrop = function(){
+
+	// change the cursor back to grabber
+	this.map.setOptions({ 
+							draggableCursor : "grab",
+						  	draggingCursor  : "grabbing"
+					   });
+
+	// remove autocomplete event listener	
+	delete this.autocomp;
+
+	// remove autocomplete event listener
+	document.getElementById("search-maps-field")
+		.removeEventListener("keyup", rsApp.autocomplete, false);
+}
 
 
 
@@ -195,6 +274,14 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // create new rs object
     rsApp = new rs();
+
+    rsApp.pins = [];
+
+    // add event listener to expand the formatting toolbar
+    document.getElementById("search-maps-field")
+    	.addEventListener("keyup", rsApp.autoExpand, false);
+    document.getElementById("search-maps-field")
+    	.addEventListener("blur", rsApp.blurContract, false);
 
     // add event listener to the add new pin button
     document.getElementById("components-toolbar").children[3]

@@ -8,6 +8,25 @@
 
 
 
+
+
+/* animations */
+.animate-300{
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+	transition: .3s;
+}
+
+
+
+
+
+
+
+
+
 /* page content */
 #page-content{
 	position: absolute;
@@ -30,7 +49,7 @@
 
 
 
-/* format toolbar */
+/* components toolbar */
 #components-toolbar{
 	position: absolute;
 	z-index: 1;
@@ -63,6 +82,7 @@
 	margin: 0px;
 	margin-top: 1px;
 }	
+
 
 
 
