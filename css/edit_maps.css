@@ -49,6 +49,10 @@
 	color: #fff;
 	background-color: rgba(92, 184, 92, 1);
 }
+#components-toolbar .btn.selected{
+	color: #fff;
+	background-color: rgba(92, 184, 92, 1);
+}
 #page-title{
 	cursor: default;
 	color: #444 !important;
@@ -93,6 +97,7 @@
   	border-radius: 6px;
 }
 #drop-new-pin-toolbar{
+	display: none;
 	border: 2px dashed #CCC;
 	border-radius: 4px;
 	padding: 4px 6px;

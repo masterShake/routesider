@@ -204,8 +204,8 @@ $business = $user->business()[0];
                     <!-- drop new pin -->
                     <div id="drop-new-pin-toolbar">
                         <button type="button" class="close" aria-label="Close new pin toolbar"><span aria-hidden="true">&times;</span></button>
-                        <div style="text-align:right; float:right; font-size:11px; margin-right:12px; line-height:1;">
-                            <span>Search location or <span class="hidden-md hidden-lg">tap</span><span class="hidden-xs hidden-sm">click</span><br> to drop new pin</span>
+                        <div style="text-align:right; float:right; font-size:11px; margin-right:12px; line-height:1; max-width:38%;">
+                            <span>Search location or <span class="hidden-md hidden-lg">tap</span><span class="hidden-xs hidden-sm">click</span> to drop new pin</span>
                         </div>
                         <h4><span class="glyphicon glyphicon-map-marker"></span> New Pin</h4>
                     </div>
