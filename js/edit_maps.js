@@ -225,18 +225,37 @@ rs.prototype.initGooglePinDrop = function(){
 // - drop pin when google place is selected
 rs.prototype.dropPin = function(){
 
-	rsApp.pins.push( new google.maps.Marker({
-      position: new google.maps.LatLng(
-      									rsApp.autocomp.getPlace().geometry.location.A,
-      									rsApp.autocomp.getPlace().geometry.location.F
-      								  ),
-      map: rsApp.map,
-      title: 'Hello World!'
-  }) );
+	// create the LatLng object
+	rsApp.tempLatLng = new google.maps.LatLng(
+		      									rsApp.autocomp.getPlace().geometry.location.A,
+		      									rsApp.autocomp.getPlace().geometry.location.F
+		      								);
 
+	// pan to this location
+	rsApp.map.panTo(rsApp.tempLatLng);
+
+	// zoom to the correct resolution
+	rsApp.map.setZoom( 15 );
+
+	// hide the extra space under the search-maps-field
 	setTimeout( rsApp.timeoutShrink, 100 );
 
+	// drop the pin after panning to the latlng
+	setTimeout( rsApp.timeoutAnimatePinDrop, 950 );
+
 }
+// - timeout function to drop a pin after panning to a location
+rs.prototype.timeoutAnimatePinDrop = function(){
+
+	// create a new pin and push it to the pins array
+	rsApp.pins.push( new google.maps.Marker({
+      position: rsApp.tempLatLng,
+      map: rsApp.map,
+      title: 'Hello World!',
+      animation: google.maps.Animation.DROP
+  }) );
+}
+// - timeout function to hide the extra space under the #search-maps-field
 rs.prototype.timeoutShrink = function(){
 
 	document.getElementById("search-maps-field").parentElement.style.marginBottom = "0px";
