@@ -218,12 +218,37 @@ rs.prototype.initGooglePinDrop = function(){
 	// create the google maps Autocomplete object
 	this.autocomp = new google.maps.places.Autocomplete( document.getElementById("search-maps-field") );
 
-	// apply callback when location is selected
-	google.maps.event.addListener(this.autocomp, 'place_changed', rsApp.dropPin);
+	// apply event listener when location is selected with click
+	google.maps.event.addListener( this.map, 'click', rsApp.dropPinClick );
+
+	// apply event listener when location is selected via autocomplete field
+	google.maps.event.addListener(this.autocomp, 'place_changed', rsApp.dropPinAutocomp);
+}
+// - map click event listener
+// - create the latlng object when the user clicks on the map
+// - call the drop pin method
+rs.prototype.dropPinClick = function(e){
+
+	// delete the previous temp LatLng object
+	delete rsApp.tempLatLng;
+
+	// get the LatLng object from the event
+	rsApp.tempLatLng = e.latLng;
+
+	// call the dropPin method
+	rsApp.dropPin();
 }
 // - autocomplete event listener
-// - drop pin when google place is selected
-rs.prototype.dropPin = function(){
+// - Create the latlng object when the user selects 
+//   a place from the autocomplete suggestions.
+// - call the drop pin method
+rs.prototype.dropPinAutocomp = function(){
+
+	// hide the extra space under the search-maps-field
+	setTimeout( rsApp.timeoutShrink, 100 );
+
+	// delete the previous temp LatLng object
+	delete rsApp.tempLatLng;
 
 	// create the LatLng object
 	rsApp.tempLatLng = new google.maps.LatLng(
@@ -232,20 +257,17 @@ rs.prototype.dropPin = function(){
 		      								);
 
 	// pan to this location
-	rsApp.map.panTo(rsApp.tempLatLng);
+	rsApp.map.panTo( rsApp.tempLatLng );
 
 	// zoom to the correct resolution
 	rsApp.map.setZoom( 15 );
 
-	// hide the extra space under the search-maps-field
-	setTimeout( rsApp.timeoutShrink, 100 );
-
 	// drop the pin after panning to the latlng
-	setTimeout( rsApp.timeoutAnimatePinDrop, 950 );
-
+	setTimeout( rsApp.dropPin, 950 );
 }
-// - timeout function to drop a pin after panning to a location
-rs.prototype.timeoutAnimatePinDrop = function(){
+// - function to drop a pin
+// - may only be called after rsApp.tempLatLng property has been set
+rs.prototype.dropPin = function(){
 
 	// create a new pin and push it to the pins array
 	rsApp.pins.push( new google.maps.Marker({
@@ -257,9 +279,8 @@ rs.prototype.timeoutAnimatePinDrop = function(){
 }
 // - timeout function to hide the extra space under the #search-maps-field
 rs.prototype.timeoutShrink = function(){
-
+	// remove the margin
 	document.getElementById("search-maps-field").parentElement.style.marginBottom = "0px";
-
 };
 // - terminate the google maps drop new pin functionality
 rs.prototype.termGooglePinDrop = function(){
@@ -291,10 +312,23 @@ rs.prototype.termGooglePinDrop = function(){
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    // create new rs object
+
+    /*--------- instantiate the necessary objects ----------*/
+
     rsApp = new rs();
 
+
+    /*------------- additional rs properties ---------------*/
+
+    // all google.maps.Marker objects for given business
     rsApp.pins = [];
+    // temporary storage for google.maps.LatLng objects
+    rsApp.tempLatLng = {};
+    // temporary storage for google.maps.Autocomplete
+    rsApp.autocomp;
+
+
+    /*----------------- event listeners --------------------*/
 
     // add event listener to expand the formatting toolbar
     document.getElementById("search-maps-field")
