@@ -148,7 +148,7 @@ $business = $user->business()[0];
                 </div>
             </nav>
 
-            <!-- format toolbar -->
+            <!-- components toolbar -->
             <div class="container">
                 <div id="components-toolbar" class="btn-group" role="group" aria-label="formatting toolbar">
                     
@@ -185,9 +185,9 @@ $business = $user->business()[0];
             <!-- map key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis -->
             <div id="map-canvas"></div>
 
-            <!-- formatting toolbar -->
+            <!-- bottom formatting toolbar -->
             <div class="container" style="position: absolute; bottom: 10px; z-index: 1;"> 
-                <div id="formatting-toolbar">
+                <div id="bottom-toolbar">
                 
                     <!-- search user maps -->
                     <div class="input-group">
@@ -202,12 +202,24 @@ $business = $user->business()[0];
                     </div>
 
                     <!-- drop new pin -->
-                    <div id="drop-new-pin-toolbar">
+                    <div id="drop-new-pin-toolbar" class="formatting-toolbar">
                         <button type="button" class="close" aria-label="Close new pin toolbar"><span aria-hidden="true">&times;</span></button>
-                        <div style="text-align:right; float:right; font-size:11px; margin-right:12px; line-height:1; max-width:38%;">
+                        <div class="toolbar-instructions">
                             <span>Search location or <span class="hidden-md hidden-lg">tap</span><span class="hidden-xs hidden-sm">click</span> to drop new pin</span>
                         </div>
                         <h4><span class="glyphicon glyphicon-map-marker"></span> New Pin</h4>
+                    </div>
+
+                    <!-- draw new polygon -->
+                    <div id="draw-new-polygon-toolbar" class="formatting-toolbar">
+                        <button type="button" class="close" aria-label="Close new polygon toolbar"><span aria-hidden="true">&times;</span></button>
+                        <div class="toolbar-instructions">
+                            <ul>
+                                <li><span class="hidden-md hidden-lg">Tap</span><span class="hidden-xs hidden-sm">Click</span> to add points.</li>
+                                <li>Hit the "complete" button to connect all the dots.</li>
+                            </ul>
+                        </div>
+                        <h4><span class="glyphicon glyphicon-stop"></span> New Polygon</h4>
                     </div>
 
                 </div>

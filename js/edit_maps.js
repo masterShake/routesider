@@ -143,6 +143,23 @@ rs.prototype.blurContract = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //---------------------------------------------------
 // 					drop new pin
 //				  ----------------
@@ -198,7 +215,7 @@ rs.prototype.terminateNewPinMode = function(){
 	document.getElementById("drop-new-pin-toolbar").style.display = "none";
 	// change placeholder text for search maps input
 	document.getElementById("search-maps-field")
-		.placeholder = "Search " + document.getElementById("business-name").value + " maps";
+		.placeholder = "Search " + this.businessName + " maps";
 	// change the icon in the search button to indicate drop pin function
 	document.getElementById("search-maps-button").innerHTML = "<span class='glyphicon glyphicon-search'></span>";
 
@@ -308,6 +325,106 @@ rs.prototype.termGooglePinDrop = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------
+// 				  draw new polygon
+//				--------------------
+//
+//
+
+
+// - Event listener for new polygon button in 
+//   the components toolbar
+rs.prototype.toggleNewPolyMode = function(){
+
+	// If the drop-new-pin component is hidden
+	if( document.getElementById("draw-new-polygon-toolbar").style.display != "block" )
+
+		// initialize drop-new-pin mode
+		rsApp.initNewPolyMode();
+
+	else
+
+		// terminate drop-new-pin mode
+		rsApp.terminateNewPolyMode();
+}
+// - initialize new pin mode
+// - display elements
+// - add event listeners
+rs.prototype.initNewPolyMode = function(){
+	
+	/* css */
+
+	// change the class of the new pin button
+	document.getElementById("components-toolbar").children[4].className = "btn selected";
+	// display the drop-new-pin-toolbar element
+	document.getElementById("draw-new-polygon-toolbar").style.display = "block";
+	// change placeholder text for search maps input
+	document.getElementById("search-maps-field").placeholder = "Search locations";
+
+	/* google map */
+}
+// - terminate new pin mode
+// - hide elements
+// - remove event listeners
+rs.prototype.terminateNewPolyMode = function(){
+	
+	/* css */
+
+	// change the class of the new pin button
+	document.getElementById("components-toolbar").children[4].className = "btn";
+	// display the drop-new-pin-toolbar element
+	document.getElementById("draw-new-polygon-toolbar").style.display = "none";
+	// change placeholder text for search maps input
+	document.getElementById("search-maps-field").placeholder = "Search " + this.businessName + " maps";
+
+	/* google map */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* initialize */
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -326,6 +443,8 @@ document.addEventListener("DOMContentLoaded", function(){
     rsApp.tempLatLng = {};
     // temporary storage for google.maps.Autocomplete
     rsApp.autocomp;
+    // set the business name for easy access
+    rsApp.businessName = document.getElementById("business-name").value;
 
 
     /*----------------- event listeners --------------------*/
@@ -343,6 +462,14 @@ document.addEventListener("DOMContentLoaded", function(){
     // add event listener to the close new pin toolbar x
     document.getElementById("drop-new-pin-toolbar").children[0]
     	.addEventListener("click", rsApp.terminateNewPinMode, false);
+
+    // add event listener to the draw new polygon button
+    document.getElementById("components-toolbar").children[4]
+    	.addEventListener("click", rsApp.toggleNewPolyMode, false);
+
+    // add event listener to the close new polygon toolbar x
+    document.getElementById("draw-new-polygon-toolbar").children[0]
+    	.addEventListener("click", rsApp.terminateNewPolyMode, false);
 
 }, false);
 
