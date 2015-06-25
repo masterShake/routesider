@@ -146,8 +146,11 @@
 
 
 /* draw new polygon */
-#draw-new-polygon{
-
+#undo span{
+	-moz-transform: scaleX(-1);    /* Gecko */
+	-o-transform: scaleX(-1);      /* Operah */
+	-webkit-transform: scaleX(-1); /* webkit */
+	transform: scaleX(-1);         /* standard */
 }
 
 

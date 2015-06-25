@@ -212,14 +212,140 @@ $business = $user->business()[0];
 
                     <!-- draw new polygon -->
                     <div id="draw-new-polygon-toolbar" class="formatting-toolbar">
+                        <!-- toolbar header -->
                         <button type="button" class="close" aria-label="Close new polygon toolbar"><span aria-hidden="true">&times;</span></button>
-                        <div class="toolbar-instructions">
+                        <div class="toolbar-instructions" style="text-align: left; max-width: 60%;">
                             <ul>
                                 <li><span class="hidden-md hidden-lg">Tap</span><span class="hidden-xs hidden-sm">Click</span> to add points.</li>
-                                <li>Hit the "complete" button to connect all the dots.</li>
+                                <li>Press the "complete" button to connect all the dots.</li>
                             </ul>
                         </div>
                         <h4><span class="glyphicon glyphicon-stop"></span> New Polygon</h4>
+                        <!-- toolbar body -->
+                        <div>
+                            <!-- color wheel and opacity slider-->
+                            <div>
+                                <!-- color wheel -->
+                                <div>
+                                    <!-- 3 -->
+                                    <div>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                    </div>
+                                    <!-- 4 -->
+                                    <div>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                    </div>
+                                    <!-- 5 -->
+                                    <div>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                    </div>
+                                    <!-- 4 -->
+                                    <div>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                    </div>
+                                    <!-- 3 -->
+                                    <div>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                    </div>
+                                </div>
+                                <!-- opacity slider -->
+                                <div>
+                                    <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" />
+                                </div>
+                            </div>
+                            <!-- formatting buttons and inputs -->
+                            <div>
+                                <!-- color, undo/redo, & complete buttons -->
+                                <div>
+                                    <!-- polygon colors table-->
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>hex color</th>
+                                            <th>opacity</th>
+                                        </tr>
+                                        <!-- fill -->
+                                        <tr>
+                                            <th>fill</th>
+                                            <td>
+                                                <button type="button" 
+                                                        class="btn btn-color-selected" 
+                                                        id="polygon-hex-fill-btn" 
+                                                        aria-label=""></button>
+                                            </td>
+                                            <td>
+                                                <input type="text" 
+                                                       class="form-control" 
+                                                       id="polygon-hex-fill-input">
+                                            </td>
+                                            <td>
+                                                <input type="text" 
+                                                       class="form-control" 
+                                                       id="polygon-opacity-fill-input">
+                                            </td>
+                                        </tr>
+                                        <!-- border -->
+                                        <tr>
+                                            <th>border</th>
+                                            <td>
+                                                <button type="button" 
+                                                        class="btn btn-color-selected" 
+                                                        id="polygon-hex-border-btn" 
+                                                        aria-label=""></button>
+                                            </td>
+                                            <td>
+                                                <input type="text" 
+                                                       class="form-control" 
+                                                       id="polygon-hex-border-input">
+                                            </td>
+                                            <td>
+                                                <input type="text" 
+                                                       class="form-control" 
+                                                       id="polygon-opacity-border-input">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- undo, redo, complete polygon -->
+                                    <div>
+                                        <!-- undo/redo -->
+                                        <div>
+                                            <button type="button" class="btn" id="undo" aria-label="undo">
+                                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn" id="redo" aria-label="undo">
+                                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                        <!-- complete the polygon -->
+                                        <button type="button" class="btn" id="complete" aria-label="complete the polygon">complete</button>
+                                    </div>
+                                </div>
+                                <!-- description input -->
+                                <div>
+                                    <input type="text" 
+                                       class="form-control" 
+                                       id="polygon-description" 
+                                       placeholder="polygon description">
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>

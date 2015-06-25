@@ -152,6 +152,54 @@ rs.prototype.blurContract = function(){
 
 
 
+//---------------------------------------------------
+// - Terminate any open formatting modes
+// - Do not terminate the exception
+rs.prototype.termFormattingModes = function(exception){
+	
+	// drop new pin
+	if( this.newPinMode && exception != "new pin" )
+
+		this.terminateNewPinMode();
+
+	// draw new polygon
+	if( this.newPolyMode && exception != "new poly" )
+
+		this.terminateNewPolyMode();
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -187,6 +235,12 @@ rs.prototype.toggleNewPinMode = function(){
 // - add event listeners
 rs.prototype.initNewPinMode = function(){
 
+	// exit the other formatting modes and hide other toolbars
+	rsApp.termFormattingModes("new pin");
+
+	// set drop-new-pin mode property to true
+	rsApp.newPinMode = true;
+
 	/* css */
 
 	// change the class of the new pin button
@@ -206,6 +260,9 @@ rs.prototype.initNewPinMode = function(){
 // - hide elements
 // - remove event listeners
 rs.prototype.terminateNewPinMode = function(){
+
+	// set drop-new-pin mode property to true
+	rsApp.newPinMode = false;
 
 	/* css */
 
@@ -363,18 +420,24 @@ rs.prototype.toggleNewPolyMode = function(){
 	// If the drop-new-pin component is hidden
 	if( document.getElementById("draw-new-polygon-toolbar").style.display != "block" )
 
-		// initialize drop-new-pin mode
+		// initialize draw-new-poly mode
 		rsApp.initNewPolyMode();
 
 	else
 
-		// terminate drop-new-pin mode
+		// terminate draw-new-poly mode
 		rsApp.terminateNewPolyMode();
 }
 // - initialize new pin mode
 // - display elements
 // - add event listeners
 rs.prototype.initNewPolyMode = function(){
+
+	// exit the other formatting modes and hide other toolbars
+	rsApp.termFormattingModes("new poly");
+
+	// reset the new polygon mode property to false
+	this.newPolyMode = true;
 	
 	/* css */
 
@@ -437,8 +500,14 @@ document.addEventListener("DOMContentLoaded", function(){
 
     /*------------- additional rs properties ---------------*/
 
-    // all google.maps.Marker objects for given business
+    // - Initialize arrays to hold all google.maps.Marker & 
+    //   google.maps.Polygon objects for given business.
     rsApp.pins = [];
+    rsApp.polygons = [];
+    // - Set roperties to determine/manage which editting/
+    //   formatting modes are active
+    rsApp.newPinMode = false;
+    rsApp.newPolyMode = false;
     // temporary storage for google.maps.LatLng objects
     rsApp.tempLatLng = {};
     // temporary storage for google.maps.Autocomplete
