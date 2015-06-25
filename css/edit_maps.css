@@ -146,6 +146,19 @@
 
 
 /* draw new polygon */
+
+/* color wheel */
+.color-wheel{
+	margin: 20px 0px;
+}
+.color-wheel>div{
+	text-align: center;
+}
+.color-wheel>div button{  
+	padding: 7px;
+ 	margin: 0px 2px;
+}
+
 #undo span{
 	-moz-transform: scaleX(-1);    /* Gecko */
 	-o-transform: scaleX(-1);      /* Operah */

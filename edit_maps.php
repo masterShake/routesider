@@ -222,44 +222,44 @@ $business = $user->business()[0];
                         </div>
                         <h4><span class="glyphicon glyphicon-stop"></span> New Polygon</h4>
                         <!-- toolbar body -->
-                        <div>
+                        <div class="row">
                             <!-- color wheel and opacity slider-->
-                            <div>
+                            <div class="col-xs-6">
                                 <!-- color wheel -->
-                                <div>
+                                <div class="color-wheel">
                                     <!-- 3 -->
                                     <div>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
                                     </div>
                                     <!-- 4 -->
                                     <div>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
                                     </div>
                                     <!-- 5 -->
                                     <div>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
                                     </div>
                                     <!-- 4 -->
                                     <div>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
                                     </div>
                                     <!-- 3 -->
                                     <div>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
-                                        <button type="button" class="btn btn-color-wheel" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label=""></button>
                                     </div>
                                 </div>
                                 <!-- opacity slider -->
@@ -268,7 +268,7 @@ $business = $user->business()[0];
                                 </div>
                             </div>
                             <!-- formatting buttons and inputs -->
-                            <div>
+                            <div class="col-xs-6">
                                 <!-- color, undo/redo, & complete buttons -->
                                 <div>
                                     <!-- polygon colors table-->
@@ -332,7 +332,9 @@ $business = $user->business()[0];
                                             </button>
                                         </div>
                                         <!-- complete the polygon -->
-                                        <button type="button" class="btn" id="complete" aria-label="complete the polygon">complete</button>
+                                        <div>
+                                            <button type="button" class="btn" id="complete" aria-label="complete the polygon">complete</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- description input -->
