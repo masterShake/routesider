@@ -18,7 +18,13 @@
 	-o-transition: .3s;
 	transition: .3s;
 }
-
+#draw-new-polygon-toolbar{
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
 
 
 
@@ -150,6 +156,50 @@
 				draw new polygon 
 
 -----------------------------------------------*/
+
+
+
+/*---------------------- 
+	toggle pull tab
+----------------------*/
+.nav-tabs{
+	z-index: -1;
+	display: none;
+}
+.nav-tabs li{
+	float: right;
+	margin-right: 7px;
+	border: 1px solid #ccc;
+	border-bottom: none;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.nav-tabs a,
+.nav-tabs a:hover{
+	background-color: #fff !important;
+	padding: 8px 15px !important; 
+	margin: 0px !important;
+	border-bottom: none !important;
+	color: #5CB85C;
+}
+.nav-tabs div.glyphicon{
+	display: block;
+}
+
+.nav-tabs div.glyphicon:nth-child(2){
+	margin-top: -6px;
+}
+
+
+
+
+
+#draw-new-polygon-toolbar{
+	height: 311px;
+	overflow: hidden;
+}
+
+
 
 
 /*---------------------- 

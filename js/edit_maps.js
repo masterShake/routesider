@@ -441,9 +441,11 @@ rs.prototype.initNewPolyMode = function(){
 	
 	/* css */
 
-	// change the class of the new pin button
+	// display the toggle toolbar tab
+	document.getElementById("toggle-toolbar").style.display = "block";
+	// change the class of the new polygon component button
 	document.getElementById("components-toolbar").children[4].className = "btn selected";
-	// display the drop-new-pin-toolbar element
+	// display the draw-new-polygon-toolbar element
 	document.getElementById("draw-new-polygon-toolbar").style.display = "block";
 	// change placeholder text for search maps input
 	document.getElementById("search-maps-field").placeholder = "Search locations";
@@ -457,6 +459,8 @@ rs.prototype.terminateNewPolyMode = function(){
 	
 	/* css */
 
+	// display the toggle toolbar tab
+	document.getElementById("toggle-toolbar").style.display = "none";
 	// change the class of the new pin button
 	document.getElementById("components-toolbar").children[4].className = "btn";
 	// display the drop-new-pin-toolbar element
@@ -466,7 +470,22 @@ rs.prototype.terminateNewPolyMode = function(){
 
 	/* google map */
 }
-
+// - event listener for <a> tag inside #toolbar-toggle
+// - toggle the draw new polygon toolbar to make more space
+rs.prototype.toggleToolbar = function(){
+	// if the toolbar is displayed
+	if( document.getElementById("draw-new-polygon-toolbar").offsetHeight > 60 ){
+		// shrink it
+		document.getElementById("draw-new-polygon-toolbar").style.height = "54px";
+		// flip the toggler
+		this.children[0].style.transform = "rotate(180deg)";
+	}else{
+		// grow it
+		document.getElementById("draw-new-polygon-toolbar").style.height = "311px";
+		// flip the toggler
+		this.children[0].style.transform = "rotate(0deg)";
+	}
+}
 
 
 
@@ -539,6 +558,10 @@ document.addEventListener("DOMContentLoaded", function(){
     // add event listener to the close new polygon toolbar x
     document.getElementById("draw-new-polygon-toolbar").children[0]
     	.addEventListener("click", rsApp.terminateNewPolyMode, false);
+
+    // add event listener to the pull tab to toggle the draw-new-polygon toolbar
+    document.getElementById("toggle-toolbar").children[0].children[0]
+    	.addEventListener("click", rsApp.toggleToolbar, false);
 
 }, false);
 

@@ -187,8 +187,22 @@ $business = $user->business()[0];
 
             <!-- bottom formatting toolbar -->
             <div class="container" style="position: absolute; bottom: 10px; z-index: 1;"> 
-                <div id="bottom-toolbar">
                 
+                <!-- toggle tab -->
+                <ul class="nav nav-tabs" id="toggle-toolbar" role="toggle toolbar">
+                    <li role="presentation">
+                        <a href="#">
+                            <div>
+                                <div class="glyphicon glyphicon-chevron-down"></div>
+                                <div class="glyphicon glyphicon-chevron-down"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                
+
+                <div id="bottom-toolbar">
+
                     <!-- search user maps -->
                     <div class="input-group">
                         <input type="text" 
