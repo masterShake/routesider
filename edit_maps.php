@@ -233,7 +233,7 @@ $business = $user->business()[0];
                                             <tr>
                                                 <th></th>
                                                 <th></th>
-                                                <th>hex color</th>
+                                                <th>hex</th>
                                                 <th>opacity</th>
                                             </tr>
                                         </thead>
@@ -311,45 +311,55 @@ $business = $user->business()[0];
                                 <div class="color-wheel">
                                     <!-- 3 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label="Red Magenta #FF00FF"></button>
+                                        <button type="button" class="btn" aria-label="Red #FF0000"></button>
+                                        <button type="button" class="btn" aria-label="Orange #FF7F00"></button>
                                     </div>
                                     <!-- 4 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label="Magenta #FF00FF"></button>
+                                        <button type="button" class="btn" aria-label="Lilac #FF99CC"></button>
+                                        <button type="button" class="btn" aria-label="Apricot #FFCC99"></button>
+                                        <button type="button" class="btn" aria-label="Yellow #FFFF00"></button>
                                     </div>
                                     <!-- 5 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label="Blue Magenta #7F00FF"></button>
+                                        <button type="button" class="btn" aria-label="Lavendar #CC99FF"></button>
+                                        <button type="button" class="btn" aria-label="White #FFFFFF"></button>
+                                        <button type="button" class="btn" aria-label="Celadon #CCFF99"></button>
+                                        <button type="button" class="btn" aria-label="Green Yellow #7FFF00"></button>
                                     </div>
                                     <!-- 4 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label="Blue #0000FF"></button>
+                                        <button type="button" class="btn" aria-label="Cornflower Blue #99CCFF"></button>
+                                        <button type="button" class="btn" aria-label="Sea Foam Green #99FFCC"></button>
+                                        <button type="button" class="btn" aria-label="Green #00FF00"></button>
                                     </div>
                                     <!-- 3 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
-                                        <button type="button" class="btn" aria-label=""></button>
+                                        <button type="button" class="btn" aria-label="Blue Cyan #007FFF"></button>
+                                        <button type="button" class="btn" aria-label="Cyan #00FFFF"></button>
+                                        <button type="button" class="btn" aria-label="Green Cyan #00FF7F"></button>
                                     </div>
                                 </div>
+                                <!-- full color wheel -->
+                                <div style="text-align:center;">
+                                    <label for="color-picker">more colors:</label>
+                                    <input type="color" 
+                                           id="color-picker"
+                                           value="#5CB85C"
+                                           aria-label="select from complete color wheel">
+                                </div>
                                 <!-- opacity slider -->
-                                <div>
+                                <div style="margin-top: 13px;">
                                     <label for="polygon-opacity">
                                         <span class="glyphicon glyphicon-adjust"></span>
                                     </label>
-                                    <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" />
+                                    <div style="max-width: 98px; float:right;">
+                                        <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" />
+                                    </div>
                                 </div>
                             </div>
 

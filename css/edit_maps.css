@@ -168,66 +168,80 @@
 }
 /* row 1 */
 .color-wheel>div:nth-child(1)>button:nth-child(1){
-	background-color: #4e4e4e;
+	background-color: #FF007F;
 }
 .color-wheel>div:nth-child(1)>button:nth-child(2){
-	background-color: #4e4e4e;
+	background-color: #FF0000;
 }
 .color-wheel>div:nth-child(1)>button:nth-child(3){
-	background-color: #4e4e4e;
+	background-color: #FF7F00;
 }
 /* row 2 */
 .color-wheel>div:nth-child(2)>button:nth-child(1){
-	background-color: #4e4e4e;
+	background-color: #FF00FF;
 }
 .color-wheel>div:nth-child(2)>button:nth-child(2){
-	background-color: #4e4e4e;
+	background-color: #FF99CC;
 }
 .color-wheel>div:nth-child(2)>button:nth-child(3){
-	background-color: #4e4e4e;
+	background-color: #FFCC99;
 }
 .color-wheel>div:nth-child(2)>button:nth-child(4){
-	background-color: #4e4e4e;
+	background-color: #FFFF00;
 }
 /* row 3 */
 .color-wheel>div:nth-child(3)>button:nth-child(1){
-	background-color: #4e4e4e;
+	background-color: #7F00FF;
 }
 .color-wheel>div:nth-child(3)>button:nth-child(2){
-	background-color: #4e4e4e;
+	background-color: #CC99FF;
 }
 .color-wheel>div:nth-child(3)>button:nth-child(3){
-	background-color: #4e4e4e;
+	background-color: #FFFFFF;
+	border: 1px solid #444;
 }
 .color-wheel>div:nth-child(3)>button:nth-child(4){
-	background-color: #4e4e4e;
+	background-color: #CCFF99;
 }
 .color-wheel>div:nth-child(3)>button:nth-child(5){
-	background-color: #4e4e4e;
+	background-color: #7FFF00;
 }
 /* row 4 */
 .color-wheel>div:nth-child(4)>button:nth-child(1){
-	background-color: #4e4e4e;
+	background-color: #0000FF;
 }
 .color-wheel>div:nth-child(4)>button:nth-child(2){
-	background-color: #4e4e4e;
+	background-color: #99CCFF;
 }
 .color-wheel>div:nth-child(4)>button:nth-child(3){
-	background-color: #4e4e4e;
+	background-color: #99FFCC;
 }
 .color-wheel>div:nth-child(4)>button:nth-child(4){
-	background-color: #4e4e4e;
+	background-color: #00FF00;
 }
 /* row 5 */
 .color-wheel>div:nth-child(5)>button:nth-child(1){
-	background-color: #4e4e4e;
+	background-color: #007FFF;
 }
 .color-wheel>div:nth-child(5)>button:nth-child(2){
-	background-color: #4e4e4e;
+	background-color: #00FFFF;
 }
 .color-wheel>div:nth-child(5)>button:nth-child(3){
-	background-color: #4e4e4e;
+	background-color: #00FF7F;
 }
+
+
+
+
+
+
+/* color picker input */
+#color-picker{
+	border-radius: 4px;
+	border: 0px;
+	width: 27px;
+}
+
 
 
 
