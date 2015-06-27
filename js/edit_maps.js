@@ -463,50 +463,27 @@ rs.prototype.initGooglePolyDraw = function(){
 						  	draggingCursor  : "crosshair"
 					   });
 
-    // - Init temp array to hold polygon point coordinates
-    // this.polyCoords = [];
-    // // - Init array to hold coordinates that have been undone 
-    // //   with the undo button
-    // this.polyCoordsUndone = [];
-    // // - Init LineString object because it is deleted before
-    // //   it is recreated
-    // this.lineString = {};
+	// reset the polyCoords array
+	this.polyCoords = [];
 
-	// set drawing mode for map
-	// this.map.data.setDrawingMode("Polygon");
+	// if we havent already created the polyline object
+	if( !this.hasOwnProperty("polyline") ){
+		// create it
+		this.polyline = new google.maps.Polyline();
+		// set the map
+		this.polyline.setMap( this.map );
+	}
 
-	// create a drawing manager object
-	this.drawingManager = new google.maps.drawing.DrawingManager();
-
-	// set the map
-	this.drawingManager.setMap( this.map );
-
-	// set the options for the drawing manager
-	this.drawingManager.setOptions({
-										drawingControl : false,
-										drawingMode : "polygon"
-									});
-
-	// add event listener when user draws a polyline
-	google.maps.event.addListener( rsApp.drawingManager, 'overlaycomplete', rsApp.drawPolyClick );
-
-	// set an event listener for add feature
-	// google.maps.event.addListener(, 'addFeature', rsApp.drawPolyClick);
-
+	// apply event listener when location is selected with click
+	google.maps.event.addListener( this.map, 'click', rsApp.drawPolyline );
 }
-// - add a point to the polygon when the user clicks on the map
-rs.prototype.drawPolyClick = function(e){ console.log("line complete");
+// - event listener polygon complete
+rs.prototype.drawPolyline = function(e){
 
-	console.log(e);
+	// push to the polyCoords array
+	rsApp.polyCoords.push( e.latLng );
 
-	// delete the previous LineString object
-	// delete rsApp.lineString;
-
-	// push the LatLng object onto the 
-	// rsApp.polyCoords.push( e.latLng );
-
-    // create a new LineString object
-    // this.lineString = new google.maps.Data.LineString( rsApp.polyCoords );
+	rsApp.polyline.setPath( rsApp.polyCoords );
 
 }
 // - terminate new pin mode
@@ -612,6 +589,12 @@ document.addEventListener("DOMContentLoaded", function(){
     // - Initialize arrays to hold all google.maps.Data.Polygon 
     //   objects for given business.
     rsApp.polygons = [];
+    // - Init temp array to hold polygon point coordinates for
+    //   new polygon
+    rsApp.polyCoords = [];
+    // - Init array to hold coordinates that have been undone 
+    //   with the undo button
+    rsApp.polyCoordsUndone = [];
 
     /*------------------------- 
     	other properties 
