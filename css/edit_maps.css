@@ -230,11 +230,6 @@
 	background-color: #00FF7F;
 }
 
-
-
-
-
-
 /* color picker input */
 #color-picker{
 	border-radius: 4px;
@@ -245,15 +240,40 @@
 
 
 
+/*---------------------- 
+	   hex table
+----------------------*/
+
+th{
+	text-align: center;
+	font-size: 12px;
+}
+tbody td{
+	padding: 0px 3px;
+	height: 28px;
+}
+tbody button.btn{
+	 padding: 5px 10px; 
+}
+#polygon-hex-fill-input,
+#polygon-hex-border-input{
+	padding: 8px 6px;
+}
 
 
+/* undo redo buttons */
+#redo{
+	float:right;
+}
 #undo span{
 	-moz-transform: scaleX(-1);    /* Gecko */
 	-o-transform: scaleX(-1);      /* Operah */
 	-webkit-transform: scaleX(-1); /* webkit */
 	transform: scaleX(-1);         /* standard */
 }
-
+#complete{
+	width: 100%;
+}
 
 
 

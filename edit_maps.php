@@ -224,14 +224,13 @@ $business = $user->business()[0];
                         <!-- toolbar body -->
                         <div>
                             <!-- formatting buttons and inputs -->
-                            <div style="width:55%;float:right;">
+                            <div style="width:55%;float:right;margin-top:-8px;">
                                 <!-- color, undo/redo, & complete buttons -->
                                 <div>
                                     <!-- polygon colors table-->
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th></th>
                                                 <th></th>
                                                 <th>hex</th>
                                                 <th>opacity</th>
@@ -240,19 +239,20 @@ $business = $user->business()[0];
                                         <!-- fill -->
                                         <tbody>
                                             <tr>
-                                                <th><span class="glyphicon glyphicon-tint"></span></th>
                                                 <td>
                                                     <button type="button" 
                                                             class="btn btn-color-selected" 
                                                             id="polygon-hex-fill-btn" 
-                                                            aria-label=""></button>
+                                                            aria-label="">
+                                                        <span class="glyphicon glyphicon-tint"></span>
+                                                    </button>
                                                 </td>
-                                                <td>
+                                                <td style="width:83px;">
                                                     <input type="text" 
                                                            class="form-control" 
                                                            id="polygon-hex-fill-input">
                                                 </td>
-                                                <td>
+                                                <td style="width:25px;">
                                                     <input type="text" 
                                                            class="form-control" 
                                                            id="polygon-opacity-fill-input">
@@ -260,19 +260,20 @@ $business = $user->business()[0];
                                             </tr>
                                             <!-- border -->
                                             <tr>
-                                                <th><span class="glyphicon glyphicon-unchecked"></span></th>
                                                 <td>
                                                     <button type="button" 
                                                             class="btn btn-color-selected" 
                                                             id="polygon-hex-border-btn" 
-                                                            aria-label=""></button>
+                                                            aria-label="">
+                                                        <span class="glyphicon glyphicon-unchecked"></span>
+                                                    </button>
                                                 </td>
-                                                <td>
+                                                <td style="width:83px;">
                                                     <input type="text" 
                                                            class="form-control" 
                                                            id="polygon-hex-border-input">
                                                 </td>
-                                                <td>
+                                                <td style="width:25px;">
                                                     <input type="text" 
                                                            class="form-control" 
                                                            id="polygon-opacity-border-input">
@@ -283,26 +284,19 @@ $business = $user->business()[0];
                                     <!-- undo, redo, complete polygon -->
                                     <div>
                                         <!-- undo/redo -->
-                                        <div>
+                                        <div style="margin: 19px 0px;">
                                             <button type="button" class="btn" id="undo" aria-label="undo">
-                                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> undo
                                             </button>
                                             <button type="button" class="btn" id="redo" aria-label="undo">
-                                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                                redo <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                                             </button>
                                         </div>
                                         <!-- complete the polygon -->
                                         <div>
-                                            <button type="button" class="btn" id="complete" aria-label="complete the polygon">complete</button>
+                                            <button type="button" class="btn btn-success" id="complete" aria-label="complete the polygon">complete polygon</button>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- description input -->
-                                <div>
-                                    <input type="text" 
-                                       class="form-control" 
-                                       id="polygon-description" 
-                                       placeholder="polygon description">
                                 </div>
                             </div>
                             <!-- color wheel and opacity slider-->
@@ -361,6 +355,14 @@ $business = $user->business()[0];
                                         <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" />
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- description input -->
+                            <div style="margin-top: 17px;">
+                                <input type="text" 
+                                   class="form-control" 
+                                   id="polygon-description" 
+                                   placeholder="polygon description">
                             </div>
 
                         </div>
