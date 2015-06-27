@@ -193,8 +193,8 @@ $business = $user->business()[0];
                     <li role="presentation">
                         <a href="#">
                             <div>
-                                <div class="glyphicon glyphicon-chevron-down"></div>
-                                <div class="glyphicon glyphicon-chevron-down"></div>
+                                <div class="glyphicon glyphicon-chevron-up"></div>
+                                <div class="glyphicon glyphicon-chevron-up"></div>
                             </div>
                         </a>
                     </li>
@@ -462,7 +462,7 @@ $business = $user->business()[0];
         <input type="hidden" id="business-name" name="business-name" value='<?= $business->data("name"); ?>' >
 
         <!-- javascripts -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places&amp;callback=rsApp.setUserLocation"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=rsApp.setUserLocation"></script>
         <script src="js/main.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 

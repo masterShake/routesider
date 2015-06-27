@@ -436,7 +436,7 @@ rs.prototype.initNewPolyMode = function(){
 	// exit the other formatting modes and hide other toolbars
 	rsApp.termFormattingModes("new poly");
 
-	// reset the new polygon mode property to false
+	// reset the new polygon mode property to true
 	this.newPolyMode = true;
 	
 	/* css */
@@ -451,11 +451,71 @@ rs.prototype.initNewPolyMode = function(){
 	document.getElementById("search-maps-field").placeholder = "Search locations";
 
 	/* google map */
+
+	this.initGooglePolyDraw();
+}
+// - set event listeners for google maps draw polygon
+rs.prototype.initGooglePolyDraw = function(){
+
+	// change the cursor on the map to a crosshair
+	this.map.setOptions({ 
+							draggableCursor : "crosshair",
+						  	draggingCursor  : "crosshair"
+					   });
+
+    // - Init temp array to hold polygon point coordinates
+    // this.polyCoords = [];
+    // // - Init array to hold coordinates that have been undone 
+    // //   with the undo button
+    // this.polyCoordsUndone = [];
+    // // - Init LineString object because it is deleted before
+    // //   it is recreated
+    // this.lineString = {};
+
+	// set drawing mode for map
+	// this.map.data.setDrawingMode("Polygon");
+
+	// create a drawing manager object
+	this.drawingManager = new google.maps.drawing.DrawingManager();
+
+	// set the map
+	this.drawingManager.setMap( this.map );
+
+	// set the options for the drawing manager
+	this.drawingManager.setOptions({
+										drawingControl : false,
+										drawingMode : "polygon"
+									});
+
+	// add event listener when user draws a polyline
+	google.maps.event.addListener( rsApp.drawingManager, 'overlaycomplete', rsApp.drawPolyClick );
+
+	// set an event listener for add feature
+	// google.maps.event.addListener(, 'addFeature', rsApp.drawPolyClick);
+
+}
+// - add a point to the polygon when the user clicks on the map
+rs.prototype.drawPolyClick = function(e){ console.log("line complete");
+
+	console.log(e);
+
+	// delete the previous LineString object
+	// delete rsApp.lineString;
+
+	// push the LatLng object onto the 
+	// rsApp.polyCoords.push( e.latLng );
+
+    // create a new LineString object
+    // this.lineString = new google.maps.Data.LineString( rsApp.polyCoords );
+
 }
 // - terminate new pin mode
 // - hide elements
 // - remove event listeners
 rs.prototype.terminateNewPolyMode = function(){
+
+	// reset the newPolyMode property to false
+	this.newPolyMode = false;
 	
 	/* css */
 
@@ -469,6 +529,19 @@ rs.prototype.terminateNewPolyMode = function(){
 	document.getElementById("search-maps-field").placeholder = "Search " + this.businessName + " maps";
 
 	/* google map */
+
+	this.termGooglePolyDraw();
+}
+// - remove event listeners to draw polygon
+// - restore original functionality
+rs.prototype.termGooglePolyDraw = function(){
+
+	// change the cursor back to grabber
+	this.map.setOptions({ 
+							draggableCursor : "grab",
+						  	draggingCursor  : "grabbing"
+					   });
+
 }
 // - event listener for <a> tag inside #toolbar-toggle
 // - toggle the draw new polygon toolbar to make more space
@@ -478,17 +551,14 @@ rs.prototype.toggleToolbar = function(){
 		// shrink it
 		document.getElementById("draw-new-polygon-toolbar").style.height = "54px";
 		// flip the toggler
-		this.children[0].style.transform = "rotate(180deg)";
+		this.children[0].style.transform = "rotate(0deg)";
 	}else{
 		// grow it
 		document.getElementById("draw-new-polygon-toolbar").style.height = "311px";
 		// flip the toggler
-		this.children[0].style.transform = "rotate(0deg)";
+		this.children[0].style.transform = "rotate(180deg)";
 	}
 }
-
-
-
 
 
 
@@ -519,10 +589,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
     /*------------- additional rs properties ---------------*/
 
-    // - Initialize arrays to hold all google.maps.Marker & 
-    //   google.maps.Polygon objects for given business.
+    /*------------------------- 
+    	drop pin properties 
+    -------------------------*/
+
+    // - Initialize arrays to hold all google.maps.Marker
+    //   objects for given business.
     rsApp.pins = [];
-    rsApp.polygons = [];
     // - Set roperties to determine/manage which editting/
     //   formatting modes are active
     rsApp.newPinMode = false;
@@ -531,6 +604,19 @@ document.addEventListener("DOMContentLoaded", function(){
     rsApp.tempLatLng = {};
     // temporary storage for google.maps.Autocomplete
     rsApp.autocomp;
+
+    /*------------------------- 
+      draw polygon properties 
+    -------------------------*/
+
+    // - Initialize arrays to hold all google.maps.Data.Polygon 
+    //   objects for given business.
+    rsApp.polygons = [];
+
+    /*------------------------- 
+    	other properties 
+    -------------------------*/
+
     // set the business name for easy access
     rsApp.businessName = document.getElementById("business-name").value;
 
