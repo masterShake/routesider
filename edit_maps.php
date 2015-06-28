@@ -308,7 +308,7 @@ $business = $user->business()[0];
                                         </div>
                                         <!-- complete the polygon -->
                                         <div>
-                                            <button type="button" class="btn btn-success" id="complete" aria-label="complete the polygon">complete polygon</button>
+                                            <button type="button" class="btn btn-success" id="complete-polygon" aria-label="complete the polygon">complete polygon</button>
                                         </div>
                                     </div>
                                 </div>
@@ -462,7 +462,7 @@ $business = $user->business()[0];
         <input type="hidden" id="business-name" name="business-name" value='<?= $business->data("name"); ?>' >
 
         <!-- javascripts -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=rsApp.setUserLocation"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=init"></script>
         <script src="js/main.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 

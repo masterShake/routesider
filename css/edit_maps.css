@@ -321,7 +321,7 @@ tbody button.btn{
 	-webkit-transform: scaleX(-1); /* webkit */
 	transform: scaleX(-1);         /* standard */
 }
-#complete{
+#complete-polygon{
 	width: 100%;
 }
 
