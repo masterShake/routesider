@@ -250,47 +250,51 @@ $business = $user->business()[0];
                                                 <th>opacity</th>
                                             </tr>
                                         </thead>
-                                        <!-- fill -->
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" 
-                                                            class="btn btn-color-selected" 
-                                                            id="polygon-hex-fill-btn" 
-                                                            aria-label="">
-                                                        <span class="glyphicon glyphicon-tint"></span>
-                                                    </button>
-                                                </td>
-                                                <td style="width:83px;">
-                                                    <input type="text" 
-                                                           class="form-control" 
-                                                           id="polygon-hex-fill-input">
-                                                </td>
-                                                <td style="width:25px;">
-                                                    <input type="text" 
-                                                           class="form-control" 
-                                                           id="polygon-opacity-fill-input">
-                                                </td>
-                                            </tr>
                                             <!-- border -->
                                             <tr>
                                                 <td>
                                                     <button type="button" 
                                                             class="btn btn-color-selected" 
                                                             id="polygon-hex-border-btn" 
-                                                            aria-label="">
+                                                            aria-label="edit polygon border, use color wheel to select colors">
                                                         <span class="glyphicon glyphicon-unchecked"></span>
                                                     </button>
                                                 </td>
                                                 <td style="width:83px;">
                                                     <input type="text" 
                                                            class="form-control" 
-                                                           id="polygon-hex-border-input">
+                                                           id="polygon-hex-border-input"
+                                                           aria-label="polygon border hexidecimal color value">
                                                 </td>
                                                 <td style="width:25px;">
                                                     <input type="text" 
                                                            class="form-control" 
-                                                           id="polygon-opacity-border-input">
+                                                           id="polygon-opacity-border-input"
+                                                           aria-label="polygon border opacity between 0 and 1">
+                                                </td>
+                                            </tr>
+                                            <!-- fill -->
+                                            <tr>
+                                                <td>
+                                                    <button type="button" 
+                                                            class="btn btn-color-selected" 
+                                                            id="polygon-hex-fill-btn" 
+                                                            aria-label="edit polygon fill, use color wheel to select colors">
+                                                        <span class="glyphicon glyphicon-tint"></span>
+                                                    </button>
+                                                </td>
+                                                <td style="width:83px;">
+                                                    <input type="text" 
+                                                           class="form-control" 
+                                                           id="polygon-hex-fill-input"
+                                                           aria-label="polygon fill hexidecimal color value">
+                                                </td>
+                                                <td style="width:25px;">
+                                                    <input type="text" 
+                                                           class="form-control" 
+                                                           id="polygon-opacity-fill-input"
+                                                           aria-label="polygon fill opacity between 0 and 1">
                                                 </td>
                                             </tr>
                                         </tbody>

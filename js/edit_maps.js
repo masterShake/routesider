@@ -494,6 +494,9 @@ rs.prototype.locationError = function(){
 	//   functionality
 	ma.prototype.termGooglePinDrop = function(){
 
+		// remove the dropPin event listener
+		google.maps.event.clearListeners( rsApp.map, 'click' );
+
 		// change the cursor back to grabber
 		rsApp.map.setOptions({ 
 								draggableCursor : "grab",
@@ -741,7 +744,10 @@ rs.prototype.locationError = function(){
 		mapApp.polyline.setMap(null);
 
 		// delete the polyline object
-		delete mapApp.polyline;	
+		delete mapApp.polyline;
+
+		// remove event listeners
+		google.maps.event.clearListeners( rsApp.map, 'click' );
 
 		// create a new polygon object and push it to the array
 		mapApp.polygons.push(
@@ -830,6 +836,48 @@ rs.prototype.locationError = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	// 				draw new polygon
+	//			  --------------------
+	//
+	// - collection of methods that allows a user to
+	//   edit a polygon, old and new
+	//
+	//-----------------------------------------------
+
+	//-----------------------------------------------
+	
 
 
 
