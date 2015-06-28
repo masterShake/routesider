@@ -466,10 +466,13 @@ rs.prototype.initGooglePolyDraw = function(){
 	// reset the polyCoords array
 	this.polyCoords = [];
 
+	// reset the polyCoordsRedo array to redo undos
+	this.polyCoordsRedo = [];
+
 	// if we havent already created the polyline object
 	if( !this.hasOwnProperty("polyline") ){
 		// create it
-		this.polyline = new google.maps.Polyline();
+		this.polyline = new google.maps.Polyline({ editable : true });
 		// set the map
 		this.polyline.setMap( this.map );
 	}
@@ -478,13 +481,63 @@ rs.prototype.initGooglePolyDraw = function(){
 	google.maps.event.addListener( this.map, 'click', rsApp.drawPolyline );
 }
 // - event listener polygon complete
-rs.prototype.drawPolyline = function(e){
+rs.prototype.drawPolyline = function(e){ 
+
+	// clear the polyCoordsRedo array because the history has changed
+	rsApp.polyCoordsRedo = [];
+
+	// change the class of the redo button
+	document.getElementById("redo").className = "btn";
 
 	// push to the polyCoords array
-	rsApp.polyCoords.push( e.latLng );
+	rsApp.polyCoords.push( e.latLng ); console.log(rsApp.polyCoords);
 
+	// set the new path
 	rsApp.polyline.setPath( rsApp.polyCoords );
 
+	// change the class of the undo button
+	document.getElementById("undo").className = "btn btn-info";
+}
+// - undo line event listener
+rs.prototype.undoDrawPolyline = function(){
+
+	// if polyCoords is empty, return false
+	if( !rsApp.polyCoords.length )
+		return false;
+
+	// pop off last point and add it to the undone
+	rsApp.polyCoordsRedo.push( rsApp.polyCoords.pop() );
+
+	// set class of redo button
+	document.getElementById("redo").className = "btn btn-info";
+
+	// now if polyCoords is empty, grey out the undo btn
+	if( !rsApp.polyCoords.length )
+		this.className = "btn";
+
+	// redraw the polyline
+	rsApp.polyline.setPath( rsApp.polyCoords );
+}
+// - redo line event listener
+rs.prototype.redoDrawPolyline = function(){
+
+	// if polyCoords is empty, return false
+	if( !rsApp.polyCoordsRedo.length )
+		return false;
+
+	// - Pop off the last object in the polyCoords array
+	// - Push it to the polyCoordsRedo array
+	rsApp.polyCoords.push( rsApp.polyCoordsRedo.pop() );
+
+	// If polyCoords is now empty, grey out the redo btn
+	if( !rsApp.polyCoordsRedo.length )
+		this.className = "btn";
+
+	// polyCoords is definitely full so undo needs the correct class
+	document.getElementById("undo").className = "btn btn-info";
+
+	// redraw the polyline
+	rsApp.polyline.setPath( rsApp.polyCoords );
 }
 // - terminate new pin mode
 // - hide elements
@@ -589,12 +642,6 @@ document.addEventListener("DOMContentLoaded", function(){
     // - Initialize arrays to hold all google.maps.Data.Polygon 
     //   objects for given business.
     rsApp.polygons = [];
-    // - Init temp array to hold polygon point coordinates for
-    //   new polygon
-    rsApp.polyCoords = [];
-    // - Init array to hold coordinates that have been undone 
-    //   with the undo button
-    rsApp.polyCoordsUndone = [];
 
     /*------------------------- 
     	other properties 
@@ -631,6 +678,14 @@ document.addEventListener("DOMContentLoaded", function(){
     // add event listener to the pull tab to toggle the draw-new-polygon toolbar
     document.getElementById("toggle-toolbar").children[0].children[0]
     	.addEventListener("click", rsApp.toggleToolbar, false);
+
+    // undo polyline event listener
+    document.getElementById("undo")
+    	.addEventListener("click", rsApp.undoDrawPolyline, false);
+
+    // redo polyline event listener
+    document.getElementById("redo")
+    	.addEventListener("click", rsApp.redoDrawPolyline, false);
 
 }, false);
 
