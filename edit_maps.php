@@ -384,7 +384,7 @@ $business = $user->business()[0];
                                         <span class="glyphicon glyphicon-adjust"></span>
                                     </label>
                                     <div style="max-width: 98px; float:right;">
-                                        <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" />
+                                        <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" value="0.8"/>
                                     </div>
                                 </div>
                             </div>

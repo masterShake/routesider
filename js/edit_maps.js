@@ -899,14 +899,17 @@ rs.prototype.locationError = function(){
 		// determine which property of the polygon we are editing
 		mapApp.activeEdit = this.dataset.activate;
 
-		// change the classes
 		if( mapApp.activeEdit == "stroke" ){
+			// change the classes
 			document.getElementById("polygon-edit-stroke-btn").className = "btn btn-color-selected";
 			document.getElementById("polygon-edit-fill-btn").className = "btn";
 		}else{
 			document.getElementById("polygon-edit-stroke-btn").className = "btn";
 			document.getElementById("polygon-edit-fill-btn").className = "btn btn-color-selected";
 		}
+		// set the opacity slider
+		document.getElementById("polygon-opacity").value = 
+			document.getElementById("polygon-opacity-"+ mapApp.activeEdit +"-input").dataset.opacity;
 	}
 
 	//------------------------------------------------
@@ -928,11 +931,14 @@ rs.prototype.locationError = function(){
 		// set the data-hex attribute
 		document.getElementById("polygon-hex-" + mapApp.activeEdit + "-input").setAttribute( "data-hex", this.dataset.hex );
 	
-		// change the options for the active polygon
-		mapApp.tempPolyOpts = {};
-		mapApp.tempPolyOpts[mapApp.activeEdit + "Color"] = this.dataset.hex;
-		mapApp.activePolygon.setOptions( mapApp.tempPolyOpts );
-		delete mapApp.tempPolyOpts;
+		// if we have an active polygon
+		if(mapApp.activePolygon){
+			// change the options for the active polygon
+			mapApp.tempPolyOpts = {};
+			mapApp.tempPolyOpts[mapApp.activeEdit + "Color"] = this.dataset.hex;
+			mapApp.activePolygon.setOptions( mapApp.tempPolyOpts );
+			delete mapApp.tempPolyOpts;
+		}
 	}
 
 	//-----------------------------------------------
@@ -969,7 +975,24 @@ rs.prototype.locationError = function(){
 	    } : null;
 	}
 
+	//-----------------------------------------------
+	// - event listener to change the opacity when
+	//   the user moves the slider
+	ma.prototype.slideOpacity = function(){
 
+		// set the properties of the input
+		document.getElementById("polygon-opacity-" + mapApp.activeEdit + "-input").value = this.value;
+		document.getElementById("polygon-opacity-" + mapApp.activeEdit + "-input").setAttribute( "data-opacity", this.value );
+
+		// set the options of the active polygon
+		if(mapApp.activePolygon){
+			// change the options for the active polygon
+			mapApp.tempPolyOpts = {};
+			mapApp.tempPolyOpts[mapApp.activeEdit + "Opacity"] = this.value;
+			mapApp.activePolygon.setOptions( mapApp.tempPolyOpts );
+			delete mapApp.tempPolyOpts;
+		}
+	}
 
 
 
@@ -1081,6 +1104,10 @@ rs.prototype.locationError = function(){
 	   	for(var i = 0; i < mapApp.colorWheelBtns.length; i++)
 	   		mapApp.colorWheelBtns[i].addEventListener("click", mapApp.colorSelect, false);
 	   	delete mapApp.colorWheelBtns;
+
+	   	// change polygon opacity evetn lsitener
+	   	document.getElementById("polygon-opacity")
+	   		.addEventListener("change", mapApp.slideOpacity, false);
 
 	}
 
