@@ -10,14 +10,14 @@
 //   javascript functions that can be 
 //   found on every page.
 // - The global variable representing a 
-//   new rs object must be named rsApp.
+//   new RS object must be named rsApp.
 //
 
-var rs;
+var RS;
 
 (function(){
 
-	rs = function(){
+	RS = function(){
 
 		/* properties */
 
@@ -49,7 +49,7 @@ var rs;
 	//--------------------------------------
 	// - ajax function designed to avoid
 	//   memory leaks
-	rs.prototype.ajax = function(meth, url, params, callback, callbackParams){
+	RS.prototype.ajax = function(meth, url, params, callback, callbackParams){
 	    var i = this.indexer++;
 	    this.tempObjs[i] = new XMLHttpRequest();
 	    this.tempObjs[i].open(meth, url, true);
@@ -71,14 +71,14 @@ var rs;
 	// - This function is required because it is 
 	//   the callback for google maps when it is
 	//   finished loading.
-	rs.prototype.setUserLocation = function(){
+	RS.prototype.setUserLocation = function(){
 		return false;
 	};
 	//----------------------------------------
 	// - Initialize a google map.
 	// - The map element must always have the
 	//   id #map-canvas.
-	rs.prototype.initGoogleMap = function(){
+	RS.prototype.initGoogleMap = function(){
 
 		this.map = new google.maps.Map(
 					// map element
@@ -91,7 +91,7 @@ var rs;
 	};
 
 	// event listener toggle slide out menu
-	rs.prototype.toggleMobileMenu = function(){
+	RS.prototype.toggleMobileMenu = function(){
 		// set the max width of the content cover
 		// if the menu is hidden and the window is mobile-sized
 		if( document.getElementById("page-content").style.transform != "translate(270px, 0px)"
@@ -118,18 +118,18 @@ var rs;
 		}
 	}
 	// timed function to reveal #content-cover
-	rs.prototype.showContentCover = function(){
+	RS.prototype.showContentCover = function(){
 		document.getElementById("content-cover").style.opacity = ".4";
 	}
 	// timed function to hide the #content-cover
-	rs.prototype.hideContentCover = function(){
+	RS.prototype.hideContentCover = function(){
 		document.getElementById("content-cover").style.display = "none";
 	}
 
 
 	//---------------------------------------------
 	// - generate a dismissable alert
-	rs.prototype.insertAlert = function(aClass, aHTML, refElem){
+	RS.prototype.insertAlert = function(aClass, aHTML, refElem){
 
 		//----------------------------------------
 		// - create the alert elem
@@ -148,11 +148,11 @@ var rs;
 		setTimeout(this.fadeAlert, 10);
 	}
 	// timeout fade in
-	rs.prototype.fadeAlert = function(){
+	RS.prototype.fadeAlert = function(){
 		rsApp.alertElem.style.opacity = 1;
 	}
 	// event listener
-	rs.prototype.removeAlert = function(){
+	RS.prototype.removeAlert = function(){
 		this.parentElement.parentElement.removeChild(this.parentElement);
 	}
 

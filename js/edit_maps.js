@@ -10,10 +10,10 @@
 // - Because this page requires so much
 //   javascript, I created a new class called
 //   ma (mapApp) instead of adding more
-//   prototypes to the rs class.
+//   prototypes to the RS class.
 //
 // - Most functions are NOT added as prototypes
-//   of the rs object.
+//   of the RS object.
 //
 //-----------------------------------------------
 
@@ -62,14 +62,14 @@
 
 //-----------------------------------------------
 //
-//		   	 additional rs methods
+//		   	 additional RS methods
 //
 //-----------------------------------------------
 
 //----------------------------------------------
 // - Event listener toggle slide out menu for
 //   pages with static map (not fixed)
-rs.prototype.toggleMobileMenu = function(){
+RS.prototype.toggleMobileMenu = function(){
 	// set the max width of the content cover
 	// if the menu is hidden and the window is mobile-sized
 	if( document.getElementById("page-content").style.transform != "translate(270px, 0px)"
@@ -97,7 +97,7 @@ rs.prototype.toggleMobileMenu = function(){
 // - display map based on user location 
 //   & db query.
 //
-rs.prototype.setUserLocation = function(){
+RS.prototype.setUserLocation = function(){
 
 	// trigger prompt for permission and/or callback
  	navigator.geolocation.getCurrentPosition(
@@ -112,7 +112,7 @@ rs.prototype.setUserLocation = function(){
 //   or rejects access to location data
 // - use geocode to ajax query for local
 //   promos.
-rs.prototype.locationSuccess = function(position){
+RS.prototype.locationSuccess = function(position){
 
 	// the the longitude and latitude properties
 	rsApp.userLatitude = position.coords.latitude;
@@ -135,7 +135,7 @@ rs.prototype.locationSuccess = function(position){
 // - If user does not grant access to
 //   current location, display default
 //   map.
-rs.prototype.locationError = function(){
+RS.prototype.locationError = function(){
 
 	// ajax call for default map
 	rsApp.ajax(
@@ -990,11 +990,11 @@ rs.prototype.locationError = function(){
 			mapApp.tempPolyOpts = {};
 			mapApp.tempPolyOpts[mapApp.activeEdit + "Opacity"] = this.value;
 			mapApp.activePolygon.setOptions( mapApp.tempPolyOpts );
-			delete mapApp.tempPolyOpts;
+			mapApp.tempPolyOpts = null;
 		}
 	}
 
-
+	
 
 
 
@@ -1040,7 +1040,7 @@ rs.prototype.locationError = function(){
 
 	    /*--------- instantiate the necessary objects ----------*/
 
-	    rsApp = new rs();
+	    rsApp = new RS();
 
 	    mapApp = new ma();
 
