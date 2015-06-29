@@ -251,49 +251,63 @@ $business = $user->business()[0];
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- border -->
+                                            <!-- stroke -->
                                             <tr>
                                                 <td>
                                                     <button type="button" 
                                                             class="btn btn-color-selected" 
-                                                            id="polygon-hex-border-btn" 
+                                                            id="polygon-edit-stroke-btn" 
+                                                            style="background-color: #5CB85C; color: #FFF;"
+                                                            data-activate="stroke"
                                                             aria-label="edit polygon border, use color wheel to select colors">
                                                         <span class="glyphicon glyphicon-unchecked"></span>
                                                     </button>
                                                 </td>
                                                 <td style="width:83px;">
                                                     <input type="text" 
+                                                           value="#5CB85C" 
                                                            class="form-control" 
-                                                           id="polygon-hex-border-input"
-                                                           aria-label="polygon border hexidecimal color value">
+                                                           id="polygon-hex-stroke-input"
+                                                           data-hex="#5CB85C" 
+                                                           aria-label="polygon stroke hexidecimal color value">
                                                 </td>
                                                 <td style="width:25px;">
-                                                    <input type="text" 
+                                                    <input type="text"
+                                                           value="0.8"
                                                            class="form-control" 
-                                                           id="polygon-opacity-border-input"
-                                                           aria-label="polygon border opacity between 0 and 1">
+                                                           id="polygon-opacity-stroke-input"
+                                                           max-length="4"
+                                                           data-opacity="0.8" 
+                                                           aria-label="polygon stroke opacity between 0 and 1">
                                                 </td>
                                             </tr>
                                             <!-- fill -->
                                             <tr>
                                                 <td>
                                                     <button type="button" 
-                                                            class="btn btn-color-selected" 
-                                                            id="polygon-hex-fill-btn" 
+                                                            class="btn" 
+                                                            id="polygon-edit-fill-btn" 
+                                                            style="background-color: #FFF; color: #444;"
+                                                            data-activate="fill"
                                                             aria-label="edit polygon fill, use color wheel to select colors">
                                                         <span class="glyphicon glyphicon-tint"></span>
                                                     </button>
                                                 </td>
                                                 <td style="width:83px;">
                                                     <input type="text" 
+                                                           value="#DFF0D8"
                                                            class="form-control" 
                                                            id="polygon-hex-fill-input"
+                                                           data-hex="#DFF0D8" 
                                                            aria-label="polygon fill hexidecimal color value">
                                                 </td>
                                                 <td style="width:25px;">
                                                     <input type="text" 
+                                                           value="0.5"
                                                            class="form-control" 
                                                            id="polygon-opacity-fill-input"
+                                                           max-length="4"
+                                                           data-opacity="0.5"
                                                            aria-label="polygon fill opacity between 0 and 1">
                                                 </td>
                                             </tr>
@@ -323,37 +337,37 @@ $business = $user->business()[0];
                                 <div class="color-wheel">
                                     <!-- 3 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label="Red Magenta #FF00FF"></button>
-                                        <button type="button" class="btn" aria-label="Red #FF0000"></button>
-                                        <button type="button" class="btn" aria-label="Orange #FF7F00"></button>
+                                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
+                                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
+                                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
                                     </div>
                                     <!-- 4 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label="Magenta #FF00FF"></button>
-                                        <button type="button" class="btn" aria-label="Lilac #FF99CC"></button>
-                                        <button type="button" class="btn" aria-label="Apricot #FFCC99"></button>
-                                        <button type="button" class="btn" aria-label="Yellow #FFFF00"></button>
+                                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
+                                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
+                                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
+                                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
                                     </div>
                                     <!-- 5 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label="Blue Magenta #7F00FF"></button>
-                                        <button type="button" class="btn" aria-label="Lavendar #CC99FF"></button>
-                                        <button type="button" class="btn" aria-label="White #FFFFFF"></button>
-                                        <button type="button" class="btn" aria-label="Celadon #CCFF99"></button>
-                                        <button type="button" class="btn" aria-label="Green Yellow #7FFF00"></button>
+                                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
+                                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
+                                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
+                                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
+                                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
                                     </div>
                                     <!-- 4 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label="Blue #0000FF"></button>
-                                        <button type="button" class="btn" aria-label="Cornflower Blue #99CCFF"></button>
-                                        <button type="button" class="btn" aria-label="Sea Foam Green #99FFCC"></button>
-                                        <button type="button" class="btn" aria-label="Green #00FF00"></button>
+                                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
+                                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
+                                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
+                                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
                                     </div>
                                     <!-- 3 -->
                                     <div>
-                                        <button type="button" class="btn" aria-label="Blue Cyan #007FFF"></button>
-                                        <button type="button" class="btn" aria-label="Cyan #00FFFF"></button>
-                                        <button type="button" class="btn" aria-label="Green Cyan #00FF7F"></button>
+                                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
+                                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
+                                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
                                     </div>
                                 </div>
                                 <!-- full color wheel -->

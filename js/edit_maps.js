@@ -212,7 +212,7 @@ rs.prototype.locationError = function(){
 
 	window.ma = function(){
 
-		/* pin properties */
+		/* new pin properties */
 
 	    // - Initialize arrays to hold all google.maps.Marker
 	    //   objects for given business.
@@ -226,6 +226,8 @@ rs.prototype.locationError = function(){
 	    // temporary storage for google.maps.Autocomplete
 	    this.autocomp;
 
+	    /* edit pin properties */
+
 	    /* polygon properties */
 
 	    // - Initialize arrays to hold all google.maps.Data.Polygon 
@@ -237,6 +239,17 @@ rs.prototype.locationError = function(){
 		// - temporary array to hold any coordinates that have
 		//   been removed from the polyline 
 		this.polyCoordsRedo = [];
+
+		/* edit polygon properties */
+
+		// - temporary variable to hold an object with rgb vals
+		this.tempHex = {};
+		// - keep track of which element color is being edited
+		// - values = "stroke" || "fill"
+		// - default stroke
+		this.activeEdit = "stroke";
+		// pointer to polygon user is currently editing
+		this.activePolygon = null;
 
 	    /* other properties */
 
@@ -753,11 +766,11 @@ rs.prototype.locationError = function(){
 		mapApp.polygons.push(
 			new google.maps.Polygon({
 									    paths: mapApp.polyCoords,
-									    strokeColor: '#FF0000',
-									    strokeOpacity: 0.8,
+									    strokeColor: document.getElementById("polygon-hex-stroke-input").dataset.hex,
+									    strokeOpacity: document.getElementById("polygon-opacity-stroke-input").dataset.opacity,
 									    strokeWeight: 3,
-									    fillColor: '#FF0000',
-									    fillOpacity: 0.35  
+									    fillColor: document.getElementById("polygon-hex-fill-input").dataset.hex,
+									    fillOpacity: document.getElementById("polygon-opacity-fill-input").dataset.opacity  
 									})
 						   );
 
@@ -770,6 +783,9 @@ rs.prototype.locationError = function(){
 		// give the new polygon a description property
 		mapApp.polygons[mapApp.polygons.length - 1]["description"] = 
 			document.getElementById("polygon-description").value;
+
+		// set the activePolygon property for mapApp
+		mapApp.activePolygon = mapApp.polygons[mapApp.polygons.length - 1];
 	}
 
 	//-----------------------------------------------
@@ -868,8 +884,8 @@ rs.prototype.locationError = function(){
 
 
 	//-----------------------------------------------
-	// 				draw new polygon
-	//			  --------------------
+	// 				   edit polygon
+	//			  	 ----------------
 	//
 	// - collection of methods that allows a user to
 	//   edit a polygon, old and new
@@ -877,7 +893,81 @@ rs.prototype.locationError = function(){
 	//-----------------------------------------------
 
 	//-----------------------------------------------
+	// - event listener to activate edit color button
+	ma.prototype.activateColorEdit = function(){
+
+		// determine which property of the polygon we are editing
+		mapApp.activeEdit = this.dataset.activate;
+
+		// change the classes
+		if( mapApp.activeEdit == "stroke" ){
+			document.getElementById("polygon-edit-stroke-btn").className = "btn btn-color-selected";
+			document.getElementById("polygon-edit-fill-btn").className = "btn";
+		}else{
+			document.getElementById("polygon-edit-stroke-btn").className = "btn";
+			document.getElementById("polygon-edit-fill-btn").className = "btn btn-color-selected";
+		}
+	}
+
+	//------------------------------------------------
+	// - event listener for color wheel btns
+	// - on click, set the background color, data-hex, 
+	//   and value properties for the hex inputs.
+	ma.prototype.colorSelect = function(){
+
+		// set the background color
+		document.getElementById("polygon-edit-" + mapApp.activeEdit + "-btn").style.backgroundColor = this.dataset.hex;
+
+		// set the icon/text color
+		document.getElementById("polygon-edit-" + mapApp.activeEdit + "-btn").style.color =
+			( mapApp.hexBrightness( mapApp.hexToRgb( this.dataset.hex ) ) > .6 ) ? "#444" : "#FFF";
+		
+		// set the value
+		document.getElementById("polygon-hex-" + mapApp.activeEdit + "-input").value = this.dataset.hex;
+		
+		// set the data-hex attribute
+		document.getElementById("polygon-hex-" + mapApp.activeEdit + "-input").setAttribute( "data-hex", this.dataset.hex );
 	
+		// change the options for the active polygon
+		mapApp.tempPolyOpts = {};
+		mapApp.tempPolyOpts[mapApp.activeEdit + "Color"] = this.dataset.hex;
+		mapApp.activePolygon.setOptions( mapApp.tempPolyOpts );
+		delete mapApp.tempPolyOpts;
+	}
+
+	//-----------------------------------------------
+	// - algorithm to determine if a hex value is 
+	//   light or dark.
+	// - @rgbObj -> object with r, g, & b values as
+	//   returned by hext to rgb function
+	// - returns a value between 0 and 1
+	// - #000 would return a value of 0
+	// - #FFF would return a value of 1
+	// - all other colors would be somewhere
+	//   inbetween
+	// - values below .6 should be overlaid with
+	//   white text
+	// - values above .6, overlaid with black
+	ma.prototype.hexBrightness = function( rgbObj ){
+		// calculate & return weighted average
+		return ( rgbObj.r*0.299 + rgbObj.g*0.587 + rgbObj.b*0.114 ) / 256;
+	}
+	//-----------------------------------------------
+	// - algorithm to convert hex to rgb
+	// - @hex -> hexidecimal as string
+	// - returns object with r, g, & b values
+	ma.prototype.hexToRgb = function(hex) {
+		// delete the previous tempHex object
+		delete this.tempHex;
+		// convert to array of hex vals
+		this.tempHex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+		// return the results as an object
+	    return this.tempHex ? {
+	        r: parseInt(this.tempHex[1], 16),
+	        g: parseInt(this.tempHex[2], 16),
+	        b: parseInt(this.tempHex[3], 16)
+	    } : null;
+	}
 
 
 
@@ -976,6 +1066,22 @@ rs.prototype.locationError = function(){
 	    // complete the polygon event listener
 	    document.getElementById("complete-polygon")
 	    	.addEventListener("click", mapApp.completePolygon, false);
+	
+	    // edit stroke button event listener
+	    document.getElementById("polygon-edit-stroke-btn")
+	    	.addEventListener("click", mapApp.activateColorEdit, false);
+
+	    // edit fill button event listener
+	    document.getElementById("polygon-edit-fill-btn")
+	    	.addEventListener("click", mapApp.activateColorEdit, false);
+
+	    // change polygon color properties when clicking on color wheel
+	    mapApp.colorWheelBtns = document.getElementsByClassName("color-wheel")[0]
+	    							.getElementsByTagName("button");
+	   	for(var i = 0; i < mapApp.colorWheelBtns.length; i++)
+	   		mapApp.colorWheelBtns[i].addEventListener("click", mapApp.colorSelect, false);
+	   	delete mapApp.colorWheelBtns;
+
 	}
 
 
