@@ -17,7 +17,6 @@
 
     }
 
-
     //-------------------------------------
     // instantiate global variables
     //-------------------------------------
@@ -33,16 +32,6 @@
     $business = $business[0];
 
     $profile = $business->profile();
-
-    //---------------------------------------
-    // - if the user is not logged in, 
-    //   redirect her to the login page and 
-    //   flash a message
-    if( ! $user->isLoggedIn()){
-
-        exit("you must be logged in to view this page");
-
-    }
 
 ?>
 <!DOCTYPE html>
@@ -76,91 +65,7 @@
         <div id="page-content">
 
             <!-- navbar -->
-            <nav class="navbar navbar-dark" id="navbar">
-                <div class="container">
-                    
-                    <div class="navbar-header">
-                        
-                        <!-- toggle mobile menu -->
-                        <button type="button" 
-                                class="navbar-toggle collapsed"
-                                id="navbar-toggle-menu">
-                            <span class="glyphicon glyphicon-menu-hamburger"></span>
-                        </button>
-
-                        <!-- routesider logo -->
-                        <a class="navbar-brand" href="#">
-                            <span class="logo">
-                                <span class="route">Route</span>
-                                <span>sider</span>
-                            </span>
-                        </a>
-
-                      	<ul class="navbar-right user-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
-                                    <!-- <span class="visible-md visible-lg">username@email.com</span>  -->
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">username</a></li>
-                                    <li><a href="#">my collectives</a></li>
-                                    <li><a href="#">settings</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">edit profile</a></li>
-                                    <li><a href="#">edit products</a></li>
-                                    <li><a href="#">edit deals</a></li>
-                                    <li><a href="#">edit map</a></li>
-                                    <li><a href="#">edit social media</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">log out</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Map <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Deals</a></li>
-                            <li><a href="#">Sign Up</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
-                                    <!-- <span class="visible-md visible-lg">username@email.com</span>  -->
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">username</a></li>
-                                    <li><a href="#">my collectives</a></li>
-                                    <li><a href="#">settings</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">edit profile</a></li>
-                                    <li><a href="#">edit products</a></li>
-                                    <li><a href="#">edit deals</a></li>
-                                    <li><a href="#">edit map</a></li>
-                                    <li><a href="#">edit social media</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">log out</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="products, businesses, locations, etc...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                                </span>
-                            </div><!-- /input-group -->
-                        </form>
-                    </div><!-- /.navbar-collapse -->
-                </div>
-            </nav>
+            <?php include "components/navbar.php"; ?>
 
             <h1>Edit Products</h1>
 
@@ -261,151 +166,7 @@
         <div id="content-cover"></div>
 
         <!-- mobile slideout menu -->
-        <nav id="slideout-menu">
-
-            <!-- logo -->
-            <div class="logo">
-                <a href="/">
-                    <div style="max-width: 166px; position: relative; left: 50%; margin-left: -83px;"><!-- centers logo -->
-                        <div class="route">Route</div>
-                        <span>sider</span>
-                    </div>
-                </a>
-            </div>         
-
-            <!-- search bar -->
-            <div class="input-group"
-                 style="padding: 0 10px">
-                <input type="text" 
-                       class="form-control" 
-                       style="border-top-left-radius: 16px; border-bottom-left-radius: 16px;border-right: 0;"
-                       placeholder="Search Routesider"
-                       aria-label="search all of routesider">
-                <div class="input-group-btn">
-                    <button type="button" 
-                            class="btn btn-default" 
-                            style="border-left: 0;border-right: 0;" 
-                            aria-label="search routesider">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" 
-                            class="btn btn-default" 
-                            style="border-left: 0;border-top-right-radius: 16px;border-bottom-right-radius: 16px;color:#aaa;" 
-                            aria-label="search settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <hr>
-
-            <!-- logged in user nav -->
-            <div>
-	            <!-- avatar and username -->
-	            <div style="text-align: center;">
-	            	<div class='avatar <?= ($profile->data("avatar_shape") == "circle") ? "circle" : ""; ?>' 
-	            		 style='background-image: url(img/business/<?= $profile->data("avatar"); ?>)'></div>
-	            	<h4><?= $business->data("name"); ?></h4>
-	            </div>
-	            <!-- small label for edit buttons -->
-	            <div class="link-labels">
-	            	<div><span class="glyphicon glyphicon-eye-open"></span>&nbsp;view</div>
-	            	edit&nbsp;<span class="glyphicon glyphicon-pencil"></span>
-	            </div>
-	            <!-- logged in user links -->
-	            <ul class="list-group user-links">
-	            	<!-- profile -->
-	            	<li class="list-group-item">
-	            		<div>
-		            		<a class="view-page" href='<?= $business->data("name") ?>'>
-		            			<span class="icon-profile"></span>&nbsp;&nbsp;Profile
-		            		</a>
-		            		<a href="edit_profile.php">
-			            		<button type="button" class="btn" aria-label="edit profile">
-			            			<span class="glyphicon glyphicon-pencil"></span>
-			            		</button>
-			            	</a>
-			            </div>
-	            	</li>
-	            	<!-- products -->
-	            	<li class="list-group-item">
-	            		<div>
-		            		<a class="view-page" href="<? $username; ?>/products">
-		            			<span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
-		            		</a>
-		            		<a href="edit_products.php">
-			            		<button type="button" class="btn" aria-label="edit products">
-			            			<span class="glyphicon glyphicon-pencil"></span>
-			            		</button>
-			            	</a>
-			            <div>
-	            	</li>
-	            	<!-- promos -->
-	            	<li class="list-group-item">
-	            		<div>
-		            		<a class="view-page" href="<? $username; ?>/promos">
-		            			<span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
-		            		</a>
-		            		<a href="edit_promos.php">
-			            		<button type="button" class="btn" aria-label="edit promos">
-			            			<span class="glyphicon glyphicon-pencil"></span>
-			            		</button>
-		            		</a>
-		            	</div>
-	            	</li>
-	            	<!-- maps -->
-	            	<li class="list-group-item">
-	            		<div>
-		            		<a class="view-page" href="<? $username; ?>/maps">
-		            			<span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
-		            		</a>
-		            		<a href="edit_maps.php">
-			            		<button type="button" class="btn" aria-label="edit maps">
-			            			<span class="glyphicon glyphicon-pencil"></span>
-			            		</button>
-			            	</a>
-			            </div>
-	            	</li>
-	            	<!-- social media -->
-	            	<li class="list-group-item">
-		            	<div>
-		            		<a class="view-page" href="<? $username; ?>/social">
-		            			<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
-		            		</a>
-		            		<a href="edit_social.php">
-			            		<button type="button" class="btn" aria-label="edit social media">
-			            			<span class="glyphicon glyphicon-pencil"></span>
-			            		</button>
-			            	</a>
-	            		</div>
-	            	</li>
-	            </ul>
-	        </div>
-
-            <!-- links -->
-            <ul class="list-group cool-links">
-                <li class="list-group-item">
-                    <a href="about">About</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="register">Sign Up</a>
-                </li>
-            </ul>
-
-            <hr>
-
-            <ul class="list-group lame-links">
-                <li class="list-group-item">
-                    <a href="privacy">Privacy</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="terms_of_use">Terms of Use</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Contact Us</a>
-                </li>
-            </ul>
-        </nav>
+        <?php include "components/slideout_nav.php"; ?>
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
