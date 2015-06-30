@@ -296,6 +296,67 @@
 
             <hr>
 
+            <!-- logged in user nav -->
+            <div>
+	            <!-- avatar and username -->
+	            <div>
+	            	<div class="avatar" style="background"></div>
+	            	<h4><?= $business->data("name"); ?></h4>
+	            </div>
+	            <!-- small label for edit buttons -->
+	            <div style="text-align:right;">
+	            edit <span class="glyphicon glyphicon-pencil"></span>
+	            </div>
+	            <!-- logged in user links -->
+	            <ul class="list-group">
+	            	<!-- profile -->
+	            	<li class="list-group-item">
+	            		<a href="<?= $username; ?>">
+	            			<span class="icon-profile"></span>&nbsp;Profile
+	            		</a>
+	            		<button type="button" class="btn" aria-label="edit profile">
+	            			<span class="glyphicon glyphicon-pencil"></span>
+	            		</button>
+	            	</li>
+	            	<!-- products -->
+	            	<li class="list-group-item">
+	            		<a href="<? $username; ?>/products">
+	            			<span class="glyphicon glyphicon-gift"></span>&nbsp;Products
+	            		</a>
+	            		<button type="button" class="btn" aria-label="edit profile">
+	            			<span class="glyphicon glyphicon-pencil"></span>
+	            		</button>
+	            	</li>
+	            	<!-- promos -->
+	            	<li class="list-group-item">
+	            		<a href="<? $username; ?>/promos">
+	            			<span class="glyphicon glyphicon-tags"></span>&nbsp;Promos
+	            		</a>
+	            		<button type="button" class="btn" aria-label="edit products">
+	            			<span class="glyphicon glyphicon-pencil"></span>
+	            		</button>
+	            	</li>
+	            	<!-- maps -->
+	            	<li class="list-group-item">
+	            		<a href="<? $username; ?>/maps">
+	            			<span class="glyphicon glyphicon-map-marker"></span>&nbsp;Maps
+	            		</a>
+	            		<button type="button" class="btn" aria-label="edit maps">
+	            			<span class="glyphicon glyphicon-pencil"></span>
+	            		</button>
+	            	</li>
+	            	<!-- social media -->
+	            	<li class="list-group-item">
+	            		<a href="<? $username; ?>/promos">
+	            			<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Social Media
+	            		</a>
+	            		<button type="button" class="btn" aria-label="edit profile">
+	            			<span class="glyphicon glyphicon-pencil"></span>
+	            		</button>
+	            	</li>
+	            </ul>
+	        </div>
+
             <!-- links -->
             <ul class="list-group cool-links">
                 <li class="list-group-item">
