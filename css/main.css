@@ -216,7 +216,10 @@ NOTE: Animations appears to run faster if
 	margin-right: 6px;
 }
 
-/* slideout menu */
+/*---------------------- 
+	slideout menu 
+----------------------*/
+
 #slideout-menu{
 	position: fixed;
 	top:0px;
@@ -225,6 +228,7 @@ NOTE: Animations appears to run faster if
 	background-color: #ededed;
 	z-index: -1;
 }
+/* routesider logo */
 #slideout-menu .logo{
 	font-size: 24px;
 	padding: 20px 0px;
@@ -233,40 +237,72 @@ NOTE: Animations appears to run faster if
 	border-color: #ccc;
 	margin: 20px 30px;
 }
-
-/* round search input [NOT FINAL] */
-/*.round-search-group{
-	padding: 0 10px;
+/* logged in user menu */
+/* small avatar (default square) */
+#slideout-menu .avatar{
+	height: 60px;
+	width: 60px;
+	position: relative;
+	left:50%;
+	margin-left: -30px;
+	background-size: cover;
+	background-position: center center;
+	border-radius: 4px;
 }
-.round-search-group input{
-	border-top-left-radius: 16px;
-	border-bottom-left-radius: 16px;
+/* for users with circle avatars */
+#slideout-menu .avatar.circle{
+	border-radius: 50%;
 }
-.round-search-group .input-group-btn>.btn{
-	border-left: 0;
+/* labels above user links */
+.link-labels{
+	text-align: right; 
+	padding: 0px 16px 12px 16px; 
+	font-size: 12px; 
+	color: #aaa;
 }
-.round-search-group input,
-.round-search-group .input-group-btn>.btn:first-child{
-	border-right: 0;
+.link-labels>div{
+	float: left;
 }
-.round-search-group .input-group-btn>.btn:last-child{
-	border-top-right-radius: 16px;
-	border-bottom-right-radius: 16px;
-	color:#aaa;
-}*/
-
-/* slideout user nav */
-
-
-/* slideout links */
+/* links list elements */
 #slideout-menu .list-group-item{
+	font-size: 16px;
+	font-weight: 600;
+}
+/* user-links list elements */
+.user-links .list-group-item{
+	padding-top: 0px;
+	padding-bottom: 11px;
+}
+/* logged in user menu links */
+.user-links .list-group-item>div{
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 10px;
+}
+/* remove the border from the last list-group-item div */
+.user-links .list-group-item:last-child>div{
+	border-bottom: none;
+}
+.user-links a.view-page{
+	text-align: left;
+	color: #444;
+	line-height: 1;
+	height: 30px;
+	padding-top: 7px;
+	display: inline-block;
+}
+/* pencil edit buttons */
+.user-links li a:nth-child(2){
+	float:right;
+}
+.user-links button{
+	padding: 4px 8px;
+}
+/*  */
+
+.cool-links .list-group-item{
 	text-align: center;
 	background-color: transparent;
 	border:none;
-}
-.cool-links a{
-	font-size: 16px;
-	font-weight: 600;
 }
 .lame-links a{
 	color: #666;

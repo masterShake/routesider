@@ -32,6 +32,8 @@
 
     $business = $business[0];
 
+    $profile = $business->profile();
+
     //---------------------------------------
     // - if the user is not logged in, 
     //   redirect her to the login page and 
@@ -57,7 +59,8 @@
 
         <!-- page styles -->
         <link href="css/main.css" rel="stylesheet">
-        <link href="css/edit_profile.css" rel="stylesheet">
+        <link href="css/icomoon.css" rel="stylesheet">
+        <link href="css/<?= $page; ?>.css" rel="stylesheet">
         <link href="css/on_off_switch.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -299,60 +302,82 @@
             <!-- logged in user nav -->
             <div>
 	            <!-- avatar and username -->
-	            <div>
-	            	<div class="avatar" style="background"></div>
+	            <div style="text-align: center;">
+	            	<div class='avatar <?= ($profile->data("avatar_shape") == "circle") ? "circle" : ""; ?>' 
+	            		 style='background-image: url(img/business/<?= $profile->data("avatar"); ?>)'></div>
 	            	<h4><?= $business->data("name"); ?></h4>
 	            </div>
 	            <!-- small label for edit buttons -->
-	            <div style="text-align:right;">
-	            edit <span class="glyphicon glyphicon-pencil"></span>
+	            <div class="link-labels">
+	            	<div><span class="glyphicon glyphicon-eye-open"></span>&nbsp;view</div>
+	            	edit&nbsp;<span class="glyphicon glyphicon-pencil"></span>
 	            </div>
 	            <!-- logged in user links -->
-	            <ul class="list-group">
+	            <ul class="list-group user-links">
 	            	<!-- profile -->
 	            	<li class="list-group-item">
-	            		<a href="<?= $username; ?>">
-	            			<span class="icon-profile"></span>&nbsp;Profile
-	            		</a>
-	            		<button type="button" class="btn" aria-label="edit profile">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
+	            		<div>
+		            		<a class="view-page" href='<?= $business->data("name") ?>'>
+		            			<span class="icon-profile"></span>&nbsp;&nbsp;Profile
+		            		</a>
+		            		<a href="edit_profile.php">
+			            		<button type="button" class="btn" aria-label="edit profile">
+			            			<span class="glyphicon glyphicon-pencil"></span>
+			            		</button>
+			            	</a>
+			            </div>
 	            	</li>
 	            	<!-- products -->
 	            	<li class="list-group-item">
-	            		<a href="<? $username; ?>/products">
-	            			<span class="glyphicon glyphicon-gift"></span>&nbsp;Products
-	            		</a>
-	            		<button type="button" class="btn" aria-label="edit profile">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
+	            		<div>
+		            		<a class="view-page" href="<? $username; ?>/products">
+		            			<span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
+		            		</a>
+		            		<a href="edit_products.php">
+			            		<button type="button" class="btn" aria-label="edit products">
+			            			<span class="glyphicon glyphicon-pencil"></span>
+			            		</button>
+			            	</a>
+			            <div>
 	            	</li>
 	            	<!-- promos -->
 	            	<li class="list-group-item">
-	            		<a href="<? $username; ?>/promos">
-	            			<span class="glyphicon glyphicon-tags"></span>&nbsp;Promos
-	            		</a>
-	            		<button type="button" class="btn" aria-label="edit products">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
+	            		<div>
+		            		<a class="view-page" href="<? $username; ?>/promos">
+		            			<span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
+		            		</a>
+		            		<a href="edit_promos.php">
+			            		<button type="button" class="btn" aria-label="edit promos">
+			            			<span class="glyphicon glyphicon-pencil"></span>
+			            		</button>
+		            		</a>
+		            	</div>
 	            	</li>
 	            	<!-- maps -->
 	            	<li class="list-group-item">
-	            		<a href="<? $username; ?>/maps">
-	            			<span class="glyphicon glyphicon-map-marker"></span>&nbsp;Maps
-	            		</a>
-	            		<button type="button" class="btn" aria-label="edit maps">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
+	            		<div>
+		            		<a class="view-page" href="<? $username; ?>/maps">
+		            			<span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
+		            		</a>
+		            		<a href="edit_maps.php">
+			            		<button type="button" class="btn" aria-label="edit maps">
+			            			<span class="glyphicon glyphicon-pencil"></span>
+			            		</button>
+			            	</a>
+			            </div>
 	            	</li>
 	            	<!-- social media -->
 	            	<li class="list-group-item">
-	            		<a href="<? $username; ?>/promos">
-	            			<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Social Media
-	            		</a>
-	            		<button type="button" class="btn" aria-label="edit profile">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
+		            	<div>
+		            		<a class="view-page" href="<? $username; ?>/social">
+		            			<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
+		            		</a>
+		            		<a href="edit_social.php">
+			            		<button type="button" class="btn" aria-label="edit social media">
+			            			<span class="glyphicon glyphicon-pencil"></span>
+			            		</button>
+			            	</a>
+	            		</div>
 	            	</li>
 	            </ul>
 	        </div>
@@ -384,7 +409,7 @@
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
-        <script src="js/edit_profile.js"></script>
+        <script src="js/<?= $page; ?>.js"></script>
 
     </body>
 </html>
