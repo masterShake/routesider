@@ -206,6 +206,10 @@ NOTE: Animations appears to run faster if
 .navbar-dark .navbar-brand{
 	margin-left: -122px;
 }
+.user-nav{
+	float:right;
+	max-width: 40px;
+}
 .user-pic{
 	outline: 1px solid #181818;
 	padding: 7px 8px;
