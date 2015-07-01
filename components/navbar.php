@@ -30,15 +30,16 @@
 
             <!-- user menu -->
             <div class="dropdown user-nav navbar-toggle">
+                <!-- dropdown button -->
                 <button class="btn dropdown-toggle" 
                         type="button" 
-                        id="dropdown-nav"
+                        id="dropdown-user-nav"
                         aria-haspopup="true" 
                         aria-expanded="true">
                     <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
-                    <!-- <span class="visible-md visible-lg">username@email.com</span>  -->
                     <span class="caret"></span>
                 </button>
+                <!-- dropdown menu items -->
                 <ul class="dropdown-menu" aria-labelledby="dropdown-nav">
                     <li><a href="#">username</a></li>
                     <li><a href="#">my collectives</a></li>
@@ -53,15 +54,6 @@
                     <li><a href="#">log out</a></li>
                 </ul>
             </div>
-
-
-
-
-
-
-                    <!-- <ul class="dropdown-menu" role="menu">
-                        
-                    </ul> -->
 
             <?php }else{ ?>
 

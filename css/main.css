@@ -12,8 +12,9 @@ color schemes I like:
 
   ------------------------------------*/
 
-
-
+/*----------------------
+	site wide styles
+----------------------*/
 
 body{
 	overflow-x: hidden; 
@@ -36,8 +37,14 @@ input[type=checkbox]{
 .alert{
 	opacity: 0;
 }
-
-
+/* cover to assist with dropdown menus */
+.dropdown-cover{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: #ccc;
+	display: none;
+}
 
 
 /* ------ animation ---------------------

@@ -28,6 +28,9 @@ var RS;
 		// ajax variables
 		this.tempObjs = {};
 		this.indexer = 1;
+		// keep track of which dropdown is open
+		this.activeDropdown = null;
+		this.currElem = null; // keep track while looping for activeDropdown
 		// new alert elem
 		this.alertElem = null;
 		// empty string variable memory allocation
@@ -35,13 +38,16 @@ var RS;
 
 		/* constructor */
 
-		// add event listener to menu button
+		// add event listener to slide out menu button
 		document.getElementById("navbar-toggle-menu")
 			.addEventListener("click", this.toggleMobileMenu, false);
 		// - cover content when menu is exposed
 		// - click cover to close menu
 		document.getElementById("content-cover")
 			.addEventListener("click", this.toggleMobileMenu, false);
+		// - toggle user dropdown event listener
+		document.getElementById("dropdown-user-nav")
+			.addEventListener("click", this.toggleDropdown, false);
 	};
 
 	/* methods */
@@ -63,7 +69,47 @@ var RS;
 	    }
 	    this.tempObjs[i].send(params);
 	};
+	
+	//-----------------------------------------------
+	// - event listener toggle dropdown
+	RS.prototype.toggleDropdown =function(){
+		
+		// set the active dropdown
+		rsApp.activeDropdown = this.parentElement;
 
+		// if the dropdown menu is showing
+		if( this.parentElement.children[1].offsetParent === null ){
+			// display the menu
+			this.parentElement.children[1].style.display = "block";
+			// add the event listener
+			document.body.addEventListener("click", rsApp.closeDropdown, true);
+		}else{
+			// hide the menu
+			this.parentElement.children[1].style.display = "none";
+			// add the event listener
+			document.body.removeEventListener("click", rsApp.closeDropdown, true);
+		}
+	}
+
+	RS.prototype.closeDropdown = function(event){
+		// set the current element
+		rsApp.currElem = event.target;
+		// - loop up to the top parent
+		// - make sure we clicked outside of activeDropdown
+		while( rsApp.currElem !== document.body ){
+			// if we get to our active dropdown
+			if(rsApp.currElem === rsApp.activeDropdown){
+				// break out of the loop
+				return;
+			}
+			// set the new currElem
+			rsApp.currElem = rsApp.currElem.parentElement;
+		}
+		// - If we get this far, we need to close the dropdown
+		//   and remove the event listeners.
+		rsApp.activeDropdown.children[1].style.display = "none";
+		document.body.removeEventListener("click", rsApp.closeDropdown, true);
+	}
 
 	//--------------------------------------------
 	// - This method is intended to be overwritten
