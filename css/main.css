@@ -158,9 +158,12 @@ NOTE: Animations appears to run faster if
 
 
 
-/* ------- navbar ------------------- */
 
-/* solid white [mobile] */
+/*---------------------- 
+	slideout menu 
+----------------------*/
+
+/* semi-transparent white overlaid on map */
 .navbar-map{
 	padding: 8px;
 	min-height: 52px;
@@ -177,43 +180,54 @@ NOTE: Animations appears to run faster if
 	z-index: 1;
 	box-shadow: 0.5px 0.5px 2px #888;
 }
-.navbar-map .navbar-header>button{
-	margin: 0;
-}
+/* dark navbar laid over white page (non-map) */
 .navbar-dark{
 	background-color: rgb(95, 95, 95); /* #5f5f5f */
 	border-radius: 0px;
 }
-.navbar-header>button{
-	float: left;
+/* give the navbar-header some padding */
+.navbar-header{
+	padding: 0px 15px;
 }
-.navbar-dark .navbar-header{
-	margin: 0px;
-  	width: calc(100% - -15px);
-  	color:#fff;
-}
+/* center logo in navbar */
 .navbar-brand{
 	width: 138px;
 	display:block;
 	margin-top: 10px;
 	position: relative;
 	left: 50%;
-	margin-left: -109px;
+	margin-left: -118px;
 	padding: 3px 6px;
 	min-width: 136px;
 	height:35px;
 }
-.navbar-dark .navbar-brand{
-	margin-left: -122px;
+/* navbar hamburger icon open sidenav */
+#navbar-toggle-menu{
+	float: left;
+	font-size: 20px;
+	padding: 5px 8px 5px 0px;
+	color: #fff;
+	margin-bottom: 0px;
+	margin-top: 10px;
 }
+/* navigation for logged in user */
 .user-nav{
+	list-style: none;
 	float:right;
 	max-width: 40px;
+	padding: 0px;
+	margin: 8px 4px;
+}
+/* user-nav button */
+.user-nav>.btn{
+	margin:0px;
+	margin-left: -8px;
+	padding: 8px 4px;
+	background-color: transparent;
 }
 .user-pic{
-	outline: 1px solid #181818;
-	padding: 7px 8px;
-	margin-right: 6px;
+	padding: 8px 9px;
+	border: 1px solid #FFF;
 }
 
 /*---------------------- 

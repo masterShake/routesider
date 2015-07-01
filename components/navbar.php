@@ -29,28 +29,39 @@
             if ($user->isLoggedIn()){ ?>
 
             <!-- user menu -->
-          	<ul class="navbar-right user-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
-                        <!-- <span class="visible-md visible-lg">username@email.com</span>  -->
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">username</a></li>
-                        <li><a href="#">my collectives</a></li>
-                        <li><a href="#">settings</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">edit profile</a></li>
-                        <li><a href="#">edit products</a></li>
-                        <li><a href="#">edit deals</a></li>
-                        <li><a href="#">edit map</a></li>
-                        <li><a href="#">edit social media</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">log out</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="dropdown user-nav navbar-toggle">
+                <button class="btn dropdown-toggle" 
+                        type="button" 
+                        id="dropdown-nav"
+                        aria-haspopup="true" 
+                        aria-expanded="true">
+                    <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
+                    <!-- <span class="visible-md visible-lg">username@email.com</span>  -->
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdown-nav">
+                    <li><a href="#">username</a></li>
+                    <li><a href="#">my collectives</a></li>
+                    <li><a href="#">settings</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">edit profile</a></li>
+                    <li><a href="#">edit products</a></li>
+                    <li><a href="#">edit deals</a></li>
+                    <li><a href="#">edit map</a></li>
+                    <li><a href="#">edit social media</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">log out</a></li>
+                </ul>
+            </div>
+
+
+
+
+
+
+                    <!-- <ul class="dropdown-menu" role="menu">
+                        
+                    </ul> -->
 
             <?php }else{ ?>
 
