@@ -97,7 +97,7 @@ RS.prototype.toggleMobileMenu = function(){
 
 
 
-var EPA;
+var EPA, epApp;
 
 (function(){
 
@@ -116,12 +116,19 @@ var EPA;
 
 	/* CONSTRUCTOR */
 
-	// EPA = function(){
+	EPA = function(){
 
-
-
-	// }
-
+		// initialize the products swiper
+		this.swiper = new Swiper( document.getElementById("products-swiper"), 
+								  {
+							        pagination: '.swiper-pagination',
+							        slidesPerView: 'auto',
+        							centeredSlides: true,
+							        spaceBetween: 8,
+							        initialSlide: 1
+								  }
+								);
+	}
 
 
 
@@ -157,8 +164,11 @@ var EPA;
 
 	document.addEventListener("DOMContentLoaded", function(){
 
-	    // create new rs object
+	    // create new RS object
 	    rsApp = new RS();
+
+	    // create new EPA object
+	    epApp = new EPA();
 
 	}, false);	
 

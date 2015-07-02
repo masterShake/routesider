@@ -51,6 +51,7 @@
         <link href="css/icomoon.css" rel="stylesheet">
         <link href="css/<?= $page; ?>.css" rel="stylesheet">
         <link href="css/on_off_switch.css" rel="stylesheet">
+        <link href="css/swiper.min.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -85,7 +86,7 @@
 									class="btn btn-lg" 
 									id="search-products-submit"
 									aria-label="Submit search for products">
-								<span class="glyphicon glyphicon-search"></span>
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							</button>
 						</div>
 					</div>
@@ -93,7 +94,32 @@
 			</div>
 
 			<!-- my products swiper -->
+		    <div class="swiper-container" id="products-swiper">
+		        <div class="swiper-wrapper">
+		            <div class="swiper-slide">Slide 1</div>
+		            <div class="swiper-slide">Slide 2</div>
+		            <div class="swiper-slide">Slide 3</div>
+		            <div class="swiper-slide">Slide 4</div>
+		            <div class="swiper-slide">Slide 5</div>
+		        </div>
+		    </div>
 
+		    <div class="container">
+
+		    	<!-- add new product button -->
+		    	<div class="row">
+		    		<div class="col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+		    			<button type="button" 
+		    					class="btn btn-lg btn-success"
+		    					id="new-product-btn">
+		    				<span>
+		    					<span class="glyphicon glyphicon-plus"></span>&nbsp;New Product
+		    				</span>
+						</button>		
+		    		</div>
+		    	</div>
+
+		    </div>
 
             <!-- footer -->
             <?= include "components/footer.php"; ?>
@@ -108,6 +134,7 @@
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
+        <script src="js/swiper.min.js"></script>
         <script src="js/<?= $page; ?>.js"></script>
 
     </body>

@@ -30,13 +30,39 @@
 	color: #5CB85C;
 }
 
+/*----------------------
+	products swiper
+----------------------*/
 
+#products-swiper{
+	height: 150px;
+	box-shadow: inset 0px 0px 4px #999;
+	background-color: #ccc;
+	margin: 30px 0px;
+	padding: 8px 0px;
+}
+.swiper-slide{
+	height: 100%;
+	max-width: 150px;
+	background-color: #fff;
+	box-shadow: 0px 0px 4px #999;
+}
 
+/*----------------------
+	new product btn
+----------------------*/
 
-
-
-
-
+#new-product-btn{
+	text-align: center;
+	width: 100%;
+	padding: 10px 5px;
+	margin-bottom: 30px;
+}
+#new-product-btn>span{
+	border: 2px dashed #CCC;
+	padding: 6px calc(50% - 66px);
+	border-radius: 8px;
+}
 
 
 
