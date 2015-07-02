@@ -106,16 +106,26 @@
 
 		    <div class="container">
 
-		    	<!-- add new product button -->
+		    	<!-- add new product button & panel -->
 		    	<div class="row">
 		    		<div class="col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
-		    			<button type="button" 
-		    					class="btn btn-lg btn-success"
-		    					id="new-product-btn">
-		    				<span>
-		    					<span class="glyphicon glyphicon-plus"></span>&nbsp;New Product
-		    				</span>
-						</button>		
+		    			<div class="btn btn-lg btn-success"
+		    				 id="new-product-btn">
+		    				<div>
+		    					<button type="button" 
+			    							class="close" 
+			    							id="close-new-product-panel"
+			    							aria-label="Close new product panel">&times;</button>
+		    					<div class="text-align:center; width: 100%">
+			    					<span><span class="glyphicon glyphicon-plus"></span>&nbsp;New Product</span>
+		    					</div>
+		    					<!-- new product panel -->
+		    					<div id="new-product-panel">
+		    						Hey look! A new product!
+		    					</div>
+
+		    				</div>
+						</div>		
 		    		</div>
 		    	</div>
 

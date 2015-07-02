@@ -5,6 +5,22 @@
 
   ------------------------------------*/
 
+
+/*----------------------
+   animated elements
+----------------------*/
+
+/* 500 ms */
+#new-product-btn,
+#new-product-btn>div,
+#new-product-panel{
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
+
 /*----------------------
 	search products
 ----------------------*/
@@ -55,14 +71,49 @@
 #new-product-btn{
 	text-align: center;
 	width: 100%;
-	padding: 10px 5px;
+	padding: 5px;
 	margin-bottom: 30px;
 }
-#new-product-btn>span{
+#new-product-btn>div{
 	border: 2px dashed #CCC;
-	padding: 6px calc(50% - 66px);
+	padding: 6px;
 	border-radius: 8px;
 }
+
+/*----------------------
+   new product panel
+----------------------*/
+
+/* x close new product panel */
+#close-new-product-panel{
+	display: none;
+	margin-right: 10px;
+}
+/* new product panel outter most div */
+#new-product-panel{
+	text-align: left;
+	display: none;
+	opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

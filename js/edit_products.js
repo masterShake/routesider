@@ -118,6 +118,8 @@ var EPA, epApp;
 
 	EPA = function(){
 
+		/* properties */
+
 		// initialize the products swiper
 		this.swiper = new Swiper( document.getElementById("products-swiper"), 
 								  {
@@ -128,9 +130,87 @@ var EPA, epApp;
 							        initialSlide: 1
 								  }
 								);
+
+		/* event listeners */
+
+		// new product button
+		document.getElementById("new-product-btn")
+			.addEventListener("click", this.openNewProductPanel, false);
+
+		// close new product panel
+		document.getElementById("close-new-product-panel")
+			.addEventListener("click", this.closeNewProductPanel, false);
 	}
 
+	/* METHODS */
 
+	//-----------------------------------------------
+	// - Event listener for add-new-product button
+	// - Animate open new product panel
+	EPA.prototype.openNewProductPanel = function(event){
+
+		// if the product panel is already open
+		if( event.target === document.getElementById("close-new-product-panel") )
+			return;
+
+		// #new-product-btn background to white
+		this.style.backgroundColor = "#FFF";
+
+		// remove #new-product-btn padding
+		this.style.padding = "0px";
+
+		// change the font color
+		this.style.color = "#444";
+
+		// change the border color
+		this.style.borderColor = "#FFF";
+
+		// display the little x
+		document.getElementById("close-new-product-panel")
+			.style.display = "block";
+
+		// display the new product panel
+		document.getElementById("new-product-panel")
+			.style.display = "block";
+
+		setTimeout( epApp.fadeInProductPanel, 100 );
+	}
+	//-----------------------------------------------
+	// - timeout function fade in new product panel
+	EPA.prototype.fadeInProductPanel = function(){
+		document.getElementById("new-product-panel")
+			.style.opacity = 1;
+	}
+
+	//-----------------------------------------------
+	// - event listener to close new product panel
+	EPA.prototype.closeNewProductPanel = function(){
+
+		// #new-product-btn background to green
+		document.getElementById("new-product-btn")
+			.style.backgroundColor = "#5CB85C";
+
+		// add #new-product-btn padding
+		document.getElementById("new-product-btn")
+			.style.padding = "5px";
+
+		// change back the font color
+		document.getElementById("new-product-btn")
+			.style.color = "#FFF";
+
+		// change back the border color
+		document.getElementById("new-product-btn")
+			.style.borderColor = "#5CB85C";
+
+		// hide the little x
+		this.style.display = "none";
+
+		// hide the new product panel
+		document.getElementById("new-product-panel")
+			.style.opacity = 0;
+		document.getElementById("new-product-panel")
+			.style.display = "none";
+	}
 
 
 
