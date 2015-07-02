@@ -41,9 +41,12 @@
                 </button>
                 <!-- dropdown menu items -->
                 <ul class="dropdown-menu list-group user-links" aria-labelledby="dropdown-nav">
-                    <li>
-                        <div class='avatar <?= $profile->data("avatar_shape"); ?>'></div>
-                        <span><?= $business->data("name"); ?></span>
+                    <li style="padding: 6px 15px;">
+                        <div style="height: 28px;">
+                            <div class='avatar <?= $profile->data("avatar_shape"); ?>'
+                                 style='background-image: url(img/business/<?= $profile->data("avatar"); ?>);'></div>
+                            <span style="font-size: 16px; font-weight: 600; line-height: 34px;"><?= $business->data("name"); ?></span>
+                        </div>
                     </li>
                     <li class="divider"></li>
                     <!-- profile -->
@@ -119,8 +122,16 @@
                         </div>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">settings</a></li>
-                    <li><a href="#">logout</a></li>
+                    <li>
+                        <a href="#" class="dropdown-bottom">
+                            <div class="glyphicon glyphicon-cog" style="display:block; float:left; margin-top: 3px;"></div>&nbsp;&nbsp;<span>settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-bottom">
+                            <div class="glyphicon icon-exit" style="margin-top: 3px;"></div>&nbsp;&nbsp;<span>logout</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 

@@ -243,6 +243,16 @@ NOTE: Animations appears to run faster if
 	margin-left: -156px;
 	width: 200px;
 }
+/* user dropdown menu avatar */
+#navbar .avatar{
+	height: 34px;
+	width: 34px;
+	border-radius: 4px;
+	background-size: cover;
+	background-position: center center;
+	float:left;
+	margin-right: 14px;
+}
 #navbar .user-links .list-group-item{
 	padding-bottom: 0px;
 	font-weight: 600;
@@ -260,7 +270,13 @@ NOTE: Animations appears to run faster if
 #navbar .user-links .list-group-item a:hover{
 	color: #5CB85C;
 }
-
+.dropdown-bottom{
+	color: #AAA !important;
+	padding-left: 40px !important;
+}
+.dropdown-bottom:hover{
+	color: #5CB85C !important;
+}
 
 /*---------------------- 
 	slideout menu 
@@ -296,7 +312,7 @@ NOTE: Animations appears to run faster if
 	border-radius: 4px;
 }
 /* for users with circle avatars */
-#slideout-menu .avatar.circle{
+.circle{
 	border-radius: 50%;
 }
 /* labels above user links */
