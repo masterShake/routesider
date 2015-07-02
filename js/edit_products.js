@@ -162,6 +162,9 @@ var EPA, epApp;
 		// change the font color
 		this.style.color = "#444";
 
+		// change the font size
+		this.style.fontSize = "30px";
+
 		// change the border color
 		this.style.borderColor = "#FFF";
 
@@ -197,6 +200,10 @@ var EPA, epApp;
 		// change back the font color
 		document.getElementById("new-product-btn")
 			.style.color = "#FFF";
+
+		// change back the font size
+		document.getElementById("new-product-btn")
+			.style.fontSize = "18px";
 
 		// change back the border color
 		document.getElementById("new-product-btn")

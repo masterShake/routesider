@@ -94,10 +94,32 @@
 	text-align: left;
 	display: none;
 	opacity: 0;
+	font-size: 16px;
 }
-
-
-
+/* producer buttons */
+.producer-btns button,
+.product-already-listed button{
+	min-width: 80px;
+	font-weight: 600;
+}
+.producer-btns button:nth-child(1),
+.product-already-listed button:nth-child(1){
+	background-color: #dff0d8;
+}
+.producer-btns button:nth-child(1):hover,
+.product-already-listed button:nth-child(1):hover{
+	background-color: #5CB85C;
+	color: #fff;
+}
+.producer-btns button:nth-child(2),
+.product-already-listed button:nth-child(2){
+	background-color: #f2dede;
+}
+.producer-btns button:nth-child(2):hover,
+.product-already-listed button:nth-child(2):hover{
+	background-color: #d9534f;
+	color: #fff;
+}
 
 
 

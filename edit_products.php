@@ -116,12 +116,45 @@
 			    							class="close" 
 			    							id="close-new-product-panel"
 			    							aria-label="Close new product panel">&times;</button>
-		    					<div class="text-align:center; width: 100%">
+		    					<div style="text-align:center; width: 100%">
 			    					<span><span class="glyphicon glyphicon-plus"></span>&nbsp;New Product</span>
 		    					</div>
 		    					<!-- new product panel -->
 		    					<div id="new-product-panel">
-		    						Hey look! A new product!
+		    						
+		    						<hr>
+
+		    						<!-- producer -->
+		    						<div class="producer-btns">
+			    						<div>	
+			    							<span>
+			    								Are you the producer of this product?&nbsp;
+			    								<span class="glyphicon glyphicon-info-sign" id="producer-info"></span>
+			    							</span>
+			    						</div>
+			    						<div style="text-align:center;  margin: 20px 0px;">
+			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
+												<button type="button" class="btn" aria-label="Yes, my company produces this product">yes</button>
+												<button type="button" class="btn" aria-lable="No, we are reselling another company's product">no</button>
+											</div>
+										</div>
+									</div>
+
+									<!-- if not producer, prompt user to look for product on routesider -->
+									<div class="product-already-listed">
+			    						<div>	
+		    								Is this product already listed on Routesider?&nbsp;
+		    								<span class="glyphicon glyphicon-info-sign" id="already-listed-info"></span>
+			    						</div>
+			    						<div style="text-align:center;  margin: 20px 0px;">
+			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
+												<button type="button" class="btn" aria-label="Yes, let me look for it">yes</button>
+												<button type="button" class="btn" aria-lable="No, I need to add it myself">no</button>
+												<button type="button" class="btn" aria-lable="I don't know if this product is already on Routesider">idk</button>
+											</div>
+										</div>
+									</div>
+
 		    					</div>
 
 		    				</div>
