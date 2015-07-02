@@ -167,10 +167,13 @@ NOTE: Animations appears to run faster if
 
 
 /*---------------------- 
-	slideout menu 
+		navbar 
 ----------------------*/
 
 /* semi-transparent white overlaid on map */
+#navbar{
+	z-index: 1;
+}
 .navbar-map{
 	padding: 8px;
 	min-height: 52px;
@@ -184,7 +187,6 @@ NOTE: Animations appears to run faster if
 	max-width: 760px;
 	top: 30px;
 	border-radius: 8px;
-	z-index: 1;
 	box-shadow: 0.5px 0.5px 2px #888;
 }
 /* dark navbar laid over white page (non-map) */
@@ -236,6 +238,29 @@ NOTE: Animations appears to run faster if
 	padding: 8px 9px;
 	border: 1px solid #FFF;
 }
+/* user menu dropdown */
+#navbar .dropdown-menu{
+	margin-left: -156px;
+	width: 200px;
+}
+#navbar .user-links .list-group-item{
+	padding-bottom: 0px;
+	font-weight: 600;
+}
+#navbar .user-links .list-group-item:hover{
+	background-color: #F0F0F0;
+}
+#navbar .user-links .list-group-item>div{
+	padding: 5px 0px;
+}
+#navbar .user-links .list-group-item a:first-child{
+	text-decoration: none;
+	width: 130px;
+}
+#navbar .user-links .list-group-item a:hover{
+	color: #5CB85C;
+}
+
 
 /*---------------------- 
 	slideout menu 

@@ -40,18 +40,87 @@
                     <span class="caret"></span>
                 </button>
                 <!-- dropdown menu items -->
-                <ul class="dropdown-menu" aria-labelledby="dropdown-nav">
-                    <li><a href="#">username</a></li>
-                    <li><a href="#">my collectives</a></li>
+                <ul class="dropdown-menu list-group user-links" aria-labelledby="dropdown-nav">
+                    <li>
+                        <div class='avatar <?= $profile->data("avatar_shape"); ?>'></div>
+                        <span><?= $business->data("name"); ?></span>
+                    </li>
+                    <li class="divider"></li>
+                    <!-- profile -->
+                    <li>
+                        <!-- small label for edit buttons -->
+                        <div class="link-labels" style="padding-bottom: 2px;">
+                            <div><span class="glyphicon glyphicon-eye-open"></span>&nbsp;view</div>
+                            edit&nbsp;<span class="glyphicon glyphicon-pencil"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div>
+                            <a class="view-page" href='<?= $business->data("name") ?>'>
+                                <span class="icon-profile"></span>&nbsp;&nbsp;Profile
+                            </a>
+                            <a href="edit_profile.php">
+                                <button type="button" class="btn" aria-label="edit profile">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- products -->
+                    <li class="list-group-item">
+                        <div>
+                            <a class="view-page" href="<? $username; ?>/products">
+                                <span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
+                            </a>
+                            <a href="edit_products.php">
+                                <button type="button" class="btn" aria-label="edit products">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                        <div>
+                    </li>
+                    <!-- promos -->
+                    <li class="list-group-item">
+                        <div>
+                            <a class="view-page" href="<? $username; ?>/promos">
+                                <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
+                            </a>
+                            <a href="edit_promos.php">
+                                <button type="button" class="btn" aria-label="edit promos">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- maps -->
+                    <li class="list-group-item">
+                        <div>
+                            <a class="view-page" href="<? $username; ?>/maps">
+                                <span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
+                            </a>
+                            <a href="edit_maps.php">
+                                <button type="button" class="btn" aria-label="edit maps">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- social media -->
+                    <li class="list-group-item" style="padding-bottom: 0px;">
+                        <div style="border-bottom: 0px;">
+                            <a class="view-page" href="<? $username; ?>/social">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
+                            </a>
+                            <a href="edit_social.php">
+                                <button type="button" class="btn" aria-label="edit social media">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="divider"></li>
                     <li><a href="#">settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">edit profile</a></li>
-                    <li><a href="#">edit products</a></li>
-                    <li><a href="#">edit deals</a></li>
-                    <li><a href="#">edit map</a></li>
-                    <li><a href="#">edit social media</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">log out</a></li>
+                    <li><a href="#">logout</a></li>
                 </ul>
             </div>
 
