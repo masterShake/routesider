@@ -52,11 +52,12 @@
 /*----------------------
 	products swiper
 ----------------------*/
-
+.swiper-container{
+	box-shadow: inset 0px 0px 4px #999;
+	background-color: #ccc;	
+}
 #products-swiper{
 	height: 150px;
-	box-shadow: inset 0px 0px 4px #999;
-	background-color: #ccc;
 	margin: 30px 0px;
 	padding: 8px 0px;
 }
@@ -145,6 +146,82 @@
 	border-radius: 4px;
 	width: calc(100% - 40px);
 }
+/* save alert */
+#save-alert-1,
+#save-alert-2{
+	background-color: #dfdfdf;
+	border: 1px solid #bbb;
+	opacity: 1;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#save-alert-1>div,
+#save-alert-2>div{
+	height: 100%; 
+	float:left; 
+	margin-right: 20px;
+}
+#save-alert-1 button,
+#save-alert-2 button{
+	margin-top: calc(50% - 24px);
+}
+/* product name */
+label{
+	font-weight: 100;
+	margin: 0px;
+	margin-top: 20px;
+}
+
+/*----------------------
+   upload img swiper
+----------------------*/
+
+.hero{
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	color:#CCC;
+	border: 1px solid #aaa;
+	height: 210px;
+}
+.hero .glyphicon{
+	font-size: 40px;
+	margin-top: 64px;
+}
+/* hero swiper */
+.hero-swiper{
+	height: 90px;
+	padding: 5px 0px;
+}
+/* upload slide */
+.swiper-slide{
+	min-height: 80px;
+}
+.upload-slide{
+	min-width: 240px;
+	padding: 2px;
+}
+.filedrag{
+	height: 100%;
+	border: 2px dashed #ccc;
+	text-align: center;
+	line-height: 1.1;
+}
+/* upload slide fileselect */
+.fileselect{
+  height: 30px;
+  position: absolute;
+  max-width: 226px;
+  background-color: #ccc;
+  padding: 3px;
+  border-radius: 4px;
+  margin: 5px;
+  margin-top: -34px;
+  text-overflow: ellipsis;
+}
+
+
+
 
 
 

@@ -123,13 +123,14 @@ var EPA, epApp;
 		// initialize the products swiper
 		this.swiper = new Swiper( document.getElementById("products-swiper"), 
 								  {
-							        pagination: '.swiper-pagination',
 							        slidesPerView: 'auto',
         							centeredSlides: true,
-							        spaceBetween: 8,
-							        initialSlide: 1
+							        spaceBetween: 8
 								  }
 								);
+
+		// initialize the hero swiper
+		this.heroSwiper = new HS( document.getElementsByClassName("slideshow")[0] );
 
 		/* event listeners */
 
@@ -158,7 +159,7 @@ var EPA, epApp;
 		// if the product panel is already open
 		if( event.target === document.getElementById("close-new-product-panel") )
 			return;
-		
+
 		this.className = "";
 
 		// display the little x
@@ -168,6 +169,9 @@ var EPA, epApp;
 		// display the new product panel
 		document.getElementById("new-product-panel")
 			.style.display = "block";
+
+		// reinit the hero swiper
+		epApp.heroSwiper.swiper.update();
 
 		setTimeout( epApp.fadeInProductPanel, 100 );
 	}
@@ -210,6 +214,121 @@ var EPA, epApp;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//
+	//				  HS - Hero Swiper
+	//				 ---------------
+	//
+	// - Class for uploading new pics into the hero
+	//   swiper for a product.
+	// - This object initiailizes the swiper
+	// - Handles the image uploads
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var HS = function( slideshowElem ){
+
+		// initialize the swiper
+		this.swiper = new Swiper( slideshowElem.getElementsByClassName("swiper-container")[0], 
+								  {
+							        slidesPerView: 'auto',
+        							centeredSlides: true,
+							        spaceBetween: 5
+								  }
+								);
+
+		// variable property to hold ajax object
+		this.xhr = null;
+
+		// hero element
+		this.hero = slideshowElem.getElementsByClassName("hero")[0];
+
+		/* construction */
+	}
+
+	/* METHODS */
+
+
+	// file drag hover
+	HS.prototype.fileDragHover = function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		e.target.className = (e.type == "dragover" ? "hover" : "");
+	}
+	// file selection event listener
+	HS.prototype.fileSelectHandler = function(e) {
+
+			// cancel event and hover styling
+			rsApp.fileDragHover(e);
+			
+			// display the spinner
+			e.target.innerHTML = "<span class='glyphicon glyphicon-hourglass loading'></span>";
+
+			// fetch FileList object
+			var files = e.target.files || e.dataTransfer.files;// process all File objects
+
+			// upload the file
+			epApp.heroSwiper.uploadFile(files[0], e.target.dataset.elem);
+	}
+	// ajax upload file
+	HS.prototype.uploadFile = function(file, elemStr){
+
+		// delete the previous xhr object
+		this.xhr = null;
+
+		// create a new one
+		this.xhr = new XMLHttpRequest();
+
+		// if file is the correct type and size
+		if( (file.type == "image/jpeg" || 
+								 file.type == "image/jpg"  ||
+								 file.type == "image/png"  ||
+								 file.type == "image/gif")
+		  	&& file.size < 9999999999999999
+		  ){
+
+		  	// add an event listener to the ajax request
+		  	this.xhr.onreadystatechange = function(){
+		  		if (this.readyState == 4) { console.log(this.responseText);
+
+		  			// turn the response json into an object
+		  			this.j = JSON.parse( this.responseText );
+				}
+		  	}
+
+			// ajax
+			this.xhr.open("POST", "http://localhost/routesider/edit_profile.php", true);
+			this.xhr.setRequestHeader("X-file-name", file.name + "." + elemStr);
+			this.xhr.send(file);
+		}
+	}
 
 
 

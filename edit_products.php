@@ -156,6 +156,59 @@
 										</button>
 									</div>
 
+									<!-- save alert 1 -->
+									<div class="alert" id="save-alert-1">
+										<div>
+											<button type="button" class="btn btn-default">save</button>
+										</div>
+										<span>New product must have a name</span>
+									</div>
+
+									<!-- product name and subname -->
+									<label for="product-name" style="margin-top: 30px;">Product Name</label>
+									<input type="text"
+										   name="productname"
+										   class="form-control input-lg"
+										   id="product-name"
+										   aria-label="give the product a name">
+
+									<label for="product-name">Sub Name</label>
+									<input type="text"
+										   name="subname"
+										   class="form-control"
+										   id="product-sub-name"
+										   aria-label="optional subname for the product">
+
+									<!-- upload image swiper -->
+									<div class="slideshow">
+										<div class="hero">
+											<div class="glyphicon glyphicon-camera"></div>
+											<h4>No images yet</h4>
+										</div>
+										<div class="swiper-container hero-swiper">
+											<div class="swiper-wrapper">
+												<div class="swiper-slide upload-slide">
+													<!-- filedrag -->
+													<div class="filedrag"><span><span class="glyphicon glyphicon-camera">&nbsp;</span>drag &amp; drop<br><span style="font-size: 8px;">-or-</span></span></div>
+													<!-- traditional upload -->
+													<div class="fileselect">
+								                        <input type="file"  
+								                               name="fileselect" 
+								                               multiple="multiple" />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- save alert 2 -->
+									<div class="alert" id="save-alert-2">
+										<div>
+											<button type="button" class="btn btn-default">save</button>
+										</div>
+										<span>New product must have a name</span>
+									</div>
+
 		    					</div>
 
 		    				</div>
