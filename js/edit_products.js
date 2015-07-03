@@ -140,6 +140,12 @@ var EPA, epApp;
 		// close new product panel
 		document.getElementById("close-new-product-panel")
 			.addEventListener("click", this.closeNewProductPanel, false);
+
+		// info buttons
+		document.getElementById("producer-info")
+			.addEventListener("click", this.infoAlert, false);
+		document.getElementById("already-listed-info")
+			.addEventListener("click", this.infoAlert, false);
 	}
 
 	/* METHODS */
@@ -152,21 +158,8 @@ var EPA, epApp;
 		// if the product panel is already open
 		if( event.target === document.getElementById("close-new-product-panel") )
 			return;
-
-		// #new-product-btn background to white
-		this.style.backgroundColor = "#FFF";
-
-		// remove #new-product-btn padding
-		this.style.padding = "0px";
-
-		// change the font color
-		this.style.color = "#444";
-
-		// change the font size
-		this.style.fontSize = "30px";
-
-		// change the border color
-		this.style.borderColor = "#FFF";
+		
+		this.className = "";
 
 		// display the little x
 		document.getElementById("close-new-product-panel")
@@ -190,24 +183,7 @@ var EPA, epApp;
 	EPA.prototype.closeNewProductPanel = function(){
 
 		// #new-product-btn background to green
-		document.getElementById("new-product-btn")
-			.style.backgroundColor = "#5CB85C";
-
-		// add #new-product-btn padding
-		document.getElementById("new-product-btn")
-			.style.padding = "5px";
-
-		// change back the font color
-		document.getElementById("new-product-btn")
-			.style.color = "#FFF";
-
-		// change back the font size
-		document.getElementById("new-product-btn")
-			.style.fontSize = "18px";
-
-		// change back the border color
-		document.getElementById("new-product-btn")
-			.style.borderColor = "#5CB85C";
+		document.getElementById("new-product-btn").className = "btn btn-lg btn-success"
 
 		// hide the little x
 		this.style.display = "none";
@@ -219,7 +195,16 @@ var EPA, epApp;
 			.style.display = "none";
 	}
 
-
+	//-----------------------------------------------
+	// - event listener to reveal info alerts
+	EPA.prototype.infoAlert = function(){
+		// call the insertAlert method 
+		rsApp.insertAlert(
+							this.dataset.alert,
+							this.dataset.text,
+							this.parentElement.parentElement.children[1]
+						 );
+	}
 
 
 

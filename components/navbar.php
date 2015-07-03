@@ -5,9 +5,7 @@
         <div class="navbar-header">
             
             <!-- toggle mobile menu -->
-            <button type="button" 
-                    class="navbar-toggle collapsed"
-                    id="navbar-toggle-menu">
+            <button type="button"  class="navbar-toggle collapsed" id="navbar-toggle-menu">
                 <span class="glyphicon glyphicon-menu-hamburger"></span>
             </button>
 
@@ -31,11 +29,7 @@
             <!-- user menu -->
             <div class="dropdown user-nav navbar-toggle">
                 <!-- dropdown button -->
-                <button class="btn dropdown-toggle" 
-                        type="button" 
-                        id="dropdown-user-nav"
-                        aria-haspopup="true" 
-                        aria-expanded="true">
+                <button class="btn dropdown-toggle" type="button"  id="dropdown-user-nav" aria-haspopup="true" aria-expanded="true">
                     <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
                     <span class="caret"></span>
                 </button>
@@ -43,8 +37,7 @@
                 <ul class="dropdown-menu list-group user-links" aria-labelledby="dropdown-nav">
                     <li style="padding: 6px 15px;">
                         <div style="height: 28px;">
-                            <div class='avatar <?= $profile->data("avatar_shape"); ?>'
-                                 style='background-image: url(img/business/<?= $profile->data("avatar"); ?>);'></div>
+                            <div class='avatar <?= $profile->data("avatar_shape"); ?>' style='background-image: url(img/business/<?= $profile->data("avatar"); ?>);'></div>
                             <span style="font-size: 16px; font-weight: 600; line-height: 34px;"><?= $business->data("name"); ?></span>
                         </div>
                     </li>
@@ -80,7 +73,7 @@
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </a>
-                        <div>
+                        </div>
                     </li>
                     <!-- promos -->
                     <li class="list-group-item">

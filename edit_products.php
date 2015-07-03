@@ -82,10 +82,7 @@
 								   id="search-products"
 								   placeholder="Search products"
 								   aria-label="search products">
-							<button type="button" 
-									class="btn btn-lg" 
-									id="search-products-submit"
-									aria-label="Submit search for products">
+							<button type="button" class="btn btn-lg" id="search-products-submit" aria-label="Submit search for products">
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							</button>
 						</div>
@@ -109,15 +106,11 @@
 		    	<!-- add new product button & panel -->
 		    	<div class="row">
 		    		<div class="col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
-		    			<div class="btn btn-lg btn-success"
-		    				 id="new-product-btn">
+		    			<div class="btn btn-lg btn-success" id="new-product-btn">
 		    				<div>
-		    					<button type="button" 
-			    							class="close" 
-			    							id="close-new-product-panel"
-			    							aria-label="Close new product panel">&times;</button>
+		    					<button type="button" class="close" id="close-new-product-panel" aria-label="Close new product panel">&times;</button>
 		    					<div style="text-align:center; width: 100%">
-			    					<span><span class="glyphicon glyphicon-plus"></span>&nbsp;New Product</span>
+			    					<h3 style="margin: 0px"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Product</h3>
 		    					</div>
 		    					<!-- new product panel -->
 		    					<div id="new-product-panel">
@@ -126,12 +119,10 @@
 
 		    						<!-- producer -->
 		    						<div class="producer-btns">
-			    						<div>	
-			    							<span>
-			    								Are you the producer of this product?&nbsp;
-			    								<span class="glyphicon glyphicon-info-sign" id="producer-info"></span>
-			    							</span>
-			    						</div>
+			    						<p>
+		    								<span class="glyphicon glyphicon-info-sign" id="producer-info" data-alert="info" data-text="<b>Producer</b> means that you are selling this product under your brand name, i.e. the business for which you created a profile."></span>
+		    								Are you the producer of this product?
+			    						</p>
 			    						<div style="text-align:center;  margin: 20px 0px;">
 			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
 												<button type="button" class="btn" aria-label="Yes, my company produces this product">yes</button>
@@ -142,10 +133,10 @@
 
 									<!-- if not producer, prompt user to look for product on routesider -->
 									<div class="product-already-listed">
-			    						<div>	
+			    						<p>	
+		    								<span class="glyphicon glyphicon-info-sign" id="already-listed-info" data-alert="info" data-text="If the producer of this product already has a profile on Routesider, you may search for the existing product and add it to your inventory."></span>
 		    								Is this product already listed on Routesider?&nbsp;
-		    								<span class="glyphicon glyphicon-info-sign" id="already-listed-info"></span>
-			    						</div>
+			    						</p>
 			    						<div style="text-align:center;  margin: 20px 0px;">
 			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
 												<button type="button" class="btn" aria-label="Yes, let me look for it">yes</button>
@@ -153,6 +144,16 @@
 												<button type="button" class="btn" aria-lable="I don't know if this product is already on Routesider">idk</button>
 											</div>
 										</div>
+									</div>
+									<div class="input-group search-products-input">
+										<input type="text" 
+											   class="form-control" 
+											   id="search-products-2"
+											   placeholder="Search products"
+											   aria-label="search products">
+										<button type="button" class="btn" id="search-products-submit-2" aria-label="Submit search for products">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</button>
 									</div>
 
 		    					</div>

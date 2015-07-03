@@ -25,6 +25,7 @@
 	search products
 ----------------------*/
 
+/* use this search form a couple times */
 .search-products-input{
 	padding:6px;
 	border-radius: 6px;
@@ -40,9 +41,11 @@
 #search-products-submit{  
 	padding: 9px 16px;
 	font-size: 20px;
+}
+.search-products-input button{
 	background-color: #CCC;
 }
-#search-products-submit:hover{
+.search-products-input button:hover{
 	color: #5CB85C;
 }
 
@@ -96,32 +99,52 @@
 	opacity: 0;
 	font-size: 16px;
 }
+/* info buttons */
+.glyphicon-info-sign{
+	float: right;
+	cursor: pointer;
+}
 /* producer buttons */
-.producer-btns button,
-.product-already-listed button{
+.producer-btns .btn-group button,
+.product-already-listed .btn-group button{
 	min-width: 80px;
 	font-weight: 600;
 }
-.producer-btns button:nth-child(1),
-.product-already-listed button:nth-child(1){
+.producer-btns .btn-group button:nth-child(1),
+.product-already-listed .btn-group button:nth-child(1){
 	background-color: #dff0d8;
+	border: 1px solid #d6e9c6;
+	border-right: 0px;
 }
-.producer-btns button:nth-child(1):hover,
-.product-already-listed button:nth-child(1):hover{
+.producer-btns .btn-group button:nth-child(1):hover,
+.product-already-listed .btn-group button:nth-child(1):hover{
 	background-color: #5CB85C;
 	color: #fff;
 }
-.producer-btns button:nth-child(2),
-.product-already-listed button:nth-child(2){
+.producer-btns .btn-group button:nth-child(2),
+.product-already-listed .btn-group button:nth-child(2){
 	background-color: #f2dede;
+	border: 1px solid #ebccd1;
+	border-left: 0px;
 }
-.producer-btns button:nth-child(2):hover,
-.product-already-listed button:nth-child(2):hover{
+.producer-btns .btn-group button:nth-child(2):hover,
+.product-already-listed .btn-group button:nth-child(2):hover{
 	background-color: #d9534f;
 	color: #fff;
 }
-
-
+.product-already-listed .btn-group button:nth-child(3){
+	border: 1px solid #ccc;
+	border-left: 0px;
+}
+.product-already-listed .btn-group button:nth-child(3):hover{
+	background-color: #999;
+	color: #fff;
+}
+/* search products again */
+#search-products-2{
+	border-radius: 4px;
+	width: calc(100% - 40px);
+}
 
 
 
