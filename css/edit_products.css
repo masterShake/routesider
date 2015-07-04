@@ -183,6 +183,9 @@ label{
 	color:#CCC;
 	border: 1px solid #aaa;
 	height: 210px;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 .hero .glyphicon{
 	font-size: 40px;
@@ -197,10 +200,16 @@ label{
 .swiper-slide{
 	min-height: 80px;
 }
+.image-slide{
+	background-size: cover;
+	background-position: center center;
+	max-width: 90px;
+}
 .upload-slide{
 	min-width: 240px;
 	padding: 2px;
 }
+/*  */
 .filedrag{
 	height: 100%;
 	border: 2px dashed #ccc;

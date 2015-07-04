@@ -270,7 +270,18 @@ var EPA, epApp;
 		// hero element
 		this.hero = slideshowElem.getElementsByClassName("hero")[0];
 
+		// filedrag element
+		this.filedrag = slideshowElem.getElementsByClassName("filedrag")[0];
+
+		// array of all the image files in the slide in given order
+		this.slideshow = [];
+
 		/* construction */
+
+		// dragover event listeners
+		this.filedrag.addEventListener("dragover", this.fileDragHover, false);
+		this.filedrag.addEventListener("dragleave", this.fileDragHover, false);
+		this.filedrag.addEventListener("drop", this.fileSelectHandler, false);
 	}
 
 	/* METHODS */
@@ -280,13 +291,13 @@ var EPA, epApp;
 	HS.prototype.fileDragHover = function(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		e.target.className = (e.type == "dragover" ? "hover" : "");
+		// e.target.className = (e.type == "dragover" ? "hover" : "");
 	}
 	// file selection event listener
 	HS.prototype.fileSelectHandler = function(e) {
 
 			// cancel event and hover styling
-			rsApp.fileDragHover(e);
+			epApp.heroSwiper.fileDragHover(e);
 			
 			// display the spinner
 			e.target.innerHTML = "<span class='glyphicon glyphicon-hourglass loading'></span>";
@@ -320,15 +331,44 @@ var EPA, epApp;
 
 		  			// turn the response json into an object
 		  			this.j = JSON.parse( this.responseText );
+
+		  			// push the image file onto the slideshow
+		  			epApp.heroSwiper.slideshow.push(this.j["filename"]);
+
+		  			// remove the spinning hourglass
+		  			epApp.heroSwiper.filedrag.innerHTML = '<span><span class="glyphicon glyphicon-camera"></span>&nbsp;drag &amp; drop<br><span style="font-size: 8px;">-or-</span></span>';
+				
+		  			// set the hero background image
+		  			epApp.heroSwiper.hero.innerHTML = "";
+		  			epApp.heroSwiper.hero.style.backgroundImage = "url(uploads/" + this.j['filename'] + ")";
+
+		  			// add a slide to the slideshow
+		  			epApp.heroSwiper.addSlide( document.createElement('div'), this.j['filename'] );
 				}
 		  	}
 
 			// ajax
-			this.xhr.open("POST", "http://localhost/routesider/edit_profile.php", true);
+			this.xhr.open("POST", "", true);
 			this.xhr.setRequestHeader("X-file-name", file.name + "." + elemStr);
 			this.xhr.send(file);
 		}
 	}
+
+	//-----------------------------------------------
+	// - add a slide to the slideshow
+	HS.prototype.addSlide = function(blankDiv, filename){
+		// add the elements to remove sldie or move it to the front
+		blankDiv.innerHTML = "";
+		// set the slide class
+		blankDiv.className = "swiper-slide image-slide";
+		// set the image background
+		blankDiv.style.backgroundImage = "url(uploads/"+filename+")"; // console.log(this.swiper.slides[this.swiper.slides.length - 1]); console.log(blankDiv)
+		// prepend the element
+		this.swiper.prependSlide(blankDiv);
+		// update
+		this.swiper.update();
+	}
+
 
 
 
