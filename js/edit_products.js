@@ -416,8 +416,12 @@ var EPA, epApp;
 		blankDiv.children[0].addEventListener('click', epApp.heroSwiper.removeSlide, false);
 		
 		// add event listener to move slide to the front
-		blankDiv.children[0].addEventListener('click', epApp.heroSwiper.slideToFront, false);
+		blankDiv.children[2].addEventListener('click', epApp.heroSwiper.slideToFront, false);
 		
+		// if there are other slides
+		if(this.swiper.slides.length > 1)
+			this.swiper.slides[0].children[2].checked = false;
+
 		// prepend the element
 		this.swiper.prependSlide(blankDiv);
 		
@@ -436,11 +440,8 @@ var EPA, epApp;
 											1
 										 );
 		
-		// remove the slide from the swiper
-		epApp.heroSwiper.swiper.removeSlide( epApp.heroSwiper.swiper.clickedIndex );
-		
 		// if there are no more slides
-		if(epApp.heroSwiper.slideshow.length < 1){
+		if(!epApp.heroSwiper.slideshow.length){
 			
 			// reset the inner html of the hero
 			epApp.heroSwiper.hero.innerHTML = '<div class="glyphicon glyphicon-camera"></div>' + 
@@ -448,7 +449,19 @@ var EPA, epApp;
 		
 			// remove the background image
 			epApp.heroSwiper.hero.style.backgroundImage = "none";
+		
+		// if this was the first slide in slideshow
+		}else if(epApp.heroSwiper.swiper.clickedIndex == 0){
+
+			// set the checked box of the next slide
+			epApp.heroSwiper.swiper.slides[1].children[2].checked = true;
+		
+			// change the hero
+			epApp.heroSwiper.hero.style.backgroundImage = 'url(uploads/' + epApp.heroSwiper.slideshow[0] + ')';
 		}
+		
+		// remove the slide from the swiper
+		epApp.heroSwiper.swiper.removeSlide( epApp.heroSwiper.swiper.clickedIndex );
 	}
 
 	//-----------------------------------------------
@@ -456,29 +469,28 @@ var EPA, epApp;
 	//   of the slideshow
 	HS.prototype.slideToFront = function(){
 
+		// if this slide is alreay in front
+		if(this.parentElement === epApp.heroSwiper.swiper.slides[0]){
+			// keep it in check
+			this.checked = true; return;
+		}
+
+		/* do the style stuff first to avoid race conditions */
+
+		// uncheck the front slide
+		epApp.heroSwiper.swiper.slides[0].children[2].checked = false;
+
+		// set the hero
+		epApp.heroSwiper.hero.style.backgroundImage = 'url(uploads/'+this.parentElement.dataset.filename+')';
+
 		// move this filename to the front of the slideshow array
 		epApp.heroSwiper.slideshow.move(
 											epApp.heroSwiper.swiper.clickedIndex,
 											0
 									   );
 
-		// append a copy to the front
-		epApp.heroSwiper.swiper.prependSlide(
-												'<div class="swiper-slide image-slide" data-filename="' + this.dataset.filename + '">'+
-												'	<div class="glyphicon glyphicon-remove-circle"></div>' +
-							 					'	<br>' +
-							 					'	<input type="checkbox" checked>' +
-											  	'</div>'
-											);
-
-		// remove the original slide
-		epApp.heroSwiper.swiper.removeSlide( epApp.heroSwiper.swiper.clickedIndex );
-
-		// add event listeners to the new slide
-		epApp.heroSwiper.swiper.slides[0].children[0]
-			.addEventListener('click', epApp.heroSwiper.removeSlide, false);
-		epApp.heroSwiper.swiper.slides[0].children[2]
-			.addEventListener('click', epApp.heroSwiper.slideToFront, false);
+		// move the slide
+		this.parentElement.parentElement.insertBefore( this.parentElement, this.parentElement.parentElement.children[0] );
 
 		// update
 		epApp.heroSwiper.swiper.update();
