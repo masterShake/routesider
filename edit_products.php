@@ -242,6 +242,27 @@
 										</div>
 									</div>
 
+									<!-- description -->
+									<label>Product Description</label>
+									<textarea rows="5" placeholder="Tell us about this product"></textarea>
+									<!-- formatting toolbar -->
+									<div class="btn-toolbar formatting" role="toolbar">
+										<div class="btn-group">
+											<button type="button" class="btn btn-default" aria-label="bold"><span class="glyphicon glyphicon-bold" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="italic"><span class="glyphicon glyphicon-italic" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="strike through"><span class="icon-strikethrough" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="sub-script"><span class="glyphicon glyphicon-subscript" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="super-script"><span class="glyphicon glyphicon-superscript" aria-hidden="true"></span></button>
+										</div>
+										<div class="btn-group">
+											<button type="button" class="btn btn-default" aria-label="insert web link"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="numbered list"><span class="icon-list-numbered" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="bullet point list"><span class="icon-list2" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="quoted text"><span class="icon-quotes-left" aria-hidden="true"></span></button>
+											<button type="button" class="btn btn-default" aria-label="insert divider"><span class="icon-page-break" aria-hidden="true"></span></button>
+										</div>
+									</div>
+
 									<!-- save alert 2 -->
 									<div class="alert" id="save-alert-2">
 										<div>

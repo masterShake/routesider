@@ -256,11 +256,18 @@ label{
 .fileselect input{
 	max-width: 220px;
 }
-
-
-
-
-
+/* description */
+textarea{
+	width: 100%;
+}
+/* toolbar */
+.formatting{
+	text-align: right;
+}
+.formatting div.btn-group{
+	margin: 4px 0px;
+	float: right;
+}
 
 
 

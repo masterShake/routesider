@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-yhmy13');
-	src:url('../fonts/icomoon.eot?#iefix-yhmy13') format('embedded-opentype'),
-		url('../fonts/icomoon.ttf?-yhmy13') format('truetype'),
-		url('../fonts/icomoon.woff?-yhmy13') format('woff'),
-		url('../fonts/icomoon.svg?-yhmy13#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?-v03gs1');
+	src:url('../fonts/icomoon.eot?#iefix-v03gs1') format('embedded-opentype'),
+		url('../fonts/icomoon.ttf?-v03gs1') format('truetype'),
+		url('../fonts/icomoon.woff?-v03gs1') format('woff'),
+		url('../fonts/icomoon.svg?-v03gs1#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -26,8 +26,23 @@
 .icon-profile:before {
 	content: "\e923";
 }
+.icon-quotes-left:before {
+	content: "\e977";
+}
+.icon-list-numbered:before {
+	content: "\e9b9";
+}
+.icon-list2:before {
+	content: "\e9bb";
+}
 .icon-exit:before {
 	content: "\ea14";
+}
+.icon-strikethrough:before {
+	content: "\ea65";
+}
+.icon-page-break:before {
+	content: "\ea68";
 }
 .icon-google-plus2:before {
 	content: "\ea89";
