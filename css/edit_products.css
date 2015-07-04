@@ -196,15 +196,40 @@ label{
 	height: 90px;
 	padding: 5px 0px;
 }
-/* upload slide */
 .swiper-slide{
 	min-height: 80px;
 }
+/* slideshow images */
 .image-slide{
 	background-size: cover;
 	background-position: center center;
 	max-width: 90px;
 }
+.image-slide>div,
+.image-slide>input{
+	float: right;
+	cursor: pointer;
+	opacity: .7;
+}
+.image-slide>div:hover,
+.image-slide>input:hover{
+	opacity: 1;
+}
+/* remove image btn icon */ 
+.image-slide>div{
+	font-size: 20px;
+	color: #fff;
+	margin-top: -4px;
+	margin-right: -4px;
+}
+/* move image to the front of the slideshow */
+.image-slide>input{
+	margin-top: 37px;
+	margin-right: 0px;
+	height: 20px;
+	width: 20px;
+}
+/* upload slide */
 .upload-slide{
 	min-width: 240px;
 	padding: 2px;
@@ -228,7 +253,9 @@ label{
   margin-top: -34px;
   text-overflow: ellipsis;
 }
-
+.fileselect input{
+	max-width: 220px;
+}
 
 
 

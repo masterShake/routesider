@@ -101,6 +101,46 @@ var EPA, epApp;
 
 (function(){
 
+
+
+
+
+
+
+	//-----------------------------------------------
+	// - Add a method to the array object type to
+	//   help move items in HS.slideshow 
+	Array.prototype.move = function (old_index, new_index) {
+	    if (new_index >= this.length) {
+	        var k = new_index - this.length;
+	        while ((k--) + 1) {
+	            this.push(undefined);
+	        }
+	    }
+	    this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+	    return this; // for testing purposes
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//-----------------------------------------------
 	//					EPA class				
 	//				  -------------
@@ -357,20 +397,92 @@ var EPA, epApp;
 	//-----------------------------------------------
 	// - add a slide to the slideshow
 	HS.prototype.addSlide = function(blankDiv, filename){
+		
+		// set the data-filename attribute
+		blankDiv.setAttribute("data-filename", filename);
+		
 		// add the elements to remove sldie or move it to the front
-		blankDiv.innerHTML = "";
+		blankDiv.innerHTML = '<div class="glyphicon glyphicon-remove-circle"></div>' +
+							 '<br>' +
+							 '<input type="checkbox" checked>';
+		
 		// set the slide class
 		blankDiv.className = "swiper-slide image-slide";
+		
 		// set the image background
 		blankDiv.style.backgroundImage = "url(uploads/"+filename+")"; // console.log(this.swiper.slides[this.swiper.slides.length - 1]); console.log(blankDiv)
+		
+		// add event listner to remove circle
+		blankDiv.children[0].addEventListener('click', epApp.heroSwiper.removeSlide, false);
+		
+		// add event listener to move slide to the front
+		blankDiv.children[0].addEventListener('click', epApp.heroSwiper.slideToFront, false);
+		
 		// prepend the element
 		this.swiper.prependSlide(blankDiv);
+		
 		// update
 		this.swiper.update();
 	}
 
+	//-----------------------------------------------
+	// - event listener to remove slide from
+	//   slideshow
+	HS.prototype.removeSlide = function(){
+		
+		// remove this filename from the slideshow
+		epApp.heroSwiper.slideshow.splice( 
+											epApp.heroSwiper.slideshow.indexOf(this.parentElement.dataset.filename),
+											1
+										 );
+		
+		// remove the slide from the swiper
+		epApp.heroSwiper.swiper.removeSlide( epApp.heroSwiper.swiper.clickedIndex );
+		
+		// if there are no more slides
+		if(epApp.heroSwiper.slideshow.length < 1){
+			
+			// reset the inner html of the hero
+			epApp.heroSwiper.hero.innerHTML = '<div class="glyphicon glyphicon-camera"></div>' + 
+											  '<h4>No images yet</h4>';
+		
+			// remove the background image
+			epApp.heroSwiper.hero.style.backgroundImage = "none";
+		}
+	}
 
+	//-----------------------------------------------
+	// - event listener to move slide to the front
+	//   of the slideshow
+	HS.prototype.slideToFront = function(){
 
+		// move this filename to the front of the slideshow array
+		epApp.heroSwiper.slideshow.move(
+											epApp.heroSwiper.swiper.clickedIndex,
+											0
+									   );
+
+		// append a copy to the front
+		epApp.heroSwiper.swiper.prependSlide(
+												'<div class="swiper-slide image-slide" data-filename="' + this.dataset.filename + '">'+
+												'	<div class="glyphicon glyphicon-remove-circle"></div>' +
+							 					'	<br>' +
+							 					'	<input type="checkbox" checked>' +
+											  	'</div>'
+											);
+
+		// remove the original slide
+		epApp.heroSwiper.swiper.removeSlide( epApp.heroSwiper.swiper.clickedIndex );
+
+		// add event listeners to the new slide
+		epApp.heroSwiper.swiper.slides[0].children[0]
+			.addEventListener('click', epApp.heroSwiper.removeSlide, false);
+		epApp.heroSwiper.swiper.slides[0].children[2]
+			.addEventListener('click', epApp.heroSwiper.slideToFront, false);
+
+		// update
+		epApp.heroSwiper.swiper.update();
+	}
 
 
 
