@@ -280,7 +280,7 @@ textarea{
 .toggle-formatting-table{
 	font-size: 12px;
 }
-.toggle-formatting-table span.glyphicon-triangle-bottom{
+.toggle-formatting-table span.glyphicon{
 	font-size: 10px;
 }
 /* instructions table */
@@ -315,6 +315,9 @@ textarea{
 }
 .formatting tbody td:nth-child(2){
 	border-left: 1px solid #ccc;
+}
+.strike{
+	text-decoration: line-through;
 }
 
 

@@ -34,7 +34,7 @@
                     <span class="caret"></span>
                 </button>
                 <!-- dropdown menu items -->
-                <ul class="dropdown-menu list-group user-links" aria-labelledby="dropdown-nav">
+                <ul class="dropdown-menu list-group user-links" aria-labelledby="dropdown-user-nav">
                     <li style="padding: 6px 15px;">
                         <div style="height: 28px;">
                             <div class='avatar <?= $profile->data("avatar_shape"); ?>' style='background-image: url(img/business/<?= $profile->data("avatar"); ?>);'></div>
@@ -52,7 +52,7 @@
                     </li>
                     <li class="list-group-item">
                         <div>
-                            <a class="view-page" href='<?= $business->data("name") ?>'>
+                            <a class="view-page" href='<?= $user->data("username"); ?>'>
                                 <span class="icon-profile"></span>&nbsp;&nbsp;Profile
                             </a>
                             <a href="edit_profile.php">
@@ -65,7 +65,7 @@
                     <!-- products -->
                     <li class="list-group-item">
                         <div>
-                            <a class="view-page" href="<? $username; ?>/products">
+                            <a class="view-page" href="<?= $user->data("username"); ?>/products">
                                 <span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
                             </a>
                             <a href="edit_products.php">
@@ -78,7 +78,7 @@
                     <!-- promos -->
                     <li class="list-group-item">
                         <div>
-                            <a class="view-page" href="<? $username; ?>/promos">
+                            <a class="view-page" href="<?= $user->data("username"); ?>/promos">
                                 <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
                             </a>
                             <a href="edit_promos.php">
@@ -91,7 +91,7 @@
                     <!-- maps -->
                     <li class="list-group-item">
                         <div>
-                            <a class="view-page" href="<? $username; ?>/maps">
+                            <a class="view-page" href="<?= $user->data("username"); ?>/maps">
                                 <span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
                             </a>
                             <a href="edit_maps.php">
@@ -104,7 +104,7 @@
                     <!-- social media -->
                     <li class="list-group-item" style="padding-bottom: 0px;">
                         <div style="border-bottom: 0px;">
-                            <a class="view-page" href="<? $username; ?>/social">
+                            <a class="view-page" href="<?= $user->data("username"); ?>/social">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
                             </a>
                             <a href="edit_social.php">

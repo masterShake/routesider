@@ -161,13 +161,13 @@
 		    						<!-- producer -->
 		    						<div class="producer-btns">
 			    						<p>
-		    								<span class="glyphicon glyphicon-info-sign" id="producer-info" data-alert="info" data-text="<b>Producer</b> means that you are selling this product under your brand name, i.e. the business for which you created a profile."></span>
+		    								<span class="glyphicon glyphicon-info-sign" id="producer-info" data-alert="info" data-text="&#60;b&#62;Producer&#60;&#47;b&#62; means that you are selling this product under your brand name, i.e. the business for which you created a profile."></span>
 		    								Are you the producer of this product?
 			    						</p>
 			    						<div style="text-align:center;  margin: 20px 0px;">
 			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
 												<button type="button" class="btn" aria-label="Yes, my company produces this product">yes</button>
-												<button type="button" class="btn" aria-lable="No, we are reselling another company's product">no</button>
+												<button type="button" class="btn" aria-label="No, we are reselling another company's product">no</button>
 											</div>
 										</div>
 									</div>
@@ -181,8 +181,8 @@
 			    						<div style="text-align:center;  margin: 20px 0px;">
 			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
 												<button type="button" class="btn" aria-label="Yes, let me look for it">yes</button>
-												<button type="button" class="btn" aria-lable="No, I need to add it myself">no</button>
-												<button type="button" class="btn" aria-lable="I don't know if this product is already on Routesider">idk</button>
+												<button type="button" class="btn" aria-label="No, I need to add it myself">no</button>
+												<button type="button" class="btn" aria-label="I don't know if this product is already on Routesider">idk</button>
 											</div>
 										</div>
 									</div>
@@ -212,7 +212,7 @@
 											   name="productname"
 											   class="form-control input-lg"
 											   id="product-name"
-											   aria-label="give the product a name">
+											   aria-label="give the product a name"/>
 										<!-- formatting toolbar -->
 										<?php include "components/formatting_toolbar_half.php"; ?>
 									</div>
@@ -224,7 +224,7 @@
 											   name="subname"
 											   class="form-control"
 											   id="product-sub-name"
-											   aria-label="optional subname for the product">
+											   aria-label="optional subname for the product"/>
 										<!-- formatting toolbar -->
 										<?php include "components/formatting_toolbar_half.php"; ?>
 									</div>

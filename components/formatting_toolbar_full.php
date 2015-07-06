@@ -22,7 +22,7 @@
 	</div>
 	<!-- toggle instructions table -->
 	<div style="text-align:right;padding-bottom:5px;">
-		<a href="#" class="toggle-formatting-table">markdown formatting&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+		<a href="#" class="toggle-formatting-table" data-toggled="0">markdown formatting&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
 	</div>
 	<!-- formatting instructions table -->
 	<table>
@@ -46,7 +46,7 @@
 			<!-- strike -->
 			<tr>
 				<td>~~strike~~</td>
-				<td><strike>strike</strike></td>
+				<td><span class="strike">strike</span></td>
 			</tr>
 			<!-- super script -->
 			<tr>

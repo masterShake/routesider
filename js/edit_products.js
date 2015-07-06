@@ -592,6 +592,10 @@ var EPA, epApp;
 		// input focus
 		this.inputElem.addEventListener("focus", this.inputFocus, false);
 
+		// toggle the formatting table
+		this.formattingElem.getElementsByClassName("toggle-formatting-table")[0]
+			.addEventListener("click", this.toggleTable, false);
+
 	}
 
 	/* METHODS */
@@ -641,7 +645,32 @@ var EPA, epApp;
 		document.body.removeEventListener("click", epApp.activeToolbar.inputBlur, true);
 	}
 
+	//-----------------------------------------------
+	// - event listener to toggle the formatting
+	//   instructions table.
+	FT.prototype.toggleTable = function(event){
 
+		// prevent the link from linking
+		event.preventDefault(); console.log(this.children);
+
+		// if the table is hidden
+		if(this.dataset.toggled === "0"){
+
+			// set the attribute
+			this.setAttribute("data-toggled", "1");
+			
+			// change the icon
+			this.children[0].className = "glyphicon glyphicon-triangle-top";
+
+			// reveal the table
+			this.parentElement.parentElement.children[2].style.display = "block";
+		}else{
+			this.setAttribute("data-toggled", "0");
+			this.children[0].className = "glyphicon glyphicon-triangle-bottom";
+			this.parentElement.parentElement.children[2].style.display = "none";
+		}
+
+	}
 
 
 

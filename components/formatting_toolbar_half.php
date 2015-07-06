@@ -1,8 +1,8 @@
 
 <!-- formatting -->
 <div class="formatting">
-	<!-- toolbar -->
-	<div class="btn-toolbar" role="toolbar">
+	<!-- format text -->
+	<div style="height:42px;">
 		<div class="btn-group">
 			<button type="button" class="btn btn-default" aria-label="bold"><span class="glyphicon glyphicon-bold" aria-hidden="true"></span></button>
 			<button type="button" class="btn btn-default" aria-label="italic"><span class="glyphicon glyphicon-italic" aria-hidden="true"></span></button>
@@ -13,7 +13,7 @@
 	</div>
 	<!-- toggle instructions table -->
 	<div style="text-align:right;padding-bottom:5px;">
-		<a href="#" class="toggle-formatting-table">markdown formatting&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+		<a href="#" class="toggle-formatting-table" data-toggled="0">markdown formatting&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
 	</div>
 	<!-- formatting instructions table -->
 	<table>
@@ -37,7 +37,7 @@
 			<!-- strike -->
 			<tr>
 				<td>~~strike~~</td>
-				<td><strike>strike</strike></td>
+				<td><span class="strike">strike</span></td>
 			</tr>
 			<!-- super script -->
 			<tr>
@@ -49,6 +49,7 @@
 				<td>X(^)2</td>
 				<td>X<sub>2</sub></td>
 			</tr>
+			
 		</tbody>
 	</table>
 </div><!-- /formatting -->
