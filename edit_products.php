@@ -254,7 +254,7 @@
 									<!-- description -->
 									<div>
 										<label>Product Description</label>
-										<textarea rows="5" placeholder="Tell us about this product"></textarea>
+										<textarea rows="5" placeholder="Tell us about this product" id="product-description"></textarea>
 										<!-- full formatting toolbar -->
 										<?php include "components/formatting_toolbar_full.php"; ?>	
 									</div>

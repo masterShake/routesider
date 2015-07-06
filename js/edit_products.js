@@ -172,6 +172,12 @@ var EPA, epApp;
 		// initialize the hero swiper
 		this.heroSwiper = new HS( document.getElementsByClassName("slideshow")[0] );
 
+		// keep a dictionary of all the formatting toolbars
+		this.toolbars = {};
+
+		// keep track of the active toolbar
+		this.activeToolbar = null;
+
 		/* event listeners */
 
 		// new product button
@@ -187,6 +193,23 @@ var EPA, epApp;
 			.addEventListener("click", this.infoAlert, false);
 		document.getElementById("already-listed-info")
 			.addEventListener("click", this.infoAlert, false);
+
+		// init formatting toolbars
+		this.toolbars[0] = new FT(
+									document.getElementById("product-name"),
+									document.getElementById("product-name").parentElement.children[2],
+									0
+								 );
+		this.toolbars[1] = new FT(
+									document.getElementById("product-sub-name"),
+									document.getElementById("product-sub-name").parentElement.children[2],
+									1
+								 );
+		this.toolbars[2] = new FT(
+									document.getElementById("product-description"),
+									document.getElementById("product-description").parentElement.children[2],
+									2
+								 );
 	}
 
 	/* METHODS */
@@ -567,10 +590,7 @@ var EPA, epApp;
 		/* construction */
 
 		// input focus
-		this.inputElem.addEventListener("focus" this.inputFocus, false);
-
-		// input blur
-		this.inputElem.addEventListener("focus" this.inputBlur, false);
+		this.inputElem.addEventListener("focus", this.inputFocus, false);
 
 	}
 
@@ -581,14 +601,45 @@ var EPA, epApp;
 	// - reveal the toolbar
 	FT.prototype.inputFocus = function(){
 
-		// show the data-index attribute to reveal the toolbar
-		epApp.toolbars[this.dataset.index].formattingElem.style.display = "block";
+		// if there is an active toolbar
+		if(epApp.activeToolbar){
+			epApp.activeToolbar.formattingElem.style.display = "none";
+			document.body.removeEventListener("click", epApp.activeToolbar.inputBlur, true);
+		}
 
+		// (re)set the active toolbar
+		epApp.activeToolbar = epApp.toolbars[this.dataset.index];
+
+		// show the data-index attribute to reveal the toolbar
+		epApp.activeToolbar.formattingElem.style.display = "block";
+
+		// add blur event listener to the document
+		document.body.addEventListener("click", epApp.activeToolbar.inputBlur, true);
 	}
 
-
-
-
+	//-----------------------------------------------
+	// - event listeners user blurs from text input
+	// - only hide the toolbar if the user does not
+	//   click within the parent.
+	FT.prototype.inputBlur = function(event){
+		// set the current element
+		epApp.currElem = event.target;
+		// - loop up to the top parent
+		// - make sure we clicked outside of activeDropdown
+		while( epApp.currElem !== document.body ){
+			// if we get to our active dropdown
+			if(epApp.currElem === epApp.activeToolbar.inputElem.parentElement){
+				// break out of the loop
+				return;
+			}
+			// set the new currElem
+			epApp.currElem = epApp.currElem.parentElement;
+		}
+		// - If we get this far, we need to close the dropdown
+		//   and remove the event listeners.
+		epApp.activeToolbar.formattingElem.style.display = "none";
+		document.body.removeEventListener("click", epApp.activeToolbar.inputBlur, true);
+	}
 
 
 

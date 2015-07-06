@@ -285,6 +285,7 @@ textarea{
 }
 /* instructions table */
 .formatting table{
+	display:none;
 	width: 100%;
 	text-align: left;
 	font-size: 13px;
