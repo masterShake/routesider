@@ -49,7 +49,6 @@
 				<td>X(^)2</td>
 				<td>X<sub>2</sub></td>
 			</tr>
-			
 		</tbody>
 	</table>
 </div><!-- /formatting -->

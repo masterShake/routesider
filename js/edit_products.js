@@ -663,7 +663,7 @@ var EPA, epApp;
 			this.children[0].className = "glyphicon glyphicon-triangle-top";
 
 			// reveal the table
-			this.parentElement.parentElement.children[2].style.display = "block";
+			this.parentElement.parentElement.children[2].style.display = "inline-table";
 		}else{
 			this.setAttribute("data-toggled", "0");
 			this.children[0].className = "glyphicon glyphicon-triangle-bottom";
