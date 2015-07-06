@@ -515,6 +515,102 @@ var EPA, epApp;
 
 
 
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//
+	//			  FT (formatting toolbar)
+	//			---------------------------
+	//
+	// - @ inputElem -> html DOM element either
+	//   input [type=text] or textarea
+	//
+	// - @ index -> key reference for epApp
+	//
+	// - half toolbar is used for input [type=text]
+	//
+	// - full toolbar is used for textarea
+	//
+	// - NOTE: the formatting toolbars are found in
+	//   the "components" directory. They must be
+	//   dynamically included into the file using
+	//   php. It is assumed that the div.toolbar elem
+	//   is a sibling of the input in the DOM. 
+	// 
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var FT = function( inputElem, formattingElem, index ){
+
+		/* properties */
+
+		// keep a ref pointer to the input
+		this.inputElem = inputElem;
+
+		// keep a ref pointer to the div.formatting elem
+		this.formattingElem = formattingElem;
+
+		// keep track of the index key
+		this.index = index;
+
+		// set the data-index attribute of the input
+		this.inputElem.setAttribute("data-index", index);
+
+		/* construction */
+
+		// input focus
+		this.inputElem.addEventListener("focus" this.inputFocus, false);
+
+		// input blur
+		this.inputElem.addEventListener("focus" this.inputBlur, false);
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - event listeners user focuses on text input
+	// - reveal the toolbar
+	FT.prototype.inputFocus = function(){
+
+		// show the data-index attribute to reveal the toolbar
+		epApp.toolbars[this.dataset.index].formattingElem.style.display = "block";
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/* initialize */
 
 	document.addEventListener("DOMContentLoaded", function(){

@@ -266,6 +266,9 @@ textarea{
 ----------------------*/
 
 /* toolbar */
+.formatting{
+	display: none;
+}
 .formatting .btn-toolbar{
 	text-align: right;
 }
