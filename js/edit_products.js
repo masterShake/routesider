@@ -581,20 +581,33 @@ var EPA, epApp;
 		// keep a ref pointer to the div.formatting elem
 		this.formattingElem = formattingElem;
 
+		// grab all the buttons
+		this.buttons = this.formattingElem.getElementsByTagName("button");
+
 		// keep track of the index key
 		this.index = index;
 
 		// set the data-index attribute of the input
 		this.inputElem.setAttribute("data-index", index);
 
+		// - keep track of the cursor position in the input
+		// - starting position 0
+		this.cursorPos = 0;
+
 		/* construction */
 
 		// input focus
 		this.inputElem.addEventListener("focus", this.inputFocus, false);
 
+		// input keyup get cursor position
+		this.inputElem.addEventListener("keyup", this.getCursorPos, false);
+
 		// toggle the formatting table
 		this.formattingElem.getElementsByClassName("toggle-formatting-table")[0]
 			.addEventListener("click", this.toggleTable, false);
+
+		// event listener bold button
+		this.buttons[0].addEventListener("click", this.bold, false);
 
 	}
 
@@ -672,7 +685,42 @@ var EPA, epApp;
 
 	}
 
+	//-----------------------------------------------
+	// - keyup event listener to keep track of user
+	//   cursor position
+	FT.prototype.getCursorPos = function(){
+		// set the cursorPos property (int)
+		epApp.activeToolbar.cursorPos = this.selectionStart;
+	}
 
+	//-----------------------------------------------
+	// - BOLD event listener
+	// - insert 2 asterisks on either side of the 
+	//   user's cursor
+	FT.prototype.bold = function(){
+
+		// split the value at the last position of the cursor
+		epApp.activeToolbar.inputElem.value = 
+			epApp.activeToolbar.inputElem.value.substring(0, epApp.activeToolbar.cursorPos) + 
+			"****" + 
+			epApp.activeToolbar.inputElem.value.substring(epApp.activeToolbar.cursorPos);
+
+		// focus & move the cursor to its previous position
+		epApp.activeToolbar.inputElem.focus();
+
+		// move the cursor to the cursorPos + 2
+		epApp.activeToolbar.inputElem.setSelectionRange
+			( 
+				epApp.activeToolbar.cursorPos + 2,
+				epApp.activeToolbar.cursorPos + 2
+			);
+
+		// change the cursorPos property
+		epApp.activeToolbar.cursorPos = epApp.activeToolbar.cursorPos + 2;
+
+		// blur away from the button
+		this.blur();
+	}
 
 
 
