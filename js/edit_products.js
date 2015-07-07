@@ -594,6 +594,12 @@ var EPA, epApp;
 		// - starting position 0
 		this.cursorPos = 0;
 
+		// keep track of the positions of any highlighted text
+		this.highStart, this.highEnd = null;
+
+		// temp array of split string values
+		this.splitVals = [];
+
 		/* construction */
 
 		// input focus
@@ -601,6 +607,9 @@ var EPA, epApp;
 
 		// input keyup get cursor position
 		this.inputElem.addEventListener("keyup", this.getCursorPos, false);
+
+		// mouseup event for highlighted text
+		this.inputElem.addEventListener("select", this.getHigh, false);
 
 		// toggle the formatting table
 		this.formattingElem.getElementsByClassName("toggle-formatting-table")[0]
@@ -652,9 +661,14 @@ var EPA, epApp;
 			// set the new currElem
 			epApp.currElem = epApp.currElem.parentElement;
 		}
-		// - If we get this far, we need to close the dropdown
-		//   and remove the event listeners.
+		// - If we get this far, we know we clicked away from the input
+
+		// reset the highStart and highEnd properties
+		epApp.activeToolbar.highStart, 
+		epApp.activeToolbar.highEnd = null;
+		// - hide the toolbar
 		epApp.activeToolbar.formattingElem.style.display = "none";
+		// - remove the event listener 
 		document.body.removeEventListener("click", epApp.activeToolbar.inputBlur, true);
 	}
 
@@ -688,9 +702,68 @@ var EPA, epApp;
 	//-----------------------------------------------
 	// - keyup event listener to keep track of user
 	//   cursor position
-	FT.prototype.getCursorPos = function(){
+	FT.prototype.getCursorPos = function(event){
 		// set the cursorPos property (int)
 		epApp.activeToolbar.cursorPos = this.selectionStart;
+		// if the selection start does not match the end
+		if(this.selectionStart != this.selectionEnd)
+			epApp.activeToolbar.getHigh(event);
+		else
+			epApp.activeToolbar.highStart, 
+			epApp.activeToolbar.highEnd = null;
+	}
+
+	//-----------------------------------------------
+	// - mouseup event listener to look for
+	//   highlighted text
+	FT.prototype.getHigh = function(event){ 
+		// set the highlighed start and end properties
+		epApp.activeToolbar.highStart = event.target.selectionStart;
+		epApp.activeToolbar.highEnd = event.target.selectionEnd;
+	}
+
+	//-----------------------------------------------
+	// - split the text of the input
+	// - if not highlighted, split at cursor position
+	// - if highlighted, split at selectionStart &
+	//   selectionEnd as denoted by the FT.highStart
+	//   & FT.highEnd properties
+	// - return an array with split strings
+	FT.prototype.splitInput = function(){
+		// if we have highlighted text
+		if(this.highEnd)
+			// split the value of the input 3 ways
+			return [
+					  this.inputElem.value.substring(0, epApp.activeToolbar.highStart),
+					  this.inputElem.value.substring(epApp.activeToolbar.highStart, epApp.activeToolbar.highEnd),
+					  this.inputElem.value.substring(epApp.activeToolbar.highEnd)
+				   ];
+		else
+			// split the value 2 ways at the last position of the cursor
+			return [
+					  epApp.activeToolbar.inputElem.value.substring(0, epApp.activeToolbar.cursorPos),
+					  epApp.activeToolbar.inputElem.value.substring(epApp.activeToolbar.cursorPos)
+				   ];
+	}
+
+	//-----------------------------------------------
+	// - set the focus and change the cursor
+	// - @ offset -> add some number to cursor pos
+	FT.prototype.shiftFocus = function(offset){
+
+		// focus & move the cursor to its previous position
+		this.inputElem.focus();
+
+		// change the cursorPos property
+		this.cursorPos = this.inputElem.selectionStart + offset;
+
+		// move the cursor to the cursorPos + 2
+		this.inputElem.setSelectionRange
+			( 
+				this.cursorPos,
+				this.cursorPos
+			);
+
 	}
 
 	//-----------------------------------------------
@@ -699,24 +772,27 @@ var EPA, epApp;
 	//   user's cursor
 	FT.prototype.bold = function(){
 
-		// split the value at the last position of the cursor
+		// set splitVals properties
+		epApp.activeToolbar.splitVals = epApp.activeToolbar.splitInput();
+
+		// set the value of the input
 		epApp.activeToolbar.inputElem.value = 
-			epApp.activeToolbar.inputElem.value.substring(0, epApp.activeToolbar.cursorPos) + 
-			"****" + 
-			epApp.activeToolbar.inputElem.value.substring(epApp.activeToolbar.cursorPos);
+			(epApp.activeToolbar.splitVals.length > 2) ?
+				
+				// for highlighted text
+				epApp.activeToolbar.splitVals[0] + 
+				"**" +
+				epApp.activeToolbar.splitVals[1] + 
+				"**" +
+				epApp.activeToolbar.splitVals[2] 	   :
 
-		// focus & move the cursor to its previous position
-		epApp.activeToolbar.inputElem.focus();
+				// for unhighlighted text
+				epApp.activeToolbar.splitVals[0] + 
+				"****" +
+				epApp.activeToolbar.splitVals[1]	   ;
 
-		// move the cursor to the cursorPos + 2
-		epApp.activeToolbar.inputElem.setSelectionRange
-			( 
-				epApp.activeToolbar.cursorPos + 2,
-				epApp.activeToolbar.cursorPos + 2
-			);
-
-		// change the cursorPos property
-		epApp.activeToolbar.cursorPos = epApp.activeToolbar.cursorPos + 2;
+		// shift focus
+		epApp.activeToolbar.shiftFocus( 2 );
 
 		// blur away from the button
 		this.blur();
