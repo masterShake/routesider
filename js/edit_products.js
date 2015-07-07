@@ -615,8 +615,12 @@ var EPA, epApp;
 		this.formattingElem.getElementsByClassName("toggle-formatting-table")[0]
 			.addEventListener("click", this.toggleTable, false);
 
-		// event listener bold button
-		this.buttons[0].addEventListener("click", this.bold, false);
+		// event listeners to the buttons
+		for(var i = 0; i < this.buttons.length; i++){
+			this.buttons[i].addEventListener("click", this.markdown, false);
+		}
+		this.buttons = null;
+		delete this.buttons;
 
 	}
 
@@ -755,7 +759,7 @@ var EPA, epApp;
 		this.inputElem.focus();
 
 		// change the cursorPos property
-		this.cursorPos = this.inputElem.selectionStart + offset;
+		this.cursorPos = this.inputElem.selectionStart - offset;
 
 		// move the cursor to the cursorPos + 2
 		this.inputElem.setSelectionRange
@@ -767,10 +771,11 @@ var EPA, epApp;
 	}
 
 	//-----------------------------------------------
-	// - BOLD event listener
-	// - insert 2 asterisks on either side of the 
-	//   user's cursor
-	FT.prototype.bold = function(){
+	// - formatting button event listener
+	// - insert characters on either side of cursor
+	//   or highlighted text as denoted by given
+	//   dataset attributes
+	FT.prototype.markdown = function(){
 
 		// set splitVals properties
 		epApp.activeToolbar.splitVals = epApp.activeToolbar.splitInput();
@@ -781,25 +786,23 @@ var EPA, epApp;
 				
 				// for highlighted text
 				epApp.activeToolbar.splitVals[0] + 
-				"**" +
+				this.dataset.front +
 				epApp.activeToolbar.splitVals[1] + 
-				"**" +
+				this.dataset.rear +
 				epApp.activeToolbar.splitVals[2] 	   :
 
 				// for unhighlighted text
 				epApp.activeToolbar.splitVals[0] + 
-				"****" +
+				this.dataset.front +
+				this.dataset.rear + 
 				epApp.activeToolbar.splitVals[1]	   ;
 
 		// shift focus
-		epApp.activeToolbar.shiftFocus( 2 );
+		epApp.activeToolbar.shiftFocus( this.dataset.rear.length );
 
 		// blur away from the button
 		this.blur();
 	}
-
-
-
 
 
 

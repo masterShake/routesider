@@ -5,19 +5,19 @@
 	<div class="btn-toolbar" role="toolbar">
 		<!-- format text -->
 		<div class="btn-group">
-			<button type="button" class="btn btn-default" aria-label="bold"><span class="glyphicon glyphicon-bold" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="italic"><span class="glyphicon glyphicon-italic" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="strike through"><span class="icon-strikethrough" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="super-script"><span class="glyphicon glyphicon-superscript" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="sub-script"><span class="glyphicon glyphicon-subscript" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#42;&#42;" data-rear="&#42;&#42;" aria-label="bold"><span class="glyphicon glyphicon-bold" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#42;" data-rear="&#42;" aria-label="italic"><span class="glyphicon glyphicon-italic" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#126;&#126;" data-rear="&#126;&#126;" aria-label="strike through"><span class="icon-strikethrough" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#94;&#40;" data-rear="&#41;" aria-label="super-script"><span class="glyphicon glyphicon-superscript" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#45;&#94;&#40;" data-rear="&#41;" aria-label="sub-script"><span class="glyphicon glyphicon-subscript" aria-hidden="true"></span></button>
 		</div>
 		<!-- format layout -->
 		<div class="btn-group">
-			<button type="button" class="btn btn-default" aria-label="insert web link"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="numbered list"><span class="icon-list-numbered" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="bullet point list"><span class="icon-list2" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="quoted text"><span class="icon-quotes-left" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default" aria-label="insert divider"><span class="icon-page-break" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#91;" data-rear="&#93;&#40;&#41;" aria-label="insert web link"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="1&#46;&nbsp;" data-rear="&#10;" aria-label="numbered list"><span class="icon-list-numbered" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#10;&#42;&nbsp;" data-rear="&#10;" aria-label="bullet point list"><span class="icon-list2" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#10;&#62;&nbsp;" data-rear="" aria-label="quoted text"><span class="icon-quotes-left" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default" data-front="&#10;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#10;" data-rear="" aria-label="insert divider"><span class="icon-page-break" aria-hidden="true"></span></button>
 		</div>
 	</div>
 	<!-- toggle instructions table -->
@@ -50,12 +50,12 @@
 			</tr>
 			<!-- super script -->
 			<tr>
-				<td>X^2</td>
+				<td>X^(2)</td>
 				<td>X<sup>2</sup></td>
 			</tr>
 			<!-- sub script -->
 			<tr>
-				<td>X(^)2</td>
+				<td>X-^(2)</td>
 				<td>X<sub>2</sub></td>
 			</tr>
 			<!-- link -->
