@@ -1,7 +1,7 @@
 
 //-----------------------------------------------
 //
-//		   		 edit_maps app
+//		   		 edit products app
 //			   -----------------
 //
 // - This file contains all the methods that can

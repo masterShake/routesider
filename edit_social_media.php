@@ -153,8 +153,8 @@
 	            	</div><!-- /container-fluid -->
             	</section><!-- /activation-bts -->
 
-            	<!-- followers / metrics -->
-            	<section class="col-sm-6 col-md-4" id="social-metrics">
+            	<!-- other settings -->
+            	<section class="hidden-sx col-sm-6 col-md-4" id="social-metrics">
             		
             	</section>
 
