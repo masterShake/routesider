@@ -116,38 +116,62 @@
             	<!-- activation buttons -->
             	<section class="col-sm-6 col-md-2" id="activation-btns">
 
-            		<h3>Activate/Deactivate Social Media Accounts</h3>
+            		<h3>Activate/Deactivate</h3>
 
-            		<div class="container-fluid">
+            		<div class="container-fluid activation-btns">
 	            		
 	            		<!-- facebook -->
 	            		<div id="activate-face">
 	            			
+	            			<button type="button" class="btn activate-btn" aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+
+	            			<h5>facebook</h5>
+
 	            		</div>
 
 	            		<!-- instagram -->
 	            		<div id="activate-inst">
 	            			
+	            			<button type="button" class="btn activate-btn" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+	            			
+	            			<h5>instagram</h5>
+
 	            		</div>
 
 	            		<!-- tumblr -->
 	            		<div id="activate-tumb">
 	            			
+	            			<button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
+	            			
+	            			<h5>tumblr</h5>
+
 	            		</div>
 
 	            		<!-- etsy -->
 	            		<div id="activate-etz">
+
+	            			<button type="button" class="btn activate-btn" aria-label="activate etsy"><span class="etsy-icon" aria-hidden="true">E</span></button>
+	            			
+	            			<h5>etsy</h5>
 
 	            		</div>
 
 	            		<!-- twitter -->
 	            		<div id="activate-twit">
 	            			
+	            			<button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
+	            			
+	            			<h5>twitter</h5>
+
 	            		</div>
 
 	            		<!-- google -->
 	            		<div id="activat-goog">
-	            			
+
+	            			<button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+
+	            			<h5>google</h5>
+
 	            		</div>
 
 	            	</div><!-- /container-fluid -->

@@ -26,8 +26,42 @@
    activate buttons
 ----------------------*/
 
-
-
+/* activation buttons container */
+.activation-btns>div{
+	float:left;
+	width:33%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+/* main activate button */
+.activate-btn{
+	font-size: 43px;
+	color: #AAA;
+	padding: 8px;
+	height:60px;
+	background-color: transparent;
+}
+/* header */
+.activation-btns h5{
+	font-weight: 600;
+}
+/* create etsy icon */
+#activate-etz .activate-btn{
+	margin-top: -5px;
+	padding-bottom: 13px;
+}
+.etsy-icon{
+	font-family: times;  
+	display: inline-block;
+	height: 44px;
+	width: 44px;
+	background-color: #AAA;
+	font-size: 40px;
+	color: #fff;
+	line-height: 1;
+	border-radius: 8px;
+	padding-top: 2px;
+}
 
 
 /*----------------------

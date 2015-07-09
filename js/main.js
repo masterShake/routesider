@@ -13,9 +13,9 @@
 //   new RS object must be named rsApp.
 //
 
-var RS;
+var RS, rsApp;
 
-(function(){
+// (function(){
 
 	RS = function(){
 
@@ -202,5 +202,5 @@ var RS;
 		this.parentElement.parentElement.removeChild(this.parentElement);
 	}
 
-})();
+// })();
 
