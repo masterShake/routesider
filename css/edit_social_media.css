@@ -45,10 +45,32 @@
 .activation-btns h5{
 	font-weight: 600;
 }
-/* create etsy icon */
+
+/* hover & activated effects */
+/* facebook */
+#activate-face>button.activate-btn:hover,
+#activate-face>button.activate-btn.activated{
+	color: #3B5998;
+}
+/* instagram */
+#activate-inst>button.activate-btn:hover,
+#activate-inst>button.activate-btn.activated{
+	color: #517fa4;
+}
+/* tumblr */
+#activate-tumb>button.activate-btn:hover,
+#activate-tumb>button.activate-btn.activated{
+	color: #32506d;
+}
+/* twitter */
+#activate-twit>button.activate-btn:hover,
+#activate-twit>button.activate-btn.activated{
+	color: #00ACED;
+}
+/* etsy */
 #activate-etz .activate-btn{
 	margin-top: -5px;
-	padding-bottom: 13px;
+	height: 65px;
 }
 .etsy-icon{
 	font-family: times;  
@@ -62,7 +84,16 @@
 	border-radius: 8px;
 	padding-top: 2px;
 }
-
+#activate-etz span.etsy-icon:hover,
+#activate-etzspan.etsy-icon.activated{
+	background-color: #f45800;
+}
+/* google */
+#activate-goog>button.activate-btn:hover,
+#activate-goog>button.activate-btn.activated{
+	color: #dd4b39;
+}
+/* popover button */
 
 /*----------------------
    		feed

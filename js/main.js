@@ -71,6 +71,8 @@ var RS, rsApp;
 	};
 	
 	//-----------------------------------------------
+	//					dropdown
+	//				  ------------
 	// - event listener toggle dropdown
 	RS.prototype.toggleDropdown =function(){
 		
@@ -90,7 +92,8 @@ var RS, rsApp;
 			document.body.removeEventListener("click", rsApp.closeDropdown, true);
 		}
 	}
-
+	//-----------------------------------------------
+	// - event listener on body to close dropdown
 	RS.prototype.closeDropdown = function(event){
 		// set the current element
 		rsApp.currElem = event.target;

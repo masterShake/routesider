@@ -108,84 +108,87 @@
             <?php include "components/navbar.php"; ?>
 
             <div class="container">
-            	<div class="row">
 
             	<!-- header -->
             	<h1>Edit Social Media</h1>
 
-            	<!-- activation buttons -->
-            	<section class="col-sm-6 col-md-2" id="activation-btns">
+            	<div class="row">
 
-            		<h3>Activate/Deactivate</h3>
+	            	<!-- activation buttons -->
+	            	<section class="col-sm-6 col-md-2" id="activation-btns">
 
-            		<div class="container-fluid activation-btns">
+	            		<h3>Activate/Deactivate</h3>
+
+	            		<h5>Connect your social media account to Routesider to include posts in your Routesider feed.</h5>
+
+	            		<div class="container-fluid activation-btns">
+		            		
+		            		<!-- facebook -->
+		            		<div id="activate-face">
+		            			
+		            			<button type="button" class="btn activate-btn" aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+
+		            			<h5>Facebook</h5>
+
+		            		</div>
+
+		            		<!-- instagram -->
+		            		<div id="activate-inst">
+		            			
+		            			<button type="button" class="btn activate-btn" data-toggle="popover" data-title='&#60;span class&#61;&#34;icon-instagram&#34;&#62;&#60;&#47;span&#62; Instagram' data-content='&#60;button type&#61;&#34;button&#34; class&#61;&#34;btn&#34;&#62;add account&#60;&#47;button&#62;' aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+		            			
+		            			<h5>Instagram</h5>
+
+		            		</div>
+
+		            		<!-- tumblr -->
+		            		<div id="activate-tumb">
+		            			
+		            			<button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
+		            			
+		            			<h5>Tumblr</h5>
+
+		            		</div>
+
+		            		<!-- etsy -->
+		            		<div id="activate-etz">
+
+		            			<button type="button" class="btn activate-btn" aria-label="activate etsy"><span class="etsy-icon" aria-hidden="true">E</span></button>
+		            			
+		            			<h5>Etsy</h5>
+
+		            		</div>
+
+		            		<!-- twitter -->
+		            		<div id="activate-twit">
+		            			
+		            			<button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
+		            			
+		            			<h5>Twitter</h5>
+
+		            		</div>
+
+		            		<!-- google -->
+		            		<div id="activate-goog">
+
+		            			<button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+
+		            			<h5>Google</h5>
+
+		            		</div>
+
+		            	</div><!-- /container-fluid -->
+	            	</section><!-- /activation-bts -->
+
+	            	<!-- other settings -->
+	            	<section class="hidden-sx col-sm-6 col-md-4" id="social-metrics">
 	            		
-	            		<!-- facebook -->
-	            		<div id="activate-face">
-	            			
-	            			<button type="button" class="btn activate-btn" aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+	            	</section><!-- /other settings -->
 
-	            			<h5>facebook</h5>
-
-	            		</div>
-
-	            		<!-- instagram -->
-	            		<div id="activate-inst">
-	            			
-	            			<button type="button" class="btn activate-btn" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
-	            			
-	            			<h5>instagram</h5>
-
-	            		</div>
-
-	            		<!-- tumblr -->
-	            		<div id="activate-tumb">
-	            			
-	            			<button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
-	            			
-	            			<h5>tumblr</h5>
-
-	            		</div>
-
-	            		<!-- etsy -->
-	            		<div id="activate-etz">
-
-	            			<button type="button" class="btn activate-btn" aria-label="activate etsy"><span class="etsy-icon" aria-hidden="true">E</span></button>
-	            			
-	            			<h5>etsy</h5>
-
-	            		</div>
-
-	            		<!-- twitter -->
-	            		<div id="activate-twit">
-	            			
-	            			<button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
-	            			
-	            			<h5>twitter</h5>
-
-	            		</div>
-
-	            		<!-- google -->
-	            		<div id="activat-goog">
-
-	            			<button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
-
-	            			<h5>google</h5>
-
-	            		</div>
-
-	            	</div><!-- /container-fluid -->
-            	</section><!-- /activation-bts -->
-
-            	<!-- other settings -->
-            	<section class="hidden-sx col-sm-6 col-md-4" id="social-metrics">
-            		
-            	</section>
-
-            	<!-- feed -->
-            	<section class="col-sm-12 col-md-6" id="social-feed">
-            		
-            	</section>
+	            	<!-- feed -->
+	            	<section class="col-sm-12 col-md-6" id="social-feed">
+	            		
+	            	</section><!-- /feed -->
 			
 		    	</div><!-- /row -->
 		    </div><!-- /container -->
