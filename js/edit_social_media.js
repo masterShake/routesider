@@ -106,7 +106,8 @@ var ESM, esmApp;
 
 		// initialize the popovers
 		this.popovers.push(
-							new Popover(document.getElementById("activate-inst").children[0], 0)
+							new Popover(document.getElementById("activate-face").children[0], 0),
+							new Popover(document.getElementById("activate-inst").children[0], 1)
 						  );
 
 	}
@@ -164,7 +165,7 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var Popover = function(elem, i){ console.log(elem);
+	var Popover = function(elem, i){
 
 		/* properties */
 
@@ -184,6 +185,9 @@ var ESM, esmApp;
 
 		// insert the popover just before the index
 		elem.parentElement.insertBefore(this.popover, elem);
+
+		// determine the position of the element relative #page-content
+		this.popover.style.left = (elem.getBoundingClientRect().left - (elem.offsetWidth / 2) - 8) + "px";
 
 		// set the index of the elem
 		elem.setAttribute("data-index", this.index);
