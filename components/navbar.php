@@ -34,7 +34,7 @@
                     <span class="caret"></span>
                 </button>
                 <!-- dropdown menu items -->
-                <ul class="dropdown-menu list-group user-links" aria-labelledby="dropdown-user-nav">
+                <ul class="dropdown-menu list-group" aria-labelledby="dropdown-user-nav">
                     <li style="padding: 6px 15px;">
                         <div style="height: 28px;">
                             <div class='avatar <?= $profile->data("avatar_shape"); ?>' style='background-image: url(img/business/<?= $profile->data("avatar"); ?>);'></div>
@@ -50,68 +50,58 @@
                             edit&nbsp;<span class="glyphicon glyphicon-pencil"></span>
                         </div>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item user-link">
                         <div>
+                            <a href="edit_profile.php" class="btn btn-default" aria-label="edit profile">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             <a class="view-page" href='<?= $user->data("username"); ?>'>
                                 <span class="icon-profile"></span>&nbsp;&nbsp;Profile
-                            </a>
-                            <a href="edit_profile.php">
-                                <button type="button" class="btn" aria-label="edit profile">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
                             </a>
                         </div>
                     </li>
                     <!-- products -->
-                    <li class="list-group-item">
+                    <li class="list-group-item user-link">
                         <div>
+                            <a href="edit_products.php" class="btn btn-default" aria-label="edit products">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             <a class="view-page" href="<?= $user->data("username"); ?>/products">
                                 <span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
-                            </a>
-                            <a href="edit_products.php">
-                                <button type="button" class="btn" aria-label="edit products">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
                             </a>
                         </div>
                     </li>
                     <!-- promos -->
-                    <li class="list-group-item">
+                    <li class="list-group-item user-link">
                         <div>
+                            <a href="edit_promos.php" class="btn btn-default" aria-label="edit promos">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             <a class="view-page" href="<?= $user->data("username"); ?>/promos">
                                 <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
-                            </a>
-                            <a href="edit_promos.php">
-                                <button type="button" class="btn" aria-label="edit promos">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
                             </a>
                         </div>
                     </li>
                     <!-- maps -->
-                    <li class="list-group-item">
+                    <li class="list-group-item user-link">
                         <div>
+                            <a href="edit_products.php" class="btn btn-default" aria-label="edit products">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             <a class="view-page" href="<?= $user->data("username"); ?>/maps">
                                 <span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
-                            </a>
-                            <a href="edit_maps.php">
-                                <button type="button" class="btn" aria-label="edit maps">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
                             </a>
                         </div>
                     </li>
                     <!-- social media -->
-                    <li class="list-group-item" style="padding-bottom: 0px;">
+                    <li class="list-group-item user-link" style="padding-bottom: 0px;">
                         <div style="border-bottom: 0px;">
+                            <a href="edit_social_media.php" class="btn btn-default" aria-label="edit social media">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             <a class="view-page" href="<?= $user->data("username"); ?>/social">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
-                            </a>
-                            <a href="edit_social.php">
-                                <button type="button" class="btn" aria-label="edit social media">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                            </a>
+                            </a>                        
                         </div>
                     </li>
                     <li class="divider"></li>
@@ -122,7 +112,7 @@
                     </li>
                     <li>
                         <a href="#" class="dropdown-bottom">
-                            <div class="glyphicon icon-exit" style="margin-top: 3px;"></div>&nbsp;&nbsp;<span>logout</span>
+                            <div class="icon-exit glyphicon" style="margin-top: 3px;"></div>&nbsp;&nbsp;<span>logout</span>
                         </a>
                     </li>
                 </ul>

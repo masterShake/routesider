@@ -37,15 +37,9 @@ input[type=checkbox]{
 .alert{
 	opacity: 0;
 }
-/* cover to assist with dropdown menus */
-.dropdown-cover{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	background-color: #ccc;
-	display: none;
+.circle{
+	border-radius: 50%;
 }
-
 
 /* ------ animation ---------------------
 
@@ -166,6 +160,98 @@ NOTE: Animations appears to run faster if
 
 
 
+
+/*----------------------------------------------- 
+	   			  user links
+				--------------
+
+- styles for links on dropdown menu and slideout
+  menu for logged in users
+
+- allows user to visit page or edit
+
+-----------------------------------------------*/
+
+/* labels above user links */
+.link-labels{
+	text-align: right; 
+	padding: 0px 16px 12px 16px; 
+	font-size: 12px; 
+	color: #aaa;
+}
+.link-labels>div{
+	float: left;
+}
+/* user-links list elements */
+.user-link{
+	padding-top: 0px;
+	padding-bottom: 11px;
+}
+.user-link:hover{
+	background-color: #F0F0F0;
+}
+/* logged in user menu links */
+.user-link>div{
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 10px;
+}
+/* remove the border from the last list-group-item div */
+.user-link:last-child>div{
+	border-bottom: none;
+}
+.user-link a{
+	text-decoration: none;
+}
+.user-link a:hover{
+	color: #5CB85C !important;
+}
+/* pencil edit button links */
+.user-link a:nth-child(1){
+	float:right;
+	width:32px;
+	padding: 4px 8px;
+	background-color: #ccc;
+	color: #5CB85C;
+}
+/* regular view page links */
+.user-link a.view-page{
+	text-align: left;
+	color: #444;
+	line-height: 1;
+	padding-top: 7px;
+	display: inline-block;
+	/*text-decoration: none;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*---------------------- 
 		navbar 
 ----------------------*/
@@ -253,22 +339,16 @@ NOTE: Animations appears to run faster if
 	float:left;
 	margin-right: 14px;
 }
-#navbar .user-links .list-group-item{
+#navbar .user-link{
 	padding-bottom: 0px;
 	font-weight: 600;
 }
-#navbar .user-links .list-group-item:hover{
-	background-color: #F0F0F0;
-}
-#navbar .user-links .list-group-item>div{
+#navbar .user-link>div{
 	padding: 5px 0px;
+	height: 40px;
 }
-#navbar .user-links .list-group-item a:first-child{
-	text-decoration: none;
+#navbar .user-link a:nth-child(2){
 	width: 130px;
-}
-#navbar .user-links .list-group-item a:hover{
-	color: #5CB85C;
 }
 .dropdown-bottom{
 	color: #AAA !important;
@@ -311,56 +391,11 @@ NOTE: Animations appears to run faster if
 	background-position: center center;
 	border-radius: 4px;
 }
-/* for users with circle avatars */
-.circle{
-	border-radius: 50%;
-}
-/* labels above user links */
-.link-labels{
-	text-align: right; 
-	padding: 0px 16px 12px 16px; 
-	font-size: 12px; 
-	color: #aaa;
-}
-.link-labels>div{
-	float: left;
-}
 /* links list elements */
 #slideout-menu .list-group-item{
 	font-size: 16px;
 	font-weight: 600;
 }
-/* user-links list elements */
-.user-links .list-group-item{
-	padding-top: 0px;
-	padding-bottom: 11px;
-}
-/* logged in user menu links */
-.user-links .list-group-item>div{
-	border-bottom: 1px solid #CCC;
-	padding-bottom: 10px;
-}
-/* remove the border from the last list-group-item div */
-.user-links .list-group-item:last-child>div{
-	border-bottom: none;
-}
-.user-links a.view-page{
-	text-align: left;
-	color: #444;
-	line-height: 1;
-	height: 30px;
-	padding-top: 7px;
-	display: inline-block;
-}
-/* pencil edit buttons */
-.user-links li a:nth-child(2){
-	float:right;
-}
-.user-links button{
-	padding: 4px 8px;
-}
-/*  */
-
 .cool-links .list-group-item{
 	text-align: center;
 	background-color: transparent;

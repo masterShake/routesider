@@ -46,72 +46,62 @@
         	edit&nbsp;<span class="glyphicon glyphicon-pencil"></span>
         </div>
         <!-- logged in user links -->
-        <ul class="list-group user-links">
+        <ul class="list-group">
         	<!-- profile -->
-        	<li class="list-group-item">
-        		<div>
-            		<a class="view-page" href='<?= $user->data("username") ?>'>
-            			<span class="icon-profile"></span>&nbsp;&nbsp;Profile
-            		</a>
-            		<a href="edit_profile.php">
-	            		<button type="button" class="btn" aria-label="edit profile">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
-	            	</a>
-	            </div>
-        	</li>
-        	<!-- products -->
-        	<li class="list-group-item">
-        		<div>
-            		<a class="view-page" href='<?= $user->data("username"); ?>/products'>
-            			<span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
-            		</a>
-            		<a href="edit_products.php">
-	            		<button type="button" class="btn" aria-label="edit products">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
-	            	</a>
-	            </div>
-        	</li>
-        	<!-- promos -->
-        	<li class="list-group-item">
-        		<div>
-            		<a class="view-page" href='<?= $user->data("username"); ?>/promos'>
-            			<span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
-            		</a>
-            		<a href="edit_promos.php">
-	            		<button type="button" class="btn" aria-label="edit promos">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
-            		</a>
-            	</div>
-        	</li>
-        	<!-- maps -->
-        	<li class="list-group-item">
-        		<div>
-            		<a class="view-page" href='<?= $user->data("username"); ?>/maps'>
-            			<span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
-            		</a>
-            		<a href="edit_maps.php">
-	            		<button type="button" class="btn" aria-label="edit maps">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
-	            	</a>
-	            </div>
-        	</li>
-        	<!-- social media -->
-        	<li class="list-group-item">
-            	<div>
-            		<a class="view-page" href='<?= $user->data("username"); ?>/social'>
-            			<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
-            		</a>
-            		<a href="edit_social.php">
-	            		<button type="button" class="btn" aria-label="edit social media">
-	            			<span class="glyphicon glyphicon-pencil"></span>
-	            		</button>
-	            	</a>
-        		</div>
-        	</li>
+        	<li class="list-group-item user-link">
+                <div>
+                    <a href="edit_profile.php" class="btn btn-default" aria-label="edit profile">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="view-page" href='<?= $user->data("username"); ?>'>
+                        <span class="icon-profile"></span>&nbsp;&nbsp;Profile
+                    </a>
+                </div>
+            </li>
+            <!-- products -->
+            <li class="list-group-item user-link">
+                <div>
+                    <a href="edit_products.php" class="btn btn-default" aria-label="edit products">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="view-page" href="<?= $user->data("username"); ?>/products">
+                        <span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Products
+                    </a>
+                </div>
+            </li>
+            <!-- promos -->
+            <li class="list-group-item user-link">
+                <div>
+                    <a href="edit_promos.php" class="btn btn-default" aria-label="edit promos">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="view-page" href="<?= $user->data("username"); ?>/promos">
+                        <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Promos
+                    </a>
+                </div>
+            </li>
+            <!-- maps -->
+            <li class="list-group-item user-link">
+                <div>
+                    <a href="edit_products.php" class="btn btn-default" aria-label="edit products">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="view-page" href="<?= $user->data("username"); ?>/maps">
+                        <span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Maps
+                    </a>
+                </div>
+            </li>
+            <!-- social media -->
+            <li class="list-group-item user-link" style="padding-bottom: 0px;">
+                <div style="border-bottom: 0px;">
+                    <a href="edit_social_media.php" class="btn btn-default" aria-label="edit social media">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="view-page" href="<?= $user->data("username"); ?>/social">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Social Media
+                    </a>                        
+                </div>
+            </li>
         </ul>
     </div>
 
