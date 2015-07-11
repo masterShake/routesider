@@ -229,7 +229,7 @@
                       style="margin-top:20px;"
                       action="" 
                       method="POST" 
-                      enctype="multipart/form-data">
+                      enctype="multipart&#47;form-data">
 
                     <div id="banner-filedrag" 
                          data-elem="banner"

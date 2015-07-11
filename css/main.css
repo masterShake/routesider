@@ -256,10 +256,10 @@ NOTE: Animations appears to run faster if
 		navbar 
 ----------------------*/
 
-/* semi-transparent white overlaid on map */
 #navbar{
 	z-index: 1;
 }
+/* semi-transparent white overlaid on map */
 .navbar-map{
 	padding: 8px;
 	min-height: 52px;
@@ -339,6 +339,7 @@ NOTE: Animations appears to run faster if
 	float:left;
 	margin-right: 14px;
 }
+/* user dropdown nav links */
 #navbar .user-link{
 	padding-bottom: 0px;
 	font-weight: 600;
@@ -357,6 +358,45 @@ NOTE: Animations appears to run faster if
 .dropdown-bottom:hover{
 	color: #5CB85C !important;
 }
+/* search bar */
+.navbar-form{
+	padding: 0px;
+}
+.navbar-form input{
+	border-radius: 16px;
+}
+.navbar-form button{
+	background-color: #fff;
+	border: none;
+	color: #5cb85c;
+	margin-left: -44px;
+	border-radius: 50%;
+}
+.navbar-form button:hover{
+	color: #5cb85c;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*---------------------- 
 	slideout menu 
@@ -495,7 +535,9 @@ footer input, footer textarea{
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 	
-	/* navbar */
+	/*----------------------
+			 navbar
+	----------------------*/
 	.navbar-map{
 		padding-top: 0px; 
 		position: relative;
@@ -507,8 +549,14 @@ footer input, footer textarea{
 		margin: 0px;
 		margin-top: 8px;
 	}
-	.navbar-form, .navbar-form>div{
-		min-width: 268px;
+	/* search bar */
+	.navbar-form{
+		width:250px;
+		margin-right: 30px;
+		margin-top: 10px;
+	}
+	.navbar-form .form-control{
+		width: calc(100% - 6px);
 	}
 
 	/* map canvas */
@@ -521,15 +569,21 @@ footer input, footer textarea{
 		box-shadow: none;
 	}
 
-	/* footer */
+	/*----------------------
+	 		 footer 
+	----------------------*/
 	footer.footer-map{
 		border-bottom-left-radius: 6px;
 		border-bottom-right-radius: 6px;
 	}
-	footer .logo{
-		font-size: 24px;
+	footer .logo,
+	footer .list-group-item{
 		padding-left: calc(50% - 86px);
-		padding-bottom: 41px;
+	}
+	footer .logo{
+		margin-top: 14px;
+		font-size: 24px;
+		margin-bottom: 34px;
 	}
 	.contact-info,
 	.contact-us{
