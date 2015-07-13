@@ -285,8 +285,8 @@
 
                         <!-- display banner -->
                         <div style="padding-top: 22px;">
-                            <input type="checkbox" name="display-banner" class="form-control" id="display-banner" checked>
-                            <label for="display-banner" style="margin-top: 4px;"><span class="glyphicon glyphicon-eye-open"></span> banner</label>
+                            <input type="checkbox" name="display-banner" class="form-control" id="display-banner" <?= $profile->data("display_banner") ? "checked" : ""; ?>>
+                            <label for="display-banner" style="margin-top: 4px;"><span class='glyphicon glyphicon-eye-<?= $profile->data("display_banner") ? "open" : "close"; ?>'></span> banner</label>
                         </div>
 
                     </div>

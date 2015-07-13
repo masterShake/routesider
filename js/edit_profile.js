@@ -134,6 +134,9 @@ var EditProfile, epApp;
 		document.getElementById("circle-avatar").addEventListener("change", this.avatarShape, false);
 		document.getElementById("square-avatar").addEventListener("change", this.avatarShape, false);
 
+		// toggle banner event listener 
+		document.getElementById("display-banner").addEventListener("change", this.toggleBanner, false);
+
 		// event listener change text input
 		document.getElementById("business-name").addEventListener("keyup", this.textChange, false);
 		document.getElementById("tagline").addEventListener("keyup", this.textChange, false);
@@ -242,6 +245,49 @@ var EditProfile, epApp;
   			// reset the token
   			document.getElementById("token").value = this.j["token"];
 		}
+	}
+
+	//-----------------------------------------------
+	// - toggle hide the banner
+	EditProfile.prototype.toggleBanner = function(){
+
+		// if the checkbox is checked
+		if( this.checked ){
+
+			// set the banner filedrag background
+			document.getElementById("banner-filedrag").style.opacity = "1";
+
+			// change the eye icon
+			this.parentElement.children[1].children[0].className = "glyphicon glyphicon-eye-open";
+
+			// if the user has not save their new banner image
+			if( epApp.newVals.banner != epApp.initialVals.banner)
+				document.getElementById("banner-filedrag")
+					.style.backgroundImage = "url(/routesider/uplaods/" + epApp.newVals.banner + ")";
+			// else refer to old one
+			else
+				document.getElementById("banner-filedrag")
+					.style.backgroundImage = "url(/routesider/img/business/" + epApp.initialVals.banner + ")";
+
+			// set the property
+			epApp.newVals["display_banner"] = 1;
+
+		}else{
+
+			// set the banner filedrag background
+			document.getElementById("banner-filedrag").style.opacity = ".35";
+			document.getElementById("banner-filedrag").style.backgroundImage = "none";
+
+			// change the eye icon
+			this.parentElement.children[1].children[0].className = "glyphicon glyphicon-eye-close";
+
+			// set the property
+			epApp.newVals["display_banner"] = 0;
+
+		}
+
+		epApp.valuesChanged();
+
 	}
 
 	//-----------------------------------------------

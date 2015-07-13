@@ -153,6 +153,7 @@ class User {
 															avatar_shape : 'circle', 
 															name : '', 
 															banner : 0, 
+															display_banner : 1,
 															avatar : 0,
 															tagline : '',
 															description : ''
