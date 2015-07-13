@@ -159,6 +159,8 @@
 
         <!-- page styles -->
         <link href="css/main.css" rel="stylesheet">
+        <link href="css/icomoon.css" rel="stylesheet">
+        <link href="css/formatting_toolbar.css" rel="stylesheet">
         <link href="css/edit_profile.css" rel="stylesheet">
         <link href="css/on_off_switch.css" rel="stylesheet">
 
@@ -235,7 +237,7 @@
 
                     <div id="banner-filedrag" 
                          data-elem="banner"
-                         style='background-image: <?= $profile->data("banner") ? "url(img/business/" . $profile->data("banner") . ");" : "none;" ?>' >or drop files here</div>
+                         style='<?= $profile->data("banner") ? "background-image: url(img/business/" . $profile->data("banner") . ");" : "none;" ?><?= $profile->data("display_banner") ? "" : "opacity:.35;background-image:none;" ?>' >or drop files here</div>
 
                     <div class="traditional-upload" <?= ($profile->data("banner")) ? "style='opacity: 0.75;'" : ""; ?>>
                         <label for="banner-fileselect">Files to upload:</label>
@@ -275,11 +277,11 @@
                             <label for="avatar-shape">avatar shape</label>
                             <div style="float: left; margin-left: 10px;">
                                 <div class="avatar-shape" style="border-radius:50%;"></div>
-                                <input type="radio" id="circle-avatar" name="avatar-shape" value="circle" checked>
+                                <input type="radio" id="circle-avatar" name="avatar-shape" value="circle" <?= $profile->data("avatar_shape") == "circle" ? "checked" : ""; ?>>
                             </div>
                             <div style="float:right; margin-right: 14px;">
                                 <div class="avatar-shape"></div>
-                                <input type="radio" id="square-avatar" name="avatar-shape" value="square">
+                                <input type="radio" id="square-avatar" name="avatar-shape" value="square" <?= $profile->data("avatar_shape") == "square" ? "checked" : ""; ?>>
                             </div>
                         </div>
 
@@ -297,32 +299,38 @@
                 <!-- business name -->
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                        <h4>Business Name</h4>
+                        <label for="business-name">Business Name</label>
                         <input type="text" 
                                name="name" 
                                class="form-control" 
                                id="business-name"
                                value="<?= $profile->data("name") ?>">
+                        <!-- formatting toolbar -->
+                        <?php include "components/formatting_toolbar_half.php"; ?>
                     </div>
                 </div>
 
                 <!-- tagline -->
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-                        <h4>Tagline</h4>
+                        <label for="tagline">Tagline</label>
                         <input type="text" 
                                name="tagline" 
                                class="form-control" 
                                id="tagline"
                                value="<?= $profile->data("tagline") ?>">
+                        <!-- formatting toolbar -->
+                        <?php include "components/formatting_toolbar_half.php"; ?>
                     </div>
                 </div>
 
                 <!-- description -->
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-                        <h4>Description</h4>
+                        <label for="description">Description</label>
                         <textarea class="form-control" id="description" name="description"><?= $profile->data("description"); ?></textarea>
+                        <!-- formatting toolbar -->
+                        <?php include "components/formatting_toolbar_full.php"; ?>
                     </div>
                 </div>
 
@@ -352,6 +360,7 @@
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
+        <script src="js/formatting_toolbar.js"></script>
         <script src="js/edit_profile.js"></script>
 
     </body>

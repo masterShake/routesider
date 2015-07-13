@@ -261,64 +261,6 @@ textarea{
 	width: 100%;
 }
 
-/*----------------------
-  formatting toolbar 
-----------------------*/
-
-/* toolbar */
-.formatting{
-	display: none;
-}
-.formatting .btn-toolbar{
-	text-align: right;
-}
-.formatting div.btn-group{
-	margin: 4px 0px;
-	float: right;
-}
-/* toggle formatting table */
-.toggle-formatting-table{
-	font-size: 12px;
-}
-.toggle-formatting-table span.glyphicon{
-	font-size: 10px;
-}
-/* instructions table */
-.formatting table{
-	display:none;
-	width: 100%;
-	text-align: left;
-	font-size: 13px;
-	border: 1px solid #d6e9c6;
-}
-.formatting thead{
-	color: #3c763d;
-	text-align: center !important;
-	background-color: #dff0d8;
-	border-bottom: 1px solid #d6e9c6;
-}
-.formatting th{
-	padding: 5px;
-	text-align: center;
-}.formatting th:nth-child(1){
-	border-right: 1px solid #ccc;
-}
-.formatting tbody tr{
-	min-width: 100%;
-	border-bottom: 1px solid #ccc;
-}
-.formatting td{
-	width: 50%;
-	padding: 4px 12px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.formatting tbody td:nth-child(2){
-	border-left: 1px solid #ccc;
-}
-.strike{
-	text-decoration: line-through;
-}
 
 
 

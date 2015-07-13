@@ -114,6 +114,23 @@ var EditProfile, epApp;
 
 		/* construction */
 
+		// init formatting toolbars
+		ftApp.toolbars[0] = new FT(
+									document.getElementById("business-name"),
+									document.getElementById("business-name").parentElement.children[2],
+									0
+								 );
+		ftApp.toolbars[1] = new FT(
+									document.getElementById("tagline"),
+									document.getElementById("tagline").parentElement.children[2],
+									1
+								 );
+		ftApp.toolbars[2] = new FT(
+									document.getElementById("description"),
+									document.getElementById("description").parentElement.children[2],
+									2
+								 );
+
 		// event listener to the active switch
 	    document.getElementById("myonoffswitch-profile")
 	    	.addEventListener("change", this.activatePage, false);

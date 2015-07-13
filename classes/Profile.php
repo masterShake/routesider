@@ -80,15 +80,15 @@ class Profile{
 					$_SERVER["DOCUMENT_ROOT"] . "/routesider/img/business/" . $json->avatar
 				  );
 
-			// concat single quotes around the string
-			$json->avatar = "'" . $json->avatar . "'";
-
 		// if given string does not match a file in the uploads folder
-		}else{
+		}else if( !file_exists( $_SERVER["DOCUMENT_ROOT"] . "/routesider/img/business/" . $json->avatar ) ){
 
 			$errors[] = "Problem saving avatar pic";
 
 		}
+
+		// concat single quotes around the string
+		$json->avatar = "'" . $json->avatar . "'";
 
 		// banner
 		if( !$json->banner ){
@@ -105,14 +105,14 @@ class Profile{
 					$_SERVER["DOCUMENT_ROOT"] . "/routesider/img/business/" . $json->banner
 				  );
 
-			// concat single quotes around the string
-			$json->banner = "'" . $json->banner . "'";
-
-		}else{
+		}else if( !file_exists( $_SERVER["DOCUMENT_ROOT"] . "/routesider/img/business/" . $json->banner ) ){
 
 			$errors[] = "Problem saving bannner pic";
 
 		}
+
+		// concat single quotes around the string
+		$json->banner = "'" . $json->banner . "'";
 
 		// avatar shape
 		if( $json->avatar_shape != "circle" )
@@ -152,6 +152,8 @@ class Profile{
 					  "p.avatar = " . $json->avatar . ", " .
 
 					  "p.banner = " . $json->banner . ", " .
+
+					  "p.display_banner = " . $json->display_banner . ", " . 
 
 					  "p.avatar_shape = '" . $json->avatar_shape . "', " .
 

@@ -90,6 +90,7 @@
         <!-- page styles -->
         <link href="css/main.css" rel="stylesheet">
         <link href="css/icomoon.css" rel="stylesheet">
+        <link href="css/formatting_toolbar.css" rel="stylesheet">
         <link href="css/<?= $page; ?>.css" rel="stylesheet">
         <link href="css/on_off_switch.css" rel="stylesheet">
         <link href="css/swiper.min.css" rel="stylesheet">
