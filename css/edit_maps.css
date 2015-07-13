@@ -179,6 +179,59 @@
 
 -----------------------------------------------*/
 
+/* toolbar */
+#draw-new-polygon-toolbar{
+	height: 92px;
+	overflow: hidden;
+}
+
+
+/* undo redo buttons */
+#undo,
+#redo{
+	float: left;
+	margin-right: 6px;
+}
+#undo span{
+	-moz-transform: scaleX(-1);    /* Gecko */
+	-o-transform: scaleX(-1);      /* Operah */
+	-webkit-transform: scaleX(-1); /* webkit */
+	transform: scaleX(-1);         /* standard */
+}
+#complete-polygon{
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-----------------------------------------------
+
+				edit polygon 
+
+-----------------------------------------------*/
 
 
 /*---------------------- 
@@ -211,17 +264,6 @@
 .nav-tabs div.glyphicon:nth-child(2){
 	margin-top: -6px;
 }
-
-
-
-
-
-#draw-new-polygon-toolbar{
-	height: 54px;
-	overflow: hidden;
-}
-
-
 
 
 /*---------------------- 
@@ -342,18 +384,25 @@ tbody button.btn-color-selected{
 }
 
 
-/* undo redo buttons */
-#redo{
-	float:right;
+
+
+
+
+
+
+/*----------------------
+	  save changes
+----------------------*/
+#save-alert{
+	opacity: 1;
+	margin-bottom: 0px;
+	margin-top: 5px;
+	text-align: right;
+	display: none;
 }
-#undo span{
-	-moz-transform: scaleX(-1);    /* Gecko */
-	-o-transform: scaleX(-1);      /* Operah */
-	-webkit-transform: scaleX(-1); /* webkit */
-	transform: scaleX(-1);         /* standard */
-}
-#complete-polygon{
-	width: 100%;
+#save-btn{
+	float: left;
+	margin-top: -6px;
 }
 
 

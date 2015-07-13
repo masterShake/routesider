@@ -585,8 +585,8 @@ var MA, init;
 	    	.addEventListener("click", this.terminateNewPolyMode, false);
 
 	    // add event listener to the pull tab to toggle the draw-new-polygon toolbar
-	    document.getElementById("toggle-toolbar").children[0].children[0]
-	    	.addEventListener("click", this.toggleToolbar, false);
+	    // document.getElementById("toggle-toolbar").children[0].children[0]
+	    // 	.addEventListener("click", this.toggleToolbar, false);
 
 	    // undo polyline event listener
 	    document.getElementById("undo")
@@ -608,8 +608,8 @@ var MA, init;
 	//   components toolbar
 	PolyDrawer.prototype.toggleNewPolyMode = function(){
 
-		// If the drop-new-pin component is hidden
-		if( document.getElementById("draw-new-polygon-toolbar").style.display != "block" )
+		// If the draw-new-polygon-toolbar is hidden
+		if( document.getElementById("draw-new-polygon-toolbar").offsetParent == null )
 
 			// initialize draw-new-poly mode
 			mapApp.polyDrawer.initNewPolyMode();
@@ -635,7 +635,7 @@ var MA, init;
 		/* css */
 
 		// display the toggle toolbar tab
-		document.getElementById("toggle-toolbar").style.display = "block";
+		// document.getElementById("toggle-toolbar").style.display = "block";
 		// change the class of the new polygon component button
 		document.getElementById("components-toolbar").children[4].className = "btn selected";
 		// display the draw-new-polygon-toolbar element
@@ -961,6 +961,64 @@ var MA, init;
 	   		.addEventListener("blur", this.blurOpacity, false);
 	   	document.getElementById("polygon-opacity-fill-input")
 	   		.addEventListener("blur", this.blurOpacity, false);
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - Event listener for edit polygon button in the
+	//   components toolbar
+	PolyDrawer.prototype.toggleEditPolyMode = function(){
+		// If the draw-new-polygon-toolbar is hidden
+		if( document.getElementById("edit-polygon-toolbar").offsetParent == null )
+			// initialize draw-new-poly mode
+			mapApp.polyEditor.initEditPolyMode();
+		else
+			// terminate draw-new-poly mode
+			mapApp.polyEditor.terminateEditPolyMode();
+	}
+
+	//-----------------------------------------------	
+	// - initialize edit polygon mode
+	// - display elements
+	// - add necessary event listeners
+	PolyDrawer.prototype.initEditPolyMode = function(){
+
+		// exit the other formatting modes and hide other toolbars
+		mapApp.termFormattingModes("edit poly");
+
+		// reset the new polygon mode property to true
+		mapApp.editPolyMode = true;
+		
+		/* css */
+
+		// display the toggle toolbar tab
+		document.getElementById("toggle-toolbar").style.display = "block";
+		// change the class of the new polygon component button
+		document.getElementById("components-toolbar").children[4].className = "btn selected";
+		// display the draw-new-polygon-toolbar element
+		document.getElementById("edit-polygon-toolbar").style.display = "block";
+		// change placeholder text for search maps input
+		document.getElementById("search-maps-field").placeholder = "Search locations";
+
+		/* google map */
+
+		this.initGooglePolyEdit();
+
+	}
+
+
+
+	//-----------------------------------------------	
+	// - set event listeners for google maps edit 
+	//   polygon
+	PolyDrawer.prototype.initGooglePolyDraw = function(){
+
+		// change the cursor on the map to a crosshair
+		rsApp.map.setOptions({ 
+								draggableCursor : "crosshair",
+							  	draggingCursor  : "crosshair"
+						   	});
 	}
 
 	//-----------------------------------------------

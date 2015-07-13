@@ -46,6 +46,8 @@ $user = new User();
 
 $business = $user->business()[0];
 
+$profile = $business->profile();
+
 ?>
 
 <!DOCTYPE html>
@@ -77,76 +79,7 @@ $business = $user->business()[0];
         <div id="page-content">
 
             <!-- navbar -->
-            <nav class="navbar navbar-dark" id="navbar">
-                <div class="container">
-                    
-                    <div class="navbar-header">
-                        
-                        <!-- toggle mobile menu -->
-                        <button type="button" 
-                                class="navbar-toggle collapsed"
-                                id="navbar-toggle-menu">
-                            <span class="glyphicon glyphicon-menu-hamburger"></span>
-                        </button>
-
-                        <!-- routesider logo -->
-                        <a class="navbar-brand" href="#">
-                            <span class="logo">
-                                <span class="route">Route</span>
-                                <span>sider</span>
-                            </span>
-                        </a>
-
-                        <!-- search routesider -->
-                        <button type="button"
-                                style="float:right;"
-                                class="navbar-toggle"
-                                id="navbar-toggle-search">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Map <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Deals</a></li>
-                            <li><a href="#">Sign Up</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <span class="user-pic"><span class="glyphicon glyphicon-user"></span></span>
-                                    <!-- <span class="visible-md visible-lg">username@email.com</span>  -->
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">username</a></li>
-                                    <li><a href="#">my collectives</a></li>
-                                    <li><a href="#">settings</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">edit profile</a></li>
-                                    <li><a href="#">edit products</a></li>
-                                    <li><a href="#">edit deals</a></li>
-                                    <li><a href="#">edit map</a></li>
-                                    <li><a href="#">edit social media</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">log out</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="products, businesses, locations, etc...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                                </span>
-                            </div><!-- /input-group -->
-                        </form>
-                    </div><!-- /.navbar-collapse -->
-                </div>
-            </nav>
+            <?php include "components/navbar.php"; ?>
 
             <!-- components toolbar -->
             <div class="container">
@@ -213,7 +146,7 @@ $business = $user->business()[0];
                         <span class="input-group-addon" id="search-maps-button">
                             <span class="glyphicon glyphicon-search"></span>
                         </span>
-                    </div>
+                    </div><!-- /search user maps -->
 
                     <!-- drop new pin -->
                     <div id="drop-new-pin-toolbar" class="formatting-toolbar">
@@ -222,7 +155,7 @@ $business = $user->business()[0];
                             <span>Search location or <span class="hidden-md hidden-lg">tap</span><span class="hidden-xs hidden-sm">click</span> to drop new pin</span>
                         </div>
                         <h4><span class="glyphicon glyphicon-map-marker"></span> New Pin</h4>
-                    </div>
+                    </div><!-- /drop-new-pin-toolbar -->
 
                     <!-- draw new polygon -->
                     <div id="draw-new-polygon-toolbar" class="formatting-toolbar">
@@ -236,102 +169,123 @@ $business = $user->business()[0];
                         </div>
                         <h4><span class="glyphicon glyphicon-stop"></span> New Polygon</h4>
                         <!-- toolbar body -->
+                        <div style="padding: 6px 0px; text-align:right;">
+                            <!-- undo, redo, complete polygon -->
+                            <button type="button" class="btn" id="undo" aria-label="undo">
+                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> undo
+                            </button>
+                            <button type="button" class="btn" id="redo" aria-label="undo">
+                                redo <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-success" id="complete-polygon" aria-label="complete the polygon">complete polygon</button>
+                                        
+                        </div>
+                    </div><!-- /draw-new-polygon-toolbar -->
+
+                    <!-- edit polygon toolbar -->
+                    <div id="edit-polygon-toolbar" class="formatting-toolbar">
+                        <!-- toolbar header -->
+                        <button type="button" class="close" aria-label="Close edit polygon toolbar"><span aria-hidden="true">&times;</span></button>
+                        <div class="toolbar-instructions" style="text-align: left; max-width: 60%;">
+                            <ul>
+                                <li>Use the color wheel or hexidecimal input to change the stroke &amp; fill colors</li>
+                                <li>Use the opacity slider or inputs to change the transparency of the stroke &amp; fill</li>
+                            </ul>
+                        </div>
+                        <h4><span class="glyphicon glyphicon-stop"></span> Edit Polygon</h4>
+                        
+                        <!-- toolbar body -->
                         <div>
-                            <!-- formatting buttons and inputs -->
+
+                            <!-- formatting table and opacity slider -->
                             <div style="width:55%;float:right;margin-top:-8px;">
-                                <!-- color, undo/redo, & complete buttons -->
-                                <div>
-                                    <!-- polygon colors table-->
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>hex</th>
-                                                <th>opacity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- stroke -->
-                                            <tr>
-                                                <td>
-                                                    <button type="button" 
-                                                            class="btn btn-color-selected" 
-                                                            id="polygon-edit-stroke-btn" 
-                                                            style="background-color: #5CB85C; color: #FFF;"
-                                                            data-activate="stroke"
-                                                            aria-label="edit polygon border, use color wheel to select colors">
-                                                        <span class="glyphicon glyphicon-unchecked"></span>
-                                                    </button>
-                                                </td>
-                                                <td style="width:83px;">
-                                                    <input type="text" 
-                                                           value="#5CB85C" 
-                                                           class="form-control" 
-                                                           id="polygon-hex-stroke-input"
-                                                           data-hex="#5CB85C" 
-                                                           aria-label="polygon stroke hexidecimal color value">
-                                                </td>
-                                                <td style="width:25px;">
-                                                    <input type="text"
-                                                           value="0.8"
-                                                           class="form-control" 
-                                                           id="polygon-opacity-stroke-input"
-                                                           max-length="4"
-                                                           data-opacity="0.8" 
-                                                           aria-label="polygon stroke opacity between 0 and 1">
-                                                </td>
-                                            </tr>
-                                            <!-- fill -->
-                                            <tr>
-                                                <td>
-                                                    <button type="button" 
-                                                            class="btn" 
-                                                            id="polygon-edit-fill-btn" 
-                                                            style="background-color: #FFF; color: #444;"
-                                                            data-activate="fill"
-                                                            aria-label="edit polygon fill, use color wheel to select colors">
-                                                        <span class="glyphicon glyphicon-tint"></span>
-                                                    </button>
-                                                </td>
-                                                <td style="width:83px;">
-                                                    <input type="text" 
-                                                           value="#DFF0D8"
-                                                           class="form-control" 
-                                                           id="polygon-hex-fill-input"
-                                                           data-hex="#DFF0D8" 
-                                                           aria-label="polygon fill hexidecimal color value">
-                                                </td>
-                                                <td style="width:25px;">
-                                                    <input type="text" 
-                                                           value="0.5"
-                                                           class="form-control" 
-                                                           id="polygon-opacity-fill-input"
-                                                           max-length="4"
-                                                           data-opacity="0.5"
-                                                           aria-label="polygon fill opacity between 0 and 1">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <!-- undo, redo, complete polygon -->
-                                    <div>
-                                        <!-- undo/redo -->
-                                        <div style="margin: 19px 0px;">
-                                            <button type="button" class="btn" id="undo" aria-label="undo">
-                                                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> undo
-                                            </button>
-                                            <button type="button" class="btn" id="redo" aria-label="undo">
-                                                redo <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                        <!-- complete the polygon -->
-                                        <div>
-                                            <button type="button" class="btn btn-success" id="complete-polygon" aria-label="complete the polygon">complete polygon</button>
-                                        </div>
+
+                                <!-- polygon colors table-->
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>hex</th>
+                                            <th>opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- stroke -->
+                                        <tr>
+                                            <td>
+                                                <button type="button" 
+                                                        class="btn btn-color-selected" 
+                                                        id="polygon-edit-stroke-btn" 
+                                                        style="background-color: #5CB85C; color: #FFF;"
+                                                        data-activate="stroke"
+                                                        aria-label="edit polygon border, use color wheel to select colors">
+                                                    <span class="glyphicon glyphicon-unchecked"></span>
+                                                </button>
+                                            </td>
+                                            <td style="width:83px;">
+                                                <input type="text" 
+                                                       value="#5CB85C" 
+                                                       class="form-control" 
+                                                       id="polygon-hex-stroke-input"
+                                                       data-hex="#5CB85C" 
+                                                       aria-label="polygon stroke hexidecimal color value">
+                                            </td>
+                                            <td style="width:25px;">
+                                                <input type="text"
+                                                       value="0.8"
+                                                       class="form-control" 
+                                                       id="polygon-opacity-stroke-input"
+                                                       max-length="4"
+                                                       data-opacity="0.8" 
+                                                       aria-label="polygon stroke opacity between 0 and 1">
+                                            </td>
+                                        </tr>
+                                        <!-- fill -->
+                                        <tr>
+                                            <td>
+                                                <button type="button" 
+                                                        class="btn" 
+                                                        id="polygon-edit-fill-btn" 
+                                                        style="background-color: #FFF; color: #444;"
+                                                        data-activate="fill"
+                                                        aria-label="edit polygon fill, use color wheel to select colors">
+                                                    <span class="glyphicon glyphicon-tint"></span>
+                                                </button>
+                                            </td>
+                                            <td style="width:83px;">
+                                                <input type="text" 
+                                                       value="#DFF0D8"
+                                                       class="form-control" 
+                                                       id="polygon-hex-fill-input"
+                                                       data-hex="#DFF0D8" 
+                                                       aria-label="polygon fill hexidecimal color value">
+                                            </td>
+                                            <td style="width:25px;">
+                                                <input type="text" 
+                                                       value="0.5"
+                                                       class="form-control" 
+                                                       id="polygon-opacity-fill-input"
+                                                       max-length="4"
+                                                       data-opacity="0.5"
+                                                       aria-label="polygon fill opacity between 0 and 1">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table><!-- /hex & opacity table -->
+
+                                <!-- opacity slider -->
+                                <div style="margin-top: 13px;">
+                                    <label for="polygon-opacity">
+                                        <span class="glyphicon glyphicon-adjust"></span>
+                                    </label>
+                                    <div style="max-width: 98px; float:right;">
+                                        <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" value="0.8"/>
                                     </div>
                                 </div>
+
                             </div>
-                            <!-- color wheel and opacity slider-->
+
+                            <!-- color wheel -->
                             <div style="width:118px;">
                                 <!-- color wheel -->
                                 <div class="color-wheel">
@@ -369,7 +323,8 @@ $business = $user->business()[0];
                                         <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
                                         <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
                                     </div>
-                                </div>
+                                </div><!-- /hexigon color wheel -->
+                                
                                 <!-- full color wheel -->
                                 <div style="text-align:center;">
                                     <label for="color-picker">more colors:</label>
@@ -377,29 +332,23 @@ $business = $user->business()[0];
                                            id="color-picker"
                                            value="#5CB85C"
                                            aria-label="select from complete color wheel">
-                                </div>
-                                <!-- opacity slider -->
-                                <div style="margin-top: 13px;">
-                                    <label for="polygon-opacity">
-                                        <span class="glyphicon glyphicon-adjust"></span>
-                                    </label>
-                                    <div style="max-width: 98px; float:right;">
-                                        <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" value="0.8"/>
-                                    </div>
-                                </div>
-                            </div>
+                                </div><!-- /full color wheel -->
+
+                            </div><!-- /color wheel and opacity slider -->
 
                             <!-- description input -->
                             <div style="margin-top: 17px;">
-                                <input type="text" 
-                                   class="form-control" 
-                                   id="polygon-description" 
-                                   placeholder="polygon description">
+                                <textarea class="form-control" id="polygon-description" placeholder="polygon description"></textarea>
                             </div>
 
-                        </div>
+                        </div><!-- /toolbar body -->
+                    </div><!-- /edit-polygon-toolbar -->
 
-                    </div>
+                    <!-- save alert -->
+                    <div class="alert alert-info" id="save-alert" role="alert">
+                        <button type="button" class="btn btn-info" id="save-btn">save</button>
+                        <span>Click <strong>save</strong> to keep your changes.</span>
+                    </div><!-- /save alert -->
 
                 </div>
             </div> 
@@ -410,68 +359,7 @@ $business = $user->business()[0];
         <div id="content-cover"></div>
 
         <!-- mobile slideout menu -->
-        <nav id="slideout-menu">
-
-            <!-- logo -->
-            <div class="logo">
-                <a href="/">
-                    <div style="max-width: 166px; position: relative; left: 50%; margin-left: -83px;"><!-- centers logo -->
-                        <div class="route">Route</div>
-                        <span>sider</span>
-                    </div>
-                </a>
-            </div>         
-
-            <!-- search bar -->
-            <div class="input-group"
-                 style="padding: 0 10px">
-                <input type="text" 
-                       class="form-control" 
-                       style="border-top-left-radius: 16px; border-bottom-left-radius: 16px;border-right: 0;"
-                       placeholder="Search Routesider"
-                       aria-label="search all of routesider">
-                <div class="input-group-btn">
-                    <button type="button" 
-                            class="btn btn-default" 
-                            style="border-left: 0;border-right: 0;" 
-                            aria-label="search routesider">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" 
-                            class="btn btn-default" 
-                            style="border-left: 0;border-top-right-radius: 16px;border-bottom-right-radius: 16px;color:#aaa;" 
-                            aria-label="search settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-
-            <hr>
-
-            <!-- links -->
-            <ul class="list-group cool-links">
-                <li class="list-group-item">
-                    <a href="about">About</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="register">Sign Up</a>
-                </li>
-            </ul>
-
-            <hr>
-
-            <ul class="list-group lame-links">
-                <li class="list-group-item">
-                    <a href="privacy">Privacy</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="terms_of_use">Terms of Use</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#">Contact Us</a>
-                </li>
-            </ul>
-        </nav>
+        <?php include "components/slideout_nav.php"; ?>
 
         <!-- token -->
         <input type="hidden" id="token" name="token" value='<?= Token::generate(); ?>' >
