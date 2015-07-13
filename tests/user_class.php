@@ -41,6 +41,8 @@
 
 		$profile = $business->profile();
 
+    $email = $user->email();
+
 	?>
 
 
@@ -51,7 +53,7 @@
 
   	// print_r($user->data());
   	
-  	print_r($profile->business()->data());
+  	print_r($email);
 
 
   	?></pre>

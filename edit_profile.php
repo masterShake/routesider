@@ -132,6 +132,8 @@
 
     $profile = $business->profile();
 
+    $email = $user->email() ? $user->email() : $user->data("username");
+
     //---------------------------------------
     // - if the user is not logged in, 
     //   redirect her to the login page and 
@@ -235,7 +237,7 @@
                          data-elem="banner"
                          style='background-image: <?= $profile->data("banner") ? "url(img/business/" . $profile->data("banner") . ");" : "none;" ?>' >or drop files here</div>
 
-                    <div class="traditional-upload">
+                    <div class="traditional-upload" <?= ($profile->data("banner")) ? "style='opacity: 0.75;'" : ""; ?>>
                         <label for="banner-fileselect">Files to upload:</label>
                         <input type="file" 
                                id="banner-fileselect" 
@@ -255,7 +257,7 @@
                          style='background-image: <?= $profile->data("avatar") ? "url(img/business/" . $profile->data("avatar") . ");" : "none;" ?><?= $profile->data("avatar_shape") == "square" ? "border-radius: 0%;" : "" ?>' >or drop files here</div>
 
                     <div id="semi-circle-traditional-upload"
-                         style='<?= $profile->data("avatar_shape") == "square" ? "border-top-left-radius: 0px; border-top-right-radius: 0px;" : "" ?>'>
+                         style='<?= $profile->data("avatar_shape") == "square" ? "border-top-left-radius: 0px; border-top-right-radius: 0px;" : "" ?><?= ($profile->data("avatar")) ? "opacity: 0.75;" : ""; ?>'>
                         <label for="avatar-fileselect">Files to upload:</label>
                         <input type="file" 
                                id="avatar-fileselect" 
@@ -264,16 +266,31 @@
                     </div>
                 </form>
                 
-                <div class="avatar-shape-btns">
-                    <div style="float:left;">
-                        <div class="avatar-shape" style="border-radius:50%;"></div>
-                        <input type="radio" id="circle-avatar" name="avatar-shape" value="circle" checked>
+                <!-- avatar & banner settings -->
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+
+                        <!-- avatar shape -->
+                        <div class="avatar-shape-btns">
+                            <label for="avatar-shape">avatar shape</label>
+                            <div style="float: left; margin-left: 10px;">
+                                <div class="avatar-shape" style="border-radius:50%;"></div>
+                                <input type="radio" id="circle-avatar" name="avatar-shape" value="circle" checked>
+                            </div>
+                            <div style="float:right; margin-right: 14px;">
+                                <div class="avatar-shape"></div>
+                                <input type="radio" id="square-avatar" name="avatar-shape" value="square">
+                            </div>
+                        </div>
+
+                        <!-- display banner -->
+                        <div style="padding-top: 22px;">
+                            <input type="checkbox" name="display-banner" class="form-control" id="display-banner" checked>
+                            <label for="display-banner" style="margin-top: 4px;"><span class="glyphicon glyphicon-eye-open"></span> banner</label>
+                        </div>
+
                     </div>
-                    <div style="float:right;">
-                        <div class="avatar-shape"></div>
-                        <input type="radio" id="square-avatar" name="avatar-shape" value="square">
-                    </div>
-                </div>
+                </div><!-- /avatar & banner settings -->
 
                 <hr>
 

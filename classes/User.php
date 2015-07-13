@@ -13,8 +13,9 @@ class User {
 	
 	private $_db,
 			$_data = array(),
-			$_loginToken = '',
+			$_loginToken = "",
 			$_isLoggedIn = false,
+			$_email = "",
 			$_businesses = array();
 
 	public function __construct($user = null) {
@@ -66,8 +67,9 @@ class User {
 			
 			// match all data related to the user
 			$cypher = "MATCH (u:User) WHERE u.username = '{$user}'"
+				    . "OPTIONAL MATCH (u)-[:HAS_EMAIL]->(e) "
 				    . "OPTIONAL MATCH (u)-[:MANAGES_BUSINESS]->(b)-[:HAS_PROFILE]->(p) "
-				    . "RETURN u, b, p";
+				    . "RETURN u, e, b, p";
 
 			// set the data
 	        $this->_data = $this->_db->query(  $cypher );
@@ -75,8 +77,9 @@ class User {
 	    }else if($loginToken){
 
 	    	$cypher = "MATCH (u:User)-[:LOG]->(s:Session) WHERE s.hash = '{$loginToken}'"
+				    . "OPTIONAL MATCH (u)-[:HAS_EMAIL]-(e) "
 				    . "OPTIONAL MATCH (u)-[:MANAGES_BUSINESS]->(b)-[:HAS_PROFILE]->(p) "
-				    . "RETURN u, b, p";
+				    . "RETURN u, e, b, p";
 
 			$this->_data = $this->_db->query( $cypher );
 
@@ -104,7 +107,12 @@ class User {
 	        								)
 	        				  );
 
+	        // if this user has provided an email address
+	        if( array_key_exists("e", $this->_data) )
+	        	// set the email property
+	        	$this->_email = $this->_data["e"][0]["address"];
 
+	        // set the user data
 	        $this->_data = $this->_data["u"][0];
 
 	    	return true;
@@ -260,6 +268,10 @@ class User {
 
 	public function business(){
 		return $this->_businesses;
+	}
+
+	public function email(){
+		return $this->_email;
 	}
 }
 

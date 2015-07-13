@@ -102,12 +102,9 @@ input[type=file]{
 	margin-left: 15px;
 }
 .avatar-shape-btns{  
-	max-width: 100px;
+	width: 90px;
 	height: 50px;
-	position: relative;
-	left: 50%;
-	margin-left: 65px;
-	padding: 12px;
+	float:right;
 }
 .avatar-shape-btns>div{
 	text-align: center;
@@ -119,7 +116,10 @@ input[type=file]{
 }
 
 
-
+#traditional-upload:hover,
+#semi-circle-traditional-upload:hover{
+	opacity: 1 !important;
+}
 
 
 
