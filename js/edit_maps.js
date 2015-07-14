@@ -584,10 +584,6 @@ var MA, init;
 	    document.getElementById("draw-new-polygon-toolbar").children[0]
 	    	.addEventListener("click", this.terminateNewPolyMode, false);
 
-	    // add event listener to the pull tab to toggle the draw-new-polygon toolbar
-	    // document.getElementById("toggle-toolbar").children[0].children[0]
-	    // 	.addEventListener("click", this.toggleToolbar, false);
-
 	    // undo polyline event listener
 	    document.getElementById("undo")
 	    	.addEventListener("click", this.undoDrawPolyline, false);
@@ -609,7 +605,7 @@ var MA, init;
 	PolyDrawer.prototype.toggleNewPolyMode = function(){
 
 		// If the draw-new-polygon-toolbar is hidden
-		if( document.getElementById("draw-new-polygon-toolbar").offsetParent == null )
+		if( !mapApp.newPolyMode )
 
 			// initialize draw-new-poly mode
 			mapApp.polyDrawer.initNewPolyMode();
@@ -624,7 +620,7 @@ var MA, init;
 	// - initialize new pin mode
 	// - display elements
 	// - add event listeners
-	PolyDrawer.prototype.initNewPolyMode = function(){
+	PolyDrawer.prototype.initNewPolyMode = function(){ 
 
 		// exit the other formatting modes and hide other toolbars
 		mapApp.termFormattingModes("new poly");
@@ -644,7 +640,6 @@ var MA, init;
 		document.getElementById("search-maps-field").placeholder = "Search locations";
 
 		/* google map */
-
 		this.initGooglePolyDraw();
 	}
 
@@ -658,7 +653,6 @@ var MA, init;
 								draggableCursor : "crosshair",
 							  	draggingCursor  : "crosshair"
 						   });
-
 		// reset the polyCoords array
 		this.polyCoords = [];
 
@@ -666,7 +660,7 @@ var MA, init;
 		this.polyCoordsRedo = [];
 
 		// if the polyline property is set to null
-		if( !this.polyline ){
+		if( this.polyline == null ){
 			// create it
 			this.polyline = new google.maps.Polyline({ editable : true });
 			// set the map
@@ -679,7 +673,7 @@ var MA, init;
 
 	//-----------------------------------------------	
 	// - event listener polygon complete
-	PolyDrawer.prototype.drawPolyline = function(e){ 
+	PolyDrawer.prototype.drawPolyline = function(e){
 
 		// clear the polyCoordsRedo array because the history has changed
 		mapApp.polyDrawer.polyCoordsRedo = [];
@@ -807,7 +801,8 @@ var MA, init;
 									    strokeOpacity: document.getElementById("polygon-opacity-stroke-input").dataset.opacity,
 									    strokeWeight: 3,
 									    fillColor: document.getElementById("polygon-hex-fill-input").dataset.hex,
-									    fillOpacity: document.getElementById("polygon-opacity-fill-input").dataset.opacity  
+									    fillOpacity: document.getElementById("polygon-opacity-fill-input").dataset.opacity,
+									    editable : true
 									})
 						   );
 
@@ -823,6 +818,15 @@ var MA, init;
 
 		// set the activePolygon property for mapApp
 		mapApp.polyEditor.activePolygon = mapApp.polygons[mapApp.polygons.length - 1];
+
+		// terminate new poly mode
+		mapApp.polyDrawer.terminateNewPolyMode();
+
+		// initialize edit poly mode
+		mapApp.polyEditor.initEditPolyMode();
+
+		// display save alert
+		document.getElementById("save-alert").style.display = "block";
 	}
 
 	//-----------------------------------------------
@@ -862,27 +866,6 @@ var MA, init;
 						   });
 
 	}
-
-	//-----------------------------------------------
-	// - event listener for <a> tag inside 
-	//   #toolbar-toggle elem
-	// - toggle the draw new polygon toolbar to make 
-	//   more space on the map
-	PolyDrawer.prototype.toggleToolbar = function(){
-		// if the toolbar is displayed
-		if( document.getElementById("draw-new-polygon-toolbar").offsetHeight > 60 ){
-			// shrink it
-			document.getElementById("draw-new-polygon-toolbar").style.height = "54px";
-			// flip the toggler
-			this.children[0].style.transform = "rotate(0deg)";
-		}else{
-			// grow it
-			document.getElementById("draw-new-polygon-toolbar").style.height = "311px";
-			// flip the toggler
-			this.children[0].style.transform = "rotate(180deg)";
-		}
-	}
-
 
 
 
@@ -932,6 +915,10 @@ var MA, init;
 
 		/* construction */
 
+	    // add event listener to the pull tab to toggle the draw-new-polygon toolbar
+	    document.getElementById("toggle-toolbar").children[0].children[0]
+	    	.addEventListener("click", this.toggleToolbar, false);
+
 		// edit stroke button event listener
 	    document.getElementById("polygon-edit-stroke-btn")
 	    	.addEventListener("click", this.activateColorEdit, false);
@@ -968,7 +955,7 @@ var MA, init;
 	//-----------------------------------------------
 	// - Event listener for edit polygon button in the
 	//   components toolbar
-	PolyDrawer.prototype.toggleEditPolyMode = function(){
+	PolyEditor.prototype.toggleEditPolyMode = function(){
 		// If the draw-new-polygon-toolbar is hidden
 		if( document.getElementById("edit-polygon-toolbar").offsetParent == null )
 			// initialize draw-new-poly mode
@@ -982,7 +969,7 @@ var MA, init;
 	// - initialize edit polygon mode
 	// - display elements
 	// - add necessary event listeners
-	PolyDrawer.prototype.initEditPolyMode = function(){
+	PolyEditor.prototype.initEditPolyMode = function(){
 
 		// exit the other formatting modes and hide other toolbars
 		mapApp.termFormattingModes("edit poly");
@@ -1012,7 +999,7 @@ var MA, init;
 	//-----------------------------------------------	
 	// - set event listeners for google maps edit 
 	//   polygon
-	PolyDrawer.prototype.initGooglePolyDraw = function(){
+	PolyEditor.prototype.initGooglePolyEdit = function(){
 
 		// change the cursor on the map to a crosshair
 		rsApp.map.setOptions({ 
@@ -1157,6 +1144,42 @@ var MA, init;
 		if(this.value === "")
 			this.value = "0";
 	}
+
+	//-----------------------------------------------
+	// - event listener for <a> tag inside 
+	//   #toolbar-toggle elem
+	// - toggle the draw new polygon toolbar to make 
+	//   more space on the map
+	PolyEditor.prototype.toggleToolbar = function(e){
+
+		e.preventDefault();
+
+		// hide the semitrans elem
+		document.getElementById("semi-trans").style.display = "none";
+
+		// if the toolbar is displayed
+		if( document.getElementById("edit-polygon-toolbar").offsetHeight > 140 ){
+			// shrink it
+			document.getElementById("edit-polygon-toolbar").style.height = "54px";
+			// flip the toggler
+			this.children[0].style.transform = "rotate(0deg)";
+		}else{
+			// grow it
+			document.getElementById("edit-polygon-toolbar").style.height = "293px";
+			// flip the toggler
+			this.children[0].style.transform = "rotate(180deg)";
+		}
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 

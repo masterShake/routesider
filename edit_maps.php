@@ -88,11 +88,13 @@ $profile = $business->profile();
                     <!-- view/edit pins -->
                     <button type="button" class="btn" aria-label="view/edit pins">
                         <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-pencil"></span>
                     </button>
 
                     <!-- view/edit polygons -->
                     <button type="button" class="btn" aria-label="view/edit polygons">
                         <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-pencil"></span>
                     </button>
 
                     <!-- page title -->
@@ -177,7 +179,7 @@ $profile = $business->profile();
                             <button type="button" class="btn" id="redo" aria-label="undo">
                                 redo <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" id="complete-polygon" aria-label="complete the polygon">complete polygon</button>
+                            <button type="button" class="btn" id="complete-polygon" aria-label="complete the polygon">complete polygon</button>
                                         
                         </div>
                     </div><!-- /draw-new-polygon-toolbar -->
@@ -188,8 +190,8 @@ $profile = $business->profile();
                         <button type="button" class="close" aria-label="Close edit polygon toolbar"><span aria-hidden="true">&times;</span></button>
                         <div class="toolbar-instructions" style="text-align: left; max-width: 60%;">
                             <ul>
-                                <li>Use the color wheel or hexidecimal input to change the stroke &amp; fill colors</li>
-                                <li>Use the opacity slider or inputs to change the transparency of the stroke &amp; fill</li>
+                                <li>Use the color wheel  to change the  colors.</li>
+                                <li>Use the opacity slider to change the transparency.</li>
                             </ul>
                         </div>
                         <h4><span class="glyphicon glyphicon-stop"></span> Edit Polygon</h4>
@@ -340,6 +342,9 @@ $profile = $business->profile();
                             <div style="margin-top: 17px;">
                                 <textarea class="form-control" id="polygon-description" placeholder="polygon description"></textarea>
                             </div>
+
+                            <!-- semi-transparent gradient overlay -->
+                            <div id="semi-trans"></div>
 
                         </div><!-- /toolbar body -->
                     </div><!-- /edit-polygon-toolbar -->
