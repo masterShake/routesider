@@ -8,9 +8,15 @@
 
 
 
-include "../core/init.php";
+// $x = preg_match("/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/", );
 
-$user = new User();
+// print_r($x);
 
-print_r($user->data());
+if( 0 <= 1 && 1 <= 2 ){
+
+	echo "operators gooood";
+
+}
+
+
 

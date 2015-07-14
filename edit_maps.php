@@ -32,43 +32,7 @@ $user;
 
 if(Input::exists()){
 
-    $pins = json_decode( $_POST["pins"] );
-
-    $polygons = json_decode( $_POST["polygons"] );
-
-    foreach ($pins as $pin) {
-        
-        // validate coords
-
-        // clean description
-
-    }
-
-    foreach ($polygons as $polygon) {
-        
-        // validate formatting of coords
-
-        // validate fill hex
-
-        // validate fill opacity
-
-        // validate stoke fill
-
-        // validate stroke opacity
-
-        // clean description
-
-    }
-
-    // if there are no formatting errors
-    
-        // delete all previous pins and polygons
-
-        // create new pin and polygon nodes
-
-        // return success
-
-    // else return errors
+    include "scripts/update_maps.php";
 
     exit();
 }
