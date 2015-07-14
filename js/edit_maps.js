@@ -337,8 +337,22 @@ var MA, init;
 	    					size : new google.maps.Size(30,30)
 	    				 };
 
-	    // create the google maps pin
-	    this.marker = 
+	    // create the google maps pin markers
+	    this.markerCircle = '<div>' +
+							'	<svg width="71" height="120">' +
+							'		<circle cx="35" cy="35" r="28" fill="#5cb85c"/>'+
+							'		<polygon points="8 30, 36 105, 63 30" fill="#5cb85c" />' +
+							'	</svg>' +
+							'	<img src="http://i.imgur.com/Rnj7kZj.jpg" style="border-radius:50%;height:48px;width:48px;z-index:1;margin-left:-64px;margin-bottom:61px;"/>' +
+							'</div>';
+
+		this.markerSquare = '<div>' +
+							'	<svg width="71" height="120">' +
+							'		<rect rx="4" ry="4" x="7" y="7" fill="#5cb85c" width="56" height="56"/>' +
+							'		<polygon points="8 30, 36 105, 63 30" fill="#5cb85c" />' +
+							'	</svg>' +
+							'	<img src="http://i.imgur.com/Rnj7kZj.jpg" style="border-radius:4px;height:48px;width:48px;z-index:1;margin-left:-64px;margin-bottom:61px;"/>' +
+							'</div>';
 
 	    /* construction */
 
