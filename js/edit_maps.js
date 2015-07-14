@@ -331,6 +331,15 @@ var MA, init;
 	    // temporary storage for google.maps.Autocomplete
 	    this.autocomp;
 
+	    // business avatar to create pin
+	    this.markerImg = {
+	    					url  : "img/business/" + document.getElementById("business-avatar").value,
+	    					size : new google.maps.Size(30,30)
+	    				 };
+
+	    // create the google maps pin
+	    this.marker = 
+
 	    /* construction */
 
 	    // add event listener to the add new pin button
@@ -1165,7 +1174,7 @@ var MA, init;
 			this.children[0].style.transform = "rotate(0deg)";
 		}else{
 			// grow it
-			document.getElementById("edit-polygon-toolbar").style.height = "293px";
+			document.getElementById("edit-polygon-toolbar").style.height = "276px";
 			// flip the toggler
 			this.children[0].style.transform = "rotate(180deg)";
 		}

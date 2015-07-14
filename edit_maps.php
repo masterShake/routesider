@@ -75,6 +75,9 @@ $profile = $business->profile();
     </head>
     <body>
 
+        <!-- business avatar -->
+        <input type="hidden" value='<?= $profile->data("avatar"); ?>' id="business-avatar"> 
+
         <!-- page content -->
         <div id="page-content">
 
@@ -197,10 +200,10 @@ $profile = $business->profile();
                         <h4><span class="glyphicon glyphicon-stop"></span> Edit Polygon</h4>
                         
                         <!-- toolbar body -->
-                        <div>
+                        <div style="margin-top:-6px;">
 
                             <!-- formatting table and opacity slider -->
-                            <div style="width:55%;float:right;margin-top:-8px;">
+                            <div style="width:55%;float:right;margin-top:4px;">
 
                                 <!-- polygon colors table-->
                                 <table>
@@ -276,11 +279,11 @@ $profile = $business->profile();
                                 </table><!-- /hex & opacity table -->
 
                                 <!-- opacity slider -->
-                                <div style="margin-top: 13px;">
-                                    <label for="polygon-opacity">
+                                <div style="margin-top: 18px;">
+                                    <label for="polygon-opacity" style="margin-bottom:0px;margin-left:14px;">
                                         <span class="glyphicon glyphicon-adjust"></span>
                                     </label>
-                                    <div style="max-width: 98px; float:right;">
+                                    <div style="float:right;">
                                         <input id="polygon-opacity" type="range" min="0" max="1" step="0.01" value="0.8"/>
                                     </div>
                                 </div>
@@ -339,7 +342,7 @@ $profile = $business->profile();
                             </div><!-- /color wheel and opacity slider -->
 
                             <!-- description input -->
-                            <div style="margin-top: 17px;">
+                            <div style="margin-top: 13px;">
                                 <textarea class="form-control" id="polygon-description" placeholder="polygon description"></textarea>
                             </div>
 
