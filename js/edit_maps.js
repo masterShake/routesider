@@ -211,14 +211,19 @@ var MA, init;
 
 		// array to hold all the google maps markers
 		this.pins = [];
+		// array to hold all the relevant pin data for ajax save
+		this.jsonPins = [];
 
 		// array to hold all the polygons
 		this.polygons = [];
+		// temp array to hold all relevant polygon data for ajax
+		this.jsonPolygons = [];
 
 	    // - Set roperties to determine/manage which editting/
 	    //   formatting modes are active
 	    this.newPinMode = false;
 	    this.newPolyMode = false;
+	    this.editPolyMode = false;
 		
 		// init property for future PinDropper object
 		// this.pinDropper = null;
@@ -240,6 +245,10 @@ var MA, init;
 	    	.addEventListener("keyup", this.autoExpand, false);
 	    document.getElementById("search-maps-field")
 	    	.addEventListener("blur", this.blurContract, false);
+
+	    // save button event listener
+	    document.getElementById("save-btn")
+	    	.addEventListener("click", this.saveMaps, false);
 	}
 
 	/* METHODS */
@@ -278,12 +287,64 @@ var MA, init;
 		if( this.newPolyMode && exception != "new poly" )
 
 			this.terminateNewPolyMode();
-	} 
 
+		// edit polygon
+		if( this.editPolyMode && exception != "edit poly" )
 
+			this.terminateEditPolyMode();
+	}
 
+	//-----------------------------------------------
+	// - event listener in save button
+	// - json stringify all of the pins and polygons
+	// - ajax
+	MA.prototype.saveMaps = function(){
 
+		// inner HTML of save button rotating hour glass 
+		this.innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#FFF"></span>';
 
+		// reset the arrays
+		mapApp.jsonPins = [];
+		mapApp.jsonPolygons = [];
+
+		// assemble the relevant pin data
+		for(var i = 0; i < mapApp.pins.length; i++)
+
+			// push an object onto the array
+			mapApp.jsonPins.push({
+									lat : mapApp.pins[i].position.A,
+									lng : mapApp.pins[i].position.F,
+									description : ""
+								});
+		
+		// loop through all the polygons
+		for(var i = 0; i < mapApp.polygons.length; i++)
+
+			mapApp.jsonPolygons.push({
+										coords : mapApp.polygons[i].getPath()["j"].toString(),
+										stroke_color : mapApp.polygons[i].strokeColor,
+										stroke_opacity : mapApp.polygons[i].strokeOpacity,
+										fill_color : mapApp.polygons[i].fillColor,
+										fill_opacity : mapApp.polygons[i].fillOpacity,
+										description : ""
+									});
+
+		// ajax call
+		rsApp.ajax(
+					"POST",
+					document.URL,
+					"pins=" + JSON.stringify( mapApp.jsonPins ) +
+					"&polygons=" + JSON.stringify( mapApp.jsonPolygons ),
+					mapApp.ajaxCallback,
+					false
+				  );
+	}
+
+	//-----------------------------------------------
+	// - ajax callback
+	MA.prototype.ajaxCallback = function(response){ console.log(response);
+
+	}
 
 
 
@@ -335,24 +396,24 @@ var MA, init;
 	    this.markerImg = {
 	    					url  : "img/business/" + document.getElementById("business-avatar").value,
 	    					size : new google.maps.Size(30,30)
-	    				 };
+	    				 }; 
 
 	    // create the google maps pin markers
-	    this.markerCircle = '<div>' +
-							'	<svg width="71" height="120">' +
-							'		<circle cx="35" cy="35" r="28" fill="#5cb85c"/>'+
-							'		<polygon points="8 30, 36 105, 63 30" fill="#5cb85c" />' +
-							'	</svg>' +
-							'	<img src="http://i.imgur.com/Rnj7kZj.jpg" style="border-radius:50%;height:48px;width:48px;z-index:1;margin-left:-64px;margin-bottom:61px;"/>' +
-							'</div>';
+	    // this.markerCircle = '<div>' +
+					// 		'	<svg width="71" height="120">' +
+					// 		'		<circle cx="35" cy="35" r="28" fill="#5cb85c"/>'+
+					// 		'		<polygon points="8 30, 36 105, 63 30" fill="#5cb85c" />' +
+					// 		'	</svg>' +
+					// 		'	<img src="http://i.imgur.com/Rnj7kZj.jpg" style="border-radius:50%;height:48px;width:48px;z-index:1;margin-left:-64px;margin-bottom:61px;"/>' +
+					// 		'</div>';
 
-		this.markerSquare = '<div>' +
-							'	<svg width="71" height="120">' +
-							'		<rect rx="4" ry="4" x="7" y="7" fill="#5cb85c" width="56" height="56"/>' +
-							'		<polygon points="8 30, 36 105, 63 30" fill="#5cb85c" />' +
-							'	</svg>' +
-							'	<img src="http://i.imgur.com/Rnj7kZj.jpg" style="border-radius:4px;height:48px;width:48px;z-index:1;margin-left:-64px;margin-bottom:61px;"/>' +
-							'</div>';
+		// this.markerSquare = '<div>' +
+		// 					'	<svg width="71" height="120">' +
+		// 					'		<rect rx="4" ry="4" x="7" y="7" fill="#5cb85c" width="56" height="56"/>' +
+		// 					'		<polygon points="8 30, 36 105, 63 30" fill="#5cb85c" />' +
+		// 					'	</svg>' +
+		// 					'	<img src="http://i.imgur.com/Rnj7kZj.jpg" style="border-radius:4px;height:48px;width:48px;z-index:1;margin-left:-64px;margin-bottom:61px;"/>' +
+		// 					'</div>';
 
 	    /* construction */
 
@@ -863,8 +924,6 @@ var MA, init;
 		
 		/* css */
 
-		// display the toggle toolbar tab
-		document.getElementById("toggle-toolbar").style.display = "none";
 		// change the class of the new pin button
 		document.getElementById("components-toolbar").children[4].className = "btn";
 		// display the drop-new-pin-toolbar element
@@ -938,6 +997,14 @@ var MA, init;
 
 		/* construction */
 
+	     // add event listener to the draw new polygon button
+	    document.getElementById("components-toolbar").children[1]
+	    	.addEventListener("click", this.toggleEditPolyMode, false);
+
+	    // add event listener to the close new polygon toolbar x
+	    document.getElementById("edit-polygon-toolbar").children[0]
+	    	.addEventListener("click", this.terminateEditPolyMode, false);
+
 	    // add event listener to the pull tab to toggle the draw-new-polygon toolbar
 	    document.getElementById("toggle-toolbar").children[0].children[0]
 	    	.addEventListener("click", this.toggleToolbar, false);
@@ -1005,7 +1072,7 @@ var MA, init;
 		// display the toggle toolbar tab
 		document.getElementById("toggle-toolbar").style.display = "block";
 		// change the class of the new polygon component button
-		document.getElementById("components-toolbar").children[4].className = "btn selected";
+		document.getElementById("components-toolbar").children[1].className = "btn selected";
 		// display the draw-new-polygon-toolbar element
 		document.getElementById("edit-polygon-toolbar").style.display = "block";
 		// change placeholder text for search maps input
@@ -1194,9 +1261,46 @@ var MA, init;
 		}
 	}
 
+	//-----------------------------------------------
+	// - terminate edit pin mode
+	// - hide elements
+	// - remove event listeners
+	PolyEditor.prototype.terminateEditPolyMode = function(){
 
+		// reset the newPolyMode property to false
+		mapApp.editPolyMode = false;
+		
+		/* css */
 
+		// change the class of the new pin button
+		document.getElementById("components-toolbar").children[1].className = "btn";
+		// display the drop-new-pin-toolbar element
+		document.getElementById("edit-polygon-toolbar").style.display = "none";
+		// change placeholder text for search maps input
+		document.getElementById("search-maps-field").placeholder = "Search " + mapApp.businessName + " maps";
 
+		/* google map */
+
+		mapApp.polyEditor.termGooglePolyEdit();
+	}
+
+	//-----------------------------------------------	
+	// - remove event listeners to draw polygon
+	// - restore original functionality
+	PolyEditor.prototype.termGooglePolyEdit = function(){
+
+		// change the cursor back to grabber
+		rsApp.map.setOptions({ 
+								draggableCursor : "grab",
+							  	draggingCursor  : "grabbing"
+						   });
+
+		// active polygon no longer editable
+		this.activePolygon.setOptions({editable : false});
+
+		// set the active polygon property to null
+
+	}
 
 
 
