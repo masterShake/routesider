@@ -222,17 +222,20 @@ var MA, init;
 	    // - Set roperties to determine/manage which editting/
 	    //   formatting modes are active
 	    this.newPinMode = false;
+	    this.editPinMode = false;
 	    this.newPolyMode = false;
 	    this.editPolyMode = false;
 		
-		// init property for future PinDropper object
-		// this.pinDropper = null;
+		// init PinDropper object
 		this.pinDropper = new PinDropper();
 
-		// init property for future PolyDrawer object
+		// init PinEditor object
+		this.pinEditor = new PinEditor();
+
+		// init PolyDrawer object
 		this.polyDrawer = new PolyDrawer();
 
-		// init property for future PolyEditor object
+		// init PolyEditor object
 		this.polyEditor = new PolyEditor();
 
 	    // set the business name for easy access
@@ -281,17 +284,22 @@ var MA, init;
 		// drop new pin
 		if( this.newPinMode && exception != "new pin" )
 
-			this.terminateNewPinMode();
+			this.pinDropper.terminateNewPinMode();
+
+		// drop new pin
+		if( this.editPinMode && exception != "edit pin" )
+
+			this.pinEditor.terminateEditPinMode();
 
 		// draw new polygon
 		if( this.newPolyMode && exception != "new poly" )
 
-			this.terminateNewPolyMode();
+			this.pinDrawer.terminateNewPolyMode();
 
 		// edit polygon
 		if( this.editPolyMode && exception != "edit poly" )
 
-			this.terminateEditPolyMode();
+			this.polyEditor.terminateEditPolyMode();
 	}
 
 	//-----------------------------------------------
@@ -326,7 +334,7 @@ var MA, init;
 										stroke_opacity : mapApp.polygons[i].strokeOpacity,
 										fill_color : mapApp.polygons[i].fillColor,
 										fill_opacity : mapApp.polygons[i].fillOpacity,
-										description : ""
+										description : document.getElementById("polygon-description").value
 									});
 
 		// ajax call
@@ -566,12 +574,27 @@ var MA, init;
 	PinDropper.prototype.dropPin = function(){ 
 
 		// create a new pin and push it to the pins array
-		mapApp.pins.push( new google.maps.Marker({
-	      position: mapApp.pinDropper.tempLatLng,
-	      map: rsApp.map,
-	      title: 'Hello World!',
-	      animation: google.maps.Animation.DROP
-	  }) );
+		mapApp.pins.push( 
+			new google.maps.Marker({
+				position: mapApp.pinDropper.tempLatLng,
+				map: rsApp.map,
+				title: 'Hello World!',
+				animation: google.maps.Animation.DROP
+	  		}) 
+	  	);
+
+		// set the activePin property for mapApp
+		mapApp.pinEditor.activePin = mapApp.pins[mapApp.pins.length - 1];
+
+		// terminate new pin mode
+		mapApp.pinDropper.terminateNewPinMode();
+
+		// initialize edit pin mode
+		mapApp.pinEditor.initEditPinMode();
+
+		// display save alert
+		document.getElementById("save-alert").style.display = "block";
+
 	}
 
 	//-----------------------------------------------
@@ -633,6 +656,126 @@ var MA, init;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	// 					edit pins
+	//			  	  -------------
+	//
+	// - Drag and drop a pin somewhere else on the 
+	//   map.
+	//
+	// - Edit the description
+	//
+	// - Delete pin
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var PinEditor = function(){
+
+		/* properties */
+
+		this.activePin = null;
+
+		/* construction */
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - Event listener for edit pin button in the
+	//   components toolbar
+	PinEditor.prototype.toggleEditPinMode = function(){
+		// If the edit-pin-toolbar is hidden
+		if( document.getElementById("edit-pin-toolbar").offsetParent == null )
+			// initialize edit pin mode
+			mapApp.pinEditor.initEditPinMode();
+		else
+			// terminate edit mode
+			mapApp.pinEditor.terminateEditPinMode();
+	}
+
+	//-----------------------------------------------	
+	// - initialize edit pin mode
+	// - display elements
+	// - add necessary event listeners
+	PinEditor.prototype.initEditPinMode = function(){
+
+		// exit the other formatting modes and hide other toolbars
+		mapApp.termFormattingModes("edit pin");
+
+		// reset the new polygon mode property to true
+		mapApp.editPinMode = true;
+		
+		/* css */
+
+		// change the class of the new polygon component button
+		document.getElementById("components-toolbar").children[0].className = "btn selected";
+		// display the draw-new-polygon-toolbar element
+		document.getElementById("edit-pin-toolbar").style.display = "block";
+		// change placeholder text for search maps input
+		document.getElementById("search-maps-field").placeholder = "Search locations";
+
+		/* google map */
+
+		this.initGooglePinEdit();
+
+	}
+
+	//-----------------------------------------------	
+	// - set event listeners for google maps edit pin
+	PinEditor.prototype.initGooglePinEdit = function(){
+
+		// change the cursor on the map to a crosshair
+		rsApp.map.setOptions({ 
+								draggableCursor : "grab",
+							  	draggingCursor  : "grabbing"
+						   	});
+
+		// allow the user to drop the active pin
+		this.activePin.setOptions({ draggable : true });
+	}
+
+	//-----------------------------------------------	
+	// - remove event listeners to edit pin
+	// - restore original functionality
+	PinEditor.prototype.termGooglePolyEdit = function(){
+
+		// active pin no longer editable
+		this.activePin.setOptions({ draggable : false });
+
+		// set the active polygon property to null
+		this.activePin = null;
+	}
 
 
 
@@ -921,10 +1064,6 @@ var MA, init;
 		// clear the undo and redo btns
 		mapApp.polyDrawer.clearUndoRedoBtns();
 
-		// give the new polygon a description property
-		mapApp.polygons[mapApp.polygons.length - 1]["description"] = 
-			document.getElementById("polygon-description").value;
-
 		// set the activePolygon property for mapApp
 		mapApp.polyEditor.activePolygon = mapApp.polygons[mapApp.polygons.length - 1];
 
@@ -1071,12 +1210,12 @@ var MA, init;
 	// - Event listener for edit polygon button in the
 	//   components toolbar
 	PolyEditor.prototype.toggleEditPolyMode = function(){
-		// If the draw-new-polygon-toolbar is hidden
+		// If the edit-polygon-toolbar is hidden
 		if( document.getElementById("edit-polygon-toolbar").offsetParent == null )
-			// initialize draw-new-poly mode
+			// initialize edit-poly mode
 			mapApp.polyEditor.initEditPolyMode();
 		else
-			// terminate draw-new-poly mode
+			// terminate edit-poly mode
 			mapApp.polyEditor.terminateEditPolyMode();
 	}
 
