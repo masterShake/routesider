@@ -344,8 +344,33 @@ var MA, init;
 	// - ajax callback
 	MA.prototype.ajaxCallback = function(response){ console.log(response);
 
+		// change alert classes
+		document.getElementById("save-alert").className = "alert alert-success";
+		document.getElementById("save-btn").className = "btn btn-success";
+
+		// change the message
+		document.getElementById("save-btn").innerHTML = "saved!";
+		document.getElementById("save-alert").children[1].innerHTML = "maps updated.";
+
+		// change opacity
+		// document.getElementById("save-alert").style.opacity = 0;
+
+		// set timeout function
+		setTimeout(mapApp.hideSaveAlert, 1000);
 	}
 
+	//-----------------------------------------------
+	// - timeout function to hide & reset save alert
+	MA.prototype.hideSaveAlert = function(){
+		// hide the alert
+		document.getElementById("save-alert").style.display = "none";
+		// reset the class
+		document.getElementById("save-alert").className = "alert alert-info";
+		document.getElementById("save-btn").className = "btn btn-info";
+		// reset the save button inner html
+		document.getElementById("save-btn").innerHTML = "save";
+		document.getElementById("save-alert").children[1].innerHTML = "Click <strong>save</strong> to keep your changes.";
+	}
 
 
 
