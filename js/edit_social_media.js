@@ -102,6 +102,9 @@ var ESM, esmApp;
 		// temp variable to keep track of elems while looping
 		this.currPopElem = null;
 
+		// initialize the SocialMediaMod object
+		this.socialMod = new SocialMediaMod();
+
 		/* construction */
 
 		// initialize the popovers
@@ -121,6 +124,102 @@ var ESM, esmApp;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//					SocialMediaMod
+	//				  ------------------
+	//
+	// - launch the popup window to get user 
+	//   credentials & token
+	//
+	// - receive token upon confirmation
+	//
+	// - make ajax curl request to get additional
+	//   user info.
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var SocialMediaMod = function(){
+
+		/* properties */
+
+		// keep track of which window is currently open
+		this.currentNetwork = null;
+
+		// variable to receive user approval token
+		this.userToken = 0;
+
+		// credentials for each of the social networks
+		this.instagram = {
+						   pagetitle : "Instagram connect",
+								 url : "https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&response_type=code",
+						windowparams : "scrollbars=yes,width=475,height=425"
+						 };
+
+		/* initialize */
+
+		// set timeout to give the popovers a chance to initialize
+		setTimeout(function(){
+
+			// add instagram account event listener
+			document.getElementById("activate-inst")
+				.getElementsByTagName("button")[0]
+					.addEventListener("click", esmApp.socialMod.requestAuth, false);
+
+		}, 1000)
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - open a new window and send an authorization
+	//   request
+	SocialMediaMod.prototype.requestAuth = function(){
+
+		// set the current network property
+		esmApp.socialMod.activeNetwork = this.dataset.network;
+
+		//open the auth window
+		window.open( esmApp.socialMod[ this.dataset.network ].url, 
+					 esmApp.socialMod[ this.dataset.network ].pagetitle, 
+					 esmApp.socialMod[ this.dataset.network ].windowparams);
+
+	}
+
+	//-----------------------------------------------
+	// - set a timed interval to periodically check
+	//   for user approval
+	SocialMediaMod.prototype.authorize = function( network, code ){
+
+		console.log(network);
+
+		console.log(code);
+
+	}
 
 
 

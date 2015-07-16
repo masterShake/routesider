@@ -126,7 +126,7 @@
 		            		<!-- facebook -->
 		            		<div id="activate-face">
 		            			
-		            			<button type="button" class="btn activate-btn" data-title='&#60;span class&#61;&#34;icon-facebook2&#34;&#62;&#60;&#47;span&#62; Facebook' data-content='&#60;button type&#61;&#34;button&#34; aria-label&#61;&#34;add facebook account&#34; class&#61;&#34;btn&#34;&#62;add account&#60;&#47;button&#62;' aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+		            			<button type="button" class="btn activate-btn" data-title='&#60;span class&#61;&#34;icon-facebook2&#34;&#62;&#60;&#47;span&#62; Facebook' data-content='&#60;button type&#61;&#34;button&#34; data-network&#61;&#34;facebook&#34; aria-label&#61;&#34;add facebook account&#34; class&#61;&#34;btn&#34;&#62;add account&#60;&#47;button&#62;' aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
 
 		            			<h5>Facebook</h5>
 
@@ -135,7 +135,7 @@
 		            		<!-- instagram -->
 		            		<div id="activate-inst">
 		            			
-		            			<button type="button" class="btn activate-btn" data-title='&#60;span class&#61;&#34;icon-instagram&#34;&#62;&#60;&#47;span&#62; Instagram' data-content='&#60;button type&#61;&#34;button&#34; aria-label&#61;&#34;add instagram account&#34; class&#61;&#34;btn&#34;&#62;add account&#60;&#47;button&#62;' aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+		            			<button type="button" class="btn activate-btn" data-title='&#60;span class&#61;&#34;icon-instagram&#34;&#62;&#60;&#47;span&#62; Instagram' data-content='&#60;button type&#61;&#34;button&#34; data-network&#61;&#34;instagram&#34; aria-label&#61;&#34;add instagram account&#34; class&#61;&#34;btn&#34;&#62;add account&#60;&#47;button&#62;' aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
 		            			
 		            			<h5>Instagram</h5>
 
