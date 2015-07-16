@@ -3,6 +3,9 @@
 //***************************
 //		curl
 
+
+// NOTE: CHANGE CURLOPT_SSL_VERIFYPEER TO A 1 IN PRODUCTION
+
 class Curl{
 
 	public static function post($URL, $params){
@@ -15,7 +18,7 @@ class Curl{
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // CHANGE THIS TO A 1 IN PRODUCTION
 
         $data = curl_exec($ch);
 

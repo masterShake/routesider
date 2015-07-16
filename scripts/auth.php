@@ -6,6 +6,32 @@
 
 -----------------------------------------*/
 
+
+// ajax post request for access token
+if(isset($_POST["code"])){
+
+    include "../core/init.php";
+
+    // perform curl call for insta info
+    if($_POST["network"] == "instagram"){
+
+        $url = "https://api.instagram.com/oauth/access_token";
+
+        $params  =  "client_id=6f469fae7d024a83ae77a5d463181af0&" .
+                    "client_secret=574afd2e26674eea82002103bd0d425c&" .
+                    "grant_type=authorization_code&" .
+                    "redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&" .
+                    "code=" . $_POST["code"];
+
+        $results = Curl::post( $url, $params );
+
+        print_r($results);
+
+    }
+
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +59,7 @@
         <span class="glyphicon glyphicon-hourglass loading"></span>
     </div>
 
-
+    <pre id="response"></pre>
 
 
   	<!-- print_r -->
@@ -46,9 +72,15 @@
         (function(){
             document.addEventListener("DOMContentLoaded", function(){
 
-                window.opener.esmApp.socialMod.authorize( '<?= $_GET["network"]; ?>', '<?= $_GET["code"]; ?>' );
-
-                window.close();
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "", true);
+                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                ajax.onreadystatechange = function() {
+                    if(this.readyState == 4 && this.status == 200) {
+                        document.getElementById("response").innerHTML = this.responseText;
+                    }
+                }
+                ajax.send('network=<?= $_GET["network"]; ?>&code=<?= $_GET["code"]; ?>');
 
             }, true);   
         })();

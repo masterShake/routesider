@@ -122,12 +122,6 @@ var ESM, esmApp;
 		// set the active popover
 		esmApp.activePopover = this.parentElement.children[2];
 
-		// remove this event listener
-		this.removeEventListener("click", esmApp.showPopover, false);
-
-		// set the active button
-		esmApp.activeButton = this;
-
 		// display the popover element
 		esmApp.activePopover.style.display = "block";
 
@@ -184,8 +178,6 @@ var ESM, esmApp;
 
 
 
-
-
 	//-----------------------------------------------
 	//					SocialMediaMod
 	//				  ------------------
@@ -214,15 +206,10 @@ var ESM, esmApp;
 
 		/* initialize */
 
-		// set timeout to give the popovers a chance to initialize
-		setTimeout(function(){
-
-			// add instagram account event listener
-			document.getElementById("activate-inst")
-				.getElementsByTagName("button")[1]
-					.addEventListener("click", esmApp.socialMod.requestAuth, false);
-
-		}, 1000)
+		// add instagram account event listener
+		document.getElementById("activate-inst")
+			.getElementsByTagName("button")[1]
+				.addEventListener("click", this.requestAuth, false);
 
 	}
 
