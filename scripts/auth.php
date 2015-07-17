@@ -35,7 +35,7 @@ if(isset($_POST["code"])){
         
         $results = Curl::get( $url );
 
-        print_r($results);
+        echo $results;
 
     }
 
@@ -69,8 +69,6 @@ if(isset($_POST["code"])){
         <span class="glyphicon glyphicon-hourglass loading"></span>
     </div>
 
-    <pre id="response"></pre>
-
 
   	<!-- print_r -->
   	<!-- <pre></pre> -->
@@ -82,15 +80,18 @@ if(isset($_POST["code"])){
         (function(){
             document.addEventListener("DOMContentLoaded", function(){
 
+                var network = '<?= $_GET["network"]; ?>';
+
                 var ajax = new XMLHttpRequest();
                 ajax.open("POST", "", true);
                 ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 ajax.onreadystatechange = function() {
                     if(this.readyState == 4 && this.status == 200) {
-                        document.getElementById("response").innerHTML = this.responseText;
+                        window.opener.esmApp.socialMod.authorize( network, this.responseText );
+                        window.close();
                     }
                 }
-                ajax.send('network=<?= $_GET["network"]; ?>&code=<?= $_GET["code"]; ?>');
+                ajax.send('network='+network+'&code=<?= $_GET["code"]; ?>');
 
             }, true);   
         })();
