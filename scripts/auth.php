@@ -23,20 +23,91 @@ if(isset($_POST["code"])){
                     "redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&" .
                     "code=" . $_POST["code"];
 
-        $results = Curl::post( $url, $params );
+        $meta = Curl::post( $url, $params );
 
         // convert the json into a standard object
-        $results = json_decode($results);
+        $meta = json_decode($meta); 
+        // echo $meta; exit();
 
-        // echo $results->access_token;
+        /*------------------------------------------ 
+            create a new instagram node in the db
+        ------------------------------------------*/
+
+        $user = new User();
+
+        $business = $user->business();
+
+        // $profile = $business->profile();
+
+        $db = neoDB::getInstance();
+
+        $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
+                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
+                  "CREATE (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(i:Instagram { " .
+                    "username : '" . $meta->user->username . "', " .
+                    "id : '" . $meta->user->id . "', " .
+                    "profile_pic : '" . $meta->user->profile_picture . "', " .
+                    "website : '" . $meta->user->website . "', " .
+                    "full_name : '" . $meta->user->full_name . "', " .
+                    "bio : '" . $meta->user->bio . "' " .
+                  "}) ";
+
+        $db->query($cypher);
+
+        /*----------------------------------------------
+                retrieve posts from instagram
+        ----------------------------------------------*/
 
         // request the user's recent media
-        $url = "https://api.instagram.com/v1/users/self/media/recent/?access_token=" . $results->access_token;
+        $url = "https://api.instagram.com/v1/users/self/media/recent/?access_token=" . $meta->access_token;
         
-        $results = Curl::get( $url );
+        $posts = Curl::get( $url ); //echo $posts; exit();
 
-        echo $results;
+        $posts = json_decode($posts);
 
+        $posts = $posts->data;
+
+        /*----------------------------------------------
+           create nodes for posts, likes, & followers
+        ----------------------------------------------*/
+
+        // loop through the posts
+        foreach($posts as $post){
+
+            $cypher = "MATCH (i:Instagram) WHERE i.id='" . $meta->user->id . "' " .
+                      "CREATE (i)-[:POSTED]->(p:Post { " .
+                            "img : '" . $post->images->standard_resolution->url . "', " . // res 640x640 
+                            "thumbnail : '" . $post->images->thumbnail->url . "', "; // res 150x150
+                            
+                            // if there is a caption
+                            if( !is_null($post->caption) )
+                                $cypher .= "text : '" . str_replace("'", "\'", $post->caption->text) . "', ";
+                            
+            $cypher .=      "link : '" . $post->link . "', " .
+                            "id : '" . $post->id . "', ";
+
+                            // if there are any likes
+                            if( !is_null($post->likes) )
+                                $cypher .= "likes : " . (int)$post->likes->count . ", ";
+
+            $cypher .=      "created_time : " . (int)$post->created_time . " " .
+                        "}) ";
+
+            $db->query( $cypher );
+
+            // loop through all of the likers
+            foreach($post->likes->data as $liker)
+
+                $cypher = "MATCH (p:Post) WHERE p.id='" . $post->id . "' " .
+                          "CREATE (p)<-[:LIKES]-(i:Insta_user { " .
+                                "full_name : '" . $liker->full_name . "', " .
+                                "id : '" . $liker->id . "', " .
+                                "profile_pic : '" . $liker->profile_picture . "', " .
+                                "username : '" . $liker->username . "' " .
+                            "}) ";
+                
+                $db->query( $cypher );
+        }
     }
 
     exit();
@@ -87,8 +158,10 @@ if(isset($_POST["code"])){
                 ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 ajax.onreadystatechange = function() {
                     if(this.readyState == 4 && this.status == 200) {
-                        window.opener.esmApp.socialMod.authorize( network, this.responseText );
-                        window.close();
+                        // console.log( JSON.parse(this.responseText) );
+                        console.log( this.responseText );
+                        // window.opener.esmApp.socialMod.authorize( network, this.responseText );
+                        // window.close();
                     }
                 }
                 ajax.send('network='+network+'&code=<?= $_GET["code"]; ?>');
