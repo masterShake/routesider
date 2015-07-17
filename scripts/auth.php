@@ -32,24 +32,10 @@ if(isset($_POST["code"])){
 
         // request the user's recent media
         $url = "https://api.instagram.com/v1/users/self/media/recent/?access_token=" . $results->access_token;
-
-        echo "here is the url object:\n\n";
-
-        echo $url . "\n\n";
-
-        echo "here are the results:\n\n";
-
-        // $ch = curl_init();
-        // $timeout = 5;
-        // curl_setopt($ch, CURLOPT_URL, $url);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        // $data = curl_exec($ch);
-        // curl_close($ch);
-
-        $data = file_get_contents($url);
         
-        print_r($data);
+        $results = Curl::get( $url );
+
+        print_r($results);
 
     }
 
