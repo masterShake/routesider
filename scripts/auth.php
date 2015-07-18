@@ -76,6 +76,9 @@ if(isset($_POST["code"])){
 
             $cypher = "MATCH (i:Instagram) WHERE i.id='" . $meta->user->id . "' " .
                       "CREATE (i)-[:POSTED]->(p:Post { " .
+                            "username : '" . $meta->user->username . "', " .
+                            "network : '".$_POST["network"]."', " .
+                            "icon : 'instagram', " .
                             "img : '" . $post->images->standard_resolution->url . "', " . // res 640x640 
                             "thumbnail : '" . $post->images->thumbnail->url . "', "; // res 150x150
                             

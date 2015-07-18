@@ -248,10 +248,10 @@
 
                         $posts = $business->getPosts();
 
-                        for($i = 0; $i < count($posts["p"]); $i++){ ?>
+                        foreach($posts as $post){ ?>
 
                         <div class="thumbnail social-media-post">
-                            <img src='<?= $posts["p"][$i]["img"]; ?>' alt="social media post">
+                            <img src='<?= $post["img"]; ?>' alt="social media post">
                             <div class="caption">
                                 <table>
                                     <tr>
@@ -260,17 +260,19 @@
                                         </td>
                                         <td>
                                             <p>
-                                                <a href='https://instagram.com/<?= $posts["s"][$i]["username"]; ?>'>
-                                                    <span>&#64;<?= $posts["s"][$i]["username"]; ?></span>
+                                                <a href='https://instagram.com/<?= $post["username"]; ?>'>
+                                                    <span>&#64;<?= $post["username"]; ?></span>
                                                 </a>
-                                                <?= isset($posts["p"][$i]["text"]) ? $posts["p"][$i]["text"] : ""; ?>
+                                                <?= isset($post["text"]) ? $post["text"] : ""; ?>
                                             </p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                            <div class="likes"><span class="glyphicon glyphicon-heart"></span><?= $posts["p"][$i]["likes"]; ?></div>
-                            <div class="social-post-link"><a href='<?= $posts["p"][$i]["link"]; ?>'><span class="icon-instagram"></span></a></div>
+                            <div class="social-post-link"><a href='<?= $post["link"]; ?>'><span class='icon-<?= $post["icon"]; ?>'></span></a></div>
+                            <div class="likes">
+                                <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post["likes"]; ?></div>
+                            </div>
                         </div>
 
                         <?php } ?>
