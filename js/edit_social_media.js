@@ -232,18 +232,30 @@ var ESM, esmApp;
 	}
 
 	//-----------------------------------------------
-	// - set a timed interval to periodically check
-	//   for user approval
-	SocialMediaMod.prototype.authorize = function( network, code ){
+	// - callback after a user has added a social
+	//   network
+	// - perform an ajax call to retrieve the data
+	SocialMediaMod.prototype.authorize = function( network ){
 
-		console.log(network);
-
-		console.log(code);
-
+		rsApp.ajax(
+					"POST",
+					document.URL,
+					"network="+network,
+					esmApp.socialMod.insertPosts
+					false
+				  );
 	}
 
+	//-----------------------------------------------
+	// - ajax callback get posts and assemble the
+	//   dom objects
+	// - add event listeners to make the posts 
+	//   editable
+	SocialMediaMod.prototype.insertPosts = function(response){
 
+		console.log(response);
 
+	}
 
 
 

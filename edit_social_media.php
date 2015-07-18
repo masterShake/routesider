@@ -52,10 +52,52 @@
     // STEP 3: handle GET/POST params
     //-------------------------------
 
-    if(Input::exists()){
+    if(isset($_POST)){
 
-    	// do something
+        // retrieve the data for the given network
 
+        $user = new User();
+    
+        $business = $user->business();
+
+        $profile = $business->profile();
+
+        $db = neoDB::getInstance();
+
+        $cypher = "MATCH (u:User) WHERE u.username = '".$user->data("username")."' ".
+                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
+                  "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:".ucfirst($_POST["network"]).") ".
+                  "MATCH (s)-[:POSTED]->(p) ".
+                  "RETURN s, p";
+
+        $posts = $db->query( $cypher );
+
+        $posts = $posts["p"];
+
+        // create an empty array to store the html
+        $postHTML = [];
+
+        // loop through all the posts to
+        foreach($posts as $post){
+
+            // push a new html string onto the postHTML array
+            $postHTML[] = 
+
+            "<div class='thumbnail social-media-post'>".
+            "   <img src='".$post["img"]."' alt='".$post["text"]."'>".
+            "   <div class='caption'>".
+            "       <img src='img/business/".$profile->data("avatar")."' class='avatar' alt='business avatar/logo'>".
+            "       <span class='username'>".$post["username"]."</span>".
+            "       <span class='text'>".$post["text"]."</span>".
+            "   </div>".
+            "   <div class='likes'>".$post["likes"]."</div>"
+            "   <div class='post-link'><a href='".$post["link"]."'><span class='icon_".$_POST["network"]."'></span></a></div>"
+            "</div>";
+        }
+
+        echo json_encode($postHTML);
+
+        exit();
     }
 
     //-------------------------------------

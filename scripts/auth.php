@@ -96,7 +96,7 @@ if(isset($_POST["code"])){
             $db->query( $cypher );
 
             // loop through all of the likers
-            foreach($post->likes->data as $liker)
+            foreach($post->likes->data as $liker){
 
                 $cypher = "MATCH (p:Post) WHERE p.id='" . $post->id . "' " .
                           "CREATE (p)<-[:LIKES]-(i:Insta_user { " .
@@ -107,6 +107,7 @@ if(isset($_POST["code"])){
                             "}) ";
                 
                 $db->query( $cypher );
+            }
         }
     }
 
