@@ -35,17 +35,25 @@
 
     $user = new User();
     
-    $db = neoDB::getInstance();
+    echo $user->data("username");
 
-    $cypher = "MATCH (u:User) WHERE u.username = '".$user->data("username")."' ".
-              "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
-              "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:Instagram) ".
-              "MATCH (s)-[:POSTED]->(p) ".
-              "RETURN p";
+    // $business = $user->business();
 
-    $posts = $db->query( $cypher );
+    echo gettype($business);
 
-    $posts = $posts["p"];
+    // $posts = $business->getPosts();
+
+    // $db = neoDB::getInstance();
+
+    // $cypher = "MATCH (u:User) WHERE u.username = '".$user->data("username")."' ".
+    //           "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
+    //           "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:Instagram) ".
+    //           "MATCH (s)-[:POSTED]->(p) ".
+    //           "RETURN p";
+
+    // $posts = $db->query( $cypher );
+
+    // $posts = $posts["p"];
 
 	?>
 
@@ -55,7 +63,7 @@
   	<!-- print_r -->
   	<pre><?php
   	
-  	print_r($posts);
+  	// print_r($posts);
 
 
   	?></pre>

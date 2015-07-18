@@ -52,13 +52,15 @@
     // STEP 3: handle GET/POST params
     //-------------------------------
 
-    if(isset($_POST)){
+    if(isset($_POST["network"])){
 
         // retrieve the data for the given network
 
         $user = new User();
     
         $business = $user->business();
+
+        $business = $business[0];
 
         $profile = $business->profile();
 
@@ -90,8 +92,8 @@
             "       <span class='username'>".$post["username"]."</span>".
             "       <span class='text'>".$post["text"]."</span>".
             "   </div>".
-            "   <div class='likes'>".$post["likes"]."</div>"
-            "   <div class='post-link'><a href='".$post["link"]."'><span class='icon_".$_POST["network"]."'></span></a></div>"
+            "   <div class='likes'>".$post["likes"]."</div>".
+            "   <div class='post-link'><a href='".$post["link"]."'><span class='icon_".$_POST["network"]."'></span></a></div>".
             "</div>";
         }
 
@@ -236,8 +238,30 @@
 	            	</section><!-- /other settings -->
 
 	            	<!-- feed -->
-	            	<section class="col-sm-12 col-md-6" id="social-feed">
-	            		
+	            	<section class="col-sm-12 col-md-6" id="social-feed">	
+
+                        <h3>Edit Posts</h3>
+
+                        <h5>Remove unwanted posts from your Routesider feed.</h5>
+
+                        <?php 
+
+                        $posts = $business->getPosts();
+
+                        for($i = 0; $i < count($posts["p"]); $i++){ ?>
+
+                        <div class="thumbnail social-media-post">
+                            <img src='<?= $posts["p"][$i]["img"]; ?>' alt="social media post">
+                            <div class="caption">
+                                <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar' alt='business avatar/logo'>
+                                <p><span class="username"><?= $posts["s"][$i]["username"]; ?></span><?= $posts["p"][$i]["text"]; ?></p>
+                            </div>
+                            <div class="likes"><span class="glyphicon glyphicon-heart"></span><?= $posts["p"][$i]["likes"]; ?></div>
+                            <div class="social-post-link"><a href='<?= $posts["p"][$i]["link"]; ?>'><span class="icon-instagram"></span></a></div>
+                        </div>
+
+                        <?php } ?>
+
 	            	</section><!-- /feed -->
 			
 		    	</div><!-- /row -->
