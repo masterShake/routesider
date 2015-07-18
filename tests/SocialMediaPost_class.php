@@ -35,9 +35,11 @@
 
     $user = new User();
     
-    echo $user->data("username");
+    // echo $user->data("username");
 
-    // $business = $user->business();
+    $business = $user->business();
+
+    $business = $business[0];
 
     echo gettype($business);
 

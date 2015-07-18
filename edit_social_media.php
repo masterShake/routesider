@@ -253,8 +253,21 @@
                         <div class="thumbnail social-media-post">
                             <img src='<?= $posts["p"][$i]["img"]; ?>' alt="social media post">
                             <div class="caption">
-                                <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar' alt='business avatar/logo'>
-                                <p><span class="username"><?= $posts["s"][$i]["username"]; ?></span><?= $posts["p"][$i]["text"]; ?></p>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <a href='https://instagram.com/<?= $posts["s"][$i]["username"]; ?>'>
+                                                    <span>&#64;<?= $posts["s"][$i]["username"]; ?></span>
+                                                </a>
+                                                <?= isset($posts["p"][$i]["text"]) ? $posts["p"][$i]["text"] : ""; ?>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="likes"><span class="glyphicon glyphicon-heart"></span><?= $posts["p"][$i]["likes"]; ?></div>
                             <div class="social-post-link"><a href='<?= $posts["p"][$i]["link"]; ?>'><span class="icon-instagram"></span></a></div>

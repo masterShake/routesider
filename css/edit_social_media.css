@@ -111,6 +111,22 @@
    		feed
 ----------------------*/
 
+.social-media-post{
+	padding: 0px;
+}
+.caption img.avatar{
+	height: 30px;
+	width: 30px;
+}
+.caption table{
+	vertical-align: top;
+}
+.caption td{
+	vertical-align: baseline;
+}
+.caption td:nth-child(2){
+	padding-left: 10px;
+}
 
 
 

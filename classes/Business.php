@@ -62,7 +62,7 @@ class Business{
 	                  	$cypher .= "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s) ";
 	                  
 	        $cypher .= "MATCH (s)-[:POSTED]->(p) ".
-	                   "RETURN s, p ORDER BY p.created_time";
+	                   "RETURN s, p ORDER BY p.created_time DESC";
 
 	        $results = $db->query( $cypher );
 
