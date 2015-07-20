@@ -251,6 +251,7 @@
                         foreach($posts as $post){ ?>
 
                         <div class="thumbnail social-media-post">
+                            <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post"></div>
                             <img src='<?= $post["img"]; ?>' alt="social media post">
                             <div class="caption">
                                 <table>
@@ -284,6 +285,25 @@
 
             <!-- footer -->
             <?= include "components/footer.php"; ?>
+
+            <!-- confirmation modal -->
+            <div class="modal" id="confirmation-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Remove Post</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure that you'd like to remove this post for your Routesider feed?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-danger">Yes, remove post</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
         </div><!-- end page content -->
 
