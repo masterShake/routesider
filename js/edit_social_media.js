@@ -246,6 +246,9 @@ var ESM, esmApp;
 		// temp variable to hold all the social media posts
 		this.posts = document.getElementsByClassName("social-media-post");
 
+		// create a modal object
+		this.modal = new Modal();
+
 		/* initialize */
 
 		// add instagram account event listener
@@ -258,23 +261,10 @@ var ESM, esmApp;
 			
 			// attach event listener to the delete button
 			this.posts[i].children[0]
-			 .addEventListener("click", this.launchModal, false);
+			 .addEventListener("click", this.modal.launchModal, false);
 		}
 		this.posts = null;
 		delete this.posts;
-
-		// add event listeners to the modal buttons
-		document.getElementById("confirmation-modal")
-				.getElementsByTagName("button")[0]
-					.addEventListener("click", this.hideModal, false);
-
-		document.getElementById("confirmation-modal")
-				.getElementsByTagName("button")[1]
-					.addEventListener("click", this.hideModal, false);
-
-		document.getElementById("confirmation-modal")
-				.getElementsByTagName("button")[2]
-					.addEventListener("click", this.hideModal, false);
 	}
 
 	/* METHODS */
@@ -321,39 +311,6 @@ var ESM, esmApp;
 	}
 
 	//-----------------------------------------------
-	// - display the modal
-	SocialMediaMod.prototype.launchModal = function(){ console.log("launch modal called");
-		// display the modal elem
-		document.getElementById("confirmation-modal").style.display = "block";
-		setTimeout( esmApp.socialMod.animateModal, 10 );
-	}
-	//-----------------------------------------------
-	// - timeout function
-	// - animate the modal after displaying
-	SocialMediaMod.prototype.animateModal = function(){
-		document.getElementById("confirmation-modal").style.opacity = "1";
-		document.getElementById("confirmation-modal").children[0].style.top = "100px";
-	}
-
-
-	//-----------------------------------------------
-	// - hide the modal
-	// - trigger the callback if required
-	SocialMediaMod.prototype.hideModal = function(){
-		// hide the modal
-		document.getElementById("confirmation-modal").style.opacity = "0";
-		document.getElementById("confirmation-modal").children[0].style.top = "-200px";
-		setTimeout( esmApp.socialMod.hideModalElem, 400);
-
-	}
-	//-----------------------------------------------
-	// - timeout function
-	// - hide the modal after animating
-	SocialMediaMod.prototype.hideModalElem = function(){
-		document.getElementById("confirmation-modal").style.display = "none";
-	}
-
-	//-----------------------------------------------
 	// - remove the selected social media post elem 
 	//   from the feed
 	// - ajax call to remove the post from the db, 
@@ -374,6 +331,91 @@ var ESM, esmApp;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//					 Modal
+	//				   ---------
+	//
+	// - launch modal
+	//
+	// - handle callback
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var Modal = function(){
+
+		/* properties */
+
+		/* init */
+
+		// add event listeners to the modal buttons
+		document.getElementById("confirmation-modal")
+				.getElementsByTagName("button")[0]
+					.addEventListener("click", this.hideModal, false);
+
+		document.getElementById("confirmation-modal")
+				.getElementsByTagName("button")[1]
+					.addEventListener("click", this.hideModal, false);
+
+		document.getElementById("confirmation-modal")
+				.getElementsByTagName("button")[2]
+					.addEventListener("click", this.hideModal, false);
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - display the modal
+	Modal.prototype.launchModal = function(){ console.log("launch modal called");
+		// display the modal elem
+		document.getElementById("confirmation-modal").style.display = "block";
+		setTimeout( esmApp.socialMod.modal.animateModal, 10 );
+	}
+	//-----------------------------------------------
+	// - timeout function
+	// - animate the modal after displaying
+	Modal.prototype.animateModal = function(){
+		document.getElementById("confirmation-modal").style.opacity = "1";
+		document.getElementById("confirmation-modal").children[0].style.top = "100px";
+	}
+
+	//-----------------------------------------------
+	// - hide the modal
+	// - trigger the callback if required
+	Modal.prototype.hideModal = function(){
+		// hide the modal
+		document.getElementById("confirmation-modal").style.opacity = "0";
+		document.getElementById("confirmation-modal").children[0].style.top = "-200px";
+		setTimeout( esmApp.socialMod.modal.hideModalElem, 400);
+
+	}
+	//-----------------------------------------------
+	// - timeout function
+	// - hide the modal after animating
+	Modal.prototype.hideModalElem = function(){
+		document.getElementById("confirmation-modal").style.display = "none";
+	}
 
 
 
