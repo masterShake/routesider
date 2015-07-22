@@ -12,8 +12,15 @@
 		</div>
 	</div>
 	<!-- toggle instructions table -->
-	<div style="text-align:right;padding-bottom:5px;">
-		<a href="#" class="toggle-formatting-table" data-toggled="0">markdown formatting&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+	<div class="toggle-links">
+		<a href="#" data-toggled="0" style="float:right;">markdown formatting&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+		<a href="#" data-toggled="0">preview&nbsp;<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+	</div>
+	<!-- markdown preview -->
+	<div class="well" style="display:none;">
+		<div style="text-align:center;font-size:16px;color:#5cb85c;">
+			<span class="glyphicon glyphicon-hourglass loading"></span>
+		</div>
 	</div>
 	<!-- formatting instructions table -->
 	<table>

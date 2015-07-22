@@ -88,8 +88,12 @@ var FT = function( inputElem, formattingElem, index ){
 	// mouseup event for highlighted text
 	this.inputElem.addEventListener("select", this.getHigh, false);
 
+	// toggle preview
+	this.formattingElem.getElementsByClassName("toggle-links")[0].children[1]
+		.addEventListener("click", this.togglePreview, false);
+
 	// toggle the formatting table
-	this.formattingElem.getElementsByClassName("toggle-formatting-table")[0]
+	this.formattingElem.getElementsByClassName("toggle-links")[0].children[0]
 		.addEventListener("click", this.toggleTable, false);
 
 	// event listeners to the buttons
@@ -154,6 +158,50 @@ FT.prototype.inputBlur = function(event){
 }
 
 //-----------------------------------------------
+// - event listener
+// - toggle the preview
+FT.prototype.togglePreview = function(event){
+
+	// prevent the link from linking
+	event.preventDefault();
+
+	// if the preview is hidden
+	if(this.dataset.toggled === "0"){
+
+		// set the attribute
+		this.setAttribute("data-toggled", "1");
+		
+		// change the icon
+		this.children[0].className = "glyphicon glyphicon-triangle-top";
+
+		// reveal the preview elem
+		this.parentElement.parentElement.children[2].style.display = "block";
+
+		// make ajax call
+		// rsApp.ajax({
+		// 				method : "POST",
+		// 				url : document.URL,
+		// 				params : "text="+ftApp.activeToolbar.inputElem.value,
+		// 				callback : ftApp.setPreview
+		// 		  });
+	
+	// if the preview is displayed
+	}else{
+		this.setAttribute("data-toggled", "0");
+		this.children[0].className = "glyphicon glyphicon-triangle-bottom";
+		this.parentElement.parentElement.children[2].style.display = "none";
+	}
+}
+//-----------------------------------------------
+// - ajax callback
+// - display the preview markdown text
+FT.prototype.setPreview = function(response){
+
+	console.log(response);
+
+}
+
+//-----------------------------------------------
 // - event listener to toggle the formatting
 //   instructions table.
 FT.prototype.toggleTable = function(event){
@@ -171,11 +219,11 @@ FT.prototype.toggleTable = function(event){
 		this.children[0].className = "glyphicon glyphicon-triangle-top";
 
 		// reveal the table
-		this.parentElement.parentElement.children[2].style.display = "inline-table";
+		this.parentElement.parentElement.children[3].style.display = "inline-table";
 	}else{
 		this.setAttribute("data-toggled", "0");
 		this.children[0].className = "glyphicon glyphicon-triangle-bottom";
-		this.parentElement.parentElement.children[2].style.display = "none";
+		this.parentElement.parentElement.children[3].style.display = "none";
 	}
 
 }

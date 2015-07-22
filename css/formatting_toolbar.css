@@ -14,11 +14,23 @@
 	float: right;
 }
 /* toggle formatting table */
-.toggle-formatting-table{
+.toggle-links{
+	padding-bottom: 5px;
 	font-size: 12px;
 }
-.toggle-formatting-table span.glyphicon{
+.toggle-links span.glyphicon{
 	font-size: 10px;
+}
+/* preview */
+.formatting .well{
+	display: none;
+	margin-bottom: 0px;
+}
+.formatting>div:first-child,
+.formatting .toggle-links,
+.formatting .well,
+.formatting table{
+	margin-top: 6px;
 }
 /* instructions table */
 .formatting table{
