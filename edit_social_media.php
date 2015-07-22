@@ -52,7 +52,20 @@
     // STEP 3: handle GET/POST params
     //-------------------------------
 
-    if(isset($_POST["network"])){
+    if(isset($_POST["post_id"])){
+
+        $db = neoDB::getInstance();
+
+        $cypher = "MATCH (n:" . ucfirst($_POST["network"]) . ")-[r:POSTED]->(p:Post) " .
+                  "WHERE p.id = '" . $_POST["post_id"] . "' " .
+                  "OPTIONAL MATCH (p)<-[q:LIKES]-(u)" .
+                  "DELETE r, p, q, u";
+
+        $db->query( $cypher );
+
+        exit("delte successful");
+
+    } else if(isset($_POST["network"])){
 
         // retrieve the data for the given network
 
@@ -251,7 +264,7 @@
                         foreach($posts as $post){ ?>
 
                         <div class="thumbnail social-media-post">
-                            <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post"></div>
+                            <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post["network"]; ?>' data-id='<?= $post["id"]; ?>'></div>
                             <img src='<?= $post["img"]; ?>' alt="social media post">
                             <div class="caption">
                                 <table>
@@ -303,8 +316,8 @@
                         <p>Are you sure that you'd like to remove this post for your Routesider feed?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-danger">Yes, remove post</button>
+                        <button type="button" class="btn btn-default" style="float:left;">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-danger" data-confirm="1">Yes, remove post</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

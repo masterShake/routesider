@@ -315,17 +315,22 @@ var ESM, esmApp;
 	//   from the feed
 	// - ajax call to remove the post from the db, 
 	//   no callback
-	SocialMediaMod.prototype.deletePost = function( netowrk, postId ){
+	SocialMediaMod.prototype.deletePost = function(){ console.log("delete has been called.");
 
 		rsApp.ajax({
 					method : "POST",
 					url : document.URL,
-					params : "network="+network+"&post_id="+postId,
-					callback : false
+					params : "network="+this.modal.network+"&post_id="+this.modal.id,
+					callback : this.ajaxCallback
 				  });
 	}
 
-
+	//-----------------------------------------------
+	// - ajax callback for debuggin purposes only
+	SocialMediaMod.prototype.ajaxCallback = function(response){
+		console.log("here is the response:\n");
+		console.log(response);
+	}
 
 
 
@@ -366,6 +371,10 @@ var ESM, esmApp;
 
 		/* properties */
 
+		// keep track of which post is to be deleted
+		this.network = null;
+		this.id = null;
+
 		/* init */
 
 		// add event listeners to the modal buttons
@@ -387,10 +396,13 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - display the modal
-	Modal.prototype.launchModal = function(){ console.log("launch modal called");
+	Modal.prototype.launchModal = function(){
+		// set the modal properties
+		esmApp.socialMod.modal.network = this.dataset.network;
+		esmApp.socialMod.modal.id = this.dataset.id;
 		// display the modal elem
 		document.getElementById("confirmation-modal").style.display = "block";
-		setTimeout( esmApp.socialMod.modal.animateModal, 10 );
+		setTimeout( esmApp.socialMod.modal.animateModal, 1 );
 	}
 	//-----------------------------------------------
 	// - timeout function
@@ -408,6 +420,10 @@ var ESM, esmApp;
 		document.getElementById("confirmation-modal").style.opacity = "0";
 		document.getElementById("confirmation-modal").children[0].style.top = "-200px";
 		setTimeout( esmApp.socialMod.modal.hideModalElem, 400);
+
+		// if user confirmed delete
+		if(this.hasAttribute("data-confirm"))
+			esmApp.socialMod.deletePost();
 
 	}
 	//-----------------------------------------------
