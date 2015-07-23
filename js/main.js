@@ -52,22 +52,28 @@ var RS, rsApp;
 
 	/* methods */
 
-	//--------------------------------------
-	// - ajax function designed to avoid
-	//   memory leaks
-	RS.prototype.ajax = function(meth, url, params, callback, callbackParams){
+	//-----------------------------------------------
+	// - ajax function designed to avoid memory leaks
+	// - @ajaxOpts -> object with 4 params:
+	//		+ ajaxOpts.method (GET, POST, etc.)
+	//		+ ajaxOpts.url
+	//		+ ajaxOpts.params
+	//		+ ajaxOpts.callback
+	//	
+	RS.prototype.ajax = function( ajaxOpts ){ console.log(ajaxOpts);
 	    var i = this.indexer++;
 	    this.tempObjs[i] = new XMLHttpRequest();
-	    this.tempObjs[i].open(meth, url, true);
+	    this.tempObjs[i].open(ajaxOpts.method, ajaxOpts.url, true);
 	    this.tempObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	    this.tempObjs[i].onreadystatechange = function() {
 	        if(rsApp.tempObjs[i].readyState == 4 && rsApp.tempObjs[i].status == 200) {
-	            if(callback)
-	                callback(rsApp.tempObjs[i].responseText, callbackParams);
+	            if(ajaxOpts.callback)
+	                ajaxOpts.callback(rsApp.tempObjs[i].responseText);
+	            rsApp.tempObjs[i] = null;
 	            delete rsApp.tempObjs[i];
 	        }
 	    }
-	    this.tempObjs[i].send(params);
+	    this.tempObjs[i].send(ajaxOpts.params);
 	};
 	
 	//-----------------------------------------------

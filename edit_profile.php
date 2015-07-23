@@ -75,6 +75,13 @@
     // STEP 3: handle GET/POST params
     //-------------------------------
 
+    if( isset($_POST["toolbar"]) ){
+
+        echo Markdown::html($_POST["text"]);
+
+        exit();
+    }
+
     if(Input::exists()){
 
         // check token

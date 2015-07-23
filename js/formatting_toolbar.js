@@ -178,12 +178,13 @@ FT.prototype.togglePreview = function(event){
 		this.parentElement.parentElement.children[2].style.display = "block";
 
 		// make ajax call
-		// rsApp.ajax({
-		// 				method : "POST",
-		// 				url : document.URL,
-		// 				params : "text="+ftApp.activeToolbar.inputElem.value,
-		// 				callback : ftApp.setPreview
-		// 		  });
+		rsApp.ajax({
+						method : "POST",
+						url : document.URL,
+						params : "text="+ftApp.activeToolbar.inputElem.value+
+								 "&toolbar="+((ftApp.activeToolbar.inputElem.tagName == "TEXTAREA") ? "full" : "half"),
+						callback : ftApp.activeToolbar.setPreview
+				  });
 	
 	// if the preview is displayed
 	}else{
@@ -196,9 +197,8 @@ FT.prototype.togglePreview = function(event){
 // - ajax callback
 // - display the preview markdown text
 FT.prototype.setPreview = function(response){
-
-	console.log(response);
-
+	// set the inner html
+	ftApp.activeToolbar.formattingElem.children[2].innerHTML = response;
 }
 
 //-----------------------------------------------
