@@ -419,14 +419,13 @@ var EditProfile, epApp;
 			document.getElementById("save-btn2").innerHTML = "<span class='glyphicon glyphicon-hourglass'></span>";
 
 			// perform the ajax call
-			rsApp.ajax( 
-						"POST",
-						document.URL,
-						"vals=" + JSON.stringify( epApp.newVals ) + 
+			rsApp.ajax({ 
+						method : "POST",
+						url : document.URL,
+						params : "vals=" + JSON.stringify( epApp.newVals ) + 
 						"&token=" + document.getElementById("token").value,
-						epApp.saveChangesCallback,
-						false
-					  );
+						callback : epApp.saveChangesCallback
+					  });
 		}
 	}
 	// save changes ajax callback
