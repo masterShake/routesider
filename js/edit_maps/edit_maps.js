@@ -93,17 +93,15 @@ RS.prototype.setUserLocation = function(){
 //   promos.
 RS.prototype.locationSuccess = function(position){
 
+	// the the longitude and latitude properties
+	rsApp.userLatitude = position.coords.latitude;
+	rsApp.userLongitude = position.coords.longitude;
+
+	// generate the google map
+	rsApp.initGoogleMap();
+
+	// initialize the map app
 	mapApp = new MA();
-
-	// let mapApp handle the rest
-
-	// // the the longitude and latitude properties
-	// rsApp.userLatitude = position.coords.latitude;
-	// rsApp.userLongitude = position.coords.longitude;
-
-	// // generate the google map
-	// rsApp.initGoogleMap();
-
 }
 
 //-------------------------------------
@@ -118,19 +116,11 @@ RS.prototype.locationError = function(){
 // 				 initialize app
 //			   ------------------
 //
-// - init function called by google maps api once
-//   all of the google maps js is loaded.
-//
 //-----------------------------------------------
 
-init =  function(){
-
-	// initialize the RS object
-	window.rsApp = new RS();
-
-	// set the user location
-	rsApp.setUserLocation();
-}
+// initialize the RS object
+var rsApp = new RS();
+	
 
 
 

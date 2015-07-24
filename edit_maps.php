@@ -398,7 +398,7 @@ $profile = $business->profile();
         <input type="hidden" id="business-name" name="business-name" value='<?= $business->data("name"); ?>' >
 
         <!-- javascripts -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=init"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=rsApp.setUserLocation"></script>
         <script src="js/main.js"></script>
         <script src="js/edit_maps/edit_maps.js"></script>
         <script src="js/edit_maps/PinDropper.js"></script>
