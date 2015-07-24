@@ -32,7 +32,10 @@ $user;
 
 if(Input::exists()){
 
-    include "scripts/update_maps.php";
+    // edit maps
+    if( Input::get("pins") )
+
+        include "scripts/update_maps.php";
 
     exit();
 }
@@ -78,6 +81,9 @@ $profile = $business->profile();
 
         <!-- business avatar -->
         <input type="hidden" value='<?= $profile->data("avatar"); ?>' id="business-avatar"> 
+
+        <!-- maps json -->
+        <input type="hidden" value='<?= $business->getMapsJson(); ?>' id="maps-json"> 
 
         <!-- page content -->
         <div id="page-content">
@@ -394,7 +400,11 @@ $profile = $business->profile();
         <!-- javascripts -->
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=init"></script>
         <script src="js/main.js"></script>
-        <script src="js/<?= $page; ?>.js"></script>
+        <script src="js/edit_maps/edit_maps.js"></script>
+        <script src="js/edit_maps/PinDropper.js"></script>
+        <script src="js/edit_maps/PolyDrawer.js"></script>
+        <script src="js/edit_maps/PinEditor.js"></script>
+        <script src="js/edit_maps/PolyEditor.js"></script>
 
     </body>
 </html>
