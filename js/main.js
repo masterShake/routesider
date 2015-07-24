@@ -60,7 +60,7 @@ var RS, rsApp;
 	//		+ ajaxOpts.params
 	//		+ ajaxOpts.callback
 	//	
-	RS.prototype.ajax = function( ajaxOpts ){ console.log(ajaxOpts);
+	RS.prototype.ajax = function( ajaxOpts ){
 	    var i = this.indexer++;
 	    this.tempObjs[i] = new XMLHttpRequest();
 	    this.tempObjs[i].open(ajaxOpts.method, ajaxOpts.url, true);

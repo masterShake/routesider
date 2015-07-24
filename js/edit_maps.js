@@ -130,13 +130,12 @@ RS.prototype.locationSuccess = function(position){
 	rsApp.initGoogleMap();
 
 	// ajax call with the coordinates
-	rsApp.ajax(
-				"POST",
-				"/routesider/index.php", // change this in production
-				"location_query=1&latitude="+rsApp.userLatitude+"&longitude="+rsApp.userLongitude,
-				rsApp.locationCallback,
-				false
-	);
+	rsApp.ajax({
+				method : "POST",
+				url : "/routesider/index.php", // change this in production
+				params : "location_query=1&latitude="+rsApp.userLatitude+"&longitude="+rsApp.userLongitude,
+				callback : rsApp.locationCallback
+			  });
 }
 
 //-------------------------------------
@@ -146,13 +145,12 @@ RS.prototype.locationSuccess = function(position){
 RS.prototype.locationError = function(){
 
 	// ajax call for default map
-	rsApp.ajax(
-				"POST",
-				"index.php", // change this in production
-				"/routesider/location_query=1&latitude=0&longitude=0",
-				rsApp.locationCallback,
-				false
-	);
+	rsApp.ajax({
+				method : "POST",
+				url : "index.php", // change this in production
+				params : "/routesider/location_query=1&latitude=0&longitude=0",
+				callback : rsApp.locationCallback,
+			  });
 }
 
 
@@ -338,14 +336,13 @@ var MA, init;
 									});
 
 		// ajax call
-		rsApp.ajax(
-					"POST",
-					document.URL,
-					"pins=" + JSON.stringify( mapApp.jsonPins ) +
+		rsApp.ajax({
+					method : "POST",
+					url : document.URL,
+					params : "pins=" + JSON.stringify( mapApp.jsonPins ) +
 					"&polygons=" + JSON.stringify( mapApp.jsonPolygons ),
-					mapApp.ajaxCallback,
-					false
-				  );
+					callback : mapApp.ajaxCallback
+				  });
 	}
 
 	//-----------------------------------------------
@@ -844,7 +841,7 @@ var MA, init;
 	    document.getElementById("redo")
 	    	.addEventListener("click", this.redoDrawPolyline, false);
 
-	    // complete the polygon event listener
+	    // complete the polygon button event listener
 	    document.getElementById("complete-polygon")
 	    	.addEventListener("click", this.completePolygon, false);
 	}
@@ -912,7 +909,7 @@ var MA, init;
 		this.polyCoordsRedo = [];
 
 		// if the polyline property is set to null
-		if( this.polyline == null ){
+		if( this.polyline === null ){
 			// create it
 			this.polyline = new google.maps.Polyline({ editable : true });
 			// set the map
@@ -921,6 +918,9 @@ var MA, init;
 
 		// apply event listener when location is selected with click
 		google.maps.event.addListener( rsApp.map, 'click', mapApp.polyDrawer.drawPolyline );
+	
+		// add event when user clicks polyline to complete the polygon
+		google.maps.event.addListener( this.polyline, "click", mapApp.polyDrawer.polylineComplete );
 	}
 
 	//-----------------------------------------------	
@@ -1024,6 +1024,18 @@ var MA, init;
 		else
 			// grey the complete-polygon button out
 			document.getElementById("complete-polygon").className = "btn";
+	}
+
+	//-----------------------------------------------
+	// - event listener for polyline
+	// - if user clicks the last node, call the 
+	//   complete polygon method
+	PolyDrawer.prototype.polylineComplete = function(e){
+		// if this is the last node
+		if( e.latLng.A === mapApp.polyDrawer.polyCoords[0].A && 
+			e.latLng.F === mapApp.polyDrawer.polyCoords[0].F )
+			// complete the polygon
+			mapApp.polyDrawer.completePolygon();
 	}
 
 	//-----------------------------------------------	

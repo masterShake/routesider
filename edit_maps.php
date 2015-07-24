@@ -155,7 +155,7 @@ $profile = $business->profile();
                     </div><!-- /search user maps -->
 
                     <!-- drop new pin -->
-                    <div id="drop-new-pin-toolbar" class="formatting-toolbar">
+                    <div class="formatting-toolbar" id="drop-new-pin-toolbar">
                         <button type="button" class="close" aria-label="Close new pin toolbar"><span aria-hidden="true">&times;</span></button>
                         <div class="toolbar-instructions">
                             <span>Search location or <span class="hidden-md hidden-lg">tap</span><span class="hidden-xs hidden-sm">click</span> to drop new pin</span>
@@ -163,8 +163,26 @@ $profile = $business->profile();
                         <h4><span class="glyphicon glyphicon-map-marker"></span> New Pin</h4>
                     </div><!-- /drop-new-pin-toolbar -->
 
+                    <!-- edit pin toolbar -->
+                    <div class="formatting-toolbar" id="edit-pin-toolbar">
+                         <!-- toolbar header -->
+                        <button type="button" class="close" aria-label="Close new polygon toolbar"><span aria-hidden="true">&times;</span></button>
+                        <div class="toolbar-instructions" style="text-align: left; max-width: 60%;">
+                            <ul>
+                                <li><span class="hidden-md hidden-lg">Tap</span><span class="hidden-xs hidden-sm">Click</span> to add points.</li>
+                                <li>Press the "complete" button to connect all the dots.</li>
+                            </ul>
+                        </div>
+                        <h4>
+                            <span class="glyphicon glyphicon-map-marker">
+                            </span><span class="glyphicon glyphicon-pencil"></span>
+                            Edit Pin
+                        </h4>
+                        <!-- toolbar body -->
+                    </div>
+
                     <!-- draw new polygon -->
-                    <div id="draw-new-polygon-toolbar" class="formatting-toolbar">
+                    <div class="formatting-toolbar" id="draw-new-polygon-toolbar">
                         <!-- toolbar header -->
                         <button type="button" class="close" aria-label="Close new polygon toolbar"><span aria-hidden="true">&times;</span></button>
                         <div class="toolbar-instructions" style="text-align: left; max-width: 60%;">
@@ -189,7 +207,7 @@ $profile = $business->profile();
                     </div><!-- /draw-new-polygon-toolbar -->
 
                     <!-- edit polygon toolbar -->
-                    <div id="edit-polygon-toolbar" class="formatting-toolbar">
+                    <div class="formatting-toolbar" id="edit-polygon-toolbar">
                         <!-- toolbar header -->
                         <button type="button" class="close" aria-label="Close edit polygon toolbar"><span aria-hidden="true">&times;</span></button>
                         <div class="toolbar-instructions" style="text-align: left; max-width: 60%;">
