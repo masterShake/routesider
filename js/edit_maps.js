@@ -309,6 +309,10 @@ var MA, init;
 		// inner HTML of save button rotating hour glass 
 		this.innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#FFF"></span>';
 
+		//-----------------------------------------------
+		// - this big chunk of code must remain inside
+		//   this function because of race conditions.
+
 		// reset the arrays
 		mapApp.jsonPins = [];
 		mapApp.jsonPolygons = [];
@@ -322,7 +326,7 @@ var MA, init;
 									lng : mapApp.pins[i].position.F,
 									description : ""
 								});
-		
+			
 		// loop through all the polygons
 		for(var i = 0; i < mapApp.polygons.length; i++)
 

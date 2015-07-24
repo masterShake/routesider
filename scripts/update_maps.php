@@ -15,14 +15,6 @@ $pins = json_decode( $_POST["pins"] );
 
 $polygons = json_decode( $_POST["polygons"] );
 
-// foreach ($pins as $pin) {
-    
-    // validate coords
-
-    // clean description
-
-// }
-
 foreach ($polygons as $polygon) {
     
     // validate formatting of coords
@@ -34,7 +26,7 @@ foreach ($polygons as $polygon) {
 		$errors[] = "invalid fill hexidecimal value";
 
     // validate fill opacity
-    if( 0 <= (int)$polygon->fill_opacity && (int)$polygon->fill_opacity <= 1 )
+    if( 0 > (double)$polygon->fill_opacity || (double)$polygon->fill_opacity > 1 )
 
     	$errors[] = "invalid opacity numeric value";
 
@@ -44,7 +36,7 @@ foreach ($polygons as $polygon) {
 		$errors[] = "invalid fill hexidecimal value";
 
     // validate stroke opacity
-    if( 0 <= (int)$polygon->stroke_opacity && (int)$polygon->stroke_opacity <= 1 )
+    if( 0 > (double)$polygon->stroke_opacity || (double)$polygon->stroke_opacity > 1 )
 
     	$errors[] = "invalid opacity numeric value";
 
@@ -52,9 +44,13 @@ foreach ($polygons as $polygon) {
 
 }
 
-// if there are no formatting errors
+// if are formatting errors
 if( count($errors) ){
 
+    echo json_encode($errors);
+
+// update database
+}else{
     // delete all previous pins and polygons
     $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
     		  "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
@@ -63,32 +59,35 @@ if( count($errors) ){
     		  "DELETE q, n " .
     		  "DELETE r, y ";
 
-    // loop through each of the polygons
-    foreach( $polygons as $polygon )
+    // loop through all the pins
+    foreach( $pins as $pin ){
 
-    	// concat the query
-    	$cypher .= "CREATE (b)-[:HAS_POLYGON]->(p:Polygon { " .
-    			   "coords : '" . $polygon->coords . "', " .
-    			   "stroke_color : '" . $polygon->stroke_color . "', " .
-    			   "stroke_opacity : " . floatval($polygon->stroke_opacity) . ", " .
-    			   "fill_color : '" . $polygon->fill_color . "', " .
-    			   "fill_opacity : " . floatval($polygon->fill_opacity) . ", " .
-    			   "description : '" . $polygon->description . "'}) ";
+        $cypher .= "CREATE (b)-[:HAS_PIN]->(:Pin { " .
+                       "lat : " . (double)$pin->lat . ", " .
+                       "lng : " . (double)$pin->lng . ", " .
+                       "description : '" . $pin->description . 
+                   "'}) ";
+    }
+
+    // loop through each of the polygons
+    foreach( $polygons as $polygon ){
+
+    	$cypher .= "CREATE (b)-[:HAS_POLYGON]->(:Polygon { " .
+        			   "coords : '" . $polygon->coords . "', " .
+        			   "stroke_color : '" . $polygon->stroke_color . "', " .
+        			   "stroke_opacity : " . floatval($polygon->stroke_opacity) . ", " .
+        			   "fill_color : '" . $polygon->fill_color . "', " .
+        			   "fill_opacity : " . floatval($polygon->fill_opacity) . ", " .
+        			   "description : '" . $polygon->description . 
+                   "'}) ";
+    }
 
     $db = neoDB::getInstance();
 
     $db->query( $cypher );
 
-    // create new pin and polygon nodes
-
     // return success
  	echo "update successful";
-
-// else return errors
-}else{
-
-	echo json_encode($errors);
-
 }
 
 
