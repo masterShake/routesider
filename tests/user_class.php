@@ -35,24 +35,7 @@
 
 		$business = $user->business()[0];
 
-    $maps = $business->getMaps();
-
-    $coords = $maps["poly"][0]["coords"];
-
-    // foreach($polygons as $polygon){
-
-    //     $polygon["coords"] = explode("),(", $polygon["coords"]);
-
-    // }
-
-    $coords = preg_replace("/\(/", "[", $coords);
-
-    $coords = preg_replace("/\)/", "]", $coords);
-
-    $coords = "[" . $coords . "]";
-
-    $coords = json_decode($coords);
-
+    
 	?>
 
 
@@ -60,8 +43,10 @@
 
   	<!-- print_r -->
   	<pre><?php
-  	
-        print_r($coords);
+
+        $maps = $business->getMaps();
+
+        print_r($maps);
 
   	?></pre>
 

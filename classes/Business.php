@@ -16,7 +16,8 @@ class Business{
 			$_user, 
 			$_profile,
 			$_social_media_posts = null,
-			$_mapsJson = null;
+			$_pins = null,
+			$_polygons = null;
 
 	// constructor
 	public function __construct( $user, $business, $profile ){
@@ -77,21 +78,49 @@ class Business{
 	public function getMaps(){
 
 		// if we havent already retrieved the maps
-		if( is_null($this->_mapsJson) ){
+		if( is_null($this->_pins) ){
 
 			$db = neoDB::getInstance();
 
+			// first get the pins
 			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
 	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
-	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pins) ".
+	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pins)-[:HAS_COORD]->(c) ".
+	                  "RETURN pins, c";
+
+	        $results = $db->query( $cypher );
+
+	        // init the empty array
+	        $this->_pins = array();;
+
+	        // loop through the pins
+	        for($i = 0; $i < count($results["pins"]); $i++)
+	        	// assemble the pins array
+	        	$this->pins[] = array(
+
+					"description" => $results["pins"][$i]["description"],
+					"lat" => $results["c"][$i]["lat"],
+					"lng" => $results["c"][$i]["lng"]
+	        	);
+
+	        // now get the polygons
+			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
+	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
 	                  "OPTIONAL MATCH (b)-[:HAS_POLYGON]->(polys) ".
-	                  "RETURN pins, polys";
+	                  "RETURN polys";
 
-	        $this->_mapsJson = $db->query( $cypher );
+	        $this->_polygons = $db->query( $cypher );
+	        
+	        // init empty array
+	        $this->_polygons = $this->_polygons["polys"];
 
-		}
+	        // loop through the polygons
+	        for($i = 0; $i < count($this->_polygons); $i++)
+	        	$this->_polygons[$i]["coords"] = json_decode($this->_polygons[$i]["coords"]);
 
-		return $this->_mapsJson;
+	    }
+		
+		return array( "pins" => $this->_pins, "polys" => $this->_polygons );
 	}
 }
 

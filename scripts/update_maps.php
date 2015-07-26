@@ -61,12 +61,29 @@ if( count($errors) ){
 // update database
 }else{
 
+    // loop through each of the pins
+    foreach( $pins as $pin ){
+        $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
+                   "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
+                    "CREATE (b)-[:HAS_PIN]->(p:Pins { " .
+                        "description : '" . $pin->description . "'" .
+                    "}) ".
+                    "CREATE (p)-[:HAS_COORD]->(c:Coordinate {" . 
+                        "lat : " . (double)$pin->lat . ", ".
+                        "lng : " . (double)$pin->lng . " " . 
+                    "})";
+
+        $db->query( $cypher );
+
+        echo "update successful";
+    }
+
     // loop through each of the polygons
     foreach( $polygons as $polygon ){
         $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
                    "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
     	            "CREATE (b)-[:HAS_POLYGON]->(p:Polygon { " .
-        			   // "coords : '" . $polygon->coords . "', " .
+        			   "coords : '" . json_encode($polygon->coords) . "', " .
         			   "stroke_color : '" . $polygon->stroke_color . "', " .
         			   "stroke_opacity : " . floatval($polygon->stroke_opacity) . ", " .
         			   "fill_color : '" . $polygon->fill_color . "', " .

@@ -188,11 +188,11 @@ var MA = function(){
 	this.polyEditor = new PolyEditor();
 
 	// set the pin and polygon objects
-	// this.setMap(
-	// 	JSON.parse(
-	// 		document.getElementById("maps-json").value
-	// 	)
-	// );
+	this.setMap(
+		JSON.parse(
+			document.getElementById("maps-json").value
+		)
+	);
 
     // set the business name for easy access
     this.businessName = document.getElementById("business-name").value;
@@ -215,33 +215,33 @@ var MA = function(){
 //--------------------------------------------------
 // - set the polygons and pins on the map
 // - @ pps -> pins and polys json object
-MA.prototype.setMap = function(pps){
+MA.prototype.setMap = function(pps){ console.log(pps);
 
 	// set the pins
-	if( pps.pins[0] ){
-		// loop through the pins
-		for(var i = 0; i < pps.pins.length; i++){
-			// put them on the map
-			new google.maps.Marker({ map : rsApp.map })
-		}	  
-	}
+	// if( pps.pins[0] ){
+	// 	// loop through the pins
+	// 	for(var i = 0; i < pps.pins.length; i++){
+	// 		// put them on the map
+	// 		new google.maps.Marker({ map : rsApp.map })
+	// 	}	  
+	// }
 
 	// set the polys
-	if( pps.polys[0] ){
-		// loop through the polys
-		for(var i = 0; i < pps.polys.length; i++){
-			// put them on the map
-			// new google.maps.Polygon({
-			// 					    paths: pps.polys[i].coords,
-			// 					    strokeColor: ,
-			// 					    strokeOpacity: ,
-			// 					    strokeWeight: ,
-			// 					    fillColor: ,
-			// 					    fillOpacity: ,
-			// 					    editable : true
-			// 					})
-		}
-	}
+	// if( pps.polys[0] ){
+	// 	// loop through the polys
+	// 	for(var i = 0; i < pps.polys.length; i++){
+	// 		// put them on the map
+	// 		new google.maps.Polygon({
+	// 							    paths: pps.polys[i].coords,
+	// 							    strokeColor: ,
+	// 							    strokeOpacity: ,
+	// 							    strokeWeight: ,
+	// 							    fillColor: ,
+	// 							    fillOpacity: ,
+	// 							    editable : true
+	// 							})
+	// 	}
+	// }
 
 	// fit map boudns to display all markers
 }
