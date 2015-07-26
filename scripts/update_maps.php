@@ -9,18 +9,25 @@
 //
 //-----------------------------------------------
 
+
+$db = neoDB::getInstance();
+
 $user = new User();
 
 $pins = json_decode( $_POST["pins"] );
 
 $polygons = json_decode( $_POST["polygons"] );
 
+$fresh = array();
+
 foreach ($polygons as $polygon) {
     
-    // format coords
-    $polygon->coords = preg_replace("/\(/", "[", $polygon->coords);
-    $polygon->coords = preg_replace("/\)/", "]", $polygon->coords);
+    // - format coords as google maps lat lng literals
+    $polygon->coords = preg_replace('/\(/', '{ "lat" : ', $polygon->coords);
+    $polygon->coords = preg_replace('/\)/', "}", $polygon->coords);
+    $polygon->coords = preg_replace('/, /', ', "lng" : ', $polygon->coords);
     $polygon->coords = "[" . $polygon->coords . "]";
+    $polygon->coords = json_decode($polygon->coords); //print_r($polygon->coords);
 
     // validate fill hex
 	if( !preg_match("/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/", $polygon->fill_color) )
@@ -53,43 +60,33 @@ if( count($errors) ){
 
 // update database
 }else{
-    // delete all previous pins and polygons
-    $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
-    		  "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
-    		  "OPTIONAL MATCH (b)-[q:HAS_PIN]->(n) " .
-    		  "OPTIONAL MATCH (b)-[r:HAS_POLYGON]->(y) " .
-    		  "DELETE q, n " .
-    		  "DELETE r, y ";
-
-    // loop through all the pins
-    foreach( $pins as $pin ){
-
-        $cypher .= "CREATE (b)-[:HAS_PIN]->(:Pin { " .
-                       "lat : " . (double)$pin->lat . ", " .
-                       "lng : " . (double)$pin->lng . ", " .
-                       "description : '" . $pin->description . 
-                   "'}) ";
-    }
 
     // loop through each of the polygons
     foreach( $polygons as $polygon ){
-
-    	$cypher .= "CREATE (b)-[:HAS_POLYGON]->(:Polygon { " .
-        			   "coords : '" . $polygon->coords . "', " .
+        $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
+                   "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
+    	            "CREATE (b)-[:HAS_POLYGON]->(p:Polygon { " .
+        			   // "coords : '" . $polygon->coords . "', " .
         			   "stroke_color : '" . $polygon->stroke_color . "', " .
         			   "stroke_opacity : " . floatval($polygon->stroke_opacity) . ", " .
         			   "fill_color : '" . $polygon->fill_color . "', " .
         			   "fill_opacity : " . floatval($polygon->fill_opacity) . ", " .
         			   "description : '" . $polygon->description . 
                    "'}) ";
+
+        // loop through each of the coords
+        foreach( $polygon->coords as $coord ){
+
+            $cypher .= "CREATE (p)-[:HAS_COORD]->(:Coordinate " . 
+                       "{ lat : " . (double)$coord->lat . ", " . 
+                       " lng : " . (double)$coord->lng . "}) ";
+        }
+
+        $db->query( $cypher );
+
+        echo "update successful";
+
     }
-
-    $db = neoDB::getInstance();
-
-    $db->query( $cypher );
-
-    // return success
- 	echo "update successful";
 }
 
 

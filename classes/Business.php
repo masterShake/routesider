@@ -83,9 +83,9 @@ class Business{
 
 			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
 	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
-	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pin) ".
-	                  "OPTIONAL MATCH (b)-[:HAS_POLYGON]->(poly) ".
-	                  "RETURN pin, poly";
+	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pins) ".
+	                  "OPTIONAL MATCH (b)-[:HAS_POLYGON]->(polys) ".
+	                  "RETURN pins, polys";
 
 	        $this->_mapsJson = $db->query( $cypher );
 
