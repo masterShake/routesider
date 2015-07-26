@@ -17,8 +17,10 @@ $polygons = json_decode( $_POST["polygons"] );
 
 foreach ($polygons as $polygon) {
     
-    // validate formatting of coords
-
+    // format coords
+    $polygon->coords = preg_replace("/\(/", "[", $polygon->coords);
+    $polygon->coords = preg_replace("/\)/", "]", $polygon->coords);
+    $polygon->coords = "[" . $polygon->coords . "]";
 
     // validate fill hex
 	if( !preg_match("/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/", $polygon->fill_color) )

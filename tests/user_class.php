@@ -33,15 +33,25 @@
 
 		$user = new User();
 
+		$business = $user->business()[0];
 
+    $maps = $business->getMaps();
 
-		$business = $user->business();
+    $coords = $maps["poly"][0]["coords"];
 
-		$business = $business[0];
+    // foreach($polygons as $polygon){
 
-		$profile = $business->profile();
+    //     $polygon["coords"] = explode("),(", $polygon["coords"]);
 
-    $email = $user->email();
+    // }
+
+    $coords = preg_replace("/\(/", "[", $coords);
+
+    $coords = preg_replace("/\)/", "]", $coords);
+
+    $coords = "[" . $coords . "]";
+
+    $coords = json_decode($coords);
 
 	?>
 
@@ -50,11 +60,8 @@
 
   	<!-- print_r -->
   	<pre><?php
-
-  	// print_r($user->data());
   	
-  	print_r($email);
-
+        print_r($coords);
 
   	?></pre>
 

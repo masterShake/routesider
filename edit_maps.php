@@ -83,7 +83,7 @@ $profile = $business->profile();
         <input type="hidden" value='<?= $profile->data("avatar"); ?>' id="business-avatar"> 
 
         <!-- maps json -->
-        <input type="hidden" value='<?= $business->getMapsJson(); ?>' id="maps-json"> 
+        <input type="hidden" value='<?= json_encode($business->getMaps()); ?>' id="maps-json"> 
 
         <!-- page content -->
         <div id="page-content">

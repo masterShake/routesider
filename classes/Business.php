@@ -15,7 +15,8 @@ class Business{
 	private $_data = array(),
 			$_user, 
 			$_profile,
-			$_social_media_posts = null;
+			$_social_media_posts = null,
+			$_mapsJson = null;
 
 	// constructor
 	public function __construct( $user, $business, $profile ){
@@ -72,6 +73,26 @@ class Business{
 		return $this->_social_media_posts;
 	}
 
+	// retrieve polygons and pins
+	public function getMaps(){
+
+		// if we havent already retrieved the maps
+		if( is_null($this->_mapsJson) ){
+
+			$db = neoDB::getInstance();
+
+			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
+	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
+	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pin) ".
+	                  "OPTIONAL MATCH (b)-[:HAS_POLYGON]->(poly) ".
+	                  "RETURN pin, poly";
+
+	        $this->_mapsJson = $db->query( $cypher );
+
+		}
+
+		return $this->_mapsJson;
+	}
 }
 
 
