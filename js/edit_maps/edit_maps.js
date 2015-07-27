@@ -217,33 +217,40 @@ var MA = function(){
 // - @ pps -> pins and polys json object
 MA.prototype.setMap = function(pps){ console.log(pps);
 
-	// set the pins
-	// if( pps.pins[0] ){
-	// 	// loop through the pins
-	// 	for(var i = 0; i < pps.pins.length; i++){
-	// 		// put them on the map
-	// 		new google.maps.Marker({ map : rsApp.map })
-	// 	}	  
-	// }
+	this.bounds = new google.maps.LatLngBounds();
 
-	// set the polys
-	// if( pps.polys[0] ){
-	// 	// loop through the polys
-	// 	for(var i = 0; i < pps.polys.length; i++){
-	// 		// put them on the map
-	// 		new google.maps.Polygon({
-	// 							    paths: pps.polys[i].coords,
-	// 							    strokeColor: ,
-	// 							    strokeOpacity: ,
-	// 							    strokeWeight: ,
-	// 							    fillColor: ,
-	// 							    fillOpacity: ,
-	// 							    editable : true
-	// 							})
-	// 	}
-	// }
+	// loop through the pins
+	for(var i = 0; i < pps.pins.length; i++){
+		// put them on the map
+		new google.maps.Marker({ 
+			// set the options
+			position: pps.pins[i].coords, 
+			map : rsApp.map, 
+			animation: google.maps.Animation.DROP 
+		});
+		// add the latLng object to the bounds
+		this.bounds.extend( new google.maps.LatLng( pps.pins[i].coords.lat, pps.pins[i].coords.lng) );
+	}	
+	
+	// loop through the polys
+	for(var i = 0; i < pps.polys.length; i++){
+		// put them on the map
+		new google.maps.Polygon({
+							    paths: pps.polys[i].coords,
+							    strokeColor: pps.polys[i]["stroke_color"],
+							    strokeOpacity: pps.polys[i]["stroke_opacity"],
+							    strokeWeight: 3,
+							    fillColor: pps.polys[i]["fill_color"],
+							    fillOpacity: pps.polys[i]["fill_opacity"],
+							    map : rsApp.map
+							})
+		for(var j = 0, len = pps.polys[i].coords.length; j < len; j++){
+			this.bounds.extend( new google.maps.LatLng( pps.polys[i].coords[j].lat, pps.polys[i].coords[j].lng ) );
+		}
+	}
 
 	// fit map boudns to display all markers
+	rsApp.map.fitBounds(this.bounds);
 }
 
 //---------------------------------------------------
