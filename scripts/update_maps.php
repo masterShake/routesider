@@ -14,6 +14,8 @@ $db = neoDB::getInstance();
 
 $user = new User();
 
+$business = $user->business()[0];
+
 $pins = json_decode( $_POST["pins"] );
 
 $polygons = json_decode( $_POST["polygons"] );
@@ -59,16 +61,21 @@ if( count($errors) ){
     echo json_encode($errors);
 
 // update database
-}else{
+}else{ 
 
     // loop through each of the pins
     foreach( $pins as $pin ){
-        $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
+
+        $cypher = "MERGE (id:UniqueId{name:'Map'}) " .
+                  "ON CREATE SET id.count = 1 " .
+                  "ON MATCH SET id.count = id.count + 1 " .
+                  "WITH id.count AS mid " .
+                  "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
                    "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
-                    "CREATE (b)-[:HAS_PIN]->(p:Pins { " .
+                    "CREATE (b)-[:HAS_PIN]->(:Pins { " .
+                        "id : mid, " .
                         "description : '" . $pin->description . "'" .
-                    "}) ".
-                    "CREATE (p)-[:HAS_COORD]->(c:Coordinate {" . 
+                    "})-[:HAS_COORD]->(c:Coordinate {" . 
                         "lat : " . (double)$pin->lat . ", ".
                         "lng : " . (double)$pin->lng . " " . 
                     "})";
@@ -80,9 +87,14 @@ if( count($errors) ){
 
     // loop through each of the polygons
     foreach( $polygons as $polygon ){
-        $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
+        $cypher = "MERGE (id:UniqueId{name:'Map'}) " .
+                  "ON CREATE SET id.count = 1 " .
+                  "ON MATCH SET id.count = id.count + 1 " .
+                  "WITH id.count AS mid " .
+                  "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
                    "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
     	            "CREATE (b)-[:HAS_POLYGON]->(p:Polygon { " .
+                       "id : mid, " .
         			   "coords : '" . json_encode($polygon->coords) . "', " .
         			   "stroke_color : '" . $polygon->stroke_color . "', " .
         			   "stroke_opacity : " . floatval($polygon->stroke_opacity) . ", " .

@@ -88,20 +88,27 @@ class Business{
 	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pins)-[:HAS_COORD]->(c) ".
 	                  "RETURN pins, c";
 
-	        $results = $db->query( $cypher );
+	        $results = $db->query( $cypher ); 
 
 	        // init the empty array
-	        $this->_pins = array();;
+	        $this->_pins = array();
 
-	        // loop through the pins
-	        for($i = 0; $i < count($results["pins"]); $i++)
-	        	// assemble the pins array
-	        	$this->pins[] = array(
+	        // if there are any pins
+	        if( !is_null($results["pins"][0]) )
 
-					"description" => $results["pins"][$i]["description"],
-					"lat" => $results["c"][$i]["lat"],
-					"lng" => $results["c"][$i]["lng"]
-	        	);
+		        // loop through the pins
+		        for($i = 0; $i < count($results["pins"]); $i++)
+		        	// assemble the pins array
+		        	array_push($this->_pins, array(
+
+		        		"id" => $results["pins"][$i]["id"],
+						"description" => $results["pins"][$i]["description"],
+						"coords" => array(
+							"lat" => $results["c"][$i]["lat"],
+							"lng" => $results["c"][$i]["lng"]
+							)
+						)
+		        	);
 
 	        // now get the polygons
 			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
@@ -110,14 +117,23 @@ class Business{
 	                  "RETURN polys";
 
 	        $this->_polygons = $db->query( $cypher );
+
+	        // if there are any polys
+	        if( !is_null($this->_polygons["polys"][0]) ){
+
+	        	$this->_polygons = $this->_polygons["polys"];
+
+		        // loop through the polygons
+		        for($i = 0; $i < count($this->_polygons); $i++)
+
+		        	// decode the json coords
+		        	$this->_polygons[$i]["coords"] = json_decode($this->_polygons[$i]["coords"]);
 	        
-	        // init empty array
-	        $this->_polygons = $this->_polygons["polys"];
+	        }else{
 
-	        // loop through the polygons
-	        for($i = 0; $i < count($this->_polygons); $i++)
-	        	$this->_polygons[$i]["coords"] = json_decode($this->_polygons[$i]["coords"]);
-
+	        	// no polygons, set empty array
+	        	$this->_polygons = [];
+	        }
 	    }
 		
 		return array( "pins" => $this->_pins, "polys" => $this->_polygons );
