@@ -172,6 +172,43 @@
 
 
 
+/* popover */
+.popover{
+	display: block;
+	width: 260px;
+	top: auto;
+	bottom: 50%;
+	left: calc(50% - 131px);
+}
+.popover .close{
+	margin: 6px 10px 0 0;
+}
+.popover-title{
+	color: #3c763d;
+	padding: 8px 0;
+	text-align: center;
+	border-bottom: 1px solid #ededed;
+}
+.popover-content{
+	overflow: hidden;
+	padding: 9px 14px 0;
+}
+.popover-footer{
+	background-color: #f7f7f7;
+	border-top: 1px solid #ededed;
+	padding: 5px 10px;
+	text-align: right;
+	z-index: 1;
+}
+.popover-footer>button:nth-child(1){
+	float:left;
+}
+
+
+
+
+
+
 
 
 /*----------------------------------------------- 

@@ -405,6 +405,7 @@ $profile = $business->profile();
         <script src="js/edit_maps/PolyDrawer.js"></script>
         <script src="js/edit_maps/PinEditor.js"></script>
         <script src="js/edit_maps/PolyEditor.js"></script>
+        <script src="js/edit_maps/MapPopover.js"></script>
 
     </body>
 </html>

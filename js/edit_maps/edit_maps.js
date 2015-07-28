@@ -175,6 +175,12 @@ var MA = function(){
     // - 4 -> new poly mode
     this.mode = 0;
 
+    // all the latLng points to set the map boundaries
+    this.bounds = new google.maps.LatLngBounds();
+
+    // init MapPopover object
+    this.popover = new MapPopover();
+
 	// init PinDropper object
 	this.pinDropper = new PinDropper();
 
@@ -187,12 +193,10 @@ var MA = function(){
 	// init PolyEditor object
 	this.polyEditor = new PolyEditor();
 
-	// set the pin and polygon objects
-	this.setMap(
-		JSON.parse(
-			document.getElementById("maps-json").value
-		)
-	);
+	// original json
+	this.OJ = JSON.parse(
+				document.getElementById("maps-json").value
+			  );
 
     // set the business name for easy access
     this.businessName = document.getElementById("business-name").value;
@@ -208,49 +212,77 @@ var MA = function(){
     // save button event listener
     document.getElementById("save-btn")
     	.addEventListener("click", this.saveMaps, false);
+
+	// set the pins and polygons google maps objects
+	this.setPolys() // also sets pins
 }
 
 /* METHODS */
 
-//--------------------------------------------------
-// - set the polygons and pins on the map
-// - @ pps -> pins and polys json object
-MA.prototype.setMap = function(pps){ console.log(pps);
-
-	this.bounds = new google.maps.LatLngBounds();
-
-	// loop through the pins
-	for(var i = 0; i < pps.pins.length; i++){
-		// put them on the map
-		new google.maps.Marker({ 
-			// set the options
-			position: pps.pins[i].coords, 
-			map : rsApp.map, 
-			animation: google.maps.Animation.DROP 
-		});
-		// add the latLng object to the bounds
-		this.bounds.extend( new google.maps.LatLng( pps.pins[i].coords.lat, pps.pins[i].coords.lng) );
-	}	
-	
+//---------------------------------------------------
+// - helper function for setMaps
+// - places polgons on the map and pushes them to the
+//   polygons array
+MA.prototype.setPolys = function(){
 	// loop through the polys
-	for(var i = 0; i < pps.polys.length; i++){
+	for(var i = 0; i < this.OJ.polys.length; i++){
 		// put them on the map
 		new google.maps.Polygon({
-							    paths: pps.polys[i].coords,
-							    strokeColor: pps.polys[i]["stroke_color"],
-							    strokeOpacity: pps.polys[i]["stroke_opacity"],
+							    paths: this.OJ.polys[i].coords,
+							    strokeColor: this.OJ.polys[i]["stroke_color"],
+							    strokeOpacity: this.OJ.polys[i]["stroke_opacity"],
 							    strokeWeight: 3,
-							    fillColor: pps.polys[i]["fill_color"],
-							    fillOpacity: pps.polys[i]["fill_opacity"],
+							    fillColor: this.OJ.polys[i]["fill_color"],
+							    fillOpacity: this.OJ.polys[i]["fill_opacity"],
 							    map : rsApp.map
 							})
-		for(var j = 0, len = pps.polys[i].coords.length; j < len; j++){
-			this.bounds.extend( new google.maps.LatLng( pps.polys[i].coords[j].lat, pps.polys[i].coords[j].lng ) );
+		for(var j = 0, len = this.OJ.polys[i].coords.length; j < len; j++){
+			this.bounds.extend( new google.maps.LatLng( this.OJ.polys[i].coords[j].lat, this.OJ.polys[i].coords[j].lng ) );
 		}
 	}
-
+	// set the pins
+	this.setPins();
+}
+//---------------------------------------------------
+// - helper function for setMaps
+// - places pins on the map and pushes them to the
+//   pins array
+MA.prototype.setPins = function(){
+	// loop through the pins
+	for(var i = 0; i < this.OJ.pins.length; i++){
+		// put them on the map
+		this.pins.push(new google.maps.Marker({ 
+			// set the options
+			position: this.OJ.pins[i].coords, 
+			map : rsApp.map, 
+			animation: google.maps.Animation.DROP 
+		}));
+		// set the title, description, & id attributes
+		this.pins[i].title = "show me your titties!";
+		this.pins[i].description = "please?";
+		this.pins[i].id = this.OJ.pins[i].id;
+		// add the latLng object to the bounds
+		this.bounds.extend( new google.maps.LatLng( this.OJ.pins[i].coords.lat, this.OJ.pins[i].coords.lng) );
+		// add event listeners
+		google.maps.event.addListener(this.pins[i], "click", this.popover.showPinPopover);
+	}
 	// fit map boudns to display all markers
 	rsApp.map.fitBounds(this.bounds);
+}
+
+//---------------------------------------------------
+// - event listener for pins & polygons
+// - display popover on google maps element
+MA.prototype.popover = function(e){ 
+	console.log(event);
+	console.log(event.target);
+	console.log(event.target.parentElement);
+	var x = document.createElement("div");
+	x.className = "boner";
+	x.style.top = (event.y - 50) + "px";
+	x.style.left = (event.x - 50) + "px";
+	event.target.parentElement.insertBefore(x, event.target);
+
 }
 
 //---------------------------------------------------
