@@ -177,7 +177,7 @@
 	display: block;
 	width: 260px;
 	top: auto;
-	bottom: 50%;
+	bottom: 45%;
 	left: calc(50% - 131px);
 }
 .popover .close{
