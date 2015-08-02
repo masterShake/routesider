@@ -13,7 +13,10 @@
 /* 500 ms */
 #new-product-btn,
 #new-product-btn>div,
-#new-product-panel{
+#producer-btns,
+#product-already-listed,
+#existing-product-search,
+#product-inputs{
 	-webkit-transition: .5s;
 	-moz-transition: .5s;
 	-ms-transition: .5s;
@@ -36,7 +39,13 @@
 .tab-content{
 	padding: 20px 0;
 }
-
+ul.instructions{
+	padding-left: 20px;
+}
+ul.instructions>li{
+    padding: 5px 0px;
+    font-size: 12px;
+}
 
 /*----------------------
  search products input
@@ -70,7 +79,7 @@
 ----------------------*/
 
 #new-product-btn{
-	text-align: center;
+	font-size: 16px;
 	width: 100%;
 	padding: 5px;
 	margin: 12px 0;
@@ -82,39 +91,22 @@
 }
 
 /*----------------------
-	products swiper
-----------------------*/
-.swiper-container{
-	box-shadow: inset 0px 0px 4px #999;
-	background-color: #ccc;	
-}
-#products-swiper{
-	height: 150px;
-	margin: 30px 0px;
-	padding: 8px 0px;
-}
-.swiper-slide{
-	height: 100%;
-	max-width: 150px;
-	background-color: #fff;
-	box-shadow: 0px 0px 4px #999;
-}
-
-/*----------------------
    new product panel
 ----------------------*/
 
-/* x close new product panel */
-#close-new-product-panel{
-	display: none;
-	margin-right: 10px;
-}
-/* new product panel outter most div */
-#new-product-panel{
-	text-align: left;
+/* hidden content */
+#producer-btns,
+#product-already-listed,
+#existing-product-search,
+#product-inputs{
 	display: none;
 	opacity: 0;
-	font-size: 16px;
+}
+
+/* x close new product panel */
+#new-product-btn .close{
+	display: none;
+	margin-right: 10px;
 }
 /* info buttons */
 .glyphicon-info-sign{
@@ -122,16 +114,16 @@
 	cursor: pointer;
 }
 /* producer buttons */
-.producer-btns .btn-group button,
-.product-already-listed .btn-group button{
+#producer-btns .btn-group button,
+#product-already-listed .btn-group button{
 	min-width: 80px;
 	font-weight: 600;
 }
-.product-already-listed .btn-group button:nth-child(3){
+#product-already-listed .btn-group button:nth-child(3){
 	border: 1px solid #ccc;
 	border-left: 0px;
 }
-.product-already-listed .btn-group button:nth-child(3):hover{
+#product-already-listed .btn-group button:nth-child(3):hover{
 	background-color: #999;
 	color: #fff;
 }
@@ -257,6 +249,25 @@ textarea{
 
 
 
+
+/*----------------------
+	products swiper
+----------------------*/
+.swiper-container{
+	box-shadow: inset 0px 0px 4px #999;
+	background-color: #ccc;	
+}
+#products-swiper{
+	height: 150px;
+	margin: 30px 0px;
+	padding: 8px 0px;
+}
+.swiper-slide{
+	height: 100%;
+	max-width: 150px;
+	background-color: #fff;
+	box-shadow: 0px 0px 4px #999;
+}
 
 
 
