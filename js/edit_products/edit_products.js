@@ -138,7 +138,7 @@ var EPA, epApp;
 		// 						);
 
 		// initialize the product creator
-		// this.pc = new PC();
+		this.pc = new PC();
 
 		// init the navtabs
 		this.navtabs = new NT();

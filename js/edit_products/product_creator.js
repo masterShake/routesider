@@ -19,88 +19,81 @@ var PC = function(){
 
 	/* properties */
 
-	// initialize the hero swiper
-	this.heroSwiper = new HS( document.getElementById("new-product-panel").getElementsByClassName("slideshow")[0] );
+	// - don't initialize the hero swiper until 
+	//   the user clicks the + new product button
+	this.heroSwiper = null; // new HS( document.getElementById("new-product-panel").getElementsByClassName("slideshow")[0] );
 
-	// initialize the toolbars
+	// keep track of the elem to be faded in
+	this.fadeElem = null;
 
-	/* event listeners */
+	/* initialization */
 
-	// new product button
+	// new product button event listener
 	document.getElementById("new-product-btn")
 		.addEventListener("click", this.open, false);
-
-	// close new product panel
-	document.getElementById("close-new-product-panel")
-		.addEventListener("click", this.close, false);
-
-	// info buttons
-	document.getElementById("producer-info")
-		.addEventListener("click", this.infoAlert, false);
-	document.getElementById("already-listed-info")
-		.addEventListener("click", this.infoAlert, false);
 
 }
 
 /* METHODS */
 
 //-----------------------------------------------
-// - Event listener for add-new-product button
+// - Event listener for #new-product-btn
 // - Animate open new product panel
 PC.prototype.open = function(event){
 
-	// if the product panel is already open
-	if( event.target === document.getElementById("close-new-product-panel") )
+	// if the panel is already open
+	if( !this.className.length )
 		return;
 
+	// if the components have not been initialized
+	if( epApp.pc.heroSwiper === null )
+		// initialize the js components
+		epApp.pc.init();
+
+
+	// clear the class
 	this.className = "";
 
 	// display the little x
-	document.getElementById("close-new-product-panel")
-		.style.display = "block";
+	this.children[0].children[0].style.display = "block";
 
-	// display the new product panel
-	document.getElementById("new-product-panel")
-		.style.display = "block";
+	// display the producer btns component
+	epApp.pc.fadeElem = document.getElementById("producer-btns");
+	epApp.pc.fadeElem.style.display = "block";
 
-	// reinit the hero swiper
-	epApp.pc.heroSwiper.swiper.update();
-
+	// fade it in
 	setTimeout( epApp.pc.fi, 100 );
 }
+
+//-----------------------------------------------
+// - initialize the swiper and other events
+PC.prototype.init = function(){ console.log("init called");
+
+	// init the close button
+	// document.getElementsByClassName("")
+
+}
+
 //-----------------------------------------------
 // - timeout function fade in new product panel
 PC.prototype.fi = function(){
-	document.getElementById("new-product-panel")
-		.style.opacity = 1;
+	epApp.pc.fadeElem.style.opacity = 1;
 }
 
-//-----------------------------------------------
-// - event listener to close new product panel
-PC.prototype.close = function(){
 
-	// #new-product-btn background to green
-	document.getElementById("new-product-btn").className = "btn btn-lg btn-success"
 
-	// hide the little x
-	this.style.display = "none";
 
-	// hide the new product panel
-	document.getElementById("new-product-panel")
-		.style.opacity = 0;
-	document.getElementById("new-product-panel")
-		.style.display = "none";
-}
 
-//-----------------------------------------------
-// - event listener to reveal info alerts
-PC.prototype.infoAlert = function(){
-	// call the insertAlert method 
-	rsApp.insertAlert(
-						this.dataset.alert,
-						this.dataset.text,
-						this.parentElement.parentElement.children[1]
-					 );
-}
+
+
+
+
+
+
+
+
+
+
+
 
 

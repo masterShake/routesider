@@ -130,12 +130,21 @@
 
 		    		<!-- new products -->
 				    <div role="tabpanel" class="tab-pane active" id="new-product">
-
-				    	<!-- heading -->
-				    	<ul class="instructions">
-				    		<li>Search for existing products and add them to your shelf.</li>
-				    		<li>Or click the "New Product" button to create a new product, upload images, etc.</li>
-				    	</ul>
+				    	
+				    	<!-- search products -->
+		            	<div class="row">
+		            		<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+								<div class="input-group input-group-lg search-products-input">
+									<input type="text" 
+										   class="form-control" 
+										   placeholder="Search Routesider"
+										   aria-label="search products">
+									<button type="button" class="btn btn-lg" aria-label="Submit search for products">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
 
 						<!-- new products button -->
 						<div class="btn btn-lg btn-success" id="new-product-btn">
@@ -258,21 +267,12 @@
 
 		    				</div>
 						</div><!-- /new products button -->
-				    	
-				    	<!-- search products -->
-		            	<div class="row">
-		            		<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-								<div class="input-group input-group-lg search-products-input">
-									<input type="text" 
-										   class="form-control" 
-										   placeholder="Search Routesider"
-										   aria-label="search products">
-									<button type="button" class="btn btn-lg" aria-label="Submit search for products">
-										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-									</button>
-								</div>
-							</div>
-						</div>
+
+				    	<!-- instructions -->
+				    	<ul class="instructions">
+				    		<li>Search for existing products and add them to your shelf.</li>
+				    		<li>Or click the "New Product" button to create a new product, upload images, etc.</li>
+				    	</ul>
 
 				    </div><!-- /new-product -->
 
