@@ -118,10 +118,10 @@
             	<!-- Nav tabs -->
 				<ul class="nav nav-tabs" id="nav-tabs" role="tablist">
 					<li role="presentation" class="active">
-						<a href="#new-product" aria-controls="new-product" role="tab">New product</a>
+						<a href="#new-product" aria-controls="new-product" role="tab">New Product</a>
 					</li>
 					<li role="presentation">
-						<a href="#edit-products" aria-controls="edit-products" role="tab">Edit products</a>
+						<a href="#edit-products" aria-controls="edit-products" role="tab">Edit Products</a>
 					</li>
 		    	</ul>
 
@@ -130,12 +130,180 @@
 
 		    		<!-- new products -->
 				    <div role="tabpanel" class="tab-pane active" id="new-product">
-				    	<h1>new product</h1>
+
+				    	<!-- heading -->
+				    	<h3>Create New Product:</h3>
+				    	<ul>
+				    		<li>Search for existing products and add them to your shelf.</li>
+				    		<li>Or click the "New Product" button to create a new product, upload images, etc.</li>
+				    	</ul>
+				    	
+				    	<!-- search products -->
+		            	<div class="row">
+		            		<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+								<div class="input-group input-group-lg search-products-input">
+									<input type="text" 
+										   class="form-control" 
+										   placeholder="Search Routesider"
+										   aria-label="search products">
+									<button type="button" class="btn btn-lg" aria-label="Submit search for products">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- new products button -->
+						<div class="btn btn-lg btn-success" id="new-product-btn">
+		    				<div>
+		    					<button type="button" class="close" id="close-new-product-panel" aria-label="Close new product panel">&times;</button>
+		    					<div style="text-align:center; width: 100%">
+			    					<h3 style="margin: 0px"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Product</h3>
+		    					</div>
+		    					<!-- new product panel -->
+		    					<div id="new-product-panel">
+		    						
+		    						<hr>
+
+		    						<!-- producer -->
+		    						<div class="producer-btns">
+			    						<p>
+		    								<span class="glyphicon glyphicon-info-sign" data-alert="info" data-text="&#60;b&#62;Producer&#60;&#47;b&#62; means that you are selling this product under your brand name, i.e. the business for which you created a profile."></span>
+		    								Are you the producer of this product?
+			    						</p>
+			    						<div style="text-align:center;  margin: 20px 0px;">
+			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
+												<button type="button" class="btn btn-success" style="border-right:0px;" aria-label="Yes, my company produces this product">yes</button>
+												<button type="button" class="btn btn-danger" style="border-left:0px;" aria-label="No, we are reselling another company's product">no</button>
+											</div>
+										</div>
+									</div>
+
+									<!-- if not producer, prompt user to look for product on routesider -->
+									<div class="product-already-listed">
+			    						<p>	
+		    								<span class="glyphicon glyphicon-info-sign" data-alert="info" data-text="If the producer of this product already has a profile on Routesider, you may search for the existing product and add it to your inventory."></span>
+		    								Is this product already listed on Routesider?&nbsp;
+			    						</p>
+			    						<div style="text-align:center;  margin: 20px 0px;">
+			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
+												<button type="button" class="btn btn-success" style="border-right:0px;" aria-label="Yes, let me look for it">yes</button>
+												<button type="button" class="btn btn-danger" style="border-left:0px;" aria-label="No, I need to add it myself">no</button>
+												<button type="button" class="btn" aria-label="I don't know if this product is already on Routesider">idk</button>
+											</div>
+										</div>
+									</div>
+
+									<!-- search routesider text field input -->
+									<div class="input-group search-products-input">
+										<input type="text" 
+											   class="form-control" 
+											   placeholder="Search products"
+											   aria-label="search products">
+										<button type="button" class="btn" aria-label="Submit search for products">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</button>
+									</div>
+
+									<!-- product inputs -->
+									<div class="product-inputs">
+
+										<!-- product name -->
+										<div>
+											<label for="product-name" style="margin-top: 10px;">Product Name</label>
+											<input type="text"
+												   name="productname"
+												   class="form-control input-lg"
+												   id="product-name"
+												   aria-label="give the product a name"/>
+											<!-- formatting toolbar -->
+											<?php include "components/formatting_toolbar_half.php"; ?>
+										</div>
+
+										<!-- product sub name -->
+										<div>
+											<label for="product-name">Sub Name</label>
+											<input type="text"
+												   name="subname"
+												   class="form-control"
+												   id="product-sub-name"
+												   aria-label="optional subname for the product"/>
+											<!-- formatting toolbar -->
+											<?php include "components/formatting_toolbar_half.php"; ?>
+										</div>
+
+										<!-- upload image swiper -->
+										<div class="slideshow">
+											<div class="hero">
+												<div class="glyphicon glyphicon-camera"></div>
+												<h4>No images yet</h4>
+											</div>
+											<div class="swiper-container hero-swiper">
+												<div class="swiper-wrapper">
+													<div class="swiper-slide upload-slide">
+														<!-- filedrag -->
+														<div class="filedrag"><span><span class="glyphicon glyphicon-camera"></span>&nbsp;drag &amp; drop<br><span style="font-size: 8px;">-or-</span></span></div>
+														<!-- traditional upload -->
+														<div class="fileselect">
+									                        <input type="file"  
+									                               name="fileselect" 
+									                               multiple="multiple" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- description -->
+										<div>
+											<label>Product Description</label>
+											<textarea rows="5" placeholder="Tell us about this product" id="product-description"></textarea>
+											<!-- full formatting toolbar -->
+											<?php include "components/formatting_toolbar_full.php"; ?>	
+										</div>
+
+										<!-- save alert 2 -->
+										<div class="alert" id="save-alert-2">
+											<div>
+												<button type="button" class="btn btn-default">save</button>
+											</div>
+											<span>New product must have a name</span>
+										</div>
+
+									</div><!-- /product-inputs -->
+
+		    					</div><!-- /new products panel -->
+
+		    				</div>
+						</div><!-- /new products button -->
+
 				    </div><!-- /new-product -->
 
 				    <!-- edit products -->
 				    <div role="tabpanel" class="tab-pane" id="edit-products">
-				    	<h1>edit products</h1>
+
+				    	<!-- heading -->
+				    	<h3>Edit Existing Products:</h3>
+				    	<ul>
+				    		<li>Use to the search bar or swiper to locate your products</li>
+				    		<li>Click the "save" button to keep your changes.</li>
+				    	</ul>
+				    	
+				    	<!-- search products -->
+		            	<div class="row">
+		            		<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+								<div class="input-group input-group-lg search-products-input">
+									<input type="text" 
+										   class="form-control" 
+										   placeholder="Search my products"
+										   aria-label="search products">
+									<button type="button" class="btn btn-lg" aria-label="Submit search for products">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+
 				    </div><!-- /edit-products -->
 
 				</div><!-- /tab-content -->

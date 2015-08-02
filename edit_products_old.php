@@ -270,7 +270,8 @@
 		    					</div><!-- /new products panel -->
 
 		    				</div>
-						</div>		
+						</div><!-- /new products button -->	
+
 		    		</div>
 		    	</div>
 

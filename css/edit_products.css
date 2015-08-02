@@ -21,8 +21,21 @@
 	transition: .5s;
 }
 
+
 /*----------------------
-	search products
+		nav-tabs
+----------------------*/
+
+.nav-tabs>li{
+	float:right;
+}
+.tab-content{
+	padding: 20px 0;
+}
+
+
+/*----------------------
+ search products input
 ----------------------*/
 
 /* use this search form a couple times */
@@ -31,22 +44,37 @@
 	border-radius: 6px;
 	background-color: #ccc;
 	width: 100%;
+	margin: 20px 0;
 }
 /* search input */
-#search-products{
-	border-radius: 5px;
-	width: calc(100% - 55px);
+.search-products-input input{
+	border-radius: 5px !important;
+	width: calc(100% - 55px) !important;
 }
 /* search button */
-#search-products-submit{  
+.search-products-input button{  
 	padding: 9px 16px;
 	font-size: 20px;
-}
-.search-products-input button{
 	background-color: #CCC;
 }
 .search-products-input button:hover{
 	color: #5CB85C;
+}
+
+/*----------------------
+	new product btn
+----------------------*/
+
+#new-product-btn{
+	text-align: center;
+	width: 100%;
+	padding: 5px;
+	margin: 12px 0;
+}
+#new-product-btn>div{
+	border: 2px dashed #CCC;
+	padding: 6px;
+	border-radius: 8px;
 }
 
 /*----------------------
@@ -66,22 +94,6 @@
 	max-width: 150px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px #999;
-}
-
-/*----------------------
-	new product btn
-----------------------*/
-
-#new-product-btn{
-	text-align: center;
-	width: 100%;
-	padding: 5px;
-	margin-bottom: 30px;
-}
-#new-product-btn>div{
-	border: 2px dashed #CCC;
-	padding: 6px;
-	border-radius: 8px;
 }
 
 /*----------------------
