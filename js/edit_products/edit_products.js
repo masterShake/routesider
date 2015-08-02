@@ -129,39 +129,62 @@ var EPA, epApp;
 		/* properties */
 
 		// initialize the products swiper
-		this.swiper = new Swiper( document.getElementById("products-swiper"), 
-								  {
-							        slidesPerView: 'auto',
-        							centeredSlides: true,
-							        spaceBetween: 8
-								  }
-								);
+		// this.swiper = new Swiper( document.getElementById("products-swiper"), 
+		// 						  {
+		// 					        slidesPerView: 'auto',
+  //       							centeredSlides: true,
+		// 					        spaceBetween: 8
+		// 						  }
+		// 						);
 
 		// initialize the product creator
-		this.pc = new PC();
+		// this.pc = new PC();
 
-		// init formatting toolbars
-		// this.toolbars[0] = new FT(
-		// 							document.getElementById("product-name"),
-		// 							document.getElementById("product-name").parentElement.children[2],
-		// 							0
-		// 						 );
-		// this.toolbars[1] = new FT(
-		// 							document.getElementById("product-sub-name"),
-		// 							document.getElementById("product-sub-name").parentElement.children[2],
-		// 							1
-		// 						 );
-		// this.toolbars[2] = new FT(
-		// 							document.getElementById("product-description"),
-		// 							document.getElementById("product-description").parentElement.children[2],
-		// 							2
-		// 						 );
+		// keep track of the active tab
+		this.activeTab = document.getElementsByClassName("nav-tabs")[0].children[0];
+
+		// add event listeners to the nav tabs
+		this.activeTab.children[0]
+			.addEventListener("click", this.toggleTab, false);
+		document.getElementsByClassName("nav-tabs")[0].children[1].children[0]
+			.addEventListener("click", this.toggleTab, false);
 	}
 
 	/* METHODS */
 
-	
+	//-----------------------------------------------
+	// - navtab event listener
+	// - reviel the coresponding tab content
+	// - hide the other tab content
+	EPA.prototype.toggleTab = function(event){
 
+		// prevent the href from linking
+		event.preventDefault();
+
+		// if this tab is already active
+		if(this.parentElement === epApp.activeTab)
+			// do nothing
+			return;
+
+		// change the class of the previously active tab
+		epApp.activeTab.className = "";
+
+		// hide the corresponding tab panel
+		document.getElementById(
+			epApp.activeTab.children[0].getAttribute("aria-controls")
+		).style.display = "none";
+
+		// set the active tab
+		epApp.activeTab = this.parentElement;
+
+		// set the class
+		this.parentElement.className = "active";
+
+		// display the active tab panel
+		document.getElementById(
+			this.getAttribute("aria-controls")
+		).style.display = "block";
+	}
 
 
 

@@ -111,28 +111,6 @@
 	min-width: 80px;
 	font-weight: 600;
 }
-.producer-btns .btn-group button:nth-child(1),
-.product-already-listed .btn-group button:nth-child(1){
-	background-color: #dff0d8;
-	border: 1px solid #d6e9c6;
-	border-right: 0px;
-}
-.producer-btns .btn-group button:nth-child(1):hover,
-.product-already-listed .btn-group button:nth-child(1):hover{
-	background-color: #5CB85C;
-	color: #fff;
-}
-.producer-btns .btn-group button:nth-child(2),
-.product-already-listed .btn-group button:nth-child(2){
-	background-color: #f2dede;
-	border: 1px solid #ebccd1;
-	border-left: 0px;
-}
-.producer-btns .btn-group button:nth-child(2):hover,
-.product-already-listed .btn-group button:nth-child(2):hover{
-	background-color: #d9534f;
-	color: #fff;
-}
 .product-already-listed .btn-group button:nth-child(3){
 	border: 1px solid #ccc;
 	border-left: 0px;
