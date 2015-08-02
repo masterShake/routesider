@@ -291,7 +291,10 @@
         <!-- javascripts -->
         <script src="js/main.js"></script>
         <script src="js/swiper.min.js"></script>
-        <script src="js/<?= $page; ?>.js"></script>
+        <script src="js/formatting_toolbar.js"></script>
+        <script src="js/edit_products/hero_swiper.js"></script>
+        <script src="js/edit_products/product_creator.js"></script>
+        <script src="js/edit_products/edit_products.js"></script>
 
     </body>
 </html>

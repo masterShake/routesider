@@ -273,17 +273,17 @@ MA.prototype.setPins = function(){
 //---------------------------------------------------
 // - event listener for pins & polygons
 // - display popover on google maps element
-MA.prototype.popover = function(e){ 
-	console.log(event);
-	console.log(event.target);
-	console.log(event.target.parentElement);
-	var x = document.createElement("div");
-	x.className = "boner";
-	x.style.top = (event.y - 50) + "px";
-	x.style.left = (event.x - 50) + "px";
-	event.target.parentElement.insertBefore(x, event.target);
+// MA.prototype.popover = function(e){ 
+// 	console.log(event);
+// 	console.log(event.target);
+// 	console.log(event.target.parentElement);
+// 	var x = document.createElement("div");
+// 	x.className = "boner";
+// 	x.style.top = (event.y - 50) + "px";
+// 	x.style.left = (event.x - 50) + "px";
+// 	event.target.parentElement.insertBefore(x, event.target);
 
-}
+// }
 
 //---------------------------------------------------
 // - event listener for search bar
