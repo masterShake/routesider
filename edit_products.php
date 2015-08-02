@@ -116,7 +116,7 @@
             	<h1>Edit Products</h1>
 
             	<!-- Nav tabs -->
-				<ul class="nav nav-tabs" id="nav-tabs" role="tablist">
+				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active">
 						<a href="#new-product" aria-controls="new-product" role="tab">New Product</a>
 					</li>
@@ -132,7 +132,6 @@
 				    <div role="tabpanel" class="tab-pane active" id="new-product">
 
 				    	<!-- heading -->
-				    	<h3>Create New Product:</h3>
 				    	<ul>
 				    		<li>Search for existing products and add them to your shelf.</li>
 				    		<li>Or click the "New Product" button to create a new product, upload images, etc.</li>
@@ -283,7 +282,6 @@
 				    <div role="tabpanel" class="tab-pane" id="edit-products">
 
 				    	<!-- heading -->
-				    	<h3>Edit Existing Products:</h3>
 				    	<ul>
 				    		<li>Use to the search bar or swiper to locate your products</li>
 				    		<li>Click the "save" button to keep your changes.</li>

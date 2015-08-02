@@ -140,51 +140,12 @@ var EPA, epApp;
 		// initialize the product creator
 		// this.pc = new PC();
 
-		// keep track of the active tab
-		this.activeTab = document.getElementsByClassName("nav-tabs")[0].children[0];
-
-		// add event listeners to the nav tabs
-		this.activeTab.children[0]
-			.addEventListener("click", this.toggleTab, false);
-		document.getElementsByClassName("nav-tabs")[0].children[1].children[0]
-			.addEventListener("click", this.toggleTab, false);
+		// init the navtabs
+		this.navtabs = new NT();
 	}
 
 	/* METHODS */
 
-	//-----------------------------------------------
-	// - navtab event listener
-	// - reviel the coresponding tab content
-	// - hide the other tab content
-	EPA.prototype.toggleTab = function(event){
-
-		// prevent the href from linking
-		event.preventDefault();
-
-		// if this tab is already active
-		if(this.parentElement === epApp.activeTab)
-			// do nothing
-			return;
-
-		// change the class of the previously active tab
-		epApp.activeTab.className = "";
-
-		// hide the corresponding tab panel
-		document.getElementById(
-			epApp.activeTab.children[0].getAttribute("aria-controls")
-		).style.display = "none";
-
-		// set the active tab
-		epApp.activeTab = this.parentElement;
-
-		// set the class
-		this.parentElement.className = "active";
-
-		// display the active tab panel
-		document.getElementById(
-			this.getAttribute("aria-controls")
-		).style.display = "block";
-	}
 
 
 
@@ -192,7 +153,77 @@ var EPA, epApp;
 
 
 
+//-----------------------------------------------
+//				   NT (nav tabs)				
+//				 -----------------
+//
+// - intended to work identically to bootstrap
+//   but without dropdown menu option
+//
+// - same markup as bootstrap, but the 
+//   data-toggle attribute is unnecessary
+//
+//-----------------------------------------------
 
+/* CONSTRUCTOR */
+
+var NT = function(){
+
+	/* properties */
+
+	// - keep track of the active tab
+	// - but first use it to help add event listeners
+	this.activeTab = document.getElementsByClassName("nav-tabs")[0].children;
+
+	/* event listeners */
+
+	// add a toggle event
+	this.activeTab[0].addEventListener("click", this.toggle, false);
+	this.activeTab[1].addEventListener("click", this.toggle, false);
+
+	/* initializations */
+
+	// set the real activeTab
+	this.activeTab = this.activeTab[0].parentElement.getElementsByClassName("active")[0];
+}
+
+/* METHODS */
+
+//-----------------------------------------------
+// - navtab event listener
+// - reveal the coresponding tab content
+// - hide the other tab content
+// - NOTE: replace epApp.navtabs to use in
+//   another page
+NT.prototype.toggle = function(event){
+
+	// prevent the href from linking
+	event.preventDefault();
+
+	// if this tab is already active
+	if(this === epApp.navtabs.activeTab)
+		// do nothing
+		return;
+
+	// change the class of the previously active tab
+	epApp.navtabs.activeTab.className = "";
+
+	// hide the corresponding tab panel
+	document.getElementById(
+		epApp.navtabs.activeTab.children[0].getAttribute("aria-controls")
+	).style.display = "none";
+
+	// set the active tab
+	epApp.navtabs.activeTab = this;
+
+	// set the class
+	this.className = "active";
+
+	// display the active tab panel
+	document.getElementById(
+		this.children[0].getAttribute("aria-controls")
+	).style.display = "block";
+}
 
 
 
