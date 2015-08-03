@@ -166,8 +166,8 @@
 		    						</p>
 		    						<div style="text-align:center;  margin: 20px 0px;">
 		    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
-											<button type="button" class="btn btn-success" style="border-right:0px;" aria-label="Yes, my company produces this product">yes</button>
-											<button type="button" class="btn btn-danger" style="border-left:0px;" aria-label="No, we are reselling another company's product">no</button>
+											<button type="button" class="btn btn-success" data-elem="product-inputs" style="border-right:0px;" aria-label="Yes, my company produces this product">yes</button>
+											<button type="button" class="btn btn-danger" data-elem="product-already-listed" style="border-left:0px;" aria-label="No, we are reselling another company's product">no</button>
 										</div>
 									</div>
 								</div>
@@ -180,23 +180,24 @@
 		    						</p>
 		    						<div style="text-align:center;  margin: 20px 0px;">
 		    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
-											<button type="button" class="btn btn-success" style="border-right:0px;" aria-label="Yes, let me look for it">yes</button>
-											<button type="button" class="btn btn-danger" style="border-left:0px;" aria-label="No, I need to add it myself">no</button>
-											<button type="button" class="btn" aria-label="I don't know if this product is already on Routesider">idk</button>
+											<button type="button" class="btn btn-success" data-elem="existing-product-search" style="border-right:0px;" aria-label="Yes, let me look for it">yes</button>
+											<button type="button" class="btn btn-danger" data-elem="product-inputs" style="border-left:0px;" aria-label="No, I need to add it myself">no</button>
+											<button type="button" class="btn" data-elem="existing-product-search" aria-label="I don't know if this product is already on Routesider">idk</button>
 										</div>
 									</div>
-								</div>
 
-								<!-- search routesider text field input -->
-								<div class="input-group search-products-input" id="existing-product-search">
-									<input type="text" 
-										   class="form-control" 
-										   placeholder="Search products"
-										   aria-label="search products">
-									<button type="button" class="btn" aria-label="Submit search for products">
-										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-									</button>
-								</div>
+									<!-- search routesider text field input -->
+									<div class="input-group search-products-input" id="existing-product-search">
+										<input type="text" 
+											   class="form-control" 
+											   placeholder="Search products"
+											   aria-label="search products">
+										<button type="button" class="btn" aria-label="Submit search for products">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</button>
+									</div>
+
+								</div><!-- /product-already-listed -->
 
 								<!-- product inputs -->
 								<div id="product-inputs">
