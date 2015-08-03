@@ -52,10 +52,11 @@
     // STEP 3: handle GET/POST params
     //-------------------------------
 
-    if(Input::exists()){
+    if( isset($_POST["toolbar"]) ){
 
-    	// do something
+        echo Markdown::html($_POST["text"]);
 
+        exit();
     }
 
     //-------------------------------------
@@ -159,15 +160,17 @@
 		    						
 	    							<!-- line break -->
 	    							<hr>
-		    						
-		    						<p>
-	    								<span class="glyphicon glyphicon-info-sign" data-alert="info" data-text="&#60;b&#62;Producer&#60;&#47;b&#62; means that you are selling this product under your brand name, i.e. the business for which you created a profile."></span>
-	    								Are you the producer of this product?
-		    						</p>
-		    						<div style="text-align:center;  margin: 20px 0px;">
-		    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
-											<button type="button" class="btn btn-success" data-elem="product-inputs" style="border-right:0px;" aria-label="Yes, my company produces this product">yes</button>
-											<button type="button" class="btn btn-danger" data-elem="product-already-listed" style="border-left:0px;" aria-label="No, we are reselling another company's product">no</button>
+
+		    						<div>
+			    						<p>
+		    								<span class="glyphicon glyphicon-info-sign" data-alert="info" data-text="&#60;b&#62;Producer&#60;&#47;b&#62; means that you are selling this product under your brand name, i.e. the business for which you created a profile."></span>
+		    								Are you the producer of this product?
+			    						</p>
+			    						<div style="text-align:center;  margin: 20px 0px;">
+			    							<div class="btn-group" role="group" aria-label="Are you the producer? yes or no?">
+												<button type="button" class="btn btn-success" data-elem="product-inputs" style="border-right:0px;" aria-label="Yes, my company produces this product">yes</button>
+												<button type="button" class="btn btn-danger" data-elem="product-already-listed" style="border-left:0px;" aria-label="No, we are reselling another company's product">no</button>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -208,7 +211,7 @@
 										<input type="text"
 											   name="productname"
 											   class="form-control input-lg"
-											   id="product-name"
+											   id="new-product-name"
 											   aria-label="give the product a name"/>
 										<!-- formatting toolbar -->
 										<?php include "components/formatting_toolbar_half.php"; ?>
@@ -220,7 +223,7 @@
 										<input type="text"
 											   name="subname"
 											   class="form-control"
-											   id="product-sub-name"
+											   id="new-product-sub-name"
 											   aria-label="optional subname for the product"/>
 										<!-- formatting toolbar -->
 										<?php include "components/formatting_toolbar_half.php"; ?>
@@ -251,7 +254,7 @@
 									<!-- description -->
 									<div>
 										<label>Product Description</label>
-										<textarea rows="5" placeholder="Tell us about this product" id="product-description"></textarea>
+										<textarea rows="5" placeholder="Tell us about this product" id="new-product-description"></textarea>
 										<!-- full formatting toolbar -->
 										<?php include "components/formatting_toolbar_full.php"; ?>	
 									</div>

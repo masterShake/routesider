@@ -103,7 +103,7 @@ ul.instructions>li{
 }
 
 /* x close new product panel */
-#new-product-btn .close{
+#new-product-btn>div>button.close{
 	display: none;
 	margin-right: 10px;
 }

@@ -185,6 +185,10 @@ var RS, rsApp;
 	//---------------------------------------------
 	// - generate a dismissable alert
 	RS.prototype.insertAlert = function(aClass, aHTML, refElem){
+		
+		// if there is already an alert, do nothing
+		if(refElem.parentElement.getElementsByClassName("alert").length)
+			return;
 
 		//----------------------------------------
 		// - create the alert elem

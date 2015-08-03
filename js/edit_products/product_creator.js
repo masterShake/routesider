@@ -63,14 +63,39 @@ PC.prototype.open = function(event){
 
 //-----------------------------------------------
 // - initialize the swiper and other events
-PC.prototype.init = function(){
+PC.prototype.init = function(){ console.log("init called");
 
 	// init the hero swiper
-	new HS( document.getElementById("new-product-btn").getElementsByClassName("slideshow")[0] );
+	this.heroSwiper = new HS( document.getElementById("new-product-btn").getElementsByClassName("slideshow")[0] );
+
+	// init formatting toolbars
+	ftApp.toolbars[0] = new FT(
+								document.getElementById("new-product-name"),
+								document.getElementById("new-product-name").parentElement.children[2],
+								0
+							 );
+	ftApp.toolbars[1] = new FT(
+								document.getElementById("new-product-sub-name"),
+								document.getElementById("new-product-sub-name").parentElement.children[2],
+								1
+							 );
+	ftApp.toolbars[2] = new FT(
+								document.getElementById("new-product-description"),
+								document.getElementById("new-product-description").parentElement.children[2],
+								2
+							 );
 
 	// init the close button
 	document.getElementById("new-product-btn").children[0].children[0]
 		.addEventListener("click", epApp.pc.close, false);
+
+	// info button event listeners
+	document.getElementById("new-product-btn")
+		.getElementsByClassName("glyphicon-info-sign")[0]
+			.addEventListener("click", epApp.pc.infoAlert, false);
+	document.getElementById("new-product-btn")
+		.getElementsByClassName("glyphicon-info-sign")[1]
+			.addEventListener("click", epApp.pc.infoAlert, false);
 
 	// add event listeners to the producer-btns
 	document.getElementById("producer-btns")
@@ -168,3 +193,20 @@ PC.prototype.dn = function(){
 	// fade in the coresponding elem
 	epApp.pc.fadeIn( this.dataset.elem );
 }
+
+//-----------------------------------------------
+// - event listener for info buttons
+// - display an alert message on click
+PC.prototype.infoAlert = function(){
+	rsApp.insertAlert( this.dataset.alert, 
+					   this.dataset.text, 
+					   this.parentElement.parentElement.children[1]
+					 );
+}
+
+
+
+
+
+
+

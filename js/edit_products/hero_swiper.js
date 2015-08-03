@@ -57,7 +57,7 @@ HS.prototype.fileDragHover = function(e) {
 HS.prototype.fileSelectHandler = function(e) {
 
 		// cancel event and hover styling
-		epApp.heroSwiper.fileDragHover(e);
+		epApp.pc.heroSwiper.fileDragHover(e);
 		
 		// display the spinner
 		e.target.innerHTML = "<span class='glyphicon glyphicon-hourglass loading'></span>";
@@ -66,7 +66,7 @@ HS.prototype.fileSelectHandler = function(e) {
 		var files = e.target.files || e.dataTransfer.files;// process all File objects
 
 		// upload the file
-		epApp.heroSwiper.uploadFile(files[0], e.target.dataset.elem);
+		epApp.pc.heroSwiper.uploadFile(files[0], e.target.dataset.elem);
 }
 // ajax upload file
 HS.prototype.uploadFile = function(file, elemStr){
@@ -93,17 +93,17 @@ HS.prototype.uploadFile = function(file, elemStr){
 	  			this.j = JSON.parse( this.responseText );
 
 	  			// push the image file onto the slideshow
-	  			epApp.heroSwiper.slideshow.push(this.j["filename"]);
+	  			epApp.pc.heroSwiper.slideshow.push(this.j["filename"]);
 
 	  			// remove the spinning hourglass
-	  			epApp.heroSwiper.filedrag.innerHTML = '<span><span class="glyphicon glyphicon-camera"></span>&nbsp;drag &amp; drop<br><span style="font-size: 8px;">-or-</span></span>';
+	  			epApp.pc.heroSwiper.filedrag.innerHTML = '<span><span class="glyphicon glyphicon-camera"></span>&nbsp;drag &amp; drop<br><span style="font-size: 8px;">-or-</span></span>';
 			
 	  			// set the hero background image
-	  			epApp.heroSwiper.hero.innerHTML = "";
-	  			epApp.heroSwiper.hero.style.backgroundImage = "url(uploads/" + this.j['filename'] + ")";
+	  			epApp.pc.heroSwiper.hero.innerHTML = "";
+	  			epApp.pc.heroSwiper.hero.style.backgroundImage = "url(uploads/" + this.j['filename'] + ")";
 
 	  			// add a slide to the slideshow
-	  			epApp.heroSwiper.addSlide( document.createElement('div'), this.j['filename'] );
+	  			epApp.pc.heroSwiper.addSlide( document.createElement('div'), this.j['filename'] );
 			}
 	  	}
 
@@ -133,10 +133,10 @@ HS.prototype.addSlide = function(blankDiv, filename){
 	blankDiv.style.backgroundImage = "url(uploads/"+filename+")"; // console.log(this.swiper.slides[this.swiper.slides.length - 1]); console.log(blankDiv)
 	
 	// add event listner to remove circle
-	blankDiv.children[0].addEventListener('click', epApp.heroSwiper.removeSlide, false);
+	blankDiv.children[0].addEventListener('click', epApp.pc.heroSwiper.removeSlide, false);
 	
 	// add event listener to move slide to the front
-	blankDiv.children[2].addEventListener('click', epApp.heroSwiper.slideToFront, false);
+	blankDiv.children[2].addEventListener('click', epApp.pc.heroSwiper.slideToFront, false);
 	
 	// if there are other slides
 	if(this.swiper.slides.length > 1)
@@ -155,33 +155,33 @@ HS.prototype.addSlide = function(blankDiv, filename){
 HS.prototype.removeSlide = function(){
 	
 	// remove this filename from the slideshow
-	epApp.heroSwiper.slideshow.splice( 
-										epApp.heroSwiper.slideshow.indexOf(this.parentElement.dataset.filename),
+	epApp.pc.heroSwiper.slideshow.splice( 
+										epApp.pc.heroSwiper.slideshow.indexOf(this.parentElement.dataset.filename),
 										1
 									 );
 	
 	// if there are no more slides
-	if(!epApp.heroSwiper.slideshow.length){
+	if(!epApp.pc.heroSwiper.slideshow.length){
 		
 		// reset the inner html of the hero
-		epApp.heroSwiper.hero.innerHTML = '<div class="glyphicon glyphicon-camera"></div>' + 
+		epApp.pc.heroSwiper.hero.innerHTML = '<div class="glyphicon glyphicon-camera"></div>' + 
 										  '<h4>No images yet</h4>';
 	
 		// remove the background image
-		epApp.heroSwiper.hero.style.backgroundImage = "none";
+		epApp.pc.heroSwiper.hero.style.backgroundImage = "none";
 	
 	// if this was the first slide in slideshow
-	}else if(epApp.heroSwiper.swiper.clickedIndex == 0){
+	}else if(epApp.pc.heroSwiper.swiper.clickedIndex == 0){
 
 		// set the checked box of the next slide
-		epApp.heroSwiper.swiper.slides[1].children[2].checked = true;
+		epApp.pc.heroSwiper.swiper.slides[1].children[2].checked = true;
 	
 		// change the hero
-		epApp.heroSwiper.hero.style.backgroundImage = 'url(uploads/' + epApp.heroSwiper.slideshow[0] + ')';
+		epApp.pc.heroSwiper.hero.style.backgroundImage = 'url(uploads/' + epApp.pc.heroSwiper.slideshow[0] + ')';
 	}
 	
 	// remove the slide from the swiper
-	epApp.heroSwiper.swiper.removeSlide( epApp.heroSwiper.swiper.clickedIndex );
+	epApp.pc.heroSwiper.swiper.removeSlide( epApp.pc.heroSwiper.swiper.clickedIndex );
 }
 
 //-----------------------------------------------
@@ -190,7 +190,7 @@ HS.prototype.removeSlide = function(){
 HS.prototype.slideToFront = function(){
 
 	// if this slide is alreay in front
-	if(this.parentElement === epApp.heroSwiper.swiper.slides[0]){
+	if(this.parentElement === epApp.pc.heroSwiper.swiper.slides[0]){
 		// keep it in check
 		this.checked = true; return;
 	}
@@ -198,14 +198,14 @@ HS.prototype.slideToFront = function(){
 	/* do the style stuff first to avoid race conditions */
 
 	// uncheck the front slide
-	epApp.heroSwiper.swiper.slides[0].children[2].checked = false;
+	epApp.pc.heroSwiper.swiper.slides[0].children[2].checked = false;
 
 	// set the hero
-	epApp.heroSwiper.hero.style.backgroundImage = 'url(uploads/'+this.parentElement.dataset.filename+')';
+	epApp.pc.heroSwiper.hero.style.backgroundImage = 'url(uploads/'+this.parentElement.dataset.filename+')';
 
 	// move this filename to the front of the slideshow array
-	epApp.heroSwiper.slideshow.move(
-										epApp.heroSwiper.swiper.clickedIndex,
+	epApp.pc.heroSwiper.slideshow.move(
+										epApp.pc.heroSwiper.swiper.clickedIndex,
 										0
 								   );
 
@@ -213,5 +213,5 @@ HS.prototype.slideToFront = function(){
 	this.parentElement.parentElement.insertBefore( this.parentElement, this.parentElement.parentElement.children[0] );
 
 	// update
-	epApp.heroSwiper.swiper.update();
+	epApp.pc.heroSwiper.swiper.update();
 }
