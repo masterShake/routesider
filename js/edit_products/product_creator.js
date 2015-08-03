@@ -127,6 +127,14 @@ PC.prototype.close = function(){
 		.style.display = "none";
 	document.getElementById("producer-btns")
 		.style.opacity = "0";
+	document.getElementById("product-already-listed")
+		.style.display = "none";
+	document.getElementById("product-already-listed")
+		.style.opacity = "0";
+	document.getElementById("product-inputs")
+		.style.display = "none";
+	document.getElementById("product-inputs")
+		.style.opacity = "0";
 }
 
 //-----------------------------------------------
