@@ -115,6 +115,9 @@ var ESM, esmApp;
 		// google
 		document.getElementById("activate-goog").children[0]
 			.addEventListener("click", rsApp.toggleDropdown, false);
+		// linked in
+		document.getElementById("activate-link").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}
 

@@ -192,7 +192,7 @@
 
                                 <div class='popover top <?= in_array("facebook", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-facebook2"></span> Facebook</h3>
+                                    <h3 class="popover-title"><span class="icon-facebook2" style="color:#3B5998;"></span> Facebook</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("facebook", $networks) ){ ?>
@@ -200,7 +200,7 @@
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
                                         </div>
-                                        <div>
+                                        <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
                                         <button type="button" class="btn btn-danger">remove</button>
@@ -226,7 +226,7 @@
 
                                 <div class='popover top <?= in_array("instagram", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
+                                    <h3 class="popover-title"><span class="icon-instagram" style="color:#517fa4;"></span> Instagram</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("instagram", $networks) ){ ?>
@@ -234,7 +234,7 @@
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
                                         </div>
-                                        <div>
+                                        <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
                                         <button type="button" class="btn btn-danger">remove</button>
@@ -260,7 +260,7 @@
 
                                 <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-tumblr2"></span> Tumblr</h3>
+                                    <h3 class="popover-title"><span class="icon-tumblr2" style="color:#32506d;"></span> Tumblr</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("tumblr", $networks) ){ ?>
@@ -268,7 +268,7 @@
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
                                         </div>
-                                        <div>
+                                        <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
                                         <button type="button" class="btn btn-danger">remove</button>
@@ -285,11 +285,35 @@
 		            		</div>
 
 		            		<!-- linked in -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-utoob">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-link">
 
                                 <div>
-		            			   <button type="button" class="btn activate-btn" aria-label="activate youtube"><span class="icon-youtube3" aria-hidden="true"></span></button>
-		            			   <h5>YouTube</h5>
+		            			   <button type="button" class="btn activate-btn" aria-label="activate LinkedIn"><span class="icon-linkedin" aria-hidden="true"></span></button>
+		            			   <h5>LinkedIn</h5>
+                                </div>
+
+                                 <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title"><span class="icon-tumblr2" style="color:#4875B4;"></span> LinkedIn</h3>
+                                    <div class="popover-content">
+
+                                    <?php if( in_array("linkedin", $networks) ){ ?>
+
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        </div>
+                                        <div style="margin-bottom:8px;">
+                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger">remove</button>
+
+                                    <?php }else{ ?>
+
+                                        <button type="button" class="btn btn-success" data-network="linkedin" data-url="" aria-label="add tumblr account">add account</button>
+                                    
+                                    <?php } ?>
+
+                                    </div>
                                 </div>
 
 		            		</div>
@@ -304,7 +328,7 @@
 
                                 <div class='popover top <?= in_array("twitter", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-twitter2"></span> Twitter</h3>
+                                    <h3 class="popover-title"><span class="icon-twitter2" style="color:#00ACED;"></span> Twitter</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("twitter", $networks) ){ ?>
@@ -338,7 +362,7 @@
 
                                 <div class='popover top <?= in_array("google", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-google-plus2"></span> Google</h3>
+                                    <h3 class="popover-title"><span class="icon-google-plus2" style="color:#dd4b39;"></span> Google</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("google", $networks) ){ ?>
@@ -346,7 +370,7 @@
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
                                         </div>
-                                        <div>
+                                        <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
                                         <button type="button" class="btn btn-danger">remove</button>
