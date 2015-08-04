@@ -29,8 +29,7 @@
 
 /* activation buttons container */
 .activation-btns>div{
-	float:left;
-	width:33%;
+	/*float:left;*/
 	text-align: center;
 	margin-bottom: 20px;
 	max-height: 95px;
@@ -96,7 +95,7 @@
 	color: #dd4b39;
 }
 
-/* popover button */
+/* popover */
 .popover{
 	width: 136px;
 	position: relative;
@@ -105,7 +104,23 @@
 	margin-left: -68px;
 	margin-top: -180px !important;
 }
-
+.popover.active{
+	margin-top: -235px !important;
+}
+/* popover checkbox */
+.popover-content>div{
+	height: 25px;
+}
+.popover-content input{
+	margin-top: 1px;
+}
+.popover-content span{
+	font-size: 12px;
+}
+.popover-content button{
+	width: 100%;
+	margin-top: 8px;
+}
 
 
 /*----------------------

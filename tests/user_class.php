@@ -44,9 +44,9 @@
   	<!-- print_r -->
   	<pre><?php
 
-        $maps = $business->getMaps();
+        $networks = $business->networks();
 
-        print_r($maps);
+        print_r($networks);
 
   	?></pre>
 

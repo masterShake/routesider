@@ -15,6 +15,8 @@ class Business{
 	private $_data = array(),
 			$_user, 
 			$_profile,
+			$_db, 
+			$_networks = null,
 			$_social_media_posts = null,
 			$_pins = null,
 			$_polygons = null;
@@ -30,6 +32,9 @@ class Business{
 
 		// create the profile object
 		$this->_profile = new Profile($user, $this, $profile);
+
+		// set the database PDO object
+		$this->_db = neoDB::getInstance();
 
 	}
 
@@ -52,8 +57,6 @@ class Business{
 		// if we haven't already retrieved the social media posts
 		if( is_null($this->_social_media_posts) ){
 
-			$db = neoDB::getInstance();
-
 			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
 	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ";
 
@@ -66,7 +69,7 @@ class Business{
 	        $cypher .= "MATCH (s)-[:POSTED]->(p) ".
 	                   "RETURN p ORDER BY p.created_time DESC";
 
-	        $this->_social_media_posts = $db->query( $cypher );
+	        $this->_social_media_posts = $this->_db->query( $cypher );
 
 	        $this->_social_media_posts = $this->_social_media_posts["p"];
 		}
@@ -80,15 +83,13 @@ class Business{
 		// if we havent already retrieved the maps
 		if( is_null($this->_pins) ){
 
-			$db = neoDB::getInstance();
-
 			// first get the pins
 			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
 	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
 	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pins)-[:HAS_COORD]->(c) ".
 	                  "RETURN pins, c";
 
-	        $results = $db->query( $cypher ); 
+	        $results = $this->_db->query( $cypher ); 
 
 	        // init the empty array
 	        $this->_pins = array();
@@ -116,7 +117,7 @@ class Business{
 	                  "OPTIONAL MATCH (b)-[:HAS_POLYGON]->(polys) ".
 	                  "RETURN polys";
 
-	        $this->_polygons = $db->query( $cypher );
+	        $this->_polygons = $this->_db->query( $cypher );
 
 	        // if there are any polys
 	        if( !is_null($this->_polygons["polys"][0]) ){
@@ -137,6 +138,32 @@ class Business{
 	    }
 		
 		return array( "pins" => $this->_pins, "polys" => $this->_polygons );
+	}
+
+	//-----------------------------------------------
+	// - return an array with the names of the social 
+	//   networks attached to the account.
+	public function networks(){
+
+		if( is_null($this->_networks) ){
+
+			$this->_networks = array();
+
+			$cypher = "MATCH (b:Business) WHERE b.id = 2 " .
+					  "OPTIONAL MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s) " .
+					  "RETURN s";
+					  
+			$results = $this->_db->query($cypher);
+
+			$results = $results["s"];
+
+			foreach($results as $r)
+
+				array_push($this->_networks, $r["network"]);
+
+		}
+
+		return $this->_networks;
 	}
 }
 

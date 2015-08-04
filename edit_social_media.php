@@ -129,6 +129,8 @@
 
     $profile = $business->profile();
 
+    $networks = $business->networks();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,7 +174,7 @@
             	<div class="row">
 
 	            	<!-- activation buttons -->
-	            	<section class="col-sm-6 col-md-2" id="activation-btns">
+	            	<section class="col-md-4" id="activation-btns">
 
 	            		<h3>Activate/Deactivate</h3>
 
@@ -181,7 +183,7 @@
 	            		<div class="container-fluid activation-btns">
 		            		
 		            		<!-- facebook -->
-		            		<div id="activate-face">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-face">
 		            			
 		            			<button type="button" class="btn activate-btn"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
 
@@ -190,24 +192,40 @@
 		            		</div>
 
 		            		<!-- instagram -->
-		            		<div id="activate-inst">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-inst">
 		            			
 		            			<button type="button" class="btn activate-btn" data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
 		            			
 		            			<h5>Instagram</h5>
 
-                                <div class="popover top">
+                                <div class='popover top <?= in_array("instagram", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
                                     <div class="popover-content">
+
+                                    <?php if( in_array("instagram", $networks) ){ ?>
+
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger">remove</button>
+
+                                    <?php }else{ ?>
+
                                         <button type="button" data-network="instagram" data-url="https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&amp;redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&amp;response_type=code" aria-label="add instagram account" class="btn">add account</button>
+                                    
+                                    <?php } ?>
+
                                     </div>
                                 </div>
 
 		            		</div>
 
 		            		<!-- tumblr -->
-		            		<div id="activate-tumb">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-tumb">
 		            			
 		            			<button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
 		            			
@@ -216,7 +234,7 @@
 		            		</div>
 
 		            		<!-- etsy -->
-		            		<div id="activate-etz">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-etz">
 
 		            			<button type="button" class="btn activate-btn" aria-label="activate etsy"><span class="etsy-icon" aria-hidden="true">E</span></button>
 		            			
@@ -225,7 +243,7 @@
 		            		</div>
 
 		            		<!-- twitter -->
-		            		<div id="activate-twit">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-twit">
 		            			
 		            			<button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
 		            			
@@ -234,7 +252,7 @@
 		            		</div>
 
 		            		<!-- google -->
-		            		<div id="activate-goog">
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-goog">
 
 		            			<button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
 
@@ -245,13 +263,8 @@
 		            	</div><!-- /container-fluid -->
 	            	</section><!-- /activation-bts -->
 
-	            	<!-- other settings -->
-	            	<section class="hidden-sx col-sm-6 col-md-4" id="social-metrics">
-	            		
-	            	</section><!-- /other settings -->
-
 	            	<!-- feed -->
-	            	<section class="col-sm-12 col-md-6" id="social-feed">	
+	            	<section class="col-md-8" id="social-feed">	
 
                         <h3>Edit Posts</h3>
 
