@@ -194,10 +194,8 @@
 		            		<!-- instagram -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-inst">
 		            			
-		            			<button type="button" class="btn activate-btn" data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+		            			<button type="button" class='btn activate-btn <?= in_array("instagram", $networks) ? "active" : ""; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
 		            			
-		            			<h5>Instagram</h5>
-
                                 <div class='popover top <?= in_array("instagram", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
@@ -221,6 +219,8 @@
 
                                     </div>
                                 </div>
+                                
+		            			<h5>Instagram</h5>
 
 		            		</div>
 
@@ -269,6 +269,51 @@
                         <h3>Edit Posts</h3>
 
                         <h5>Remove unwanted posts from your Routesider feed.</h5>
+
+                        <!-- search user posts -->
+                        <div class="container-fluid" style="padding:0px;">
+                            <div class="col-sm-8 col-sm-offset-2" style="padding:0px;">
+                                <div class="input-group" id="search-posts">
+                                    <input type="text" 
+                                           class="form-control input-lg" 
+                                           placeholder="Search posts"
+                                           aria-label="search posts">
+                                    <button type="button" class="btn" aria-label="Submit search for posts">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /container-fluid -->
+
+                        <!-- search settings -->
+                        <div class="container-fluid" style="padding:0px;">
+                            <div class="col-sm-10 col-sm-offset-1" id="search-settings" style="padding:0px;">
+
+                                <!-- text or image posts -->
+                                <div class="btn-group" role="group" aria-label="filter by content">
+                                    <button type="button" class="btn btn-default active" aria-label="text-posts">
+                                        <span class="glyphicon glyphicon-font"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default active" aria-label="media-posts">
+                                        <span class="glyphicon glyphicon-film"></span>
+                                    </button>
+                                </div>
+                                
+                                <!-- query by network -->
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        all networks
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <?php foreach($networks as $network){ 
+                                            echo "<li><a href='#'>{$network}</a></li>";
+                                        } ?>
+                                    </ul>
+                                </div>
+
+                            </div><!-- /search-settings -->
+                        </div><!-- /container-fluid -->
 
                         <?php 
 

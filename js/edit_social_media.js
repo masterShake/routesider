@@ -49,31 +49,7 @@ RS.prototype.toggleMobileMenu = function(){
 		// set timer to hide #content-cover
 		setTimeout( rsApp.hideContentCover , 300 );
 	}
-}
-
-//-----------------------------------------------
-// - ajax function designed to avoid memory leaks
-// - @ajaxOpts -> object with 4 params:
-//		+ ajaxOpts.method (GET, POST, etc.)
-//		+ ajaxOpts.url
-//		+ ajaxOpts.params
-//		+ ajaxOpts.callback
-//	
-RS.prototype.ajax = function( ajaxOpts ){
-    var i = this.indexer++;
-    this.tempObjs[i] = new XMLHttpRequest();
-    this.tempObjs[i].open(ajaxOpts.method, ajaxOpts.url, true);
-    this.tempObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    this.tempObjs[i].onreadystatechange = function() {
-        if(rsApp.tempObjs[i].readyState == 4 && rsApp.tempObjs[i].status == 200) {
-            if(ajaxOpts.callback)
-                ajaxOpts.callback(rsApp.tempObjs[i].responseText);
-            rsApp.tempObjs[i] = null;
-            delete rsApp.tempObjs[i];
-        }
-    }
-    this.tempObjs[i].send(ajaxOpts.params);
-};
+}	
 
 
 
@@ -117,11 +93,6 @@ var ESM, esmApp;
 
 		/* properties */
 
-		// popover that is currently open
-		this.activePopover = null;
-		// temp variable to keep track of elems while looping
-		this.currPopElem = null;
-
 		// initialize the SocialMediaMod object
 		this.socialMod = new SocialMediaMod();
 
@@ -131,49 +102,11 @@ var ESM, esmApp;
 
 		// instagram
 		document.getElementById("activate-inst").children[0]
-			.addEventListener("click", this.showPopover, false);
+			.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}
 
 	/* METHODS */
-
-	//-----------------------------------------------
-	// - toggle the display of the popover
-	ESM.prototype.showPopover = function(){ console.log("toggle button clicked");
-
-		// set the active popover
-		esmApp.activePopover = this.parentElement.children[2];
-
-		// display the popover element
-		esmApp.activePopover.style.display = "block";
-
-		// add event listener to the body to close the popover
-		document.body.addEventListener("click", esmApp.hidePopover, true);
-	}
-
-	//-----------------------------------------------
-	// - hide the active popover elem
-	ESM.prototype.hidePopover = function(event){ console.log("body clicked");
-
-
-		// set the current element
-		esmApp.currPopElem = event.target;
-		// - loop up to the top parent
-		// - make sure we clicked outside of activeDropdown
-		while( esmApp.currPopElem !== document.body){
-			// if we get to our active dropdown
-			if( esmApp.currPopElem === esmApp.activePopover ){
-				// break out of the loop
-				return;
-			}
-			// set the new currPopElem
-			esmApp.currPopElem = esmApp.currPopElem.parentElement;
-		}
-		// - If we get this far, we need to close the dropdown
-		//   and remove the event listeners.
-		esmApp.activePopover.style.display = "none";
-		document.body.removeEventListener("click", esmApp.hidePopover, true);
-	}
 
 
 

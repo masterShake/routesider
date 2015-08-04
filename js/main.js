@@ -81,10 +81,8 @@ var RS, rsApp;
 	//				  ------------
 	// - event listener toggle dropdown
 	RS.prototype.toggleDropdown =function(){
-		
 		// set the active dropdown
 		rsApp.activeDropdown = this.parentElement;
-
 		// if the dropdown menu is showing
 		if( this.parentElement.children[1].offsetParent === null ){
 			// display the menu
