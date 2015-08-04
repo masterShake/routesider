@@ -178,24 +178,52 @@
 
 	            		<h3>Activate/Deactivate</h3>
 
-	            		<h5>Connect your social media account to Routesider to include posts in your Routesider feed.</h5>
+	            		<h5>Connect your social media account to Routesider.</h5>
 
 	            		<div class="container-fluid activation-btns">
 		            		
 		            		<!-- facebook -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-face">
 		            			
-		            			<button type="button" class="btn activate-btn"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+                                <div>
+		            			    <button type="button" class="btn activate-btn"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+                                    <h5>Facebook</h5>
+                                </div>
 
-		            			<h5>Facebook</h5>
+                                <div class='popover top <?= in_array("facebook", $networks) ? "active" : ""; ?>'>
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title"><span class="icon-facebook2"></span> Facebook</h3>
+                                    <div class="popover-content">
+
+                                    <?php if( in_array("facebook", $networks) ){ ?>
+
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger">remove</button>
+
+                                    <?php }else{ ?>
+
+                                        <button type="button" class="btn btn-success" data-network="facebook" data-url="" aria-label="add facebook account">add account</button>
+                                    
+                                    <?php } ?>
+
+                                    </div>
+                                </div>
 
 		            		</div>
 
 		            		<!-- instagram -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-inst">
-		            			
-		            			<button type="button" class='btn activate-btn <?= in_array("instagram", $networks) ? "active" : ""; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
-		            			
+                                
+                                <div>		            			
+    		            			<button type="button" class='btn activate-btn <?= in_array("instagram", $networks) ? "active" : ""; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+                                    <h5>Instagram</h5>
+                                </div>
+
                                 <div class='popover top <?= in_array("instagram", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
@@ -213,50 +241,124 @@
 
                                     <?php }else{ ?>
 
-                                        <button type="button" data-network="instagram" data-url="https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&amp;redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&amp;response_type=code" aria-label="add instagram account" class="btn">add account</button>
+                                        <button type="button" class="btn btn-success" data-network="instagram" data-url="https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&amp;redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&amp;response_type=code" aria-label="add instagram account">add account</button>
                                     
                                     <?php } ?>
 
                                     </div>
                                 </div>
-                                
-		            			<h5>Instagram</h5>
 
 		            		</div>
 
 		            		<!-- tumblr -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-tumb">
 		            			
-		            			<button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
-		            			
-		            			<h5>Tumblr</h5>
+                                <div>
+		            			   <button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
+		            			   <h5>Tumblr</h5>
+                                </div>
+
+                                <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title"><span class="icon-tumblr2"></span> Tumblr</h3>
+                                    <div class="popover-content">
+
+                                    <?php if( in_array("tumblr", $networks) ){ ?>
+
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger">remove</button>
+
+                                    <?php }else{ ?>
+
+                                        <button type="button" class="btn btn-success" data-network="tumblr" data-url="" aria-label="add tumblr account">add account</button>
+                                    
+                                    <?php } ?>
+
+                                    </div>
+                                </div>
 
 		            		</div>
 
-		            		<!-- etsy -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-etz">
+		            		<!-- linked in -->
+		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-utoob">
 
-		            			<button type="button" class="btn activate-btn" aria-label="activate etsy"><span class="etsy-icon" aria-hidden="true">E</span></button>
-		            			
-		            			<h5>Etsy</h5>
+                                <div>
+		            			   <button type="button" class="btn activate-btn" aria-label="activate youtube"><span class="icon-youtube3" aria-hidden="true"></span></button>
+		            			   <h5>YouTube</h5>
+                                </div>
 
 		            		</div>
 
 		            		<!-- twitter -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-twit">
 		            			
-		            			<button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
-		            			
-		            			<h5>Twitter</h5>
+                                <div>
+		            			   <button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
+		            			   <h5>Twitter</h5>
+                                </div>
+
+                                <div class='popover top <?= in_array("twitter", $networks) ? "active" : ""; ?>'>
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title"><span class="icon-twitter2"></span> Twitter</h3>
+                                    <div class="popover-content">
+
+                                    <?php if( in_array("twitter", $networks) ){ ?>
+
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger">remove</button>
+
+                                    <?php }else{ ?>
+
+                                        <button type="button" class="btn btn-success" data-network="twitter" data-url="" aria-label="add twitter account">add account</button>
+                                    
+                                    <?php } ?>
+
+                                    </div>
+                                </div>
 
 		            		</div>
 
 		            		<!-- google -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-goog">
 
-		            			<button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+                                <div>
+		            			   <button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+		            			   <h5>Google</h5>
+                                </div>
 
-		            			<h5>Google</h5>
+                                <div class='popover top <?= in_array("google", $networks) ? "active" : ""; ?>'>
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title"><span class="icon-google-plus2"></span> Google</h3>
+                                    <div class="popover-content">
+
+                                    <?php if( in_array("google", $networks) ){ ?>
+
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                        </div>
+                                        <button type="button" class="btn btn-danger">remove</button>
+
+                                    <?php }else{ ?>
+
+                                        <button class="btn btn-success" type="button" data-network="google" data-url="" aria-label="add google account">add account</button>
+                                    
+                                    <?php } ?>
+
+                                    </div>
+                                </div>
 
 		            		</div>
 

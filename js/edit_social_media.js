@@ -100,8 +100,20 @@ var ESM, esmApp;
 		
 		// activate network event listener btns
 
+		// facebook
+		document.getElementById("activate-face").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
 		// instagram
 		document.getElementById("activate-inst").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// tumblr
+		document.getElementById("activate-tumb").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// twitter
+		document.getElementById("activate-twit").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// google
+		document.getElementById("activate-goog").children[0]
 			.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}
@@ -212,7 +224,7 @@ var ESM, esmApp;
 
 		//open the auth window
 		window.open( this.dataset.url, 
-					 this.dataset.pagetitle,
+					 this.dataset.network,
 					 "scrollbars=yes,width=475,height=425"
 				   );
 
