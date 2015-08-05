@@ -203,7 +203,7 @@
                                         <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger">remove</button>
+                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
 
                                     <?php }else{ ?>
 
@@ -237,7 +237,7 @@
                                         <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger">remove</button>
+                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
 
                                     <?php }else{ ?>
 
@@ -271,7 +271,7 @@
                                         <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger">remove</button>
+                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
 
                                     <?php }else{ ?>
 
@@ -305,7 +305,7 @@
                                         <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger">remove</button>
+                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
 
                                     <?php }else{ ?>
 
@@ -339,7 +339,7 @@
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger">remove</button>
+                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
 
                                     <?php }else{ ?>
 
@@ -373,7 +373,7 @@
                                         <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger">remove</button>
+                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
 
                                     <?php }else{ ?>
 
