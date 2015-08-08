@@ -94,6 +94,10 @@ var Jumbo, jApp;
 
 		/* initializations */
 
+		// set height of jumbo-canvas
+		document.getElementById("jumbo-canvas")
+			.style.height = (window.offsetHeight - 114) + "px";
+
 	}
 
 	/* METHODS */
@@ -116,6 +120,8 @@ var Jumbo, jApp;
 
 	    // create new Jumbo (edit jumbotron) object
 	    // jumboApp = new Jumbo();
+		document.getElementById("jumbo-canvas")
+			.style.height = (window.innerHeight - 120) + "px";
 
 	}, true);	
 

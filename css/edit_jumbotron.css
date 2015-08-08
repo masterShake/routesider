@@ -5,6 +5,11 @@
   ------------------------------------*/
 
 
+#navbar{
+	margin-bottom: 0px;
+}
+
+
 /*----------------------
    animated elements
 ----------------------*/
@@ -17,3 +22,69 @@
 	-o-transition: .5s;
 	transition: .5s;
 }*/
+
+
+
+
+
+/*----------------------
+	jumbo canvas
+----------------------*/
+
+#jumbo-canvas{
+	padding:15px;
+}
+
+
+
+
+
+
+/*----------------------
+	edit-background
+----------------------*/
+
+#edit-background{
+	border: 1px dashed #ccc;
+    height: 100%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#edit-background>span.icon-image{
+	margin-top: 300px;
+	color: #ddd;
+	font-size: 44px;
+}
+
+
+
+
+
+
+/*----------------------
+	jumbo toolbar
+----------------------*/
+
+#jumbo-toolbar{
+	padding:12px;
+	background-color: #d6e9c6;
+}
+/* components toolbar */
+#jumbo-toolbar .glyphicon-plus,
+#jumbo-toolbar .glyphicon-pencil{
+	font-size: 11px;
+}
+/* little dashed box icons */
+.dash-box{
+    font-size: 10px;
+    outline: 1px dashed;
+    padding: 2px;
+    float: left;
+    margin-right: 5px;
+}
+
+
+
+
+

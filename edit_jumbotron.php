@@ -108,50 +108,66 @@
             <!-- navbar -->
             <?php include "components/navbar.php"; ?>
 
-            <div class="container">
+            <!-- jumbotron canvas -->
+            <div id="jumbo-canvas" class="container">
 
-                <!-- jumbotron canvas -->
-                <div id="jumbo-canvas">
+                <!-- dismissable page title -->
 
-                    <!-- dismissable page title -->
-
-                </div><!-- /jumbo-canvas -->
-
-                <!-- jumbo toolbar -->
-                <div id="jumbo-toolbar">
+                <!-- edit background -->
+                <div id="edit-background">
                     
-                    <!-- components toolbar -->
-                    <div class="btn-group" role="group" aria-label="components toolbar">
-                        <!-- edit background -->
+                    <!-- upload old fashioned -->
+
+                    <!-- drag and drop text -->
+
+                    <span class="icon-image"></span> 
+
+                </div><!-- /edit-background -->
+
+            </div><!-- /container -->
+
+            <!-- jumbo toolbar -->
+            <div id="jumbo-toolbar" class="container">
+                
+                <!-- components toolbar -->
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+
+                    <!-- edit background -->
+                    <div class="btn-group" role="group" aria-label="edit background">
                         <button type="button" class="btn btn-default" aria-label="edit background">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+                            <div class="dash-box" style="padding:3px 4px 1px;"aria-hidden="true">
+                                <span class="icon-image" aria-hidden="true"></span>
+                            </div>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </button>
+                    </div>
+
+                    <!-- add components -->
+                    <div class="btn-group" role="group" aria-label="components toolbar">
                         <!-- add textbox -->
                         <button type="button" class="btn btn-default" aria-label="add textbox">
-                            <span aria-hidden="true">Aa</span>
+                            <div class="dash-box" aria-hidden="true">Aa</div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                         <!-- add image overlay -->
                         <button type="button" class="btn btn-default" aria-label="add image overlay">
-                            <span class="icon-images" aria-hidden="true"></span>
+                            <div class="icon-images" style="font-size:16px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                         <!-- add button -->
                         <button type="button" class="btn btn-default" aria-label="add button">
-                            <span>
+                            <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 1px 3px;">
                                 <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                            </span>
+                            </div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
-                    </div>
+                    </div><!-- /add components -->
 
+                </div><!-- /bootstrap button group toolbar -->
 
-                    <!-- device layout dropdown -->
+                <!-- device layout dropdown -->
 
-                </div><!-- /jumbo-toolbar -->
-
-            </div>
+            </div><!-- /jumbo-toolbar -->
 
             <!-- footer -->
             <?= include "components/footer.php"; ?>
