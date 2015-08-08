@@ -205,6 +205,25 @@
 								<!-- product inputs -->
 								<div id="product-inputs">
 
+									<hr>
+
+									<div style="height:45px;">
+										<div style="float:right;">
+					                        <span>Product Active</span>
+					                        <div class="onoffswitch" style="margin-right:0px;top:-18px;" >
+					                            <input type="checkbox" 
+					                                   name="onoffswitch" 
+					                                   class="onoffswitch-checkbox" 
+					                                   id="myonoffswitch-new-product"
+					                                   checked />
+					                            <label class="onoffswitch-label" for="myonoffswitch-new-product">
+					                                <span class="onoffswitch-inner"></span>
+					                                <span class="onoffswitch-switch"></span>
+					                            </label>
+					                        </div>
+					                	</div>
+					                </div>
+
 									<!-- product name -->
 									<div>
 										<label for="product-name" style="margin-top: 10px;">Product Name</label>

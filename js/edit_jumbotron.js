@@ -68,7 +68,7 @@ RS.prototype.toggleMobileMenu = function(){
 
 
 
-var ESM, esmApp;
+var Jumbo, jApp;
 
 (function(){
 

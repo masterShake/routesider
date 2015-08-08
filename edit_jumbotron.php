@@ -110,8 +110,46 @@
 
             <div class="container">
 
-            	<!-- header -->
-            	<h1>Edit Jumbotron</h1>
+                <!-- jumbotron canvas -->
+                <div id="jumbo-canvas">
+
+                    <!-- dismissable page title -->
+
+                </div><!-- /jumbo-canvas -->
+
+                <!-- jumbo toolbar -->
+                <div id="jumbo-toolbar">
+                    
+                    <!-- components toolbar -->
+                    <div class="btn-group" role="group" aria-label="components toolbar">
+                        <!-- edit background -->
+                        <button type="button" class="btn btn-default" aria-label="edit background">
+                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        <!-- add textbox -->
+                        <button type="button" class="btn btn-default" aria-label="add textbox">
+                            <span aria-hidden="true">Aa</span>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                        <!-- add image overlay -->
+                        <button type="button" class="btn btn-default" aria-label="add image overlay">
+                            <span class="icon-images" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                        <!-- add button -->
+                        <button type="button" class="btn btn-default" aria-label="add button">
+                            <span>
+                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                            </span>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+
+                    <!-- device layout dropdown -->
+
+                </div><!-- /jumbo-toolbar -->
 
             </div>
 
