@@ -98,6 +98,10 @@ var Jumbo, jApp;
 		document.getElementById("jumbo-canvas")
 			.style.height = (window.offsetHeight - 114) + "px";
 
+		// init the layout view dropdown
+		document.getElementById("layout-view").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+
 	}
 
 	/* METHODS */
@@ -122,6 +126,8 @@ var Jumbo, jApp;
 	    // jumboApp = new Jumbo();
 		document.getElementById("jumbo-canvas")
 			.style.height = (window.innerHeight - 120) + "px";
+		document.getElementById("layout-view").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}, true);	
 

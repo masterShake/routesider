@@ -83,6 +83,33 @@
     float: left;
     margin-right: 5px;
 }
+/* layout view dropdown */
+#layout-view{
+	float: right;
+}
+/* dropup menu */
+#layout-view .dropdown-menu{
+	left: auto;
+	right: -5px;
+	padding-top: 0px;
+}
+/* dropdown header */
+#layout-view .dropdown-menu .dropdown-header{
+    background-color: #eee;
+    text-align: center;
+}
+#layout-view .dropdown-menu .divider{
+	margin-top: 0px;
+}
+#layout-view .list-group-item{
+	padding: 0px 8px;
+}
+#layout-view .list-group-item a{
+	padding: 8px 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+
 
 
 

@@ -128,6 +128,34 @@
 
             <!-- jumbo toolbar -->
             <div id="jumbo-toolbar" class="container">
+
+                <!-- device layout dropdown -->
+                <div class="dropup" id="layout-view">
+                    <div aria-haspopup="true" aria-expanded="true">
+                        <div class="icon-mobile" style="font-size:26px;float:left;margin-top:4px;" aria-hidden="true"></div>
+                        <span class="hidden-xs">mobile</span>
+                        <span class="caret"></span>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="layout-view">
+                        <li class="dropdown-header">Layout View</li>
+                        <li role="separator" class="divider"></li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" style="border-bottom: 0px;">
+                                <span class="icon-laptop"></span>&nbsp;&nbsp;PC
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /device layout dropdown -->
                 
                 <!-- components toolbar -->
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
@@ -164,8 +192,6 @@
                     </div><!-- /add components -->
 
                 </div><!-- /bootstrap button group toolbar -->
-
-                <!-- device layout dropdown -->
 
             </div><!-- /jumbo-toolbar -->
 
