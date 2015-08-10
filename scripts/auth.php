@@ -35,22 +35,25 @@ if(isset($_POST["code"])){
 
         $user = new User();
 
-        $business = $user->business();
+        $business = $user->business()[0];
 
         // $profile = $business->profile();
 
         $db = neoDB::getInstance();
 
-        $cypher = "MATCH (u:User) WHERE u.username = '" . $user->data("username") . "' " .
-                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) " .
-                  "CREATE (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(i:Instagram { " .
-                    "username : '" . $meta->user->username . "', " .
-                    "id : '" . $meta->user->id . "', " .
-                    "profile_pic : '" . $meta->user->profile_picture . "', " .
-                    "website : '" . $meta->user->website . "', " .
-                    "full_name : '" . $meta->user->full_name . "', " .
-                    "bio : '" . $meta->user->bio . "' " .
-                  "}) ";
+                  // match the business
+        $cypher = "MATCH (b:Business) WHERE b.id=" . $business->data("id") . " " .
+                  "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
+                  // create a link to the socialite
+                  "MERGE (b)-[:LINKED_TO { active : 1 }]->(s:Socialite { " . 
+                        // set the user properties
+                        "username : '" . $meta->user->username . "', " .
+                        "id : '" . $meta->user->id . "', " .
+                        "profile_pic : '" . $meta->user->profile_picture . "', " .
+                        "website : '" . $meta->user->website . "', " .
+                        "full_name : '" . $meta->user->full_name . "', " .
+                        "bio : '" . $meta->user->bio . "' " .
+                  "})<-[:HAS_MEMBER]-(n)";
 
         $db->query($cypher);
 
@@ -74,8 +77,9 @@ if(isset($_POST["code"])){
         // loop through the posts
         foreach($posts as $post){
 
-            $cypher = "MATCH (i:Instagram) WHERE i.id='" . $meta->user->id . "' " .
-                      "CREATE (i)-[:POSTED]->(p:Post { " .
+            $cypher = "MATCH (s:Socialite) WHERE s.id='" . $meta->user->id . "' " .
+                      "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
+                      "MERGE (s)-[:POSTED]->(p:Post { " .
                             "username : '" . $meta->user->username . "', " .
                             "network : '".$_POST["network"]."', " .
                             "icon : 'instagram', " .
@@ -94,22 +98,27 @@ if(isset($_POST["code"])){
                                 $cypher .= "likes : " . (int)$post->likes->count . ", ";
 
             $cypher .=      "created_time : " . (int)$post->created_time . " " .
-                        "}) ";
+                        "})<-[:HAS_POST]-(n)";
 
             $db->query( $cypher );
 
             // loop through all of the likers
-            foreach($post->likes->data as $liker){
+            foreach($post->likes->data as $liker){ 
 
+                          // match the post
                 $cypher = "MATCH (p:Post) WHERE p.id='" . $post->id . "' " .
-                          "CREATE (p)<-[:LIKES]-(i:Insta_user { " .
+                          "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
+                          // maybe create the new socialite
+                          "MERGE (s:Socialite { " .
                                 "full_name : '" . $liker->full_name . "', " .
                                 "id : '" . $liker->id . "', " .
                                 "profile_pic : '" . $liker->profile_picture . "', " .
                                 "username : '" . $liker->username . "' " .
-                            "}) ";
+                          "})<-[:HAS_MEMBER]-(n) " .
+                          // maybe associate this socialite with a social network & post
+                          "MERGE (s)-[:LIKED]->(p)" .
                 
-                $db->query( $cypher );
+                $db->query( $cypher ); 
             }
         }
     }

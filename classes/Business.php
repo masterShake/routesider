@@ -57,21 +57,27 @@ class Business{
 		// if we haven't already retrieved the social media posts
 		if( is_null($this->_social_media_posts) ){
 
-			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
-	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ";
+			$cypher = "MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." ";
 
 	                  // if there is a network variable
 	                  if($network)
-	                  	$cypher .= "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:".$network.") ";
+	                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' ";
 	                  else
-	                  	$cypher .= "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s) ";
+	                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s) ";
 	                  
-	        $cypher .= "MATCH (s)-[:POSTED]->(p) ".
+	        $cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p) ".
 	                   "RETURN p ORDER BY p.created_time DESC";
 
 	        $this->_social_media_posts = $this->_db->query( $cypher );
 
-	        $this->_social_media_posts = $this->_social_media_posts["p"];
+	        if( array_key_exists("p", $this->_social_media_posts) && 
+	        	!is_null($this->_social_media_posts["p"][0]) )
+	        	
+	        	$this->_social_media_posts = $this->_social_media_posts["p"];
+
+	        else
+
+	        	$this->_social_media_posts = array();
 		}
 
 		return $this->_social_media_posts;
@@ -84,8 +90,7 @@ class Business{
 		if( is_null($this->_pins) ){
 
 			// first get the pins
-			$cypher = "MATCH (u:User) WHERE u.username = '".$this->_user->data("username")."' ".
-	                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
+			$cypher = "MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." " .
 	                  "OPTIONAL MATCH (b)-[:HAS_PIN]->(pins)-[:HAS_COORD]->(c) ".
 	                  "RETURN pins, c";
 
@@ -149,17 +154,19 @@ class Business{
 
 			$this->_networks = array();
 
-			$cypher = "MATCH (b:Business) WHERE b.id = 2 " .
-					  "OPTIONAL MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s) " .
-					  "RETURN s";
+			$cypher = "MATCH (b:Business) WHERE b.id = " . $this->_data["id"] . " " .
+					  "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) " .
+					  "RETURN n";
 					  
 			$results = $this->_db->query($cypher);
 
-			$results = $results["s"];
+			$results = $results["n"];
 
-			foreach($results as $r)
+			if( $results[0] )
 
-				array_push($this->_networks, $r["network"]);
+				foreach($results as $r)
+
+					array_push($this->_networks, $r["name"]);
 
 		}
 
