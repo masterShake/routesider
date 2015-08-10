@@ -75,6 +75,15 @@ var RS, rsApp;
 	    }
 	    this.tempObjs[i].send(ajaxOpts.params);
 	};
+
+	//-----------------------------------------------
+	// - encode strings to send as URL parameter
+	RS.prototype.encodeRFC = function(str) {
+	    return encodeURIComponent(str).
+	        replace(/['()]/g, escape).
+	        	replace(/\*/g, '%2A').
+	            	replace(/%(?:7C|60|5E)/g, unescape);
+	}
 	
 	//-----------------------------------------------
 	//					dropdown

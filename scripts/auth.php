@@ -172,9 +172,9 @@ if(isset($_POST["code"])){
                 ajax.onreadystatechange = function() {
                     if(this.readyState == 4 && this.status == 200) {
                         // console.log( JSON.parse(this.responseText) );
-                        console.log( this.responseText );
-                        // window.opener.esmApp.socialMod.authorize( network, this.responseText );
-                        // window.close();
+                        // console.log( this.responseText );
+                        window.opener.esmApp.socialMod.authorize( network );
+                        window.close();
                     }
                 }
                 ajax.send('network='+network+'&code=<?= $_GET["code"]; ?>');

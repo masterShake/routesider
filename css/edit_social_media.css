@@ -143,13 +143,9 @@
 }
 
 /* search settings */
-#search-settings{
-	margin-top: 10px;
-	margin-bottom: 30px;
-}
 /* network dropdown */
 /* text and media btns */
-#search-settings .btn-group{
+#search-media{
 	float:right;
 }
 

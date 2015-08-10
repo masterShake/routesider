@@ -8,50 +8,11 @@
 
 
     //-------------------------------
-    // STEP 2: handle image upload
+    // STEP 2: handle GET/POST params
     //-------------------------------
 
-    $fn = (isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : false);
-
-    if ($fn) {
-
-        $user = new User();
-
-        //-------------------------------------------
-        // - getfile information
-        // - $ff[0] = random number
-        // - $ff[1] = file extension
-        // - $ff[2] = heroSwiperObject
-        $ff = explode(".", $fn);
-
-        $uFolder = $_SERVER["DOCUMENT_ROOT"]."/routesider/uploads/";
-
-        // AJAX call
-        file_put_contents(
-            $uFolder . $ff[0].'.'.$ff[1],
-            file_get_contents('php://input')
-        );
-
-        //-------------------------------------------
-        // - create a unique name for the file
-        // - e.g. "username_123.jpg";
-        $newName = rand(0, 1000);
-        $newName = $user->data("username") . "_" . $newName . "." . $ff[1]; 
-
-        // change the name of the file to ensure it is unique
-        rename( $uFolder . $ff[0].'.'.$ff[1], $uFolder . $newName ); //change this
-    
-        $json = [ "filename" => $newName];
-
-        $json = json_encode($json);
-
-        exit( $json );
-    }
-
-    //-------------------------------
-    // STEP 3: handle GET/POST params
-    //-------------------------------
-
+    //-----------------------------------------------
+    // delete a post
     if(isset($_POST["post_id"])){
 
         $db = neoDB::getInstance();
@@ -63,56 +24,67 @@
 
         $db->query( $cypher );
 
-        exit("delte successful");
+        exit("delete successful");
 
-    } else if(isset($_POST["network"])){
+    } 
 
-        // retrieve the data for the given network
+    // else if(isset($_POST["network"])){
 
-        $user = new User();
+    //     // retrieve the data for the given network
+
+    //     $user = new User();
     
-        $business = $user->business();
+    //     $business = $user->business();
 
-        $business = $business[0];
+    //     $business = $business[0];
 
-        $profile = $business->profile();
+    //     $profile = $business->profile();
 
-        $db = neoDB::getInstance();
+    //     $db = neoDB::getInstance();
 
-        $cypher = "MATCH (u:User) WHERE u.username = '".$user->data("username")."' ".
-                  "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
-                  "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:".ucfirst($_POST["network"]).") ".
-                  "MATCH (s)-[:POSTED]->(p) ".
-                  "RETURN s, p";
+    //     $cypher = "MATCH (u:User) WHERE u.username = '".$user->data("username")."' ".
+    //               "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
+    //               "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:".ucfirst($_POST["network"]).") ".
+    //               "MATCH (s)-[:POSTED]->(p) ".
+    //               "RETURN s, p";
 
-        $posts = $db->query( $cypher );
+    //     $posts = $db->query( $cypher );
 
-        $posts = $posts["p"];
+    //     $posts = $posts["p"];
 
-        // create an empty array to store the html
-        $postHTML = [];
+    //     // create an empty array to store the html
+    //     $postHTML = [];
 
-        // loop through all the posts to
-        foreach($posts as $post){
+    //     // loop through all the posts to
+    //     foreach($posts as $post){
 
-            // push a new html string onto the postHTML array
-            $postHTML[] = 
+    //         // push a new html string onto the postHTML array
+    //         $postHTML[] = 
 
-            "<div class='thumbnail social-media-post'>".
-            "   <img src='".$post["img"]."' alt='".$post["text"]."'>".
-            "   <div class='caption'>".
-            "       <img src='img/business/".$profile->data("avatar")."' class='avatar' alt='business avatar/logo'>".
-            "       <span class='username'>".$post["username"]."</span>".
-            "       <span class='text'>".$post["text"]."</span>".
-            "   </div>".
-            "   <div class='likes'>".$post["likes"]."</div>".
-            "   <div class='post-link'><a href='".$post["link"]."'><span class='icon_".$_POST["network"]."'></span></a></div>".
-            "</div>";
-        }
+    //         "<div class='thumbnail social-media-post'>".
+    //         "   <img src='".$post["img"]."' alt='".$post["text"]."'>".
+    //         "   <div class='caption'>".
+    //         "       <img src='img/business/".$profile->data("avatar")."' class='avatar' alt='business avatar/logo'>".
+    //         "       <span class='username'>".$post["username"]."</span>".
+    //         "       <span class='text'>".$post["text"]."</span>".
+    //         "   </div>".
+    //         "   <div class='likes'>".$post["likes"]."</div>".
+    //         "   <div class='post-link'><a href='".$post["link"]."'><span class='icon_".$_POST["network"]."'></span></a></div>".
+    //         "</div>";
+    //     }
 
-        echo json_encode($postHTML);
+    //     echo json_encode($postHTML);
 
-        exit();
+    //     exit();
+    // }
+
+    //-----------------------------------------------
+    // - query 
+    else if(isset($_POST["q"])){
+
+        // edit social media query script
+        include "scripts/esm_query.php";
+
     }
 
     //-------------------------------------
@@ -413,14 +385,14 @@
 
                         <!-- search settings -->
                         <div class="container-fluid" style="padding:0px;">
-                            <div class="col-sm-10 col-sm-offset-1" id="search-settings" style="padding:0px;">
+                            <div class="col-sm-10 col-sm-offset-1" style="padding:0px;margin-top:10px;margin-bottom:30px;">
 
                                 <!-- text or image posts -->
-                                <div class="btn-group" role="group" aria-label="filter by content">
-                                    <button type="button" class="btn btn-default active" aria-label="text-posts">
-                                        <span class="glyphicon glyphicon-font"></span>
+                                <div class="btn-group" id="search-media" role="group" aria-label="filter by content">
+                                    <button type="button" class="btn btn-default active" data-prop="imgs" aria-label="include image posts">
+                                        <span class="icon-image"></span>
                                     </button>
-                                    <button type="button" class="btn btn-default active" aria-label="media-posts">
+                                    <button type="button" class="btn btn-default active" data-prop="vids" aria-label="include video posts">
                                         <span class="glyphicon glyphicon-film"></span>
                                     </button>
                                 </div>

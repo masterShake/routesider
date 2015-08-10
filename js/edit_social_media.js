@@ -73,17 +73,13 @@ var ESM, esmApp;
 (function(){
 
 	//-----------------------------------------------
-	//					ESM class				
-	//				  -------------
-	//
-	// - ESM (esmApp) javascript app for
-	//	 edit_social_media.php
-	//
-	// - Parent class contains all methods necessary
-	//   active and deactive social media profiles.
+	//			  ESM - edit social media			
+	//			---------------------------
 	//
 	// - Allow business to edit which content is 
 	//   included in their business feed.
+	//
+	// - populates social feed with results
 	//
 	//-----------------------------------------------
 
@@ -92,6 +88,9 @@ var ESM, esmApp;
 	ESM = function(){
 
 		/* properties */
+
+		// initialize the searchbar
+		this.searchBar = new SB();
 
 		// initialize the SocialMediaMod object
 		this.socialMod = new SocialMediaMod();
@@ -123,6 +122,14 @@ var ESM, esmApp;
 
 	/* METHODS */
 
+	//-----------------------------------------------
+	// - populate results
+	// - assemble the social media post components
+	ESM.prototype.popRes = function(r){
+
+		console.log(r);
+
+	}
 
 
 
@@ -146,6 +153,133 @@ var ESM, esmApp;
 
 
 
+
+
+
+
+	//-----------------------------------------------
+	//					SB - search bar
+	//				  -------------------
+	//
+	// - initialize new autocomplete object
+	//
+	// - attach event listeners to the dropdown & the
+	//   post-type buttons
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var SB = function(){
+
+		/* properties */
+
+		// include in search
+		this.imgs = 1;
+		this.vids = 1;
+
+		// autocomplete object
+		// this.autocomplete = new AC();
+
+		/* event listeners */
+
+		// toggle image and video
+		document.getElementById("search-media").children[0]
+			.addEventListener("click", this.toglBtns, false);
+		document.getElementById("search-media").children[1]
+			.addEventListener("click", this.toglBtns, false);
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - toggle image & video buttons event listener
+	// - set searchbar properties
+	SB.prototype.toglBtns = function(){
+
+		// if button is active
+		if( this.className.substr( this.className.length - 6 ) ){
+
+			// remove the active class
+			this.className = this.className.substr( 0, this.className.length - 7 );
+
+			// set the searchBar property
+			esmApp.searchBar[this.dataset.prop] = 0;
+		
+		// if button inactive
+		}else{
+
+			// add the class
+			this.className = this.className + " active";
+
+			// set the searchBar property
+			esmApp.searchBar[this.dataset.prop] = 1;
+
+		}
+
+	}
+
+	//-----------------------------------------------
+	// - ajax call to get user posts
+	// - @ q ->query string
+	// - callback performed by esmApp
+	SB.prototype.query = function(q){
+
+		rsApp.ajax({
+
+			method : "POST",
+			url : document.URL,
+			params: "q=" + q + "&n=0&i=" + this.imgs + "&v=" + this.vids,
+			callback : esmApp.popRes
+		})
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//				  AC - autocomplete
+	//				---------------------
+	//
+	// - add keyup & other event listeners
+	//
+	// - toggle display select dropdown options
+	//
+	// - coordinate with the searchbar
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var AC = function(){
+
+		/* properties */
+
+		/* add event listeners */
+
+	}
+
+	/* METHODS */
 
 
 
@@ -186,7 +320,7 @@ var ESM, esmApp;
 		/* properties */
 
 		// keep track of which window is currently open
-		this.currentNetwork = null;
+		this.aNet = null;
 
 		// variable to receive user approval token
 		this.userToken = 0;
@@ -223,28 +357,35 @@ var ESM, esmApp;
 	SocialMediaMod.prototype.requestAuth = function(){
 
 		// set the current network property
-		esmApp.socialMod.activeNetwork = this.dataset.network;
+		esmApp.socialMod.aNet = this.dataset.network;
 
 		//open the auth window
 		window.open( this.dataset.url, 
 					 this.dataset.network,
 					 "scrollbars=yes,width=475,height=425"
 				   );
-
 	}
 
 	//-----------------------------------------------
 	// - callback after a user has added a social
 	//   network
 	// - perform an ajax call to retrieve the data
-	SocialMediaMod.prototype.authorize = function( network ){
+	// - scroll to social feed if mobile
+	// - query updated content
+	SocialMediaMod.prototype.authorize = function(){
 
+		// ajax
 		rsApp.ajax({
 					method : "POST",
 					url : document.URL,
-					params : "network="+network,
+					params : "network="+this.aNet,
 					callback : esmApp.socialMod.insertPosts
 				  });
+
+		// query
+
+
+		// scroll to social feed
 	}
 
 	//-----------------------------------------------
@@ -252,9 +393,8 @@ var ESM, esmApp;
 	//   dom objects
 	// - add event listeners to make the posts 
 	//   editable
-	SocialMediaMod.prototype.insertPosts = function(response){
+	SocialMediaMod.prototype.insertPosts = function(){
 
-		console.log(response);
 
 	}
 
