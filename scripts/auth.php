@@ -8,7 +8,7 @@
 
 
 // ajax post request for access token
-if(isset($_POST["code"])){
+if( isset($_POST["code"]) ){
 
     include "../core/init.php";
 
@@ -36,8 +36,6 @@ if(isset($_POST["code"])){
         $user = new User();
 
         $business = $user->business()[0];
-
-        // $profile = $business->profile();
 
         $db = neoDB::getInstance();
 

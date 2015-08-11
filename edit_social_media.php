@@ -413,39 +413,44 @@
                             </div><!-- /search-settings -->
                         </div><!-- /container-fluid -->
 
-                        <?php 
+                        <!-- social posts feed -->
+                        <div id="social-posts">
 
-                        $posts = $business->getPosts();
+                            <?php 
 
-                        foreach($posts as $post){ ?>
+                            $posts = $business->getPosts();
 
-                        <div class="thumbnail social-media-post">
-                            <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post["network"]; ?>' data-id='<?= $post["id"]; ?>'></div>
-                            <img src='<?= $post["img"]; ?>' alt="social media post">
-                            <div class="caption">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
-                                        </td>
-                                        <td>
-                                            <p>
-                                                <a href='https://instagram.com/<?= $post["username"]; ?>'>
-                                                    <span>&#64;<?= $post["username"]; ?></span>
-                                                </a>
-                                                <?= isset($post["text"]) ? $post["text"] : ""; ?>
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </table>
+                            foreach($posts as $post){ ?>
+
+                            <div class="thumbnail social-media-post">
+                                <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post["network"]; ?>' data-id='<?= $post["id"]; ?>'></div>
+                                <img src='<?= $post["img"]; ?>' alt="social media post">
+                                <div class="caption">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    <a href='https://instagram.com/<?= $post["username"]; ?>'>
+                                                        <span>&#64;<?= $post["username"]; ?></span>
+                                                    </a>
+                                                    <?= isset($post["text"]) ? $post["text"] : ""; ?>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="social-post-link"><a href='<?= $post["link"]; ?>'><span class='icon-<?= $post["icon"]; ?>'></span></a></div>
+                                <div class="likes">
+                                    <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post["likes"]; ?></div>
+                                </div>
                             </div>
-                            <div class="social-post-link"><a href='<?= $post["link"]; ?>'><span class='icon-<?= $post["icon"]; ?>'></span></a></div>
-                            <div class="likes">
-                                <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post["likes"]; ?></div>
-                            </div>
-                        </div>
 
-                        <?php } ?>
+                            <?php } ?>
+                            
+                        </div><!-- /social-posts -->
 
 	            	</section><!-- /feed -->
 			

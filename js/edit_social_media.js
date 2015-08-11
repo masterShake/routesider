@@ -122,16 +122,6 @@ var ESM, esmApp;
 
 	/* METHODS */
 
-	//-----------------------------------------------
-	// - populate results
-	// - assemble the social media post components
-	ESM.prototype.popRes = function(r){
-
-		console.log(r);
-
-	}
-
-
 
 
 
@@ -222,16 +212,17 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - ajax call to get user posts
-	// - @ q ->query string
+	// - @ q -> query (string)
+	// - @ c -> callback (function)
 	// - callback performed by esmApp
-	SB.prototype.query = function(q){
+	SB.prototype.query = function(q, c){
 
 		rsApp.ajax({
 
 			method : "POST",
 			url : document.URL,
 			params: "q=" + q + "&n=0&i=" + this.imgs + "&v=" + this.vids,
-			callback : esmApp.popRes
+			callback : c
 		})
 
 	}
@@ -374,18 +365,16 @@ var ESM, esmApp;
 	// - query updated content
 	SocialMediaMod.prototype.authorize = function(){
 
-		// ajax
-		rsApp.ajax({
-					method : "POST",
-					url : document.URL,
-					params : "network="+this.aNet,
-					callback : esmApp.socialMod.insertPosts
-				  });
+		// show the loading animation
+		document.getElementById("social-posts")
+			.innerHTML = '<span class="glyphicon glyphicon-hourglass spinner"></span>';
 
-		// query
+		// scroll to the posts
+		location.href = "#";
+		location.href = "#social-posts";
 
-
-		// scroll to social feed
+		// ajax query
+		esmApp.searchBar.query("", esmApp.socialMod.insertPosts);
 	}
 
 	//-----------------------------------------------
@@ -393,9 +382,13 @@ var ESM, esmApp;
 	//   dom objects
 	// - add event listeners to make the posts 
 	//   editable
-	SocialMediaMod.prototype.insertPosts = function(){
+	SocialMediaMod.prototype.insertPosts = function(r){
 
+		console.log(r);
 
+		// document.getElementById("social-posts").innerHTML = r;
+
+		// add event listeners
 	}
 
 	//-----------------------------------------------
