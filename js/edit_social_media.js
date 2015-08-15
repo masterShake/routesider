@@ -262,7 +262,7 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var AC = function(){
+	var AC = function( elem ){
 
 		/* properties */
 
@@ -271,6 +271,24 @@ var ESM, esmApp;
 	}
 
 	/* METHODS */
+
+	//-----------------------------------------------
+	// - autocomplete keyup event listener
+	AC.prototype.ku = function(){
+
+		// if there is any text in the box
+		if( this.value ){
+
+			this.parentElement.children[1].style.display = "block";
+
+		}else{
+
+			// hide the autocomplete element
+			this.parentElement.children[1].style.display = "none";
+
+		}
+
+	}
 
 
 

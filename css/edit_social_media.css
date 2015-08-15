@@ -141,6 +141,10 @@
 #search-posts button:hover{
 	color: #5CB85C;
 }
+/* autocomplete */
+.autocomp{
+	display: none;
+}
 
 /* search settings */
 /* network dropdown */

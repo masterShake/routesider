@@ -264,7 +264,7 @@
 		            			   <h5>LinkedIn</h5>
                                 </div>
 
-                                 <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-tumblr2" style="color:#4875B4;"></span> LinkedIn</h3>
                                     <div class="popover-content">
@@ -376,6 +376,9 @@
                                            class="form-control input-lg" 
                                            placeholder="Search posts"
                                            aria-label="search posts">
+                                    <div class="autocomp">
+                                        <span value="" class="glyphicon glyphicon-hourglass spinner"></span>
+                                    </div>
                                     <button type="button" class="btn" aria-label="Submit search for posts">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                     </button>
