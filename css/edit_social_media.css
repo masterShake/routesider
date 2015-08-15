@@ -119,6 +119,9 @@
    		feed
 ----------------------*/
 
+#social-feed{
+	padding-bottom: 20px;
+}
 /* search posts */
 #search-posts{
 	padding:6px;

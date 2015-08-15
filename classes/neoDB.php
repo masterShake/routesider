@@ -11,7 +11,7 @@ class neoDB {
 	private 	$_client = null,
 				$_query = null,
 				$_error = false,
-				$_results = null,
+				$_result = null,
 				$_count = 0;
 
 	private function __construct() {
@@ -60,8 +60,8 @@ class neoDB {
 		// if($boner)
 		// 	return $cypher;
 
-		$this->_client->sendCypherQuery($cypher);
-
+		$this->_result = $this->_client->sendCypherQuery($cypher);
+		
 		return $this->_client->getRows();
 	}
 }

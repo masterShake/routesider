@@ -423,33 +423,41 @@
 
                             $posts = $business->getPosts();
 
-                            foreach($posts as $post){ ?>
+                            // if we have any posts
+                            if(count($posts)){
 
-                            <div class="thumbnail social-media-post">
-                                <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post["network"]; ?>' data-id='<?= $post["id"]; ?>'></div>
-                                <img src='<?= $post["img"]; ?>' alt="social media post">
-                                <div class="caption">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    <a href='https://instagram.com/<?= $post["username"]; ?>'>
-                                                        <span>&#64;<?= $post["username"]; ?></span>
-                                                    </a>
-                                                    <?= isset($post["text"]) ? $post["text"] : ""; ?>
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                foreach($posts as $post){ ?>
+
+                                <div class="thumbnail social-media-post">
+                                    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post["network"]; ?>' data-id='<?= $post["id"]; ?>'></div>
+                                    <img src=' ' alt="social media post">
+                                    <div class="caption">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <a href='https://instagram.com/<?= $post["username"]; ?>'>
+                                                            <span>&#64;<?= $post["username"]; ?></span>
+                                                        </a>
+                                                        <?= isset($post["text"]) ? $post["text"] : ""; ?>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="social-post-link"><a href='<?= $post["link"]; ?>'><span class='icon-<?= $post["icon"]; ?>'></span></a></div>
+                                    <div class="likes">
+                                        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post["likes"]; ?></div>
+                                    </div>
                                 </div>
-                                <div class="social-post-link"><a href='<?= $post["link"]; ?>'><span class='icon-<?= $post["icon"]; ?>'></span></a></div>
-                                <div class="likes">
-                                    <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post["likes"]; ?></div>
-                                </div>
-                            </div>
+
+                            <?php } }else{ ?>
+
+                                <hr style="margin-top: 0px;">
+                                <h5 style="text-align:center;"><i>no social networks connected</i></h5>
 
                             <?php } ?>
                             

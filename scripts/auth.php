@@ -26,7 +26,7 @@ if( isset($_POST["code"]) ){
         $meta = Curl::post( $url, $params );
 
         // convert the json into a standard object
-        $meta = json_decode($meta); 
+        $meta = json_decode($meta);
         // echo $meta; exit();
 
         /*------------------------------------------ 
@@ -62,7 +62,8 @@ if( isset($_POST["code"]) ){
         // request the user's recent media
         $url = "https://api.instagram.com/v1/users/self/media/recent/?access_token=" . $meta->access_token;
         
-        $posts = Curl::get( $url ); //echo $posts; exit();
+        $posts = Curl::get( $url ); 
+        // echo $posts; exit(); // debugging
 
         $posts = json_decode($posts);
 
@@ -80,9 +81,7 @@ if( isset($_POST["code"]) ){
                       "MERGE (s)-[:POSTED]->(p:Post { " .
                             "username : '" . $meta->user->username . "', " .
                             "network : '".$_POST["network"]."', " .
-                            "icon : 'instagram', " .
-                            "img : '" . $post->images->standard_resolution->url . "', " . // res 640x640 
-                            "thumbnail : '" . $post->images->thumbnail->url . "', "; // res 150x150
+                            "icon : 'instagram', ";
                             
                             // if there is a caption
                             if( !is_null($post->caption) )
@@ -96,7 +95,26 @@ if( isset($_POST["code"]) ){
                                 $cypher .= "likes : " . (int)$post->likes->count . ", ";
 
             $cypher .=      "created_time : " . (int)$post->created_time . " " .
-                        "})<-[:HAS_POST]-(n)";
+                        "})<-[:HAS_POST]-(n) ";
+
+            // if there is a video
+            if( property_exists($post, "videos"))
+                
+                // create a media node
+                $cypher .=  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
+                                "height : ". $post->videos->standard_resolution->height .", ".
+                                "width : ". $post->videos->standard_resolution->width .", ".
+                                "url : '". $post->videos->standard_resolution->url ."', ".
+                                "thumbnail : '". $post->images->thumbnail->url ."' ".
+                            "})";
+            // else use the image
+            else
+                $cypher .=  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
+                                "height : ". $post->images->standard_resolution->height .", ".
+                                "width : ". $post->images->standard_resolution->width .", ".
+                                "url : '". $post->images->standard_resolution->url ."', ".
+                                "thumbnail : '". $post->images->thumbnail->url ."' ".
+                            "})";
 
             $db->query( $cypher );
 
@@ -169,10 +187,10 @@ if( isset($_POST["code"]) ){
                 ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 ajax.onreadystatechange = function() {
                     if(this.readyState == 4 && this.status == 200) {
-                        // console.log( JSON.parse(this.responseText) );
                         // console.log( this.responseText );
-                        window.opener.esmApp.socialMod.authorize( network );
-                        window.close();
+                        console.log( JSON.parse(this.responseText) );
+                        // window.opener.esmApp.socialMod.authorize( network );
+                        // window.close();
                     }
                 }
                 ajax.send('network='+network+'&code=<?= $_GET["code"]; ?>');
