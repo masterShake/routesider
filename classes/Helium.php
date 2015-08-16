@@ -18,35 +18,36 @@ use Neoxygen\NeoClient\ClientBuilder;
 
 class Helium {
 
-	public static $instance = null;
+	public static $instance;
 
-	private 	$_client = null,
-				$_query = null,
-				$_error = false,
-				$_result = null,
-				$_count = 0;
+	public $_client,
+			$_result;
 
 	private function __construct() {
 		
 		$this->_client = ClientBuilder::create()
-					    ->addConnection(
-					    	Config::get('neo4j/user'),
-					    	Config::get('neo4j/protocol'),
-					    	Config::get('neo4j/host'),
-					    	Config::get('neo4j/port'))
-					    ->build();	
+						    ->addConnection(
+						    	Config::get('neo4j/user'),
+						    	Config::get('neo4j/protocol'),
+						    	Config::get('neo4j/host'),
+						    	Config::get('neo4j/port'))
+						    ->build();	
 	}
 
 	public static function getInstance() {
 		// Already an instance of this? Return, if not, create.
 		if(!isset(self::$instance)) {
-			self::$instance = new neoDB();
+			self::$instance = new Helium();
 		}
 		return self::$instance;
 	}
 
-	public function query($cypher){
+	public function query( $cypher ){ 
+		$this->_client->sendCypherQuery( $cypher );
+		$this->_result = $this->_client->getResult(); 
+	}
 
-		return $this->_client->sendCypherQuery($cypher)->getResult();
+	public function getNodes($a, $group = true){
+		return $this->_result->getNodes($a, $group);
 	}
 }

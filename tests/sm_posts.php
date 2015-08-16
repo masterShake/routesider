@@ -2,7 +2,9 @@
 
 /*----------------------------------------
 
-	  		User class tests
+	  		   Helium tests
+
+- testing Helium class & social posts
 
 -----------------------------------------*/
 
@@ -24,7 +26,7 @@
 
     include "../core/init.php";
 
-    $db = neoDB::getInstance();
+    $db = Helium::getInstance(); print_r($db);
 
     //-----------------------------------------------
     // - <pre> tag printing function
@@ -40,15 +42,17 @@
 
     $cypher = "MATCH (s)-[:POSTED]->(p:Post)-[:HAS_MEDIA]->(m:Media) RETURN s, p, m";
 
-    // $cypher = "MATCH (s)-[:POSTED]->(p)-[:HAS_MEDIA]->(m) RETURN p, m";
+    $db->query( $cypher ); 
 
-    $results = $db->query( $cypher ); 
+    echo "<pre>";
 
-    // $results = $results->getNodes(["Post", "Media"], true);
+    print_r($db->getNodes(["Post","Media"]));
 
-    pp( $results );
+    echo "</pre>";
 
-    // pp( $results->getRows() );
+    // pp( $results->getNodes() );
+
+    // pp( $db->getNodes(["Post","Media"]) );
 
 ?>
 
