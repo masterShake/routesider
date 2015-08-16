@@ -44,9 +44,7 @@
   	<!-- print_r -->
   	<pre><?php
 
-        $networks = $business->networks();
-
-        print_r($networks);
+        print_r($business->getPosts());
 
   	?></pre>
 

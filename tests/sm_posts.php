@@ -26,7 +26,7 @@
 
     include "../core/init.php";
 
-    $db = Helium::getInstance(); print_r($db);
+    $db = neoDB::getInstance();
 
     //-----------------------------------------------
     // - <pre> tag printing function
@@ -40,13 +40,23 @@
     //-----------------------------------------------
     // - try to return each post with the media obejct
 
-    $cypher = "MATCH (s)-[:POSTED]->(p:Post)-[:HAS_MEDIA]->(m:Media) RETURN s, p, m";
-
-    $db->query( $cypher ); 
-
     echo "<pre>";
 
-    print_r($db->getNodes(["Post","Media"]));
+    $cypher = "MATCH (s)-[:POSTED]->(p:Post)-[:HAS_MEDIA]->(m:Media) RETURN s, p, m";
+
+    $result = $db->q( $cypher );
+
+    print_r($result->getConnectedNodes("HAS_MEDIA"));
+
+    // print_r($result->getNodes(["Post","Media"], false));
+
+    // print_r(get_class_methods($result));
+
+    // print_r(get_class_methods($db->_result));
+
+    // print_r(get_class_methods($db->_result->getResult()));
+
+    // print_r($db->getNodes(["Post","Media"]));
 
     echo "</pre>";
 

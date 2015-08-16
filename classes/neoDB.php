@@ -8,11 +8,9 @@ class neoDB {
 
 	public static $instance = null;
 
-	private 	$_client = null,
-				$_query = null,
-				$_error = false,
-				$_result = null,
-				$_count = 0;
+	private 	$_client;
+				
+	// public 		$result;
 
 	private function __construct() {
 		
@@ -60,8 +58,12 @@ class neoDB {
 		// if($boner)
 		// 	return $cypher;
 
-		$this->_result = $this->_client->sendCypherQuery($cypher);
-		
-		return $this->_client->getRows();
+		return $this->_client->sendCypherQuery($cypher)->getRows();
+	}
+
+	public function q( $cypher ){
+
+		return $this->_client->sendCypherQuery( $cypher )->getResult();
+
 	}
 }

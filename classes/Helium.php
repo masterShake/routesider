@@ -31,6 +31,7 @@ class Helium {
 						    	Config::get('neo4j/protocol'),
 						    	Config::get('neo4j/host'),
 						    	Config::get('neo4j/port'))
+					    	->setAutoFormatResponse(true)
 						    ->build();	
 	}
 
@@ -42,9 +43,10 @@ class Helium {
 		return self::$instance;
 	}
 
-	public function query( $cypher ){ 
-		$this->_client->sendCypherQuery( $cypher );
-		$this->_result = $this->_client->getResult(); 
+	public function query( $cypher ){ // return $this->_client;
+		$this->_result = $this->_client->sendCypherQuery( $cypher ); // return $this->_result;
+		// print_r($this->_result);
+		// $this->_result = $this->_client->getResult();
 	}
 
 	public function getNodes($a, $group = true){
