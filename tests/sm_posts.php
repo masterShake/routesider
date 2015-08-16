@@ -42,27 +42,59 @@
 
     echo "<pre>";
 
-    $cypher = "MATCH (s)-[:POSTED]->(p:Post)-[:HAS_MEDIA]->(m:Media) RETURN s, p, m";
+    $cypher = "MATCH (s:Socialite)-[l:LIKED]->(p:Post) RETURN s, l, p";
 
     $result = $db->q( $cypher );
 
-    print_r($result->getConnectedNodes("HAS_MEDIA"));
+    $nodes = $result->getNodes();
 
-    // print_r($result->getNodes(["Post","Media"], false));
+    $myPost = $nodes["740"];
 
     // print_r(get_class_methods($result));
 
-    // print_r(get_class_methods($db->_result));
+    // print_r($result->getTableFormat());
 
-    // print_r(get_class_methods($db->_result->getResult()));
+    // print_r(get_class_methods($nodes["740"]));
 
-    // print_r($db->getNodes(["Post","Media"]));
+    // print_r($nodes["740"]);
+
+    // print_r($result->getNodeById(740)->getConnectedNodes("OUT", ["HAS_MEDIA"]));
+
+    // print_r($nodes["740"]->getConnectedNodes());
+
+    $myPost->getConnectedNodes('IN', 'LIKED');
+
+    // print_r(); //print_r($likers);
+
+    // foreach($likers as $liker){
+
+    //     print_r($liker);
+
+    // }
+
+    // foreach ($nodes as $id => $node) {
+        
+    //     print_r($id);
+
+    //     print_r($node);
+
+    //     print_r(get_class_methods($node));
+
+    // }
+
+    // print_r($nodes);
+
+    // print_r($result);    
+
+    // foreach($result->getNodes("p") as $post){
+
+    //     print_r($post->getConnectedNodes("HAS_MEDIA"));
+
+    //     echo "\n\n";
+
+    // }
 
     echo "</pre>";
-
-    // pp( $results->getNodes() );
-
-    // pp( $db->getNodes(["Post","Media"]) );
 
 ?>
 
