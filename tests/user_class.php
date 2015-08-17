@@ -35,6 +35,24 @@
 
 		$business = $user->business()[0];
 
+        $posts = $business->getPosts();
+
+        $posts->getNodes("Post");
+
+        $medias = array();
+
+
+    foreach ($posts as $post) {
+      
+        $medias = $post->getConnectedNodes("OUT", "HAS_MEDIA");
+
+        foreach ($medias as $media) {
+            
+            echo $media->getProperty("url")."\n";
+        }
+
+        echo "-------------------------------\n\n";
+    }
     
 	?>
 
@@ -44,7 +62,7 @@
   	<!-- print_r -->
   	<pre><?php
 
-        print_r($business->getPosts());
+    
 
   	?></pre>
 

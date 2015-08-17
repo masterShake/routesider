@@ -424,13 +424,18 @@
                             $posts = $business->getPosts();
 
                             // if we have any posts
-                            if(count($posts)){
+                            if(count($posts->getNodesCount())){
 
-                                foreach($posts as $post){ ?>
+                                foreach($posts->getNodes("Post") as $post){ 
+
+                                    // get all the media objects
+                                    $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
+
+                                    ?>
 
                                 <div class="thumbnail social-media-post">
-                                    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post["network"]; ?>' data-id='<?= $post["id"]; ?>'></div>
-                                    <img src=' ' alt="social media post">
+                                    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
+                                    <img src='<?= $media[0]->getProperty("url"); ?>' alt="social media post">
                                     <div class="caption">
                                         <table>
                                             <tr>
@@ -439,18 +444,18 @@
                                                 </td>
                                                 <td>
                                                     <p>
-                                                        <a href='https://instagram.com/<?= $post["username"]; ?>'>
-                                                            <span>&#64;<?= $post["username"]; ?></span>
+                                                        <a href='https://instagram.com/<?= $post->getProperty("username"); ?>'>
+                                                            <span>&#64;<?= $post->getProperty("username"); ?></span>
                                                         </a>
-                                                        <?= isset($post["text"]) ? $post["text"] : ""; ?>
+                                                        <?= ($post->hasProperty("text")) ? $post->getProperty("text") : ""; ?>
                                                     </p>
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="social-post-link"><a href='<?= $post["link"]; ?>'><span class='icon-<?= $post["icon"]; ?>'></span></a></div>
+                                    <div class="social-post-link"><a href='<?= $post->getProperty("link"); ?>'><span class='icon-<?= $post->getProperty("icon"); ?>'></span></a></div>
                                     <div class="likes">
-                                        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post["likes"]; ?></div>
+                                        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= count($post->getRelationships("LIKED")); ?></div>
                                     </div>
                                 </div>
 

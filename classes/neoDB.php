@@ -23,15 +23,6 @@ class neoDB {
 						    ->setDefaultTimeout(20) // <-- Timeout of 20 seconds for http requests
 						    ->setAutoFormatResponse(true)
 						    ->build();
-
-		// $this->_client = ClientBuilder::create()
-		// 			    ->addConnection(
-		// 			    	Config::get('neo4j/user'),
-		// 			    	Config::get('neo4j/protocol'),
-		// 			    	Config::get('neo4j/host'),
-		// 			    	Config::get('neo4j/port'))
-		// 			    ->setAutoFormatResponse(true)
-		// 			    ->build();	
 	}
 
 	public static function getInstance() {

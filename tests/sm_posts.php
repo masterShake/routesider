@@ -50,11 +50,23 @@
 
     $myPost = $nodes["740"];
 
-    // print_r(get_class_methods($result));
+    print_r(get_class_methods($result));
+
+    print_r(get_class_methods($myPost));
+
+    print_r(count($myPost->getRelationships("LIKED")));
+
+
+
+
+
+
+
+
+
+
 
     // print_r($result->getTableFormat());
-
-    // print_r(get_class_methods($nodes["740"]));
 
     // print_r($nodes["740"]);
 
@@ -62,7 +74,7 @@
 
     // print_r($nodes["740"]->getConnectedNodes());
 
-    $myPost->getConnectedNodes('IN', 'LIKED');
+
 
     // print_r(); //print_r($likers);
 

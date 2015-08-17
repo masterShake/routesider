@@ -54,31 +54,19 @@ class Business{
 	// retrieve social media posts
 	public function getPosts( $network = "" ){
 
-		// if we haven't already retrieved the social media posts
-		if( is_null($this->_social_media_posts) ){
+		$cypher = "MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." ";
 
-			$cypher = "MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." ";
+                  // if there is a network variable
+                  if($network)
+                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' ";
+                  else
+                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s) ";
+                  
+        $cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p) ".
+        		   "OPTIONAL MATCH (p)-[x:HAS_MEDIA]->(m) ".
+                   "RETURN p, m, x ORDER BY p.created_time DESC";
 
-	                  // if there is a network variable
-	                  if($network)
-	                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' ";
-	                  else
-	                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s) ";
-	                  
-	        $cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p) ".
-	                   "RETURN p ORDER BY p.created_time DESC";
-
-	        $this->_social_media_posts = $this->_db->query( $cypher );
-
-	        if( array_key_exists("p", $this->_social_media_posts) && 
-	        	!is_null($this->_social_media_posts["p"][0]) )
-	        	
-	        	$this->_social_media_posts = $this->_social_media_posts["p"];
-
-	        else
-
-	        	$this->_social_media_posts = array();
-		}
+        $this->_social_media_posts = $this->_db->q( $cypher );
 
 		return $this->_social_media_posts;
 	}
