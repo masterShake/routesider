@@ -78,7 +78,7 @@ if( isset($_POST["code"]) ){
 
             $cypher = "MATCH (s:Socialite) WHERE s.id='" . $meta->user->id . "' " .
                       "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
-                      "MERGE (s)-[:POSTED]->(p:Post { " .
+                      "MERGE (s)-[:POSTED { deleted : 0 } ]->(p:Post { " .
                             "username : '" . $meta->user->username . "', " .
                             "network : '".$_POST["network"]."', " .
                             "icon : 'instagram', ";
@@ -105,7 +105,9 @@ if( isset($_POST["code"]) ){
                                 "height : ". $post->videos->standard_resolution->height .", ".
                                 "width : ". $post->videos->standard_resolution->width .", ".
                                 "url : '". $post->videos->standard_resolution->url ."', ".
-                                "thumbnail : '". $post->images->thumbnail->url ."' ".
+                                "thumbnail : '". $post->images->thumbnail->url ."', ".
+                                "cover_image : '". $post->images->standard_resolution->url ."', ".
+                                "type : 'video'".
                             "})";
             // else use the image
             else
@@ -113,7 +115,8 @@ if( isset($_POST["code"]) ){
                                 "height : ". $post->images->standard_resolution->height .", ".
                                 "width : ". $post->images->standard_resolution->width .", ".
                                 "url : '". $post->images->standard_resolution->url ."', ".
-                                "thumbnail : '". $post->images->thumbnail->url ."' ".
+                                "thumbnail : '". $post->images->thumbnail->url ."', ".
+                                "type : 'image'".
                             "})";
 
             $db->query( $cypher );

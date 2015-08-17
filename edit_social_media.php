@@ -435,7 +435,28 @@
 
                                 <div class="thumbnail social-media-post">
                                     <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
+                                    <?php // if the post has at least 1 media object
+                                          if( count($media) ){
+
+                                            // if the post has a video
+                                            if( $media[0]->getProperty("type") == "video" ){ ?>
+
+                                    <!-- iframe -->
+                                    <iframe src='<?= $media[0]->getProperty("url"); ?>' frameborder="0" autoplay="false"></iframe>
+                                    
+                                            <?php // if the post has more than 1 image
+                                            }else if( count($media) > 1 ){  ?>
+
+                                    <!-- gallery -->
+
+                                            <?php // if there is only 1 image
+                                            }else{ ?>
+
+                                    <!-- single image -->
                                     <img src='<?= $media[0]->getProperty("url"); ?>' alt="social media post">
+                                    
+                                    <?php } } ?>
+
                                     <div class="caption">
                                         <table>
                                             <tr>
@@ -455,7 +476,7 @@
                                     </div>
                                     <div class="social-post-link"><a href='<?= $post->getProperty("link"); ?>'><span class='icon-<?= $post->getProperty("icon"); ?>'></span></a></div>
                                     <div class="likes">
-                                        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= count($post->getRelationships("LIKED")); ?></div>
+                                        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post->getProperty("likes"); ?></div>
                                     </div>
                                 </div>
 

@@ -62,8 +62,9 @@ class Business{
                   else
                   	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s) ";
                   
-        $cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p) ".
+        $cypher .= "OPTIONAL MATCH (s)-[r:POSTED]->(p) WHERE r.deleted=0 ".
         		   "OPTIONAL MATCH (p)-[x:HAS_MEDIA]->(m) ".
+        		   "OPTIONAL MATCH (p)<-[l:LIKED]-(t) ".
                    "RETURN p, m, x ORDER BY p.created_time DESC";
 
         $this->_social_media_posts = $this->_db->q( $cypher );

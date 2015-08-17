@@ -173,9 +173,14 @@
 	opacity: .75;
 	cursor: pointer;
 }
-.social-media-post>img{
+.social-media-post>img,
+.social-media-post>iframe{
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
+}
+.social-media-post>iframe{
+    height: calc( 100vw - 49px);
+    width: calc( 100vw - 49px);
 }
 .caption img.avatar{
 	height: 30px;
