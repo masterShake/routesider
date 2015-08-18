@@ -191,9 +191,9 @@ if( isset($_POST["code"]) ){
                 ajax.onreadystatechange = function() {
                     if(this.readyState == 4 && this.status == 200) {
                         // console.log( this.responseText );
-                        console.log( JSON.parse(this.responseText) );
-                        // window.opener.esmApp.socialMod.authorize( network );
-                        // window.close();
+                        // console.log( JSON.parse(this.responseText) );
+                        window.opener.esmApp.socialMod.authorize( network );
+                        window.close();
                     }
                 }
                 ajax.send('network='+network+'&code=<?= $_GET["code"]; ?>');

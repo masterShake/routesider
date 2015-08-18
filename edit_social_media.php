@@ -103,6 +103,8 @@
 
     $networks = $business->networks();
 
+    $posts = $business->getPosts();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -421,10 +423,8 @@
 
                             <?php 
 
-                            $posts = $business->getPosts();
-
                             // if we have any posts
-                            if(count($posts->getNodesCount())){
+                            if( count($networks) ){
 
                                 foreach($posts->getNodes("Post") as $post){ 
 
