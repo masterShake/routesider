@@ -92,8 +92,8 @@ var ESM, esmApp;
 		// initialize the searchbar
 		this.searchBar = new SB();
 
-		// initialize the SocialMediaMod object
-		this.socialMod = new SocialMediaMod();
+		// initialize the SMM object
+		this.socialMod = new SMM();
 
 		/* construction */
 		
@@ -309,8 +309,8 @@ var ESM, esmApp;
 
 
 	//-----------------------------------------------
-	//					SocialMediaMod
-	//				  ------------------
+	//			 SMM - social media module
+	//		   -----------------------------
 	//
 	// - launch the popup window to get user 
 	//   credentials & token
@@ -324,7 +324,7 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var SocialMediaMod = function(){
+	var SMM = function(){
 
 		/* properties */
 
@@ -363,7 +363,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - open a new window and send an authorization
 	//   request
-	SocialMediaMod.prototype.requestAuth = function(){
+	SMM.prototype.requestAuth = function(){
 
 		// set the current network property
 		esmApp.socialMod.aNet = this.dataset.network;
@@ -381,7 +381,7 @@ var ESM, esmApp;
 	// - perform an ajax call to retrieve the data
 	// - scroll to social feed if mobile
 	// - query updated content
-	SocialMediaMod.prototype.authorize = function(){
+	SMM.prototype.authorize = function(){
 
 		// show the loading animation
 		document.getElementById("social-posts")
@@ -400,7 +400,7 @@ var ESM, esmApp;
 	//   dom objects
 	// - add event listeners to make the posts 
 	//   editable
-	SocialMediaMod.prototype.insertPosts = function(r){
+	SMM.prototype.insertPosts = function(r){
 
 		console.log(r);
 
@@ -414,7 +414,7 @@ var ESM, esmApp;
 	//   from the feed
 	// - ajax call to remove the post from the db, 
 	//   no callback
-	SocialMediaMod.prototype.deletePost = function(){ console.log("delete has been called.");
+	SMM.prototype.deletePost = function(){ console.log("delete has been called.");
 
 		rsApp.ajax({
 					method : "POST",
@@ -426,15 +426,40 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - ajax callback for debuggin purposes only
-	SocialMediaMod.prototype.ajaxCallback = function(response){
+	SMM.prototype.ajaxCallback = function(response){
 		console.log("here is the response:\n");
 		console.log(response);
 	}
 
+	//-----------------------------------------------
+	// - display instagram video event listener
+	SMM.prototype.showVid = function(){
 
+		// temp variable, create iframe 
+		esmApp.socialMod.newVid = document.createElement("iframe")
+									// set keep track of post id
+									.setAttribute("data-postid", this.parentElement.id);
+		// set the source
+		esmApp.socialMod.src = this.dataset.url;
 
+		// add event listener to on load 
+		esmApp.socialMod.newVid.onload = esmApp.socialMod.swap;
+	} 
+	//-----------------------------------------------
+	// - showVid helper event listener
+	// - called when video is loaded
+	SMM.prototype.swap = function(){
 
+		console.log(this);
 
+		// display the iframe
+		// document.getElementById(this.dataset.postid)
+		// 	.insertBefore( 
+		// 		document.getElementById(this.dataset.postid)
+		// 			.chidlren,
+		// 		this );
+
+	}
 
 
 

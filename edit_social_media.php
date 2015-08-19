@@ -433,7 +433,7 @@
 
                                     ?>
 
-                                <div class="thumbnail social-media-post">
+                                <div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>'>
                                     <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
                                     <?php // if the post has at least 1 media object
                                           if( count($media) ){
@@ -441,8 +441,11 @@
                                             // if the post has a video
                                             if( $media[0]->getProperty("type") == "video" ){ ?>
 
-                                    <!-- iframe -->
-                                    <iframe src='<?= $media[0]->getProperty("url"); ?>' frameborder="0" autoplay="false"></iframe>
+                                    <!-- temp image to iframe -->
+                                    <div class="top-img" data-url='<?= $media[0]->getProperty("url"); ?>'>
+                                        <img src='<?= $media[0]->getProperty("cover_image"); ?>' alt="social media post">
+                                        <h1><span class="glyphicon glyphicon-play-circle"></span></h1>
+                                    </div>
                                     
                                             <?php // if the post has more than 1 image
                                             }else if( count($media) > 1 ){  ?>
