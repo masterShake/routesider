@@ -433,7 +433,7 @@
 
                                     ?>
 
-                                <div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>'>
+                                <div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>' data-loading="0">
                                     <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
                                     <?php // if the post has at least 1 media object
                                           if( count($media) ){

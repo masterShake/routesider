@@ -334,13 +334,13 @@ var ESM, esmApp;
 		// variable to receive user approval token
 		this.userToken = 0;
 
-		// temp variable to hold all the social media posts
-		this.posts = document.getElementsByClassName("social-media-post");
-
 		// create a modal object
 		this.modal = new Modal();
 
 		/* initialize */
+
+		// temp variable to hold all the social media posts
+		this.posts = document.getElementsByClassName("social-media-post");
 
 		// add instagram account event listener
 		document.getElementById("activate-inst")
@@ -353,7 +353,14 @@ var ESM, esmApp;
 			// attach event listener to the delete button
 			this.posts[i].children[0]
 			 .addEventListener("click", this.modal.launchModal, false);
+
+			// attach event listener to video play buttons
+			if( this.posts[i].children[1].className == "top-img" )
+				this.posts[i].children[1]
+					.addEventListener("click", this.showVid, false);
 		}
+
+		// remove the temp variable
 		this.posts = null;
 		delete this.posts;
 	}
@@ -435,30 +442,52 @@ var ESM, esmApp;
 	// - display instagram video event listener
 	SMM.prototype.showVid = function(){
 
+		// if we are already loading the video
+		if( this.dataset.loading == 1 )
+			// do nothing
+			return;
+
+		// set the data-loading attribute
+		this.setAttribute("data-loading", "1");
+
 		// temp variable, create iframe 
-		esmApp.socialMod.newVid = document.createElement("iframe")
-									// set keep track of post id
-									.setAttribute("data-postid", this.parentElement.id);
+		esmApp.socialMod.newVid = document.createElement("iframe");
+		// set keep track of post id
+		esmApp.socialMod.newVid.setAttribute("data-postid", this.parentElement.id);
+		// remove the frameborder
+		esmApp.socialMod.newVid.setAttribute("frameborder", "0");
 		// set the source
-		esmApp.socialMod.src = this.dataset.url;
+		esmApp.socialMod.newVid.setAttribute("src", this.dataset.url);
 
 		// add event listener to on load 
-		esmApp.socialMod.newVid.onload = esmApp.socialMod.swap;
+		esmApp.socialMod.newVid // .onLoad = esmApp.socialMod.swap;
+			.addEventListener("load", esmApp.socialMod.swap, true);
+
+		// append to body
+        document.body.appendChild(esmApp.socialMod.newVid);
 	} 
 	//-----------------------------------------------
 	// - showVid helper event listener
 	// - called when video is loaded
 	SMM.prototype.swap = function(){
 
-		console.log(this);
+		// if this has already been swapped
+		if( !this.dataset.postid )
+			// do nothing
+			return;
 
 		// display the iframe
-		// document.getElementById(this.dataset.postid)
-		// 	.insertBefore( 
-		// 		document.getElementById(this.dataset.postid)
-		// 			.chidlren,
-		// 		this );
+		document.getElementById(this.dataset.postid)
+			.insertBefore( 
+				this,
+				document.getElementById(this.dataset.postid).children[1]
+			);
 
+		// return the postid
+		this.setAttribute("data-postid", "");
+
+		// remove the placeholder image
+		this.parentElement.removeChild(this.parentElement.children[2]);
 	}
 
 

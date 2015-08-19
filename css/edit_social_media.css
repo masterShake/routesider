@@ -210,8 +210,6 @@
 .social-media-post>iframe{
     height: calc( 100vw - 49px);
     width: calc( 100vw - 49px);
-    frameborder: 0;
-    display: none;
 }
 .caption img.avatar{
 	height: 30px;
