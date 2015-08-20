@@ -160,13 +160,13 @@
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-face">
 		            			
                                 <div>
-		            			    <button type="button" class="btn activate-btn"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+		            			    <button type="button" class="btn activate-btn <?= in_array("facebook", $networks) ? "active" : "not-active"; ?>"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
                                     <h5>Facebook</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("facebook", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-facebook2" style="color:#3B5998;"></span> Facebook</h3>
+                                    <h3 class="popover-title"><span class="icon-facebook2"></span> Facebook</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("facebook", $networks) ){ ?>
@@ -187,20 +187,19 @@
 
                                     </div>
                                 </div>
-
-		            		</div>
+		            		</div><!-- /facebook -->
 
 		            		<!-- instagram -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-inst">
                                 
                                 <div>		            			
-    		            			<button type="button" class='btn activate-btn <?= in_array("instagram", $networks) ? "active" : ""; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+    		            			<button type="button" class='btn activate-btn <?= in_array("instagram", $networks) ? "active" : "not-active"; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
                                     <h5>Instagram</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("instagram", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-instagram" style="color:#517fa4;"></span> Instagram</h3>
+                                    <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("instagram", $networks) ){ ?>
@@ -221,20 +220,19 @@
 
                                     </div>
                                 </div>
-
-		            		</div>
+		            		</div><!-- /instagram -->
 
 		            		<!-- tumblr -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-tumb">
 		            			
                                 <div>
-		            			   <button type="button" class="btn activate-btn" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
+		            			   <button type="button" class="btn activate-btn <?= in_array("tumblr", $networks) ? "active" : "not-active"; ?>" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
 		            			   <h5>Tumblr</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-tumblr2" style="color:#32506d;"></span> Tumblr</h3>
+                                    <h3 class="popover-title"><span class="icon-tumblr2" ></span> Tumblr</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("tumblr", $networks) ){ ?>
@@ -255,20 +253,19 @@
 
                                     </div>
                                 </div>
+		            		</div><!-- /tumblr -->
 
-		            		</div>
-
-		            		<!-- linked in -->
+		            		<!-- linkedin -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-link">
 
                                 <div>
-		            			   <button type="button" class="btn activate-btn" aria-label="activate LinkedIn"><span class="icon-linkedin" aria-hidden="true"></span></button>
+		            			   <button type="button" class="btn activate-btn <?= in_array("linkedin", $networks) ? "active" : "not-active"; ?>" aria-label="activate LinkedIn"><span class="icon-linkedin" aria-hidden="true"></span></button>
 		            			   <h5>LinkedIn</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-tumblr2" style="color:#4875B4;"></span> LinkedIn</h3>
+                                    <h3 class="popover-title"><span class="icon-tumblr2"></span> LinkedIn</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("linkedin", $networks) ){ ?>
@@ -289,20 +286,19 @@
 
                                     </div>
                                 </div>
-
-		            		</div>
+		            		</div><!-- /linkedin -->
 
 		            		<!-- twitter -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-twit">
 		            			
                                 <div>
-		            			   <button type="button" class="btn activate-btn" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
+		            			   <button type="button" class="btn activate-btn <?= in_array("twitter", $networks) ? "active" : "not-active"; ?>" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
 		            			   <h5>Twitter</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("twitter", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-twitter2" style="color:#00ACED;"></span> Twitter</h3>
+                                    <h3 class="popover-title"><span class="icon-twitter2"></span> Twitter</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("twitter", $networks) ){ ?>
@@ -323,20 +319,19 @@
 
                                     </div>
                                 </div>
-
-		            		</div>
+		            		</div><!-- /twitter -->
 
 		            		<!-- google -->
 		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-goog">
 
                                 <div>
-		            			   <button type="button" class="btn activate-btn" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+		            			   <button type="button" class="btn activate-btn <?= in_array("google", $networks) ? "active" : "not-active"; ?>" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
 		            			   <h5>Google</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("google", $networks) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-google-plus2" style="color:#dd4b39;"></span> Google</h3>
+                                    <h3 class="popover-title"><span class="icon-google-plus2"></span> Google</h3>
                                     <div class="popover-content">
 
                                     <?php if( in_array("google", $networks) ){ ?>
@@ -357,8 +352,7 @@
 
                                     </div>
                                 </div>
-
-		            		</div>
+		            		</div><!-- /google -->
 
 		            	</div><!-- /container-fluid -->
 	            	</section><!-- /activation-bts -->
