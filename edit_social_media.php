@@ -425,14 +425,28 @@
                                 
                                 <!-- query by network -->
                                 <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="search-network" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         all networks
                                         <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <?php foreach($networks as $network){ 
-                                            echo "<li><a href='#'>{$network}</a></li>";
-                                        } ?>
+                                    
+                                    <ul class="dropdown-menu list-group" aria-labelledby="search-network">
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-control" value="all"> all networks
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+
+                                        <?php // if there are any networks 
+                                        if( count($networks) )
+                                            // loop through the networks
+                                            foreach($networks as $network)
+                                                // construct the list 
+                                                echo "<li class='list-group-item'>
+                                                        <input type='checkbox' class='form-control' value='{$network}'> {$network}
+                                                      </li>";
+                                        ?>
+
                                     </ul>
                                 </div>
 

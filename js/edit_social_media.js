@@ -169,7 +169,7 @@ var ESM, esmApp;
 		this.vids = 1;
 
 		// autocomplete object
-		// this.autocomplete = new AC();
+		this.autocomplete = new AC();
 
 		/* event listeners */
 
@@ -178,6 +178,10 @@ var ESM, esmApp;
 			.addEventListener("click", this.toglBtns, false);
 		document.getElementById("search-media").children[1]
 			.addEventListener("click", this.toglBtns, false);
+
+		// active network dropdown
+		document.getElementById("search-network")
+			.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}
 
@@ -229,25 +233,6 @@ var ESM, esmApp;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//-----------------------------------------------
 	//				  AC - autocomplete
 	//				---------------------
@@ -262,11 +247,15 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var AC = function( elem ){
+	var AC = function(){
 
 		/* properties */
 
-		/* add event listeners */
+		/* add event listeners */		
+
+		// keyup query input
+		document.getElementById("search-posts").children[0]
+			.addEventListener("keyup", this.ku, false);
 
 	}
 
@@ -279,14 +268,36 @@ var ESM, esmApp;
 		// if there is any text in the box
 		if( this.value ){
 
+			// display the dropdown
 			this.parentElement.children[1].style.display = "block";
+
+			// call the query 
+			esmApp.searchBar.query(
+				this.value, 
+				esmApp.searchbar.autocomplete.popFields 
+			);
 
 		}else{
 
 			// hide the autocomplete element
 			this.parentElement.children[1].style.display = "none";
 
+			// replace the content with a spinner
+			this.parentElement.children[1].innerHTML = 
+			'<li class="list-group-item" style="text-align:center;">'+
+			'	<span class="glyphicon glyphicon-hourglass spinner"></span>'+
+			'</li>';
 		}
+	}
+
+	//-----------------------------------------------
+	// - populate the autocomplete elmenent with the
+	//   results
+	// - max results : 4
+	// - @r - results string json
+	AC.prototype.popFields = function(r){
+
+		console.log(r);
 
 	}
 
