@@ -188,10 +188,12 @@
 }
 
 /* search settings */
-/* network dropdown */
-/* text and media btns */
 #search-media{
 	float:right;
+}
+/* textboxes */
+#network-select input{
+	margin-top: 0px;
 }
 
 

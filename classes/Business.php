@@ -147,15 +147,9 @@ class Business{
 					  "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) " .
 					  "RETURN n";
 					  
-			$results = $this->_db->query($cypher);
+			$this->_networks = $this->_db->query($cypher);
 
-			$results = $results["n"];
-
-			if( $results[0] )
-
-				foreach($results as $r)
-
-					array_push($this->_networks, $r["name"]);
+			$this->_networks = $this->_networks["n"];
 
 		}
 

@@ -427,13 +427,13 @@
                                 <div class="dropdown">
                                     
                                     <button class="btn btn-default dropdown-toggle" type="button" id="search-network" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        all networks
+                                        <span>all networks</span>
                                         <span class="caret"></span>
                                     </button>
                                     
-                                    <ul class="dropdown-menu list-group" aria-labelledby="search-network">
+                                    <ul class="dropdown-menu list-group" id="network-select" aria-labelledby="search-network">
                                         <li class="list-group-item">
-                                            <input type="checkbox" class="form-control" value="all"> all networks
+                                            <input type="checkbox" class="form-control" value="all" checked> all networks
                                         </li>
                                         <li role="separator" class="divider"></li>
 
@@ -443,7 +443,9 @@
                                             foreach($networks as $network)
                                                 // construct the list 
                                                 echo "<li class='list-group-item'>
-                                                        <input type='checkbox' class='form-control' value='{$network}'> {$network}
+                                                        <input type='checkbox' class='form-control' value='".$network["name"]."' checked>
+                                                        <span class='icon-".$network["icon"]."'}></span>
+                                                        &nbsp;".ucfirst($network["name"])."
                                                       </li>";
                                         ?>
 

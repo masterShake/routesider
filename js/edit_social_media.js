@@ -167,6 +167,11 @@ var ESM, esmApp;
 		// include in search
 		this.imgs = 1;
 		this.vids = 1;
+		this.nets = [];
+
+		// all the network checkboxes in the dropdown
+		this.networks = document.getElementById("network-select")
+				.getElementsByTagName("input");
 
 		// autocomplete object
 		this.autocomplete = new AC();
@@ -188,12 +193,96 @@ var ESM, esmApp;
 	/* METHODS */
 
 	//-----------------------------------------------
+	// - handle "all networks" textbox change event
+	// - only change the other textboxes on check
+	SB.prototype.allNet = function(){
+
+		// if checked --> unchecked
+		if( !this.checked ){
+			// do nothing
+			return;
+			
+
+		// loop through all the networks
+		for(var i = 1, len = esmApp.searchBar.networks.length; i < len; i++)
+			// check all the inputs
+			esmApp.searchBar.networks[i].checked = true;
+
+		// set the button inner html
+		document.getElementById("search-network").children[0]
+			.innerHTML = "all networks";
+
+		// query + update
+	}
+
+
+	//-----------------------------------------------
+	// - handle social network textbox change events
+	SB.prototype.netBox = function(){
+
+		// if [x] --> [ ] unchecked
+		if( !this.checked ){
+
+			// uncheck "all networks" checkbox
+			this.parentElement
+					.parentElement
+						.children[0]
+							.children[0]
+								.checked = false;
+
+			// set the button innerHTML
+
+		// if [ ] --> [x] checked & so are all others
+		}else if( esmApp.searchBar.getNets().length == esmApp.searchBar.networks.length - 1 ){
+
+			// uncheck "all networks" checkbox
+			this.parentElement
+					.parentElement
+						.children[0]
+							.children[0]
+								.checked = true;
+
+			// set the button innerHTML
+			document.getElementById("search-network").children[0]
+				.innerHTML = "all networks";
+		
+		// [ ] --> [x] checked
+		}else{
+
+			// set dropdown button innerHTML
+
+		}
+	}
+
+	//-----------------------------------------------
+	// - helper function get all the checked networks
+	SB.prototype.getNets = function(){
+
+		// clear the nets array
+		this.nets = [];
+
+		// loop through all the networks
+		for(var i = 1; i < this.networks.length; i++)
+
+			// if the checkbox is checked
+			if( this.networks[i].checked )
+
+				// push it to the nets array
+				this.nets.push( this.networks[i].value );
+
+		// return the nets array
+		return this.nets;
+	}
+
+
+
+	//-----------------------------------------------
 	// - toggle image & video buttons event listener
 	// - set searchbar properties
 	SB.prototype.toglBtns = function(){
 
 		// if button is active
-		if( this.className.substr( this.className.length - 6 ) ){
+		if( this.className.substr( this.className.length - 6 ) == "active" ){
 
 			// remove the active class
 			this.className = this.className.substr( 0, this.className.length - 7 );
