@@ -95,6 +95,9 @@ var ESM, esmApp;
 		// initialize the SMM object
 		this.socialMod = new SMM();
 
+		// random temp variable
+		this.temp;
+
 		/* construction */
 		
 		// activate network event listener btns
@@ -188,6 +191,15 @@ var ESM, esmApp;
 		document.getElementById("search-network")
 			.addEventListener("click", rsApp.toggleDropdown, false);
 
+		// "all networks" checkbox
+		this.networks[0].addEventListener("change", this.allNet, false);
+
+		// loop through the network inputs
+		for(var i = 1; i < this.networks.length; i++)
+
+			// add the change event listner
+			this.networks[i].addEventListener("change", this.netBox, false);
+
 	}
 
 	/* METHODS */
@@ -198,7 +210,7 @@ var ESM, esmApp;
 	SB.prototype.allNet = function(){
 
 		// if checked --> unchecked
-		if( !this.checked ){
+		if( !this.checked )
 			// do nothing
 			return;
 			
@@ -230,7 +242,13 @@ var ESM, esmApp;
 							.children[0]
 								.checked = false;
 
-			// set the button innerHTML
+			// look for the icon in the dropdown button
+			esmApp.temp = document.getElementById("search-network")
+							.getElementsByClassName( "icon-"+this.dataset.icon );
+			// if it's there
+			if( esmApp.temp.length )
+				// remove it
+				esmApp.temp[0].parentElement.removeChild(esmApp.temp[0]);
 
 		// if [ ] --> [x] checked & so are all others
 		}else if( esmApp.searchBar.getNets().length == esmApp.searchBar.networks.length - 1 ){
@@ -249,8 +267,13 @@ var ESM, esmApp;
 		// [ ] --> [x] checked
 		}else{
 
-			// set dropdown button innerHTML
+			// create a new icon
+			esmApp.temp = document.createElement("span");
+			esmApp.temp.setAttribute("class", "icon-"+this.dataset.icon )
 
+			// append the icon to the dropdown button inner HTML
+			document.getElementById("search-network").children[0]
+				.appendChild( esmApp.searchBar.temp );
 		}
 	}
 
@@ -279,7 +302,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - toggle image & video buttons event listener
 	// - set searchbar properties
-	SB.prototype.toglBtns = function(){
+	SB.prototype.toglBtns = function(){ console.log( this.className.substr( this.className.length - 6 ));
 
 		// if button is active
 		if( this.className.substr( this.className.length - 6 ) == "active" ){
@@ -314,7 +337,10 @@ var ESM, esmApp;
 
 			method : "POST",
 			url : document.URL,
-			params: "q=" + q + "&n=0&i=" + this.imgs + "&v=" + this.vids,
+			params: "q=" + q + "&" +
+					"n=" + JSON.stringify( this.getNets() ) + "&" +
+					"i=" + this.imgs + "&" + 
+					"v=" + this.vids,
 			callback : c
 		})
 
@@ -363,7 +389,7 @@ var ESM, esmApp;
 			// call the query 
 			esmApp.searchBar.query(
 				this.value, 
-				esmApp.searchbar.autocomplete.popFields 
+				esmApp.searchBar.autocomplete.popFields 
 			);
 
 		}else{

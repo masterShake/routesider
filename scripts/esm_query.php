@@ -32,13 +32,12 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 		  	// match the socialite(s) linked to the business act.
 		  	"OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) ";
 
-			// if the user specified certain networks
-			if( $_POST["n"] ){
+			// decode the json
+			$networks = json_decode($_POST["n"]);
 
-				// decode the json
-				$networks = json_decode($_POST["n"]);
+			if( count($networks) ){
 
-				$cypher .= "WHERE ".
+				$cypher .= "WHERE ";
 
 				// loop through the networks
 				foreach ($networks as $network) {
@@ -48,6 +47,7 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 				}
 
 				$cypher = substr($cypher, 0, -3);
+
 			}
 
 			// match the posts associated with our business socialite
@@ -67,7 +67,7 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 				// if video too
 				if( $_POST["v"] )
 
-					$cypher .= "OR "
+					$cypher .= "OR ";
 
 			}
 
@@ -83,9 +83,10 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 // execute the query
 $results = $db->query( $cypher );
 
-print_r($results);
+echo $cypher;
+// print_r($results);
 
-
+exit();
 
 
 

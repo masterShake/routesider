@@ -443,7 +443,7 @@
                                             foreach($networks as $network)
                                                 // construct the list 
                                                 echo "<li class='list-group-item'>
-                                                        <input type='checkbox' class='form-control' value='".$network["name"]."' checked>
+                                                        <input type='checkbox' class='form-control' value='".$network["name"]."' data-icon='".$network["icon"]."' checked>
                                                         <span class='icon-".$network["icon"]."'}></span>
                                                         &nbsp;".ucfirst($network["name"])."
                                                       </li>";
