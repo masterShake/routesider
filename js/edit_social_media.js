@@ -302,7 +302,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - toggle image & video buttons event listener
 	// - set searchbar properties
-	SB.prototype.toglBtns = function(){ console.log( this.className.substr( this.className.length - 6 ));
+	SB.prototype.toglBtns = function(){
 
 		// if button is active
 		if( this.className.substr( this.className.length - 6 ) == "active" ){

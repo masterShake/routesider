@@ -48,7 +48,7 @@
 
     $nodes = $result->getNodes();
 
-    $myPost = $nodes["740"];
+    $myPost = $nodes["821"];
 
     print_r(get_class_methods($result));
 

@@ -51,18 +51,18 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 			}
 
 			// match the posts associated with our business socialite
-			$cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p)";
+			$cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p:Post)";
 
 			// if we want images and/or videos
 			if( $_POST["i"] || $_POST["v"])
 
-				$cypher .=	"-[:HAS_MEDIA]->(m) WHERE ";
+				$cypher .=	"-[h:HAS_MEDIA]->(m:Media) WHERE ";
 
 
 			// include posts with images
 			if( $_POST["i"] ){
 
-				$cypher .=	"m.type='img' ";
+				$cypher .=	"m.type='image' ";
 
 				// if video too
 				if( $_POST["v"] )
@@ -74,17 +74,43 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 			// exclude posts with media objects
 			if( $_POST["v"] ){
 
-				$cypher .=	"m.type='vid' ";
+				$cypher .=	"m.type='video' ";
 
 			}
 
-			$cypher .= "RETURN p, m";
+			$cypher .= "RETURN p, h, m";
 
 // execute the query
-$results = $db->query( $cypher );
+$results = $db->q( $cypher );
 
-echo $cypher;
-// print_r($results);
+// create empty array
+$a = [];
+
+// get all the :Post nodes
+$posts = $results->getNodes('Post');
+
+// loop through all the posts
+foreach( $posts as $post ){
+
+	// isolate the properties
+	$p = $post->getProperties();
+
+	// create a media array
+	$p["media"] = [];
+
+	// loop through the connected media nodes
+	$media = $post->getConnectedNodes();
+	foreach ($media as $m){
+		
+		// push the media properties onto the p["media"] array
+		$p["media"][] = $m->getProperties();
+	}
+
+	// push the post onto the array
+	$a[] = $p;
+}
+
+echo json_encode($a);
 
 exit();
 

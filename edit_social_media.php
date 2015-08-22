@@ -103,6 +103,11 @@
 
     $networks = $business->networks();
 
+    // quick access to names so we only need to loop once
+    $netNames = [];
+    foreach($networks as $n)
+        $netNames[] = $n["name"];
+
     $posts = $business->getPosts();
 
 ?>
@@ -125,12 +130,6 @@
         <link href="css/on_off_switch.css" rel="stylesheet">
         <link href="css/swiper.min.css" rel="stylesheet">
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
     </head>
     <body>
 
@@ -150,26 +149,26 @@
 	            	<!-- activation buttons -->
 	            	<section class="col-md-4" id="activation-btns">
 
-	            		<h3>Activate/Deactivate</h3>
+                        <h3>Activate/Deactivate</h3>
 
-	            		<h5>Connect your social media account to Routesider.</h5>
+                        <h5>Connect your social media account to Routesider.</h5>
 
-	            		<div class="container-fluid activation-btns">
-		            		
-		            		<!-- facebook -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-face">
-		            			
+                        <div class="container-fluid activation-btns">
+                            
+                            <!-- facebook -->
+                            <div class="col-xs-4 col-sm-2 col-md-6" id="activate-face">
+                                
                                 <div>
-		            			    <button type="button" class="btn activate-btn <?= in_array("facebook", $networks) ? "active" : "not-active"; ?>"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+                                    <button type="button" class="btn activate-btn <?= in_array("facebook", $netNames) ? "active" : "not-active"; ?>"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
                                     <h5>Facebook</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("facebook", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("facebook", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-facebook2"></span> Facebook</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("facebook", $networks) ){ ?>
+                                    <?php if( in_array("facebook", $netNames) ){ ?>
 
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
@@ -187,22 +186,22 @@
 
                                     </div>
                                 </div>
-		            		</div><!-- /facebook -->
+                            </div><!-- /facebook -->
 
-		            		<!-- instagram -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-inst">
+                            <!-- instagram -->
+                            <div class="col-xs-4 col-sm-2 col-md-6" id="activate-inst">
                                 
-                                <div>		            			
-    		            			<button type="button" class='btn activate-btn <?= in_array("instagram", $networks) ? "active" : "not-active"; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
+                                <div>                               
+                                    <button type="button" class='btn activate-btn <?= in_array("instagram", $netNames) ? "active" : "not-active"; ?>' data-toggled="0" aria-label="activate instagram"><span class="icon-instagram" aria-hidden="true"></span></button>
                                     <h5>Instagram</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("instagram", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("instagram", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("instagram", $networks) ){ ?>
+                                    <?php if( in_array("instagram", $netNames) ){ ?>
 
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
@@ -220,22 +219,22 @@
 
                                     </div>
                                 </div>
-		            		</div><!-- /instagram -->
+                            </div><!-- /instagram -->
 
-		            		<!-- tumblr -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-tumb">
-		            			
+                            <!-- tumblr -->
+                            <div class="col-xs-4 col-sm-2 col-md-6" id="activate-tumb">
+                                
                                 <div>
-		            			   <button type="button" class="btn activate-btn <?= in_array("tumblr", $networks) ? "active" : "not-active"; ?>" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
-		            			   <h5>Tumblr</h5>
+                                   <button type="button" class="btn activate-btn <?= in_array("tumblr", $netNames) ? "active" : "not-active"; ?>" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
+                                   <h5>Tumblr</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("tumblr", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-tumblr2" ></span> Tumblr</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("tumblr", $networks) ){ ?>
+                                    <?php if( in_array("tumblr", $netNames) ){ ?>
 
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
@@ -253,22 +252,22 @@
 
                                     </div>
                                 </div>
-		            		</div><!-- /tumblr -->
+                            </div><!-- /tumblr -->
 
-		            		<!-- linkedin -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-link">
+                            <!-- linkedin -->
+                            <div class="col-xs-4 col-sm-2 col-md-6" id="activate-link">
 
                                 <div>
-		            			   <button type="button" class="btn activate-btn <?= in_array("linkedin", $networks) ? "active" : "not-active"; ?>" aria-label="activate LinkedIn"><span class="icon-linkedin" aria-hidden="true"></span></button>
-		            			   <h5>LinkedIn</h5>
+                                   <button type="button" class="btn activate-btn <?= in_array("linkedin", $netNames) ? "active" : "not-active"; ?>" aria-label="activate LinkedIn"><span class="icon-linkedin" aria-hidden="true"></span></button>
+                                   <h5>LinkedIn</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("tumblr", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("tumblr", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-tumblr2"></span> LinkedIn</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("linkedin", $networks) ){ ?>
+                                    <?php if( in_array("linkedin", $netNames) ){ ?>
 
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
@@ -286,22 +285,22 @@
 
                                     </div>
                                 </div>
-		            		</div><!-- /linkedin -->
+                            </div><!-- /linkedin -->
 
-		            		<!-- twitter -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-twit">
-		            			
+                            <!-- twitter -->
+                            <div class="col-xs-4 col-sm-2 col-md-6" id="activate-twit">
+                                
                                 <div>
-		            			   <button type="button" class="btn activate-btn <?= in_array("twitter", $networks) ? "active" : "not-active"; ?>" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
-		            			   <h5>Twitter</h5>
+                                   <button type="button" class="btn activate-btn <?= in_array("twitter", $netNames) ? "active" : "not-active"; ?>" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
+                                   <h5>Twitter</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("twitter", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("twitter", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-twitter2"></span> Twitter</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("twitter", $networks) ){ ?>
+                                    <?php if( in_array("twitter", $netNames) ){ ?>
 
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
@@ -319,22 +318,22 @@
 
                                     </div>
                                 </div>
-		            		</div><!-- /twitter -->
+                            </div><!-- /twitter -->
 
-		            		<!-- google -->
-		            		<div class="col-xs-4 col-sm-2 col-md-6" id="activate-goog">
+                            <!-- google -->
+                            <div class="col-xs-4 col-sm-2 col-md-6" id="activate-goog">
 
                                 <div>
-		            			   <button type="button" class="btn activate-btn <?= in_array("google", $networks) ? "active" : "not-active"; ?>" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
-		            			   <h5>Google</h5>
+                                   <button type="button" class="btn activate-btn <?= in_array("google", $netNames) ? "active" : "not-active"; ?>" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+                                   <h5>Google</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("google", $networks) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("google", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-google-plus2"></span> Google</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("google", $networks) ){ ?>
+                                    <?php if( in_array("google", $netNames) ){ ?>
 
                                         <div>
                                             <input type="checkbox" class="form-control" checked><span>auto-update</span>
@@ -352,10 +351,10 @@
 
                                     </div>
                                 </div>
-		            		</div><!-- /google -->
+                            </div><!-- /google -->
 
-		            	</div><!-- /container-fluid -->
-	            	</section><!-- /activation-bts -->
+                        </div><!-- /container-fluid -->
+                    </section><!-- /activation-bts -->
 
 	            	<!-- feed -->
 	            	<section class="col-md-8" id="social-feed">	
@@ -424,7 +423,7 @@
                                 </div>
                                 
                                 <!-- query by network -->
-                                <div class="dropdown">
+                                <div class="dropdown" style="max-width:50%;">
                                     
                                     <button class="btn btn-default dropdown-toggle" type="button" id="search-network" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span>all networks</span>
@@ -444,7 +443,7 @@
                                                 // construct the list 
                                                 echo "<li class='list-group-item'>
                                                         <input type='checkbox' class='form-control' value='".$network["name"]."' data-icon='".$network["icon"]."' checked>
-                                                        <span class='icon-".$network["icon"]."'}></span>
+                                                        <span class='icon-".$network["icon"]."'></span>
                                                         &nbsp;".ucfirst($network["name"])."
                                                       </li>";
                                         ?>
