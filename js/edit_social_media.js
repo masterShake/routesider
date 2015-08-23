@@ -371,17 +371,23 @@ var ESM, esmApp;
 
 		/* properties */
 
+		// keep track of the text input
+		this.ti = document.getElementById("search-posts").children[0];
+		// keep track of the autocomplete dropdown
+		this.ad = document.getElementById("search-posts").children[1];
 		// keep track of the number of results
 		this.count = 0;
-
 		// keep track of active selection
 		this.active = -1;
 
 		/* add event listeners */		
 
 		// keyup query input
-		document.getElementById("search-posts").children[0]
-			.addEventListener("keyup", this.ku, false);
+		this.ti.addEventListener("keyup", this.ku, false);
+		// blur
+		this.ti.addEventListener("blur", this.blr, false);
+		// focus
+		this.ti.addEventListener("focus", this.fcs, false);
 
 	}
 
@@ -431,27 +437,28 @@ var ESM, esmApp;
 	AC.prototype.sel = function(k){
 
 		// get the current count
-		this.count = document.getElementById("search-posts")
-						.children[1].children.length;
+		this.count = this.ad.children.length;
 
 		// if we are not yet at the last item
-		if( (-k * this.active) < (k - 1)*(this.count - 1)/(-2) ){
+		if( (-k * this.active) <= (k - 1)*(this.count - 2)/(-2) ){
 
 			// incriment/decriment active
-			this.active = this.active - k; console.log(this.active); console.log(this.count);
+			this.active = this.active - k;
 
 			// if this is the second result or greater
 			if( (k * this.active) < (k + 1)*(this.count)/(2) )
 				// change reset the previous background color
-				document.getElementById("search-posts")
-					.children[1].children[this.active + k]
+				this.ad.children[this.active + k]
 						.style.backgroundColor = "#fff";
 
-			// set the active background color
-			document.getElementById("search-posts")
-				.children[1].children[this.active]
-					.style.backgroundColor = "#eee";
-
+			// if we did no just refocus on  the input
+			if( this.active >= 0 )
+				// set the active background color
+				this.ad.children[this.active]
+						.style.backgroundColor = "#eee";
+			else
+				// move cursor to the end
+				this.ti.value = this.ti.value;
 		}
 	}
 
@@ -466,6 +473,21 @@ var ESM, esmApp;
 		// insert hmtl response
 		document.getElementById("search-posts").children[1]
 			.innerHTML = r;
+	}
+
+	//-----------------------------------------------
+	// - blur search posts event listener
+	// - hide the autocomplete dropdown
+	AC.prototype.blr = function(){
+		this.parentElement.children[1].style.display = "none";
+	}
+
+	//-----------------------------------------------
+	// - focus search posts event listener
+	// - show the autocomplete dropdown
+	AC.prototype.fcs = function(){
+		if(this.value)
+			this.parentElement.children[1].style.display = "block";
 	}
 
 

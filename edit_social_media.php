@@ -372,33 +372,8 @@
                                            placeholder="Search posts"
                                            aria-label="search posts">
                                     <ul class="list-group autocomp">
-                                        <li class="list-group-item">
-                                            <div>
-                                                <div class="date">7.11.15</div>
-                                                <div class="icon icon-instagram"></div>
-                                                <div class="text">...was a <span class="match">blast</span> i had...</div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div>
-                                                <div class="date">4.7.15</div>
-                                                <div class="icon icon-facebook2"></div>
-                                                <div class="text">...way too <span class="match">blast</span>ed off...</div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div>
-                                                <div class="date">5.28.14</div>
-                                                <div class="icon icon-tumblr2"></div>
-                                                <div class="text">...oose you <span class="match">blast</span>ois!!</div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div>
-                                                <div class="date">4.22.14</div>
-                                                <div class="icon icon-linkedin"></div>
-                                                <div class="text">... bug <span class="match">blast</span>er to ...</div>
-                                            </div>
+                                        <li class="list-group-item" style="text-align:center;">
+                                            <span class="glyphicon glyphicon-hourglass spinner"></span>
                                         </li>
                                     </ul>
                                     <button type="button" class="btn" aria-label="Submit search for posts">
