@@ -371,6 +371,12 @@ var ESM, esmApp;
 
 		/* properties */
 
+		// keep track of the number of results
+		this.count = 0;
+
+		// keep track of active selection
+		this.active = -1;
+
 		/* add event listeners */		
 
 		// keyup query input
@@ -383,10 +389,18 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - autocomplete keyup event listener
-	AC.prototype.ku = function(){
+	AC.prototype.ku = function(event){ // console.log(event.keyCode);
+
+		// if the user typed the down key
+		if(event.keyCode == 40 || event.keyCode == 38){
+
+			esmApp.searchBar.autocomplete.sel(39 - event.keyCode);
+
+			return;
+		}
 
 		// if there is any text in the box
-		if( this.value ){
+		else if( this.value ){
 
 			// display the dropdown
 			this.parentElement.children[1].style.display = "block";
@@ -412,15 +426,46 @@ var ESM, esmApp;
 	}
 
 	//-----------------------------------------------
+	// - down key selection event
+	// - k is for keynumber +1 for up, -1 for down
+	AC.prototype.sel = function(k){
+
+		// get the current count
+		this.count = document.getElementById("search-posts")
+						.children[1].children.length;
+
+		// if we are not yet at the last item
+		if( (-k * this.active) < (k - 1)*(this.count - 1)/(-2) ){
+
+			// incriment/decriment active
+			this.active = this.active - k; console.log(this.active); console.log(this.count);
+
+			// if this is the second result or greater
+			if( (k * this.active) < (k + 1)*(this.count)/(2) )
+				// change reset the previous background color
+				document.getElementById("search-posts")
+					.children[1].children[this.active + k]
+						.style.backgroundColor = "#fff";
+
+			// set the active background color
+			document.getElementById("search-posts")
+				.children[1].children[this.active]
+					.style.backgroundColor = "#eee";
+
+		}
+	}
+
+	//-----------------------------------------------
 	// - populate the autocomplete elmenent with the
 	//   results
 	// - max results : 4
 	// - @r - results string json
-	AC.prototype.popFields = function(r){ console.log(r);
-
+	AC.prototype.popFields = function(r){
+		// reset the active number
+		this.active = -1;
+		// insert hmtl response
 		document.getElementById("search-posts").children[1]
 			.innerHTML = r;
-
 	}
 
 

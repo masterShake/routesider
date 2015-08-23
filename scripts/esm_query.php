@@ -186,7 +186,7 @@ if( $_POST["a"] ){
 
 		?>
 		
-        <li class="list-group-item">
+        <li class="list-group-item" data-postid='<?= $post->getProperty("id"); ?>'>
             <div>
                 <div class="date"><?= date("m.d.Y", $post->getProperty("created_time")); ?></div>
                 <div class='icon icon-<?= $post->getProperty("icon"); ?>'></div>
