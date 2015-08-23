@@ -329,9 +329,13 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - ajax call to get user posts
 	// - @ q -> query (string)
+	// - @ a -> autocomplete (0 or 1)
 	// - @ c -> callback (function)
 	// - callback performed by esmApp
-	SB.prototype.query = function(q, c){
+	SB.prototype.query = function(q, a, c){
+
+		// clear all other ajax calls
+		rsApp.tempObjs = {};
 
 		rsApp.ajax({
 
@@ -340,7 +344,8 @@ var ESM, esmApp;
 			params: "q=" + q + "&" +
 					"n=" + JSON.stringify( this.getNets() ) + "&" +
 					"i=" + this.imgs + "&" + 
-					"v=" + this.vids,
+					"v=" + this.vids + "&" +
+					"a=" + a,
 			callback : c
 		})
 
@@ -389,6 +394,7 @@ var ESM, esmApp;
 			// call the query 
 			esmApp.searchBar.query(
 				this.value, 
+				1,
 				esmApp.searchBar.autocomplete.popFields 
 			);
 
@@ -410,9 +416,10 @@ var ESM, esmApp;
 	//   results
 	// - max results : 4
 	// - @r - results string json
-	AC.prototype.popFields = function(r){
+	AC.prototype.popFields = function(r){ console.log(r);
 
-		console.log(r);
+		document.getElementById("search-posts").children[1]
+			.innerHTML = r;
 
 	}
 

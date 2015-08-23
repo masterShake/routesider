@@ -175,9 +175,13 @@
 	font-size: 16px;
 }
 .autocomp .text{
-	color: #666;
-	text-align: center;
-	display: inherit;
+    color: #666;
+    text-align: center;
+    display: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 20px;
+    white-space: nowrap;
 }
 .autocomp .match{
 	padding: 2px;

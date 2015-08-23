@@ -15,6 +15,9 @@
 //
 // - $_POST["v"] -> (bool) include posts w/ video
 //
+// - $_POST["a"] -> (bool) 1 = assemble autocomplete 
+//						   HTML, 0 = post HTML
+//
 //-----------------------------------------------
 
 // get the global variables
@@ -51,12 +54,19 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 			}
 
 			// match the posts associated with our business socialite
-			$cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p:Post)";
+			$cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p:Post) ";
+
+			// if querying for text
+			if( !empty($_POST["q"]) ){
+
+				$cypher .= "WHERE p.text =~ '(?i).*".$_POST["q"].".*' ";
+
+			}
 
 			// if we want images and/or videos
 			if( $_POST["i"] || $_POST["v"])
 
-				$cypher .=	"-[h:HAS_MEDIA]->(m:Media) WHERE ";
+				$cypher .=	"OPTIONAL MATCH (p)-[h:HAS_MEDIA]->(m:Media) WHERE ";
 
 
 			// include posts with images
@@ -78,39 +88,123 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 
 			}
 
-			$cypher .= "RETURN p, h, m";
+			$cypher .= "RETURN p, h, m LIMIT ";
+
+			// if this is an autocomplete request
+			$cypher .= ($_POST["a"]) ? "4" : "10";
 
 // execute the query
 $results = $db->q( $cypher );
 
-// create empty array
-$a = [];
+// if we got no results
+if( !$results->getNodesCount() ){
+	echo "<li style='text-align:center;'><i>no results</i></li>";
+	exit(); // exit script
+}
 
 // get all the :Post nodes
 $posts = $results->getNodes('Post');
 
-// loop through all the posts
-foreach( $posts as $post ){
+//------------------------------------------------
+// NOTE: great code below but not appropriate here
 
-	// isolate the properties
-	$p = $post->getProperties();
+// // create empty array
+// $a = [];
 
-	// create a media array
-	$p["media"] = [];
+// // loop through all the posts
+// foreach( $posts as $post ){
 
-	// loop through the connected media nodes
-	$media = $post->getConnectedNodes();
-	foreach ($media as $m){
+// 	// isolate the properties
+// 	$p = $post->getProperties();
+
+// 	// create a media array
+// 	$p["media"] = [];
+
+// 	// loop through the connected media nodes
+// 	$media = $post->getConnectedNodes();
+// 	foreach ($media as $m){
 		
-		// push the media properties onto the p["media"] array
-		$p["media"][] = $m->getProperties();
+// 		// push the media properties onto the p["media"] array
+// 		$p["media"][] = $m->getProperties();
+// 	}
+
+// 	// push the post onto the array
+// 	$a[] = $p;
+// }
+
+// assemble autocomplete request HTML
+if( $_POST["a"] ){ 
+
+	//-----------------------------------------------
+	// - helper function wrap the matching text with 
+	//   <span class="match">
+	function wrapMatches( $t, $m ){
+
+		// get the length of the query
+		$qLen = strlen($_POST["q"]);
+
+		// trigger to help cut the size of the string
+		$trig = 1;
+
+		// loop through the matches
+		foreach ($m as $match) {
+			
+			// insert the span tags around the matches
+			$t = substr($t, 0, $match[1]).
+					"<span class='match'>".
+					substr($t, $match[1], $qLen).
+					"</span>".
+					substr($t, ($match[1] + $qLen));
+
+			// if this is our first match
+			if($trig){
+				// pull the trigger
+				$trig = 0;
+				// if the match is more than 10 character from the beginning 
+				if($match[1] > 10){
+					// splice the string to 8 chars before first match
+					$t = substr($t, ($match[1] - 8));
+					$t = "..." . $t;
+				}
+			}
+		}
+
+		return $t;
 	}
 
-	// push the post onto the array
-	$a[] = $p;
-}
+	// use regex pattern to isolate that matching text
+	$pattern = '/'.$_POST["q"].'.*/i';
 
-echo json_encode($a);
+	foreach ($posts as $post) { 
+
+		// match the text with the query
+		preg_match($pattern, $post->getProperty("text"), $matches, PREG_OFFSET_CAPTURE);
+
+		// wrap the matches in <span class="match"></span>
+		$text = wrapMatches( $post->getProperty("text"), $matches );
+
+
+		?>
+		
+        <li class="list-group-item">
+            <div>
+                <div class="date"><?= date("m.d.Y", $post->getProperty("created_time")); ?></div>
+                <div class='icon icon-<?= $post->getProperty("icon"); ?>'></div>
+                <div class="text"><?= $text; ?></div>
+            </div>
+        </li>
+
+	<?php }
+
+// assemble post HTML
+}else{
+
+	foreach ($posts as $post) { ?>
+		
+		<span>nuts!</span>
+
+	<?php }
+}
 
 exit();
 
