@@ -176,8 +176,8 @@ var ESM, esmApp;
 		this.networks = document.getElementById("network-select")
 				.getElementsByTagName("input");
 
-		// autocomplete object
-		this.autocomplete = new AC();
+		// acomp object
+		this.acomp = new AC();
 
 		/* event listeners */
 
@@ -329,10 +329,11 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - ajax call to get user posts
 	// - @ q -> query (string)
-	// - @ a -> autocomplete (0 or 1)
+	// - @ a -> acomp (0 or 1)
 	// - @ c -> callback (function)
+	// - @ pid -> post ID (string)
 	// - callback performed by esmApp
-	SB.prototype.query = function(q, a, c){
+	SB.prototype.query = function(q, c, a, pid){
 
 		// clear all other ajax calls
 		rsApp.tempObjs = {};
@@ -345,10 +346,23 @@ var ESM, esmApp;
 					"n=" + JSON.stringify( this.getNets() ) + "&" +
 					"i=" + this.imgs + "&" + 
 					"v=" + this.vids + "&" +
-					"a=" + a,
+					"a=" + a + "&" +
+					"pid=" + pid,
 			callback : c
 		})
 
+	}
+
+	//-----------------------------------------------
+	// - ajax callback
+	// - populate the social media posts feed
+	// - @ r -> ajax response (string)
+	SB.prototype.popFeed = function(r){
+
+		console.log(r);
+
+		document.getElementById("social-posts")
+			.innerHTML = r;
 	}
 
 
@@ -373,19 +387,19 @@ var ESM, esmApp;
 
 		// keep track of the text input
 		this.ti = document.getElementById("search-posts").children[0];
-		// keep track of the autocomplete dropdown
+		// keep track of the acomp dropdown
 		this.ad = document.getElementById("search-posts").children[1];
 		// keep track of the number of results
 		this.count = 0;
 		// keep track of active selection
 		this.active = -1;
+		// temp variable
+		this.temp = null;
 
 		/* add event listeners */		
 
 		// keyup query input
 		this.ti.addEventListener("keyup", this.ku, false);
-		// blur
-		this.ti.addEventListener("blur", this.blr, false);
 		// focus
 		this.ti.addEventListener("focus", this.fcs, false);
 
@@ -394,33 +408,36 @@ var ESM, esmApp;
 	/* METHODS */
 
 	//-----------------------------------------------
-	// - autocomplete keyup event listener
+	// - acomp keyup event listener
 	AC.prototype.ku = function(event){ // console.log(event.keyCode);
 
 		// if the user typed the down key
 		if(event.keyCode == 40 || event.keyCode == 38){
 
-			esmApp.searchBar.autocomplete.sel(39 - event.keyCode);
+			esmApp.searchBar.acomp.sel(39 - event.keyCode);
 
 			return;
-		}
+		}else if( event.keyCode == 13 ){
+
+			esmApp.searchBar.acomp.ntr();
 
 		// if there is any text in the box
-		else if( this.value ){
+		}else if( this.value ){
 
 			// display the dropdown
 			this.parentElement.children[1].style.display = "block";
 
 			// call the query 
 			esmApp.searchBar.query(
-				this.value, 
+				this.value,
+				esmApp.searchBar.acomp.popFields,
 				1,
-				esmApp.searchBar.autocomplete.popFields 
+				0
 			);
 
 		}else{
 
-			// hide the autocomplete element
+			// hide the acomp element
 			this.parentElement.children[1].style.display = "none";
 
 			// replace the content with a spinner
@@ -463,7 +480,23 @@ var ESM, esmApp;
 	}
 
 	//-----------------------------------------------
-	// - populate the autocomplete elmenent with the
+	// - enter key event listener
+	AC.prototype.ntr = function(pid){
+
+		// hide the autocomplete dropdown
+		this.ad.style.display = "none";
+
+		// perform the query
+		esmApp.searchBar.query(
+			this.ti.value,
+			esmApp.searchBar.popFeed,
+			0,
+			 (this.active > -1) ? this.ad.children[this.active].dataset.pid : 0
+		);
+	}
+
+	//-----------------------------------------------
+	// - populate the acomp elmenent with the
 	//   results
 	// - max results : 4
 	// - @r - results string json
@@ -473,12 +506,40 @@ var ESM, esmApp;
 		// insert hmtl response
 		document.getElementById("search-posts").children[1]
 			.innerHTML = r;
+		// add event listeners
+		esmApp.searchBar.acomp.addLstnrs();
+	}
+
+	//-----------------------------------------------
+	// - helper function for popFields
+	// - add event listeners to the newly inserted content
+	AC.prototype.addLstnrs = function(){
+
+		// if no suggestions
+		if( this.ad.children[0].children[0].tagName == "SPAN" )
+			return; // do nothing
+		console.log(this.ad.children);
+		// loop through the suggestions list
+		for(var i = 0; i < this.ad.children.length; i++)
+
+			// add event listener
+			this.ad.children[i]
+				.addEventListener("click", esmApp.searchBar.acomp.clkSug, false);
 	}
 
 	//-----------------------------------------------
 	// - blur search posts event listener
-	// - hide the autocomplete dropdown
-	AC.prototype.blr = function(){
+	// - hide the acomp dropdown
+	AC.prototype.blr = function(event){ console.log(event.target);
+	
+		// remove this event listener
+		document.body.removeEventListener("click", esmApp.searchBar.acomp.blr, false);
+
+		// if we clicked on the autocomplete dropdown
+		if( event.target.dataset.pid || event.target.parentElement.dataset.pid )
+			return; // do nothing
+
+		// hide the autocomplete element
 		this.parentElement.children[1].style.display = "none";
 	}
 
@@ -486,11 +547,32 @@ var ESM, esmApp;
 	// - focus search posts event listener
 	// - show the autocomplete dropdown
 	AC.prototype.fcs = function(){
+
+		// attach click event listener to body
+		document.body.addEventListener("blur", esmApp.searchBar.acomp.blr, false);
+		
+		// if input not empty
 		if(this.value)
+			// display autocomplete dropdown
 			this.parentElement.children[1].style.display = "block";
 	}
 
+	//-----------------------------------------------
+	// - click suggestion results event listener
+	// - ajax to retrieve post
+	AC.prototype.clkSug = function(){ console.log("suggestion clicked!");
 
+			// hide the autocomplete dropdown
+			this.parentElement.style.display = "none";
+
+			// perform the query
+			esmApp.searchBar.query(
+				esmApp.searchBar.acomp.ti.value,
+				esmApp.searchBar.popFeed,
+				0,
+				this.dataset.pid
+			);
+	}
 
 
 

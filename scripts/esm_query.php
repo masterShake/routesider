@@ -26,6 +26,8 @@ $user = new User();
 
 $business = $user->business()[0];
 
+$profile = $business->profile();
+
 $db = neoDB::getInstance();
 
 // assemble the query
@@ -104,6 +106,24 @@ if( !$results->getNodesCount() ){
 
 // get all the :Post nodes
 $posts = $results->getNodes('Post');
+
+//-----------------------------------------------
+// if the user requested a single post 
+$singleResult = null;
+$singlePost = null; // a single post node
+
+// if this was a query for a specific post
+if( $_POST["pid"] != 0 ){
+
+	$cypher = "MATCH (p:Post) WHERE p.id ='".$_POST["pid"]."' ". 
+			  "OPTIONAL MATCH (p)-[h:HAS_MEDIA]->(m) ".
+			  "RETURN p, h, m";
+
+	$singleResult = $db->q($cypher);
+
+	$singlePost = $singleResult->getNodes("Post");
+
+}
 
 //------------------------------------------------
 // NOTE: great code below but not appropriate here
@@ -186,25 +206,164 @@ if( $_POST["a"] ){
 
 		?>
 		
-        <li class="list-group-item" data-postid='<?= $post->getProperty("id"); ?>'>
-            <div>
+        <li class="list-group-item" data-pid='<?= $post->getProperty("id"); ?>'>
+            <div data-pid='<?= $post->getProperty("id"); ?>'>
                 <div class="date"><?= date("m.d.Y", $post->getProperty("created_time")); ?></div>
                 <div class='icon icon-<?= $post->getProperty("icon"); ?>'></div>
-                <div class="text"><?= $text; ?></div>
+                <div class="text"  data-pid='<?= $post->getProperty("id"); ?>'><?= $text; ?></div>
             </div>
         </li>
 
 	<?php }
 
-// assemble post HTML
-}else{
-
-	foreach ($posts as $post) { ?>
-		
-		<span>nuts!</span>
-
-	<?php }
+	exit();
 }
+
+// if the user requested a single post
+if( !is_null($singlePost) ){
+
+    $post = $singlePost[0];
+		
+	// get all the media objects
+    $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
+
+    ?>
+
+		<div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>' data-loading="0">
+		    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
+		    <?php // if the post has at least 1 media object
+		          if( count($media) ){
+
+		            // if the post has a video
+		            if( $media[0]->getProperty("type") == "video" ){ ?>
+
+		    <!-- temp image to iframe -->
+		    <div class="top-img" data-url='<?= $media[0]->getProperty("url"); ?>'>
+		        <img src='<?= $media[0]->getProperty("cover_image"); ?>' alt="social media post">
+		        <h1><span class="glyphicon glyphicon-play-circle"></span></h1>
+		    </div>
+		    
+		            <?php // if the post has more than 1 image
+		            }else if( count($media) > 1 ){  ?>
+
+		    <!-- gallery -->
+
+		            <?php // if there is only 1 image
+		            }else{ ?>
+
+		    <!-- single image -->
+		    <img src='<?= $media[0]->getProperty("url"); ?>' alt="social media post">
+		    
+		    <?php } } ?>
+
+		    <div class="caption">
+		        <table>
+		            <tr>
+		                <td>
+		                    <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
+		                </td>
+		                <td>
+		                    <p>
+		                        <a href='https://instagram.com/<?= $post->getProperty("username"); ?>'>
+		                            <span>&#64;<?= $post->getProperty("username"); ?></span>
+		                        </a>
+		                        <?= ($post->hasProperty("text")) ? $post->getProperty("text") : ""; ?>
+		                    </p>
+		                </td>
+		            </tr>
+		        </table>
+		    </div>
+		    <div class="social-post-link"><a href='<?= $post->getProperty("link"); ?>'><span class='icon-<?= $post->getProperty("icon"); ?>'></span></a></div>
+		    <div class="likes">
+		        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post->getProperty("likes"); ?></div>
+		    </div>
+		</div>
+
+<?php }
+
+// if there is more than 1 matching post
+if( !is_null($singlePost) && count($posts) > 1){ ?>
+
+		<h5 style="border-top: 1px solid #ccc; margin: 40px 15px;padding-top:10px;text-align:center">
+			Similar posts matching <strong><i><?= $_POST["q"]; ?></i></strong>:
+		</h5>
+
+<?php }else if(count($posts)){ ?>
+
+		<h5 style="border-top: 1px solid #ccc; margin: 0px 15px 40px;padding-top:10px;text-align:center">
+			Posts matching <strong><i><?= $_POST["q"]; ?></i></strong>:
+		</h5>
+
+<?php }
+
+// loop through the posts and assemble the HTML
+foreach ($posts as $post) { 
+		
+	// get all the media objects
+    $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
+
+    // if this is a duplicate
+    if( !is_null($singlePost) && $post->getProperty("id") == $singlePost[0]->getProperty("id")){
+
+    	// do nothing
+    
+    }else{
+
+    ?>
+
+		<div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>' data-loading="0">
+		    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
+		    <?php // if the post has at least 1 media object
+		          if( count($media) ){
+
+		            // if the post has a video
+		            if( $media[0]->getProperty("type") == "video" ){ ?>
+
+		    <!-- temp image to iframe -->
+		    <div class="top-img" data-url='<?= $media[0]->getProperty("url"); ?>'>
+		        <img src='<?= $media[0]->getProperty("cover_image"); ?>' alt="social media post">
+		        <h1><span class="glyphicon glyphicon-play-circle"></span></h1>
+		    </div>
+		    
+		            <?php // if the post has more than 1 image
+		            }else if( count($media) > 1 ){  ?>
+
+		    <!-- gallery -->
+
+		            <?php // if there is only 1 image
+		            }else{ ?>
+
+		    <!-- single image -->
+		    <img src='<?= $media[0]->getProperty("url"); ?>' alt="social media post">
+		    
+		    <?php } } ?>
+
+		    <div class="caption">
+		        <table>
+		            <tr>
+		                <td>
+		                    <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
+		                </td>
+		                <td>
+		                    <p>
+		                        <a href='https://instagram.com/<?= $post->getProperty("username"); ?>'>
+		                            <span>&#64;<?= $post->getProperty("username"); ?></span>
+		                        </a>
+		                        <?= ($post->hasProperty("text")) ? $post->getProperty("text") : ""; ?>
+		                    </p>
+		                </td>
+		            </tr>
+		        </table>
+		    </div>
+		    <div class="social-post-link"><a href='<?= $post->getProperty("link"); ?>'><span class='icon-<?= $post->getProperty("icon"); ?>'></span></a></div>
+		    <div class="likes">
+		        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post->getProperty("likes"); ?></div>
+		    </div>
+		</div>
+
+
+<?php } }
+
 
 exit();
 
