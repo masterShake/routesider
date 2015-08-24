@@ -51,7 +51,8 @@ if( isset($_POST["code"]) ){
                         "website : '" . $meta->user->website . "', " .
                         "full_name : '" . $meta->user->full_name . "', " .
                         "bio : '" . $meta->user->bio . "' " .
-                  "})<-[:HAS_MEMBER]-(n)";
+                  "}) ".
+                  "MERGE (n)-[:HAS_MEMBER]->(s)";
 
         $db->query($cypher);
 
@@ -135,12 +136,19 @@ if( isset($_POST["code"]) ){
                                 "username : '" . $liker->username . "' " .
                           "})<-[:HAS_MEMBER]-(n) " .
                           // maybe associate this socialite with a social network & post
-                          "MERGE (s)-[:LIKED]->(p)" .
+                          "MERGE (s)-[:LIKED]->(p) RETURN n";
                 
-                $db->query( $cypher ); 
+                $n = $db->query( $cypher ); 
+
+                $n = $n["n"][0];
             }
         }
     }
+
+    // output HTML checkbox for dropdown and query
+    echo "  <input type='checkbox' class='form-control' value='".$n["name"]."' data-icon='".$n["icon"]."' checked>
+            <span class='icon-".$n["icon"]."'></span>
+            &nbsp;".ucfirst($n["name"]);
 
     exit();
 }
@@ -192,7 +200,7 @@ if( isset($_POST["code"]) ){
                     if(this.readyState == 4 && this.status == 200) {
                         // console.log( this.responseText );
                         // console.log( JSON.parse(this.responseText) );
-                        window.opener.esmApp.socialMod.authorize( network );
+                        window.opener.esmApp.socialMod.authorize( this.responseText );
                         window.close();
                     }
                 }

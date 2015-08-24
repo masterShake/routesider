@@ -17,14 +17,12 @@
 
         $db = neoDB::getInstance();
 
-        $cypher = "MATCH (n:" . ucfirst($_POST["network"]) . ")-[r:POSTED]->(p:Post) " .
-                  "WHERE p.id = '" . $_POST["post_id"] . "' " .
-                  "OPTIONAL MATCH (p)<-[q:LIKES]-(u)" .
-                  "DELETE r, p, q, u";
+        $cypher = "MATCH (s)-[r:POSTED]->(p:Post) WHERE p.id = '" . $_POST["post_id"] . "' " .
+                  "SET r.deleted = 1";
 
         $db->query( $cypher );
 
-        exit("delete successful");
+        exit("1");
 
     } 
 

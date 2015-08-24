@@ -699,32 +699,26 @@ var ESM, esmApp;
 	// - perform an ajax call to retrieve the data
 	// - scroll to social feed if mobile
 	// - query updated content
-	SMM.prototype.authorize = function(){
+	SMM.prototype.authorize = function( strElems ){ console.log(strElems);
 
 		// show the loading animation
 		document.getElementById("social-posts")
-			.innerHTML = '<span class="glyphicon glyphicon-hourglass loading"></span>';
+			.innerHTML = '<h2 style="text-align:center;">'+
+						 '	<span class="glyphicon glyphicon-hourglass loading"></span>'+
+						 '</h2>';
 
 		// scroll to the posts
-		location.href = "#";
-		location.href = "#social-posts";
+		document.getElementById("social-feed").scrollIntoView();
+
+		// add the network to the dropdown
+		esmApp.temp = document.createElement("li");
+		esmApp.temp.className = "list-group-item";
+		esmApp.temp.innerHTML = strElems;
+		document.getElementById("network-select")
+			.appendChild(esmApp.temp)
 
 		// ajax query
-		esmApp.searchBar.query("", esmApp.socialMod.insertPosts);
-	}
-
-	//-----------------------------------------------
-	// - ajax callback get posts and assemble the
-	//   dom objects
-	// - add event listeners to make the posts 
-	//   editable
-	SMM.prototype.insertPosts = function(r){
-
-		console.log(r);
-
-		// document.getElementById("social-posts").innerHTML = r;
-
-		// add event listeners
+		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
 	}
 
 	//-----------------------------------------------
@@ -732,21 +726,21 @@ var ESM, esmApp;
 	//   from the feed
 	// - ajax call to remove the post from the db, 
 	//   no callback
-	SMM.prototype.deletePost = function(){ console.log("delete has been called.");
+	SMM.prototype.deletePost = function(){
 
+		// remove the selected
+		document.getElementById(esmApp.socialMod.modal.id)
+			.parentElement.removeChild(
+				document.getElementById(esmApp.socialMod.modal.id)
+			);
+
+		// ajax delete request
 		rsApp.ajax({
 					method : "POST",
 					url : document.URL,
 					params : "network="+this.modal.network+"&post_id="+this.modal.id,
-					callback : this.ajaxCallback
+					callback : false
 				  });
-	}
-
-	//-----------------------------------------------
-	// - ajax callback for debuggin purposes only
-	SMM.prototype.ajaxCallback = function(response){
-		console.log("here is the response:\n");
-		console.log(response);
 	}
 
 	//-----------------------------------------------

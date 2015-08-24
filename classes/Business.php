@@ -58,11 +58,11 @@ class Business{
 
                   // if there is a network variable
                   if($network)
-                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' ";
+                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO { active : 1 } ]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' ";
                   else
-                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO]->(s) ";
+                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO { active : 1 } ]->(s) ";
                   
-        $cypher .= "OPTIONAL MATCH (s)-[r:POSTED]->(p) WHERE r.deleted=0 ".
+        $cypher .= "OPTIONAL MATCH (s)-[r:POSTED {deleted : 0} ]->(p) WHERE r.deleted=0 ".
         		   "OPTIONAL MATCH (p)-[x:HAS_MEDIA]->(m) ".
         		   "OPTIONAL MATCH (p)<-[l:LIKED]-(t) ".
                    "RETURN p, m, x ORDER BY p.created_time DESC";
@@ -144,12 +144,15 @@ class Business{
 			$this->_networks = array();
 
 			$cypher = "MATCH (b:Business) WHERE b.id = " . $this->_data["id"] . " " .
-					  "OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) " .
+					  "OPTIONAL MATCH (b)-[:LINKED_TO {active : 1} ]->(s)<-[:HAS_MEMBER]-(n) " .
 					  "RETURN n";
 					  
 			$this->_networks = $this->_db->query($cypher);
 
 			$this->_networks = $this->_networks["n"];
+
+			if( is_null($this->_networks[0]) )
+				$this->_networks = array();
 
 		}
 

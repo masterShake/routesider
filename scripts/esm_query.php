@@ -288,7 +288,7 @@ if( !is_null($singlePost) && count($posts) > 1){ ?>
 			Similar posts matching <strong><i><?= $_POST["q"]; ?></i></strong>:
 		</h5>
 
-<?php }else if(count($posts)){ ?>
+<?php }else if(count($posts) && !empty($_POST["q"])){ ?>
 
 		<h5 style="border-top: 1px solid #ccc; margin: 0px 15px 40px;padding-top:10px;text-align:center">
 			Posts matching <strong><i><?= $_POST["q"]; ?></i></strong>:
