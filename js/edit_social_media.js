@@ -273,7 +273,7 @@ var ESM, esmApp;
 
 			// append the icon to the dropdown button inner HTML
 			document.getElementById("search-network").children[0]
-				.appendChild( esmApp.searchBar.temp );
+				.appendChild( esmApp.temp );
 		}
 	}
 
@@ -359,10 +359,28 @@ var ESM, esmApp;
 	// - @ r -> ajax response (string)
 	SB.prototype.popFeed = function(r){
 
-		console.log(r);
+		// get the feed elem
+		esmApp.temp = document.getElementById("social-posts");
 
-		document.getElementById("social-posts")
-			.innerHTML = r;
+		// populate the feed with HTML
+		esmApp.temp.innerHTML = r;
+
+		// loop through the posts
+		for(var i = 0; i < esmApp.temp.children.length; i++){
+
+			if(esmApp.temp.children[i].className == "thumbnail social-media-post"){
+
+				// delete event listener
+				esmApp.temp.children[i].children[0]
+					.addEventListener("click", esmApp.socialMod.modal.launchModal, false);
+
+				// if video
+				if( esmApp.temp.children[i].children[1].className == "top-img" )
+					// add video play event listener
+					esmApp.temp.children[i].children[1]
+						.addEventListener("click", esmApp.socialMod.showVid, false);
+			}
+		}
 	}
 
 
@@ -393,8 +411,6 @@ var ESM, esmApp;
 		this.count = 0;
 		// keep track of active selection
 		this.active = -1;
-		// temp variable
-		this.temp = null;
 
 		/* add event listeners */		
 
@@ -443,7 +459,7 @@ var ESM, esmApp;
 			// replace the content with a spinner
 			this.parentElement.children[1].innerHTML = 
 			'<li class="list-group-item" style="text-align:center;">'+
-			'	<span class="glyphicon glyphicon-hourglass spinner"></span>'+
+			'	<span class="glyphicon glyphicon-hourglass loading"></span>'+
 			'</li>';
 		}
 	}
@@ -483,6 +499,12 @@ var ESM, esmApp;
 	// - enter key event listener
 	AC.prototype.ntr = function(pid){
 
+		// clear the feed
+		document.getElementById("social-posts").innerHTML = 
+			'<h2 style="text-align:center;">'+
+			'	<span class="glyphicon glyphicon-hourglass loading"></span>'+
+			'</h2>';
+
 		// hide the autocomplete dropdown
 		this.ad.style.display = "none";
 
@@ -518,7 +540,7 @@ var ESM, esmApp;
 		// if no suggestions
 		if( this.ad.children[0].children[0].tagName == "SPAN" )
 			return; // do nothing
-		console.log(this.ad.children);
+
 		// loop through the suggestions list
 		for(var i = 0; i < this.ad.children.length; i++)
 
@@ -530,17 +552,18 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - blur search posts event listener
 	// - hide the acomp dropdown
-	AC.prototype.blr = function(event){ console.log(event.target);
-	
-		// remove this event listener
-		document.body.removeEventListener("click", esmApp.searchBar.acomp.blr, false);
+	AC.prototype.blr = function(event){ console.log("cupcakes! tehehe");
 
 		// if we clicked on the autocomplete dropdown
-		if( event.target.dataset.pid || event.target.parentElement.dataset.pid )
+		if( event.target.hasAttribute("data-pid") || event.target.parentElement.hasAttribute("data-pid") || event.target === document.getElementById("search-posts").children[0] )
 			return; // do nothing
 
 		// hide the autocomplete element
-		this.parentElement.children[1].style.display = "none";
+		document.getElementById("search-posts")
+			.children[1].style.display = "none";
+	
+		// remove this event listener
+		document.body.removeEventListener("click", esmApp.searchBar.acomp.blr, true);
 	}
 
 	//-----------------------------------------------
@@ -549,7 +572,7 @@ var ESM, esmApp;
 	AC.prototype.fcs = function(){
 
 		// attach click event listener to body
-		document.body.addEventListener("blur", esmApp.searchBar.acomp.blr, false);
+		document.body.addEventListener("click", esmApp.searchBar.acomp.blr, true);
 		
 		// if input not empty
 		if(this.value)
@@ -562,16 +585,22 @@ var ESM, esmApp;
 	// - ajax to retrieve post
 	AC.prototype.clkSug = function(){ console.log("suggestion clicked!");
 
-			// hide the autocomplete dropdown
-			this.parentElement.style.display = "none";
+		// clear the feed
+		document.getElementById("social-posts").innerHTML = 
+			'<h2 style="text-align:center;">'+
+			'	<span class="glyphicon glyphicon-hourglass loading"></span>'+
+			'</h2>';
 
-			// perform the query
-			esmApp.searchBar.query(
-				esmApp.searchBar.acomp.ti.value,
-				esmApp.searchBar.popFeed,
-				0,
-				this.dataset.pid
-			);
+		// hide the autocomplete dropdown
+		this.parentElement.style.display = "none";
+
+		// perform the query
+		esmApp.searchBar.query(
+			esmApp.searchBar.acomp.ti.value,
+			esmApp.searchBar.popFeed,
+			0,
+			this.dataset.pid
+		);
 	}
 
 
@@ -674,7 +703,7 @@ var ESM, esmApp;
 
 		// show the loading animation
 		document.getElementById("social-posts")
-			.innerHTML = '<span class="glyphicon glyphicon-hourglass spinner"></span>';
+			.innerHTML = '<span class="glyphicon glyphicon-hourglass loading"></span>';
 
 		// scroll to the posts
 		location.href = "#";
@@ -731,6 +760,9 @@ var ESM, esmApp;
 
 		// set the data-loading attribute
 		this.setAttribute("data-loading", "1");
+
+		// show the spinner
+		this.children[1].children[0].className = "glyphicon glyphicon-hourglass loading";
 
 		// temp variable, create iframe 
 		esmApp.socialMod.newVid = document.createElement("iframe");

@@ -373,7 +373,7 @@
                                            aria-label="search posts">
                                     <ul class="list-group autocomp">
                                         <li class="list-group-item" style="text-align:center;">
-                                            <span class="glyphicon glyphicon-hourglass spinner"></span>
+                                            <span class="glyphicon glyphicon-hourglass loading"></span>
                                         </li>
                                     </ul>
                                     <button type="button" class="btn" aria-label="Submit search for posts">

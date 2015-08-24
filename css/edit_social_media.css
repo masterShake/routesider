@@ -246,7 +246,7 @@
     max-height: 1px;
     padding-left: 12px;
     opacity: .8;
-    color: #fff;
+    color: #fff !important;
 	animation-name: blackwhite;
 	animation-duration: 5s;
 	animation-iteration-count: infinite;
