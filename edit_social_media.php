@@ -207,7 +207,9 @@
                                         <div style="margin-bottom:8px;">
                                             <input type="checkbox" class="form-control" checked><span>use for login</span>
                                         </div>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
+                                        <button type="button" class="btn btn-danger" data-network="instagram">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                        </button>
 
                                     <?php }else{ ?>
 
@@ -534,7 +536,7 @@
         </div><!-- /.modal -->
 
         <!-- confirm remove network modal -->
-        <div class="modal" id="confirm-network-modal">
+        <div class="modal" id="confirm-drop-network">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

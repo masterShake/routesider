@@ -92,34 +92,16 @@ var ESM, esmApp;
 		// initialize the searchbar
 		this.searchBar = new SB();
 
-		// initialize the SMM object
-		this.socialMod = new SMM();
+		// initialize the social media buttons
+		this.smBtns = new SMB();
+
+		// initialize the social media posts
+		this.smPosts = new SMP();
 
 		// random temp variable
-		this.temp;
+		this.temp = null;
 
 		/* construction */
-		
-		// activate network event listener btns
-
-		// facebook
-		document.getElementById("activate-face").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// instagram
-		document.getElementById("activate-inst").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// tumblr
-		document.getElementById("activate-tumb").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// twitter
-		document.getElementById("activate-twit").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// google
-		document.getElementById("activate-goog").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// linked in
-		document.getElementById("activate-link").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}
 
@@ -372,13 +354,13 @@ var ESM, esmApp;
 
 				// delete event listener
 				esmApp.temp.children[i].children[0]
-					.addEventListener("click", esmApp.socialMod.confirmDel, false);
+					.addEventListener("click", esmApp.smPosts.confirmDel, false);
 
 				// if video
 				if( esmApp.temp.children[i].children[1].className == "top-img" )
 					// add video play event listener
 					esmApp.temp.children[i].children[1]
-						.addEventListener("click", esmApp.socialMod.showVid, false);
+						.addEventListener("click", esmApp.smPosts.showVid, false);
 			}
 		}
 	}
@@ -613,82 +595,72 @@ var ESM, esmApp;
 
 
 
-
-
-
-
-
-
 	//-----------------------------------------------
-	//			 SMM - social media module
-	//		   -----------------------------
+	//			 SMB - social media buttons
+	//		   ------------------------------
 	//
-	// - launch the popup window to get user 
-	//   credentials & token
+	// - toggle media controls popover
 	//
-	// - receive token upon confirmation
+	// - launch the popup window to get user data
 	//
-	// - make ajax curl request to get additional
-	//   user info.
+	// - populate feed with data
+	//
+	// - remove social network
 	//
 	//-----------------------------------------------
 
-	/* CONSTRUCTOR */
-
-	var SMM = function(){
+	var SMB = function(){
 
 		/* properties */
 
-		// keep track of which window is currently open
+		// keep track of active network
 		this.aNet = null;
 
-		// variable to receive user approval token
-		this.userToken = 0;
+		// initialize the confirmation modal
+		this.modal = new modal( document.getElementById("confirm-drop-network") );
 
-		// create a modal object
-		this.modal = new Modal( document.getElementById("confirmation-modal") );
+		// temp variable
+		this.temp = null;
 
-		/* initialize */
-
-		// temp variable to hold all the social media posts
-		this.temp = document.getElementsByClassName("social-media-post");
+		/* init */
 
 		// add instagram account event listener
 		document.getElementById("activate-inst")
 			.getElementsByTagName("button")[1]
-				.addEventListener("click", this.requestAuth, false);
+				.addEventListener("click", this.reqAuth, false);
 
-		// loop through the social media posts
-		for(var i = 0; i < this.temp.length; i++){
-			
-			// attach event listener to the delete button
-			this.temp[i].children[0]
-			 .addEventListener("click", this.confirmDel, false);
+		// activate network event listener btns
 
-			// attach event listener to video play buttons
-			if( this.temp[i].children[1].className == "top-img" )
-				this.temp[i].children[1]
-					.addEventListener("click", this.showVid, false);
-		}
+		// facebook
+		document.getElementById("activate-face").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// instagram
+		document.getElementById("activate-inst").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// tumblr
+		document.getElementById("activate-tumb").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// twitter
+		document.getElementById("activate-twit").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// google
+		document.getElementById("activate-goog").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+		// linked in
+		document.getElementById("activate-link").children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
 
-		// delete posts when confirmed
-		this.modal.elem.getElementsByClassName("btn-danger")[0]
-			.addEventListener("click", this.deletePost, false);
-
-		// remove the temp variable
-		this.temp = null;
-		// delete this.temp;
 	}
 
-	/* METHODS */
+	/*::methods::*/
 
 	//-----------------------------------------------
 	// - open a new window and send an authorization
 	//   request
-	SMM.prototype.requestAuth = function(){
+	SMB.prototype.reqAuth = function(){
 
 		// set the current network property
-		esmApp.socialMod.aNet = this.dataset.network;
+		esmApp.smBtns.aNet = this.dataset.network;
 
 		//open the auth window
 		window.open( this.dataset.url, 
@@ -698,44 +670,9 @@ var ESM, esmApp;
 	}
 
 	//-----------------------------------------------
-	// - callback after a user has added a social
-	//   network
-	// - perform an ajax call to retrieve the data
-	// - scroll to social feed if mobile
-	// - query updated content
-	SMM.prototype.authorize = function( strElems ){ console.log(strElems);
-
-		// show the loading animation
-		document.getElementById("social-posts")
-			.innerHTML = '<h2 style="text-align:center;">'+
-						 '	<span class="glyphicon glyphicon-hourglass loading"></span>'+
-						 '</h2>';
-
-		// scroll to the posts
-		document.getElementById("social-feed").scrollIntoView();
-
-		// add the network to the , reuse this.temp temp var
-		this.temp = document.createElement("li");
-		this.temp.className = "list-group-item";
-		this.temp.innerHTML = strElems;
-		document.getElementById("network-select")
-			.appendChild(this.temp);
-
-		// add the event listener to the checkbox
-		this.temp.getElementsByTagName("input")[0]
-			.addEventListener("change", esmApp.searchBar.netBox, false);
-
-		// ajax query
-		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
-
-		// change the html of the freshly added network button
-		this.btnHTML();
-	}
-
-	//-----------------------------------------------
 	// - change the classes and popover html of newly
 	//   added activion button
-	SMM.prototype.btnHTML = function(){
+	SMB.prototype.actBtn = function(){
 
 		// get the active network btn
 		this.temp = document.getElementById(
@@ -763,40 +700,157 @@ var ESM, esmApp;
 	}
 
 	//-----------------------------------------------
+	// - remove social network event listener
+	SMB.prototype.removeNet = function(){
+
+		// set the active network
+		esmApp.smBtns.aNet = this.dataset.network;
+
+		// launch the modal
+		esmApp.smBtns.modal.launch();
+
+	}
+
+	//-----------------------------------------------
+	// - revert styles to default add listeners
+	SMB.prototype.deactBtn = function(){
+
+		// deactivate
+
+	}
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//			 SMP - social media Posts
+	//		   -----------------------------
+	//
+	// - populate fields 
+	//
+	// - remove posts
+	//
+	// - play videos
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	var SMP = function(){
+
+		/* properties */
+
+		// keep track of targeted post
+		this.confId = null;
+		this.confNet = null;
+
+		// create a modal object
+		this.modal = new modal( document.getElementById("confirmation-modal") );
+
+		/* initialize */
+
+		// temp variable to hold all the social media posts
+		this.temp = document.getElementsByClassName("social-media-post");
+
+		// loop through the social media posts
+		for(var i = 0; i < this.temp.length; i++){
+			
+			// attach event listener to the delete button
+			this.temp[i].children[0]
+			 .addEventListener("click", this.confirmDel, false);
+
+			// attach event listener to video play buttons
+			if( this.temp[i].children[1].className == "top-img" )
+				this.temp[i].children[1]
+					.addEventListener("click", this.showVid, false);
+		}
+
+		// delete posts when confirmed
+		this.modal.elem.getElementsByClassName("btn-danger")[0]
+			.addEventListener("click", this.deletePost, false);
+
+		// remove the temp variable
+		this.temp = null;
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - callback after a user has added a social
+	//   network
+	// - perform an ajax call to retrieve the data
+	// - scroll to social feed if mobile
+	// - query updated content
+	SMP.prototype.authorize = function( strElems ){
+
+		// show the loading animation
+		document.getElementById("social-posts")
+			.innerHTML = '<h2 style="text-align:center;">'+
+						 '	<span class="glyphicon glyphicon-hourglass loading"></span>'+
+						 '</h2>';
+
+		// scroll to the posts
+		document.getElementById("social-feed").scrollIntoView();
+
+		// add the network to the , reuse this.temp temp var
+		this.temp = document.createElement("li");
+		this.temp.className = "list-group-item";
+		this.temp.innerHTML = strElems;
+		document.getElementById("network-select")
+			.appendChild(this.temp);
+
+		// add the event listener to the checkbox
+		this.temp.getElementsByTagName("input")[0]
+			.addEventListener("change", esmApp.searchBar.netBox, false);
+
+		// ajax query
+		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
+
+		// change the html of the freshly added network button
+		esmApp.smBtns.actBtns();
+	}
+
+	//-----------------------------------------------
 	// - remove the selected social media post elem 
 	//   from the feed
 	// - ajax call to remove the post from the db, 
 	//   no callback
-	SMM.prototype.deletePost = function(){
+	SMP.prototype.deletePost = function(){
 
 		// remove the selected
-		document.getElementById(esmApp.socialMod.confId)
+		document.getElementById(esmApp.smPosts.confId)
 			.parentElement.removeChild(
-				document.getElementById(esmApp.socialMod.confId)
+				document.getElementById(esmApp.smPosts.confId)
 			);
 
 		// ajax delete request
 		rsApp.ajax({
 					method : "POST",
 					url : document.URL,
-					params : "network="+esmApp.socialMod.confNet+"&post_id="+esmApp.socialMod.confId,
+					params : "network="+esmApp.smPosts.confNet+"&post_id="+esmApp.smPosts.confId,
 					callback : false
 				  });
 	}
 
 	//-----------------------------------------------
 	// - launches modal to confirm deletion of post
-	SMM.prototype.confirmDel = function(){
+	SMP.prototype.confirmDel = function(){
 		// set the modal properties
-		esmApp.socialMod.confNet = this.dataset.network;
-		esmApp.socialMod.confId = this.dataset.id;
+		esmApp.smPosts.confNet = this.dataset.network;
+		esmApp.smPosts.confId = this.dataset.id;
 		// show the modal
-		esmApp.socialMod.modal.launch();
+		esmApp.smPosts.modal.launch();
 	}
 
 	//-----------------------------------------------
 	// - display instagram video event listener
-	SMM.prototype.showVid = function(){
+	SMP.prototype.showVid = function(){
 
 		// if we are already loading the video
 		if( this.dataset.loading == 1 )
@@ -810,25 +864,25 @@ var ESM, esmApp;
 		this.children[1].children[0].className = "glyphicon glyphicon-hourglass loading";
 
 		// temp variable, create iframe 
-		esmApp.socialMod.newVid = document.createElement("iframe");
+		esmApp.smPosts.newVid = document.createElement("iframe");
 		// set keep track of post id
-		esmApp.socialMod.newVid.setAttribute("data-postid", this.parentElement.id);
+		esmApp.smPosts.newVid.setAttribute("data-postid", this.parentElement.id);
 		// remove the frameborder
-		esmApp.socialMod.newVid.setAttribute("frameborder", "0");
+		esmApp.smPosts.newVid.setAttribute("frameborder", "0");
 		// set the source
-		esmApp.socialMod.newVid.setAttribute("src", this.dataset.url);
+		esmApp.smPosts.newVid.setAttribute("src", this.dataset.url);
 
 		// add event listener to on load 
-		esmApp.socialMod.newVid // .onLoad = esmApp.socialMod.swap;
-			.addEventListener("load", esmApp.socialMod.swap, true);
+		esmApp.smPosts.newVid // .onLoad = esmApp.smPosts.swap;
+			.addEventListener("load", esmApp.smPosts.swap, true);
 
 		// append to body
-        document.body.appendChild(esmApp.socialMod.newVid);
+        document.body.appendChild(esmApp.smPosts.newVid);
 	} 
 	//-----------------------------------------------
 	// - showVid helper event listener
 	// - called when video is loaded
-	SMM.prototype.swap = function(){
+	SMP.prototype.swap = function(){
 
 		// if this has already been swapped
 		if( !this.dataset.postid )

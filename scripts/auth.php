@@ -205,7 +205,7 @@ if( isset($_POST["code"]) ){
                     if(this.readyState == 4 && this.status == 200) {
                         // console.log( this.responseText );
                         // console.log( JSON.parse(this.responseText) );
-                        window.opener.esmApp.socialMod.authorize( this.responseText );
+                        window.opener.esmApp.smPosts.authorize( this.responseText );
                         window.close();
                     }
                 }

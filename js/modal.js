@@ -1,6 +1,6 @@
 
 //-----------------------------------------------
-// - closure to hold Modal objects
+// - closure to hold modal objects
 var modApp = function(){
 
 	// keep track of the active modal
@@ -31,7 +31,7 @@ var m = new modApp();
 
 //-----------------------------------------------
 // - @ elem -> modal elem
-var Modal = function( elem ){
+var modal = function( elem ){
 
 	/* properties */
 
@@ -57,7 +57,7 @@ var Modal = function( elem ){
 
 //-----------------------------------------------
 // - display the modal
-Modal.prototype.launch = function(){
+modal.prototype.launch = function(){
 	// set the active modal
 	m.active = this;
 	// show the modal
@@ -68,7 +68,7 @@ Modal.prototype.launch = function(){
 //-----------------------------------------------
 // - timeout function
 // - animate the modal after displaying
-Modal.prototype.animateIn = function(){
+modal.prototype.animateIn = function(){
 	m.active.elem.style.opacity = "1";
 	m.active.elem.children[0].style.top = "100px";
 }
@@ -76,7 +76,7 @@ Modal.prototype.animateIn = function(){
 //-----------------------------------------------
 // - hide the modal
 // - trigger the callback if required
-Modal.prototype.hide = function(){
+modal.prototype.hide = function(){
 	// hide the modal
 	m.active.elem.style.opacity = "0";
 	m.active.elem.children[0].style.top = "-200px";
@@ -85,7 +85,7 @@ Modal.prototype.hide = function(){
 //-----------------------------------------------
 // - timeout function
 // - hide the modal after animating
-Modal.prototype.animateOut = function(){
+modal.prototype.animateOut = function(){
 	m.active.elem.style.display = "none";
 }
 
