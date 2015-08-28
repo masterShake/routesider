@@ -166,24 +166,29 @@ if( isset($_POST["code"]) ){
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
+    <style>
+        h1, h5{
+            text-align:center;
+            color:#5cb85c;
+        }
+        h1{
+            margin-top:150px;
+        }
+        h5{
+            margin-top: 30px;
+        }
+    </style>
+
   </head>
   <body>
 
 	<!-- hour glass spinner -->
-    <div style="width:100%;text-align:center;font-size:40px;color:#5cb85c;margin-top:150px;">
-        <span class="glyphicon glyphicon-hourglass loading"></span>
-    </div>
+    <h1>
+        <span class="glyphicon glyphicon-hourglass loading" aria-label="loading animation"></span>
+    </h1>
 
-
-  	<!-- print_r -->
-  	<!-- <pre></pre> -->
-
+    <h5>Retrieving posts, please wait...</h5>
 
     <!-- javascript -->
     <script>

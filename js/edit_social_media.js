@@ -651,7 +651,7 @@ var ESM, esmApp;
 		/* initialize */
 
 		// temp variable to hold all the social media posts
-		this.posts = document.getElementsByClassName("social-media-post");
+		this.temp = document.getElementsByClassName("social-media-post");
 
 		// add instagram account event listener
 		document.getElementById("activate-inst")
@@ -659,21 +659,21 @@ var ESM, esmApp;
 				.addEventListener("click", this.requestAuth, false);
 
 		// loop through the social media posts
-		for(var i = 0; i < this.posts.length; i++){
+		for(var i = 0; i < this.temp.length; i++){
 			
 			// attach event listener to the delete button
-			this.posts[i].children[0]
+			this.temp[i].children[0]
 			 .addEventListener("click", this.modal.launchModal, false);
 
 			// attach event listener to video play buttons
-			if( this.posts[i].children[1].className == "top-img" )
-				this.posts[i].children[1]
+			if( this.temp[i].children[1].className == "top-img" )
+				this.temp[i].children[1]
 					.addEventListener("click", this.showVid, false);
 		}
 
 		// remove the temp variable
-		this.posts = null;
-		delete this.posts;
+		this.temp = null;
+		// delete this.temp;
 	}
 
 	/* METHODS */
@@ -710,15 +710,52 @@ var ESM, esmApp;
 		// scroll to the posts
 		document.getElementById("social-feed").scrollIntoView();
 
-		// add the network to the dropdown
-		esmApp.temp = document.createElement("li");
-		esmApp.temp.className = "list-group-item";
-		esmApp.temp.innerHTML = strElems;
+		// add the network to the , reuse this.temp temp var
+		this.temp = document.createElement("li");
+		this.temp.className = "list-group-item";
+		this.temp.innerHTML = strElems;
 		document.getElementById("network-select")
-			.appendChild(esmApp.temp)
+			.appendChild(this.temp);
+
+		// add the event listener to the checkbox
+		this.temp.getElementsByTagName("input")[0]
+			.addEventListener("change", esmApp.searchBar.netBox, false);
 
 		// ajax query
 		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
+
+		// change the html of the freshly added network button
+		this.btnHTML();
+	}
+
+	//-----------------------------------------------
+	// - change the classes and popover html of newly
+	//   added activion button
+	SMM.prototype.btnHTML = function(){
+
+		// get the active network btn
+		this.temp = document.getElementById(
+						"activate-"+this.aNet.substr(0, 4));
+
+		// set active class for activate-btn
+		this.temp.children[0].children[0].className = this.temp.children[0].children[0].className.substr(0, 17) + " active";
+
+		// set active class for popover
+		this.temp.children[1].className = this.temp.children[1].className + "active";
+
+		// set the inner html of the popover
+		this.temp.getElementsByClassName("popover-content")[0]
+			.innerHTML = 	'<div>'+
+                            '	<input type="checkbox" class="form-control" checked><span>auto-update</span>'+
+                            '</div>'+
+                            '<div style="margin-bottom:8px;">'+
+                            '	<input type="checkbox" class="form-control" checked><span>use for login</span>'+
+                            '</div>'+
+                            '<button type="button" class="btn btn-danger">'+
+                            '	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove'+
+                            '</button>';
+
+		// add event listeners to popover elems
 	}
 
 	//-----------------------------------------------
