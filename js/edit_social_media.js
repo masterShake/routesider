@@ -372,7 +372,7 @@ var ESM, esmApp;
 
 				// delete event listener
 				esmApp.temp.children[i].children[0]
-					.addEventListener("click", esmApp.socialMod.modal.launchModal, false);
+					.addEventListener("click", esmApp.socialMod.confirmDel, false);
 
 				// if video
 				if( esmApp.temp.children[i].children[1].className == "top-img" )
@@ -646,7 +646,7 @@ var ESM, esmApp;
 		this.userToken = 0;
 
 		// create a modal object
-		this.modal = new Modal();
+		this.modal = new Modal( document.getElementById("confirmation-modal") );
 
 		/* initialize */
 
@@ -663,13 +663,17 @@ var ESM, esmApp;
 			
 			// attach event listener to the delete button
 			this.temp[i].children[0]
-			 .addEventListener("click", this.modal.launchModal, false);
+			 .addEventListener("click", this.confirmDel, false);
 
 			// attach event listener to video play buttons
 			if( this.temp[i].children[1].className == "top-img" )
 				this.temp[i].children[1]
 					.addEventListener("click", this.showVid, false);
 		}
+
+		// delete posts when confirmed
+		this.modal.elem.getElementsByClassName("btn-danger")[0]
+			.addEventListener("click", this.deletePost, false);
 
 		// remove the temp variable
 		this.temp = null;
@@ -766,18 +770,28 @@ var ESM, esmApp;
 	SMM.prototype.deletePost = function(){
 
 		// remove the selected
-		document.getElementById(esmApp.socialMod.modal.id)
+		document.getElementById(esmApp.socialMod.confId)
 			.parentElement.removeChild(
-				document.getElementById(esmApp.socialMod.modal.id)
+				document.getElementById(esmApp.socialMod.confId)
 			);
 
 		// ajax delete request
 		rsApp.ajax({
 					method : "POST",
 					url : document.URL,
-					params : "network="+this.modal.network+"&post_id="+this.modal.id,
+					params : "network="+esmApp.socialMod.confNet+"&post_id="+esmApp.socialMod.confId,
 					callback : false
 				  });
+	}
+
+	//-----------------------------------------------
+	// - launches modal to confirm deletion of post
+	SMM.prototype.confirmDel = function(){
+		// set the modal properties
+		esmApp.socialMod.confNet = this.dataset.network;
+		esmApp.socialMod.confId = this.dataset.id;
+		// show the modal
+		esmApp.socialMod.modal.launch();
 	}
 
 	//-----------------------------------------------
@@ -833,102 +847,6 @@ var ESM, esmApp;
 
 		// remove the placeholder image
 		this.parentElement.removeChild(this.parentElement.children[2]);
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//-----------------------------------------------
-	//					 Modal
-	//				   ---------
-	//
-	// - launch modal
-	//
-	// - handle callback
-	//
-	//-----------------------------------------------
-
-	/* CONSTRUCTOR */
-
-	var Modal = function(){
-
-		/* properties */
-
-		// keep track of which post is to be deleted
-		this.network = null;
-		this.id = null;
-
-		/* init */
-
-		// add event listeners to the modal buttons
-		document.getElementById("confirmation-modal")
-				.getElementsByTagName("button")[0]
-					.addEventListener("click", this.hideModal, false);
-
-		document.getElementById("confirmation-modal")
-				.getElementsByTagName("button")[1]
-					.addEventListener("click", this.hideModal, false);
-
-		document.getElementById("confirmation-modal")
-				.getElementsByTagName("button")[2]
-					.addEventListener("click", this.hideModal, false);
-
-	}
-
-	/* METHODS */
-
-	//-----------------------------------------------
-	// - display the modal
-	Modal.prototype.launchModal = function(){
-		// set the modal properties
-		esmApp.socialMod.modal.network = this.dataset.network;
-		esmApp.socialMod.modal.id = this.dataset.id;
-		// display the modal elem
-		document.getElementById("confirmation-modal").style.display = "block";
-		setTimeout( esmApp.socialMod.modal.animateModal, 1 );
-	}
-	//-----------------------------------------------
-	// - timeout function
-	// - animate the modal after displaying
-	Modal.prototype.animateModal = function(){
-		document.getElementById("confirmation-modal").style.opacity = "1";
-		document.getElementById("confirmation-modal").children[0].style.top = "100px";
-	}
-
-	//-----------------------------------------------
-	// - hide the modal
-	// - trigger the callback if required
-	Modal.prototype.hideModal = function(){
-		// hide the modal
-		document.getElementById("confirmation-modal").style.opacity = "0";
-		document.getElementById("confirmation-modal").children[0].style.top = "-200px";
-		setTimeout( esmApp.socialMod.modal.hideModalElem, 400);
-
-		// if user confirmed delete
-		if(this.hasAttribute("data-confirm"))
-			esmApp.socialMod.deletePost();
-
-	}
-	//-----------------------------------------------
-	// - timeout function
-	// - hide the modal after animating
-	Modal.prototype.hideModalElem = function(){
-		document.getElementById("confirmation-modal").style.display = "none";
 	}
 
 

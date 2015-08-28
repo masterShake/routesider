@@ -514,7 +514,7 @@
         <!-- contentent cover to close menu -->
         <div id="content-cover"></div>
 
-        <!-- confirmation mo dal -->
+        <!-- confirm remove post modal -->
         <div class="modal" id="confirmation-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -533,12 +533,33 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+        <!-- confirm remove network modal -->
+        <div class="modal" id="confirm-network-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Remove Network</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to remove Network from your Routesider feed?</p>
+                        <p>(you can always re-connect later)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" style="float:left;">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-danger" data-confirm="1">Yes, remove network</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <!-- mobile slideout menu -->
         <?php include "components/slideout_nav.php"; ?>
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
         <script src="js/swiper.min.js"></script>
+        <script src="js/modal.js"></script>
         <script src="js/edit_social_media.js"></script>
 
     </body>
