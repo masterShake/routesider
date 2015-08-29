@@ -624,32 +624,36 @@ var ESM, esmApp;
 
 		/* init */
 
-		// add instagram account event listener
-		document.getElementById("activate-inst")
-			.getElementsByTagName("button")[1]
+		// get all the social media buttons
+		this.temp = document.getElementById("activation-btns")
+						.children[2].children;
+
+		// loop through all the buttons
+		for(var i = 0; i < this.temp.length; i++){
+
+			// activate the popover
+			this.temp[i].children[0]
+				.addEventListener("click", rsApp.toggleDropdown, false);
+
+			// checkbox
+
+			// checkbox
+
+			// remove network button
+			this.temp[i].children[1].getElementsByTagName("button")[0]
+				.addEventListener("click", this.removeNet, false);
+
+			// remove network button
+			this.temp[i].children[1].getElementsByTagName("button")[1]
 				.addEventListener("click", this.reqAuth, false);
+		}
 
-		// activate network event listener btns
+		// add ajax request to modal confirmation button
+		document.getElementById("confirm-drop-network")
+			.getElementsByTagName("button")[2]
+				.addEventListener("click", ajaxRemNet, false);
 
-		// facebook
-		document.getElementById("activate-face").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// instagram
-		document.getElementById("activate-inst").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// tumblr
-		document.getElementById("activate-tumb").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// twitter
-		document.getElementById("activate-twit").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// google
-		document.getElementById("activate-goog").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-		// linked in
-		document.getElementById("activate-link").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
-
+		this.temp = null;
 	}
 
 	/*::methods::*/
@@ -679,24 +683,18 @@ var ESM, esmApp;
 						"activate-"+this.aNet.substr(0, 4));
 
 		// set active class for activate-btn
-		this.temp.children[0].children[0].className = this.temp.children[0].children[0].className.substr(0, 17) + " active";
+		this.temp.children[0].children[0].className = this.temp.children[0].children[0].className.substr(0, 16) + " active";
 
 		// set active class for popover
 		this.temp.children[1].className = this.temp.children[1].className + "active";
 
-		// set the inner html of the popover
+		// display the active popover content
 		this.temp.getElementsByClassName("popover-content")[0]
-			.innerHTML = 	'<div>'+
-                            '	<input type="checkbox" class="form-control" checked><span>auto-update</span>'+
-                            '</div>'+
-                            '<div style="margin-bottom:8px;">'+
-                            '	<input type="checkbox" class="form-control" checked><span>use for login</span>'+
-                            '</div>'+
-                            '<button type="button" class="btn btn-danger">'+
-                            '	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove'+
-                            '</button>';
-
-		// add event listeners to popover elems
+			.children[0].style.display = "block";
+	
+		// hide the other content
+		this.temp.getElementsByClassName("popover-content")[1]
+			.children[0].style.display = "none";		
 	}
 
 	//-----------------------------------------------
@@ -715,10 +713,50 @@ var ESM, esmApp;
 	// - revert styles to default add listeners
 	SMB.prototype.deactBtn = function(){
 
-		// deactivate
+		// get the active network btn
+		this.temp = document.getElementById(
+						"activate-"+this.aNet.substr(0, 4));
+
+		// set active class for activate-btn
+		this.temp.children[0].children[0].className = "btn activate-btn";
+
+		// set active class for popover
+		this.temp.children[1].className = "popover top ";
+
+		// display the active popover content
+		this.temp.getElementsByClassName("popover-content")[1]
+			.children[0].style.display = "block";
+	
+		// hide the other content
+		this.temp.getElementsByClassName("popover-content")[0]
+			.children[0].style.display = "none";		
 
 	}
 
+	//-----------------------------------------------
+	// - ajax call remove network
+	SMB.prototype.ajaxRemNet = function(){
+
+		// change the activation button class
+		esmApp.smBtns.deactBtn();
+
+		// clear the social feed
+		document.getElementById("social-posts").innerHTML = 
+			'<h2 style="text-align:center;">'+
+			'	<span class="glyphicon glyphicon-hourglass loading"></span>'+
+			'</h2>';
+
+		// make an ajax call to remove the network
+		rsApp.ajax({
+			method : "DELETE",
+			url : document.URL,
+			params : "network="+esmApp.smBtns.aNet
+		});
+
+		// query
+		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
+
+	}
 
 
 

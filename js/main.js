@@ -65,15 +65,15 @@ var RS, rsApp;
 	    this.tempObjs[i] = new XMLHttpRequest();
 	    this.tempObjs[i].open(ajaxOpts.method, ajaxOpts.url, true);
 	    this.tempObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    this.tempObjs[i].onreadystatechange = function() {
-	        if(rsApp.tempObjs.hasOwnProperty(i) && rsApp.tempObjs[i].readyState == 4 && rsApp.tempObjs[i].status == 200) {
-	            if(ajaxOpts.callback)
-	                ajaxOpts.callback(rsApp.tempObjs[i].responseText);
-	            rsApp.tempObjs[i] = null;
-	        	delete rsApp.tempObjs[i];
-	        }
-	        delete this;
-	    }
+	    if(ajaxOpts.hasOwnProperty("callback"))
+		    this.tempObjs[i].onreadystatechange = function() {
+		        if(rsApp.tempObjs.hasOwnProperty(i) && rsApp.tempObjs[i].readyState == 4 && rsApp.tempObjs[i].status == 200) {
+		            ajaxOpts.callback(rsApp.tempObjs[i].responseText);
+		            rsApp.tempObjs[i] = null;
+		        	delete rsApp.tempObjs[i];
+		        }
+		        delete this;
+		    }
 	    this.tempObjs[i].send(ajaxOpts.params);
 	};
 

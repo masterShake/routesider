@@ -12,6 +12,15 @@
     //-------------------------------
 
     //-----------------------------------------------
+    // - remove network
+    if(isset($_DELETE["network"])){
+
+        echo "delete network"; exit();
+
+    }
+    
+
+    //-----------------------------------------------
     // delete a post
     if(isset($_POST["post_id"])){
 
@@ -25,56 +34,6 @@
         exit("1");
 
     } 
-
-    // else if(isset($_POST["network"])){
-
-    //     // retrieve the data for the given network
-
-    //     $user = new User();
-    
-    //     $business = $user->business();
-
-    //     $business = $business[0];
-
-    //     $profile = $business->profile();
-
-    //     $db = neoDB::getInstance();
-
-    //     $cypher = "MATCH (u:User) WHERE u.username = '".$user->data("username")."' ".
-    //               "MATCH (u)-[:MANAGES_BUSINESS]->(b) ".
-    //               "MATCH (b)-[:LINKED_SOCIAL_MEDIA_ACCOUNT]->(s:".ucfirst($_POST["network"]).") ".
-    //               "MATCH (s)-[:POSTED]->(p) ".
-    //               "RETURN s, p";
-
-    //     $posts = $db->query( $cypher );
-
-    //     $posts = $posts["p"];
-
-    //     // create an empty array to store the html
-    //     $postHTML = [];
-
-    //     // loop through all the posts to
-    //     foreach($posts as $post){
-
-    //         // push a new html string onto the postHTML array
-    //         $postHTML[] = 
-
-    //         "<div class='thumbnail social-media-post'>".
-    //         "   <img src='".$post["img"]."' alt='".$post["text"]."'>".
-    //         "   <div class='caption'>".
-    //         "       <img src='img/business/".$profile->data("avatar")."' class='avatar' alt='business avatar/logo'>".
-    //         "       <span class='username'>".$post["username"]."</span>".
-    //         "       <span class='text'>".$post["text"]."</span>".
-    //         "   </div>".
-    //         "   <div class='likes'>".$post["likes"]."</div>".
-    //         "   <div class='post-link'><a href='".$post["link"]."'><span class='icon_".$_POST["network"]."'></span></a></div>".
-    //         "</div>";
-    //     }
-
-    //     echo json_encode($postHTML);
-
-    //     exit();
-    // }
 
     //-----------------------------------------------
     // - query 
@@ -199,22 +158,22 @@
                                     <h3 class="popover-title"><span class="icon-instagram"></span> Instagram</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("instagram", $netNames) ){ ?>
-
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        <div <?= in_array("instagram", $netNames)? "" : "style='display:none;'"; ?>>
+                                            <div>
+                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                            </div>
+                                            <div style="margin-bottom:8px;">
+                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                            </div>
+                                            <button type="button" class="btn btn-danger" data-network="instagram">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                            </button>
                                         </div>
-                                        <div style="margin-bottom:8px;">
-                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+
+                                        <div <?= in_array("instagram", $netNames)? "style='display:none;'" : ""; ?>>
+                                            <button type="button" class="btn btn-success" data-network="instagram" data-url="https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&amp;redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&amp;response_type=code" aria-label="add instagram account">add account</button>
                                         </div>
-                                        <button type="button" class="btn btn-danger" data-network="instagram">
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
-                                        </button>
 
-                                    <?php }else{ ?>
-
-                                        <button type="button" class="btn btn-success" data-network="instagram" data-url="https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&amp;redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&amp;response_type=code" aria-label="add instagram account">add account</button>
-                                    
                                     <?php } ?>
 
                                     </div>

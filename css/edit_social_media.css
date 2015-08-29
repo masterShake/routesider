@@ -11,7 +11,7 @@
 ----------------------*/
 
 /* 500 ms */
-#confirmation-modal,
+.modal,
 .modal-dialog{
 	-webkit-transition: .4s;
 	-moz-transition: .4s;
@@ -295,7 +295,7 @@
    confirmation modal
 ----------------------*/
 
-#confirmation-modal{
+.modal{
 	opacity: 0;
 	background-color: rgba(68, 68, 68, 0.4);
 }
