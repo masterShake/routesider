@@ -636,8 +636,12 @@ var ESM, esmApp;
 				.addEventListener("click", rsApp.toggleDropdown, false);
 
 			// checkbox
+			this.temp[i].getElementsByTagName("input")[0]
+				.addEventListener("change", this.chex, false);
 
 			// checkbox
+			this.temp[i].getElementsByTagName("input")[1]
+				.addEventListener("change", this.chex, false);
 
 			// remove network button
 			this.temp[i].children[1].getElementsByTagName("button")[0]
@@ -765,13 +769,20 @@ var ESM, esmApp;
 	// - ajax callback after removing network
 	// - query to repopulate feed.
 	SMB.prototype.reFeed = function(){
-
-		// query
 		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
-
 	}
 
+	//-----------------------------------------------
+	// - event listener for the checkboxes
+	SMB.prototype.chex = function(){
 
+		rsApp.ajax({
+			method : "POST",
+			url : document.URL,
+			params : "checkchange="+this.name+"&val="+this.checked+"&network="+this.dataset.network
+		});
+
+	}
 
 
 

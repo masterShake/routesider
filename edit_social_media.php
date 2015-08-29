@@ -13,8 +13,37 @@
 
 
     //-----------------------------------------------
+    // - checkbox change
+    // - enable/disable auto_update or auto login 
+    //   functionality
+    if( isset($_POST["checkchange"]) ){
+
+        $db = neoDB::getInstance();
+
+        $user = new User();
+
+        $business = $user->business()[0];
+
+        $checked = ($_POST["val"] == "true") ? 1 : 0; echo $checked . " ";
+
+        $cypher = "MATCH (b:Business) WHERE b.id=".$business->data("id")." ".
+                  "MATCH (b)-[l:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='".$_POST["network"]."' ";
+
+        if( $_POST["checkchange"] == "login" )
+
+            $cypher .= "SET l.login=".$checked;
+
+        else
+
+            $cypher .= "SET s.auto_update=".$checked;
+
+        $db->query($cypher);
+
+        exit();
+    }
+    //-----------------------------------------------
     // - remove network
-    if( isset($_POST["delnet"]) ){
+    else if( isset($_POST["delnet"]) ){
 
         $user = new User();
 
@@ -71,12 +100,12 @@
 
     $profile = $business->profile();
 
-    $networks = $business->networks();
+    $networks = $business->networks(); // print_r($networks); exit();
 
     // quick access to names so we only need to loop once
     $netNames = [];
-    foreach($networks as $n)
-        $netNames[] = $n["name"];
+    foreach($networks as $key => $n)
+        $netNames[] = $key;
 
     $posts = $business->getPosts();
 
@@ -173,10 +202,10 @@
 
                                         <div <?= in_array("instagram", $netNames)? "" : "style='display:none;'"; ?>>
                                             <div>
-                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                                <input type="checkbox" name="autoup" class="form-control" data-network="instagram" <?= ($networks["instagram"]["auto_update"]) ? "checked" : ""; ?>><span>auto-update</span>
                                             </div>
                                             <div style="margin-bottom:8px;">
-                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                                <input type="checkbox" name="login" class="form-control" data-network="instagram" <?= ($networks["instagram"]["login"]) ? "checked" : ""; ?>><span>use for login</span>
                                             </div>
                                             <button type="button" class="btn btn-danger" data-network="instagram" data-icon="instagram">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
@@ -384,7 +413,7 @@
                                         <?php // if there are any networks 
                                         if( count($networks) )
                                             // loop through the networks
-                                            foreach($networks as $network)
+                                            foreach($networks as $name => $network)
                                                 // construct the list 
                                                 echo "<li class='list-group-item'>
                                                         <input type='checkbox' class='form-control' value='".$network["name"]."' data-icon='".$network["icon"]."' checked>

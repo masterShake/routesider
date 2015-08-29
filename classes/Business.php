@@ -58,9 +58,9 @@ class Business{
 
                   // if there is a network variable
                   if($network)
-                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO { active : 1 } ]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' ";
+                  	$cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' AND l.active=1 ";
                   else
-                  	$cypher .= "OPTIONAL MATCH (b)-[:LINKED_TO { active : 1 } ]->(s) ";
+                  	$cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s) WHERE l.active=1 ";
                   
         $cypher .= "OPTIONAL MATCH (s)-[r:POSTED {deleted : 0} ]->(p) WHERE r.deleted=0 ".
         		   "OPTIONAL MATCH (p)-[x:HAS_MEDIA]->(m) ".
@@ -144,15 +144,27 @@ class Business{
 			$this->_networks = array();
 
 			$cypher = "MATCH (b:Business) WHERE b.id = " . $this->_data["id"] . " " .
-					  "OPTIONAL MATCH (b)-[:LINKED_TO {active : 1} ]->(s)<-[:HAS_MEMBER]-(n) " .
-					  "RETURN n";
+					  "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s)<-[:HAS_MEMBER]-(n) WHERE l.active=1 " .
+					  "RETURN n, s, l";
 					  
-			$this->_networks = $this->_db->query($cypher);
+			$results = $this->_db->query($cypher);
 
-			$this->_networks = $this->_networks["n"];
+			$this->_networks = [];
 
-			if( is_null($this->_networks[0]) )
-				$this->_networks = array();
+			if( !is_null($results["n"][0]))
+
+				// loop through the networks organize the auto-update and login properties
+				for ($i = 0; $i < count($results["n"]); $i++) {
+
+					$n = $results["n"][$i]["name"];
+
+					$this->_networks[$n] = $results["n"][$i];
+					
+					$this->_networks[$n]["login"] = $results["l"][$i]["login"];
+					
+					$this->_networks[$n]["auto_update"] = $results["s"][$i]["auto_update"];
+
+				}
 
 		}
 

@@ -43,22 +43,23 @@ if( isset($_POST["code"]) ){
         $cypher = "MATCH (b:Business) WHERE b.id=" . $business->data("id") . " " .
                   "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
                   "OPTIONAL MATCH (b)-[l:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='".$_POST["network"]."' ".
-                  "SET l.active=1";
+                  "SET l.active=1, l.login=1";
 
         $db->query($cypher);
 
                   // match the business
         $cypher = "MATCH (b:Business) WHERE b.id=" . $business->data("id") . " " .
-                  "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
+                  "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " . 
                   // create a link to the socialite
-                  "MERGE (b)-[:LINKED_TO { active : 1 }]->(s:Socialite { " . 
+                  "MERGE (b)-[:LINKED_TO { active : 1, login : 1 }]->(s:Socialite { " . 
                         // set the user properties
                         "username : '" . $meta->user->username . "', " .
                         "id : '" . $meta->user->id . "', " .
                         "profile_pic : '" . $meta->user->profile_picture . "', " .
                         "website : '" . $meta->user->website . "', " .
                         "full_name : '" . $meta->user->full_name . "', " .
-                        "bio : '" . $meta->user->bio . "' " .
+                        "bio : '" . $meta->user->bio . "', " .
+                        "auto_update : 1".
                   "}) ".
                   "MERGE (n)-[:HAS_MEMBER]->(s)";
 
