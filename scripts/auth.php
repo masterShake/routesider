@@ -42,6 +42,14 @@ if( isset($_POST["code"]) ){
                   // match the business
         $cypher = "MATCH (b:Business) WHERE b.id=" . $business->data("id") . " " .
                   "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
+                  "OPTIONAL MATCH (b)-[l:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='".$_POST["network"]."' ".
+                  "SET l.active=1";
+
+        $db->query($cypher);
+
+                  // match the business
+        $cypher = "MATCH (b:Business) WHERE b.id=" . $business->data("id") . " " .
+                  "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' " .
                   // create a link to the socialite
                   "MERGE (b)-[:LINKED_TO { active : 1 }]->(s:Socialite { " . 
                         // set the user properties

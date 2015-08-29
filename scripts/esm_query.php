@@ -35,7 +35,7 @@ $db = neoDB::getInstance();
 			// match the business 
 $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ". 
 		  	// match the socialite(s) linked to the business act.
-		  	"OPTIONAL MATCH (b)-[:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) ";
+		  	"OPTIONAL MATCH (b)-[:LINKED_TO {active : 1}]->(s)<-[:HAS_MEMBER]-(n) ";
 
 			// decode the json
 			$networks = json_decode($_POST["n"]);
@@ -100,7 +100,11 @@ $results = $db->q( $cypher );
 
 // if we got no results
 if( !$results->getNodesCount() ){
-	echo "<li style='text-align:center;'><i>no results</i></li>";
+	// if this is an autocomplete request
+	if( $_POST["a"] )
+		echo "<li style='text-align:center;'><i>no results</i></li>";
+	else
+		echo "<p style='text-align:center;'><i>no results</i></p>";	
 	exit(); // exit script
 }
 

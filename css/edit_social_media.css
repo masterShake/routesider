@@ -92,7 +92,7 @@
 	margin-top: -235px !important;
 }
 /* popover checkbox */
-.popover-content>div{
+.popover-content>div>div{
 	height: 25px;
 }
 .popover-content input{

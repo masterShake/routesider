@@ -651,7 +651,7 @@ var ESM, esmApp;
 		// add ajax request to modal confirmation button
 		document.getElementById("confirm-drop-network")
 			.getElementsByTagName("button")[2]
-				.addEventListener("click", ajaxRemNet, false);
+				.addEventListener("click", this.ajaxRemNet, false);
 
 		this.temp = null;
 	}
@@ -693,8 +693,8 @@ var ESM, esmApp;
 			.children[0].style.display = "block";
 	
 		// hide the other content
-		this.temp.getElementsByClassName("popover-content")[1]
-			.children[0].style.display = "none";		
+		this.temp.getElementsByClassName("popover-content")[0]
+			.children[1].style.display = "none";		
 	}
 
 	//-----------------------------------------------
@@ -703,6 +703,11 @@ var ESM, esmApp;
 
 		// set the active network
 		esmApp.smBtns.aNet = this.dataset.network;
+
+		// set the modal header
+		esmApp.smBtns.modal.elem.getElementsByTagName("h4")[0]
+			.innerHTML = "Remove <span class='icon-"+this.dataset.icon+"'></span> "+
+						 this.dataset.network.charAt(0).toUpperCase()+this.dataset.network.slice(1);
 
 		// launch the modal
 		esmApp.smBtns.modal.launch();
@@ -718,14 +723,14 @@ var ESM, esmApp;
 						"activate-"+this.aNet.substr(0, 4));
 
 		// set active class for activate-btn
-		this.temp.children[0].children[0].className = "btn activate-btn";
+		this.temp.children[0].children[0].className = "btn activate-btn not-active";
 
 		// set active class for popover
 		this.temp.children[1].className = "popover top ";
 
 		// display the active popover content
-		this.temp.getElementsByClassName("popover-content")[1]
-			.children[0].style.display = "block";
+		this.temp.getElementsByClassName("popover-content")[0]
+			.children[1].style.display = "block";
 	
 		// hide the other content
 		this.temp.getElementsByClassName("popover-content")[0]
@@ -748,10 +753,18 @@ var ESM, esmApp;
 
 		// make an ajax call to remove the network
 		rsApp.ajax({
-			method : "DELETE",
+			method : "POST",
 			url : document.URL,
-			params : "network="+esmApp.smBtns.aNet
+			params : "delnet="+esmApp.smBtns.aNet,
+			callback : esmApp.smBtns.reFeed
 		});
+
+	}
+
+	//-----------------------------------------------
+	// - ajax callback after removing network
+	// - query to repopulate feed.
+	SMB.prototype.reFeed = function(){
 
 		// query
 		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
@@ -851,7 +864,7 @@ var ESM, esmApp;
 		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
 
 		// change the html of the freshly added network button
-		esmApp.smBtns.actBtns();
+		esmApp.smBtns.actBtn();
 	}
 
 	//-----------------------------------------------

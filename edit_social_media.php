@@ -11,18 +11,31 @@
     // STEP 2: handle GET/POST params
     //-------------------------------
 
+
     //-----------------------------------------------
     // - remove network
-    if(isset($_DELETE["network"])){
+    if( isset($_POST["delnet"]) ){
 
-        echo "delete network"; exit();
+        $user = new User();
+
+        $business = $user->business()[0];
+
+        $db = neoDB::getInstance();
+
+        $cypher = "MATCH (b:Business) WHERE b.id=".$business->data("id")." ".
+                  "MATCH (b)-[l:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='".$_POST["delnet"]."' ".
+                  "SET l.active = 0";
+
+        $db->query( $cypher );
+
+        echo "network inactive"; exit();
 
     }
     
 
     //-----------------------------------------------
     // delete a post
-    if(isset($_POST["post_id"])){
+    else if(isset($_POST["post_id"])){
 
         $db = neoDB::getInstance();
 
@@ -125,21 +138,21 @@
                                     <h3 class="popover-title"><span class="icon-facebook2"></span> Facebook</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("facebook", $netNames) ){ ?>
-
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        <div <?= in_array("facebook", $netNames)? "" : "style='display:none;'"; ?>>
+                                            <div>
+                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                            </div>
+                                            <div style="margin-bottom:8px;">
+                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                            </div>
+                                            <button type="button" class="btn btn-danger" data-network="facebook" data-icon="facebook2">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                            </button>
                                         </div>
-                                        <div style="margin-bottom:8px;">
-                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+
+                                        <div <?= in_array("facebook", $netNames)? "style='display:none;'" : ""; ?>>
+                                            <button type="button" class="btn btn-success" data-network="facebook" data-url="" aria-label="add facebook account">add account</button>
                                         </div>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
-
-                                    <?php }else{ ?>
-
-                                        <button type="button" class="btn btn-success" data-network="facebook" data-url="" aria-label="add facebook account">add account</button>
-                                    
-                                    <?php } ?>
 
                                     </div>
                                 </div>
@@ -165,7 +178,7 @@
                                             <div style="margin-bottom:8px;">
                                                 <input type="checkbox" class="form-control" checked><span>use for login</span>
                                             </div>
-                                            <button type="button" class="btn btn-danger" data-network="instagram">
+                                            <button type="button" class="btn btn-danger" data-network="instagram" data-icon="instagram">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
                                             </button>
                                         </div>
@@ -173,8 +186,6 @@
                                         <div <?= in_array("instagram", $netNames)? "style='display:none;'" : ""; ?>>
                                             <button type="button" class="btn btn-success" data-network="instagram" data-url="https://api.instagram.com/oauth/authorize/?client_id=6f469fae7d024a83ae77a5d463181af0&amp;redirect_uri=http%3A%2F%2Flocalhost%2Froutesider%2Fscripts%2Fauth.php%3Fnetwork%3Dinstagram&amp;response_type=code" aria-label="add instagram account">add account</button>
                                         </div>
-
-                                    <?php } ?>
 
                                     </div>
                                 </div>
@@ -193,21 +204,21 @@
                                     <h3 class="popover-title"><span class="icon-tumblr2" ></span> Tumblr</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("tumblr", $netNames) ){ ?>
-
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        <div <?= in_array("tumblr", $netNames)? "" : "style='display:none;'"; ?>>
+                                            <div>
+                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                            </div>
+                                            <div style="margin-bottom:8px;">
+                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                            </div>
+                                            <button type="button" class="btn btn-danger" data-network="tumblr" data-icon="tumblr2">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                            </button>
                                         </div>
-                                        <div style="margin-bottom:8px;">
-                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+
+                                        <div <?= in_array("tumblr", $netNames)? "style='display:none;'" : ""; ?>>
+                                            <button type="button" class="btn btn-success" data-network="tumblr" data-url="" aria-label="add tumblr account">add account</button>
                                         </div>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
-
-                                    <?php }else{ ?>
-
-                                        <button type="button" class="btn btn-success" data-network="tumblr" data-url="" aria-label="add tumblr account">add account</button>
-                                    
-                                    <?php } ?>
 
                                     </div>
                                 </div>
@@ -221,26 +232,26 @@
                                    <h5>LinkedIn</h5>
                                 </div>
 
-                                <div class='popover top <?= in_array("tumblr", $netNames) ? "active" : ""; ?>'>
+                                <div class='popover top <?= in_array("linkedin", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
                                     <h3 class="popover-title"><span class="icon-tumblr2"></span> LinkedIn</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("linkedin", $netNames) ){ ?>
-
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        <div <?= in_array("linkedin", $netNames)? "" : "style='display:none;'"; ?>>
+                                            <div>
+                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                            </div>
+                                            <div style="margin-bottom:8px;">
+                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                            </div>
+                                            <button type="button" class="btn btn-danger" data-network="linkedin" data-icon="linkedin">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                            </button>
                                         </div>
-                                        <div style="margin-bottom:8px;">
-                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+
+                                        <div <?= in_array("linkedin", $netNames)? "style='display:none;'" : ""; ?>>
+                                            <button type="button" class="btn btn-success" data-network="linkedin" data-url="" aria-label="add linkedin account">add account</button>
                                         </div>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
-
-                                    <?php }else{ ?>
-
-                                        <button type="button" class="btn btn-success" data-network="linkedin" data-url="" aria-label="add tumblr account">add account</button>
-                                    
-                                    <?php } ?>
 
                                     </div>
                                 </div>
@@ -259,21 +270,21 @@
                                     <h3 class="popover-title"><span class="icon-twitter2"></span> Twitter</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("twitter", $netNames) ){ ?>
-
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        <div <?= in_array("twitter", $netNames)? "" : "style='display:none;'"; ?>>
+                                            <div>
+                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                            </div>
+                                            <div style="margin-bottom:8px;">
+                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                            </div>
+                                            <button type="button" class="btn btn-danger" data-network="twitter" data-icon="twitter2">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                            </button>
                                         </div>
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+
+                                        <div <?= in_array("twitter", $netNames)? "style='display:none;'" : ""; ?>>
+                                            <button type="button" class="btn btn-success" data-network="twitter" data-url="" aria-label="add twitter account">add account</button>
                                         </div>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
-
-                                    <?php }else{ ?>
-
-                                        <button type="button" class="btn btn-success" data-network="twitter" data-url="" aria-label="add twitter account">add account</button>
-                                    
-                                    <?php } ?>
 
                                     </div>
                                 </div>
@@ -292,21 +303,21 @@
                                     <h3 class="popover-title"><span class="icon-google-plus2"></span> Google</h3>
                                     <div class="popover-content">
 
-                                    <?php if( in_array("google", $netNames) ){ ?>
-
-                                        <div>
-                                            <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                        <div <?= in_array("google", $netNames)? "" : "style='display:none;'"; ?>>
+                                            <div>
+                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                            </div>
+                                            <div style="margin-bottom:8px;">
+                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                            </div>
+                                            <button type="button" class="btn btn-danger" data-network="google" data-icon="google-plus2">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
+                                            </button>
                                         </div>
-                                        <div style="margin-bottom:8px;">
-                                            <input type="checkbox" class="form-control" checked><span>use for login</span>
+
+                                        <div <?= in_array("google", $netNames)? "style='display:none;'" : ""; ?>>
+                                            <button type="button" class="btn btn-success" data-network="google" data-url="" aria-label="add google account">add account</button>
                                         </div>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
-
-                                    <?php }else{ ?>
-
-                                        <button class="btn btn-success" type="button" data-network="google" data-url="" aria-label="add google account">add account</button>
-                                    
-                                    <?php } ?>
 
                                     </div>
                                 </div>
@@ -503,7 +514,7 @@
                         <h4 class="modal-title">Remove Network</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to remove Network from your Routesider feed?</p>
+                        <p>Are you sure you want to remove this network from your Routesider feed?</p>
                         <p>(you can always re-connect later)</p>
                     </div>
                     <div class="modal-footer">
