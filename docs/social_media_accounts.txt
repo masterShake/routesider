@@ -14,6 +14,11 @@ email : routesidr@gmail.com
 password : 5N3AK7la278R33K!  (SNEAKY lazy GREEK!)
 2-step : (650) 678-1777
 
+api key : AIzaSyCZUX9awBQ5IPchjJeBCQ87fKA2TUoHH60
+app/product name : routesider
+client id : 130924136799-nge5mgjpadkkuk131kd4fkjopf7t8rek.apps.googleusercontent.com
+client secret : vqYkTfbxWOHRztk23B2-4-88
+
 
 
 //-----------------------------------------------
@@ -23,6 +28,9 @@ username : routesider
 email : routesidr@gmail.com
 password : 5N3AK7la278R33K!
 
+app name : routesider
+OAuth consumer key : aWWWsdicEuin5zGcICL7bt5AOI9cBJf5Fq6m303KBEdFEzwQPA
+secret key : gXVlxHAjUu7pllr8p7CsWjH1wfFLGWbuFfIaFD6Mpx9vt4mSOk
 
 
 //-----------------------------------------------
@@ -33,6 +41,11 @@ email : routesidr@gmail.com
 phone : (650) 678-1777
 password : 5N3AK7la278R33K!
 
+CLIENT ID : e500697f93794161b09ab35a8e05d405
+CLIENT SECRET : f7264f1c5b934055adadc71d19536712
+WEBSITE URL	: http://www.routesider.com
+REDIRECT URI : http://localhost/routesider/auth.php
+
 
 
 //-----------------------------------------------
@@ -42,6 +55,10 @@ username : routesider
 email : routesidr@gmail.com
 password : 5N3AK7la278R33K!
 
+Consumer Key (API Key) : vJvNzGoaIAAvSptz7ogR7JCrf
+Consumer Secret (API Secret) : MkVDp05HlDo1HUryt2H2fhmBozjeeePXKhnTtT4O36gEyN1K6l
+Owner ID : 3396179834
+
 
 
 //-----------------------------------------------
@@ -50,6 +67,15 @@ password : 5N3AK7la278R33K!
 email : routesidr@gmail.com
 password : 5N3AK7la278R33K!
 
+Client ID :	75vclbfv2gi86o
+Client Secret :	BoICgYPZ2gbAleyv
+
+
+
+//-----------------------------------------------
+// facebook
+
+matt wischer
 
 
 
