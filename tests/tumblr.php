@@ -20,9 +20,7 @@
 
     include "../core/init.php";
 
-    $results = Curl::post("http://www.tumblr.com/oauth/request_token", "oauth_consumer_key=aWWWsdicEuin5zGcICL7bt5AOI9cBJf5Fq6m303KBEdFEzwQPA");
-
-    print_r($results);
+    $tumblr = new SocialMedia("tumblr");
 
     ?></pre>
   </body>
