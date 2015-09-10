@@ -182,14 +182,40 @@
 			}
 
 			// loop through all the likes
+			foreach($post->notes as $note){
 
 				// if the liker already exists
 
+				$cypher = "MATCH (s)<-[:HAS_MEMBER]-(n) ".
+						  "WHERE s.blogname='".$_POST["u"]."' AND n.name='".$_POST["n"]."' ".
+						  "RETURN s";
+
+				$results = $db->query( $cypher );
+
+				if( !is_null($results["s"][0]) ){
+
 					// merge like relationship
+					$cypher = "MATCH (s)<-[:HAS_MEMBER]-(n) ".
+						  	  "WHERE s.blogname='".$note->blogname."' AND n.name='".$_POST["n"]."' ".
+						  	  "MATCH (p:Post) WHERE p.id='".$post->id."' "
+						  	  "MERGE (s)-[:LIKED]->(p)";
+
+					$db->query($cypher);
 
 				// else
+				}else if($post->type == "like"){
 
 					// create new liker
+					$cypher = "MATCH (p)<-[:HAS_POST]-(n) ".
+							  "WHERE p.id='".$post->id."' ".
+							  "MERGE (p)<-[:LIKED]-(s:Socialite { ".
+							  	"username : '".$note->blogname"'".
+							  "})<-[:HAS_MEMBER]-(n)";
+
+					$db->query($cypher);
+
+				}
+			}
 		}
 	}
 	
