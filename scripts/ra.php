@@ -91,43 +91,53 @@
 	// if ajax post username
 	if( isset($_POST["u"]) ){
 
-		// make api call for tumblr blog data
-		$posts = Curl::get("http://api.tumblr.com/v2/blog/".$_POST["u"].".tumblr.com/posts?api_key=".$creds[$_GET["n"]]["client_id"]."&notes_info=true");
-
-		// convert json
-		$posts = json_decode($posts);
-		$posts = $posts->response->posts;
-
-		print_r($posts); exit();
-
 		// instantiate some vars
 		$db = neoDB::getInstance();
 		$user = new User();
-		$business = $user->business()[1];
+		$business = $user->business()[0];
 
 		// format the data based on social network
 
 		$icon = "";
+		$account = null;
+		$avatar = null;
+		$posts = null;
 
 		//-----------------------------------------------
 		// tumblr
 		if( $_POST["n"] == "tumblr" ){
 
+			// set the icon
 			$icon = "tumblr2";
 
+			// make api call for tumblr blog info
+			$account = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/info?api_key={$client->client_id}");
+			$account = json_decode($account);
+			$account = $account->response->blog;
+
+			// call for avatar
+			$avatar = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/avatar/512");
+			$avatar = json_decode($avatar);
+			$avatar = $avatar->response->avatar_url;
+
+			// call for tumblr post data
+			$posts = Curl::get("http://api.tumblr.com/v2/blog/".$_POST["u"].".tumblr.com/posts?api_key=".$creds[$_GET["n"]]["client_id"]."&notes_info=true");
+			$posts = json_decode($posts);
+			$posts = $posts->response->posts;
 		}
 		
 		// if user has connected to this network before
 		$cypher = "MATCH (b:Business)-[l:LINKED_TO]->(s)<-[h:HAS_MEMBER]-(n) ".
-				  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["network"] . "' " .
+				  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["n"] . "' " .
                   "RETURN s";
-        $results = $db->query($cypher);
-        if( !is_null( $results["s"][0] ) ){
+        $results = $db->query($cypher); print_r($results);
+
+        if( !empty( $results ) ){
 
 			// update the linked_to socialite info
 			$cypher = "MATCH (b:Business)-[l:LINKED_TO]->(s)<-[h:HAS_MEMBER]-(n) ".
-					  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["network"] . "' " .
-					  "SET l.active=1, l.login=1";
+					  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["n"] . "' " .
+					  "SET l.active=1, l.login=1, s.auto_update=1";
 
 			$db->query($cypher);
 
@@ -136,7 +146,19 @@
 
 			// create a new socialite
         	$cypher = "MATCH (b:Business) WHERE b.id=" . $business->data("id") . " " .
-                  	  "MATCH (n:Network) WHERE n.name='" . $_POST["network"] . "' ";
+                  	  "MATCH (n:Network) WHERE n.name='" . $_POST["n"] . "' ".
+                  	  "CREATE (s:Socialite { ".
+                  	  	"username : '".$account->name."', ".
+                  	  	"id : '".$account->name."', ".
+                  	  	"profile_pic : '".$avatar."', ".
+                  	  	"website : '".$account->url."', ".
+                  	  	"full_name : '".$account->name."', ".
+                  	  	"bio : '".$account->description."', ".
+                  	  	"auto_update : 1".
+                  	  "}) ".
+					  "MERGE (b)-[:LINKED_TO {active:1,login:1}]->(s)<-[:HAS_MEMBER]-(n)";
+
+            $db->query($cypher);
 
 		}
 
@@ -148,15 +170,15 @@
 					  "WHERE p.id='".$post->id."' ".
 					  "RETURN p";
 
-			$results = $db->query($cypher);
+			$results = $db->query($cypher); print_r($results);
 
-			if( !is_null($results["p"][0]) ){
+			if( !empty($results) ){
 
 				// update the post info
 				$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
 					  	  "WHERE p.id='".$post->id."' ".
-					  	  "SET p.text='".$post->body."', ".
-					  	  "p.title='".$post->title."', ".
+					  	  "SET p.text='".((property_exists($post, "body")) ? $post->body : "")."', ".
+					  	  "p.title='".((property_exists($post, "title")) ? $post->title : "")."', ".
 					  	  "p.likes=".$post->note_count;
 
 				$db->query($cypher);
@@ -166,57 +188,64 @@
 
 				// create new post node
 				$cypher = "MATCH (b:Business)-[l:LINKED_TO]->(s)<-[h:HAS_MEMBER]-(n) ".
-				  		  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["network"] . "' " .
+				  		  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["n"] . "' " .
 				  		  "CREATE (p:Post { ".
 				  		  	"username : '".$_POST["u"]."', ".
 				  		  	"id : '".$post->id."', ".
 				  		  	"created_time : ".$post->timestamp.", ".
-				  		  	"title : '".$post->title."', ".
-				  		  	"text : '".$post->body."', ".
+				  		  	"title : '".((property_exists($post, "title")) ? $post->title : "")."', ".
+				  		  	"text : '".((property_exists($post, "body")) ? $post->body : "")."', ".
 				  		  	"likes : ".$post->note_count.", ".
 				  		  	"link : '".$post->post_url."', ".
 				  		  	"network : '".$_POST["n"]."', ".
-				  		  	"icon : '".$icon."'"
+				  		  	"icon : '".$icon."'".
 				  		  " }) ".
 						  "MERGE (s)-[:POSTED]->(p)<-[:HAS_POST]-(n)";
+
+				$db->query($cypher);
 			}
 
-			// loop through all the likes
-			foreach($post->notes as $note){
+			// if the post has notes
+			if(property_exists($post, "notes")){
 
-				// if the liker already exists
+				// loop through all the likes
+				foreach($post->notes as $note){
 
-				$cypher = "MATCH (s)<-[:HAS_MEMBER]-(n) ".
-						  "WHERE s.blogname='".$_POST["u"]."' AND n.name='".$_POST["n"]."' ".
-						  "RETURN s";
+					// if the liker already exists
 
-				$results = $db->query( $cypher );
-
-				if( !is_null($results["s"][0]) ){
-
-					// merge like relationship
 					$cypher = "MATCH (s)<-[:HAS_MEMBER]-(n) ".
-						  	  "WHERE s.blogname='".$note->blogname."' AND n.name='".$_POST["n"]."' ".
-						  	  "MATCH (p:Post) WHERE p.id='".$post->id."' "
-						  	  "MERGE (s)-[:LIKED]->(p)";
+							  "WHERE s.username='".$note->blog_name."' AND n.name='".$_POST["n"]."' ".
+							  "RETURN s";
 
-					$db->query($cypher);
+					$results = $db->query( $cypher );echo "here is an existing user: ";print_r($results);
 
-				// else
-				}else if($post->type == "like"){
+					if( !empty($results) ){
 
-					// create new liker
-					$cypher = "MATCH (p)<-[:HAS_POST]-(n) ".
-							  "WHERE p.id='".$post->id."' ".
-							  "MERGE (p)<-[:LIKED]-(s:Socialite { ".
-							  	"username : '".$note->blogname"'".
-							  "})<-[:HAS_MEMBER]-(n)";
+						// merge like relationship
+						$cypher = "MATCH (s)<-[:HAS_MEMBER]-(n) ".
+							  	  "WHERE s.username='".$note->blog_name."' AND n.name='".$_POST["n"]."' ".
+							  	  "MATCH (p:Post) WHERE p.id='".$post->id."' ".
+							  	  "MERGE (s)-[:LIKED]->(p)";
 
-					$db->query($cypher);
+						$db->query($cypher);
 
+					// else
+					}else if($note->type == "like"){
+
+						// create new liker
+						$cypher = "MATCH (p)<-[:HAS_POST]-(n) ".
+								  "WHERE p.id='".$post->id."' ".
+								  "MERGE (p)<-[:LIKED]-(s:Socialite { ".
+								  	"username : '".$note->blog_name."'".
+								  "})<-[:HAS_MEMBER]-(n)";
+
+						$db->query($cypher);
+
+					}
 				}
 			}
 		}
+		exit();
 	}
 	
 	/* Process the OAuth server interactions */
