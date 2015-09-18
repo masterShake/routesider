@@ -202,10 +202,10 @@
 
                                         <div <?= in_array("instagram", $netNames)? "" : "style='display:none;'"; ?>>
                                             <div>
-                                                <input type="checkbox" name="autoup" class="form-control" data-network="instagram" <?= ($networks["instagram"]["auto_update"]) ? "checked" : ""; ?>><span>auto-update</span>
+                                                <input type="checkbox" name="autoup" class="form-control" data-network="instagram" <?= (in_array("instagram", $netNames) && $networks["instagram"]["auto_update"]) ? "checked" : ""; ?>><span>auto-update</span>
                                             </div>
                                             <div style="margin-bottom:8px;">
-                                                <input type="checkbox" name="login" class="form-control" data-network="instagram" <?= ($networks["instagram"]["login"]) ? "checked" : ""; ?>><span>use for login</span>
+                                                <input type="checkbox" name="login" class="form-control" data-network="instagram" <?= (in_array("instagram", $netNames) && $networks["instagram"]["login"]) ? "checked" : ""; ?>><span>use for login</span>
                                             </div>
                                             <button type="button" class="btn btn-danger" data-network="instagram" data-icon="instagram">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
@@ -235,10 +235,10 @@
 
                                         <div <?= in_array("tumblr", $netNames)? "" : "style='display:none;'"; ?>>
                                             <div>
-                                                <input type="checkbox" class="form-control" checked><span>auto-update</span>
+                                                <input type="checkbox" class="form-control" data-network="tumblr" <?= (in_array("tumblr", $netNames) && $networks["tumblr"]["auto_update"]) ? "checked" : ""; ?>><span>auto-update</span>
                                             </div>
                                             <div style="margin-bottom:8px;">
-                                                <input type="checkbox" class="form-control" checked><span>use for login</span>
+                                                <input type="checkbox" class="form-control" data-network="tumblr" <?= (in_array("tumblr", $netNames) && $networks["tumblr"]["auto_update"]) ? "checked" : ""; ?>><span>use for login</span>
                                             </div>
                                             <button type="button" class="btn btn-danger" data-network="tumblr" data-icon="tumblr2">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove

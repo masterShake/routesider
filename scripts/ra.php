@@ -123,14 +123,14 @@
 			// call for tumblr post data
 			$posts = Curl::get("http://api.tumblr.com/v2/blog/".$_POST["u"].".tumblr.com/posts?api_key=".$creds[$_GET["n"]]["client_id"]."&notes_info=true");
 			$posts = json_decode($posts);
-			$posts = $posts->response->posts;
+			$posts = $posts->response->posts; // print_r($posts); exit();
 		}
 		
 		// if user has connected to this network before
 		$cypher = "MATCH (b:Business)-[l:LINKED_TO]->(s)<-[h:HAS_MEMBER]-(n) ".
 				  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["n"] . "' " .
                   "RETURN s";
-        $results = $db->query($cypher); print_r($results);
+        $results = $db->query($cypher);
 
         if( !empty( $results ) ){
 
@@ -170,7 +170,7 @@
 					  "WHERE p.id='".$post->id."' ".
 					  "RETURN p";
 
-			$results = $db->query($cypher); print_r($results);
+			$results = $db->query($cypher);
 
 			if( !empty($results) ){
 
@@ -182,6 +182,8 @@
 					  	  "p.likes=".$post->note_count;
 
 				$db->query($cypher);
+
+				// update the media object
 
 			// else 
 			}else{
@@ -203,6 +205,63 @@
 						  "MERGE (s)-[:POSTED]->(p)<-[:HAS_POST]-(n)";
 
 				$db->query($cypher);
+
+				// If the post contains image(s)
+				if($post->type == "photo"){
+
+					// loop through the photos
+					foreach($post->photos as $photo){
+
+						$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
+					  	  		  "WHERE p.id='".$post->id."' ".
+					  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
+					  	  		  	"width : ".$photo->alt_sizes[0]->width.", ".
+					  	  		  	"height : ".$photo->alt_sizes[0]->height.", ".
+					  	  		  	"url : '".$photo->alt_sizes[0]->url."', ".
+					  	  		  	"thumbnail : '".$photo->alt_sizes[count($photo->alt_sizes) - 1]->url."', ".
+					  	  		  	"type : 'image'".
+					  	  		  "})";
+						
+						// merge nodes
+						$db->query($cypher);
+					}
+				
+				// if the post contains a video
+				}else if($post->type == "video"){
+
+					$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
+				  	  		  "WHERE p.id='".$post->id."' ".
+				  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
+				  	  		  	"width : ".$post->player[2]->width.", ".
+				  	  		  	"height : NULL, ".
+				  	  		  	"url : '".$post->player[2]->embed_code."', ".
+				  	  		  	"thumbnail : NULL, ".
+				  	  		  	"type : 'video'".
+				  	  		  "})";
+					
+					// merge nodes
+					$db->query($cypher);					
+				
+				// if the post contains an audio clip
+				}else if($post->type == "audio"){
+
+						$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
+					  	  		  "WHERE p.id='".$post->id."' ".
+					  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
+					  	  		  	"width : NULL, ".
+					  	  		  	"height : NULL, ".
+					  	  		  	"url : '".$post->player."', ".
+					  	  		  	"thumbnail : NULL, ".
+					  	  		  	"type : 'audio'".
+					  	  		  "})";
+						
+						// merge nodes
+						$db->query($cypher);
+				}
+				// answer
+				// chat
+				// quote
+				// link
 			}
 
 			// if the post has notes
@@ -217,7 +276,7 @@
 							  "WHERE s.username='".$note->blog_name."' AND n.name='".$_POST["n"]."' ".
 							  "RETURN s";
 
-					$results = $db->query( $cypher );echo "here is an existing user: ";print_r($results);
+					$results = $db->query( $cypher );
 
 					if( !empty($results) ){
 
@@ -245,6 +304,12 @@
 				}
 			}
 		}
+
+	    // output HTML checkbox for dropdown and query
+	    echo "  <input type='checkbox' class='form-control' value='".$_POST["n"]."' data-icon='".$icon."' checked>
+	            <span class='icon-".$icon."'></span>
+	            &nbsp;".ucfirst($_POST["n"]);
+
 		exit();
 	}
 	

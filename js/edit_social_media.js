@@ -670,11 +670,19 @@ var ESM, esmApp;
 		// set the current network property
 		esmApp.smBtns.aNet = this.dataset.network;
 
-		//open the auth window
-		window.open( this.dataset.url, 
-					 this.dataset.network,
+		// open the auth window
+		// INSTAGRAM
+		// window.open( this.dataset.url, 
+		// 			 this.dataset.network,
+		// 			 "scrollbars=yes,width=475,height=425"
+		// 		   );
+		
+		// 
+		window.open( "http://localhost/routesider/scripts/ra.php?n="+this.dataset.network, 
+					 "Connect to "+this.dataset.network,
 					 "scrollbars=yes,width=475,height=425"
 				   );
+	
 	}
 
 	//-----------------------------------------------
