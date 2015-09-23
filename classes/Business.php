@@ -52,20 +52,20 @@ class Business{
 	}
 
 	// retrieve social media posts
-	public function getPosts( $network = "" ){
+	public function getPosts($network = ""){
 
 		$cypher = "MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." ";
 
                   // if there is a network variable
-                  if($network)
-                  	$cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='". $network ."' AND l.active=1 ";
-                  else
-                  	$cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s) WHERE l.active=1 ";
+        if($network)
+            $cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s)<-[:HAS_MEMBER]-(n) WHERE l.active=1 AND n.name='". $network ."' ";
+        else
+            $cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s) WHERE l.active=1 ";
                   
-        $cypher .= "OPTIONAL MATCH (s)-[r:POSTED {deleted : 0} ]->(p) WHERE r.deleted=0 ".
-        		   "OPTIONAL MATCH (p)-[x:HAS_MEDIA]->(m) ".
-        		   "OPTIONAL MATCH (p)<-[l:LIKED]-(t) ".
-                   "RETURN p, m, x ORDER BY p.created_time DESC";
+        $cypher .= "OPTIONAL MATCH (s)-[r:POSTED {deleted : 0}]->(p) ".
+        		   "OPTIONAL MATCH (p)-[hm:HAS_MEDIA]->(m) ".
+        // 		   // "OPTIONAL MATCH (p)<-[l:LIKED]-(t) ".
+                   "RETURN p, hm, m ORDER BY p.created_time DESC";
 
         $this->_social_media_posts = $this->_db->q( $cypher );
 

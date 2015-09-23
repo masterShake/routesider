@@ -149,7 +149,7 @@
                   	  "MATCH (n:Network) WHERE n.name='" . $_POST["n"] . "' ".
                   	  "CREATE (s:Socialite { ".
                   	  	"username : '".$account->name."', ".
-                  	  	"id : '".$account->name."', ".
+                  	  	"net_id : '".$account->name."', ".
                   	  	"profile_pic : '".$avatar."', ".
                   	  	"website : '".$account->url."', ".
                   	  	"full_name : '".$account->name."', ".
@@ -193,7 +193,7 @@
 				  		  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["n"] . "' " .
 				  		  "CREATE (p:Post { ".
 				  		  	"username : '".$_POST["u"]."', ".
-				  		  	"id : '".$post->id."', ".
+				  		  	"net_id : '".$post->id."', ".
 				  		  	"created_time : ".$post->timestamp.", ".
 				  		  	"title : '".((property_exists($post, "title")) ? $post->title : "")."', ".
 				  		  	"text : '".((property_exists($post, "body")) ? $post->body : "")."', ".
@@ -202,7 +202,7 @@
 				  		  	"network : '".$_POST["n"]."', ".
 				  		  	"icon : '".$icon."'".
 				  		  " }) ".
-						  "MERGE (s)-[:POSTED]->(p)<-[:HAS_POST]-(n)";
+						  "MERGE (s)-[:POSTED {deleted : 0} ]->(p)<-[:HAS_POST]-(n)";
 
 				$db->query($cypher);
 

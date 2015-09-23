@@ -6,4 +6,14 @@
 
 -----------------------------------------*/
 
+function tt($c=""){
+
+	if($c)
+		echo $c;
+	else
+		echo "vagina";
+}
+
+tt("penis");
+
 

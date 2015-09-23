@@ -42,19 +42,19 @@
 
     echo "<pre>";
 
-    $cypher = "MATCH (s:Socialite)-[l:LIKED]->(p:Post) RETURN s, l, p";
+    $cypher = "MATCH (s:Socialite)-[r:POSTED]->(p:Post) RETURN s, r, p";
 
     $result = $db->q( $cypher );
 
-    $nodes = $result->getNodes();
+    $nodes = $result->getNodes(); // print_r($nodes);
 
-    $myPost = $nodes["821"];
+    $myPost = $nodes["1311"];
 
     print_r(get_class_methods($result));
 
     print_r(get_class_methods($myPost));
 
-    print_r(count($myPost->getRelationships("LIKED")));
+    print_r(count($myPost->getRelationships("POSTED")));
 
 
 

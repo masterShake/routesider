@@ -107,7 +107,7 @@
     foreach($networks as $key => $n)
         $netNames[] = $key;
 
-    $posts = $business->getPosts();
+    $posts = $business->getPosts();   
 
 ?>
 <!DOCTYPE html>
@@ -235,10 +235,10 @@
 
                                         <div <?= in_array("tumblr", $netNames)? "" : "style='display:none;'"; ?>>
                                             <div>
-                                                <input type="checkbox" class="form-control" data-network="tumblr" <?= (in_array("tumblr", $netNames) && $networks["tumblr"]["auto_update"]) ? "checked" : ""; ?>><span>auto-update</span>
+                                                <input type="checkbox" class="form-control" data-network="tumblr" <?= ((in_array("tumblr", $netNames) && $networks["tumblr"]["auto_update"]) || !in_array("tumblr", $netNames)) ? "checked" : ""; ?>><span>auto-update</span>
                                             </div>
                                             <div style="margin-bottom:8px;">
-                                                <input type="checkbox" class="form-control" data-network="tumblr" <?= (in_array("tumblr", $netNames) && $networks["tumblr"]["auto_update"]) ? "checked" : ""; ?>><span>use for login</span>
+                                                <input type="checkbox" class="form-control" data-network="tumblr" <?= ((in_array("tumblr", $netNames) && $networks["tumblr"]["auto_update"]) || !in_array("tumblr", $netNames)) ? "checked" : ""; ?>><span>use for login</span>
                                             </div>
                                             <button type="button" class="btn btn-danger" data-network="tumblr" data-icon="tumblr2">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove
@@ -443,8 +443,8 @@
 
                                     ?>
 
-                                <div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>' data-loading="0">
-                                    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
+                                <div class="thumbnail social-media-post" id='<?= $post->getProperty("net_id"); ?>' data-loading="0">
+                                    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("net_id"); ?>'></div>
                                     <?php // if the post has at least 1 media object
                                           if( count($media) ){
 
