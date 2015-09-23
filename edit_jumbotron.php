@@ -117,10 +117,54 @@
                 <div id="edit-background">
                     
                     <!-- upload old fashioned -->
+                    <div class="traditional-upload">
+                        <label for="banner-fileselect">Files to upload:</label>
+                        <input type="file" 
+                               id="background-fileselect" 
+                               name="fileselect[]" 
+                               multiple="multiple" />
+                    </div>
 
                     <!-- drag and drop text -->
+                    <div>
+                        <p style="margin-top:20px;margin-bottom:0px;">-or-</p>
+                        <h4 style="margin-top:4px;">Drag &amp; Drop</h4>
+                    </div>
+                    
+                    <div class="icon-image"></div>
 
-                    <span class="icon-image"></span> 
+                    <!-- edit background toolbar -->
+                    <div id="edit-background-toolbar" style="text-align:left;">
+                        <!-- display background image -->
+                        <div class="toggle-display">
+                            <input type="checkbox" class="form-control" checked>
+                            <label for="display-bg" class="glyphicon glyphicon-eye-open"></label>
+                        </div>
+                        <!-- toolbar btns -->
+                        <div class="btn-group btn-group-lg" role="group" aria-label="edit background toolbar">
+                            <button type="button" class="btn btn-default" aria-label="crop image">
+                                <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" aria-label="change background color">
+                                <div class="colorwheel-icon">
+                                    <div>
+                                        <div style="background-color:#93F;"></div>
+                                    </div>
+                                    <div>
+                                        <div style="background-color:#F00;"></div>
+                                        <div style="background-color:#00F;"></div>
+                                    </div>
+                                    <div>
+                                        <div style="background-color:#0F0;"></div>
+                                        <div style="background-color:#F93;"></div>
+                                    </div>
+                                    <div>
+                                        <div style="background-color:#FF0;"></div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
 
                 </div><!-- /edit-background -->
 
@@ -132,9 +176,11 @@
                 <!-- device layout dropdown -->
                 <div class="dropup" id="layout-view">
                     <div aria-haspopup="true" aria-expanded="true">
-                        <div class="icon-mobile" style="font-size:26px;float:left;margin-top:4px;" aria-hidden="true"></div>
-                        <span class="hidden-xs">mobile</span>
-                        <span class="caret"></span>
+                        <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
+                        <div style="padding-top:12px;float:right;">
+                            <span class="hidden-xs">mobile</span>
+                            <span class="caret"></span>
+                        </div>
                     </div>
                     <ul class="dropdown-menu" aria-labelledby="layout-view">
                         <li class="dropdown-header">Layout View</li>
@@ -161,8 +207,8 @@
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
 
                     <!-- edit background -->
-                    <div class="btn-group" role="group" aria-label="edit background">
-                        <button type="button" class="btn btn-default" aria-label="edit background">
+                    <div class="btn-group btn-group-lg" role="group" aria-label="edit background">
+                        <button type="button" class="btn btn-default active" aria-label="edit background">
                             <div class="dash-box" style="padding:3px 4px 1px;"aria-hidden="true">
                                 <span class="icon-image" aria-hidden="true"></span>
                             </div>
@@ -171,7 +217,7 @@
                     </div>
 
                     <!-- add components -->
-                    <div class="btn-group" role="group" aria-label="components toolbar">
+                    <div class="btn-group btn-group-lg" role="group" aria-label="components toolbar">
                         <!-- add textbox -->
                         <button type="button" class="btn btn-default" aria-label="add textbox">
                             <div class="dash-box" aria-hidden="true">Aa</div>
@@ -179,12 +225,12 @@
                         </button>
                         <!-- add image overlay -->
                         <button type="button" class="btn btn-default" aria-label="add image overlay">
-                            <div class="icon-images" style="font-size:16px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
+                            <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                         <!-- add button -->
                         <button type="button" class="btn btn-default" aria-label="add button">
-                            <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 1px 3px;">
+                            <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                                 <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                             </div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

@@ -50,16 +50,52 @@
     text-align: center;
     border-radius: 10px;
 }
-
-#edit-background>span.icon-image{
-	margin-top: 300px;
+/* upload image fileselect */
+.traditional-upload{
+	background-color: #ddd;
+	max-width: 220px;
+	border-radius: 10px;
+  	padding: 8px 12px;
+    position: relative;
+    left: 50%;
+    margin-left: -110px;
+    margin-top: 20px;
+}
+.traditional-upload:hover{
+	opacity: 1 !important;
+}
+/* camera icon */
+#edit-background>div.icon-image{
+	margin-top: calc(50% - 72px);
 	color: #ddd;
 	font-size: 44px;
 }
-
-
-
-
+/* display background checkbox */
+.toggle-display{
+	float: right;
+	background: rgba(255, 255, 255, 0.5);
+	padding: 5px 10px;
+}
+.toggle-display input{
+	height: 20px;
+	width: 20px;
+}
+.toggle-display label{
+	margin-top: 2px;
+	font-size: 20px;
+}
+/* colorwheel icon */
+.colorwheel-icon{
+	height:24px;
+}
+.colorwheel-icon>div{
+	max-height: 6px; 
+}
+.colorwheel-icon>div>div{
+	border-radius: 50%;
+	height: 7px;
+	width: 7px;
+}
 
 
 /*----------------------
@@ -70,14 +106,18 @@
 	padding:12px;
 	background-color: #d6e9c6;
 }
+#jumbo-toolbar button{
+	background-color: #fff;
+	padding: 10px 12px;
+}
 /* components toolbar */
 #jumbo-toolbar .glyphicon-plus,
 #jumbo-toolbar .glyphicon-pencil{
-	font-size: 11px;
+	font-size: 12px;
 }
 /* little dashed box icons */
 .dash-box{
-    font-size: 10px;
+    font-size: 14px;
     outline: 1px dashed;
     padding: 2px;
     float: left;
