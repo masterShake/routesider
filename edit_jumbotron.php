@@ -126,7 +126,7 @@
                     </div>
 
                     <!-- drag and drop text -->
-                    <div>
+                    <div class="background-text">
                         <p style="margin-top:20px;margin-bottom:0px;">-or-</p>
                         <h4 style="margin-top:4px;">Drag &amp; Drop</h4>
                     </div>
@@ -134,7 +134,7 @@
                     <div class="icon-image"></div>
 
                     <!-- edit background toolbar -->
-                    <div id="edit-background-toolbar" style="text-align:left;">
+                    <div id="edit-background-toolbar" style="text-align:left;position:relative;top:calc(100% - 232px);padding: 0px 6px;">
                         <!-- display background image -->
                         <div class="toggle-display">
                             <input type="checkbox" class="form-control" checked>
@@ -148,18 +148,18 @@
                             <button type="button" class="btn btn-default" aria-label="change background color">
                                 <div class="colorwheel-icon">
                                     <div>
-                                        <div style="background-color:#93F;"></div>
+                                        <div style="background-color:#93F;margin-left:9px;"></div>
+                                    </div>
+                                    <div style="margin-top:-1px;">
+                                        <div style="background-color:#F00;margin-left:-13px;"></div>
+                                        <div style="background-color:#00F;margin-left:8px;margin-top:-1px;"></div>
+                                    </div>
+                                    <div style="margin-top:2px;">
+                                        <div style="background-color:#F93;margin-left:2px;"></div>
+                                        <div style="background-color:#0F0;margin-left:8px;"></div>
                                     </div>
                                     <div>
-                                        <div style="background-color:#F00;"></div>
-                                        <div style="background-color:#00F;"></div>
-                                    </div>
-                                    <div>
-                                        <div style="background-color:#0F0;"></div>
-                                        <div style="background-color:#F93;"></div>
-                                    </div>
-                                    <div>
-                                        <div style="background-color:#FF0;"></div>
+                                        <div style="background-color:#FF0;margin-left:9px;margin-top:-1px;"></div>
                                     </div>
                                 </div>
                             </button>
