@@ -59,7 +59,7 @@
     position: relative;
     left: 50%;
     margin-left: -110px;
-    top: 20px;
+    top: 124px;
 }
 .traditional-upload:hover{
 	opacity: 1 !important;
@@ -67,7 +67,7 @@
 /* background text */
 .background-text{
 	position: relative;
-	top: 20px;
+	top: 113px;
 	max-width: 120px;
 	left:50%;
 	margin-left: -60px;

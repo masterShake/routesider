@@ -91,6 +91,7 @@
         <link href="css/main.css" rel="stylesheet">
         <link href="css/icomoon.css" rel="stylesheet">
         <link href="css/swiper.min.css" rel="stylesheet">
+        <link href="css/on_off_switch.css" rel="stylesheet">
         <link href="css/edit_jumbotron.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -111,10 +112,26 @@
             <!-- jumbotron canvas -->
             <div id="jumbo-canvas" class="container">
 
-                <!-- dismissable page title -->
-
                 <!-- edit background -->
                 <div id="edit-background">
+
+                    <!-- dismissable page title -->
+                    <div class="alert alert-dismissible" style="text-align:left;opacity:1;float:left;width:176px;background-color:#ddd;margin-top:10px;margin-left:10px;position:absolute;">
+                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 style="margin-top:0px;margin-bottom:0px;">Edit Jumbotron</h3>
+                    </div>
+
+                    <!-- on/off switch -->
+                    <div style="float:right;width:100px;">
+                        <h4 style="text-align:right;padding-right:10px;">visible in profile</h4>
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-jumbo" checked />
+                            <label class="onoffswitch-label" for="myonoffswitch-jumbo">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </div>
                     
                     <!-- upload old fashioned -->
                     <div class="traditional-upload">
@@ -131,10 +148,10 @@
                         <h4 style="margin-top:4px;">Drag &amp; Drop</h4>
                     </div>
                     
-                    <div class="icon-image"></div>
+                    <!-- <div class="icon-image"></div> -->
 
                     <!-- edit background toolbar -->
-                    <div id="edit-background-toolbar" style="text-align:left;position:relative;top:calc(100% - 232px);padding: 0px 6px;">
+                    <div id="edit-background-toolbar" style="text-align:left;position:relative;top:calc(100% - 188px);padding: 0px 6px;">
                         <!-- display background image -->
                         <div class="toggle-display">
                             <input type="checkbox" class="form-control" checked>
@@ -209,7 +226,7 @@
                     <!-- edit background -->
                     <div class="btn-group btn-group-lg" role="group" aria-label="edit background">
                         <button type="button" class="btn btn-default active" aria-label="edit background">
-                            <div class="dash-box" style="padding:3px 4px 1px;"aria-hidden="true">
+                            <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
                                 <span class="icon-image" aria-hidden="true"></span>
                             </div>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
