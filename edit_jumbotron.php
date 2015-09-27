@@ -159,10 +159,13 @@
                         </div>
                         <!-- toolbar btns -->
                         <div class="btn-group btn-group-lg" role="group" aria-label="edit background toolbar">
-                            <button type="button" class="btn btn-default" aria-label="crop image">
+                            <!-- crop background image -->
+                            <div class="btn btn-default" aria-label="crop image">
                                 <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-default" aria-label="change background color">
+                            </div>
+                            <!-- edit background color -->
+                            <div class="btn btn-default" aria-label="edit background color">
+                                <!-- color wheel icon -->
                                 <div class="colorwheel-icon">
                                     <div>
                                         <div style="background-color:#93F;margin-left:9px;"></div>
@@ -179,7 +182,120 @@
                                         <div style="background-color:#FF0;margin-left:9px;margin-top:-1px;"></div>
                                     </div>
                                 </div>
-                            </button>
+                                <!-- popover toolbar -->
+                                <div class="popover top" id="bg-color-pop">
+                                    <div class="arrow"></div>
+                                    <div class="popover-title">
+                                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <div class="colorwheel-icon" style="float:left;">
+                                            <div>
+                                                <div style="background-color:#93F;margin-left:9px;"></div>
+                                            </div>
+                                            <div style="margin-top:-1px;">
+                                                <div style="background-color:#F00;margin-left:-13px;"></div>
+                                                <div style="background-color:#00F;margin-left:8px;margin-top:-1px;"></div>
+                                            </div>
+                                            <div style="margin-top:2px;">
+                                                <div style="background-color:#F93;margin-left:2px;"></div>
+                                                <div style="background-color:#0F0;margin-left:8px;"></div>
+                                            </div>
+                                            <div>
+                                                <div style="background-color:#FF0;margin-left:9px;margin-top:-1px;"></div>
+                                            </div>
+                                        </div>
+                                        <b><span style="padding-left:12px;font-size:16px;">background color</span></b>
+                                    </div>
+                                    <div class="popover-content">
+
+                                         <div style="width:135px;float:right;">
+
+                                            <!-- hex table -->
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>hex</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- fill -->
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" 
+                                                                    class="btn" 
+                                                                    style="background-color: #FFF; color: #444;"
+                                                                    data-activate="fill"
+                                                                    aria-label="edit jumbotron background color, use color wheel to select colors">
+                                                                <span class="glyphicon glyphicon-tint"></span>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" 
+                                                                   value="#DFF0D8"
+                                                                   class="form-control" 
+                                                                   data-hex="#DFF0D8" 
+                                                                   aria-label="background color hexidecimal color value">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table><!-- /hex table -->
+
+                                            <!-- HTML5 color picker -->
+                                            <div style="text-align:center;margin-top:14px;">
+                                                <label for="color-picker">more colors:</label>
+                                                <input type="color" 
+                                                       id="color-picker"
+                                                       value="#5CB85C"
+                                                       aria-label="select from complete color wheel">
+                                            </div><!-- /full color wheel -->
+
+                                        </div>
+
+                                        <!-- color wheel -->
+                                        <div class="color-wheel">
+                                            <!-- 3 -->
+                                            <div>
+                                                <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
+                                                <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
+                                                <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
+                                            </div>
+                                            <!-- 4 -->
+                                            <div>
+                                                <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
+                                                <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
+                                                <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
+                                                <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
+                                            </div>
+                                            <!-- 5 -->
+                                            <div>
+                                                <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
+                                                <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
+                                                <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
+                                                <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
+                                                <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
+                                            </div>
+                                            <!-- 4 -->
+                                            <div>
+                                                <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
+                                                <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
+                                                <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
+                                                <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
+                                            </div>
+                                            <!-- 3 -->
+                                            <div>
+                                                <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
+                                                <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
+                                                <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
+                                            </div>
+                                        </div><!-- /hexigon color wheel -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- edit background image -->
+                            <div class="btn btn-default" aria-label="edit background image">
+                                <span class="icon-image"></span>
+                            </div>
                         </div>
                     </div>
 
