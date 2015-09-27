@@ -182,7 +182,8 @@
                                         <div style="background-color:#FF0;margin-left:9px;margin-top:-1px;"></div>
                                     </div>
                                 </div>
-                                <!-- popover toolbar -->
+
+                                <!-- edit background color popover toolbar -->
                                 <div class="popover top" id="bg-color-pop">
                                     <div class="arrow"></div>
                                     <div class="popover-title">
@@ -295,6 +296,33 @@
                             <!-- edit background image -->
                             <div class="btn btn-default" aria-label="edit background image">
                                 <span class="icon-image"></span>
+                                <div class="popover top" style="display:block;width:220px;left:-84px;top:-182px;">
+                                    <div class="arrow"></div>
+                                    <div class="popover-title"> 
+                                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <span class="icon-image"></span>
+                                        <div class="titex">Background image</div>
+                                    </div>
+                                    <div class="popover-content">
+                                        <!-- background image opacity -->
+                                        <div class="slide-input">
+                                            <label for="bg-opacity">opacity</label>
+                                            <span class="glyphicon glyphicon-adjust"></span>
+                                            <input type="text" class="form-control"  id="bg-opacity" value="1">
+                                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
+                                        </div>
+
+                                        <hr>
+
+                                        <!-- background image blur -->
+                                        <div class="slide-input">
+                                            <label for="bg-blur">blur</label>
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <input type="text" class="form-control"  id="bg-blur" value="0">
+                                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

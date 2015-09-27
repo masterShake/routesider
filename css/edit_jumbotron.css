@@ -216,7 +216,7 @@ tbody button.btn-color-selected{
 
 /* edit background color popover */
 #bg-color-pop{
-	display: block;
+	/*display: block;*/
 	width:293px;
 	max-width: 293px;
 	top: -156px;
@@ -224,6 +224,43 @@ tbody button.btn-color-selected{
 }
 #bg-color-pop.popover.top>.arrow {
 	left: 81px;
+}
+/* popover titles */
+.popover-title span{
+	font-size:18px;
+	float:left;
+}
+.popover-title div.titex{
+	padding-left: 24px;
+    font-size: 14px;
+    width: 160px;
+    font-weight: 600;
+    margin-right: 0px;
+}
+/* popover line breaks */
+.popover hr{
+	margin: 13px 7px;
+}
+/* slide input component */
+.slide-input{
+	height:52px;
+}
+.slide-input label{
+	width: 100%;
+	text-align: center;
+	font-size: 12.5px;
+}
+.slide-input span{
+	float:left;
+}
+.slide-input input.form-control{
+	width: 50px;
+	float: right;
+	margin-top: -7px;
+}
+.slide-input .range-slider{
+	max-width:105px;
+	margin-left:24px;
 }
 
 /*----------------------
