@@ -109,29 +109,31 @@
             <!-- navbar -->
             <?php include "components/navbar.php"; ?>
 
+            <!-- title header -->
+            <div class="container">
+
+                <!-- on/off switch -->
+                <div style="float:right;text-align:center;width:100px;padding-left:10px;">
+                    <h4 style="margin-top:20px;">visible in profile</h4>
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-jumbo" />
+                        <label class="onoffswitch-label" for="myonoffswitch-jumbo">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- title -->
+                <h1 style="/*max-width:50%;*/">Edit Jumbotron</h1>
+
+            </div>
+
             <!-- jumbotron canvas -->
             <div id="jumbo-canvas" class="container">
 
                 <!-- edit background -->
                 <div id="edit-background">
-
-                    <!-- dismissable page title -->
-                    <div class="alert alert-dismissible" style="text-align:left;opacity:1;float:left;width:176px;background-color:#ddd;margin-top:10px;margin-left:10px;position:absolute;">
-                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h3 style="margin-top:0px;margin-bottom:0px;">Edit Jumbotron</h3>
-                    </div>
-
-                    <!-- on/off switch -->
-                    <div style="float:right;width:100px;">
-                        <h4 style="text-align:right;padding-right:10px;">visible in profile</h4>
-                        <div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-jumbo" checked />
-                            <label class="onoffswitch-label" for="myonoffswitch-jumbo">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                    </div>
                     
                     <!-- upload old fashioned -->
                     <div class="traditional-upload">
@@ -296,7 +298,7 @@
                             <!-- edit background image -->
                             <div class="btn btn-default" aria-label="edit background image">
                                 <span class="icon-image"></span>
-                                <div class="popover top" style="display:block;width:220px;left:-84px;top:-182px;">
+                                <div class="popover top" style="width:220px;left:-84px;top:-182px;">
                                     <div class="arrow"></div>
                                     <div class="popover-title"> 
                                         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
