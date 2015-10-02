@@ -146,10 +146,14 @@ tbody button.btn-color-selected{
 ----------------------*/
 
 #edit-background{
-	border: 1px dashed #ccc;
     height: 100%;
+}
+/* drag and drop element */
+#drag-drop{
     text-align: center;
+	border: 1px dashed #ccc;
     border-radius: 10px;
+    height: calc(100% - 144px);
 }
 /* upload image fileselect */
 .traditional-upload{
@@ -160,7 +164,7 @@ tbody button.btn-color-selected{
     position: relative;
     left: 50%;
     margin-left: -110px;
-    top: 124px;
+    top: 72px;
 }
 .traditional-upload:hover{
 	opacity: 1 !important;
@@ -168,21 +172,15 @@ tbody button.btn-color-selected{
 /* background text */
 .background-text{
 	position: relative;
-	top: 113px;
+	top: 66px;
 	max-width: 120px;
 	left:50%;
 	margin-left: -60px;
 }
-/* camera icon */
-#edit-background>div.icon-image{
-	top: calc(50% - 140px);
-    color: #ddd;
-    font-size: 44px;
-    position: relative;
-    max-width: 44px;
-    left: 50%;
-    margin-left: -22px;
-}
+
+/*-------------------------------
+	 edit background toolbar */
+
 /* display background checkbox */
 .toggle-display{
 	float: right;
@@ -270,6 +268,7 @@ tbody button.btn-color-selected{
 #jumbo-toolbar{
 	padding:12px;
 	background-color: #d6e9c6;
+	box-shadow: 0 0 6px #676767;
 }
 #jumbo-toolbar button{
 	background-color: #fff;

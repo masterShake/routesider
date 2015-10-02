@@ -96,7 +96,7 @@ var Jumbo, jApp;
 
 		// set height of jumbo-canvas
 		document.getElementById("jumbo-canvas")
-			.style.height = (window.offsetHeight - 114) + "px";
+			.style.height = (window.offsetHeight - 80) + "px";
 
 		// init the layout view dropdown
 		document.getElementById("layout-view").children[0]
@@ -125,7 +125,7 @@ var Jumbo, jApp;
 	    // create new Jumbo (edit jumbotron) object
 	    // jumboApp = new Jumbo();
 		document.getElementById("jumbo-canvas")
-			.style.height = (window.innerHeight - 120) + "px";
+			.style.height = (window.innerHeight - 75) + "px";
 		document.getElementById("layout-view").children[0]
 			.addEventListener("click", rsApp.toggleDropdown, false);
 
