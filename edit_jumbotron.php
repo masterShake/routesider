@@ -130,9 +130,17 @@
                 <!-- title -->
                 <h1 style="/*max-width:50%;*/">Edit Jumbotron</h1>
 
-                <hr style="margin-bottom:12px;">
-
             </div><!-- /title header -->
+
+            <hr style="margin-bottom:12px;">
+
+            <!-- save alert -->
+            <div class="alert alert-info" id="save-top" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <button type="button" class="btn btn-default">Save</button>
+                  <span class="glyphicon glyphicon-arrow-left"></span>
+                  <strong>Click</strong> to save your changes.
+            </div>
 
             <!-- jumbotron canvas -->
             <div id="jumbo-canvas" class="container">
@@ -392,42 +400,43 @@
                 </div><!-- /device layout dropdown -->
                 
                 <!-- components toolbar -->
-                <div class="btn-toolbar" role="toolbar" aria-label="...">
-
+                <div class="btn-group btn-group-lg" role="group" aria-label="components toolbar">
                     <!-- edit background -->
-                    <div class="btn-group btn-group-lg" role="group" aria-label="edit background">
-                        <button type="button" class="btn btn-default active" aria-label="edit background">
-                            <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
-                                <span class="icon-image" aria-hidden="true"></span>
-                            </div>
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </button>
-                    </div>
-
-                    <!-- add components -->
-                    <div class="btn-group btn-group-lg" role="group" aria-label="components toolbar">
-                        <!-- add textbox -->
-                        <button type="button" class="btn btn-default" aria-label="add textbox">
-                            <div class="dash-box" aria-hidden="true">Aa</div>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                        <!-- add image overlay -->
-                        <button type="button" class="btn btn-default" aria-label="add image overlay">
-                            <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                        <!-- add button -->
-                        <button type="button" class="btn btn-default" aria-label="add button">
-                            <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                            </div>
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </div><!-- /add components -->
-
-                </div><!-- /bootstrap button group toolbar -->
+                    <button type="button" class="btn btn-default active" aria-label="edit background">
+                        <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
+                            <span class="icon-image" aria-hidden="true"></span>
+                        </div>
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <!-- add textbox -->
+                    <button type="button" class="btn btn-default" aria-label="add textbox">
+                        <div class="dash-box" aria-hidden="true">Aa</div>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <!-- add image overlay -->
+                    <button type="button" class="btn btn-default" aria-label="add image overlay">
+                        <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <!-- add button -->
+                    <button type="button" class="btn btn-default" aria-label="add button">
+                        <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        </div>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div><!-- /components toolbar -->
 
             </div><!-- /jumbo-toolbar -->
+
+            <!-- save button -->
+            <div class="container">
+                <div class="well" id="save-btm">
+                    <button type="button" class="btn btn-default">Save</button>
+                    <span class="glyphicon glyphicon-arrow-left" style="padding: 0 10px;"></span>
+                    click to save changes
+                </div>
+            </div>
 
             <!-- footer -->
             <?= include "components/footer.php"; ?>

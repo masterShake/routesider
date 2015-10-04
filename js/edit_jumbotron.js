@@ -242,15 +242,22 @@ var Jumbo, jApp;
 		// init background image editor
 		this.bgImg = new BGI();
 
+		// temp variable, get the toolbar
+		this.temp = document.getElementById("bg-opts-toolbar");
+
 		/* initializations */
 
 		// toggle bg image display
-		document.getElementById("bg-opts-toolbar")
-			.children[0].children[0]
+		this.temp.children[0].children[0]
 				.addEventListener("change", this.toggleImg, false);
 
-		// add event listeners to btns in bg options toolbar
+		// get the toolbar btns
+		this.temp = this.temp.children[1].children;
 
+		// apply actBtn event listener
+		this[0].addEventListener("click", this.actBtn, false);
+		this[1].addEventListener("click", this.actBtn, false);
+		this[2].addEventListener("click", this.actBtn, false);
 	}
 
 	/* METHODS */
