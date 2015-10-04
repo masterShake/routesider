@@ -236,7 +236,7 @@ var Jumbo, jApp;
 		/* properties */
 
 		// init cropper
-		this.cropper = new CR();
+		// this.cropper = new CR();
 		// init background color editor
 		this.bgCol = new BGC();
 		// init background image editor
@@ -312,6 +312,298 @@ var Jumbo, jApp;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//				   CR (cropper)				
+	//			     ----------------
+	//
+	// - crop jumbotron background image
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	CR = function(){}
+
+	/* METHODS */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//	  		   BGC (background color)				
+	//			 --------------------------
+	//
+	// - toggle popover
+	//
+	// - color wheel btn click event
+	//
+	// - hex text event
+	//
+	// - html5 color picker event handler
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	BGC = function(){
+
+		/* properties */
+
+		// temp variable, background color button
+		this.temp = document.getElementById("bg-opts-toolbar")
+						.children[1].children[1];
+
+		/* initializations */
+
+		// dropdown click
+		this.temp.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+		// hexidecimal text keyup event
+
+		// html5 color picker change event
+
+		// get the color wheel btns
+		this.temp = this.temp.getElementsByClassName("color-wheel")[0]
+						 .getElementsByTagName("button");
+
+		// loop through the color wheel btns
+		for(var i = 0; i < this.temp.length; i++){
+
+			this.temp[i].addEventListener("click", this.wheelBtn, false);
+
+		}
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - keyup event change background color hex text
+	// - make sure that first character is always a
+	//   hashtag
+	// - if legit hex value, display color
+	BGC.prototype.hexText = function(){
+		return false;
+	}
+
+	//-----------------------------------------------
+	// - html5 color picker change event
+	// - set text value
+	// - set icon color
+	// - set background color
+	BGC.prototype.colorPick = function(){
+		return false;
+	}
+
+	//-----------------------------------------------
+	// - user clicks one of the color wheel colors
+	// - set text
+	// - set color icon
+	// - set html5 color picker
+	// - set background
+	BGC.prototype.wheelBtn = function(){
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//	  		   BGI (background image)				
+	//			 --------------------------
+	//
+	// - fileselect upload
+	//
+	// - drag and drop upload
+	//
+	// - image opacity
+	//
+	// - image blur
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	BGI = function(){
+
+		/* properties */
+
+		// temp variable, get the edit bg image btn
+		this.temp = document.getElementById("bg-opts-toolbar")
+						.children[1].children[2];
+
+		/* initialization */
+
+		// apply the dropdown event
+		this.temp.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - when user slides opacity slider
+	BGI.prototype.oSlide = function(){
+
+		// set the value of the text input
+
+		// change the opacity of the background img
+
+		// update values
+
+	}
+
+	//-----------------------------------------------
+	// - when user slides blur slider
+	BGI.prototype.bSlide = function(){
+
+		// set the value of the text input
+
+		// change the blur of the background img
+
+		// update values
+
+	}
+
+	//-----------------------------------------------
+	// - keyup opacity text input
+	BGI.prototype.oText = function(){
+
+		// make sure 0 <= value <= 1, step .01
+
+		// update slider input
+
+		// change the opacity of the background
+
+		// update values
+
+	}
+
+	//-----------------------------------------------
+	// - keyup blur text input
+	BGI.prototype.bText = function(){
+
+		// make sure 0 <= value <= 100, step 1
+
+		// update slider input
+
+		// change the blur of the background
+
+		// update values
+
+	}
 
 
 
