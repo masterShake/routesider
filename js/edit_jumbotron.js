@@ -103,7 +103,7 @@ var Jumbo, jApp;
 
 	/* CONSTRUCTOR */
 
-	Jumbo = function(){ return false;
+	Jumbo = function(){
 
 		/* properties */
 
@@ -122,7 +122,7 @@ var Jumbo, jApp;
 
 		// set height of jumbo-canvas
 		document.getElementById("jumbo-canvas")
-			.style.height = (window.offsetHeight - 80) + "px";
+			.style.height = (window.innerHeight - 75) + "px";
 
 		// init the layout view dropdown
 		document.getElementById("layout-view").children[0]
@@ -167,7 +167,7 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	// - ajax save changes
-	Jumbo.prototype.save = function(){
+	Jumbo.prototype.save = function(){ return false;
 
 		// indicate that save request is in progress
 
@@ -235,41 +235,26 @@ var Jumbo, jApp;
 
 		/* properties */
 
+		// init background image editor
+		this.bgImg = new BGI();
 		// init cropper
 		// this.cropper = new CR();
 		// init background color editor
-		this.bgCol = new BGC();
-		// init background image editor
-		this.bgImg = new BGI();
+		// this.bgCol = new BGC();
 
 		// temp variable, get the toolbar
 		this.temp = document.getElementById("bg-opts-toolbar");
 
 		/* initializations */
 
-		// toggle bg image display
-		this.temp.children[0].children[0]
-				.addEventListener("change", this.toggleImg, false);
-
-		// get the toolbar btns
-		this.temp = this.temp.children[1].children;
-
 		// apply actBtn event listener
-		this[0].addEventListener("click", this.actBtn, false);
-		this[1].addEventListener("click", this.actBtn, false);
-		this[2].addEventListener("click", this.actBtn, false);
+		document.getElementById("bg-opts-toolbar").children[0].children[0]
+			.addEventListener("click", this.actBtn, false);
+		document.getElementById("bg-opts-toolbar").children[1].children[0]
+			.addEventListener("click", this.actBtn, false);
+		document.getElementById("bg-opts-toolbar").children[2].children[0]
+			.addEventListener("click", this.actBtn, false);
 	}
-
-	/* METHODS */
-
-	//-----------------------------------------------
-	// - apply or remove background image
-	// - change eyeball icon
-	// - prompt save
-	BG.prototype.toggleImg = function(){
-		return false;
-	}
-
 	//-----------------------------------------------
 	// - background options toolbar btn event
 	// - add active class to clicked btn
@@ -277,16 +262,16 @@ var Jumbo, jApp;
 	BG.prototype.actBtn = function(){
 
 		// if this button is already active
-		if( this.className.substr(this.className.length - 6) == "active"){
+		if( this.parentElement.className.substr(this.parentElement.className.length - 6) == "active"){
 			// remove active class
-			this.className = this.className.substr(0, this.className.length - 7);
+			this.parentElement.className = this.parentElement.className.substr(0, this.parentElement.className.length - 7);
 
 			return false;
 		}
 
 
 		// look for another active btn
-		jApp.temp = this.parentElement.getElementsByClassName("active");
+		jApp.temp = this.parentElement.parentElement.getElementsByClassName("active");
 
 		// if there is another active btn
 		if(jApp.temp.length) 
@@ -295,7 +280,7 @@ var Jumbo, jApp;
 										.substr(0, jApp.temp[0].className.length - 7);
 
 		// activate this btn
-		this.className = this.className + " active";
+		this.parentElement.className = this.parentElement.className + " active";
 
 	}
 
@@ -308,6 +293,124 @@ var Jumbo, jApp;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//	  		   BGI (background image)				
+	//			 --------------------------
+	//
+	// - fileselect upload
+	//
+	// - drag and drop upload
+	//
+	// - image opacity
+	//
+	// - image blur
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	BGI = function(){
+
+		/* properties */
+
+		// temp variable, get the edit bg image btn
+		this.temp = document.getElementById("bg-opts-toolbar")
+						.children[0];
+
+		/* initialization */
+
+		// apply the dropdown event
+		this.temp.children[0]
+			.addEventListener("click", rsApp.toggleDropdown, false);
+
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - when user slides opacity slider
+	BGI.prototype.oSlide = function(){ return false;
+
+		// set the value of the text input
+
+		// change the opacity of the background img
+
+		// update values
+
+	}
+
+	//-----------------------------------------------
+	// - when user slides blur slider
+	BGI.prototype.bSlide = function(){ return false;
+
+		// set the value of the text input
+
+		// change the blur of the background img
+
+		// update values
+
+	}
+
+	//-----------------------------------------------
+	// - keyup opacity text input
+	BGI.prototype.oText = function(){ return false;
+
+		// make sure 0 <= value <= 1, step .01
+
+		// update slider input
+
+		// change the opacity of the background
+
+		// update values
+
+	}
+
+	//-----------------------------------------------
+	// - keyup blur text input
+	BGI.prototype.bText = function(){ return false;
+
+		// make sure 0 <= value <= 100, step 1
+
+		// update slider input
+
+		// change the blur of the background
+
+		// update values
+
+	}
 
 
 
@@ -518,121 +621,7 @@ var Jumbo, jApp;
 
 
 
-	//-----------------------------------------------
-	//	  		   BGI (background image)				
-	//			 --------------------------
-	//
-	// - fileselect upload
-	//
-	// - drag and drop upload
-	//
-	// - image opacity
-	//
-	// - image blur
-	//
-	//-----------------------------------------------
-
-	/* CONSTRUCTOR */
-
-	BGI = function(){
-
-		/* properties */
-
-		// temp variable, get the edit bg image btn
-		this.temp = document.getElementById("bg-opts-toolbar")
-						.children[1].children[2];
-
-		/* initialization */
-
-		// apply the dropdown event
-		this.temp.children[0].addEventListener("click", rsApp.toggleDropdown, false);
-
-
-
-	}
-
-	/* METHODS */
-
-	//-----------------------------------------------
-	// - when user slides opacity slider
-	BGI.prototype.oSlide = function(){
-
-		// set the value of the text input
-
-		// change the opacity of the background img
-
-		// update values
-
-	}
-
-	//-----------------------------------------------
-	// - when user slides blur slider
-	BGI.prototype.bSlide = function(){
-
-		// set the value of the text input
-
-		// change the blur of the background img
-
-		// update values
-
-	}
-
-	//-----------------------------------------------
-	// - keyup opacity text input
-	BGI.prototype.oText = function(){
-
-		// make sure 0 <= value <= 1, step .01
-
-		// update slider input
-
-		// change the opacity of the background
-
-		// update values
-
-	}
-
-	//-----------------------------------------------
-	// - keyup blur text input
-	BGI.prototype.bText = function(){
-
-		// make sure 0 <= value <= 100, step 1
-
-		// update slider input
-
-		// change the blur of the background
-
-		// update values
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 	/* initialize */
 
 	document.addEventListener("DOMContentLoaded", function(){
@@ -641,11 +630,11 @@ var Jumbo, jApp;
 	    rsApp = new RS();
 
 	    // create new Jumbo (edit jumbotron) object
-	    // jumboApp = new Jumbo();
-		document.getElementById("jumbo-canvas")
-			.style.height = (window.innerHeight - 75) + "px";
-		document.getElementById("layout-view").children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
+	    jApp = new Jumbo();
+		// document.getElementById("jumbo-canvas")
+		// 	.style.height = (window.innerHeight - 75) + "px";
+		// document.getElementById("layout-view").children[0]
+		// 	.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}, true);	
 

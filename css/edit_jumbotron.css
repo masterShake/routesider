@@ -142,6 +142,9 @@ tbody button.btn-color-selected{
 }
 
 /* save alert */
+#save-top{
+	display: none;
+}
 #save-top.alert-info button.close{
 	display: none;
 }
@@ -184,27 +187,24 @@ tbody button.btn-color-selected{
 }
 
 /*-------------------------------
+		options toolbar 	  */
+
+.opts-toolbar>div.btn{
+	padding: 0px;
+}
+.opts-toolbar>div.btn>div:nth-child(1){
+	padding: 13px 21px;
+}
+
+/*-------------------------------
 	 edit background toolbar */
 
-/* display background checkbox */
-.toggle-display{
-	float: right;
-	background: rgba(255, 255, 255, 0.5);
-	padding: 5px 10px;
-	margin-top: 5px;
-}
-.toggle-display input{
-	height: 20px;
-	width: 20px;
-}
-.toggle-display label{
-	margin-top: 2px;
-	font-size: 20px;
-}
 /* colorwheel icon */
 .colorwheel-icon{
 	height:24px;
 	width:23px;
+	padding: 0px !important;
+	margin: 10px 16px;
 }
 .colorwheel-icon>div{
 	height: 6px;
