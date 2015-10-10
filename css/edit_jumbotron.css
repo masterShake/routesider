@@ -187,6 +187,33 @@ tbody button.btn-color-selected{
 }
 
 /*-------------------------------
+		control panel 		  */
+
+.control-panel{
+	max-width: none;
+	/*width: 100%;*/
+	/*display: block;*/
+	position: inherit;
+	margin-bottom: 9px;
+}
+.control-panel .arrow{
+	position: relative;
+	top: 12px;
+	left: 29px;
+}
+.control-panel .popover-title{
+	height:35px;
+}
+.control-panel .popover-title>div{
+	float: left;
+}
+/* breadcrumb chevron icon */
+.control-panel .glyphicon-chevron-right{
+	padding: 0px 6px;
+	color: #5CB85C;
+}
+
+/*-------------------------------
 		options toolbar 	  */
 
 .opts-toolbar>div.btn{
@@ -229,17 +256,17 @@ tbody button.btn-color-selected{
 	left: 81px;
 }
 /* popover titles */
-.popover-title span{
+/*.popover-title span{
 	font-size:18px;
 	float:left;
-}
-.popover-title div.titex{
+}*/
+/*.popover-title div.titex{
 	padding-left: 24px;
     font-size: 14px;
     width: 160px;
     font-weight: 600;
     margin-right: 0px;
-}
+}*/
 /* popover line breaks */
 .popover hr{
 	margin: 13px 7px;

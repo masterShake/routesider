@@ -261,10 +261,19 @@ var Jumbo, jApp;
 	// - remove active class from any other btn
 	BG.prototype.actBtn = function(){
 
+		// hide any open control panels
+
+		// hide the background options title
+		document.getElementById("bg-opts-title").style.display = "none";
+
 		// if this button is already active
 		if( this.parentElement.className.substr(this.parentElement.className.length - 6) == "active"){
+
 			// remove active class
 			this.parentElement.className = this.parentElement.className.substr(0, this.parentElement.className.length - 7);
+
+			// reveal the regualar title
+			document.getElementById("bg-opts-title").style.display = "block";
 
 			return false;
 		}
@@ -281,6 +290,18 @@ var Jumbo, jApp;
 
 		// activate this btn
 		this.parentElement.className = this.parentElement.className + " active";
+
+		// reveal corresponding control panel
+		document.getElementById(this.parentElement.dataset.panel).style.display = "block";
+
+		// set the height of the jumbo canvas
+		document.getElementById("jumbo-canvas").style.height = 
+			document.getElementById("jumbo-canvas").offsetHeight - 
+			15 + // subtract 15px for options title
+			parseInt(this.parentElement.dataset.h) + "px";
+
+		// set the height of the drag and drop elem
+		document.getElementById("drag-drop").style.height = "calc(100% - " + (129 + parseInt(this.parentElement.dataset.h)) + "px)";
 
 	}
 
@@ -353,8 +374,8 @@ var Jumbo, jApp;
 		/* initialization */
 
 		// apply the dropdown event
-		this.temp.children[0]
-			.addEventListener("click", rsApp.toggleDropdown, false);
+		// this.temp.children[0]
+		// 	.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}
 

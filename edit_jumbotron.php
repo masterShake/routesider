@@ -173,47 +173,55 @@
                     <hr style="margin-bottom:12px;">
 
                     <!-- options toolbar title -->
-                    <div class="dash-box" style="padding: 3px 3px 0px;margin-top:-2px;font-size: 12px;max-height: 18px;" aria-hidden="true">
-                        <span class="icon-image" aria-hidden="true"></span>
+                    <div id="bg-opts-title">
+                        <div class="dash-box" style="padding: 3px 3px 0px;margin-top:-2px;font-size: 12px;max-height: 18px;" aria-hidden="true">
+                            <span class="icon-image" aria-hidden="true"></span>
+                        </div>
+                        <h5 style="margin-top:0px;"><b>Background options:</b></h5>
                     </div>
-                    <h5 style="margin-top:0px;"><b>Background options:</b></h5>
 
                     <!-- edit background image control panel -->
-                        
+                    <div class="popover top control-panel" id="bg-image-cpanel" style="top:-182px;">
+                        <div class="popover-title"> 
+                            <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
+                                <span class="icon-image" aria-hidden="true"></span>
+                            </div>
+                            <div><b>Background</b></div>
+                            <div class="glyphicon glyphicon-chevron-right"></div>
+                            <div class="icon-image" style="font-size:18px;margin-right:5px;"></div>
+                            <div><b>Image</b></div>
+                        </div>
+                        <div class="popover-content">
+
+                            <!-- background image opacity -->
+                            <div class="slide-input">
+                                <label for="bg-opacity">opacity</label>
+                                <span class="glyphicon glyphicon-adjust"></span>
+                                <input type="text" class="form-control"  id="bg-opacity" value="1">
+                                <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
+                            </div>
+
+                            <hr>
+
+                            <!-- background image blur -->
+                            <div class="slide-input">
+                                <label for="bg-blur">blur</label>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <input type="text" class="form-control"  id="bg-blur" value="0">
+                                <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
+                            </div>
+                        </div>
+                        <div class="arrow" style="left:29px"></div>
+                    </div>
+                    
+
                     <!-- edit background options toolbar -->
                     <div class="btn-group btn-group-lg opts-toolbar" id="bg-opts-toolbar" role="group" aria-label="edit background toolbar">
 
                         <!-- edit background image -->
-                        <div class="btn btn-default" aria-label="edit background image">
+                        <div class="btn btn-default" aria-label="edit background image" data-panel="bg-image-cpanel" data-h="190">
                             <div class="icon-image"></div>
-                            <div class="popover top" style="width:220px;top:-182px;">
-                                <div class="arrow"></div>
-                                <div class="popover-title"> 
-                                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <span class="icon-image"></span>
-                                    <div class="titex">Background image</div>
-                                </div>
-                                <div class="popover-content">
-
-                                    <!-- background image opacity -->
-                                    <div class="slide-input">
-                                        <label for="bg-opacity">opacity</label>
-                                        <span class="glyphicon glyphicon-adjust"></span>
-                                        <input type="text" class="form-control"  id="bg-opacity" value="1">
-                                        <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                                    </div>
-
-                                    <hr>
-
-                                    <!-- background image blur -->
-                                    <div class="slide-input">
-                                        <label for="bg-blur">blur</label>
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                        <input type="text" class="form-control"  id="bg-blur" value="0">
-                                        <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
-                                    </div>
-                                </div>
-                            </div>
                         </div><!-- /edit background image -->
                         
                         <!-- crop background image -->
