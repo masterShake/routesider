@@ -4,6 +4,82 @@
 
   ------------------------------------*/
 
+/*----------------------
+		canvas		  
+----------------------*/
+
+/* canvas title */
+#canvas-title{
+	margin-top: 0px;
+}
+/* main canvas elem */
+#jumbo-canvas{
+	border: 1px dashed #ccc;
+    border-radius: 10px;
+    height: 400px;
+    margin-bottom: 20px;
+}
+/* background canvas */
+#bg-canvas,
+#text-canvas,
+#img-canvas,
+#btn-canvas{
+	display: none;
+}
+
+/*----------------------
+	jumbo toolbar
+----------------------*/
+
+#jumbo-toolbar{
+	padding:12px;
+	background-color: #d6e9c6;
+	box-shadow: 0 0 6px #676767;
+	margin-bottom: 20px;
+}
+#jumbo-toolbar button{
+	background-color: #fff;
+	padding: 10px 12px;
+}
+/* components toolbar */
+#jumbo-toolbar .glyphicon-plus,
+#jumbo-toolbar .glyphicon-pencil{
+	font-size: 12px;
+}
+/* little dashed box icons */
+.dash-box{
+    font-size: 14px;
+    outline: 1px dashed;
+    padding: 2px;
+    float: left;
+    margin-right: 5px;
+}
+/* layout view dropdown */
+#layout-view{
+	float: right;
+	cursor: pointer;
+}
+/* dropup menu */
+#layout-view .dropdown-menu{
+	left: auto;
+	right: -5px;
+	padding-top: 0px;
+}
+/* dropdown header */
+#layout-view .dropdown-menu .dropdown-header{
+    background-color: #eee;
+    text-align: center;
+}
+#layout-view .dropdown-menu .divider{
+	margin-top: 0px;
+}
+#layout-view .list-group-item{
+	padding: 0px 8px;
+}
+#layout-view .list-group-item a{
+	padding: 8px 20px;
+	border-bottom: 1px solid #ccc;
+}
 
 
 
@@ -13,6 +89,3 @@
 
 
 
-
-
-  

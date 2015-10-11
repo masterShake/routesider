@@ -111,6 +111,137 @@
             <!-- navbar -->
             <?php include "components/navbar.php"; ?>
 
+            <!-- title header -->
+            <div class="container">
+
+                <!-- on/off switch -->
+                <div style="float:right;text-align:center;width:100px;padding-left:10px;">
+                    <h4 style="margin-top:20px;">visible in profile</h4>
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-jumbo" />
+                        <label class="onoffswitch-label" for="myonoffswitch-jumbo">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- title -->
+                <h1>Edit Jumbotron</h1>
+            </div><!-- /title header -->
+
+            <hr style="margin-bottom:12px;">
+
+            <!-- canvases & control panels container -->
+            <div class="container">
+
+                <!-- canvas title -->
+                <h3 id="canvas-title">Preview:</h3>
+
+                <!-- jumbo-canvas -->
+                <div id="jumbo-canvas">
+
+                    <!-- background image layer -->
+                    <div id="bg-canvas"></div>
+
+                    <!-- text layer -->
+                    <div id="text-canvas"></div>
+
+                    <!-- images layer -->
+                    <div id="img-canvas"></div>
+
+                    <!-- buttons layer -->
+                    <div id="btn-canvas"></div> 
+                </div>
+
+                <!-- properties toolbars & c panels -->
+                <div>
+                    <!-- background -->
+                    <div id="bg-props"></div>
+
+                    <!-- text -->
+                    <div id="text-props"></div>
+
+                    <!-- images -->
+                    <div id="img-props"></div>
+
+                    <!-- buttons -->
+                    <div id="btn-props"></div>
+                </div>
+
+            </div>
+
+            <!-- jumbo toolbar -->
+            <div id="jumbo-toolbar" class="container">
+
+                <!-- device layout dropdown -->
+                <div class="dropup" id="layout-view">
+                    <div aria-haspopup="true" aria-expanded="true">
+                        <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
+                        <div style="padding-top:12px;float:right;">
+                            <span class="hidden-xs">mobile</span>
+                            <span class="caret"></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="layout-view">
+                        <li class="dropdown-header">Layout View</li>
+                        <li role="separator" class="divider"></li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" style="border-bottom: 0px;">
+                                <span class="icon-laptop"></span>&nbsp;&nbsp;PC
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /device layout dropdown -->
+                
+                <!-- components toolbar -->
+                <div class="btn-group btn-group-lg" role="group" aria-label="components toolbar">
+                    <!-- edit background -->
+                    <button type="button" class="btn btn-default" aria-label="edit background">
+                        <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
+                            <span class="icon-image" aria-hidden="true"></span>
+                        </div>
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <!-- add textbox -->
+                    <button type="button" class="btn btn-default" aria-label="add textbox">
+                        <div class="dash-box" aria-hidden="true">Aa</div>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <!-- add image overlay -->
+                    <button type="button" class="btn btn-default" aria-label="add image overlay">
+                        <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <!-- add button -->
+                    <button type="button" class="btn btn-default" aria-label="add button">
+                        <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        </div>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div><!-- /components toolbar -->
+            </div><!-- /jumbo-toolbar -->
+
+            <!-- save button -->
+            <div class="container">
+                <div class="well" id="save-btm">
+                    <button type="button" class="btn btn-default">Save</button>
+                    <span class="glyphicon glyphicon-arrow-left" style="padding: 0 10px;"></span>
+                    click to save changes
+                </div>
+            </div>
+
             <!-- footer -->
             <?= include "components/footer.php"; ?>
 
