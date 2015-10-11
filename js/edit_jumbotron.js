@@ -88,6 +88,8 @@ var Jumbo, jApp;
 	//
 	// - set the canvas height
 	//
+	// - manage background options btn classes
+	//
 	// - initialize the various edit mode objects of
 	//   components toolbar
 	//
@@ -128,9 +130,50 @@ var Jumbo, jApp;
 		document.getElementById("layout-view").children[0]
 			.addEventListener("click", rsApp.toggleDropdown, false);
 
+		// get all the toolbars, add actBtn event
+		this.temp = document.getElementsByClassName("opts-toolbar"); // console.log(this.temp);
+
+		// loop through the opts-toolbars
+		for(var i = 0; i < this.temp.length; i++){
+
+			// loop through all the btns in the toolbar
+			for(var j = 0; j < this.temp[i].children.length; j++){
+
+				// add event listener to each of the btns
+				this.temp[i].children[j].addEventListener("click", this.actBtn, false);
+			}
+		}
+
 	}
 
 	/* METHODS */
+
+	//-----------------------------------------------
+	// - event to add/remove active btn class
+	Jumbo.prototype.actBtn = function(){
+
+		// if this button is already active
+		if( this.className.substr(this.className.length - 6) == "active"){
+
+			// remove active class
+			this.className = this.className.substr(0, this.className.length - 7);
+
+			return false;
+		}
+
+		// look for another active btn
+		jApp.temp = this.parentElement.getElementsByClassName("active");
+
+		// if there is another active btn
+		if(jApp.temp.length) 
+			// remove its active class
+			jApp.temp[0].className = jApp.temp[0].className
+										.substr(0, jApp.temp[0].className.length - 7);
+
+		// activate this btn
+		this.className = this.className + " active";
+
+	}
 
 	//-----------------------------------------------
 	// - determine if the user has made any changes
@@ -223,8 +266,6 @@ var Jumbo, jApp;
 	//				BG (edit background)				
 	//			  ------------------------
 	//
-	// - manage background options btn classes
-	//
 	// - toggle display background image
 	//
 	//-----------------------------------------------
@@ -247,49 +288,23 @@ var Jumbo, jApp;
 
 		/* initializations */
 
-		// apply actBtn event listener
-		document.getElementById("bg-opts-toolbar").children[0].children[0]
-			.addEventListener("click", this.actBtn, false);
-		document.getElementById("bg-opts-toolbar").children[1].children[0]
-			.addEventListener("click", this.actBtn, false);
-		document.getElementById("bg-opts-toolbar").children[2].children[0]
-			.addEventListener("click", this.actBtn, false);
+		// apply toggleCP event
 	}
+
 	//-----------------------------------------------
-	// - background options toolbar btn event
-	// - add active class to clicked btn
-	// - remove active class from any other btn
-	BG.prototype.actBtn = function(){
+	// - toggle control panel event
+	BG.prototype.toggleCP = function(){
 
-		// hide any open control panels
+		// if this control panel is already showing
+		if(true){
 
-		// hide the background options title
-		document.getElementById("bg-opts-title").style.display = "none";
-
-		// if this button is already active
-		if( this.parentElement.className.substr(this.parentElement.className.length - 6) == "active"){
-
-			// remove active class
-			this.parentElement.className = this.parentElement.className.substr(0, this.parentElement.className.length - 7);
+			// hide it
 
 			// reveal the regualar title
 			document.getElementById("bg-opts-title").style.display = "block";
 
 			return false;
 		}
-
-
-		// look for another active btn
-		jApp.temp = this.parentElement.parentElement.getElementsByClassName("active");
-
-		// if there is another active btn
-		if(jApp.temp.length) 
-			// remove its active class
-			jApp.temp[0].className = jApp.temp[0].className
-										.substr(0, jApp.temp[0].className.length - 7);
-
-		// activate this btn
-		this.parentElement.className = this.parentElement.className + " active";
 
 		// reveal corresponding control panel
 		document.getElementById(this.parentElement.dataset.panel).style.display = "block";
