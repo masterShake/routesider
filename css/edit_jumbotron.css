@@ -138,6 +138,10 @@
 	position: relative;
 }
 
+/*----------------------
+ edit background image
+----------------------*/
+
 /* half slide input */
 .half-slider{
 	width: 50%;
@@ -156,12 +160,102 @@
 	width: calc(100% - 56px);
 }
 
+/*---------------------- 
+ edit background color
+----------------------*/
+
+/* hex table */
+th{
+	text-align: center;
+	font-size: 12px;
+}
+tbody td{
+	padding: 2.5px 1px;
+	height: 28px;
+}
+tbody button.btn{ 
+	border: 1px solid #CCC;
+}
+tbody button.btn-color-selected{
+	box-shadow: 0px 0px 9px #444;
+}
+
+/* color picker input */
+#color-picker{
+	border-radius: 4px;
+	border: 0px;
+	width: 27px;
+}
+
+/*----------------------
+   color wheel icon 
+----------------------*/
+
+.colorwheel-icon{
+	height: 24px;
+	width: 30px;
+}
+/* rows */
+.colorwheel-icon>div{
+	height: 6px;
+	text-align: center; 
+}
+/* circles */
+.colorwheel-icon>div>div{
+	border-radius: 50%;
+	height: 6px;
+	width:6px;
+	float:left;
+}
+
+/* row 1 */
+/* violet */
+.colorwheel-icon>div:nth-child(1)>div{
+	background-color: #93F;
+	margin-left: 9px;
+}
+/* row 2 */
+.colorwheel-icon>div:nth-child(2){
+	margin-top: -2px;
+}
+/* red */
+.colorwheel-icon>div:nth-child(2)>div:nth-child(1){
+	background-color: #F00;
+	margin-left: -14px;
+}
+/* blue */
+.colorwheel-icon>div:nth-child(2)>div:nth-child(2){
+	background-color: #00F;
+	margin-left: 2px;
+}
+/* row 3 */
+.colorwheel-icon>div:nth-child(3){
+	margin-top: 1.5px;
+}
+/* orange */
+.colorwheel-icon>div:nth-child(3)>div:nth-child(1){
+	background-color: #F93;
+	margin-left: 1px;
+}
+/* green */
+.colorwheel-icon>div:nth-child(3)>div:nth-child(2){
+	background-color: #0F0;
+	margin-left: 10px;
+}
+/* row 4 */
+/* yellow */
+.colorwheel-icon>div:nth-child(4)>div{
+	background-color: #FF0;
+	margin-left: 9px;
+	margin-top: -2px;
+}
+
 /*----------------------
 	color wheel
 ----------------------*/
 
 .color-wheel{
-	max-width: 112px;
+	max-width: 127px;
 }
 .color-wheel>div{
 	text-align: center;
@@ -233,25 +327,6 @@
 .color-wheel>div:nth-child(5)>button:nth-child(3){
 	background-color: #00FF7F;
 }
-
-/*----------------------
-	color wheel icon
-----------------------*/
-.colorwheel-icon{
-	height:24px;
-}
-.colorwheel-icon>div{
-	height: 6px;
-	text-align: center; 
-}
-.colorwheel-icon>div>div{
-	border-radius: 50%;
-	height: 6px;
-	width:6px;
-	float:left;
-}
-
-
 
 
 

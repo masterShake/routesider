@@ -1,12 +1,19 @@
+
 //-----------------------------------------------
 //
-//				Edit Jumbotron App
+//		   		 edit jumbotron app
+//			   ----------------------
 //
-//	- Toggle display of jumbotron component
-//
-//
+// - related: jumbotron.php, jumbotron.css
 //
 //-----------------------------------------------
+
+
+
+
+
+
+
 
 
 
@@ -71,10 +78,6 @@ RS.prototype.toggleMobileMenu = function(){
 
 
 
-
-
-
-
 var Jumbo, jApp;
 
 (function(){
@@ -83,9 +86,12 @@ var Jumbo, jApp;
 	//				Jumbo (root node)			
 	//			  ---------------------
 	//
+	// - set the canvas height
+	//
 	// - manage background options btn classes
 	//
-	// - control active btn classes in toolbars
+	// - initialize the various edit mode objects of
+	//   components toolbar
 	//
 	// - keep track of/detect changes made
 	//
@@ -116,12 +122,16 @@ var Jumbo, jApp;
 
 		/* initializations */
 
+		// set height of jumbo-canvas
+		document.getElementById("jumbo-canvas")
+			.style.height = (window.innerHeight - 75) + "px";
+
 		// init the layout view dropdown
 		document.getElementById("layout-view").children[0]
 			.addEventListener("click", rsApp.toggleDropdown, false);
 
 		// get all the toolbars, add actBtn event
-		this.temp = document.getElementsByClassName("tb"); // console.log(this.temp);
+		this.temp = document.getElementsByClassName("opts-toolbar"); // console.log(this.temp);
 
 		// loop through the opts-toolbars
 		for(var i = 0; i < this.temp.length; i++){
@@ -249,15 +259,18 @@ var Jumbo, jApp;
 
 
 
-//---------------------------------------------------
-//
-//			 BG - edit background image
-//
-// - toggle background options title
-//
-//---------------------------------------------------
 
-/* CONSTRUCTOR */
+
+
+	//-----------------------------------------------
+	//				BG (edit background)				
+	//			  ------------------------
+	//
+	// - toggle display background image
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
 
 	BG = function(){ 
 
@@ -275,16 +288,43 @@ var Jumbo, jApp;
 
 		/* initializations */
 
-		// apply toggle control panel event
+		// apply toggleCP event
 	}
 
 	//-----------------------------------------------
 	// - toggle control panel event
-	BG.prototype.togConPan = function(){
+	BG.prototype.toggleCP = function(){
 
-		return false;
+		// if this control panel is already showing
+		if(true){
+
+			// hide it
+
+			// reveal the regualar title
+			document.getElementById("bg-opts-title").style.display = "block";
+
+			return false;
+		}
+
+		// reveal corresponding control panel
+		document.getElementById(this.parentElement.dataset.panel).style.display = "block";
+
+		// set the height of the jumbo canvas
+		document.getElementById("jumbo-canvas").style.height = 
+			document.getElementById("jumbo-canvas").offsetHeight - 
+			15 + // subtract 15px for options title
+			parseInt(this.parentElement.dataset.h) + "px";
+
+		// set the height of the drag and drop elem
+		document.getElementById("drag-drop").style.height = "calc(100% - " + (129 + parseInt(this.parentElement.dataset.h)) + "px)";
 
 	}
+
+
+
+
+
+
 
 
 
@@ -440,12 +480,185 @@ var Jumbo, jApp;
 
 
 
+
+
 	//-----------------------------------------------
+	//				   CR (cropper)				
+	//			     ----------------
 	//
-	// 					initialize 
+	// - crop jumbotron background image
 	//
 	//-----------------------------------------------
 
+	/* CONSTRUCTOR */
+
+	CR = function(){}
+
+	/* METHODS */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//	  		   BGC (background color)				
+	//			 --------------------------
+	//
+	// - toggle popover
+	//
+	// - color wheel btn click event
+	//
+	// - hex text event
+	//
+	// - html5 color picker event handler
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	BGC = function(){
+
+		/* properties */
+
+		// temp variable, background color button
+		this.temp = document.getElementById("bg-opts-toolbar")
+						.children[1].children[1];
+
+		/* initializations */
+
+		// dropdown click
+		this.temp.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+		// hexidecimal text keyup event
+
+		// html5 color picker change event
+
+		// get the color wheel btns
+		this.temp = this.temp.getElementsByClassName("color-wheel")[0]
+						 .getElementsByTagName("button");
+
+		// loop through the color wheel btns
+		for(var i = 0; i < this.temp.length; i++){
+
+			this.temp[i].addEventListener("click", this.wheelBtn, false);
+
+		}
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - keyup event change background color hex text
+	// - make sure that first character is always a
+	//   hashtag
+	// - if legit hex value, display color
+	BGC.prototype.hexText = function(){
+		return false;
+	}
+
+	//-----------------------------------------------
+	// - html5 color picker change event
+	// - set text value
+	// - set icon color
+	// - set background color
+	BGC.prototype.colorPick = function(){
+		return false;
+	}
+
+	//-----------------------------------------------
+	// - user clicks one of the color wheel colors
+	// - set text
+	// - set color icon
+	// - set html5 color picker
+	// - set background
+	BGC.prototype.wheelBtn = function(){
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	/* initialize */
 
 	document.addEventListener("DOMContentLoaded", function(){
 
@@ -454,7 +667,14 @@ var Jumbo, jApp;
 
 	    // create new Jumbo (edit jumbotron) object
 	    jApp = new Jumbo();
+		// document.getElementById("jumbo-canvas")
+		// 	.style.height = (window.innerHeight - 75) + "px";
+		// document.getElementById("layout-view").children[0]
+		// 	.addEventListener("click", rsApp.toggleDropdown, false);
 
 	}, true);	
 
 })();
+
+
+

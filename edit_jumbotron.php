@@ -142,7 +142,17 @@
                 <div id="jumbo-canvas">
 
                     <!-- background image layer -->
-                    <div id="bg-canvas"></div>
+                    <div id="bg-canvas"><!-- default resting layer -->
+                        
+                        <!-- image upload layer -->
+                        <div id="bg-img-upload">
+                        </div>
+
+                        <!-- crop bg image layer -->
+
+                        <!-- background color layer -->
+
+                    </div>
 
                     <!-- text layer -->
                     <div id="text-canvas"></div>
@@ -158,90 +168,7 @@
                 <div>
 
                     <!-- background -->
-                    <div class="props" id="bg-props">
-                        <hr>
-                        <!-- title -->
-                        <div class="opts-title">
-                            <div class="dash-box" aria-hidden="true">
-                                <span class="icon-image" aria-hidden="true"></span>
-                            </div>
-                            <h5><b>Background options:</b></h5>
-                        </div>
-
-                        <!-- background image control panel -->
-                        <div class="popover top control-panel" id="bg-image-cpanel">
-                            <div class="popover-title"> 
-                                <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
-                                    <span class="icon-image" aria-hidden="true"></span>
-                                </div>
-                                <div><b>Background</b></div>
-                                <div class="glyphicon glyphicon-chevron-right"></div>
-                                <div class="icon-image" style="font-size:18px;margin-right:5px;"></div>
-                                <div><b>Image</b></div>
-                            </div>
-                            <div class="popover-content">
-                                <!-- background image blur -->
-                                <div class="half-slider" style="padding-left:10px;float:right;">
-                                    <label for="bg-blur">
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                        blur
-                                    </label>
-                                    <input type="text" class="form-control"  id="bg-blur" value="0">
-                                    <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
-                                </div>
-                                <!-- background image opacity -->
-                                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                                    <label for="bg-opacity">
-                                        <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-                                        opacity
-                                    </label>
-                                    <div>
-                                        <input type="text" class="form-control"  id="bg-opacity" value="1">
-                                        <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="arrow" style="left:29px"></div>
-                        </div><!-- /background image control panel -->
-
-                        <!-- background color control panel -->
-
-                        <!-- toolbar -->
-                        <div class="btn-group btn-group-lg opts-toolbar" role="group" aria-label="edit background toolbar">
-                            <!-- edit background image -->
-                            <button type="button" class="btn btn-default" aria-label="edit background image">
-                                <span class="icon-image"></span>
-                            </button><!-- /edit background image -->
-                            
-                            <!-- crop background image -->
-                            <button class="btn btn-default" aria-label="crop image">
-                                <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
-                            </button>
-                            
-                            <!-- edit background color -->
-                            <div class="btn btn-default" aria-label="edit background color">
-                                <!-- color wheel icon -->
-                                <div class="colorwheel-icon">
-                                    <div>
-                                        <div style="background-color:#93F;margin-left:9px;"></div>
-                                    </div>
-                                    <div style="margin-top:-1px;">
-                                        <div style="background-color:#F00;margin-left:-13px;"></div>
-                                        <div style="background-color:#00F;margin-left:1px;margin-top:-1px;"></div>
-                                    </div>
-                                    <div style="margin-top:2px;">
-                                        <div style="background-color:#F93;margin-left:2px;"></div>
-                                        <div style="background-color:#0F0;margin-left:8px;"></div>
-                                    </div>
-                                    <div>
-                                        <div style="background-color:#FF0;margin-left:9px;margin-top:-1px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /toolbar -->
-
-                    </div><!-- /background options -->
+                    <?php include "components/edit_jumbo/bg_control_panels.php"; ?>
 
                     <!-- text -->
                     <div class="props" id="text-props"></div>
@@ -252,8 +179,7 @@
                     <!-- buttons -->
                     <div class="props" id="btn-props"></div>
                 </div>
-
-            </div>
+            </div><!-- /canvasses & control panels .container -->
 
             <!-- jumbo toolbar -->
             <div id="jumbo-toolbar" class="container">
@@ -289,7 +215,7 @@
                 </div><!-- /device layout dropdown -->
                 
                 <!-- components toolbar -->
-                <div class="btn-group btn-group-lg" role="group" aria-label="components toolbar">
+                <div class="btn-group btn-group-lg tb" role="group" aria-label="components toolbar">
                     <!-- edit background -->
                     <button type="button" class="btn btn-default" aria-label="edit background">
                         <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
