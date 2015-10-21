@@ -34,8 +34,7 @@
 	box-shadow: 0 0 6px #676767;
 	margin-bottom: 20px;
 }
-#jumbo-toolbar button{
-	background-color: #fff;
+#jumbo-toolbar .btn{
 	padding: 10px 12px;
 }
 /* components toolbar */
@@ -81,9 +80,11 @@
 /*----------------------
 	options toolbar
 ----------------------*/
-
+#props>div{
+	display: none;
+}
 /* properties div */
-.props>hr{
+#props>div>hr{
 	margin-bottom: 14px;
 }
 /* options title */
@@ -113,7 +114,6 @@
 /*----------------------
 	control panel
 ----------------------*/
-
 .control-panel{
 	/*display: block !important;*/
 	position: inherit;

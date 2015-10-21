@@ -1,5 +1,5 @@
 <!-- background options control panels -->
-<div class="props" id="bg-props">
+<div id="bg-props">
     
     <hr>
     
@@ -12,7 +12,7 @@
     </div>
 
     <!-- background image control panel -->
-    <div class="popover top control-panel" id="bg-image-cpanel">
+    <div class="popover top control-panel" id="bg-img-cpanel">
         <div class="popover-title"> 
             <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
@@ -192,17 +192,17 @@
     <div class="btn-group btn-group-lg opts-toolbar tb" role="group" aria-label="edit background toolbar">
         
         <!-- edit background image -->
-        <button type="button" class="btn btn-default" aria-label="edit background image">
+        <button type="button" class="btn btn-default" data-propelem="bg-img" aria-label="edit background image">
             <span class="icon-image"></span>
         </button><!-- /edit background image -->
         
         <!-- crop background image -->
-        <button class="btn btn-default" aria-label="crop image">
+        <button type="button" class="btn btn-default" data-propelem="bg-crop" aria-label="crop image">
             <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
         </button>
         
         <!-- edit background color -->
-        <div class="btn btn-default" aria-label="edit background color">
+        <div type="button" class="btn btn-default" data-propelem="bg-color" aria-label="edit background color">
             <!-- color wheel icon -->
             <div class="colorwheel-icon">
                 <div>

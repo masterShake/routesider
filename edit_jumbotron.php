@@ -155,19 +155,19 @@
                 </div>
 
                 <!-- properties toolbars & c panels -->
-                <div>
+                <div id="props">
 
                     <!-- background -->
                     <?php include "components/edit_jumbo/bg_control_panels.php"; ?>
 
                     <!-- text -->
-                    <div class="props" id="text-props"></div>
+                    <div id="text-props"></div>
 
                     <!-- images -->
-                    <div class="props" id="img-props"></div>
+                    <div id="img-props"></div>
 
                     <!-- buttons -->
-                    <div class="props" id="btn-props"></div>
+                    <div id="btn-props"></div>
                 </div>
             </div><!-- /canvasses & control panels .container -->
 
@@ -207,29 +207,41 @@
                 <!-- components toolbar -->
                 <div class="btn-group btn-group-lg tb" role="group" aria-label="components toolbar">
                     <!-- edit background -->
-                    <button type="button" class="btn btn-default" aria-label="edit background">
+                    <div type="button" 
+                         class="btn btn-default"
+                         data-propopts="bg-props" 
+                         aria-label="edit background">
                         <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
                             <span class="icon-image" aria-hidden="true"></span>
                         </div>
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </button>
+                    </div>
                     <!-- add textbox -->
-                    <button type="button" class="btn btn-default" aria-label="add textbox">
+                    <div type="button" 
+                         class="btn btn-default" 
+                         data-propopts="text-props" 
+                         aria-label="add textbox">
                         <div class="dash-box" aria-hidden="true">Aa</div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
+                    </div>
                     <!-- add image overlay -->
-                    <button type="button" class="btn btn-default" aria-label="add image overlay">
+                    <div type="button" 
+                         class="btn btn-default" 
+                         data-propopts="img-props" 
+                         aria-label="add image overlay">
                         <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
+                    </div>
                     <!-- add button -->
-                    <button type="button" class="btn btn-default" aria-label="add button">
+                    <div type="button" 
+                         class="btn btn-default" 
+                         data-propopts="btn-props" 
+                         aria-label="add button">
                         <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                             <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         </div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
+                    </div>
                 </div><!-- /components toolbar -->
             </div><!-- /jumbo-toolbar -->
 

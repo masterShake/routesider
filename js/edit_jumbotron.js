@@ -109,7 +109,10 @@ var Jumbo, jApp;
 		this.nVals = JSON.parse( document.getElementById("i-vals").value );
 
 		// init background editor
-		// this.bg = new BG();
+		this.bg = new BG();
+
+		// keep track of open component options
+		this.compEditor = null;
 
 		// temp variable
 		this.temp;
@@ -133,6 +136,15 @@ var Jumbo, jApp;
 				this.temp[i].children[j].addEventListener("click", this.actBtn, false);
 			}
 		}
+
+		// get the jumbo toolbar btns
+		this.temp = document.getElementById("jumbo-toolbar").children[1].children;
+
+		// apply the event listeners
+		this.temp[0].addEventListener("click", this.togOpts, false);
+		// this.temp[1].addEventListener("click", this.togOpts, false);
+		// this.temp[2].addEventListener("click", this.togOpts, false);
+		// this.temp[3].addEventListener("click", this.togOpts, false);
 
 	}
 
@@ -162,7 +174,38 @@ var Jumbo, jApp;
 
 		// activate this btn
 		this.className = this.className + " active";
+	}
 
+	//-----------------------------------------------
+	// - toggle the options toolbar
+	Jumbo.prototype.togOpts = function(){
+
+		// if this component option editor is already open
+		if(jApp.compEditor == this.dataset.propopts){
+
+			// hide the properties options
+			document.getElementById(this.dataset.propopts).style.display = "none";
+
+			// reset the compEditor property
+			jApp.compEditor = null;
+
+			return;
+		}
+
+		// set the compEditor property
+		jApp.compEditor = this.dataset.propopts;
+
+		// get all the properties options toolbars
+		jApp.temp = document.getElementById("props").children;
+
+		// close any open toolbars
+		jApp.temp[0].style.display = "none";
+		jApp.temp[1].style.display = "none";
+		jApp.temp[2].style.display = "none";
+		jApp.temp[3].style.display = "none";
+
+		// open the selected properties options toolbar
+		document.getElementById(this.dataset.propopts).style.display = "block";
 	}
 
 	//-----------------------------------------------
@@ -252,8 +295,12 @@ var Jumbo, jApp;
 //---------------------------------------------------
 //
 //			 BG - edit background image
+//		   ------------------------------
 //
-// - toggle background options title
+// - keep track of open/active control panels
+//
+// - toggle background options title and control
+//   panels
 //
 //---------------------------------------------------
 
@@ -264,25 +311,76 @@ var Jumbo, jApp;
 		/* properties */
 
 		// init background image editor
-		this.bgImg = new BGI();
+		// this.bgImg = new BGI();
 		// init cropper
 		// this.cropper = new CR();
 		// init background color editor
 		// this.bgCol = new BGC();
 
+		// keep track of open properties control panels
+		this.prop = null;
+
 		// temp variable, get the toolbar
-		this.temp = document.getElementById("bg-opts-toolbar");
+		this.temp = document.getElementById("bg-props").children[5].children;
 
 		/* initializations */
 
 		// apply toggle control panel event
+		this.temp[0].addEventListener("click", this.togConPan, false);
+		this.temp[1].addEventListener("click", this.togConPan, false);
+		this.temp[2].addEventListener("click", this.togConPan, false);
 	}
 
 	//-----------------------------------------------
 	// - toggle control panel event
 	BG.prototype.togConPan = function(){
 
-		return false;
+		// if this control panel is already open
+		if(jApp.bg.prop == this.dataset.propelem){
+
+			// hide this canvas layer
+			document.getElementById(this.dataset.propelem + "-canvas").style.display = "none";
+
+			// hide this control panel
+			document.getElementById(this.dataset.propelem + "-cpanel").style.display = "none";
+
+			// display the properties options title
+			document.getElementById("bg-props").children[1].style.display = "block";
+
+			// reset the cPanel property
+			jApp.bg.prop = null;
+
+			return;
+		}
+
+		// set the cPanel property
+		jApp.bg.prop = this.dataset.propelem;
+
+		// get the background canvases
+		jApp.bg.temp = document.getElementById("bg-canvas").children;
+
+		// hide all the canvases
+		jApp.bg.temp[0].style.display = "none";
+		jApp.bg.temp[1].style.display = "none";
+		jApp.bg.temp[2].style.display = "none";
+
+		// hide the title
+		document.getElementById("bg-props").children[1]
+			.style.display = "none";
+
+		// get all the property options control panels
+		jApp.bg.temp = document.getElementById("bg-props").children;
+
+		// hide all the control panels
+		jApp.bg.temp[0].style.display = "none";
+		jApp.bg.temp[1].style.display = "none";
+		jApp.bg.temp[2].style.display = "none";
+
+		// display the selected layer
+		document.getElementById(this.dataset.propelem + "-canvas").style.display = "block";
+
+		// display the selected control panel
+		document.getElementById(this.dataset.propelem + "-cpanel").style.display = "block";
 
 	}
 

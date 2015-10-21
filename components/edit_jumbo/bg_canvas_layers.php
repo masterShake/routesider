@@ -2,7 +2,7 @@
  <div id="bg-canvas">
                         
     <!-- image upload layer -->
-    <div id="bg-img-upload" class="icon-image">
+    <div id="bg-img-canvas">
 
     	<!-- old fashioned upload -->
 
@@ -11,8 +11,10 @@
     </div>
 
     <!-- crop bg image layer -->
+    <div id="bg-crop-canvas"></div>
 
     <!-- background color layer -->
+    <div id="bg-color-canvas"></div>
 
 </div>
 
