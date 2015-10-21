@@ -109,7 +109,7 @@ var Jumbo, jApp;
 		this.nVals = JSON.parse( document.getElementById("i-vals").value );
 
 		// init background editor
-		this.bg = new BG();
+		// this.bg = new BG();
 
 		// temp variable
 		this.temp;

@@ -141,18 +141,8 @@
                 <!-- jumbo-canvas -->
                 <div id="jumbo-canvas">
 
-                    <!-- background image layer -->
-                    <div id="bg-canvas"><!-- default resting layer -->
-                        
-                        <!-- image upload layer -->
-                        <div id="bg-img-upload">
-                        </div>
-
-                        <!-- crop bg image layer -->
-
-                        <!-- background color layer -->
-
-                    </div>
+                    <!-- background image canvas layers -->
+                    <?php include "components/edit_jumbo/bg_canvas_layers.php"; ?>
 
                     <!-- text layer -->
                     <div id="text-canvas"></div>
@@ -265,7 +255,7 @@
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
-        <!-- <script src="js/edit_jumbotron.js"></script> -->
+        <script src="js/edit_jumbotron.js"></script>
 
     </body>
 </html>

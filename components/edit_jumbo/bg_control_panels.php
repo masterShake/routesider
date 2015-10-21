@@ -48,8 +48,30 @@
         <div class="arrow" style="left:29px"></div>
     </div><!-- /background image control panel -->
 
+    <!-- crop background image control panel -->
+    <div class="popover top control-panel" id="bg-crop-cpanel" style="max-width:250px;">
+        <div class="popover-title"> 
+            <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
+                <span class="icon-image" aria-hidden="true"></span>
+            </div>
+            <div><b>Background</b></div>
+            <div class="glyphicon glyphicon-chevron-right"></div>
+            <div class="glyphicon glyphicon-scissors" style="font-size:18px;margin-right:5px;"></div>
+            <div><b>Crop</b></div>
+        </div>
+        <div class="popover-content" style="text-align:center;">
+            <div class="btn btn-default btn-success" id="crop-btn">
+                <div>
+                    <span class="glyphicon glyphicon-scissors"></span> Crop Image
+                </div>
+            </div>
+        </div>
+        <div class="arrow" style="left:90px"></div>
+    </div><!-- /crop background image control panel -->
+
     <!-- background color control panel -->
-    <div class="popover top control-panel" id="bg-color-pop" style="display: block;">
+    <div class="popover top control-panel" id="bg-color-cpanel">
 
 
         <div class="popover-title"> 
@@ -164,7 +186,7 @@
 
         </div>
         <div class="arrow" style="left:152px"></div>
-    </div>
+    </div><!-- /backgroung color control panel -->
 
     <!-- toolbar -->
     <div class="btn-group btn-group-lg opts-toolbar tb" role="group" aria-label="edit background toolbar">
