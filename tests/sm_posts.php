@@ -42,19 +42,21 @@
 
     echo "<pre>";
 
-    $cypher = "MATCH (s:Socialite)-[r:POSTED]->(p:Post) RETURN s, r, p";
+    // $cypher = "MATCH (s:Socialite)-[r:POSTED]->(p:Post) RETURN s, r, p";
+
+    $cypher = "MATCH (b:Business)-[r:HAS_PROFILE]->(p) RETURN b, r, p";
 
     $result = $db->q( $cypher );
 
     $nodes = $result->getNodes(); // print_r($nodes);
 
-    $myPost = $nodes["1311"];
+    $myPost = $nodes["106"];
 
     print_r(get_class_methods($result));
 
     print_r(get_class_methods($myPost));
 
-    print_r(count($myPost->getRelationships("POSTED")));
+    print_r(count($myPost->getRelationships("HAS_PROFILE")));
 
 
 

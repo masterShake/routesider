@@ -169,6 +169,48 @@ class Profile{
 
 		} return false;
 	}
+
+	// get jumbotron json data
+	public function jumboJSON(){
+
+		$temp = "MATCH (b:Business) WHERE b.id = " . $this->_business->data("id") . " " .
+				"MATCH (b)-[:HAS_PROFILE]->(p)-[:HAS_JUMBO {active : 0}]->(j) ".
+				"OPTIONAL MATCH (j)-[r]->(n) " .
+				"RETURN j, r, n";
+
+		$results = $this->_db->q($temp);
+
+		// get the jumbotron node
+		$json = $results->getSingleNodeByLabel("Jumbotron");
+
+		// create a clean object
+		$json = $json->getProperties();
+
+		// add empty arrays for the attached nodes
+		$json["texts"] = [];
+		$json["imgs"] = [];
+		$json["btns"] = [];
+
+		// loop through the images and push their properties
+		$temp = $results->getNodesByLabel("Image");
+		foreach ($temp as $t) {
+			array_push($json["imgs"], $t->getProperties());
+		}
+
+		// texts
+		$temp = $results->getNodesByLabel("Textbox");
+		foreach ($temp as $t) {
+			array_push($json["texts"], $t->getProperties());
+		}
+
+		// btns
+		$temp = $results->getNodesByLabel("Button");
+		foreach ($temp as $t) {
+			array_push($json["btns"], $t->getProperties());
+		}
+
+		return json_encode($json);
+	}
 }
 
 
