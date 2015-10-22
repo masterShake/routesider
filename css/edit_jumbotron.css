@@ -14,14 +14,21 @@
 }
 /* main canvas elem */
 #jumbo-canvas{
-	border: 1px dashed #ccc;
-    border-radius: 10px;
     height: 400px;
     margin-bottom: 20px;
 }
 /* canvas layers */
+#jumbo-canvas>div,
 #jumbo-canvas>div>div{
-	display:none;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+/* canvas layers */
+.j-canvas{
+	height: 100%;
+	border: 1px dashed #ccc;
+    border-radius: 10px;
 }
 
 /*----------------------
@@ -36,6 +43,12 @@
 }
 #jumbo-toolbar .btn{
 	padding: 10px 12px;
+}
+.btn{
+	outline: none !important;
+}
+.btn.active{
+	color: #3c763d;
 }
 /* components toolbar */
 #jumbo-toolbar .glyphicon-plus,
@@ -115,7 +128,6 @@
 	control panel
 ----------------------*/
 .control-panel{
-	/*display: block !important;*/
 	position: inherit;
 	max-width: none;
 	margin-bottom: 9px;
@@ -136,7 +148,34 @@
 }
 
 /*----------------------
- edit background image
+	bg img canvas
+----------------------*/
+
+#bg-img-canvas{
+	text-align: center;
+	font-size: 18px;
+	padding-top: 80px;
+}
+/* upload image fileselect */
+.upload-oldfash{
+	text-align: left;
+	font-size: 14px;
+	background-color: #ddd;
+	max-width: 220px;
+	max-height: 64px;
+	border-radius: 10px;
+  	padding: 8px 12px;
+    position: relative;
+    left: 50%;
+    margin-left: -110px;
+    top: -44px;
+}
+.upload-oldfash:hover{
+	opacity: 1 !important;
+}
+
+/*----------------------
+  bg img control panel
 ----------------------*/
 
 /* half slide input */

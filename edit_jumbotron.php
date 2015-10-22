@@ -11,42 +11,8 @@
     // STEP 2: handle image upload
     //-------------------------------
 
-    $fn = (isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : false);
+    // include "scripts/jumbo_img_upload.php";
 
-    if ($fn) {
-
-        $user = new User();
-
-        //-------------------------------------------
-        // - getfile information
-        // - $ff[0] = random number
-        // - $ff[1] = file extension
-        // - $ff[2] = heroSwiperObject
-        $ff = explode(".", $fn);
-
-        $uFolder = $_SERVER["DOCUMENT_ROOT"]."/routesider/uploads/";
-
-        // AJAX call
-        file_put_contents(
-            $uFolder . $ff[0].'.'.$ff[1],
-            file_get_contents('php://input')
-        );
-
-        //-------------------------------------------
-        // - create a unique name for the file
-        // - e.g. "username_123.jpg";
-        $newName = rand(0, 1000);
-        $newName = $user->data("username") . "_" . $newName . "." . $ff[1]; 
-
-        // change the name of the file to ensure it is unique
-        rename( $uFolder . $ff[0].'.'.$ff[1], $uFolder . $newName ); //change this
-    
-        $json = [ "filename" => $newName];
-
-        $json = json_encode($json);
-
-        exit( $json );
-    }
 
     //-------------------------------
     // STEP 3: handle GET/POST params
@@ -141,6 +107,9 @@
                 <!-- jumbo-canvas -->
                 <div id="jumbo-canvas">
 
+                    <!-- preview layer -->
+                    <div class="j-canvas" id="prev-canvas" style="display:block;"></div>
+
                     <!-- background image canvas layers -->
                     <?php include "components/edit_jumbo/bg_canvas_layers.php"; ?>
 
@@ -151,7 +120,7 @@
                     <div id="img-canvas"></div>
 
                     <!-- buttons layer -->
-                    <div id="btn-canvas"></div> 
+                    <div id="btns-canvas"></div> 
                 </div>
 
                 <!-- properties toolbars & c panels -->
@@ -167,7 +136,7 @@
                     <div id="img-props"></div>
 
                     <!-- buttons -->
-                    <div id="btn-props"></div>
+                    <div id="btns-props"></div>
                 </div>
             </div><!-- /canvasses & control panels .container -->
 
@@ -209,7 +178,7 @@
                     <!-- edit background -->
                     <div type="button" 
                          class="btn btn-default"
-                         data-propopts="bg-props" 
+                         data-propopts="bg" 
                          aria-label="edit background">
                         <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
                             <span class="icon-image" aria-hidden="true"></span>
@@ -219,7 +188,7 @@
                     <!-- add textbox -->
                     <div type="button" 
                          class="btn btn-default" 
-                         data-propopts="text-props" 
+                         data-propopts="text" 
                          aria-label="add textbox">
                         <div class="dash-box" aria-hidden="true">Aa</div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -227,7 +196,7 @@
                     <!-- add image overlay -->
                     <div type="button" 
                          class="btn btn-default" 
-                         data-propopts="img-props" 
+                         data-propopts="img" 
                          aria-label="add image overlay">
                         <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -235,7 +204,7 @@
                     <!-- add button -->
                     <div type="button" 
                          class="btn btn-default" 
-                         data-propopts="btn-props" 
+                         data-propopts="btns" 
                          aria-label="add button">
                         <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                             <span class="glyphicon glyphicon-link" aria-hidden="true"></span>

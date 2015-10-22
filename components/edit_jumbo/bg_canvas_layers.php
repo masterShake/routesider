@@ -2,19 +2,28 @@
  <div id="bg-canvas">
                         
     <!-- image upload layer -->
-    <div id="bg-img-canvas">
+    <div class="j-canvas" id="bg-img-canvas">
 
-    	<!-- old fashioned upload -->
+    	<!-- upload image the old fashioned way -->
+        <div class="upload-oldfash">
+            <label for="bg-fisel">Files to upload:</label>
+            <input type="file" 
+                   id="bg-fisel" 
+                   name="fileselect[]" 
+                   multiple="multiple" />
+        </div>
 
     	<!-- text -->
+    	<div style="position:relative;font-size:12px;left:calc(50% - 18px);max-width:32px;">&#45; or &#45;</div>
+    	Drag &amp; Drop
 
     </div>
 
     <!-- crop bg image layer -->
-    <div id="bg-crop-canvas"></div>
+    <div class="j-canvas" id="bg-crop-canvas"></div>
 
     <!-- background color layer -->
-    <div id="bg-color-canvas"></div>
+    <div class="j-canvas" id="bg-color-canvas"></div>
 
 </div>
 

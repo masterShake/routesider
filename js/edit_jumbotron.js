@@ -205,7 +205,10 @@ var Jumbo, jApp;
 		jApp.temp[3].style.display = "none";
 
 		// open the selected properties options toolbar
-		document.getElementById(this.dataset.propopts).style.display = "block";
+		document.getElementById(this.dataset.propopts + "-props").style.display = "block";
+
+		// open the cooresponding canvas
+		document.getElementById(this.dataset.propopts + "-canvas").style.display = "block";
 	}
 
 	//-----------------------------------------------
@@ -350,6 +353,9 @@ var Jumbo, jApp;
 			// reset the cPanel property
 			jApp.bg.prop = null;
 
+			// display the preview
+			document.getElementById("prev-canvas").style.display = "block";
+
 			return;
 		}
 
@@ -372,9 +378,12 @@ var Jumbo, jApp;
 		jApp.bg.temp = document.getElementById("bg-props").children;
 
 		// hide all the control panels
-		jApp.bg.temp[0].style.display = "none";
-		jApp.bg.temp[1].style.display = "none";
 		jApp.bg.temp[2].style.display = "none";
+		jApp.bg.temp[3].style.display = "none";
+		jApp.bg.temp[4].style.display = "none";
+
+		// hide the preview canvas
+		document.getElementById("prev-canvas").style.display = "none";
 
 		// display the selected layer
 		document.getElementById(this.dataset.propelem + "-canvas").style.display = "block";
@@ -504,6 +513,170 @@ var Jumbo, jApp;
 
 		// update values
 
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//-----------------------------------------------
+	//				   CR (cropper)				
+	//			     ----------------
+	//
+	// - crop jumbotron background image
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	CR = function(){}
+
+	/* METHODS */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//	  		   BGC (background color)				
+	//			 --------------------------
+	//
+	// - toggle popover
+	//
+	// - color wheel btn click event
+	//
+	// - hex text event
+	//
+	// - html5 color picker event handler
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	BGC = function(){
+
+		/* properties */
+
+		// temp variable, background color button
+		this.temp = document.getElementById("bg-opts-toolbar")
+						.children[1].children[1];
+
+		/* initializations */
+
+		// dropdown click
+		this.temp.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+		// hexidecimal text keyup event
+
+		// html5 color picker change event
+
+		// get the color wheel btns
+		this.temp = this.temp.getElementsByClassName("color-wheel")[0]
+						 .getElementsByTagName("button");
+
+		// loop through the color wheel btns
+		for(var i = 0; i < this.temp.length; i++){
+
+			this.temp[i].addEventListener("click", this.wheelBtn, false);
+
+		}
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - keyup event change background color hex text
+	// - make sure that first character is always a
+	//   hashtag
+	// - if legit hex value, display color
+	BGC.prototype.hexText = function(){
+		return false;
+	}
+
+	//-----------------------------------------------
+	// - html5 color picker change event
+	// - set text value
+	// - set icon color
+	// - set background color
+	BGC.prototype.colorPick = function(){
+		return false;
+	}
+
+	//-----------------------------------------------
+	// - user clicks one of the color wheel colors
+	// - set text
+	// - set color icon
+	// - set html5 color picker
+	// - set background
+	BGC.prototype.wheelBtn = function(){
+		return false;
 	}
 
 
