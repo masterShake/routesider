@@ -632,14 +632,17 @@ var Jumbo, jApp;
 
 		/* properties */
 
-		// temp variable, background color button
-		this.temp = document.getElementById("bg-opts-toolbar")
-						.children[1].children[1];
+		// temp variable, get the control panel
+		this.temp = document.getElementById("bg-cpanels").children[2];
+
+		// color fill btn
+		this.icon = this.temp.getElementsByTagName("button")[1];
+		// text input
+		this.texti = this.temp.getElementsByTagName("input")[0];
+		// HTML5 color picker
+		this.picki = this.temp.getElementsByTagName("input")[1];
 
 		/* initializations */
-
-		// dropdown click
-		this.temp.children[0].addEventListener("click", rsApp.toggleDropdown, false);
 
 		// hexidecimal text keyup event
 
@@ -650,14 +653,44 @@ var Jumbo, jApp;
 						 .getElementsByTagName("button");
 
 		// loop through the color wheel btns
-		for(var i = 0; i < this.temp.length; i++){
-
+		for(var i = 2; i < this.temp.length; i++)
+			// add wheelBtn event
 			this.temp[i].addEventListener("click", this.wheelBtn, false);
-
-		}
 	}
 
 	/* METHODS */
+
+	//-----------------------------------------------
+	// - algorithm to determine if a hex value is 
+	//   light or dark.
+	// - @rgbObj -> object with r, g, & b values as
+	//   returned by hext to rgb function
+	// - returns a value between 0 and 1
+	// - #000 would return a value of 0
+	// - #FFF would return a value of 1
+	// - all other colors would be somewhere
+	//   inbetween
+	// - values below .6 should be overlaid with
+	//   white text
+	// - values above .6, overlaid with black
+	BGC.prototype.hexBright = function( rgbObj ){
+		// calculate & return weighted average
+		return (( rgbObj.r*0.299 + rgbObj.g*0.587 + rgbObj.b*0.114 ) / 256 > 0.6);
+	}
+	//-----------------------------------------------
+	// - algorithm to convert hex to rgb
+	// - @hex -> hexidecimal as string
+	// - returns object with r, g, & b values
+	BGC.prototype.hexToRgb = function(hex) {
+		// convert to array of hex vals
+		this.tempHex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+		// return the results as an object
+	    return this.tempHex ? {
+	        r: parseInt(this.tempHex[1], 16),
+	        g: parseInt(this.tempHex[2], 16),
+	        b: parseInt(this.tempHex[3], 16)
+	    } : null;
+	}
 
 	//-----------------------------------------------
 	// - keyup event change background color hex text
@@ -684,9 +717,39 @@ var Jumbo, jApp;
 	// - set html5 color picker
 	// - set background
 	BGC.prototype.wheelBtn = function(){
-		return false;
+		
+		jApp.bg.bgc.temp = this.dataset.hex;
+
+		jApp.bg.bgc.setColor();
+
 	}
 
+	//-----------------------------------------------
+	// - master bg color setter method
+	// - hex --> hexidecimal color
+	// - set text
+	// - set color icon
+	// - set html5 color picker
+	// - set background
+	BGC.prototype.setColor = function(){
+
+		// set preview background color
+		jApp.preview.style.backgroundColor = 
+
+		// set the preview icon background
+		this.icon.style.backgroundColor = 
+
+		// set the text
+		this.texti.value = 
+
+		// set the color picker
+		this.picki.value = this.temp;
+
+		// set the preview icon color
+		this.icon.style.color = 
+			this.hexBright(this.hexToRgb(this.temp)) ?
+				"#444" : "#FFF";
+	}
 
 
 

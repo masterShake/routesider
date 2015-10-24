@@ -15,7 +15,7 @@
     <div id="bg-cpanels">
 
         <!-- background image control panel -->
-        <div class="popover top control-panel" id="bg-img-cpanel">
+        <div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
@@ -52,7 +52,7 @@
         </div><!-- /background image control panel -->
 
         <!-- crop background image control panel -->
-        <div class="popover top control-panel" id="bg-crop-cpanel" style="max-width:250px;">
+        <div class="popover top control-panel" style="max-width:250px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
@@ -74,7 +74,7 @@
         </div><!-- /crop background image control panel -->
 
         <!-- background color control panel -->
-        <div class="popover top control-panel" id="bg-color-cpanel">
+        <div class="popover top control-panel">
 
 
             <div class="popover-title"> 
@@ -122,16 +122,15 @@
                                     <button type="button" 
                                             class="btn" 
                                             style="background-color: #FFF; color: #444;"
-                                            data-activate="fill"
                                             aria-label="edit jumbotron background color, use color wheel to select colors">
                                         <span class="glyphicon glyphicon-tint"></span>
                                     </button>
                                 </td>
                                 <td>
                                     <input type="text" 
-                                           value="#DFF0D8"
+                                           value="#FFFFFF"
                                            class="form-control" 
-                                           data-hex="#DFF0D8" 
+                                           data-hex="#FFFFFF" 
                                            aria-label="background color hexidecimal color value">
                                 </td>
                             </tr>
@@ -142,7 +141,6 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label for="color-picker">more colors:</label>
                         <input type="color" 
-                               id="color-picker"
                                value="#5CB85C"
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->

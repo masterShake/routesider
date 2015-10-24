@@ -19,10 +19,10 @@
     </div>
 
     <!-- crop bg image layer -->
-    <div class="j-canvas" id="bg-crop-canvas"></div>
+    <div class="j-canvas"></div>
 
     <!-- background color layer -->
-    <div class="j-canvas" id="bg-color-canvas"></div>
+    <div class="j-canvas"></div>
 
 </div>
 
