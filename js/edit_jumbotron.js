@@ -115,6 +115,10 @@ var Jumbo, jApp;
 		// keep track of the preview canvas
 		this.preview = document.getElementById("prev-canvas");
 
+		// keep track of the save alerts
+		this.save1 = document.getElementById("save1");
+		this.save2 = document.getElementById("save2");
+
 		// keep track of open component options
 		this.compEditor = null;
 
@@ -221,34 +225,39 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - determine if the user has made any changes
 	// - returns true if changed, false if unchanged
-	Jumbo.prototype.deltaVals = function(){
+	Jumbo.prototype.deltaVals = function(){ console.log(this.save2.className);
 		
 		// if the values have not changed
-		if( JSON.stringify(this.iVals) === JSON.stringify(this.nVals)){
+		if( JSON.stringify(this.iVals) === JSON.stringify(this.nVals)
+			&& this.save2.className != "well" ){ console.log("show it!");
 
 			// hide save alert
-			this.hideSA();
+			this.save1.style.display = "none";
+			this.save1.style.opacity = "0";
 
-			return false;
-		}
+			// remove the alert class from the well
+			this.save2.className = "well";
 
-		// display save prompt
-		this.showSA();
+			// remove the event listener from bottom save button
+			this.save2.children[0].removeEventListener("click", jApp.save, false);
 
-		return true;
+		}else if(this.save2.className == "well"){ console.log("hide it!"); 
 
+			// display save alert
+			save1.style.display = "block";
+			setTimeout(jApp.showSA, 50);
+
+			// set the save class
+			this.save2.className = "well info";
+			// attach the event listener
+			this.save2.children[0].addEventListener("click", jApp.save, false);
+		}console.log("do nothing...");
 	}
 
 	//-----------------------------------------------
-	// - show save alert
+	// - show save alert fade in timeout function
 	Jumbo.prototype.showSA = function(){
-		return false;
-	}
-
-	//-----------------------------------------------
-	// - hide save alert
-	Jumbo.prototype.hideSA = function(){
-		return false;
+		jApp.save1.style.opacity = "1";
 	}
 
 	//-----------------------------------------------
@@ -730,7 +739,7 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - html5 color picker change event
 	BGC.prototype.colorPick = function(){
-		jApp.bg.bgc.temp = this.value;
+		jApp.bg.bgc.temp = this.value.toUpperCase();
 		jApp.bg.bgc.setColor();
 	}
 
@@ -767,12 +776,18 @@ var Jumbo, jApp;
 		this.texti.value = 
 
 		// set the color picker
-		this.picki.value = this.temp;
+		this.picki.value = 
+
+		// & update the new values object
+		jApp.nVals.bg_color = this.temp;
 
 		// set the preview icon color
 		this.icon.style.color = 
 			this.hexBright(this.hexToRgb(this.temp)) ?
 				"#444" : "#FFF";
+
+		// notify root node that values have changed
+		jApp.deltaVals();
 	}
 
 

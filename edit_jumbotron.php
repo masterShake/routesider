@@ -69,7 +69,7 @@
     <body>
 
         <!-- initial values -->
-        <input type="hidden" id="i-vals" value="[]">
+        <input type="hidden" id="i-vals" value='<?= $profile->jumboJSON(); ?>'>
 
         <!-- page content -->
         <div id="page-content">
@@ -97,6 +97,16 @@
             </div><!-- /title header -->
 
             <hr style="margin-bottom:12px;">
+
+            <!-- save alert -->
+            <div class="container" style="padding-left:0px;padding-right:0px">
+                <div class="alert alert-info alert-dismissible" id="save1" style="display:none;margin:0 15px 10px;" role="alert">
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="btn btn-default">Save</button>
+                    <span class="glyphicon glyphicon-arrow-left" style="padding: 0 10px;"></span>
+                    click to save changes
+                </div>
+            </div>
 
             <!-- canvases & control panels container -->
             <div class="container">
@@ -216,7 +226,7 @@
 
             <!-- save button -->
             <div class="container">
-                <div class="well" id="save-btm">
+                <div class="well" id="save2">
                     <button type="button" class="btn btn-default">Save</button>
                     <span class="glyphicon glyphicon-arrow-left" style="padding: 0 10px;"></span>
                     click to save changes

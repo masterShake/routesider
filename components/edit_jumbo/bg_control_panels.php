@@ -131,7 +131,7 @@
                                            value="#FFFFFF"
                                            class="form-control" 
                                            maxlength="7"
-                                           data-hex="#FFFFFF" 
+                                           style="text-transform:uppercase" 
                                            aria-label="background color hexidecimal color value">
                                 </td>
                             </tr>
