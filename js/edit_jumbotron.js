@@ -644,9 +644,12 @@ var Jumbo, jApp;
 
 		/* initializations */
 
-		// hexidecimal text keyup event
+		// hexidecimal text keyup & blur events
+		this.texti.addEventListener("keyup", this.hexText, false);
+		this.texti.addEventListener("blur", this.hexBlur, false);
 
 		// html5 color picker change event
+		this.picki.addEventListener("change", this.colorPick, false);
 
 		// get the color wheel btns
 		this.temp = this.temp.getElementsByTagName("button");
@@ -655,6 +658,9 @@ var Jumbo, jApp;
 		for(var i = 2; i < this.temp.length; i++)
 			// add wheelBtn event
 			this.temp[i].addEventListener("click", this.wheelBtn, false);
+
+		// set the temp color
+		this.temp = "#FFFFFF";
 	}
 
 	/* METHODS */
@@ -697,16 +703,35 @@ var Jumbo, jApp;
 	//   hashtag
 	// - if legit hex value, display color
 	BGC.prototype.hexText = function(){
-		return false;
+		
+		// if the first character is not a #
+		if(this.value.charAt(0) != "#")
+			// put the hashtag in front of the text
+			this.value = "#" + this.value;
+
+		// remove any input that is not 0-9, A-F
+		this.value = "#" + this.value.substr(1,6).replace(/[^0-9a-f]+/gi, '');
+
+		// if the input is now the proper length & format
+		if(this.value.length == 7){
+			// set the background color
+			jApp.bg.bgc.temp = this.value;
+			jApp.bg.bgc.setColor();
+		}
+	}
+
+	//-----------------------------------------------
+	// - blur event for hex input
+	// - set value to previous compliant hex value
+	BGC.prototype.hexBlur = function(){
+		this.value = jApp.bg.bgc.temp;
 	}
 
 	//-----------------------------------------------
 	// - html5 color picker change event
-	// - set text value
-	// - set icon color
-	// - set background color
 	BGC.prototype.colorPick = function(){
-		return false;
+		jApp.bg.bgc.temp = this.value;
+		jApp.bg.bgc.setColor();
 	}
 
 	//-----------------------------------------------
