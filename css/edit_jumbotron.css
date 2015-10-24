@@ -18,11 +18,19 @@
     margin-bottom: 20px;
 }
 /* canvas layers */
+#bg-canvas,
+#text-canvas,
+#img-canvas,
+#btns-canvas{
+	position: relative;
+	top: -400px;
+}
 #jumbo-canvas>div,
 #jumbo-canvas>div>div{
 	height: 100%;
 	width: 100%;
 	display: none;
+	background-color: transparent;
 }
 /* canvas layers */
 .j-canvas{

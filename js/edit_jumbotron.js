@@ -325,7 +325,7 @@ var Jumbo, jApp;
 		// init cropper
 		// this.cropper = new CR();
 		// init background color editor
-		// this.bgCol = new BGC();
+		this.bgc = new BGC();
 
 		// title block
 		this.tBlock = document.getElementById("bg-props").children[1];
@@ -376,7 +376,7 @@ var Jumbo, jApp;
 			jApp.bg.tBlock.style.display = "block";
 
 			// display the preview
-			jApp.preview.style.display = "block";
+			// jApp.preview.style.display = "block";
 
 			// reset the active prop
 			jApp.bg.prop = -1;
@@ -394,7 +394,7 @@ var Jumbo, jApp;
 		jApp.bg.prop = this.dataset.prop;
 
 		// hide the preview canvas
-		jApp.preview.style.display = "none";
+		// jApp.preview.style.display = "none";
 
 		// hide the title
 		jApp.bg.tBlock.style.display = "none";
@@ -649,8 +649,7 @@ var Jumbo, jApp;
 		// html5 color picker change event
 
 		// get the color wheel btns
-		this.temp = this.temp.getElementsByClassName("color-wheel")[0]
-						 .getElementsByTagName("button");
+		this.temp = this.temp.getElementsByTagName("button");
 
 		// loop through the color wheel btns
 		for(var i = 2; i < this.temp.length; i++)

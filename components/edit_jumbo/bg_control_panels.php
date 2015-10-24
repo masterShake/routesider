@@ -130,6 +130,7 @@
                                     <input type="text" 
                                            value="#FFFFFF"
                                            class="form-control" 
+                                           size="7"
                                            data-hex="#FFFFFF" 
                                            aria-label="background color hexidecimal color value">
                                 </td>
