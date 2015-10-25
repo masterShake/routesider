@@ -154,6 +154,10 @@ var Jumbo, jApp;
 		// this.temp[2].addEventListener("click", this.togOpts, false);
 		// this.temp[3].addEventListener("click", this.togOpts, false);
 
+		// event listener activation switch
+		document.getElementById("onoff")
+			.addEventListener("change", this.jumboVis, false);
+
 		// add event listener to the save btn
 		this.save1.children[1].addEventListener("click", this.save, false);
 		this.save2.children[0].addEventListener("click", this.save, false);
@@ -230,6 +234,13 @@ var Jumbo, jApp;
 	}
 
 	//-----------------------------------------------
+	// - on/off switch jumbo visible change event
+	Jumbo.prototype.jumboVis = function(){
+		jApp.nVals.active = (this.checked) ? 1 : 0;
+		jApp.deltaVals();
+	}
+
+	//-----------------------------------------------
 	// - determine if the user has made any changes
 	// - returns true if changed, false if unchanged
 	Jumbo.prototype.deltaVals = function(){
@@ -272,7 +283,7 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	// - ajax save changes
-	Jumbo.prototype.save = function(){ console.log(this.parentElement.className.substr(-4));
+	Jumbo.prototype.save = function(){
 
 		// if the save propmt does not have the proper class
 		if(this.parentElement.className.substr(-4) != "info")
@@ -289,7 +300,6 @@ var Jumbo, jApp;
 			params   : "json=" + JSON.stringify(jApp.nVals),
 			callback : jApp.saveCB
 		});
-
 	}
 
 	//-----------------------------------------------

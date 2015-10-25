@@ -52,11 +52,19 @@
 
     $myPost = $nodes["106"];
 
+    echo "<h2>Results object methods</h2>";
+
     print_r(get_class_methods($result));
+
+    echo "<h2>Node object methods</h2>";
 
     print_r(get_class_methods($myPost));
 
-    print_r(count($myPost->getRelationships("HAS_PROFILE")));
+    echo "<h2>Relationship object methods</h2>";
+
+    $rel = $myPost->getSingleRelationship("HAS_PROFILE");   
+
+    print_r(get_class_methods($rel));
 
 
 

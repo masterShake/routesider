@@ -24,7 +24,7 @@
     	if(isset($_POST["json"])){
 
             // decode the json
-            $jObj = json_decode($_POST["json"]);
+            $jumbo = json_decode($_POST["json"]);
 
             // get the user's business
             $user = new User();
@@ -33,11 +33,12 @@
 
             $cypher = 
             "MATCH (b:Business) WHERE b.id = " . $business->data("id") . " " .
-            "MATCH (b)-[:HAS_PROFILE]->(p)-[:HAS_JUMBO]->(j) " .
-            "SET j.bg_color='{$jObj->bg_color}', ".
-            "j.opacity='{$jObj->opacity}', ".
-            "j.blur='{$jObj->blur}', ".
-            "j.bg_img='{$jObj->bg_img}' ";
+            "MATCH (b)-[:HAS_PROFILE]->(p)-[q:HAS_JUMBO]->(j) " .
+            "SET q.active={$jumbo->active}, " .
+            "j.bg_color='{$jumbo->bg_color}', ".
+            "j.opacity={$jumbo->opacity}, ".
+            "j.blur={$jumbo->blur}, ".
+            "j.bg_img='{$jumbo->bg_img}' ";
 
             $db = neoDB::getInstance();
 
@@ -109,8 +110,8 @@
                 <div style="float:right;text-align:center;width:100px;padding-left:10px;">
                     <h4 style="margin-top:20px;">visible in profile</h4>
                     <div class="onoffswitch">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-jumbo" />
-                        <label class="onoffswitch-label" for="myonoffswitch-jumbo">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="onoff" <?= ($jumbo["active"]) ? "checked" : ""; ?>/>
+                        <label class="onoffswitch-label" for="onoff">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
                         </label>

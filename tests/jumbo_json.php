@@ -21,13 +21,13 @@ $profile = $business->profile();
 
 // echo $profile->business()->data("id");
 
-$res = $profile->jumboJSON();
+$res = $profile->jumbo();
 
-echo $res;
+// echo $res;
 
-// echo "<pre>";
+echo "<pre>";
 
-// print_r($res);
+print_r($res);
 
 // echo "</pre>";
 
@@ -38,6 +38,8 @@ echo $res;
 // print_r($j->getProperties());
 
 // echo json_encode($j->getProperties());
+
+echo "</pre>";
 
 
 

@@ -174,17 +174,23 @@ class Profile{
 	public function jumbo(){
 
 		$temp = "MATCH (b:Business) WHERE b.id = " . $this->_business->data("id") . " " .
-				"MATCH (b)-[:HAS_PROFILE]->(p)-[:HAS_JUMBO {active : 0}]->(j) ".
+				"MATCH (b)-[:HAS_PROFILE]->(p)-[q:HAS_JUMBO]->(j) ".
 				"OPTIONAL MATCH (j)-[r]->(n) " .
-				"RETURN j, r, n";
+				"RETURN p, q, j, r, n";
 
 		$results = $this->_db->q($temp);
 
-		// get the jumbotron node
+		// get the Jumbotron node
 		$json = $results->getSingleNodeByLabel("Jumbotron");
+
+		// get the HAS_JUMBO relationship/edge
+		$temp = $json->getSingleRelationship("HAS_JUMBO")->getProperties();
 
 		// create a clean object
 		$json = $json->getProperties();
+
+		// add the active property
+		$json["active"] = $temp["active"]; 
 
 		// add empty arrays for the attached nodes
 		$json["texts"] = [];
