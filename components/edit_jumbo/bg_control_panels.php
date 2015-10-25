@@ -121,14 +121,14 @@
                                 <td>
                                     <button type="button" 
                                             class="btn" 
-                                            style="background-color: #FFF; color: #444;"
+                                            style='background-color: <?= $jumbo["bg_color"]; ?>; color: #444;'
                                             aria-label="edit jumbotron background color, use color wheel to select colors">
                                         <span class="glyphicon glyphicon-tint"></span>
                                     </button>
                                 </td>
                                 <td>
                                     <input type="text" 
-                                           value="#FFFFFF"
+                                           value='<?= $jumbo["bg_color"]; ?>' 
                                            class="form-control" 
                                            maxlength="7"
                                            style="text-transform:uppercase" 
@@ -142,7 +142,7 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label for="color-picker">more colors:</label>
                         <input type="color" 
-                               value="#5CB85C"
+                               value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 

@@ -170,8 +170,8 @@ class Profile{
 		} return false;
 	}
 
-	// get jumbotron json data
-	public function jumboJSON(){
+	// get jumbotron json object data (not ecoded)
+	public function jumbo(){
 
 		$temp = "MATCH (b:Business) WHERE b.id = " . $this->_business->data("id") . " " .
 				"MATCH (b)-[:HAS_PROFILE]->(p)-[:HAS_JUMBO {active : 0}]->(j) ".
@@ -209,7 +209,7 @@ class Profile{
 			array_push($json["btns"], $t->getProperties());
 		}
 
-		return json_encode($json);
+		return $json;
 	}
 }
 

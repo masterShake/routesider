@@ -388,6 +388,15 @@ tbody button.btn-color-selected{
 	   save alert
 ----------------------*/
 
+/* animations */
+#save2{
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
+/* before save */
 .well.info{
 	color: #31708f;
     background-color: #d9edf7;
@@ -395,13 +404,24 @@ tbody button.btn-color-selected{
 }
 .well.info button.btn,
 .alert.alert-info button.btn{
+	min-width: 58px;
 	color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;
 }
 
-
-
+/* after save */
+.well.success{
+	color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.well.success button.btn,
+.alert.alert-success button.btn{
+	color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
 
 
 

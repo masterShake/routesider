@@ -20,8 +20,31 @@
 
     if(Input::exists()){
 
-    	// do something
+        // save changes
+    	if(isset($_POST["json"])){
 
+            // decode the json
+            $jObj = json_decode($_POST["json"]);
+
+            // get the user's business
+            $user = new User();
+
+            $business = $user->business()[0];
+
+            $cypher = 
+            "MATCH (b:Business) WHERE b.id = " . $business->data("id") . " " .
+            "MATCH (b)-[:HAS_PROFILE]->(p)-[:HAS_JUMBO]->(j) " .
+            "SET j.bg_color='{$jObj->bg_color}', ".
+            "j.opacity='{$jObj->opacity}', ".
+            "j.blur='{$jObj->blur}', ".
+            "j.bg_img='{$jObj->bg_img}' ";
+
+            $db = neoDB::getInstance();
+
+            $db->q($cypher);
+
+            exit("1");
+        }
     }
 
     //-------------------------------------
@@ -39,6 +62,8 @@
     $business = $business[0];
 
     $profile = $business->profile();
+
+    $jumbo = $profile->jumbo();
 
 ?>
 <!DOCTYPE html>
@@ -69,7 +94,7 @@
     <body>
 
         <!-- initial values -->
-        <input type="hidden" id="i-vals" value='<?= $profile->jumboJSON(); ?>'>
+        <input type="hidden" id="i-vals" value='<?= json_encode($jumbo); ?>'>
 
         <!-- page content -->
         <div id="page-content">
@@ -100,8 +125,8 @@
 
             <!-- save alert -->
             <div class="container" style="padding-left:0px;padding-right:0px">
-                <div class="alert alert-info alert-dismissible" id="save1" style="display:none;margin:0 15px 10px;" role="alert">
-                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="alert alert-info" id="save1" style="display:none;margin:0 15px 10px;" role="alert">
+                    <button type="button" class="close" style="display:none;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <button type="button" class="btn btn-default">Save</button>
                     <span class="glyphicon glyphicon-arrow-left" style="padding: 0 10px;"></span>
                     click to save changes
@@ -118,7 +143,7 @@
                 <div id="jumbo-canvas">
 
                     <!-- preview layer -->
-                    <div class="j-canvas" id="prev-canvas" style="display:block;"></div>
+                    <div class="j-canvas" id="prev-canvas" style='display:block;background-color:<?= $jumbo["bg_color"]; ?>'></div>
 
                     <!-- background image canvas layers -->
                     <?php include "components/edit_jumbo/bg_canvas_layers.php"; ?>

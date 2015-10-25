@@ -154,6 +154,13 @@ var Jumbo, jApp;
 		// this.temp[2].addEventListener("click", this.togOpts, false);
 		// this.temp[3].addEventListener("click", this.togOpts, false);
 
+		// add event listener to the save btn
+		this.save1.children[1].addEventListener("click", this.save, false);
+		this.save2.children[0].addEventListener("click", this.save, false);
+
+		// close the save alert
+		this.save1.children[0].addEventListener("click", this.xSA, false);
+
 	}
 
 	/* METHODS */
@@ -225,11 +232,11 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - determine if the user has made any changes
 	// - returns true if changed, false if unchanged
-	Jumbo.prototype.deltaVals = function(){ console.log(this.save2.className);
+	Jumbo.prototype.deltaVals = function(){
 		
 		// if the values have not changed
 		if( JSON.stringify(this.iVals) === JSON.stringify(this.nVals)
-			&& this.save2.className != "well" ){ console.log("show it!");
+			&& this.save2.className != "well" ){
 
 			// hide save alert
 			this.save1.style.display = "none";
@@ -241,17 +248,20 @@ var Jumbo, jApp;
 			// remove the event listener from bottom save button
 			this.save2.children[0].removeEventListener("click", jApp.save, false);
 
-		}else if(this.save2.className == "well"){ console.log("hide it!"); 
+		}else if(this.save2.className != "well info"){
 
 			// display save alert
-			save1.style.display = "block";
+			this.save1.className = "alert alert-info";
+			this.save1.style.display = "block";
+			this.save1.children[0].style.display = "none";
 			setTimeout(jApp.showSA, 50);
 
 			// set the save class
 			this.save2.className = "well info";
-			// attach the event listener
-			this.save2.children[0].addEventListener("click", jApp.save, false);
-		}console.log("do nothing...");
+		}
+		// change the inner HTML of the buttons
+		this.save1.children[1].innerHTML = "save";
+		this.save2.children[0].innerHTML = "save";
 	}
 
 	//-----------------------------------------------
@@ -262,21 +272,59 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	// - ajax save changes
-	Jumbo.prototype.save = function(){ return false;
+	Jumbo.prototype.save = function(){ console.log(this.parentElement.className.substr(-4));
 
-		// indicate that save request is in progress
+		// if the save propmt does not have the proper class
+		if(this.parentElement.className.substr(-4) != "info")
+				return; // do nothing
+
+		// show hourglass inside save button
+		jApp.save1.children[1].innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#fff;"></span>';
+		jApp.save2.children[0].innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#fff;"></span>';
 
 		// make save ajax call
+		rsApp.ajax({ 
+			method   : "POST",
+			url      : document.URL,
+			params   : "json=" + JSON.stringify(jApp.nVals),
+			callback : jApp.saveCB
+		});
 
+	}
+
+	//-----------------------------------------------
+	// close save alert
+	Jumbo.prototype.xSA = function(){
+		this.parentElement.style.opacity = "0";
+		this.parentElement.style.display = "none";
+		jApp.save2.className = "well";
+		jApp.save1.children[1].innerHTML = "save";
+		jApp.save2.children[0].innerHTML = "save";
 	}
 
 	//-----------------------------------------------
 	// - save callback
 	Jumbo.prototype.saveCB = function(r){ console.log(r);
 
-		// indicate that save was successful
-	}
+		// if the save was successful
+		if(r == 1){
 
+			// set the initial values to match the new values
+			jApp.iVals = JSON.parse(JSON.stringify(jApp.nVals));
+
+			// change classes
+			jApp.save1.className = "alert alert-success";
+			jApp.save2.className = "well success";
+
+			// change the button html
+			jApp.save1.children[1].innerHTML = 'saved!';
+			jApp.save2.children[0].innerHTML = 'saved!';
+
+			// show the closable x
+			jApp.save1.children[0].style.display = "block";
+
+		}
+	}
 
 
 
