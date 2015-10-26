@@ -11,7 +11,7 @@
     // STEP 2: handle image upload
     //-------------------------------
 
-    // include "scripts/jumbo_img_upload.php";
+    include "scripts/jumbo_img_upload.php";
 
 
     //-------------------------------

@@ -388,7 +388,7 @@ var Jumbo, jApp;
 		/* properties */
 
 		// init background image editor
-		// this.bgImg = new BGI();
+		this.bgi = new BGI();
 		// init cropper
 		// this.cropper = new CR();
 		// init background color editor
@@ -524,19 +524,95 @@ var Jumbo, jApp;
 
 		/* properties */
 
-		// temp variable, get the edit bg image btn
-		this.temp = document.getElementById("bg-toolbar")
-						.children[0];
+		// ajax object for file uploads
+		this.xhr = null;
+
+		// hold original filename
+		this.file = null;
 
 		/* initialization */
 
-		// apply the dropdown event
-		// this.temp.children[0]
-		// 	.addEventListener("click", rsApp.toggleDropdown, false);
+		// apply file dragover event
+		document.getElementById("bg-canvas").children[0]
+			.addEventListener("dragover", this.fileHover, false);
+
+		// apply file dragleave event
+		document.getElementById("bg-canvas").children[0]
+			.addEventListener("dragleave", this.fileHover, false);
+
+		// apply file drop event
+		document.getElementById("bg-canvas").children[0]
+			.addEventListener("drop", this.fileSelect, false);
 
 	}
 
 	/* METHODS */
+
+	//-----------------------------------------------
+	// - file dragover method 
+	BGI.prototype.fileHover = function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		e.target.className = (e.type == "dragover" ? "j-canvas hover" : "j-canvas");
+	}
+
+	//-----------------------------------------------
+	// - file selection event listener
+	BGI.prototype.fileSelect = function(e) {
+
+		// cancel event and hover styling
+		jApp.bg.bgi.fileHover(e);
+		
+		// display the spinner
+
+		// fetch FileList object
+		jApp.bg.bgi.file = e.target.files || e.dataTransfer.files;// process all File objects
+		jApp.bg.bgi.file = jApp.bg.bgi.file[0];
+
+		// upload the file
+		jApp.bg.bgi.uploadFile();
+	}
+
+	//-----------------------------------------------
+	// - upload image
+	BGI.prototype.uploadFile = function(){ console.log(this.file);
+
+		// - delete the previous xhr object
+		// - it will be properly garbage collected
+		this.xhr = null;
+
+		// create a new one
+		this.xhr = new XMLHttpRequest();
+
+		// if file is the correct type and size
+		if( (this.file.type == "image/jpeg" || 
+			 this.file.type == "image/jpg"  ||
+			 this.file.type == "image/png"  ||
+			 this.file.type == "image/gif") && 
+			 this.file.size < 9999999999999999
+		  ){
+
+		  	// add an event listener to the ajax request
+		  	this.xhr.onreadystatechange = jApp.bg.bgi.uploadCB;
+
+			// ajax
+			this.xhr.open("POST", document.URL, true);
+			this.xhr.setRequestHeader("X-file-name", this.file.name);
+			this.xhr.send(this.file);
+		}
+	}
+
+	//-----------------------------------------------
+	// - img file upload callback 
+	BGI.prototype.uploadCB = function(){
+		if (this.readyState == 4) { console.log(this.responseText);
+
+			// set the nVals property
+			jApp.nVals.["bg_img"] = console.log(this.responseText);
+
+			// set the background
+		}
+	}
 
 	//-----------------------------------------------
 	// - when user slides opacity slider

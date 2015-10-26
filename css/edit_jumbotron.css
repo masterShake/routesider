@@ -37,6 +37,11 @@
 	height: 100%;
 	border: 1px dashed #ccc;
     border-radius: 10px;
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+	transition: .3s;
 }
 
 /*----------------------
@@ -159,6 +164,10 @@
 	bg img canvas
 ----------------------*/
 
+/* hover styling */
+.j-canvas.hover{
+	border: 3px solid #5CB85C;
+}
 /* upload image fileselect */
 .upload-oldfash{
 	text-align: left;
