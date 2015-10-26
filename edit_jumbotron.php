@@ -26,6 +26,16 @@
             // decode the json
             $jumbo = json_decode($_POST["json"]);
 
+            // if the user added a new background image
+            if(substr($jumbo->bg_img, 0, 6) == "upload"){
+                // remove the "uploads/" prefix
+                $jumbo->bg_img = substr($jumbo->bg_img, 8);
+                // isolate the server root
+                $uRoot = $_SERVER["DOCUMENT_ROOT"]."/routesider/";
+                // move the file by renaming it
+                rename($uRoot . "uploads/" . $jumbo->bg_img, $uRoot . "img/business/" . $jumbo->bg_img);
+            }
+
             // get the user's business
             $user = new User();
 
@@ -144,7 +154,7 @@
                 <div id="jumbo-canvas">
 
                     <!-- preview layer -->
-                    <div class="j-canvas" id="prev-canvas" style='display:block;background-color:<?= $jumbo["bg_color"]; ?>'></div>
+                    <div class="j-canvas" id="prev-canvas" style='display:block;background-color:<?= $jumbo["bg_color"]; ?>;background-size:cover;<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'></div>
 
                     <!-- background image canvas layers -->
                     <?php include "components/edit_jumbo/bg_canvas_layers.php"; ?>

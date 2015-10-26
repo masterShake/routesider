@@ -605,12 +605,18 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - img file upload callback 
 	BGI.prototype.uploadCB = function(){
-		if (this.readyState == 4) { console.log(this.responseText);
+		if (this.readyState == 4) { console.log(this.responseText); console.log(document.getElementById("prev-canvas"));
 
 			// set the nVals property
-			jApp.nVals.["bg_img"] = console.log(this.responseText);
+			jApp.nVals["bg_img"] = "uploads/" + this.responseText;
 
 			// set the background
+			document.getElementById("prev-canvas").style.backgroundImage =  
+
+			"url('uploads/" + this.responseText +"')";
+
+			// show save prompt
+			jApp.deltaVals();
 		}
 	}
 
