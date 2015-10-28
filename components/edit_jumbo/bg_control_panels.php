@@ -33,7 +33,7 @@
                         <span class="glyphicon glyphicon-eye-open"></span>
                         blur
                     </label>
-                    <input type="text" class="form-control"  id="bg-blur" value="0">
+                    <input type="text" class="form-control" value="0">
                     <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
                 </div>
                 <!-- background image opacity -->
@@ -43,7 +43,7 @@
                         opacity
                     </label>
                     <div>
-                        <input type="text" class="form-control"  id="bg-opacity" value="1">
+                        <input type="text" class="form-control" value="1">
                         <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
                     </div>
                 </div>

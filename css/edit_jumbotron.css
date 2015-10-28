@@ -171,6 +171,7 @@
 /* upload image fileselect */
 .upload-oldfash{
 	text-align: left;
+	text-shadow: none;
 	font-size: 14px;
 	background-color: #ddd;
 	max-width: 220px;
@@ -184,6 +185,9 @@
 }
 .upload-oldfash:hover{
 	opacity: 1 !important;
+}
+.upload-oldfash input{
+	border: none;
 }
 
 /*----------------------

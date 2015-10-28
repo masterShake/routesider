@@ -442,9 +442,6 @@ var Jumbo, jApp;
 			// display the title
 			jApp.bg.tBlock.style.display = "block";
 
-			// display the preview
-			// jApp.preview.style.display = "block";
-
 			// reset the active prop
 			jApp.bg.prop = -1;
 
@@ -459,9 +456,6 @@ var Jumbo, jApp;
 
 		// set the cPanel property
 		jApp.bg.prop = this.dataset.prop;
-
-		// hide the preview canvas
-		// jApp.preview.style.display = "none";
 
 		// hide the title
 		jApp.bg.tBlock.style.display = "none";
@@ -527,23 +521,39 @@ var Jumbo, jApp;
 		// ajax object for file uploads
 		this.xhr = null;
 
-		// hold original filename
-		this.file = null;
+		// hold original filename, also used as temp variable
+		this.file = document.getElementById("bg-canvas").children[0];
 
 		/* initialization */
 
 		// apply file dragover event
-		document.getElementById("bg-canvas").children[0]
-			.addEventListener("dragover", this.fileHover, false);
+		this.file.addEventListener("dragover", this.fileHover, false);
 
 		// apply file dragleave event
-		document.getElementById("bg-canvas").children[0]
-			.addEventListener("dragleave", this.fileHover, false);
+		this.file.addEventListener("dragleave", this.fileHover, false);
 
 		// apply file drop event
-		document.getElementById("bg-canvas").children[0]
-			.addEventListener("drop", this.fileSelect, false);
+		this.file.addEventListener("drop", this.fileSelect, false);
 
+		// apply traditional upload fileselect event
+		this.file.children[0].children[1]
+			.addEventListener("change", this.fileSelect, false);
+
+		// get the background image control panel inputs
+		this.file = document.getElementById("bg-cpanels").children[0]
+						.getElementsByTagName("input");
+
+		// apply blur text input keyup event
+		this.file[0].addEventListener("keyup", this.bText, false);
+
+		// apply blur slider event
+		this.file[1].addEventListener("change", this.bSlide, false);
+
+		// apply opacity text input keyup event
+		this.file[2].addEventListener("keyup", this.oText, false);
+
+		// apply opacity slider event
+		this.file[3].addEventListener("change", this.oSlide, false);
 	}
 
 	/* METHODS */
@@ -622,11 +632,13 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	// - when user slides opacity slider
-	BGI.prototype.oSlide = function(){ return false;
+	BGI.prototype.oSlide = function(){
 
 		// set the value of the text input
+		this.parentElement.children[1].value = this.value;
 
 		// change the opacity of the background img
+		// jApp.preview.style.back
 
 		// update values
 
