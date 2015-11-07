@@ -199,14 +199,17 @@ var Jumbo, jApp;
 	// - toggle the options toolbar
 	Jumbo.prototype.togOpts = function(){
 
+		// reset the canvases
+		bgCanvas.style.display = "none";
+		dragCanvas.style.display = "block";
+
+		// take any elements out of edit mode
+
 		// if this component option editor is already open
 		if(jApp.compEditor == this.dataset.propopts){
 
 			// open the selected properties options toolbar
-			document.getElementById(this.dataset.propopts + "-props").style.display = "none";
-
-			// open the cooresponding canvas
-			document.getElementById(this.dataset.propopts + "-canvas").style.display = "none";
+			document.getElementById(this.dataset.propopts + "Props").style.display = "none";
 
 			// reset the compEditor property
 			jApp.compEditor = null;
@@ -227,10 +230,7 @@ var Jumbo, jApp;
 		jApp.temp[3].style.display = "none";
 
 		// open the selected properties options toolbar
-		document.getElementById(this.dataset.propopts + "-props").style.display = "block";
-
-		// open the cooresponding canvas
-		document.getElementById(this.dataset.propopts + "-canvas").style.display = "block";
+		document.getElementById(this.dataset.propopts + "Props").style.display = "block";
 	}
 
 	//-----------------------------------------------
@@ -395,13 +395,13 @@ var Jumbo, jApp;
 		this.bgc = new BGC();
 
 		// title block
-		this.tBlock = document.getElementById("bg-props").children[1];
+		this.tBlock = bgProps.children[1];
 		// canvases
-		this.canvas = document.getElementById("bg-canvas").children;
+		this.canvas = bgCanvas.children;
 		// control panels (also use as temp variable)
-		this.cPanel = document.getElementById("bg-cpanels").children;
+		this.cPanel = bgCpanels.children; 
 		// toolbar btns
-		this.tBtn = document.getElementById("bg-toolbar").children;
+		this.tBtn = bgToolbar.children;
 
 		// index of active control panel
 		this.prop = -1;
@@ -427,10 +427,10 @@ var Jumbo, jApp;
 		if(jApp.bg.prop >= 0){
 
 			// hide active canvas layer
-			jApp.bg.canvas[jApp.bg.prop].style.display = "none";
+			// jApp.bg.canvas[jApp.bg.prop].style.display = "none";
 
 			// hide active control panel
-			jApp.bg.cPanel[jApp.bg.prop].style.display = "none";
+			jApp.bg.cPanel[jApp.bg.prop].style.display = "none"; 
 
 			if(this.className == "close")
 				jApp.bg.tBtn[jApp.bg.prop].className = "btn btn-default";
@@ -449,7 +449,7 @@ var Jumbo, jApp;
 		}
 
 		// show canvas
-		jApp.bg.canvas[this.dataset.prop].style.display = "block";
+		// jApp.bg.canvas[this.dataset.prop].style.display = "block";
 
 		// show the control panel
 		jApp.bg.cPanel[this.dataset.prop].style.display = "block";
@@ -522,9 +522,16 @@ var Jumbo, jApp;
 		this.xhr = null;
 
 		// hold original filename, also used as temp variable
-		this.file = document.getElementById("bg-canvas").children[0];
+		this.file = bgCanvas;
 
 		/* initialization */
+
+		// toggle the image upload canvas event
+		bgToolbar.children[0].addEventListener("click", this.togCanvas, false);
+		bgCpanels.children[0].children[0].children[0]
+			.addEventListener("click", this.togCanvas, false);
+		bgToolbar.children[1].addEventListener("click", this.hideCanvas, false);
+		bgToolbar.children[2].addEventListener("click", this.hideCanvas, false);
 
 		// apply file dragover event
 		this.file.addEventListener("dragover", this.fileHover, false);
@@ -540,7 +547,7 @@ var Jumbo, jApp;
 			.addEventListener("change", this.fileSelect, false);
 
 		// get the background image control panel inputs
-		this.file = document.getElementById("bg-cpanels").children[0]
+		this.file = bgCpanels.children[0]
 						.getElementsByTagName("input");
 
 		// apply blur text input keyup event
@@ -557,6 +564,32 @@ var Jumbo, jApp;
 	}
 
 	/* METHODS */
+
+	//-----------------------------------------------
+	//- toggle upload canvas
+	BGI.prototype.togCanvas = function(){
+		// if the bgCanvas is hidden
+		if(bgCanvas.offsetParent === null){
+			// show the canvas
+			bgCanvas.style.display = "block";
+			// hide the draggables 
+			dragCanvas.style.display = "none";
+		}else{
+			// hide the canvas
+			bgCanvas.style.display = "none";
+			// show the draggables 
+			dragCanvas.style.display = "block";
+		}
+	}
+
+	//-----------------------------------------------
+	// - hide the canvas
+	BGI.prototype.hideCanvas = function(){
+		// hide the canvas
+		bgCanvas.style.display = "none";
+		// show the draggables 
+		dragCanvas.style.display = "block";
+	}
 
 	//-----------------------------------------------
 	// - file dragover method 
@@ -615,13 +648,13 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - img file upload callback 
 	BGI.prototype.uploadCB = function(){
-		if (this.readyState == 4) { console.log(this.responseText); console.log(document.getElementById("prev-canvas"));
+		if (this.readyState == 4) { console.log(this.responseText);
 
 			// set the nVals property
 			jApp.nVals["bg_img"] = "uploads/" + this.responseText;
 
 			// set the background
-			document.getElementById("prev-canvas").style.backgroundImage =  
+			prevCanvas.style.backgroundImage =  
 
 			"url('uploads/" + this.responseText +"')";
 
@@ -794,7 +827,7 @@ var Jumbo, jApp;
 		/* properties */
 
 		// temp variable, get the control panel
-		this.temp = document.getElementById("bg-cpanels").children[2];
+		this.temp = bgCpanels.children[2];
 
 		// color fill btn
 		this.icon = this.temp.getElementsByTagName("button")[1];

@@ -1,5 +1,5 @@
 <!-- background options control panels -->
-<div id="bg-props">
+<div id="bgProps">
     
     <hr>
     
@@ -12,7 +12,7 @@
     </div>
 
     <!-- control panels -->
-    <div id="bg-cpanels">
+    <div id="bgCpanels">
 
         <!-- background image control panel -->
         <div class="popover top control-panel">
@@ -192,8 +192,14 @@
 
     </div><!-- /control panels -->
 
+    <!-- hide background image -->
+    <div id="bgShow">
+        <input type="checkbox" class="form-control">
+        <span class="glyphicon glyphicon-eye-close" aria-label="hide background image"></span>
+    </div>
+
     <!-- toolbar -->
-    <div class="btn-group btn-group-lg opts-toolbar tb" id="bg-toolbar" role="group" aria-label="edit background toolbar">
+    <div class="btn-group btn-group-lg opts-toolbar tb" id="bgToolbar" role="group" aria-label="edit background toolbar">
         
         <!-- edit background image -->
         <button type="button" class="btn btn-default" data-prop="0" aria-label="edit background image">
@@ -225,6 +231,7 @@
                 </div>
             </div><!-- /colorwheel-icon -->
         </div>
+
     </div><!-- /toolbar -->
 
 </div><!-- /background options -->

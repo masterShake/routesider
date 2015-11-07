@@ -154,19 +154,30 @@
                 <div id="jumbo-canvas">
 
                     <!-- preview layer -->
-                    <div class="j-canvas" id="prev-canvas" style='display:block;background-color:<?= $jumbo["bg_color"]; ?>;background-size:cover;<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'></div>
+                    <div class="j-canvas" id="prevCanvas" style='display:block;background-color:<?= $jumbo["bg_color"]; ?>;background-size:cover;<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'></div>
 
-                    <!-- background image canvas layers -->
-                    <?php include "components/edit_jumbo/bg_canvas_layers.php"; ?>
+                    <!-- background image & crop layer -->
+                    <div class="j-canvas" id="cropCanvas"></div>
 
-                    <!-- text layer -->
-                    <div id="text-canvas"></div>
+                    <!-- image upload layer -->
+                    <div class="j-canvas" id="bgCanvas">
 
-                    <!-- images layer -->
-                    <div id="img-canvas"></div>
+                        <!-- upload image the old fashioned way -->
+                        <div class="upload-oldfash" <?= ($jumbo["bg_img"]) ? "style='opacity:0.7'" : ""; ?>>
+                            <label>Files to upload:</label>
+                            <input type="file" 
+                                   name="fileselect[]" 
+                                   multiple="multiple" />
+                        </div>
 
-                    <!-- buttons layer -->
-                    <div id="btns-canvas"></div> 
+                        <!-- text -->
+                        <div style="position:relative;font-size:12px;left:calc(50% - 18px);max-width:32px;text-shadow: 0px 0px 4px #FFF;">&#45; or &#45;</div>
+                        Drag &amp; Drop
+                    </div>
+
+                    <!-- add & edit text, images, & btns layer -->
+                    <div class="j-canvas" id="dragCanvas"></div>
+
                 </div>
 
                 <!-- properties toolbars & c panels -->
