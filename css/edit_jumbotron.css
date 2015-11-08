@@ -17,13 +17,14 @@
     height: 400px;
     margin-bottom: 20px;
     position: relative;
+	border: 1px dashed #ccc;
+    border-radius: 10px;
+    overflow: hidden;
 }
 /* canvas layers */
 .j-canvas{
 	height: 100%;
 	width: 100%;
-	border: 1px dashed #ccc;
-    border-radius: 10px;
     position: absolute;
 	-webkit-transition: .3s;
 	-moz-transition: .3s;

@@ -36,7 +36,15 @@ if ($fn) {
     // change the name of the file to ensure it is unique
     rename( $uFolder . $fn, $uFolder . $newName ); //change this
 
-    exit( $newName );
+    // get the image dimensions
+    $imgData = getimagesize($uFolder.$newName);
+
+    $imgData = [ 
+                 "name" => "uploads/".$newName,
+                 "dims" => [ "w" => $imgData["0"], "h" => $imgData["1"] ] 
+               ];
+
+    exit( json_encode($imgData) );
 }
 
 

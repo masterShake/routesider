@@ -651,12 +651,12 @@ var Jumbo, jApp;
 		if (this.readyState == 4) { console.log(this.responseText);
 
 			// set the nVals property
-			jApp.nVals["bg_img"] = "uploads/" + this.responseText;
+			jApp.nVals["bg_img"] = JSON.parse(this.responseText);
 
 			// set the background
-			prevCanvas.style.backgroundImage =  
+			cropCanvas.children[0].style.backgroundImage =  
 
-			"url('uploads/" + this.responseText +"')";
+			"url('"+jApp.nVals["bg_img"]["name"]+"')";
 
 			// show save prompt
 			jApp.deltaVals();

@@ -27,14 +27,17 @@
             $jumbo = json_decode($_POST["json"]);
 
             // if the user added a new background image
-            if(substr($jumbo->bg_img, 0, 6) == "upload"){
+            if(substr($jumbo->bg_img->name, 0, 6) == "upload"){
                 // remove the "uploads/" prefix
-                $jumbo->bg_img = substr($jumbo->bg_img, 8);
+                $jumbo->bg_img->name = substr($jumbo->bg_img->name, 8);
                 // isolate the server root
                 $uRoot = $_SERVER["DOCUMENT_ROOT"]."/routesider/";
                 // move the file by renaming it
-                rename($uRoot . "uploads/" . $jumbo->bg_img, $uRoot . "img/business/" . $jumbo->bg_img);
+                rename($uRoot . "uploads/" . $jumbo->bg_img->name, $uRoot . "img/business/" . $jumbo->bg_img->name);
             }
+
+            // convert the bg_img dimensions to a json string
+            $jumbo->bg_img->dims = json_encode($jumbo->bg_img->dims);
 
             // get the user's business
             $user = new User();
@@ -48,7 +51,8 @@
             "j.bg_color='{$jumbo->bg_color}', ".
             "j.opacity={$jumbo->opacity}, ".
             "j.blur={$jumbo->blur}, ".
-            "j.bg_img='{$jumbo->bg_img}' ";
+            "j.bg_img='{$jumbo->bg_img->name}', ".
+            "j.bg_dims='{$jumbo->bg_img->dims}'";
 
             $db = neoDB::getInstance();
 
@@ -154,10 +158,13 @@
                 <div id="jumbo-canvas">
 
                     <!-- preview layer -->
-                    <div class="j-canvas" id="prevCanvas" style='display:block;background-color:<?= $jumbo["bg_color"]; ?>;background-size:cover;<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'></div>
+                    <div class="j-canvas" id="prevCanvas" style='background-color:<?= $jumbo["bg_color"]; ?>;'></div>
 
                     <!-- background image & crop layer -->
-                    <div class="j-canvas" id="cropCanvas"></div>
+                    <div class="j-canvas" id="cropCanvas">
+                        <div style='height:100%;background-size:cover;<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'>
+                        </div>
+                    </div>
 
                     <!-- image upload layer -->
                     <div class="j-canvas" id="bgCanvas">
