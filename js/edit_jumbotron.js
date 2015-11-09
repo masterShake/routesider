@@ -111,13 +111,15 @@ var Jumbo, jApp;
 
 		// init background editor
 		this.bg = new BG();
+		// init textbox editor
+		this.tb = new TB();
 
 		// keep track of the preview canvas
 		this.preview = document.getElementById("prev-canvas");
 
 		// keep track of the save alerts
-		this.save1 = document.getElementById("save1");
-		this.save2 = document.getElementById("save2");
+		this.save1 = save1;
+		this.save2 = save2;
 
 		// keep track of open component options
 		this.compEditor = null;
@@ -150,7 +152,7 @@ var Jumbo, jApp;
 
 		// apply the event listeners
 		this.temp[0].addEventListener("click", this.togOpts, false);
-		// this.temp[1].addEventListener("click", this.togOpts, false);
+		this.temp[1].addEventListener("click", this.togOpts, false);
 		// this.temp[2].addEventListener("click", this.togOpts, false);
 		// this.temp[3].addEventListener("click", this.togOpts, false);
 
@@ -278,7 +280,7 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - show save alert fade in timeout function
 	Jumbo.prototype.showSA = function(){
-		jApp.save1.style.opacity = "1";
+		save1.style.opacity = "1";
 	}
 
 	//-----------------------------------------------
@@ -290,8 +292,8 @@ var Jumbo, jApp;
 				return; // do nothing
 
 		// show hourglass inside save button
-		jApp.save1.children[1].innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#fff;"></span>';
-		jApp.save2.children[0].innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#fff;"></span>';
+		save1.children[1].innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#fff;"></span>';
+		save2.children[0].innerHTML = '<span class="glyphicon glyphicon-hourglass loading" style="color:#fff;"></span>';
 
 		// make save ajax call
 		rsApp.ajax({ 
@@ -307,9 +309,9 @@ var Jumbo, jApp;
 	Jumbo.prototype.xSA = function(){
 		this.parentElement.style.opacity = "0";
 		this.parentElement.style.display = "none";
-		jApp.save2.className = "well";
-		jApp.save1.children[1].innerHTML = "save";
-		jApp.save2.children[0].innerHTML = "save";
+		save2.className = "well";
+		save1.children[1].innerHTML = "save";
+		save2.children[0].innerHTML = "save";
 	}
 
 	//-----------------------------------------------
@@ -323,15 +325,15 @@ var Jumbo, jApp;
 			jApp.iVals = JSON.parse(JSON.stringify(jApp.nVals));
 
 			// change classes
-			jApp.save1.className = "alert alert-success";
-			jApp.save2.className = "well success";
+			save1.className = "alert alert-success";
+			save2.className = "well success";
 
 			// change the button html
-			jApp.save1.children[1].innerHTML = 'saved!';
-			jApp.save2.children[0].innerHTML = 'saved!';
+			save1.children[1].innerHTML = 'saved!';
+			save2.children[0].innerHTML = 'saved!';
 
 			// show the closable x
-			jApp.save1.children[0].style.display = "block";
+			save1.children[0].style.display = "block";
 
 		}
 	}
@@ -527,11 +529,11 @@ var Jumbo, jApp;
 		/* initialization */
 
 		// toggle the image upload canvas event
-		bgToolbar.children[0].addEventListener("click", this.togCanvas, false);
-		bgCpanels.children[0].children[0].children[0]
-			.addEventListener("click", this.togCanvas, false);
-		bgToolbar.children[1].addEventListener("click", this.hideCanvas, false);
-		bgToolbar.children[2].addEventListener("click", this.hideCanvas, false);
+		// bgToolbar.children[0].addEventListener("click", this.togCanvas, false);
+		// bgCpanels.children[0].children[0].children[0]
+		// 	.addEventListener("click", this.togCanvas, false);
+		// bgToolbar.children[1].addEventListener("click", this.hideCanvas, false);
+		// bgToolbar.children[2].addEventListener("click", this.hideCanvas, false);
 
 		// apply file dragover event
 		this.file.addEventListener("dragover", this.fileHover, false);
@@ -567,29 +569,29 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	//- toggle upload canvas
-	BGI.prototype.togCanvas = function(){
-		// if the bgCanvas is hidden
-		if(bgCanvas.offsetParent === null){
-			// show the canvas
-			bgCanvas.style.display = "block";
-			// hide the draggables 
-			dragCanvas.style.display = "none";
-		}else{
-			// hide the canvas
-			bgCanvas.style.display = "none";
-			// show the draggables 
-			dragCanvas.style.display = "block";
-		}
-	}
+	// BGI.prototype.togCanvas = function(){
+	// 	// if the bgCanvas is hidden
+	// 	if(bgCanvas.offsetParent === null){
+	// 		// show the canvas
+	// 		bgCanvas.style.display = "block";
+	// 		// hide the draggables 
+	// 		dragCanvas.style.display = "none";
+	// 	}else{
+	// 		// hide the canvas
+	// 		bgCanvas.style.display = "none";
+	// 		// show the draggables 
+	// 		dragCanvas.style.display = "block";
+	// 	}
+	// }
 
-	//-----------------------------------------------
-	// - hide the canvas
-	BGI.prototype.hideCanvas = function(){
-		// hide the canvas
-		bgCanvas.style.display = "none";
-		// show the draggables 
-		dragCanvas.style.display = "block";
-	}
+	// //-----------------------------------------------
+	// // - hide the canvas
+	// BGI.prototype.hideCanvas = function(){
+	// 	// hide the canvas
+	// 	bgCanvas.style.display = "none";
+	// 	// show the draggables 
+	// 	dragCanvas.style.display = "block";
+	// }
 
 	//-----------------------------------------------
 	// - file dragover method 
@@ -747,7 +749,7 @@ var Jumbo, jApp;
 
 
 
-		//-----------------------------------------------
+	//-----------------------------------------------
 	//				   CR (cropper)				
 	//			     ----------------
 	//
@@ -974,6 +976,48 @@ var Jumbo, jApp;
 		// notify root node that values have changed
 		jApp.deltaVals();
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//				   TB (textbox)				
+	//			     ----------------
+	//
+	// - manage text box functionality
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	TB = function(){}
+
+	/* METHODS */
+
+
 
 
 

@@ -194,7 +194,7 @@
                     <?php include "components/edit_jumbo/bg_control_panels.php"; ?>
 
                     <!-- text -->
-                    <div id="text-props"></div>
+                    <?php include "components/edit_jumbo/text_control_panels.php"; ?>
 
                     <!-- images -->
                     <div id="img-props"></div>

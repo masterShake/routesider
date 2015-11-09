@@ -275,6 +275,15 @@ tbody button.btn-color-selected{
 }
 
 /*----------------------
+	textbox toolbar
+----------------------*/
+
+#textToolbar button{
+	width: 45px;
+	padding: 10px;
+}
+
+/*----------------------
    color wheel icon 
 ----------------------*/
 

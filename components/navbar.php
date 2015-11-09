@@ -123,7 +123,7 @@
            <?php if( !$user->isLoggedIn() ){ ?>
 
             <!-- search routesider -->
-            <form class="navbar-form navbar-right" role="search">
+            <form class="navbar-form navbar-right">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search Routesider">
                     <span class="input-group-btn">
