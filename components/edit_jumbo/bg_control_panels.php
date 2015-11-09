@@ -75,8 +75,6 @@
 
         <!-- background color control panel -->
         <div class="popover top control-panel">
-
-
             <div class="popover-title"> 
                 <button type="button" class="close" data-prop="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
