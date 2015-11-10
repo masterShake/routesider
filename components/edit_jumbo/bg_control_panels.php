@@ -29,7 +29,7 @@
             <div class="popover-content">
                 <!-- background image blur -->
                 <div class="half-slider" style="padding-left:10px;float:right;">
-                    <label for="bg-blur">
+                    <label>
                         <span class="glyphicon glyphicon-eye-open"></span>
                         blur
                     </label>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="arrow" style="left:29px"></div>
+            <div class="arrow" style="left:20px"></div>
         </div><!-- /background image control panel -->
 
         <!-- crop background image control panel -->
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="arrow" style="left:90px"></div>
+            <div class="arrow" style="left:63px"></div>
         </div><!-- /crop background image control panel -->
 
         <!-- background color control panel -->
@@ -185,7 +185,7 @@
                 </div><!-- /hexigon color wheel -->
 
             </div>
-            <div class="arrow" style="left:152px"></div>
+            <div class="arrow" style="left:107px"></div>
         </div><!-- /backgroung color control panel -->
 
     </div><!-- /control panels -->

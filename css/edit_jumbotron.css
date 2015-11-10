@@ -208,6 +208,15 @@
 .half-slider input.range-slider{
 	width: calc(100% - 56px);
 }
+/*btnsCpanels input*/
+#btnsCpanels .half-slider input.form-control{
+	float:none;
+	width: 30px;
+	padding: 6px;
+}
+#btnsCpanels .half-slider div{
+	float: right;
+}
 
 /*----------------------
 	  crop image

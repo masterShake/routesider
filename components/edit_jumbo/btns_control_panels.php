@@ -4,12 +4,58 @@
     <hr>
     
     <!-- title -->
-    <div class="opts-title">
-        <div class="icon-images" style="float:left;font-size: 19px;margin-top: -6px;margin-right: 3px;"></div>
+    <div class="opts-title" style="display:none;">
+        <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;max-height:0px;margin-top:-4px;">
+            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+        </div>
         <h5><b>Button options:</b></h5>
     </div>
 
     <!-- control panels -->
+    <div id="btnsCpanels">
+    	
+    	<!-- padding -->
+    	<div class="popover top control-panel" style="display:block;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="icon-enlarge" style="font-size:18px;margin-right:5px;"></div>
+                <div><b>Padding</b></div>
+            </div>
+            <div class="popover-content">
+                <!-- background image blur -->
+                <div class="half-slider" style="padding-left:10px;float:right;">
+                	<label for="bg-opacity">
+                        <span class="glyphicon glyphicon-resize-horizontal" style="margin-right:6px;" aria-hidden="true"></span>
+                        left/right
+                    </label>
+                    <div>
+                    	<span style="float:right;margin-left:3px;">px</span>
+                        <input type="text" class="form-control" maxlength="2" value="12">
+                    </div>
+                    <input type="range" class="range-slider" min="0" max="25" step="1" value="12">
+                </div>
+                <!-- background image opacity -->
+                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                    <label>
+                        <span class="glyphicon glyphicon-resize-vertical" style="margin-right:1px;"></span>
+                        top/bottom
+                    </label>
+                    <div>
+                    	<span style="float:right;margin-left:3px;">px</span>
+                    	<input type="text" class="form-control" maxlength="2" value="10">
+                    </div>
+                    <input type="range" class="range-slider" min="0" max="25" step="1" value="10">
+                </div>
+            </div>
+            <div class="arrow" style="left:20px"></div>
+        </div><!-- /padding -->
+
+    </div>
 
     <!-- toolbar -->
     <div class="toolbar" id="btnsToolbar">
