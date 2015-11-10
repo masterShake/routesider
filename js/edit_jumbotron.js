@@ -154,7 +154,7 @@ var Jumbo, jApp;
 		this.temp[0].addEventListener("click", this.togOpts, false);
 		this.temp[1].addEventListener("click", this.togOpts, false);
 		this.temp[2].addEventListener("click", this.togOpts, false);
-		// this.temp[3].addEventListener("click", this.togOpts, false);
+		this.temp[3].addEventListener("click", this.togOpts, false);
 
 		// event listener activation switch
 		document.getElementById("onoff")

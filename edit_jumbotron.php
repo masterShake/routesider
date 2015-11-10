@@ -200,7 +200,8 @@
                     <?php include "components/edit_jumbo/img_control_panels.php"; ?>
 
                     <!-- buttons -->
-                    <div id="btns-props"></div>
+                    <?php include "components/edit_jumbo/btns_control_panels.php"; ?>
+
                 </div>
             </div><!-- /canvasses & control panels .container -->
 

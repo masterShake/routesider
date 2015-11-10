@@ -278,7 +278,8 @@ tbody button.btn-color-selected{
 	textbox toolbar
 ----------------------*/
 
-#textToolbar button{
+#textToolbar button,
+#btnsToolbar button{
 	width: 45px;
 	padding: 10px;
 }

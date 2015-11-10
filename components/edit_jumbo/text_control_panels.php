@@ -272,7 +272,7 @@
     <div id="textToolbar">
 
         <!-- toolbar 1 -->
-        <div class="btn-group opts-toolbar" role="group" aria-label="edit textbox toolbar">
+        <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
             <!-- bold -->
             <button type="button" class="btn btn-default" aria-label="bold">
                 <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
@@ -328,8 +328,7 @@
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
             </div>
-        </div>
-        <!-- /toolbar 2 -->
+        </div><!-- /toolbar 2 -->
 
     </div><!-- /toolbar -->
 
