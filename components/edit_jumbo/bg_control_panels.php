@@ -197,7 +197,7 @@
     </div>
 
     <!-- toolbar -->
-    <div class="btn-group btn-group-lg opts-toolbar" id="bgToolbar" role="group" aria-label="edit background toolbar">
+    <div class="btn-group opts-toolbar" id="bgToolbar" role="group" aria-label="edit background toolbar">
         
         <!-- edit background image -->
         <button type="button" class="btn btn-default" data-prop="0" aria-label="edit background image">

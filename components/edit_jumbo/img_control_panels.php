@@ -12,11 +12,11 @@
     <!-- toolbar -->
     <div class="opts-toolbar" id="imgToolbar">
     	<!-- delete -->
-    	<button type="button" class="btn btn-lg btn-default btn-danger" style="float:right;max-height:43px;" aria-label="delete image">
+    	<button type="button" class="btn btn-default btn-danger" style="float:right;max-height:43px;" aria-label="delete image">
     		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     	</button>
     	<!-- move to front -->
-    	<button type="button" class="btn btn-lg btn-default" style="max-height:43px;" aria-label="move to front">
+    	<button type="button" class="btn btn-default" style="max-height:43px;" aria-label="move to front">
     		<span class="icon-stack" aria-hidden="true"></span>
     	</button>
     </div>
