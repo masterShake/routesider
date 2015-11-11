@@ -208,12 +208,7 @@
 .half-slider input.range-slider{
 	width: calc(100% - 56px);
 }
-/*btnsCpanels input*/
-#btnsCpanels .half-slider input.form-control{
-	float:none;
-	width: 30px;
-	padding: 6px;
-}
+
 #btnsCpanels .half-slider div{
 	float: right;
 }
@@ -260,6 +255,25 @@ tbody button.btn-color-selected{
 	border: 0px;
 	width: 27px;
 }
+
+/* color opacity */
+.color-o div{
+    float: left;
+    font-size: 17px;
+    margin-top: 2px;
+    margin-right: 6px;
+}
+.color-o .form-control{
+	float: right;
+	width: 56px;
+	margin-top: -6px;
+}
+.color-o .range-slider{
+	float: right;
+	width: 110px;
+	margin-right: 12px;
+}
+
 
 /*----------------------
 	show bg img
