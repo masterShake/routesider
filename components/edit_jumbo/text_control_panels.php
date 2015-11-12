@@ -15,7 +15,7 @@
         <!-- text size -->
         <div class="popover top control-panel" style="max-width:250px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -56,7 +56,7 @@
         <!-- text color -->
         <div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -153,7 +153,7 @@
         <!-- text background -->
         <div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -250,7 +250,7 @@
         <!-- text alignment -->
         <div class="popover top control-panel" style="max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -274,27 +274,27 @@
         <!-- toolbar 1 -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
             <!-- bold -->
-            <button type="button" class="btn btn-default" aria-label="bold">
+            <button type="button" class="btn btn-default" data-panel aria-label="bold">
                 <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
             </button>
             <!-- italic -->
-            <button type="button" class="btn btn-default" aria-label="italic">
+            <button type="button" class="btn btn-default" data-panel aria-label="italic">
                 <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
             </button>
             <!-- underline -->
-            <button type="button" class="btn btn-default" aria-label="underline">
+            <button type="button" class="btn btn-default" data-panel aria-label="underline">
                 <span class="icon-underline" aria-hidden="true"></span>
             </button>
             <!-- strikethrough -->
-            <button type="button" class="btn btn-default" aria-label="strike through">
+            <button type="button" class="btn btn-default" data-panel aria-label="strike through">
                 <span class="icon-strikethrough" aria-hidden="true"></span>
             </button>
             <!-- subscript -->
-            <button type="button" class="btn btn-default" aria-label="subscript">
+            <button type="button" class="btn btn-default" data-panel aria-label="subscript">
                 <span class="glyphicon glyphicon-subscript" aria-hidden="true"></span>
             </button>
             <!-- superscript -->
-            <button type="button" class="btn btn-default" aria-label="superscript">
+            <button type="button" class="btn btn-default" data-panel aria-label="superscript">
                 <span class="glyphicon glyphicon-superscript" aria-hidden="true"></span>
             </button>
         </div><!-- /toolbar 1 -->
@@ -303,23 +303,23 @@
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group opts-toolbar" role="group" aria-label="edit textbox toolbar">
                 <!-- text-size -->
-                <button type="button" class="btn btn-default" aria-label="text-size">
+                <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
                     <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
                 </button>
                 <!-- text color -->
-                <button type="button" class="btn btn-default" aria-label="text-color">
+                <button type="button" class="btn btn-default" data-panel="1" aria-label="text-color">
                     <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
                 </button>
                 <!-- text background-->
-                <button type="button" class="btn btn-default" aria-label="text-background">
+                <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
                     <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
                 </button>
                 <!-- text align -->
-                <button type="button" class="btn btn-default" aria-label="text align">
+                <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
                     <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
                 </button>
                 <!-- move to front -->
-                <button type="button" class="btn btn-default" aria-label="move to front">
+                <button type="button" class="btn btn-default" data-panel aria-label="move to front">
                     <span class="icon-stack" aria-hidden="true"></span>
                 </button>
             </div>

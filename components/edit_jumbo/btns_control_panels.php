@@ -4,8 +4,8 @@
     <hr>
     
     <!-- title -->
-    <div class="opts-title" style="display:none;">
-        <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;max-height:0px;margin-top:-4px;">
+    <div class="opts-title">
+        <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px;min-height:20px;margin-top:-4px;">
             <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
         </div>
         <h5><b>Button options:</b></h5>
@@ -15,9 +15,9 @@
     <div id="btnsCpanels" style="position:relative;z-index:1;">
 
         <!-- text size -->
-        <div class="popover top control-panel" style="display:block;max-width:250px;">
+        <div class="popover top control-panel" style="max-width:250px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
@@ -60,7 +60,7 @@
         <!-- text color -->
         <div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
@@ -169,7 +169,7 @@
         <!-- background -->
         <div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
@@ -278,7 +278,7 @@
         <!-- border color -->
         <div class="popover top control-panel" style="margin-bottom:-43px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
@@ -398,7 +398,7 @@
     	<!-- padding -->
     	<div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
@@ -439,7 +439,7 @@
         <!-- URL -->
         <div class="popover top control-panel" style="margin-bottom:-43px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
@@ -461,34 +461,34 @@
     <div class="toolbar" id="btnsToolbar">
 	    <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit button toolbar">
             <!-- text-size -->
-            <button type="button" class="btn btn-default" aria-label="text-size">
+            <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
                 <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
             </button>
 	    	<!-- text color -->
-	    	<button type="button" class="btn btn-default" aria-label="button text color">
+	    	<button type="button" class="btn btn-default" data-panel="1" aria-label="button text color">
 	    		<span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
 	    	</button>
 	    	<!-- button background -->
-	    	<button type="button" class="btn btn-default" aria-label="button background">
+	    	<button type="button" class="btn btn-default" data-panel="2" aria-label="button background">
 	    		<span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
 	    	</button>
 	    	<!-- border -->
-	    	<button type="button" class="btn btn-default" aria-label="button border">
+	    	<button type="button" class="btn btn-default" data-panel="3" aria-label="button border">
 	    		<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
 	    	</button>
 	    </div>
 	    <br>
 	    <div class="btn-group opts-toolbar" role="group" aria-label="edit button toolbar">
 	    	<!-- padding -->
-	    	<button type="button" class="btn btn-default" aria-label="button padding">
+	    	<button type="button" class="btn btn-default" data-panel="4" aria-label="button padding">
 	    		<span class="icon-enlarge" aria-hidden="true"></span>
 	    	</button>
 	    	<!-- hyperlink -->
-	    	<button type="button" class="btn btn-default" aria-label="button link">
+	    	<button type="button" class="btn btn-default" data-panel="5" aria-label="button link">
 	    		<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
 	    	</button>
 	    	<!-- move to front -->
-	    	<button type="button" class="btn btn-default" aria-label="move to front">
+	    	<button type="button" class="btn btn-default" data-panel aria-label="move to front">
 	    		<span class="icon-stack" aria-hidden="true"></span>
 	    	</button>
 	    </div>

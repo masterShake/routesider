@@ -112,7 +112,11 @@ var Jumbo, jApp;
 		// init background editor
 		this.bg = new BG();
 		// init textbox editor
-		this.tb = new TB();
+		this.text = new TB();
+		// init image overlay editor
+		this.img = new IO();
+		// init button editor
+		this.btns = new BTN();
 
 		// keep track of the preview canvas
 		this.preview = document.getElementById("prev-canvas");
@@ -121,8 +125,11 @@ var Jumbo, jApp;
 		this.save1 = save1;
 		this.save2 = save2;
 
-		// keep track of open component options
-		this.compEditor = null;
+		// keep track active toolbar
+		this.comp = null;
+
+		// keep track of active control panel
+		this.panel = -1;
 
 		// temp variable
 		this.temp;
@@ -147,18 +154,24 @@ var Jumbo, jApp;
 			}
 		}
 
+		// event listener activation switch
+		document.getElementById("onoff")
+			.addEventListener("change", this.jumboVis, false);
+
 		// get the jumbo toolbar btns
 		this.temp = document.getElementById("jumbo-toolbar").children[1].children;
-
-		// apply the event listeners
+		// apply the event listeners to jumbo toolbar
 		this.temp[0].addEventListener("click", this.togOpts, false);
 		this.temp[1].addEventListener("click", this.togOpts, false);
 		this.temp[2].addEventListener("click", this.togOpts, false);
 		this.temp[3].addEventListener("click", this.togOpts, false);
 
-		// event listener activation switch
-		document.getElementById("onoff")
-			.addEventListener("change", this.jumboVis, false);
+		// get all buttons that toggle control panels
+		this.temp = document.querySelectorAll('[data-panel]');
+		// loop through the buttons
+		for(var i = 0; i < this.temp.length; i++)
+			// apply the even listener
+			this.temp[i].addEventListener("click", this.togCpan, false);
 
 		// add event listener to the save btn
 		this.save1.children[1].addEventListener("click", this.save, false);
@@ -198,41 +211,72 @@ var Jumbo, jApp;
 	}
 
 	//-----------------------------------------------
-	// - toggle the options toolbar
+	// - toggle an options toolbar
 	Jumbo.prototype.togOpts = function(){
 
-		// reset the canvases
-		bgCanvas.style.display = "none";
-		dragCanvas.style.display = "block";
+		// if there is an open/active options toolbar
+		if(jApp.comp){
 
-		// take any elements out of edit mode
+			// close it
+			jApp[jApp.comp].close();
 
-		// if this component option editor is already open
-		if(jApp.compEditor == this.dataset.propopts){
+			// hide the open options toolbar
+			document.getElementById(jApp.comp + "Props").style.display = "none";
 
-			// open the selected properties options toolbar
-			document.getElementById(this.dataset.propopts + "Props").style.display = "none";
+		}
 
-			// reset the compEditor property
-			jApp.compEditor = null;
+		// if this options toolbar was already open
+		if(this.dataset.comp == jApp.comp){
+
+			// reset the comp property to null
+			jApp.comp = null;
 
 			return;
 		}
 
-		// set the compEditor property
-		jApp.compEditor = this.dataset.propopts;
-
-		// get all the properties options toolbars
-		jApp.temp = document.getElementById("props").children;
-
-		// close any open toolbars
-		jApp.temp[0].style.display = "none";
-		jApp.temp[1].style.display = "none";
-		jApp.temp[2].style.display = "none";
-		jApp.temp[3].style.display = "none";
+		// set the comp property
+		jApp.comp = this.dataset.comp;
 
 		// open the selected properties options toolbar
-		document.getElementById(this.dataset.propopts + "Props").style.display = "block";
+		document.getElementById(this.dataset.comp + "Props").style.display = "block";
+	}
+
+	//-----------------------------------------------
+	// - toggle an options control panel
+	Jumbo.prototype.togCpan = function(){
+
+		// if there is an open/active control panel
+		if(jApp.panel >= 0)
+
+			// close it
+			document.getElementById(jApp.comp+"Cpanels").children[jApp.panel]
+				.style.display = "none";
+		
+		//-----------------------------------------------
+		// - if this button has no associated control 
+		//   panel, or this panel was already open
+		if(!this.dataset.panel || this.dataset.panel == jApp.panel){
+
+			// show the opts title
+			document.getElementById(jApp.comp + "Props").children[1]
+				.style.display = "block";
+
+			// reset the active panel
+			jApp.panel = -1;
+
+			return;
+		}
+
+		// set the new active panel
+		jApp.panel = this.dataset.panel;
+
+		// hide the opts title
+		document.getElementById(jApp.comp + "Props").children[1]
+			.style.display = "none";
+
+		// display the control panel
+		document.getElementById(jApp.comp + "Cpanels").children[this.dataset.panel]
+			.style.display = "block";
 	}
 
 	//-----------------------------------------------
@@ -409,61 +453,15 @@ var Jumbo, jApp;
 		this.prop = -1;
 
 		/* initializations */
-
-		// apply toggle control panel event
-		this.tBtn[0].addEventListener("click", this.togPanel, false);
-		this.tBtn[1].addEventListener("click", this.togPanel, false);
-		this.tBtn[2].addEventListener("click", this.togPanel, false);
-
-		// temp variable, apply toggle event to the popover x btns
-		this.cPanel[0].children[0].children[0].addEventListener("click", this.togPanel, false);
-		this.cPanel[1].children[0].children[0].addEventListener("click", this.togPanel, false);
-		this.cPanel[2].children[0].children[0].addEventListener("click", this.togPanel, false);
 	}
 
 	//-----------------------------------------------
-	// - toggle control panel event
-	BG.prototype.togPanel = function(){
+	// - close any open control panels
+	// - reset anything else
+	BG.prototype.close = function(){
 
-		// if any control panel is already open
-		if(jApp.bg.prop >= 0){
+		return false;
 
-			// hide active canvas layer
-			// jApp.bg.canvas[jApp.bg.prop].style.display = "none";
-
-			// hide active control panel
-			jApp.bg.cPanel[jApp.bg.prop].style.display = "none"; 
-
-			if(this.className == "close")
-				jApp.bg.tBtn[jApp.bg.prop].className = "btn btn-default";
-		}
-
-		// if this particular control panel is open
-		if(jApp.bg.prop == this.dataset.prop){
-
-			// display the title
-			jApp.bg.tBlock.style.display = "block";
-
-			// reset the active prop
-			jApp.bg.prop = -1;
-
-			return;
-		}
-
-		// show canvas
-		// jApp.bg.canvas[this.dataset.prop].style.display = "block";
-
-		// show the control panel
-		jApp.bg.cPanel[this.dataset.prop].style.display = "block";
-
-		// set the cPanel property
-		jApp.bg.prop = this.dataset.prop;
-
-		// hide the title
-		jApp.bg.tBlock.style.display = "none";
-
-		// set the prop
-		jApp.bg.prop = this.dataset.prop;
 	}
 
 
@@ -1013,10 +1011,132 @@ var Jumbo, jApp;
 
 	/* CONSTRUCTOR */
 
-	TB = function(){}
+	TB = function(){
+
+		this.something = null;
+
+	}
 
 	/* METHODS */
 
+	TB.prototype.close = function(){
+
+		return false;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//				 IO (image overlay)				
+	//			   ----------------------
+	//
+	// - manage image overlay toolbar
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	IO = function(){
+
+		this.something = null;
+
+	}
+
+	/* METHODS */
+
+	IO.prototype.close = function(){
+
+		return false;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//				 BTN (button editor)				
+	//			   -----------------------
+	//
+	// - manage button link toolbar
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	BTN = function(){
+
+		this.something = null;
+
+	}
+
+	/* METHODS */
+
+	BTN.prototype.close = function(){
+
+		return false;
+
+	}
 
 
 

@@ -243,7 +243,7 @@
                     <!-- edit background -->
                     <div type="button" 
                          class="btn btn-default"
-                         data-propopts="bg" 
+                         data-comp="bg" 
                          aria-label="edit background">
                         <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
                             <span class="icon-image" aria-hidden="true"></span>
@@ -253,7 +253,7 @@
                     <!-- add textbox -->
                     <div type="button" 
                          class="btn btn-default" 
-                         data-propopts="text" 
+                         data-comp="text" 
                          aria-label="add textbox">
                         <div class="dash-box" aria-hidden="true">Aa</div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -261,7 +261,7 @@
                     <!-- add image overlay -->
                     <div type="button" 
                          class="btn btn-default" 
-                         data-propopts="img" 
+                         data-comp="img" 
                          aria-label="add image overlay">
                         <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -269,7 +269,7 @@
                     <!-- add button -->
                     <div type="button" 
                          class="btn btn-default" 
-                         data-propopts="btns" 
+                         data-comp="btns" 
                          aria-label="add button">
                         <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                             <span class="glyphicon glyphicon-link" aria-hidden="true"></span>

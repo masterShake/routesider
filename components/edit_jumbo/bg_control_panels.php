@@ -17,7 +17,7 @@
         <!-- background image control panel -->
         <div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
                     <span class="icon-image" aria-hidden="true"></span>
                 </div>
@@ -54,7 +54,7 @@
         <!-- crop background image control panel -->
         <div class="popover top control-panel" style="max-width:250px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
                     <span class="icon-image" aria-hidden="true"></span>
                 </div>
@@ -76,7 +76,7 @@
         <!-- background color control panel -->
         <div class="popover top control-panel">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
                     <span class="icon-image" aria-hidden="true"></span>
                 </div>
@@ -190,44 +190,45 @@
 
     </div><!-- /control panels -->
 
-    <!-- hide background image -->
-    <div id="bgShow">
-        <input type="checkbox" class="form-control">
-        <span class="glyphicon glyphicon-eye-close" aria-label="hide background image"></span>
-    </div>
-
     <!-- toolbar -->
-    <div class="btn-group opts-toolbar" id="bgToolbar" role="group" aria-label="edit background toolbar">
-        
-        <!-- edit background image -->
-        <button type="button" class="btn btn-default" data-prop="0" aria-label="edit background image">
-            <span class="icon-image"></span>
-        </button><!-- /edit background image -->
-        
-        <!-- crop background image -->
-        <button type="button" class="btn btn-default" data-prop="1" aria-label="crop image">
-            <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
-        </button>
-        
-        <!-- edit background color -->
-        <div type="button" class="btn btn-default" data-prop="2" aria-label="edit background color">
-            <!-- color wheel icon -->
-            <div class="colorwheel-icon">
-                <div>
-                    <div></div>
-                </div>
-                <div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div>
-                    <div></div>
-                </div>
-            </div><!-- /colorwheel-icon -->
+    <div class="btn-toolbar" id="bgToolbar">
+
+        <!-- delete background image -->
+        <div class="btn-group opts-toolbar" style="float:right;" role="group" aria-label="delete background image">
+            <button type="button" class="btn btn-default btn-danger" aria-label="delete background image">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div class="btn-group opts-toolbar" role="group" aria-label="edit background toolbar">
+            <!-- edit background image -->
+            <button type="button" class="btn btn-default" data-panel="0" aria-label="edit background image">
+                <span class="icon-image"></span>
+            </button><!-- /edit background image -->
+            <!-- crop background image -->
+            <button type="button" class="btn btn-default" data-panel="1" aria-label="crop image">
+                <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
+            </button>
+            <!-- edit background color -->
+            <div type="button" class="btn btn-default" data-panel="2" aria-label="edit background color">
+                <!-- color wheel icon -->
+                <div class="colorwheel-icon">
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                    </div>
+                </div><!-- /colorwheel-icon -->
+            </div>
         </div>
 
     </div><!-- /toolbar -->
