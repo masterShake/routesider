@@ -13,47 +13,49 @@
 
     <!-- control panels -->
     <div id="btnsCpanels" style="position:relative;z-index:1;">
-    	
-    	<!-- padding -->
-    	<div class="popover top control-panel">
+
+        <!-- text size -->
+        <div class="popover top control-panel" style="display:block;max-width:250px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-prop="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
                 <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-enlarge" style="font-size:18px;margin-right:5px;"></div>
-                <div><b>Padding</b></div>
+                <div class="glyphicon glyphicon-text-size" style="margin-right:5px;margin-top:1px;"></div>
+                <div><b>Font Size</b></div>
             </div>
-            <div class="popover-content">
-                <!-- background image blur -->
-                <div class="half-slider" style="padding-left:10px;float:right;">
-                	<label for="bg-opacity">
-                        <span class="glyphicon glyphicon-resize-horizontal" style="margin-right:6px;" aria-hidden="true"></span>
-                        left/right
-                    </label>
-                    <div>
-                    	<span style="float:right;margin-left:3px;">px</span>
-                        <input type="text" class="form-control" maxlength="2" value="12">
-                    </div>
-                    <input type="range" class="range-slider" min="0" max="25" step="1" value="12">
-                </div>
-                <!-- background image opacity -->
-                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                    <label>
-                        <span class="glyphicon glyphicon-resize-vertical" style="margin-right:1px;"></span>
-                        top/bottom
-                    </label>
-                    <div>
-                    	<span style="float:right;margin-left:3px;">px</span>
-                    	<input type="text" class="form-control" maxlength="2" value="10">
-                    </div>
-                    <input type="range" class="range-slider" min="0" max="25" step="1" value="10">
-                </div>
+            <div class="popover-content" style="text-align:center;">
+                <div class="input-group" style="max-width:100px;position:relative;left:50%;margin-left:-50px;">
+                    <input type="text" class="form-control" value="12px" aria-label="font size">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret" style="-webkit-transform: rotate(180deg);-moz-transform: rotate(180deg);-o-transform: rotate(180deg);-ms-transform: rotate(180deg);transform: rotate(180deg);"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">8px</a></li>
+                            <li><a href="#">9px</a></li>
+                            <li><a href="#">10px</a></li>
+                            <li><a href="#">11px</a></li>
+                            <li><a href="#">12px</a></li>
+                            <li><a href="#">14px</a></li>
+                            <li><a href="#">16px</a></li>
+                            <li><a href="#">18px</a></li>
+                            <li><a href="#">20px</a></li>
+                            <li><a href="#">22px</a></li>
+                            <li><a href="#">24px</a></li>
+                            <li><a href="#">26px</a></li>
+                            <li><a href="#">28px</a></li>
+                            <li><a href="#">36px</a></li>
+                            <li><a href="#">48px</a></li>
+                            <li><a href="#">72px</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">custom</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                </div><!-- /input-group -->
             </div>
             <div class="arrow" style="left:20px"></div>
-        </div><!-- /padding -->
+        </div><!-- /text size -->
 
         <!-- text color -->
         <div class="popover top control-panel">
@@ -392,16 +394,76 @@
             </div>
             <div class="arrow" style="left:20px"></div>
         </div><!-- /border color -->
+    	
+    	<!-- padding -->
+    	<div class="popover top control-panel">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="icon-enlarge" style="font-size:18px;margin-right:5px;"></div>
+                <div><b>Padding</b></div>
+            </div>
+            <div class="popover-content">
+                <!-- background image blur -->
+                <div class="half-slider" style="padding-left:10px;float:right;">
+                	<label for="bg-opacity">
+                        <span class="glyphicon glyphicon-resize-horizontal" style="margin-right:6px;" aria-hidden="true"></span>
+                        left/right
+                    </label>
+                    <div>
+                    	<span style="float:right;margin-left:3px;">px</span>
+                        <input type="text" class="form-control" maxlength="2" value="12">
+                    </div>
+                    <input type="range" class="range-slider" min="0" max="25" step="1" value="12">
+                </div>
+                <!-- background image opacity -->
+                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                    <label>
+                        <span class="glyphicon glyphicon-resize-vertical" style="margin-right:1px;"></span>
+                        top/bottom
+                    </label>
+                    <div>
+                    	<span style="float:right;margin-left:3px;">px</span>
+                    	<input type="text" class="form-control" maxlength="2" value="10">
+                    </div>
+                    <input type="range" class="range-slider" min="0" max="25" step="1" value="10">
+                </div>
+            </div>
+            <div class="arrow" style="left:20px"></div>
+        </div><!-- /padding -->
+
+        <!-- URL -->
+        <div class="popover top control-panel" style="margin-bottom:-43px;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-prop="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="glyphicon glyphicon-link" style="font-size:18px;margin-right:5px;"></div>
+                <div><b>Link</b></div>
+            </div>
+            <div class="popover-content">
+            	<label style="margin-top:6px;">url</label>
+            	<input type="text" class="form-control" style="width:calc(100% - 28px);float:right;" placeholder="http://">
+            </div>
+            <div class="arrow" style="left:63px"></div>
+        </div><!-- /URL -->
 
     </div>
 
     <!-- toolbar -->
     <div class="toolbar" id="btnsToolbar">
 	    <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit button toolbar">
-	    	<!-- padding -->
-	    	<button type="button" class="btn btn-default" aria-label="button padding">
-	    		<span class="icon-enlarge" aria-hidden="true"></span>
-	    	</button>
+            <!-- text-size -->
+            <button type="button" class="btn btn-default" aria-label="text-size">
+                <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
+            </button>
 	    	<!-- text color -->
 	    	<button type="button" class="btn btn-default" aria-label="button text color">
 	    		<span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
@@ -410,12 +472,16 @@
 	    	<button type="button" class="btn btn-default" aria-label="button background">
 	    		<span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
 	    	</button>
-	    </div>
-	    <br>
-	    <div class="btn-group opts-toolbar" role="group" aria-label="edit button toolbar">
 	    	<!-- border -->
 	    	<button type="button" class="btn btn-default" aria-label="button border">
 	    		<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+	    	</button>
+	    </div>
+	    <br>
+	    <div class="btn-group opts-toolbar" role="group" aria-label="edit button toolbar">
+	    	<!-- padding -->
+	    	<button type="button" class="btn btn-default" aria-label="button padding">
+	    		<span class="icon-enlarge" aria-hidden="true"></span>
 	    	</button>
 	    	<!-- hyperlink -->
 	    	<button type="button" class="btn btn-default" aria-label="button link">
