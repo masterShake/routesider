@@ -220,6 +220,22 @@ var Jumbo, jApp;
 			// close it
 			jApp[jApp.comp].close();
 
+			// if a control panel is open
+			if(jApp.panel >= 0){
+
+				// close it
+				document.getElementById(jApp.comp+"Cpanels").children[jApp.panel]
+					.style.display = "none";
+
+				// show the opts title
+				document.getElementById(jApp.comp + "Props").children[1]
+					.style.display = "block";
+
+				// reset the panel property
+				jApp.panel = -1;
+
+			}
+
 			// hide the open options toolbar
 			document.getElementById(jApp.comp + "Props").style.display = "none";
 
@@ -456,12 +472,16 @@ var Jumbo, jApp;
 	}
 
 	//-----------------------------------------------
-	// - close any open control panels
-	// - reset anything else
+	// - hide the bgCanvas
+	// - deactivate crop mode
+	// - show the dragCanvas
 	BG.prototype.close = function(){
 
-		return false;
+		// hide the upload background image canvas
+		bgCanvas.style.display = "none";
 
+		// show the dragable elements canvas
+		dragCanvas.style.display = "block";
 	}
 
 

@@ -153,6 +153,10 @@
 	padding: 0px 6px;
 	color: #5CB85C;
 }
+.conrol-panel .popover-content hr{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 .control-panel>.arrow{
 	position: relative;
 }

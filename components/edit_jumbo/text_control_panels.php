@@ -10,10 +10,10 @@
     </div>
 
     <!-- control panels -->
-    <div id="textCpanels">
+    <div id="textCpanels" style="position:relative;z-index:1;">
 
         <!-- text size -->
-        <div class="popover top control-panel" style="max-width:250px;">
+        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:250px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -54,7 +54,7 @@
         </div><!-- /text size -->
 
         <!-- text color -->
-        <div class="popover top control-panel">
+        <div class="popover top control-panel" style="margin-bottom:-43px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -146,12 +146,22 @@
                     </div>
                 </div><!-- /hexigon color wheel -->
 
+                <hr>
+
+                <!-- opacity -->
+                <div class="color-o">
+                    <div class="glyphicon glyphicon-adjust"></div>
+                    <label>opacity</label>
+                    <input type="text" class="form-control" value="1">
+                    <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
+                </div>
+
             </div>
             <div class="arrow" style="left:63px"></div>
         </div><!-- /text color -->
 
         <!-- text background -->
-        <div class="popover top control-panel">
+        <div class="popover top control-panel" style="margin-bottom:-43px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -243,12 +253,22 @@
                     </div>
                 </div><!-- /hexigon color wheel -->
 
+                <hr>
+
+                <!-- opacity -->
+                <div class="color-o">
+                    <div class="glyphicon glyphicon-adjust"></div>
+                    <label>opacity</label>
+                    <input type="text" class="form-control" value="1">
+                    <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
+                </div>
+
             </div>
             <div class="arrow" style="left:107px"></div>
         </div><!-- /text color -->
 
         <!-- text alignment -->
-        <div class="popover top control-panel" style="max-width:264px;">
+        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>

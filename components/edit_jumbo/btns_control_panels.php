@@ -276,7 +276,7 @@
         </div><!-- /background color -->
 
         <!-- border color -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;">
+        <div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -392,11 +392,11 @@
                 </div>
 
             </div>
-            <div class="arrow" style="left:20px"></div>
+            <div class="arrow" style="left:151px"></div>
         </div><!-- /border color -->
     	
     	<!-- padding -->
-    	<div class="popover top control-panel">
+    	<div class="popover top control-panel" style="margin-bottom:-43px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
