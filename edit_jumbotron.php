@@ -174,15 +174,42 @@
                         <div style='<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'>
                             <!-- dragable crop buttons -->
                             <div id="cropDrag">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                                <div>
+                                    <div class="horiz"></div>
+                                    <div class="vert" style="top:-2px;"></div>
+                                </div>
+                                <div>
+                                    <div class="horiz"></div>
+                                    <div class="vert" style="left:4px;height:7px;"></div>
+                                </div>
+                                <div>
+                                    <div class="horiz"></div>
+                                    <div class="vert" style="float:right;top:-2px;"></div>
+                                </div>
+                                <div>
+                                    <div class="vert"></div>
+                                    <div class="horiz" style="top:4px;width:7px;"></div>
+                                </div>
+                                <div>
+                                    <div class="horiz" style="top:4px;"></div>
+                                    <div class="vert" style="left:4px;top:-2px;"></div>
+                                </div>
+                                <div>
+                                    <div class="vert" style="float:right;"></div>
+                                    <div class="horiz" style="top:4px;width:7px;float:right;"></div>
+                                </div>
+                                <div>
+                                    <div class="vert"></div>
+                                    <div class="horiz" style="top:-2px;"></div>
+                                </div>
+                                <div>
+                                    <div class="vert" style="left:4px;height:7px;"></div>
+                                    <div class="horiz"></div>
+                                </div>
+                                <div>
+                                    <div class="vert" style="float:right;"></div>
+                                    <div class="horiz" style="top:-2px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
