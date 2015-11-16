@@ -36,9 +36,6 @@
                 rename($uRoot . "uploads/" . $jumbo->bg_img->name, $uRoot . "img/business/" . $jumbo->bg_img->name);
             }
 
-            // convert the bg_img dimensions to a json string
-            $jumbo->bg_img->dims = json_encode($jumbo->bg_img->dims);
-
             // get the user's business
             $user = new User();
 
@@ -52,7 +49,7 @@
             "j.opacity={$jumbo->opacity}, ".
             "j.blur={$jumbo->blur}, ".
             "j.bg_img='{$jumbo->bg_img->name}', ".
-            "j.bg_dims='{$jumbo->bg_img->dims}'";
+            "j.bg_dims={$jumbo->bg_img->dims}";
 
             $db = neoDB::getInstance();
 
@@ -162,7 +159,19 @@
 
                     <!-- background image & crop layer -->
                     <div class="j-canvas" id="cropCanvas">
-                        <div style='height:100%;background-size:cover;<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'>
+                        <div style='<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'>
+                            <!-- dragable crop buttons -->
+                            <div id="cropDrag">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
 

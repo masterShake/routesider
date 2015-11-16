@@ -547,11 +547,11 @@ var Jumbo, jApp;
 		/* initialization */
 
 		// toggle the image upload canvas event
-		// bgToolbar.children[0].addEventListener("click", this.togCanvas, false);
-		// bgCpanels.children[0].children[0].children[0]
-		// 	.addEventListener("click", this.togCanvas, false);
-		// bgToolbar.children[1].addEventListener("click", this.hideCanvas, false);
-		// bgToolbar.children[2].addEventListener("click", this.hideCanvas, false);
+		bgToolbar.children[1].children[0].addEventListener("click", this.togCanvas, false); // background image button
+		bgCpanels.children[0].children[0].children[0]
+			.addEventListener("click", this.togCanvas, false); // bgi control panel x
+		bgToolbar.children[1].children[1].addEventListener("click", this.hideCanvas, false); // crop button
+		bgToolbar.children[1].children[2].addEventListener("click", this.hideCanvas, false); // bg color button
 
 		// apply file dragover event
 		this.file.addEventListener("dragover", this.fileHover, false);
@@ -585,31 +585,31 @@ var Jumbo, jApp;
 
 	/* METHODS */
 
-	//-----------------------------------------------
-	//- toggle upload canvas
-	// BGI.prototype.togCanvas = function(){
-	// 	// if the bgCanvas is hidden
-	// 	if(bgCanvas.offsetParent === null){
-	// 		// show the canvas
-	// 		bgCanvas.style.display = "block";
-	// 		// hide the draggables 
-	// 		dragCanvas.style.display = "none";
-	// 	}else{
-	// 		// hide the canvas
-	// 		bgCanvas.style.display = "none";
-	// 		// show the draggables 
-	// 		dragCanvas.style.display = "block";
-	// 	}
-	// }
+	// -----------------------------------------------
+	// - toggle upload canvas
+	BGI.prototype.togCanvas = function(){
+		// if the bgCanvas is hidden
+		if(bgCanvas.offsetParent === null){
+			// show the canvas
+			bgCanvas.style.display = "block";
+			// hide the draggables 
+			dragCanvas.style.display = "none";
+		}else{
+			// hide the canvas
+			bgCanvas.style.display = "none";
+			// show the draggables 
+			dragCanvas.style.display = "block";
+		}
+	}
 
-	// //-----------------------------------------------
-	// // - hide the canvas
-	// BGI.prototype.hideCanvas = function(){
-	// 	// hide the canvas
-	// 	bgCanvas.style.display = "none";
-	// 	// show the draggables 
-	// 	dragCanvas.style.display = "block";
-	// }
+	//-----------------------------------------------
+	// - hide the canvas
+	BGI.prototype.hideCanvas = function(){
+		// hide the canvas
+		bgCanvas.style.display = "none";
+		// show the draggables 
+		dragCanvas.style.display = "block";
+	}
 
 	//-----------------------------------------------
 	// - file dragover method 
@@ -771,6 +771,8 @@ var Jumbo, jApp;
 	//				   CR (cropper)				
 	//			     ----------------
 	//
+	// - toggle draggable button circles
+	//
 	// - crop jumbotron background image
 	//
 	//-----------------------------------------------
@@ -781,7 +783,23 @@ var Jumbo, jApp;
 
 	/* METHODS */
 
+	//-----------------------------------------------
+	// - toggle draggable buttons
+	// - toggle display of dragable canvas layer
+	BGI.prototype.togCrop = function(){
+	
+		// if the crop buttons are hidden
 
+			// show the buttons
+
+			// hide the dragable canvas
+
+		// else
+
+			// hide the buttons
+
+			// show the dragCanvas
+	}
 
 
 

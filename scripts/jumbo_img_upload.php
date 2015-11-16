@@ -39,9 +39,16 @@ if ($fn) {
     // get the image dimensions
     $imgData = getimagesize($uFolder.$newName);
 
+    //-----------------------------------------------
+    // - get the image aspect ratio
+    // - height is assumed to be 1
+    // - width is expressed as a fraction of height 
+    // - e.g. if the image is 900 x 1200, then the 
+    //   dims (aspect ratio) is 1.33333
+
     $imgData = [ 
                  "name" => "uploads/".$newName,
-                 "dims" => [ "w" => $imgData["0"], "h" => $imgData["1"] ] 
+                 "dims" => round(($imgData["0"] / $imgData["1"]), 2) 
                ];
 
     exit( json_encode($imgData) );

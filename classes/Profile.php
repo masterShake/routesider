@@ -190,7 +190,7 @@ class Profile{
 		$json = $json->getProperties();
 
 		// add the active property
-		$json["active"] = $temp["active"]; 
+		$json["active"] = $temp["active"];
 
 		// add empty arrays for the attached nodes
 		$json["texts"] = [];

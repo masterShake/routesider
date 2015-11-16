@@ -232,6 +232,59 @@
 #crop-btn span{
 	padding-right: 5px;
 }
+/* canvas */
+#cropCanvas>div{
+	height:100%;
+	background-size: cover;
+	background-position: center center;
+}
+/* dragable crop buttons */
+#cropDrag{
+	height:100%;
+	width: 100%;
+}
+#cropDrag>div{
+	position: absolute;
+	height:20px;
+	width:20px;
+	border-radius: 50%;
+	background-color: #ccc;
+	box-shadow: 0 0 6px #676767;
+}
+#cropDrag>div:nth-child(1){
+	/*top: 0px;*/
+	left: 0px;
+}
+#cropDrag>div:nth-child(2){
+	left: calc(50% - 10px);
+}
+#cropDrag>div:nth-child(3){
+	right: 0px;
+	/*top: 0px;*/
+}
+#cropDrag>div:nth-child(4){
+	top: calc(50% - 10px);
+}
+#cropDrag>div:nth-child(5){
+	left: calc(50% - 10px);
+	top: calc(50% - 10px);
+}
+#cropDrag>div:nth-child(6){
+	top: calc(50% - 10px);
+	right: 0px;
+}
+#cropDrag>div:nth-child(7){
+	bottom: 0px;
+	left: 0px;
+}
+#cropDrag>div:nth-child(8){
+	bottom: 0px;
+	left: calc(50% - 10px);
+}
+#cropDrag>div:nth-child(9){
+	bottom: 0px;
+	right: 0px;
+}
 
 /*---------------------- 
  edit background color
