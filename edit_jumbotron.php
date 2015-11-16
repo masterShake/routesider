@@ -27,13 +27,13 @@
             $jumbo = json_decode($_POST["json"]);
 
             // if the user added a new background image
-            if(substr($jumbo->bg_img->name, 0, 6) == "upload"){
+            if(substr($jumbo->bg_img, 0, 6) == "upload"){
                 // remove the "uploads/" prefix
-                $jumbo->bg_img->name = substr($jumbo->bg_img->name, 8);
+                $jumbo->bg_img = substr($jumbo->bg_img, 8);
                 // isolate the server root
                 $uRoot = $_SERVER["DOCUMENT_ROOT"]."/routesider/";
                 // move the file by renaming it
-                rename($uRoot . "uploads/" . $jumbo->bg_img->name, $uRoot . "img/business/" . $jumbo->bg_img->name);
+                rename($uRoot . "uploads/" . $jumbo->bg_img, $uRoot . "img/business/" . $jumbo->bg_img);
             }
 
             // get the user's business
@@ -48,8 +48,8 @@
             "j.bg_color='{$jumbo->bg_color}', ".
             "j.opacity={$jumbo->opacity}, ".
             "j.blur={$jumbo->blur}, ".
-            "j.bg_img='{$jumbo->bg_img->name}', ".
-            "j.bg_dims={$jumbo->bg_img->dims}";
+            "j.bg_img='{$jumbo->bg_img}', ".
+            "j.bg_dims={$jumbo->bg_dims}";
 
             $db = neoDB::getInstance();
 
@@ -95,6 +95,18 @@
         <link href="css/icomoon.css" rel="stylesheet">
         <link href="css/on_off_switch.css" rel="stylesheet">
         <link href="css/edit_jumbotron.css" rel="stylesheet">
+
+        <!-- php dynamic styles (must be last style sheet) -->
+        <style>
+
+            /* rule 0 - background image */
+            <?php if($jumbo["bg_img"]){ ?>
+                #cropCanvas>div{
+                    width: <?= (400 * $jumbo["bg_dims"]); ?>px;
+                }
+            <?php } ?>
+
+        </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

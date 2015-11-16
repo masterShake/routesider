@@ -670,13 +670,20 @@ var Jumbo, jApp;
 	BGI.prototype.uploadCB = function(){
 		if (this.readyState == 4) { console.log(this.responseText);
 
-			// set the nVals property
-			jApp.nVals["bg_img"] = JSON.parse(this.responseText);
+			// parse the json
+			jApp.temp = JSON.parse(this.responseText);
 
-			// set the background
-			cropCanvas.children[0].style.backgroundImage =  
+			// set the nVals (new values) properties
+			jApp.nVals["bg_img"] = jApp.temp["name"];
+			jApp.nVals["bg_dims"] = jApp.temp["dims"];
 
-			"url('"+jApp.nVals["bg_img"]["name"]+"')";
+			// set the background image
+			cropCanvas.children[0].style.backgroundImage = 
+				"url('"+jApp.nVals["bg_img"]+"')";
+
+			// set the background image width
+			document.styleSheets[document.styleSheets.length - 1].rules[0]
+				.style.width = (400 * jApp.nVals["bg_dims"]) + "px";
 
 			// show save prompt
 			jApp.deltaVals();

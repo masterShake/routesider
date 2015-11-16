@@ -232,16 +232,18 @@
 #crop-btn span{
 	padding-right: 5px;
 }
-/* canvas */
+/* bg image canvas */
 #cropCanvas>div{
 	height:100%;
-	background-size: cover;
-	background-position: center center;
+	background-size: auto 100%;
+	background-position: center;
+	background-repeat: no-repeat;
 }
-/* dragable crop buttons */
+/* dragable bg image crop buttons */
 #cropDrag{
 	height:100%;
 	width: 100%;
+	position: relative;
 }
 #cropDrag>div{
 	position: absolute;
@@ -250,9 +252,9 @@
 	border-radius: 50%;
 	background-color: #ccc;
 	box-shadow: 0 0 6px #676767;
+	cursor: pointer;
 }
 #cropDrag>div:nth-child(1){
-	/*top: 0px;*/
 	left: 0px;
 }
 #cropDrag>div:nth-child(2){
@@ -260,7 +262,6 @@
 }
 #cropDrag>div:nth-child(3){
 	right: 0px;
-	/*top: 0px;*/
 }
 #cropDrag>div:nth-child(4){
 	top: calc(50% - 10px);
