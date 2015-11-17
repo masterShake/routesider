@@ -173,42 +173,51 @@
                     <div class="j-canvas" id="cropCanvas">
                         <div style='<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'>
                             <!-- dragable crop buttons -->
-                            <div id="cropDrag">
+                            <div class="drag-btns">
+                                <!-- 1) top left --> 
                                 <div>
                                     <div class="horiz"></div>
-                                    <div class="vert" style="top:-2px;"></div>
+                                    <div class="vert"></div>
                                 </div>
+                                <!-- 2) top center -->
                                 <div>
                                     <div class="horiz"></div>
-                                    <div class="vert" style="left:4px;height:7px;"></div>
+                                    <div class="vert"></div>
                                 </div>
+                                <!-- 3) top right -->
                                 <div>
                                     <div class="horiz"></div>
-                                    <div class="vert" style="float:right;top:-2px;"></div>
+                                    <div class="vert"></div>
                                 </div>
+                                <!-- 4) center left -->
                                 <div>
                                     <div class="vert"></div>
-                                    <div class="horiz" style="top:4px;width:7px;"></div>
-                                </div>
-                                <div>
-                                    <div class="horiz" style="top:4px;"></div>
-                                    <div class="vert" style="left:4px;top:-2px;"></div>
-                                </div>
-                                <div>
-                                    <div class="vert" style="float:right;"></div>
-                                    <div class="horiz" style="top:4px;width:7px;float:right;"></div>
-                                </div>
-                                <div>
-                                    <div class="vert"></div>
-                                    <div class="horiz" style="top:-2px;"></div>
-                                </div>
-                                <div>
-                                    <div class="vert" style="left:4px;height:7px;"></div>
                                     <div class="horiz"></div>
                                 </div>
+                                <!-- 5) center center -->
                                 <div>
-                                    <div class="vert" style="float:right;"></div>
-                                    <div class="horiz" style="top:-2px;"></div>
+                                    <div class="horiz"></div>
+                                    <div class="vert"></div>
+                                </div>
+                                <!-- 6) center right -->
+                                <div>
+                                    <div class="vert"></div>
+                                    <div class="horiz"></div>
+                                </div>
+                                <!-- 7) bottom left -->
+                                <div>
+                                    <div class="vert"></div>
+                                    <div class="horiz"></div>
+                                </div>
+                                <!-- 8) bottom center -->
+                                <div>
+                                    <div class="vert"></div>
+                                    <div class="horiz"></div>
+                                </div>
+                                <!-- 9) bottom right -->
+                                <div>
+                                    <div class="vert"></div>
+                                    <div class="horiz"></div>
                                 </div>
                             </div>
                         </div>
