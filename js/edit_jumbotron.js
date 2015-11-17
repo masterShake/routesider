@@ -452,7 +452,7 @@ var Jumbo, jApp;
 		// init background image editor
 		this.bgi = new BGI();
 		// init cropper
-		// this.cropper = new CR();
+		this.cropper = new CR();
 		// init background color editor
 		this.bgc = new BGC();
 
@@ -476,10 +476,10 @@ var Jumbo, jApp;
 	// - deactivate crop mode
 	// - show the dragCanvas
 	BG.prototype.close = function(){
-
 		// hide the upload background image canvas
 		bgCanvas.style.display = "none";
-
+		// hide the bg image drag buttons
+		cropCanvas.children[0].children[0].style.display = "none";
 		// show the dragable elements canvas
 		dragCanvas.style.display = "block";
 	}
@@ -549,7 +549,7 @@ var Jumbo, jApp;
 		// toggle the image upload canvas event
 		bgToolbar.children[1].children[0].addEventListener("click", this.togCanvas, false); // background image button
 		bgCpanels.children[0].children[0].children[0]
-			.addEventListener("click", this.togCanvas, false); // bgi control panel x
+			.addEventListener("click", this.hideCanvas, false); // bgi control panel x
 		bgToolbar.children[1].children[1].addEventListener("click", this.hideCanvas, false); // crop button
 		bgToolbar.children[1].children[2].addEventListener("click", this.hideCanvas, false); // bg color button
 
@@ -786,26 +786,47 @@ var Jumbo, jApp;
 
 	/* CONSTRUCTOR */
 
-	CR = function(){}
+	CR = function(){
+
+		/* properties */
+
+		/* initializations */
+
+		// toggle the bg image drag buttons event
+		bgToolbar.children[1].children[0].addEventListener("click", this.hideCrop, false); // background image button
+		bgCpanels.children[1].children[0].children[0]
+			.addEventListener("click", this.hideCrop, false); // bgi control panel x
+		bgToolbar.children[1].children[1].addEventListener("click", this.togCrop, false); // crop button
+		bgToolbar.children[1].children[2].addEventListener("click", this.hideCrop, false); // bg color button
+
+	}
 
 	/* METHODS */
 
+	// -----------------------------------------------
+	// - toggle bg image drag buttons
+	CR.prototype.togCrop = function(){
+		// if the bgCanvas is hidden
+		if(cropCanvas.children[0].children[0].offsetParent === null){
+			// show the bg image drag buttons
+			cropCanvas.children[0].children[0].style.display = "block";
+			// hide the draggables canvas 
+			dragCanvas.style.display = "none";
+		}else{
+			// hide the bg image drag buttons
+			cropCanvas.children[0].children[0].style.display = "none";
+			// show the draggables canvas
+			dragCanvas.style.display = "block";
+		}
+	}
+
 	//-----------------------------------------------
-	// - toggle draggable buttons
-	// - toggle display of dragable canvas layer
-	BGI.prototype.togCrop = function(){
-	
-		// if the crop buttons are hidden
-
-			// show the buttons
-
-			// hide the dragable canvas
-
-		// else
-
-			// hide the buttons
-
-			// show the dragCanvas
+	// - hide the bg image drag buttons
+	CR.prototype.hideCrop = function(){
+		// hide the bg image drag buttons
+		cropCanvas.children[0].children[0].style.display = "none";
+		// show the draggables canvas
+		dragCanvas.style.display = "block";
 	}
 
 

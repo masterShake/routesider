@@ -94,6 +94,8 @@
         <link href="css/main.css" rel="stylesheet">
         <link href="css/icomoon.css" rel="stylesheet">
         <link href="css/on_off_switch.css" rel="stylesheet">
+        <link href="css/color_wheel.css" rel="stylesheet">
+        <link href="css/drag_btns.css" rel="stylesheet">
         <link href="css/edit_jumbotron.css" rel="stylesheet">
 
         <!-- php dynamic styles (must be last style sheet) -->
@@ -173,7 +175,7 @@
                     <div class="j-canvas" id="cropCanvas">
                         <div style='<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");" : ""; ?>'>
                             <!-- dragable crop buttons -->
-                            <div class="drag-btns">
+                            <div class="drag-btns" style="display:none;">
                                 <!-- 1) top left --> 
                                 <div>
                                     <div class="horiz"></div>

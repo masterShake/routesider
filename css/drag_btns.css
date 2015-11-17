@@ -1,0 +1,124 @@
+/*------------------------------------
+
+		   	 drag buttons
+
+  ------------------------------------*/
+
+/* dragable bg image crop buttons */
+.drag-btns{
+	height:100%;
+	width: 100%;
+	position: relative;
+}
+.drag-btns>div{
+	position: absolute;
+	height:20px;
+	width:20px;
+	border-radius: 50%;
+	background-color: #ccc;
+	box-shadow: 0 0 6px #676767;
+	cursor: pointer;
+	padding: 5px;
+	opacity: 0.75;
+}
+/* 1) top left */
+.drag-btns>div:nth-child(1){
+	left: 0px;
+}
+.drag-btns>div:nth-child(1) .vert{
+	top: -2px;
+}
+/* 2) top center */
+.drag-btns>div:nth-child(2){
+	left: calc(50% - 10px);
+}
+.drag-btns>div:nth-child(2) .vert{
+	left: 4px;
+	height: 7px;
+}
+/* 3) top right */
+.drag-btns>div:nth-child(3){
+	right: 0px;
+}
+.drag-btns>div:nth-child(3) .vert{
+	float: right;
+	top: -2px;
+}
+/* 4) center left */
+.drag-btns>div:nth-child(4){
+	top: calc(50% - 10px);
+}
+.drag-btns>div:nth-child(4) .horiz{
+	top: 4px;
+	width: 7px;
+}
+/* 5) center center */
+.drag-btns>div:nth-child(5){
+	left: calc(50% - 10px);
+	top: calc(50% - 10px);
+}
+.drag-btns>div:nth-child(5) .horiz{
+	top: 4px;
+}
+.drag-btns>div:nth-child(5) .vert{
+	left: 4px;
+	top: -2px;
+}
+/* 6) center right */
+.drag-btns>div:nth-child(6){
+	top: calc(50% - 10px);
+	right: 0px;
+}
+.drag-btns>div:nth-child(6) .vert{
+	float: right;
+}
+.drag-btns>div:nth-child(6) .horiz{
+	top: 4px;
+	width: 7px;
+	float: right;
+}
+/* 7) bottom left */
+.drag-btns>div:nth-child(7){
+	bottom: 0px;
+	left: 0px;
+}
+.drag-btns>div:nth-child(7) .horiz{
+	top: -2px;
+}
+/* 8) bottom center */
+.drag-btns>div:nth-child(8){
+	bottom: 0px;
+	left: calc(50% - 10px);
+	padding-top: 6px;
+}
+.drag-btns>div:nth-child(8) .vert{
+	left: 4px;
+	height: 7px;
+}
+/* 9) bottom right */
+.drag-btns>div:nth-child(9){
+	bottom: 0px;
+	right: 0px;
+}
+.drag-btns>div:nth-child(9) .vert{
+	float: right;
+}
+.drag-btns>div:nth-child(9) .horiz{
+	top: -2px;
+}
+.drag-btns .horiz,
+.drag-btns .vert{
+	float:left;
+	background-color: #666;
+	position: relative;
+}
+.drag-btns .horiz{
+	width: 10px;
+	height: 2px;
+	z-index: 0;
+}
+.drag-btns .vert{
+	width: 2px;
+	height: 10px;
+	z-index: 1;
+}
