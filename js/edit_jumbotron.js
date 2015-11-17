@@ -118,6 +118,9 @@ var Jumbo, jApp;
 		// init button editor
 		this.btns = new BTN();
 
+		// instantiate confirmation modal object
+		this.modal = new cModal();
+
 		// keep track of the preview canvas
 		this.preview = document.getElementById("prev-canvas");
 
@@ -469,6 +472,7 @@ var Jumbo, jApp;
 		this.prop = -1;
 
 		/* initializations */
+
 	}
 
 	//-----------------------------------------------
@@ -484,15 +488,22 @@ var Jumbo, jApp;
 		dragCanvas.style.display = "block";
 	}
 
+	//-----------------------------------------------
+	// - show modal
+	// - set modal title
+	// - set modal body
+	// - set modal callback
+	BG.prototype.confirmDel = function(){
 
+	}
 
+	//-----------------------------------------------
+	// - remove the background image
+	// - prompt the user to save
+	BG.prototype.del = function(){
 
-
-
-
-
-
-
+		
+	}
 
 
 
@@ -1207,6 +1218,130 @@ var Jumbo, jApp;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------
+	//			 cModal (confirmation modal)				
+	//		   -------------------------------
+	//
+	// - dynamically set the modal content
+	//
+	// - display the modal
+	//
+	// - hide the modal
+	//
+	// - perform callback
+	//
+	//-----------------------------------------------
+
+	/* CONSTRUCTOR */
+
+	cModal = function(){
+
+		/* properties */
+
+		// keep track of the callback function, temp variable
+		this.callback = null;
+
+		/* initializations */
+
+		// add close event listeners
+		confModal.addEventListener("click", this.fadeOut, false);
+
+		// add the callback event listener
+		confModal.children[0].children[0].children[2].children[1]
+			.addEventListener("click", this.callback, false);
+	}
+
+	/* METHODS */
+
+	//-----------------------------------------------
+	// - launch modal
+	cModal.prototype.launch = function(){
+
+		// prevent scrolling on the body
+		document.body.className = "modal-open";
+
+		// show the modal
+		confModal.style.display = "block";
+
+		// show the backdrop
+		confBD.style.display = "block";
+		
+		// fade in
+		setTimeout(jApp.modal.fadeIn, 10);
+	}
+
+	//-----------------------------------------------
+	// - animate in
+	cModal.prototype.fadeIn = function(){
+
+		// set the modal class
+		confModal.className = "modal fade in";
+
+		// set the backdrop class
+		confBD.className = "modal-backdrop fade in";
+
+	}
+
+	//-----------------------------------------------
+	// - animate out
+	cModal.prototype.fadeOut = function(e){
+
+		// if we clicked one of the buttons or backdrop
+		if(	e.target.tagName == "BUTTON" 
+		|| e.target.parentElement.tagName == "BUTTON"
+		|| e.target.id == "confModal" ){
+
+			// set the modal class
+			confModal.className = "modal fade";
+
+			// set the backdrop class
+			confBD.className = "modal-backdrop fade";
+
+			// hide the elements
+			setTimeout(jApp.modal.hide, 250);
+		}
+	}
+
+	//-----------------------------------------------
+	// - hide modal elements
+	cModal.prototype.hide = function(){
+		// remove the modal class from the body
+		document.body.className = "";
+		// hide the modal
+		confModal.style.display = "none";
+		// hide the backdrop
+		confBD.style.display = "none";
+	}
 
 
 

@@ -355,6 +355,28 @@
         <!-- contentent cover to close menu -->
         <div id="content-cover"></div>
 
+        <!-- confirmation modal -->
+        <div class="modal fade" id="confModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-camera"></span></button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /confirmation modal -->
+
+        <!-- modal backdrop -->
+        <div class="modal-backdrop fade" id="confBD" style="display:none;"></div>
+
         <!-- mobile slideout menu -->
         <?php include "components/slideout_nav.php"; ?>
 
