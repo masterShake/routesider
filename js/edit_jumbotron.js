@@ -473,6 +473,9 @@ var Jumbo, jApp;
 
 		/* initializations */
 
+		// confirm delete background image event
+		bgToolbar.children[0].children[0]
+			.addEventListener("click", this.confirmDel, false);
 	}
 
 	//-----------------------------------------------
@@ -490,11 +493,32 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	// - show modal
-	// - set modal title
-	// - set modal body
+	// - set inner HTML
 	// - set modal callback
 	BG.prototype.confirmDel = function(){
 
+		// if there is no background image
+		if(!jApp.iVals["bg_img"])
+			return;
+
+		// set the modal title
+		confModal.getElementsByTagName("h4")[0]
+			.innerHTML = '<div class="dash-box" aria-hidden="true" style="font-size:18px;padding: 3px 4px;height:25px;margin-right:10px;">'+
+            			 '	<span class="icon-image" aria-hidden="true"></span>'+
+        				 '</div> Delete background image';
+
+       	// set modal body
+       	confModal.children[0].children[0].children[1]
+       		.innerHTML = '<p>Are you sure you want to delete this background image?</p>'+
+       					 '<div style="text-align:center">'+
+       					 '	<img src="img/business/'+jApp.iVals.bg_img+'" style="height:auto;width:auto;max-height:160px;max-width:100%" />'+
+       					 '</div>';
+
+       	// set modal callback
+       	jApp.modal.callback = jApp.bg.del;
+
+       	// launch the modal
+       	jApp.modal.launch();
 	}
 
 	//-----------------------------------------------
@@ -502,7 +526,17 @@ var Jumbo, jApp;
 	// - prompt the user to save
 	BG.prototype.del = function(){
 
-		
+		// reset all the nVals properties
+		jApp.nVals["bg_img"] = 0;
+		jApp.nVals["bg_dims"] = 0;
+		jApp.nVals["blur"] = 0;
+		jApp.nVals["opacity"] = 1;
+
+		// reset all the css
+		cropCanvas.children[0].style.backgroundImage = "none";
+
+		// values changed
+		jApp.deltaVals();
 	}
 
 
@@ -618,8 +652,6 @@ var Jumbo, jApp;
 	BGI.prototype.hideCanvas = function(){
 		// hide the canvas
 		bgCanvas.style.display = "none";
-		// show the draggables 
-		dragCanvas.style.display = "block";
 	}
 
 	//-----------------------------------------------
@@ -836,8 +868,6 @@ var Jumbo, jApp;
 	CR.prototype.hideCrop = function(){
 		// hide the bg image drag buttons
 		cropCanvas.children[0].children[0].style.display = "none";
-		// show the draggables canvas
-		dragCanvas.style.display = "block";
 	}
 
 
@@ -914,6 +944,10 @@ var Jumbo, jApp;
 		this.picki = this.temp.getElementsByTagName("input")[1];
 
 		/* initializations */
+
+		// canvas display event
+		bgToolbar.children[1].children[2]
+			.addEventListener("click", this.resetCanvas, false);
 
 		// hexidecimal text keyup & blur events
 		this.texti.addEventListener("keyup", this.hexText, false);
@@ -1052,7 +1086,16 @@ var Jumbo, jApp;
 		jApp.deltaVals();
 	}
 
-
+	//-----------------------------------------------
+	// - display the proper elements
+	BGC.prototype.resetCanvas = function(){
+		// hide the upload background image
+		bgCanvas.style.display = "none";
+		// hide the crop buttons
+		cropCanvas.children[0].children[0].style.display = "none";
+		// show the draggable elements' canvas
+		dragCanvas.style.display = "block";
+	}
 
 
 
@@ -1326,21 +1369,24 @@ var Jumbo, jApp;
 
 			// set the backdrop class
 			confBD.className = "modal-backdrop fade";
+		
+			// remove the modal class from the body
+			document.body.className = "";
 
 			// hide the elements
-			setTimeout(jApp.modal.hide, 250);
+			setTimeout(jApp.modal.hide, 300);
 		}
 	}
 
 	//-----------------------------------------------
 	// - hide modal elements
 	cModal.prototype.hide = function(){
-		// remove the modal class from the body
-		document.body.className = "";
 		// hide the modal
 		confModal.style.display = "none";
 		// hide the backdrop
 		confBD.style.display = "none";
+		// perform the callback
+		jApp.modal.callback();
 	}
 
 

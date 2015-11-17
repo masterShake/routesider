@@ -354,3 +354,9 @@ tbody button.btn-color-selected{
    confirmation modal
 ----------------------*/
 
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0,60px);
+    -ms-transform: translate(0,60px);
+    -o-transform: translate(0,60px);
+    transform: translate(0,60px);
+}

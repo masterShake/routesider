@@ -102,11 +102,9 @@
         <style>
 
             /* rule 0 - background image */
-            <?php if($jumbo["bg_img"]){ ?>
                 #cropCanvas>div{
-                    width: <?= (400 * $jumbo["bg_dims"]); ?>px;
+                    width: <?= ($jumbo["bg_img"]) ? strval(400 * $jumbo["bg_dims"])."px" : "100%"; ?>;
                 }
-            <?php } ?>
 
         </style>
 
@@ -367,8 +365,10 @@
                         <p>One fine body&hellip;</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-camera"></span></button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-default" style="float:left;" data-dismiss="modal">cancel</button>
+                        <button type="button" class="btn btn-default btn-danger">
+                            <span class="glyphicon glyphicon-trash" style="margin-right:5px;"></span> delete
+                        </button>
                     </div>
                 </div>
             </div>
