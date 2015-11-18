@@ -205,12 +205,13 @@
 	margin-bottom: 16px;
 }
 .half-slider input.form-control{
-	width: 50px;
+	width: 54px;
+	text-align: center;
 	float: right;
 	margin-top: -7px;
 }
 .half-slider input.range-slider{
-	width: calc(100% - 56px);
+	width: calc(100% - 60px);
 }
 
 #btnsCpanels .half-slider div{

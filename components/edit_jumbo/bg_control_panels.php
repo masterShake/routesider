@@ -38,13 +38,13 @@
                 </div>
                 <!-- background image opacity -->
                 <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                    <label for="bg-opacity">
+                    <label>
                         <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                         opacity
                     </label>
                     <div>
-                        <input type="text" class="form-control" value="1">
-                        <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
+                        <input type="text" class="form-control" maxlength="4" value='<?= ($jumbo["opacity"]) ?>'>
+                        <input type="range" class="range-slider" min="0" max="1" step="0.01" value="<?= ($jumbo["opacity"]) ?>">
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
 
                     <!-- HTML5 color picker -->
                     <div style="text-align:center;margin-top:14px;">
-                        <label for="color-picker">more colors:</label>
+                        <label>more colors:</label>
                         <input type="color" 
                                value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">

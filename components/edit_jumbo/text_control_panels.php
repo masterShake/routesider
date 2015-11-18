@@ -100,7 +100,7 @@
 
                     <!-- HTML5 color picker -->
                     <div style="text-align:center;margin-top:14px;">
-                        <label for="color-picker">more colors:</label>
+                        <label>more colors:</label>
                         <input type="color" 
                                value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">
@@ -207,7 +207,7 @@
 
                     <!-- HTML5 color picker -->
                     <div style="text-align:center;margin-top:14px;">
-                        <label for="color-picker">more colors:</label>
+                        <label>more colors:</label>
                         <input type="color" 
                                value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">

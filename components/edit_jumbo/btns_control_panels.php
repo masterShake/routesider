@@ -106,7 +106,7 @@
 
                     <!-- HTML5 color picker -->
                     <div style="text-align:center;margin-top:14px;">
-                        <label for="color-picker">more colors:</label>
+                        <label>more colors:</label>
                         <input type="color" 
                                value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">
@@ -215,7 +215,7 @@
 
                     <!-- HTML5 color picker -->
                     <div style="text-align:center;margin-top:14px;">
-                        <label for="color-picker">more colors:</label>
+                        <label>more colors:</label>
                         <input type="color" 
                                value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">
@@ -324,7 +324,7 @@
 
                     <!-- HTML5 color picker -->
                     <div style="text-align:center;margin-top:14px;">
-                        <label for="color-picker">more colors:</label>
+                        <label>more colors:</label>
                         <input type="color" 
                                value='<?= $jumbo["bg_color"]; ?>'
                                aria-label="select from complete color wheel">
@@ -383,7 +383,7 @@
                 </div>
                 <!-- background image opacity -->
                 <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                    <label for="bg-opacity">
+                    <label>
                         <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                         opacity
                     </label>
@@ -410,7 +410,7 @@
             <div class="popover-content">
                 <!-- background image blur -->
                 <div class="half-slider" style="padding-left:10px;float:right;">
-                	<label for="bg-opacity">
+                	<label>
                         <span class="glyphicon glyphicon-resize-horizontal" style="margin-right:6px;" aria-hidden="true"></span>
                         left/right
                     </label>

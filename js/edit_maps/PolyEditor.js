@@ -236,7 +236,7 @@ PolyEditor.prototype.typeOpacity = function(){
 	if( !this.value || this.value == "1" ) return;
 
 	// strip out non-numeric values from the string
-	this.value.replace(/[^0-9\.]/g, '');
+	this.value = this.value.replace(/[^\d.]/g, '');
 
 	// if the value of the first character is not 0
 	if( this.value.charAt(0) != "0" )

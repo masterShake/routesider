@@ -121,12 +121,9 @@ var Jumbo, jApp;
 		// instantiate confirmation modal object
 		this.modal = new cModal();
 
-		// keep track of the preview canvas
-		this.preview = document.getElementById("prev-canvas");
-
-		// keep track of the save alerts
-		this.save1 = save1;
-		this.save2 = save2;
+		// add the modal confirmation event listern out here
+		confModal.children[0].children[0].children[2].children[1]
+			.addEventListener("click", this.modal.callback, false); 
 
 		// keep track active toolbar
 		this.comp = null;
@@ -177,11 +174,11 @@ var Jumbo, jApp;
 			this.temp[i].addEventListener("click", this.togCpan, false);
 
 		// add event listener to the save btn
-		this.save1.children[1].addEventListener("click", this.save, false);
-		this.save2.children[0].addEventListener("click", this.save, false);
+		save1.children[1].addEventListener("click", this.save, false);
+		save2.children[0].addEventListener("click", this.save, false);
 
 		// close the save alert
-		this.save1.children[0].addEventListener("click", this.xSA, false);
+		save1.children[0].addEventListener("click", this.xSA, false);
 
 	}
 
@@ -312,32 +309,32 @@ var Jumbo, jApp;
 		
 		// if the values have not changed
 		if( JSON.stringify(this.iVals) === JSON.stringify(this.nVals)
-			&& this.save2.className != "well" ){
+			&& save2.className != "well" ){
 
 			// hide save alert
-			this.save1.style.display = "none";
-			this.save1.style.opacity = "0";
+			save1.style.display = "none";
+			save1.style.opacity = "0";
 
 			// remove the alert class from the well
-			this.save2.className = "well";
+			save2.className = "well";
 
 			// remove the event listener from bottom save button
-			this.save2.children[0].removeEventListener("click", jApp.save, false);
+			save2.children[0].removeEventListener("click", jApp.save, false);
 
-		}else if(this.save2.className != "well info"){
+		}else if(save2.className != "well info"){
 
 			// display save alert
-			this.save1.className = "alert alert-info";
-			this.save1.style.display = "block";
-			this.save1.children[0].style.display = "none";
+			save1.className = "alert alert-info";
+			save1.style.display = "block";
+			save1.children[0].style.display = "none";
 			setTimeout(jApp.showSA, 50);
 
 			// set the save class
-			this.save2.className = "well info";
+			save2.className = "well info";
 		}
 		// change the inner HTML of the buttons
-		this.save1.children[1].innerHTML = "save";
-		this.save2.children[0].innerHTML = "save";
+		save1.children[1].innerHTML = "save";
+		save2.children[0].innerHTML = "save";
 	}
 
 	//-----------------------------------------------
@@ -738,13 +735,16 @@ var Jumbo, jApp;
 	BGI.prototype.oSlide = function(){
 
 		// set the value of the text input
-		this.parentElement.children[1].value = this.value;
+		this.parentElement.children[0].value = 
 
 		// change the opacity of the background img
-		// jApp.preview.style.back
+		cropCanvas.children[0].style.opacity = //this.value;
 
 		// update values
+		jApp.nVals["opacity"] = parseFloat(this.value);
 
+		// prompt save
+		jApp.deltaVals();
 	}
 
 	//-----------------------------------------------
@@ -761,16 +761,41 @@ var Jumbo, jApp;
 
 	//-----------------------------------------------
 	// - keyup opacity text input
-	BGI.prototype.oText = function(){ return false;
+	BGI.prototype.oText = function(){ 
 
-		// make sure 0 <= value <= 1, step .01
+		// if there is no input, return 
+		if( !this.value) return;
+
+		// if the value is not 1
+		if(this.value !== "1"){
+
+			// strip non numeric characters from the last 2 digits
+			this.value = this.value.replace(/[^\d.]/g, '');
+
+			// if the value of the first character is not 0
+			if( this.value.charAt(0) != "0" )
+
+				// pop a 0 in there
+				this.value = "0" + this.value;
+
+			// if the value of the second character is not "."
+			if( this.value.length > 1 && this.value.charAt(1) != "." )
+
+				// pop the decimal in there
+				this.value = "0." + this.value.substring(1, 3);
+		}
 
 		// update slider input
+		this.parentElement.children[1].value = 
 
 		// change the opacity of the background
+		cropCanvas.children[0].style.opacity = 
 
 		// update values
+		jApp.nVals["opacity"] = parseFloat(this.value);
 
+		// prompt save
+		jApp.deltaVals();
 	}
 
 	//-----------------------------------------------
@@ -1063,7 +1088,7 @@ var Jumbo, jApp;
 	BGC.prototype.setColor = function(){
 
 		// set preview background color
-		jApp.preview.style.backgroundColor = 
+		prevCanvas.style.backgroundColor = 
 
 		// set the preview icon background
 		this.icon.style.backgroundColor = 
@@ -1318,10 +1343,6 @@ var Jumbo, jApp;
 
 		// add close event listeners
 		confModal.addEventListener("click", this.fadeOut, false);
-
-		// add the callback event listener
-		confModal.children[0].children[0].children[2].children[1]
-			.addEventListener("click", this.callback, false);
 	}
 
 	/* METHODS */
@@ -1329,9 +1350,6 @@ var Jumbo, jApp;
 	//-----------------------------------------------
 	// - launch modal
 	cModal.prototype.launch = function(){
-
-		// prevent scrolling on the body
-		document.body.className = "modal-open";
 
 		// show the modal
 		confModal.style.display = "block";
@@ -1347,6 +1365,9 @@ var Jumbo, jApp;
 	// - animate in
 	cModal.prototype.fadeIn = function(){
 
+		// prevent scrolling on the body
+		document.body.className = "modal-open";
+
 		// set the modal class
 		confModal.className = "modal fade in";
 
@@ -1359,6 +1380,11 @@ var Jumbo, jApp;
 	// - animate out
 	cModal.prototype.fadeOut = function(e){
 
+		// if the user confirmed the deletion button
+		if(e.target.className == "btn btn-default btn-danger"
+		|| e.target.className == "glyphicon glyphicon-trash")
+			jApp.modal.callback();
+
 		// if we clicked one of the buttons or backdrop
 		if(	e.target.tagName == "BUTTON" 
 		|| e.target.parentElement.tagName == "BUTTON"
@@ -1369,9 +1395,6 @@ var Jumbo, jApp;
 
 			// set the backdrop class
 			confBD.className = "modal-backdrop fade";
-		
-			// remove the modal class from the body
-			document.body.className = "";
 
 			// hide the elements
 			setTimeout(jApp.modal.hide, 300);
@@ -1385,10 +1408,13 @@ var Jumbo, jApp;
 		confModal.style.display = "none";
 		// hide the backdrop
 		confBD.style.display = "none";
-		// perform the callback
-		jApp.modal.callback();
+		// remove the modal class from the body
+		document.body.className = "";
 	}
 
+	//-----------------------------------------------
+	// - dynamic delete callback method
+	// cModal.prototype.callback = null;
 
 
 
