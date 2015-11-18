@@ -27,13 +27,13 @@
             $jumbo = json_decode($_POST["json"]);
 
             // if the user added a new background image
-            if(substr($jumbo->bg_img, 0, 6) == "upload"){
+            if(substr($jumbo->image, 0, 6) == "upload"){
                 // remove the "uploads/" prefix
-                $jumbo->bg_img = substr($jumbo->bg_img, 8);
+                $jumbo->image = substr($jumbo->image, 8);
                 // isolate the server root
                 $uRoot = $_SERVER["DOCUMENT_ROOT"]."/routesider/";
                 // move the file by renaming it
-                rename($uRoot . "uploads/" . $jumbo->bg_img, $uRoot . "img/business/" . $jumbo->bg_img);
+                rename($uRoot . "uploads/" . $jumbo->image, $uRoot . "img/business/" . $jumbo->image);
             }
 
             // get the user's business
@@ -45,11 +45,12 @@
             "MATCH (b:Business) WHERE b.id = " . $business->data("id") . " " .
             "MATCH (b)-[:HAS_PROFILE]->(p)-[q:HAS_JUMBO]->(j) " .
             "SET q.active={$jumbo->active}, " .
-            "j.bg_color='{$jumbo->bg_color}', ".
+            "j.image='{$jumbo->image}', ".
             "j.opacity={$jumbo->opacity}, ".
             "j.blur={$jumbo->blur}, ".
-            "j.bg_img='{$jumbo->bg_img}', ".
-            "j.bg_dims={$jumbo->bg_dims}";
+            "j.h={$jumbo->h}, ".
+            "j.w={$jumbo->w}, ".
+            "j.color='{$jumbo->color}'";
 
             $db = neoDB::getInstance();
 
@@ -103,7 +104,8 @@
 
             /* rule 0 - background image */
                 #cropCanvas>div{
-                    width: <?= ($jumbo["bg_img"]) ? strval(400 * $jumbo["bg_dims"])."px" : "100%"; ?>;
+                    width: <?= ($jumbo["image"]) ? strval(400 * $jumbo["ratio"])."px" : "100%"; ?>;
+                    height: 100%;
                 }
 
         </style>
@@ -166,12 +168,21 @@
                 <!-- jumbo-canvas -->
                 <div id="jumbo-canvas">
 
-                    <!-- preview layer -->
-                    <div class="j-canvas" id="prevCanvas" style='background-color:<?= $jumbo["bg_color"]; ?>;'></div>
-
                     <!-- background image & crop layer -->
-                    <div class="j-canvas" id="cropCanvas">
-                        <div style='<?= ($jumbo["bg_img"]) ? "background-image:url(\"img/business/".$jumbo["bg_img"]."\");opacity:".$jumbo["opacity"].";" : ""; ?>'>
+                    <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["color"]; ?>;'>
+                        <div>
+                            <!-- background image -->
+                            <?php if($jumbo["image"]){ ?>
+
+                                <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius="<?= $jumbo["blur"]; ?>\");' />
+
+                            <?php }else{ ?>
+
+                                <div class="bg-placeholder">
+                                    <span class="icon-image"></span>
+                                </div>
+
+                            <?php } ?>
                             <!-- dragable crop buttons -->
                             <div class="drag-btns" style="display:none;">
                                 <!-- 1) top left --> 
@@ -221,13 +232,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div><!-- /cropCanvas -->
 
                     <!-- image upload layer -->
                     <div class="j-canvas" id="bgCanvas">
 
                         <!-- upload image the old fashioned way -->
-                        <div class="upload-oldfash" <?= ($jumbo["bg_img"]) ? "style='opacity:0.7'" : ""; ?>>
+                        <div class="upload-oldfash" <?= ($jumbo["image"]) ? "style='opacity:0.7'" : ""; ?>>
                             <label>Files to upload:</label>
                             <input type="file" 
                                    name="fileselect[]" 
@@ -298,8 +309,7 @@
                 <!-- components toolbar -->
                 <div class="btn-group btn-group-lg tb" role="group" aria-label="components toolbar">
                     <!-- edit background -->
-                    <div type="button" 
-                         class="btn btn-default"
+                    <div class="btn btn-default"
                          data-comp="bg" 
                          aria-label="edit background">
                         <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
@@ -308,24 +318,21 @@
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </div>
                     <!-- add textbox -->
-                    <div type="button" 
-                         class="btn btn-default" 
+                    <div class="btn btn-default" 
                          data-comp="text" 
                          aria-label="add textbox">
                         <div class="dash-box" aria-hidden="true">Aa</div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </div>
                     <!-- add image overlay -->
-                    <div type="button" 
-                         class="btn btn-default" 
+                    <div class="btn btn-default" 
                          data-comp="img" 
                          aria-label="add image overlay">
                         <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </div>
                     <!-- add button -->
-                    <div type="button" 
-                         class="btn btn-default" 
+                    <div class="btn btn-default" 
                          data-comp="btns" 
                          aria-label="add button">
                         <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">

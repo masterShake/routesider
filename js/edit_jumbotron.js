@@ -483,7 +483,7 @@ var Jumbo, jApp;
 		// hide the upload background image canvas
 		bgCanvas.style.display = "none";
 		// hide the bg image drag buttons
-		cropCanvas.children[0].children[0].style.display = "none";
+		cropCanvas.children[0].children[1].style.display = "none";
 		// show the dragable elements canvas
 		dragCanvas.style.display = "block";
 	}
@@ -495,7 +495,7 @@ var Jumbo, jApp;
 	BG.prototype.confirmDel = function(){
 
 		// if there is no background image
-		if(!jApp.iVals["bg_img"])
+		if(!jApp.iVals["image"])
 			return;
 
 		// set the modal title
@@ -508,7 +508,7 @@ var Jumbo, jApp;
        	confModal.children[0].children[0].children[1]
        		.innerHTML = '<p>Are you sure you want to delete this background image?</p>'+
        					 '<div style="text-align:center">'+
-       					 '	<img src="img/business/'+jApp.iVals.bg_img+'" style="height:auto;width:auto;max-height:160px;max-width:100%" />'+
+       					 '	<img src="img/business/'+jApp.iVals.image+'" style="height:auto;width:auto;max-height:160px;max-width:100%" />'+
        					 '</div>';
 
        	// set modal callback
@@ -524,13 +524,21 @@ var Jumbo, jApp;
 	BG.prototype.del = function(){
 
 		// reset all the nVals properties
-		jApp.nVals["bg_img"] = 0;
-		jApp.nVals["bg_dims"] = 0;
+		jApp.nVals["image"] = 0;
 		jApp.nVals["blur"] = 0;
 		jApp.nVals["opacity"] = 1;
+		jApp.nVals["h"] = 0;
+		jApp.nVals["w"] = 0;
+		jApp.nVals["ratio"] = 1;
 
-		// reset all the css
-		cropCanvas.children[0].style.backgroundImage = "none";
+		// remove the background image
+		cropCanvas.children[0].removeChild(cropCanvas.children[0].children[0]);
+
+		// add the default bg image placeholder
+		jApp.temp = document.createElement("div");
+		jApp.temp.className = "bg-placeholder";
+		jApp.temp.innerHTML = '<span class="icon-image"></span>';
+		cropCanvas.children[0].insertBefore(jApp.temp, cropCanvas.children[0].children[0]);
 
 		// values changed
 		jApp.deltaVals();
@@ -714,16 +722,33 @@ var Jumbo, jApp;
 			jApp.temp = JSON.parse(this.responseText);
 
 			// set the nVals (new values) properties
-			jApp.nVals["bg_img"] = jApp.temp["name"];
-			jApp.nVals["bg_dims"] = jApp.temp["dims"];
+			jApp.nVals["image"] = jApp.temp["image"];
+			jApp.nVals["h"] = jApp.temp["h"];
+			jApp.nVals["w"] = jApp.temp["w"];
+			jApp.nVals["ratio"] = jApp.temp["ratio"];
+
+			// if there isn't already a background image
+			if(!window.hasOwnProperty("bgImg")){
+
+				// remove the placeholder
+				cropCanvas.children[0].removeChild(cropCanvas.children[0].children[0]);
+
+				// insert an image element
+				cropCanvas.children[0].insertBefore(
+					document.createElement("img"),
+					cropCanvas.children[0].children[0]
+				);
+
+				// set the id
+				cropCanvas.children[0].children[0].id = "bgImg";
+			}
 
 			// set the background image
-			cropCanvas.children[0].style.backgroundImage = 
-				"url('"+jApp.nVals["bg_img"]+"')";
+			bgImg.src = jApp.nVals["image"];
 
 			// set the background image width
 			document.styleSheets[document.styleSheets.length - 1].rules[0]
-				.style.width = (400 * jApp.nVals["bg_dims"]) + "px";
+				.style.width = (400 * jApp.nVals["ratio"]) + "px";
 
 			// show save prompt
 			jApp.deltaVals();
@@ -738,7 +763,7 @@ var Jumbo, jApp;
 		this.parentElement.children[0].value = 
 
 		// change the opacity of the background img
-		cropCanvas.children[0].style.opacity = //this.value;
+		bgImg.style.opacity = 
 
 		// update values
 		jApp.nVals["opacity"] = parseFloat(this.value);
@@ -789,7 +814,7 @@ var Jumbo, jApp;
 		this.parentElement.children[1].value = 
 
 		// change the opacity of the background
-		cropCanvas.children[0].style.opacity = 
+		bgImg.style.opacity = 
 
 		// update values
 		jApp.nVals["opacity"] = parseFloat(this.value);
@@ -875,14 +900,14 @@ var Jumbo, jApp;
 	// - toggle bg image drag buttons
 	CR.prototype.togCrop = function(){
 		// if the bgCanvas is hidden
-		if(cropCanvas.children[0].children[0].offsetParent === null){
+		if(cropCanvas.children[0].children[1].offsetParent === null){
 			// show the bg image drag buttons
-			cropCanvas.children[0].children[0].style.display = "block";
+			cropCanvas.children[0].children[1].style.display = "block";
 			// hide the draggables canvas 
 			dragCanvas.style.display = "none";
 		}else{
 			// hide the bg image drag buttons
-			cropCanvas.children[0].children[0].style.display = "none";
+			cropCanvas.children[0].children[1].style.display = "none";
 			// show the draggables canvas
 			dragCanvas.style.display = "block";
 		}
@@ -892,7 +917,7 @@ var Jumbo, jApp;
 	// - hide the bg image drag buttons
 	CR.prototype.hideCrop = function(){
 		// hide the bg image drag buttons
-		cropCanvas.children[0].children[0].style.display = "none";
+		cropCanvas.children[0].children[1].style.display = "none";
 	}
 
 
@@ -1088,7 +1113,7 @@ var Jumbo, jApp;
 	BGC.prototype.setColor = function(){
 
 		// set preview background color
-		prevCanvas.style.backgroundColor = 
+		cropCanvas.style.backgroundColor = 
 
 		// set the preview icon background
 		this.icon.style.backgroundColor = 
@@ -1100,7 +1125,7 @@ var Jumbo, jApp;
 		this.picki.value = 
 
 		// & update the new values object
-		jApp.nVals.bg_color = this.temp;
+		jApp.nVals.color = this.temp;
 
 		// set the preview icon color
 		this.icon.style.color = 
@@ -1117,7 +1142,7 @@ var Jumbo, jApp;
 		// hide the upload background image
 		bgCanvas.style.display = "none";
 		// hide the crop buttons
-		cropCanvas.children[0].children[0].style.display = "none";
+		cropCanvas.children[0].children[1].style.display = "none";
 		// show the draggable elements' canvas
 		dragCanvas.style.display = "block";
 	}

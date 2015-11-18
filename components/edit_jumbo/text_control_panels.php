@@ -88,7 +88,7 @@
                                 </td>
                                 <td>
                                     <input type="text" 
-                                           value='<?= $jumbo["bg_color"]; ?>' 
+                                           value='' 
                                            class="form-control" 
                                            maxlength="7"
                                            style="text-transform:uppercase" 
@@ -102,7 +102,7 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label>more colors:</label>
                         <input type="color" 
-                               value='<?= $jumbo["bg_color"]; ?>'
+                               value='#FFFFFF'
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
@@ -195,7 +195,7 @@
                                 </td>
                                 <td>
                                     <input type="text" 
-                                           value='<?= $jumbo["bg_color"]; ?>' 
+                                           value='' 
                                            class="form-control" 
                                            maxlength="7"
                                            style="text-transform:uppercase" 
@@ -209,7 +209,7 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label>more colors:</label>
                         <input type="color" 
-                               value='<?= $jumbo["bg_color"]; ?>'
+                               value='#FFFFFF'
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 

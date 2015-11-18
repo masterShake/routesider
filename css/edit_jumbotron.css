@@ -26,19 +26,12 @@
 	height: 100%;
 	width: 100%;
     position: absolute;
+    overflow: hidden;
 	-webkit-transition: .3s;
 	-moz-transition: .3s;
 	-ms-transition: .3s;
 	-o-transition: .3s;
 	transition: .3s;
-}
-/* background canvas */
-#bgCanvas{
-	text-align: center; 
-	font-size: 18px; 
-	padding-top: 80px;
-	text-shadow: 0px 0px 4px #FFF;
-	display: none;
 }
 
 /*----------------------
@@ -165,9 +158,13 @@
 	bg img canvas
 ----------------------*/
 
-/* hover styling */
-.j-canvas.hover{
-	border: 3px solid #5CB85C;
+/* background canvas */
+#bgCanvas{
+	text-align: center; 
+	font-size: 18px; 
+	padding-top: 170px;
+	text-shadow: 0px 0px 4px #FFF;
+	display: none;
 }
 /* upload image fileselect */
 .upload-oldfash{
@@ -182,7 +179,7 @@
     position: relative;
     left: 50%;
     margin-left: -110px;
-    top: -44px;
+    top: -133px;
 }
 .upload-oldfash:hover{
 	opacity: 1 !important;
@@ -233,14 +230,29 @@
 #crop-btn span{
 	padding-right: 5px;
 }
-/* bg image canvas */
-#cropCanvas>div{
-	height:100%;
-	background-size: auto 100%;
-	background-position: center;
-	background-repeat: no-repeat;
+/* background image */
+#bgImg{
+	width: 100%;
+	height: auto;
+	position: absolute;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
 }
-
+/* background image placeholder */
+.bg-placeholder{
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	font-size: 36px;
+	padding-top: 50%;
+	color: #ccc;
+}
+#cropCanvas .drag-btns{
+	height:100%;
+	width:100%;
+	position: absolute;
+}
 
 /*---------------------- 
  edit background color

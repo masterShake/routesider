@@ -47,8 +47,10 @@ if ($fn) {
     //   dims (aspect ratio) is 1.33333
 
     $imgData = [ 
-                 "name" => "uploads/".$newName,
-                 "dims" => round(($imgData["0"] / $imgData["1"]), 2) 
+                 "image" => "uploads/".$newName,
+                 "w" => $imgData["0"],
+                 "h" => $imgData["1"],
+                 "ratio" => round(($imgData["0"] / $imgData["1"]), 2) 
                ];
 
     exit( json_encode($imgData) );
