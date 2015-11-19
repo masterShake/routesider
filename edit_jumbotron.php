@@ -392,7 +392,11 @@
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
-        <script src="js/edit_jumbotron.js"></script>
+        <script src="js/edit_jumbotron/edit_jumbotron.js"></script>
+        <script src="js/edit_jumbotron/bg.js"></script>
+        <script src="js/edit_jumbotron/tb.js"></script>
+        <script src="js/edit_jumbotron/io.js"></script>
+        <script src="js/edit_jumbotron/btn.js"></script>
 
     </body>
 </html>
