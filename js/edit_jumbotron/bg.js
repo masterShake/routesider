@@ -327,7 +327,7 @@ BGI.prototype.uploadCB = function(){
 BGI.prototype.oSlide = function(){
 
 	// set the value of the text input
-	this.parentElement.children[0].value = 
+	this.parentElement.children[1].value = 
 
 	// change the opacity of the background img
 	bgImg.style.opacity = 
@@ -341,13 +341,20 @@ BGI.prototype.oSlide = function(){
 
 //-----------------------------------------------
 // - when user slides blur slider
-BGI.prototype.bSlide = function(){ return false;
+BGI.prototype.bSlide = function(){
 
 	// set the value of the text input
-
-	// change the blur of the background img
+	this.parentElement.children[1].value = 
 
 	// update values
+	jApp.nVals["blur"] = parseInt(this.value);
+
+	// change the blur of the background img
+	bgImg.style.filter = 
+	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
 
 }
 
@@ -378,7 +385,7 @@ BGI.prototype.oText = function(){
 	}
 
 	// update slider input
-	this.parentElement.children[1].value = 
+	this.parentElement.children[2].value = 
 
 	// change the opacity of the background
 	bgImg.style.opacity = 
@@ -392,16 +399,32 @@ BGI.prototype.oText = function(){
 
 //-----------------------------------------------
 // - keyup blur text input
-BGI.prototype.bText = function(){ return false;
+// - must be an integer between 0 and 10
+BGI.prototype.bText = function(){
 
-	// make sure 0 <= value <= 100, step 1
+	// if there is no input, return 
+	if( !this.value) return;
 
-	// update slider input
+	// replace all non-numeric characters
+	this.value = this.value.replace('/[^\d]/g', '');
 
-	// change the blur of the background
+	// if the value is greater than 10
+	if(parseInt(this.value) > 10)
+		// remove the last number
+		this.value = this.value.substr(0,1);
 
-	// update values
+	// update the slider input
+	this.parentElement.children[2].value = 
 
+	// update the nVals
+	jApp.nVals["blur"] = parseInt(this.value);
+
+	// set the blur
+	bgImg.style.filter = 
+	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
 }
 
 

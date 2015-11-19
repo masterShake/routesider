@@ -174,7 +174,7 @@
                             <!-- background image -->
                             <?php if($jumbo["image"]){ ?>
 
-                                <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius="<?= $jumbo["blur"]; ?>\");' />
+                                <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);' />
 
                             <?php }else{ ?>
 
