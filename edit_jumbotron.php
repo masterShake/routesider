@@ -278,7 +278,7 @@
 
                 <!-- device layout dropdown -->
                 <div class="dropup" id="layout-view">
-                    <div aria-haspopup="true" aria-expanded="true">
+                    <div aria-haspopup="true" aria-expanded="true" role="button">
                         <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
                         <div style="padding-top:12px;float:right;">
                             <span class="hidden-xs">mobile</span>
@@ -309,7 +309,8 @@
                 <!-- components toolbar -->
                 <div class="btn-group btn-group-lg tb" role="group" aria-label="components toolbar">
                     <!-- edit background -->
-                    <div class="btn btn-default"
+                    <div role="button"
+                         class="btn btn-default"
                          data-comp="bg" 
                          aria-label="edit background">
                         <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
@@ -318,14 +319,16 @@
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </div>
                     <!-- add textbox -->
-                    <div class="btn btn-default" 
+                    <div role="button"
+                         class="btn btn-default" 
                          data-comp="text" 
                          aria-label="add textbox">
                         <div class="dash-box" aria-hidden="true">Aa</div>
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </div>
                     <!-- add image overlay -->
-                    <div class="btn btn-default" 
+                    <div role="button"
+                         class="btn btn-default" 
                          data-comp="img" 
                          aria-label="add image overlay">
                         <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>

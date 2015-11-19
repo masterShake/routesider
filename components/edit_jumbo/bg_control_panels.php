@@ -210,7 +210,7 @@
                 <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
             </button>
             <!-- edit background color -->
-            <div type="button" class="btn btn-default" data-panel="2" aria-label="edit background color">
+            <div role="button" class="btn btn-default" data-panel="2" aria-label="edit background color">
                 <!-- color wheel icon -->
                 <div class="colorwheel-icon">
                     <div>
