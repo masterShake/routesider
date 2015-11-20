@@ -491,9 +491,13 @@ CR = function(){
 
 	// reposition background 
 	cropCanvas.children[0].children[1]
-		.addEventListener("mousedown", this.repoStart, false);
+		.addEventListener("mousedown", this.repoMD, false);
 	cropCanvas.children[0].children[1]
-		.addEventListener("mouseup", this.repoEnd, false);
+		.addEventListener("mouseup", this.repoMU, false);
+	cropCanvas.children[0].children[1]
+		.addEventListener("touchstart", this.repoTS, false);
+	cropCanvas.children[0].children[1]
+		.addEventListener("touchend", this.repoTE, false);
 }
 
 /* METHODS */
@@ -523,26 +527,68 @@ CR.prototype.hideCrop = function(){
 }
 
 //-----------------------------------------------
-// - drag start, reposition bg image
-CR.prototype.repoStart = function(e){ console.log(e);
+// - touchstart, reposition bg image
+CR.prototype.repoTS = function(e){ console.log(e);
 
 	// if user tugging on a drag button, return
 	if(e.target.className != "drag-btns") return;
+
+	// get the starting position of the touch
+	jApp.bg.cropper.x = e.touches[0].pageX;
+	jApp.bg.cropper.y = e.touches[0].pageY;
+
+	// add touchmove event listener
+	document.body.addEventListener("touchmove", jApp.bg.cropper.repoTM, false);
+}
+
+//-----------------------------------------------
+// - touchmove, reposition bg image
+CR.prototype.repoTM = function(e){
+	// keep page from scrolling or going back
+	e.preventDefault();
+	// set the top
+	cropCanvas.children[0].style.top = -1 * (jApp.bg.cropper.y - e.touches[0].pageY - jApp.nVals.y) + "px";
+	// set the left
+	cropCanvas.children[0].style.left = -1 * (jApp.bg.cropper.x - e.touches[0].pageX - jApp.nVals.x) + "px";
+}
+
+//-----------------------------------------------
+// - touchend, reposition bg image
+CR.prototype.repoTE = function(e){
+
+	// add touchmove event listener
+	document.body.removeEventListener("touchmove", jApp.bg.cropper.repoTM, false);
+
+	// set the nVals
+	jApp.nVals.x = this.parentElement.offsetLeft;
+	jApp.nVals.y = this.parentElement.offsetTop;
+
+	// alert user to save
+	jApp.deltaVals();
+
+}
+
+//-----------------------------------------------
+// - mousedown, reposition bg image
+CR.prototype.repoMD = function(e){ console.log(e);
+
+	// if user tugging on a drag button, return
+	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return;
 
 	// change the cursor
 	this.style.cursor = "-webkit-grabbing";
 
 	// get the starting position of the mouse
-	jApp.bg.cropper.x = e.clientX - document.body.getBoundingClientRect().left;
-	jApp.bg.cropper.y = e.clientY - document.body.getBoundingClientRect().top;
+	jApp.bg.cropper.x = e.pageX;
+	jApp.bg.cropper.y = e.pageY;
 
 	// add mousemove event listener
-	document.body.addEventListener("mousemove", jApp.bg.cropper.repoMove, false);
+	document.body.addEventListener("mousemove", jApp.bg.cropper.repoMM, false);
 }
 
 //-----------------------------------------------
-// - mouse move, reposition bg image
-CR.prototype.repoMove = function(e){
+// - mousemove, reposition bg image
+CR.prototype.repoMM = function(e){
 	// set the top
 	cropCanvas.children[0].style.top = -1 * (jApp.bg.cropper.y - e.pageY - jApp.nVals.y) + "px";
 	// set the left
@@ -550,14 +596,14 @@ CR.prototype.repoMove = function(e){
 }
 
 //-----------------------------------------------
-// - drag end, reposition bg image
-CR.prototype.repoEnd = function(e){
+// - mouseup, reposition bg image
+CR.prototype.repoMU = function(e){
 
 	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns") return;
+	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return;
 
 	// remove mousemove event listener
-	document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMove, false);
+	document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMM, false);
 
 	// change the cursor
 	this.style.cursor = "-webkit-grab";
