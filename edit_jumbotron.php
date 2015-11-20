@@ -104,9 +104,9 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                width: <?= ($jumbo["image"]) ? strval(400 * $jumbo["ratio"])."px" : "100%"; ?>;
-                height: 100%;
-                position: absolute;
+                width: 100%;
+                /* height: <?= ($jumbo["image"]) ? strval(400 * $jumbo["ratio"])."px" : "100%"; ?>; */
+                position: relative;
                 left: 0px;
                 top: 0px;
             }
@@ -174,18 +174,6 @@
                     <!-- background image & crop layer -->
                     <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["color"]; ?>;'>
                         <div>
-                            <!-- background image -->
-                            <?php if($jumbo["image"]){ ?>
-
-                                <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);' />
-
-                            <?php }else{ ?>
-
-                                <div class="bg-placeholder">
-                                    <span class="icon-image"></span>
-                                </div>
-
-                            <?php } ?>
                             <!-- dragable crop buttons -->
                             <div class="drag-btns" style="display:none;">
                                 <!-- 1) top left --> 
@@ -209,9 +197,11 @@
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- 5) center center -->
-                                <div>
-                                    <div class="horiz"></div>
-                                    <div class="vert"></div>
+                                <div class="drag-btns" style="position:absolute;">
+                                    <ul>
+                                        <li class="horiz"></li>
+                                        <li class="vert"></li>
+                                    </ul>
                                 </div>
                                 <!-- 6) center right -->
                                 <div>
@@ -234,6 +224,18 @@
                                     <div class="horiz"></div>
                                 </div>
                             </div>
+                            <!-- background image -->
+                            <?php if($jumbo["image"]){ ?>
+
+                                <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);' />
+
+                            <?php }else{ ?>
+
+                                <div class="bg-placeholder">
+                                    <span class="icon-image"></span>
+                                </div>
+
+                            <?php } ?>
                         </div>
                     </div><!-- /cropCanvas -->
 

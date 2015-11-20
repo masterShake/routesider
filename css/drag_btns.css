@@ -8,7 +8,8 @@
 .drag-btns{
 	height:100%;
 	width: 100%;
-	position: relative;
+	position: absolute;
+	z-index: 1;
 	cursor: -webkit-grab;
 }
 .drag-btns>div{
@@ -20,6 +21,16 @@
 	box-shadow: 0 0 6px #676767;
 	padding: 5px;
 	opacity: 0.75;
+}
+.drag-btns .horiz{
+	width: 10px;
+	height: 2px;
+	z-index: 0;
+}
+.drag-btns .vert{
+	width: 2px;
+	height: 10px;
+	z-index: 1;
 }
 /* 1) top left */
 .drag-btns>div:nth-child(1){
@@ -60,6 +71,10 @@
 .drag-btns>div:nth-child(5){
 	left: calc(50% - 10px);
 	top: calc(50% - 10px);
+}
+.drag-btns>div:nth-child(5) ul{
+	padding-left: 0px;
+	list-style-type: none;
 }
 .drag-btns>div:nth-child(5) .horiz{
 	top: 4px;
@@ -119,14 +134,4 @@
 	float:left;
 	background-color: #666;
 	position: relative;
-}
-.drag-btns .horiz{
-	width: 10px;
-	height: 2px;
-	z-index: 0;
-}
-.drag-btns .vert{
-	width: 2px;
-	height: 10px;
-	z-index: 1;
 }

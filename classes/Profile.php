@@ -194,7 +194,7 @@ class Profile{
 
 		
 		// calculate the aspect ratio, width/height
-		$json["ratio"] = ($json["h"]) ? round($json["w"] / $json["h"], 2) : 1;
+		$json["ratio"] = ($json["w"]) ? round($json["h"] / $json["w"], 2) : 1;
 
 		// add empty arrays for the attached nodes
 		$json["texts"] = [];

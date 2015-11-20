@@ -313,9 +313,10 @@ BGI.prototype.uploadCB = function(){
 		// set the background image
 		bgImg.src = jApp.nVals["image"];
 
+		// THIS IS BROKEN
 		// set the background image width
 		document.styleSheets[document.styleSheets.length - 1].rules[0]
-			.style.width = (400 * jApp.nVals["ratio"]) + "px";
+			.style.height = (cropCanvas.offsetWidth * jApp.nVals["ratio"]) + "px";
 
 		// show save prompt
 		jApp.deltaVals();
@@ -475,7 +476,7 @@ CR = function(){
 
 	// keep track of the canvas coordinate positions
 	this.x = 0;
-	this.y = 0;
+	this.y = cropCanvas.children[0].children[1].children; // use as a temp variable
 
 	/* initializations */
 
@@ -490,14 +491,22 @@ CR = function(){
 		.addEventListener("click", this.hideCrop, false);
 
 	// reposition background 
-	cropCanvas.children[0].children[1]
+	cropCanvas.children[0].children[0]
 		.addEventListener("mousedown", this.repoMD, false);
-	cropCanvas.children[0].children[1]
+	cropCanvas.children[0].children[0]
 		.addEventListener("mouseup", this.repoMU, false);
-	cropCanvas.children[0].children[1]
+	cropCanvas.children[0].children[0]
 		.addEventListener("touchstart", this.repoTS, false);
-	cropCanvas.children[0].children[1]
+	cropCanvas.children[0].children[0]
 		.addEventListener("touchend", this.repoTE, false);
+
+	// loop through the resize drag buttons
+	// for(var i = 0; i < this.y.length; i++){
+
+	// 	// add the resize events
+	// 	this.y[i].addEventListener("mousedown", this.resizeMD, false);
+	// 	this.y[i].addEventListener("mouseup", this.resizeMU, false);
+	// }
 }
 
 /* METHODS */
@@ -506,14 +515,14 @@ CR = function(){
 // - toggle bg image drag buttons
 CR.prototype.togCrop = function(){
 	// if the bgCanvas is hidden
-	if(cropCanvas.children[0].children[1].offsetParent === null){
+	if(cropCanvas.children[0].children[0].offsetParent === null){
 		// show the bg image drag buttons
-		cropCanvas.children[0].children[1].style.display = "block";
+		cropCanvas.children[0].children[0].style.display = "block";
 		// hide the draggables canvas 
 		dragCanvas.style.display = "none";
 	}else{
 		// hide the bg image drag buttons
-		cropCanvas.children[0].children[1].style.display = "none";
+		cropCanvas.children[0].children[0].style.display = "none";
 		// show the draggables canvas
 		dragCanvas.style.display = "block";
 	}
@@ -523,12 +532,12 @@ CR.prototype.togCrop = function(){
 // - hide the bg image drag buttons
 CR.prototype.hideCrop = function(){
 	// hide the bg image drag buttons
-	cropCanvas.children[0].children[1].style.display = "none";
+	cropCanvas.children[0].children[0].style.display = "none";
 }
 
 //-----------------------------------------------
 // - touchstart, reposition bg image
-CR.prototype.repoTS = function(e){ console.log(e);
+CR.prototype.repoTS = function(e){
 
 	// if user tugging on a drag button, return
 	if(e.target.className != "drag-btns") return;
@@ -570,7 +579,7 @@ CR.prototype.repoTE = function(e){
 
 //-----------------------------------------------
 // - mousedown, reposition bg image
-CR.prototype.repoMD = function(e){ console.log(e);
+CR.prototype.repoMD = function(e){
 
 	// if user tugging on a drag button, return
 	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return;
@@ -616,7 +625,41 @@ CR.prototype.repoMU = function(e){
 	jApp.deltaVals();
 }
 
+//-----------------------------------------------
+// - touchstart, resize bg image
+CR.prototype.resizeTS = function(e){ return;
 
+}
+
+//-----------------------------------------------
+// - touchmove, resize bg image
+CR.prototype.resizeTM = function(e){ return;
+	
+}
+
+//-----------------------------------------------
+// - touchend, resize bg image
+CR.prototype.resizeTE = function(e){ return;
+	
+}
+
+//-----------------------------------------------
+// - mousedown, resize bg image
+CR.prototype.resizeMD = function(e){ return;
+	
+}
+
+//-----------------------------------------------
+// - mousemove, resize bg image
+CR.prototype.resizeMM = function(e){ return;
+	
+}
+
+//-----------------------------------------------
+// - mouseup, resize bg image
+CR.prototype.resizeMU = function(e){ return;
+	
+}
 
 
 
