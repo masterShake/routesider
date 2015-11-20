@@ -537,18 +537,16 @@ CR.prototype.repoStart = function(e){ console.log(e);
 	jApp.bg.cropper.y = e.clientY - document.body.getBoundingClientRect().top;
 
 	// add mousemove event listener
-	// document.body.addEventListener("mousemove", jApp.bg.cropper.repoMove, false);
+	document.body.addEventListener("mousemove", jApp.bg.cropper.repoMove, false);
 }
 
 //-----------------------------------------------
 // - mouse move, reposition bg image
 CR.prototype.repoMove = function(e){
-
-	// if 
-
-	console.log(e.pageX);
-	console.log(e.pageY);
-
+	// set the top
+	cropCanvas.children[0].style.top = -1 * (jApp.bg.cropper.y - e.pageY - jApp.nVals.y) + "px";
+	// set the left
+	cropCanvas.children[0].style.left = -1 * (jApp.bg.cropper.x - e.pageX - jApp.nVals.x) + "px";
 }
 
 //-----------------------------------------------
@@ -559,11 +557,17 @@ CR.prototype.repoEnd = function(e){
 	if(e.target.className != "drag-btns") return;
 
 	// remove mousemove event listener
-	// document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMove, false);
+	document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMove, false);
 
 	// change the cursor
 	this.style.cursor = "-webkit-grab";
 
+	// set the nVals
+	jApp.nVals.x = this.parentElement.offsetLeft;
+	jApp.nVals.y = this.parentElement.offsetTop;
+
+	// alert user to save
+	jApp.deltaVals();
 }
 
 
