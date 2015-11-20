@@ -102,11 +102,14 @@
         <!-- php dynamic styles (must be last style sheet) -->
         <style>
 
-            /* rule 0 - background image */
-                #cropCanvas>div{
-                    width: <?= ($jumbo["image"]) ? strval(400 * $jumbo["ratio"])."px" : "100%"; ?>;
-                    height: 100%;
-                }
+            /* rule 0 - bg image container */
+            #cropCanvas>div{
+                width: <?= ($jumbo["image"]) ? strval(400 * $jumbo["ratio"])."px" : "100%"; ?>;
+                height: 100%;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+            }
 
         </style>
 

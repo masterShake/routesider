@@ -473,15 +473,27 @@ CR = function(){
 
 	/* properties */
 
+	// keep track of the canvas coordinate positions
+	this.x = 0;
+	this.y = 0;
+
 	/* initializations */
 
 	// toggle the bg image drag buttons event
-	bgToolbar.children[1].children[0].addEventListener("click", this.hideCrop, false); // background image button
-	bgCpanels.children[1].children[0].children[0]
-		.addEventListener("click", this.hideCrop, false); // bgi control panel x
-	bgToolbar.children[1].children[1].addEventListener("click", this.togCrop, false); // crop button
-	bgToolbar.children[1].children[2].addEventListener("click", this.hideCrop, false); // bg color button
+	bgToolbar.children[1].children[0] // background image button
+		.addEventListener("click", this.hideCrop, false);
+	bgCpanels.children[1].children[0].children[0] // bgi control panel x
+		.addEventListener("click", this.hideCrop, false);
+	bgToolbar.children[1].children[1] // crop button
+		.addEventListener("click", this.togCrop, false);
+	bgToolbar.children[1].children[2] // bg color button
+		.addEventListener("click", this.hideCrop, false);
 
+	// reposition background 
+	cropCanvas.children[0].children[1]
+		.addEventListener("mousedown", this.repoStart, false);
+	cropCanvas.children[0].children[1]
+		.addEventListener("mouseup", this.repoEnd, false);
 }
 
 /* METHODS */
@@ -508,6 +520,50 @@ CR.prototype.togCrop = function(){
 CR.prototype.hideCrop = function(){
 	// hide the bg image drag buttons
 	cropCanvas.children[0].children[1].style.display = "none";
+}
+
+//-----------------------------------------------
+// - drag start, reposition bg image
+CR.prototype.repoStart = function(e){ console.log(e);
+
+	// if user tugging on a drag button, return
+	if(e.target.className != "drag-btns") return;
+
+	// change the cursor
+	this.style.cursor = "-webkit-grabbing";
+
+	// get the starting position of the mouse
+	jApp.bg.cropper.x = e.clientX - document.body.getBoundingClientRect().left;
+	jApp.bg.cropper.y = e.clientY - document.body.getBoundingClientRect().top;
+
+	// add mousemove event listener
+	// document.body.addEventListener("mousemove", jApp.bg.cropper.repoMove, false);
+}
+
+//-----------------------------------------------
+// - mouse move, reposition bg image
+CR.prototype.repoMove = function(e){
+
+	// if 
+
+	console.log(e.pageX);
+	console.log(e.pageY);
+
+}
+
+//-----------------------------------------------
+// - drag end, reposition bg image
+CR.prototype.repoEnd = function(e){
+
+	// if user tugging on a drag button, return
+	if(e.target.className != "drag-btns") return;
+
+	// remove mousemove event listener
+	// document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMove, false);
+
+	// change the cursor
+	this.style.cursor = "-webkit-grab";
+
 }
 
 

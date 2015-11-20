@@ -252,11 +252,6 @@
 	padding-top: 50%;
 	color: #ccc;
 }
-#cropCanvas .drag-btns{
-	height:100%;
-	width:100%;
-	position: absolute;
-}
 
 /*---------------------- 
  edit background color
