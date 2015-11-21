@@ -10,9 +10,9 @@
 	width: 100%;
 	position: absolute;
 	z-index: 1;
-	cursor: -webkit-grab;
 }
-.drag-btns>div{
+.drag-btns>div,
+.drag-btns>div:nth-child(1)>div{
 	position: absolute;
 	height:20px;
 	width:20px;
@@ -21,6 +21,12 @@
 	box-shadow: 0 0 6px #676767;
 	padding: 5px;
 	opacity: 0.75;
+}
+.drag-btns .horiz,
+.drag-btns .vert{
+	float:left;
+	background-color: #666;
+	position: relative;
 }
 .drag-btns .horiz{
 	width: 10px;
@@ -32,58 +38,68 @@
 	height: 10px;
 	z-index: 1;
 }
-/* 1) top left */
+/* draggable elem */
 .drag-btns>div:nth-child(1){
+	border-radius: 0;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	opacity: 1;
+	cursor: -webkit-grab;
+	text-align: center;
+}
+/* top left */
+.drag-btns>div:nth-child(2){
 	left: 0px;
 	cursor: nw-resize;
 }
-.drag-btns>div:nth-child(1) .vert{
+.drag-btns>div:nth-child(2) .vert{
 	top: -2px;
 }
-/* 2) top center */
-.drag-btns>div:nth-child(2){
+/* top center */
+.drag-btns>div:nth-child(3){
 	left: calc(50% - 10px);
 	cursor: n-resize;
 }
-.drag-btns>div:nth-child(2) .vert{
+.drag-btns>div:nth-child(3) .vert{
 	left: 4px;
 	height: 7px;
 }
-/* 3) top right */
-.drag-btns>div:nth-child(3){
+/* top right */
+.drag-btns>div:nth-child(4){
 	right: 0px;
 	cursor: ne-resize;
 }
-.drag-btns>div:nth-child(3) .vert{
+.drag-btns>div:nth-child(4) .vert{
 	float: right;
 	top: -2px;
 }
-/* 4) center left */
-.drag-btns>div:nth-child(4){
+/* center left */
+.drag-btns>div:nth-child(5){
 	top: calc(50% - 10px);
 	cursor: e-resize;
 }
-.drag-btns>div:nth-child(4) .horiz{
+.drag-btns>div:nth-child(5) .horiz{
 	top: 4px;
 	width: 7px;
 }
 /* 5) center center */
-.drag-btns>div:nth-child(5){
+/*.drag-btns>div:nth-child(5){
 	left: calc(50% - 10px);
 	top: calc(50% - 10px);
 }
-.drag-btns>div:nth-child(5) ul{
+.drag-btns>div:nth-child(5){
 	padding-left: 0px;
 	list-style-type: none;
 }
 .drag-btns>div:nth-child(5) .horiz{
-	top: 4px;
+    top: 4px;
+    left: 3px;
 }
 .drag-btns>div:nth-child(5) .vert{
-	left: 4px;
-	top: -2px;
-}
-/* 6) center right */
+	left: 9px;
+}*/
+/* center right */
 .drag-btns>div:nth-child(6){
 	top: calc(50% - 10px);
 	right: 0px;
@@ -97,7 +113,7 @@
 	width: 7px;
 	float: right;
 }
-/* 7) bottom left */
+/* bottom left */
 .drag-btns>div:nth-child(7){
 	bottom: 0px;
 	left: 0px;
@@ -106,7 +122,7 @@
 .drag-btns>div:nth-child(7) .horiz{
 	top: -2px;
 }
-/* 8) bottom center */
+/* bottom center */
 .drag-btns>div:nth-child(8){
 	bottom: 0px;
 	left: calc(50% - 10px);
@@ -117,7 +133,7 @@
 	left: 4px;
 	height: 7px;
 }
-/* 9) bottom right */
+/* bottom right */
 .drag-btns>div:nth-child(9){
 	bottom: 0px;
 	right: 0px;
@@ -128,10 +144,4 @@
 }
 .drag-btns>div:nth-child(9) .horiz{
 	top: -2px;
-}
-.drag-btns .horiz,
-.drag-btns .vert{
-	float:left;
-	background-color: #666;
-	position: relative;
 }

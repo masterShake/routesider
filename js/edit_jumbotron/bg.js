@@ -474,9 +474,19 @@ CR = function(){
 
 	/* properties */
 
+	// keep track of the resting width & height
+	this.w = 0;
+	this.h = 0;
+
 	// keep track of the canvas coordinate positions
 	this.x = 0;
-	this.y = cropCanvas.children[0].children[1].children; // use as a temp variable
+	this.y = cropCanvas.children[0].children[0].children; // use as a temp variable
+
+	// keep track of the function constants
+	this.Fx = 0;
+	this.Fy = 0;
+	this.Fw = 0;
+	this.Fh = 0;
 
 	/* initializations */
 
@@ -491,26 +501,177 @@ CR = function(){
 		.addEventListener("click", this.hideCrop, false);
 
 	// reposition background 
-	cropCanvas.children[0].children[0]
-		.addEventListener("mousedown", this.repoMD, false);
-	cropCanvas.children[0].children[0]
-		.addEventListener("mouseup", this.repoMU, false);
-	cropCanvas.children[0].children[0]
-		.addEventListener("touchstart", this.repoTS, false);
-	cropCanvas.children[0].children[0]
-		.addEventListener("touchend", this.repoTE, false);
+	// cropCanvas.children[0].children[0]
+	// 	.addEventListener("mousedown", this.repoMD, false);
+	// cropCanvas.children[0].children[0]
+	// 	.addEventListener("mouseup", this.repoMU, false);
+	// cropCanvas.children[0].children[0]
+	// 	.addEventListener("touchstart", this.repoTS, false);
+	// cropCanvas.children[0].children[0]
+	// 	.addEventListener("touchend", this.repoTE, false);
 
 	// loop through the resize drag buttons
-	// for(var i = 0; i < this.y.length; i++){
+	for(var i = 0; i < this.y.length; i++){
 
-	// 	// add the resize events
-	// 	this.y[i].addEventListener("mousedown", this.resizeMD, false);
-	// 	this.y[i].addEventListener("mouseup", this.resizeMU, false);
-	// }
+		// add the resize events
+		this.y[i].addEventListener("mousedown", this.resizeMD, false);
+		// this.y[i].addEventListener("mouseup", this.resizeMU, false);
+	}
 }
 
 /* METHODS */
 
+//-----------------------------------------------
+// - mousedown, resize bg image
+CR.prototype.resizeMD = function(e){ console.log("resize mousedown");
+
+	// get the resting width & height in pixels
+	jApp.bg.cropper.w = bgImg.offsetWidth;
+	// jApp.bg.cropper.h = bgImg.offsetHeight;
+
+	// get the starting position of the mouse
+	jApp.bg.cropper.x = e.pageX;
+	// jApp.bg.cropper.y = e.pageY;
+
+	// get the function constants
+	jApp.bg.cropper.Fx = parseFloat(this.dataset.x);
+	// jApp.bg.cropper.Fy = this.dataset.y;
+	// jApp.bg.cropper.Fw = this.dataset.w;
+	// jApp.bg.cropper.Fh = this.dataset.h;
+
+	// if there is an x
+	// if(this.dataset.x)
+	// 	document.body.addEventListener("mousemove", jApp.bg.cropper.resizeMMX, false); // repo x
+
+	// if w
+	// if(this.dataset.w)
+	document.body.addEventListener("mousemove", jApp.bg.cropper.resizeMM, false); // resize width
+
+	// add the mouseup event listener
+	document.body.addEventListener("mouseup", jApp.bg.cropper.resizeMU, false);
+	
+}
+
+//-----------------------------------------------
+CR.prototype.resizeMM = function(e){
+
+	// determine if use has move more up or down
+
+	// if weighted delta x > weighted delta y
+
+		// height = auto
+
+		// dynamic width
+
+	// else
+
+		// width = auto
+
+		// dynamic height
+
+	// width
+	cropCanvas.children[0].style.width = (jApp.bg.cropper.w + (jApp.bg.cropper.x - e.pageX)) + "px";
+	// height
+	cropCanvas.children[0].style.width = (jApp.bg.cropper.w + (jApp.bg.cropper.x - e.pageX)) + "px";
+
+}
+
+//-----------------------------------------------
+// - mouseup, resize bg image
+CR.prototype.resizeMU = function(e){  console.log("resize mouseup");
+	
+	// remove the w event listener
+	document.body.removeEventListener("mousemove", jApp.bg.cropper.resizeMM, false);
+
+	// remove the mouseup event listener
+	document.body.removeEventListener("mouseup", jApp.bg.cropper.resizeMU, false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+// - resize reposition left x value
+CR.prototype.resizeMMX = function(e){
+
+	cropCanvas.children[0].style.left = (jApp.bg.cropper.Fx * (jApp.nVals.x - (jApp.bg.cropper.x - e.pageX))) + "px";
+
+}
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+// - mousedown, reposition bg image
+CR.prototype.repoMD = function(e){
+
+	// if user tugging on a drag button, return
+	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return; console.log("reposition mousedown");
+
+	// change the cursor
+	e.target.style.cursor = "-webkit-grabbing";
+
+	// get the starting position of the mouse
+	jApp.bg.cropper.x = e.pageX;
+	jApp.bg.cropper.y = e.pageY;
+
+	// add mousemove event listener
+	document.body.addEventListener("mousemove", jApp.bg.cropper.repoMM, false);
+}
+
+//-----------------------------------------------
+// - mousemove, reposition bg image
+CR.prototype.repoMM = function(e){ console.log("reposition mousemove");
+	// set the top
+	cropCanvas.children[0].style.top = 	-(jApp.bg.cropper.y - e.pageY - jApp.nVals.y) + "px";
+	// set the left
+	cropCanvas.children[0].style.left = -(jApp.bg.cropper.x - e.pageX - jApp.nVals.x) + "px";
+}
+
+//-----------------------------------------------
+// - mouseup, reposition bg image
+CR.prototype.repoMU = function(e){
+
+	// if user tugging on a drag button, return
+	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return; console.log("reposition mouseup");
+
+	// remove mousemove event listener
+	document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMM, false);
+
+	// change the cursor
+	e.target.style.cursor = "-webkit-grab";
+
+	// set the nVals
+	jApp.nVals.x = this.parentElement.offsetLeft;
+	jApp.nVals.y = this.parentElement.offsetTop;
+
+	// alert user to save
+	jApp.deltaVals();
+}
 // -----------------------------------------------
 // - toggle bg image drag buttons
 CR.prototype.togCrop = function(){
@@ -540,7 +701,7 @@ CR.prototype.hideCrop = function(){
 CR.prototype.repoTS = function(e){
 
 	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns") return;
+	if(e.target.className != "drag-btns") return;  console.log("reposition touchstart");
 
 	// get the starting position of the touch
 	jApp.bg.cropper.x = e.touches[0].pageX;
@@ -563,7 +724,7 @@ CR.prototype.repoTM = function(e){
 
 //-----------------------------------------------
 // - touchend, reposition bg image
-CR.prototype.repoTE = function(e){
+CR.prototype.repoTE = function(e){  console.log("reposition touchend");
 
 	// add touchmove event listener
 	document.body.removeEventListener("touchmove", jApp.bg.cropper.repoTM, false);
@@ -577,53 +738,6 @@ CR.prototype.repoTE = function(e){
 
 }
 
-//-----------------------------------------------
-// - mousedown, reposition bg image
-CR.prototype.repoMD = function(e){
-
-	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return;
-
-	// change the cursor
-	this.style.cursor = "-webkit-grabbing";
-
-	// get the starting position of the mouse
-	jApp.bg.cropper.x = e.pageX;
-	jApp.bg.cropper.y = e.pageY;
-
-	// add mousemove event listener
-	document.body.addEventListener("mousemove", jApp.bg.cropper.repoMM, false);
-}
-
-//-----------------------------------------------
-// - mousemove, reposition bg image
-CR.prototype.repoMM = function(e){
-	// set the top
-	cropCanvas.children[0].style.top = -1 * (jApp.bg.cropper.y - e.pageY - jApp.nVals.y) + "px";
-	// set the left
-	cropCanvas.children[0].style.left = -1 * (jApp.bg.cropper.x - e.pageX - jApp.nVals.x) + "px";
-}
-
-//-----------------------------------------------
-// - mouseup, reposition bg image
-CR.prototype.repoMU = function(e){
-
-	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return;
-
-	// remove mousemove event listener
-	document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMM, false);
-
-	// change the cursor
-	this.style.cursor = "-webkit-grab";
-
-	// set the nVals
-	jApp.nVals.x = this.parentElement.offsetLeft;
-	jApp.nVals.y = this.parentElement.offsetTop;
-
-	// alert user to save
-	jApp.deltaVals();
-}
 
 //-----------------------------------------------
 // - touchstart, resize bg image
@@ -640,24 +754,6 @@ CR.prototype.resizeTM = function(e){ return;
 //-----------------------------------------------
 // - touchend, resize bg image
 CR.prototype.resizeTE = function(e){ return;
-	
-}
-
-//-----------------------------------------------
-// - mousedown, resize bg image
-CR.prototype.resizeMD = function(e){ return;
-	
-}
-
-//-----------------------------------------------
-// - mousemove, resize bg image
-CR.prototype.resizeMM = function(e){ return;
-	
-}
-
-//-----------------------------------------------
-// - mouseup, resize bg image
-CR.prototype.resizeMU = function(e){ return;
 	
 }
 

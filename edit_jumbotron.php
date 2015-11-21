@@ -176,50 +176,52 @@
                         <div>
                             <!-- dragable crop buttons -->
                             <div class="drag-btns" style="display:none;">
-                                <!-- 1) top left --> 
+
+                                <!-- reposition drag elem -->
                                 <div>
+                                    <div style="top:calc(50% - 10px);left:calc(50% - 10px);">
+                                        <div class="vert" style="left:4px"></div>
+                                        <div class="horiz" style="top:-6px;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- top left --> 
+                                <div data-x="1" data-y="1" data-h="1" data-w="1">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
-                                <!-- 2) top center -->
-                                <div>
+                                <!-- top center -->
+                                <div data-x="0.5" data-y="1" data-h="1" data-w="0">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
-                                <!-- 3) top right -->
-                                <div>
+                                <!-- top right -->
+                                <div data-x="0" data-y="1">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
-                                <!-- 4) center left -->
-                                <div>
+                                <!-- center left -->
+                                <div data-x="1" data-y="0.5">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
-                                <!-- 5) center center -->
-                                <div class="drag-btns" style="position:absolute;">
-                                    <ul>
-                                        <li class="horiz"></li>
-                                        <li class="vert"></li>
-                                    </ul>
-                                </div>
-                                <!-- 6) center right -->
-                                <div>
+                                <!-- center right -->
+                                <div data-x="0" data-y="0.5">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
-                                <!-- 7) bottom left -->
-                                <div>
+                                <!-- bottom left -->
+                                <div data-x="1" data-y="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
-                                <!-- 8) bottom center -->
-                                <div>
+                                <!-- bottom center -->
+                                <div data-x="0.5" data-y="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
-                                <!-- 9) bottom right -->
-                                <div>
+                                <!-- bottom right -->
+                                <div data-x="0" data-y="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
