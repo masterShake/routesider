@@ -111,6 +111,12 @@
                 top: 0px;
             }
 
+            /* rule 1 - bg image */
+            #bgImg{
+                /*height : <?= ($jumbo["w"] > $jumbo["h"]) ? "100%" : "auto"; ?>;
+                width : <?= ($jumbo["w"] > $jumbo["h"]) ? "auto" : "100%"; ?>;*/
+            }
+
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -185,43 +191,46 @@
                                     </div>
                                 </div>
 
+                                <!-- data-dy = directional constant y -->
+                                <!-- data-fy = functional constant y -->
+
                                 <!-- top left --> 
-                                <div data-x="1" data-y="1" data-h="1" data-w="1">
+                                <div>
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
                                 <!-- top center -->
-                                <div data-x="0.5" data-y="1" data-h="1" data-w="0">
+                                <div data-dy="1" data-fy="1">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
                                 <!-- top right -->
-                                <div data-x="0" data-y="1">
+                                <div>
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
                                 <!-- center left -->
-                                <div data-x="1" data-y="0.5">
+                                <div>
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- center right -->
-                                <div data-x="0" data-y="0.5">
+                                <div>
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- bottom left -->
-                                <div data-x="1" data-y="0">
+                                <div>
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- bottom center -->
-                                <div data-x="0.5" data-y="0">
+                                <div data-dy="-1" data-fy="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- bottom right -->
-                                <div data-x="0" data-y="0">
+                                <div>
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
