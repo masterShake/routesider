@@ -187,46 +187,47 @@
 
                                 <!-- data-c = case formula -->
                                 <!-- data-dx = directional constant x -->
+                                <!-- data-dy = directional constant y -->
                                 <!-- data-fx = functional constant x -->
                                 <!-- data-fy = functional constant y -->
 
                                 <!-- top left --> 
-                                <div>
+                                <div data-c="0" data-dx="1" data-dy="1" data-fx="1" data-fy="1">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
                                 <!-- top center -->
-                                <div data-c="2" data-d="1" data-fx="0.5" data-fy="1">
+                                <div data-c="2" data-dy="1" data-fx="0.5" data-fy="1">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
                                 <!-- top right -->
-                                <div>
+                                <div data-c="0" data-dx="-1" data-dy="1" data-fx="0" data-fy="1">
                                     <div class="horiz"></div>
                                     <div class="vert"></div>
                                 </div>
                                 <!-- center left -->
-                                <div data-c="1" data-d="1" data-fx="1" data-fy="0.5">
+                                <div data-c="1" data-dx="1" data-fx="1" data-fy="0.5">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- center right -->
-                                <div data-c="1" data-d="-1" data-fx="0" data-fy="0.5">
+                                <div data-c="1" data-dx="-1" data-fx="0" data-fy="0.5">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- bottom left -->
-                                <div>
+                                <div data-c="0" data-dx="1" data-dy="-1" data-fx="1" data-fy="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- bottom center -->
-                                <div data-c="2" data-d="-1" data-fx="0.5" data-fy="0">
+                                <div data-c="2" data-dy="-1" data-fx="0.5" data-fy="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>
                                 <!-- bottom right -->
-                                <div>
+                                <div data-c="0" data-dx="-1" data-dy="-1" data-fx="0" data-fy="0">
                                     <div class="vert"></div>
                                     <div class="horiz"></div>
                                 </div>

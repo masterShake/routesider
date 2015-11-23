@@ -512,6 +512,12 @@ CR = function(){
 	// cropCanvas.children[0].children[0].children[0]
 	// 	.addEventListener("touchend", this.repoTE, false);
 
+	// diagonal resize events
+	this.y[1].addEventListener("mousedown", this.resizeMD, false); // NW
+	this.y[3].addEventListener("mousedown", this.resizeMD, false); // NE
+	this.y[6].addEventListener("mousedown", this.resizeMD, false); // SW
+	this.y[8].addEventListener("mousedown", this.resizeMD, false); // SE
+
 	// vertical resize events
 	this.y[2].addEventListener("mousedown", this.resizeMD, false); // N
 	this.y[7].addEventListener("mousedown", this.resizeMD, false); // S
@@ -525,16 +531,36 @@ CR = function(){
 
 /* METHODS */
 
-// Case 0: resize based on quadrant, F(x), F(y)
+// -----------------------------------------------
+// - toggle bg image drag buttons
+CR.prototype.togCrop = function(){
+	// if the bgCanvas is hidden
+	if(cropCanvas.children[0].children[0].offsetParent === null){
+		// show the bg image drag buttons
+		cropCanvas.children[0].children[0].style.display = "block";
+		// hide the draggables canvas 
+		dragCanvas.style.display = "none";
+	}else{
+		// hide the bg image drag buttons
+		cropCanvas.children[0].children[0].style.display = "none";
+		// show the draggables canvas
+		dragCanvas.style.display = "block";
+	}
+}
 
-// Case 1: resize height, width auto, F(x), F(y)
-
-// Case 2: resize width, height auto, F(x), F(y)
-
+//-----------------------------------------------
+// - hide the bg image drag buttons
+CR.prototype.hideCrop = function(){
+	// hide the bg image drag buttons
+	cropCanvas.children[0].children[0].style.display = "none";
+}
 
 //-----------------------------------------------
 // - mousedown, horizontal resize event
-CR.prototype.resizeMD = function(e){ console.log("resize horizontal");
+CR.prototype.resizeMD = function(e){ e.preventDefault();
+
+	// cancel any prior events to be race conditions
+	jApp.bg.cropper.resizeMU();
 
 	// get the resting width & height in pixels
 	jApp.bg.cropper.w = cropCanvas.children[0].offsetWidth;
@@ -553,21 +579,21 @@ CR.prototype.resizeMD = function(e){ console.log("resize horizontal");
 	jApp.bg.cropper.Fy = parseFloat(this.dataset.fy);
 
 	// get the directional constant
-	jApp.bg.cropper.d = parseInt(this.dataset.d);
+	jApp.bg.cropper.Dx = parseInt(this.dataset.dx);
+	jApp.bg.cropper.Dy = parseInt(this.dataset.dy);
 
 	// use the correct formula event listener
-	switch(parseInt(this.dataset.c)){
+	switch(this.dataset.c){
 		
-		// diagonal resize
-		case 0:
-
+		case "0": // diagonal resize
+			document.addEventListener("mousemove", jApp.bg.cropper.resizeD, false);
 			break;
 
-		case 1: // horizontal resize
+		case "1": // horizontal resize
 			document.addEventListener("mousemove", jApp.bg.cropper.resizeH, false);
 			break;
 
-		case 2: // vertical resize
+		case "2": // vertical resize
 			document.addEventListener("mousemove", jApp.bg.cropper.resizeV, false);
 			break;
 	}
@@ -580,16 +606,42 @@ CR.prototype.resizeMD = function(e){ console.log("resize horizontal");
 }
 
 //-----------------------------------------------
+// - mousemove, resize diagonally
+CR.prototype.resizeD = function(e){
+
+	if((jApp.bg.cropper.y - e.pageY) < ((jApp.nVals.h/jApp.nVals.w)*(jApp.bg.cropper.x - e.pageX))){
+
+	// set the width
+	cropCanvas.children[0].style.width = 
+		(jApp.bg.cropper.w + (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX))) + "px";
+
+	// set the width using the ratio
+	cropCanvas.children[0].style.height = 
+		(jApp.bg.cropper.h + ((jApp.nVals.h / jApp.nVals.w) * (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX)))) + "px";
+
+	}else{
+
+	// set the width
+	cropCanvas.children[0].style.height = 
+		(jApp.bg.cropper.h + (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY))) + "px";
+
+	// set the width using the ratio
+	cropCanvas.children[0].style.width = 
+		(jApp.bg.cropper.w + ((jApp.nVals.w / jApp.nVals.h) * (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY)))) + "px";
+	}
+}
+
+//-----------------------------------------------
 // - mousemove, resize vertically
 CR.prototype.resizeV= function(e){
 
 	// set the width
 	cropCanvas.children[0].style.height = 
-		(jApp.bg.cropper.h + (jApp.bg.cropper.d * (jApp.bg.cropper.y - e.pageY))) + "px";
+		(jApp.bg.cropper.h + (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY))) + "px";
 
 	// set the width using the ratio
 	cropCanvas.children[0].style.width = 
-		(jApp.bg.cropper.w + ((jApp.nVals.w / jApp.nVals.h) * (jApp.bg.cropper.d * (jApp.bg.cropper.y - e.pageY)))) + "px";
+		(jApp.bg.cropper.w + ((jApp.nVals.w / jApp.nVals.h) * (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY)))) + "px";
 }
 
 //-----------------------------------------------
@@ -598,11 +650,11 @@ CR.prototype.resizeH = function(e){
 
 	// set the width
 	cropCanvas.children[0].style.width = 
-		(jApp.bg.cropper.w + (jApp.bg.cropper.d * (jApp.bg.cropper.x - e.pageX))) + "px";
+		(jApp.bg.cropper.w + (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX))) + "px";
 
 	// set the width using the ratio
 	cropCanvas.children[0].style.height = 
-		(jApp.bg.cropper.h + ((jApp.nVals.h / jApp.nVals.w) * (jApp.bg.cropper.d * (jApp.bg.cropper.x - e.pageX)))) + "px";
+		(jApp.bg.cropper.h + ((jApp.nVals.h / jApp.nVals.w) * (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX)))) + "px";
 }
 
 //-----------------------------------------------
@@ -619,9 +671,10 @@ CR.prototype.resizeXY = function(e){
 
 //-----------------------------------------------
 // - mouseup, horizontal resize event
-CR.prototype.resizeMU = function(e){ console.log("cancel resize event");
+CR.prototype.resizeMU = function(){
 
 	// remove event listeners
+	document.removeEventListener("mousemove", jApp.bg.cropper.resizeD, false);
 	document.removeEventListener("mousemove", jApp.bg.cropper.resizeH, false);
 	document.removeEventListener("mousemove", jApp.bg.cropper.resizeV, false);
 	document.removeEventListener("mousemove", jApp.bg.cropper.resizeXY, false);
@@ -631,6 +684,12 @@ CR.prototype.resizeMU = function(e){ console.log("cancel resize event");
 	jApp.nVals.x = cropCanvas.children[0].offsetLeft;
 	jApp.nVals.y = cropCanvas.children[0].offsetTop;
 }
+
+
+
+
+
+
 
 
 
@@ -683,29 +742,6 @@ CR.prototype.repoMU = function(e){
 
 	// alert user to save
 	jApp.deltaVals();
-}
-// -----------------------------------------------
-// - toggle bg image drag buttons
-CR.prototype.togCrop = function(){
-	// if the bgCanvas is hidden
-	if(cropCanvas.children[0].children[0].offsetParent === null){
-		// show the bg image drag buttons
-		cropCanvas.children[0].children[0].style.display = "block";
-		// hide the draggables canvas 
-		dragCanvas.style.display = "none";
-	}else{
-		// hide the bg image drag buttons
-		cropCanvas.children[0].children[0].style.display = "none";
-		// show the draggables canvas
-		dragCanvas.style.display = "block";
-	}
-}
-
-//-----------------------------------------------
-// - hide the bg image drag buttons
-CR.prototype.hideCrop = function(){
-	// hide the bg image drag buttons
-	cropCanvas.children[0].children[0].style.display = "none";
 }
 
 //-----------------------------------------------
