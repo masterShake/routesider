@@ -13,7 +13,7 @@
 	margin-top: 0px;
 }
 /* main canvas elem */
-#jumbo-canvas{
+#jumboCanvas{
     height: 400px;
     margin-bottom: 20px;
     position: relative;
@@ -21,6 +21,22 @@
     border-radius: 10px;
     overflow: hidden;
 }
+/* scaling layout div */
+/*#jumboCanvas.mobile>div,
+#jumboCanvas.tablet>div{
+	height: 100%;
+	width: 100%;
+	-ms-transform: scale(1);
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+#jumboCanvas.desktop>div{
+	height: 200%;
+	width: 200%;
+	-ms-transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+	transform: scale(0.5);
+}*/
 /* canvas layers */
 .j-canvas{
 	height: 100%;
@@ -68,30 +84,30 @@
     margin-right: 5px;
 }
 /* layout view dropdown */
-#layout-view{
+#layoutView{
 	float: right;
 	cursor: pointer;
 }
 /* dropup menu */
-#layout-view .dropdown-menu{
+#layoutView .dropdown-menu{
 	left: auto;
 	right: -5px;
 	padding-top: 0px;
 	padding-bottom: 2px;
 }
 /* dropdown header */
-#layout-view .dropdown-menu .dropdown-header{
+#layoutView .dropdown-menu .dropdown-header{
     background-color: #eee;
     text-align: center;
 }
-#layout-view .dropdown-menu .divider{
+#layoutView .dropdown-menu .divider{
 	margin-top: 0px;
 	margin-bottom: 2px;
 }
-#layout-view .list-group-item{
+#layoutView .list-group-item{
 	padding: 0px 8px;
 }
-#layout-view .list-group-item a{
+#layoutView .list-group-item a{
 	padding: 8px 20px;
 	border-bottom: 1px solid #ccc;
 	margin-top: 1px;

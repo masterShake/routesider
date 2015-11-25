@@ -136,8 +136,28 @@ Jumbo = function(){
 	/* initializations */
 
 	// init the layout view dropdown
-	document.getElementById("layout-view").children[0]
-		.addEventListener("click", rsApp.toggleDropdown, false);
+	layoutView.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+	// set the canvas dimensions based on initial window size 
+	if(document.body.offsetWidth < 768){
+		jumboCanvas.className = "mobile";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.77 + "px";
+	}else if(document.body.offsetWidth < 992){
+		jumboCanvas.className = "mobile2";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.33 + "px";
+	}else{
+		jumboCanvas.className = "desktop";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.63 + "px";
+	}
+
+	// set the canvas height
+	jumboCanvas.style.height = jumboCanvas.offsetWidth 
+
+	// init the scaling event listeners
+	this.temp = layoutView.getElementsByTagName("a");
+	this.temp[0].addEventListener("click", this.layout, false);
+	this.temp[1].addEventListener("click", this.layout, false);
+	this.temp[2].addEventListener("click", this.layout, false);
 
 	// get all the toolbars, add actBtn event
 	this.temp = document.getElementsByClassName("tb"); // console.log(this.temp);
@@ -304,6 +324,15 @@ Jumbo.prototype.jumboVis = function(){
 //-----------------------------------------------
 // - change device layout click event
 Jumbo.prototype.layout = function(e){ e.preventDefault();
+
+	// set the icon
+	layoutView.children[0].children[0].className = this.children[0].className;
+
+	// change the aspect ratio
+	jumboCanvas.style.height = this.dataset.h * jumboCanvas.offsetWidth + "px";
+
+	// change the class/scale
+	jumboCanvas.className = this.dataset.layout;
 
 }
 

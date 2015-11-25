@@ -169,105 +169,111 @@
                 <!-- canvas title -->
                 <h3 id="canvas-title">Preview:</h3>
 
-                <!-- jumbo-canvas -->
-                <div id="jumbo-canvas">
+                <!-- jumboCanvas -->
+                <!-- class = "mobile" || "tablet" || "laptop" -->
+                <div id="jumboCanvas">
 
-                    <!-- background image & crop layer -->
-                    <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["color"]; ?>;'>
-                        <div>
-                            <!-- dragable crop buttons -->
-                            <div class="drag-btns" style="display:none;">
+                    <!-- layout div -->
+                    <div>
 
-                                <!-- reposition drag elem -->
-                                <div>
-                                    <div style="top:calc(50% - 10px);left:calc(50% - 10px);">
-                                        <div class="vert" style="left:4px"></div>
-                                        <div class="horiz" style="top:-6px;"></div>
+                        <!-- background image & crop layer -->
+                        <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["color"]; ?>;'>
+                            <div>
+                                <!-- dragable crop buttons -->
+                                <div class="drag-btns" style="display:none;">
+
+                                    <!-- reposition drag elem -->
+                                    <div>
+                                        <div style="top:calc(50% - 10px);left:calc(50% - 10px);">
+                                            <div class="vert" style="left:4px"></div>
+                                            <div class="horiz" style="top:-6px;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- data-c = case formula -->
+                                    <!-- data-dx = directional constant x -->
+                                    <!-- data-dy = directional constant y -->
+                                    <!-- data-fx = functional constant x -->
+                                    <!-- data-fy = functional constant y -->
+
+                                    <!-- top left --> 
+                                    <div data-c="0" data-dx="1" data-dy="1" data-fx="1" data-fy="1">
+                                        <div class="horiz"></div>
+                                        <div class="vert"></div>
+                                    </div>
+                                    <!-- top center -->
+                                    <div data-c="2" data-dy="1" data-fx="0.5" data-fy="1">
+                                        <div class="horiz"></div>
+                                        <div class="vert"></div>
+                                    </div>
+                                    <!-- top right -->
+                                    <div data-c="0" data-dx="-1" data-dy="1" data-fx="0" data-fy="1">
+                                        <div class="horiz"></div>
+                                        <div class="vert"></div>
+                                    </div>
+                                    <!-- center left -->
+                                    <div data-c="1" data-dx="1" data-fx="1" data-fy="0.5">
+                                        <div class="vert"></div>
+                                        <div class="horiz"></div>
+                                    </div>
+                                    <!-- center right -->
+                                    <div data-c="1" data-dx="-1" data-fx="0" data-fy="0.5">
+                                        <div class="vert"></div>
+                                        <div class="horiz"></div>
+                                    </div>
+                                    <!-- bottom left -->
+                                    <div data-c="0" data-dx="1" data-dy="-1" data-fx="1" data-fy="0">
+                                        <div class="vert"></div>
+                                        <div class="horiz"></div>
+                                    </div>
+                                    <!-- bottom center -->
+                                    <div data-c="2" data-dy="-1" data-fx="0.5" data-fy="0">
+                                        <div class="vert"></div>
+                                        <div class="horiz"></div>
+                                    </div>
+                                    <!-- bottom right -->
+                                    <div data-c="0" data-dx="-1" data-dy="-1" data-fx="0" data-fy="0">
+                                        <div class="vert"></div>
+                                        <div class="horiz"></div>
                                     </div>
                                 </div>
+                                <!-- background image -->
+                                <?php if($jumbo["image"]){ ?>
 
-                                <!-- data-c = case formula -->
-                                <!-- data-dx = directional constant x -->
-                                <!-- data-dy = directional constant y -->
-                                <!-- data-fx = functional constant x -->
-                                <!-- data-fy = functional constant y -->
+                                    <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);' />
 
-                                <!-- top left --> 
-                                <div data-c="0" data-dx="1" data-dy="1" data-fx="1" data-fy="1">
-                                    <div class="horiz"></div>
-                                    <div class="vert"></div>
-                                </div>
-                                <!-- top center -->
-                                <div data-c="2" data-dy="1" data-fx="0.5" data-fy="1">
-                                    <div class="horiz"></div>
-                                    <div class="vert"></div>
-                                </div>
-                                <!-- top right -->
-                                <div data-c="0" data-dx="-1" data-dy="1" data-fx="0" data-fy="1">
-                                    <div class="horiz"></div>
-                                    <div class="vert"></div>
-                                </div>
-                                <!-- center left -->
-                                <div data-c="1" data-dx="1" data-fx="1" data-fy="0.5">
-                                    <div class="vert"></div>
-                                    <div class="horiz"></div>
-                                </div>
-                                <!-- center right -->
-                                <div data-c="1" data-dx="-1" data-fx="0" data-fy="0.5">
-                                    <div class="vert"></div>
-                                    <div class="horiz"></div>
-                                </div>
-                                <!-- bottom left -->
-                                <div data-c="0" data-dx="1" data-dy="-1" data-fx="1" data-fy="0">
-                                    <div class="vert"></div>
-                                    <div class="horiz"></div>
-                                </div>
-                                <!-- bottom center -->
-                                <div data-c="2" data-dy="-1" data-fx="0.5" data-fy="0">
-                                    <div class="vert"></div>
-                                    <div class="horiz"></div>
-                                </div>
-                                <!-- bottom right -->
-                                <div data-c="0" data-dx="-1" data-dy="-1" data-fx="0" data-fy="0">
-                                    <div class="vert"></div>
-                                    <div class="horiz"></div>
-                                </div>
+                                <?php }else{ ?>
+
+                                    <div class="bg-placeholder">
+                                        <span class="icon-image"></span>
+                                    </div>
+
+                                <?php } ?>
                             </div>
-                            <!-- background image -->
-                            <?php if($jumbo["image"]){ ?>
+                        </div><!-- /cropCanvas -->
 
-                                <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);' />
+                        <!-- image upload layer -->
+                        <div class="j-canvas" id="bgCanvas">
 
-                            <?php }else{ ?>
+                            <!-- upload image the old fashioned way -->
+                            <div class="upload-oldfash" <?= ($jumbo["image"]) ? "style='opacity:0.7'" : ""; ?>>
+                                <label>Files to upload:</label>
+                                <input type="file" 
+                                       name="fileselect[]" 
+                                       multiple="multiple" />
+                            </div>
 
-                                <div class="bg-placeholder">
-                                    <span class="icon-image"></span>
-                                </div>
-
-                            <?php } ?>
-                        </div>
-                    </div><!-- /cropCanvas -->
-
-                    <!-- image upload layer -->
-                    <div class="j-canvas" id="bgCanvas">
-
-                        <!-- upload image the old fashioned way -->
-                        <div class="upload-oldfash" <?= ($jumbo["image"]) ? "style='opacity:0.7'" : ""; ?>>
-                            <label>Files to upload:</label>
-                            <input type="file" 
-                                   name="fileselect[]" 
-                                   multiple="multiple" />
+                            <!-- text -->
+                            <div style="position:relative;font-size:12px;left:calc(50% - 18px);max-width:32px;text-shadow: 0px 0px 4px #FFF;">&#45; or &#45;</div>
+                            Drag &amp; Drop
                         </div>
 
-                        <!-- text -->
-                        <div style="position:relative;font-size:12px;left:calc(50% - 18px);max-width:32px;text-shadow: 0px 0px 4px #FFF;">&#45; or &#45;</div>
-                        Drag &amp; Drop
-                    </div>
+                        <!-- add & edit text, images, & btns layer -->
+                        <div class="j-canvas" id="dragCanvas"></div>
 
-                    <!-- add & edit text, images, & btns layer -->
-                    <div class="j-canvas" id="dragCanvas"></div>
+                    </div><!-- /layout div -->
 
-                </div>
+                </div><!-- /jumboCanvas -->
 
                 <!-- properties toolbars & c panels -->
                 <div id="props">
@@ -291,7 +297,7 @@
             <div id="jumbo-toolbar" class="container">
 
                 <!-- device layout dropdown -->
-                <div class="dropup" id="layout-view">
+                <div class="dropup" id="layoutView">
                     <div aria-haspopup="true" aria-expanded="true" role="button">
                         <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
                         <div style="padding-top:12px;float:right;">
@@ -303,17 +309,19 @@
                         <li class="dropdown-header">Layout View</li>
                         <li role="separator" class="divider"></li>
                         <li class="list-group-item">
-                            <a href="#">
+                            <!-- data-layout = jumboCanvas classname -->
+                            <!-- data-h = canvas height -->
+                            <a href="#" data-layout="mobile" data-h="1.78">
                                 <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
                             </a>
                         </li>
                         <li class="list-group-item">
-                            <a href="#">
+                            <a href="#" this-layout="tablet" data-h="1.33">
                                 <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
                             </a>
                         </li>
                         <li class="list-group-item">
-                            <a href="#" style="border-bottom: 0px;">
+                            <a href="#" this-layout="desktop" data-h="0.63" style="border-bottom: 0px;">
                                 <span class="icon-laptop"></span>&nbsp;&nbsp;PC
                             </a>
                         </li>
