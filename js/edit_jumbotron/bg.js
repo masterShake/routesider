@@ -50,7 +50,7 @@ BG.prototype.close = function(){
 	// hide the upload background image canvas
 	bgCanvas.style.display = "none";
 	// hide the bg image drag buttons
-	cropCanvas.children[0].children[1].style.display = "none";
+	cropCanvas.children[0].children[0].style.display = "none";
 	// show the dragable elements canvas
 	dragCanvas.style.display = "block";
 }
@@ -96,7 +96,6 @@ BG.prototype.del = function(){
 	jApp.nVals["opacity"] = 1;
 	jApp.nVals["h"] = 0;
 	jApp.nVals["w"] = 0;
-	jApp.nVals["ratio"] = 1;
 
 	// remove the background image
 	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[0]);
@@ -292,22 +291,20 @@ BGI.prototype.uploadCB = function(){
 		jApp.nVals["image"] = jApp.temp["image"];
 		jApp.nVals["h"] = jApp.temp["h"];
 		jApp.nVals["w"] = jApp.temp["w"];
-		jApp.nVals["ratio"] = jApp.temp["ratio"];
 
 		// if there isn't already a background image
 		if(!window.hasOwnProperty("bgImg")){
 
 			// remove the placeholder
-			cropCanvas.children[0].removeChild(cropCanvas.children[0].children[0]);
+			cropCanvas.children[0].removeChild(cropCanvas.children[0].children[1]);
 
 			// insert an image element
-			cropCanvas.children[0].insertBefore(
-				document.createElement("img"),
-				cropCanvas.children[0].children[0]
+			cropCanvas.children[0].appendChild(
+				document.createElement("img")
 			);
 
 			// set the id
-			cropCanvas.children[0].children[0].id = "bgImg";
+			cropCanvas.children[0].children[1].id = "bgImg";
 		}
 
 		// set the background image
@@ -315,8 +312,8 @@ BGI.prototype.uploadCB = function(){
 
 		// THIS IS BROKEN
 		// set the background image width
-		document.styleSheets[document.styleSheets.length - 1].rules[0]
-			.style.height = (cropCanvas.offsetWidth * jApp.nVals["ratio"]) + "px";
+		// document.styleSheets[document.styleSheets.length - 1].rules[0]
+		// 	.style.height = (cropCanvas.offsetWidth * jApp.nVals["ratio"]) + "px";
 
 		// show save prompt
 		jApp.deltaVals();
@@ -503,30 +500,20 @@ CR = function(){
 		.addEventListener("click", this.hideCrop, false);
 
 	// reposition background 
-	// cropCanvas.children[0].children[0].children[0]
-	// 	.addEventListener("mousedown", this.repoMD, false);
-	// cropCanvas.children[0].children[0].children[0]
-	// 	.addEventListener("mouseup", this.repoMU, false);
-	// cropCanvas.children[0].children[0].children[0]
-	// 	.addEventListener("touchstart", this.repoTS, false);
-	// cropCanvas.children[0].children[0].children[0]
-	// 	.addEventListener("touchend", this.repoTE, false);
+	this.y[0].addEventListener("mousedown", this.repoMD, false);
+	this.y[0].addEventListener("mouseup", this.repoMU, false);
+	this.y[0].addEventListener("touchstart", this.repoTS, false);
+	this.y[0].addEventListener("touchend", this.repoTE, false);
 
-	// diagonal resize events
+	// resize background
 	this.y[1].addEventListener("mousedown", this.resizeMD, false); // NW
 	this.y[3].addEventListener("mousedown", this.resizeMD, false); // NE
 	this.y[6].addEventListener("mousedown", this.resizeMD, false); // SW
 	this.y[8].addEventListener("mousedown", this.resizeMD, false); // SE
-
-	// vertical resize events
 	this.y[2].addEventListener("mousedown", this.resizeMD, false); // N
 	this.y[7].addEventListener("mousedown", this.resizeMD, false); // S
-
-	// horizontal resize events
 	this.y[4].addEventListener("mousedown", this.resizeMD, false); // W
 	this.y[5].addEventListener("mousedown", this.resizeMD, false); // E
-
-
 }
 
 /* METHODS */
@@ -683,25 +670,20 @@ CR.prototype.resizeMU = function(){
 	// set the new x y values
 	jApp.nVals.x = cropCanvas.children[0].offsetLeft;
 	jApp.nVals.y = cropCanvas.children[0].offsetTop;
+
+	// set the width & height values
+	jApp.nVals.w = bgImg.offsetWidth / cropCanvas.offsetWidth;
+	jApp.nVals.h = jApp.nVals.w * jApp.nVals.h;
+
+	jApp.deltaVals();
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //-----------------------------------------------
 // - mousedown, reposition bg image
 CR.prototype.repoMD = function(e){
 
 	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return; console.log("reposition mousedown");
+	if(e.hasOwnProperty("touches")) return; console.log("reposition mousedown");
 
 	// change the cursor
 	e.target.style.cursor = "-webkit-grabbing";
@@ -716,7 +698,7 @@ CR.prototype.repoMD = function(e){
 
 //-----------------------------------------------
 // - mousemove, reposition bg image
-CR.prototype.repoMM = function(e){ console.log("reposition mousemove");
+CR.prototype.repoMM = function(e){
 	// set the top
 	cropCanvas.children[0].style.top = 	-(jApp.bg.cropper.y - e.pageY - jApp.nVals.y) + "px";
 	// set the left
@@ -728,7 +710,7 @@ CR.prototype.repoMM = function(e){ console.log("reposition mousemove");
 CR.prototype.repoMU = function(e){
 
 	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns" || e.hasOwnProperty("touches")) return; console.log("reposition mouseup");
+	if(e.hasOwnProperty("touches")) return; console.log("reposition mouseup");
 
 	// remove mousemove event listener
 	document.body.removeEventListener("mousemove", jApp.bg.cropper.repoMM, false);
@@ -746,10 +728,7 @@ CR.prototype.repoMU = function(e){
 
 //-----------------------------------------------
 // - touchstart, reposition bg image
-CR.prototype.repoTS = function(e){
-
-	// if user tugging on a drag button, return
-	if(e.target.className != "drag-btns") return;  console.log("reposition touchstart");
+CR.prototype.repoTS = function(e){ console.log("reposition touchstart");
 
 	// get the starting position of the touch
 	jApp.bg.cropper.x = e.touches[0].pageX;
@@ -778,32 +757,12 @@ CR.prototype.repoTE = function(e){  console.log("reposition touchend");
 	document.body.removeEventListener("touchmove", jApp.bg.cropper.repoTM, false);
 
 	// set the nVals
-	jApp.nVals.x = this.parentElement.offsetLeft;
-	jApp.nVals.y = this.parentElement.offsetTop;
+	jApp.nVals.x = cropCanvas.children[0].offsetLeft;
+	jApp.nVals.y = cropCanvas.children[0].offsetTop;
 
 	// alert user to save
 	jApp.deltaVals();
-
 }
-
-
-// //-----------------------------------------------
-// // - touchstart, resize bg image
-// CR.prototype.resizeTS = function(e){ return;
-
-// }
-
-// //-----------------------------------------------
-// // - touchmove, resize bg image
-// CR.prototype.resizeTM = function(e){ return;
-	
-// }
-
-// //-----------------------------------------------
-// // - touchend, resize bg image
-// CR.prototype.resizeTE = function(e){ return;
-	
-// }
 
 
 
@@ -1025,7 +984,7 @@ BGC.prototype.resetCanvas = function(){
 	// hide the upload background image
 	bgCanvas.style.display = "none";
 	// hide the crop buttons
-	cropCanvas.children[0].children[1].style.display = "none";
+	cropCanvas.children[0].children[0].style.display = "none";
 	// show the draggable elements' canvas
 	dragCanvas.style.display = "block";
 }

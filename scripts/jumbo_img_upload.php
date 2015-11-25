@@ -48,9 +48,8 @@ if ($fn) {
 
     $imgData = [ 
                  "image" => "uploads/".$newName,
-                 "w" => $imgData["0"],
-                 "h" => $imgData["1"],
-                 "ratio" => round(($imgData["1"] / $imgData["0"]), 2) 
+                 "w" => 1,
+                 "h" => round(($imgData["1"] / $imgData["0"]), 2) 
                ];
 
     exit( json_encode($imgData) );

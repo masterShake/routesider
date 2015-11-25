@@ -50,6 +50,8 @@
             "j.blur={$jumbo->blur}, ".
             "j.h={$jumbo->h}, ".
             "j.w={$jumbo->w}, ".
+            "j.x={$jumbo->x}, ".
+            "j.y={$jumbo->y}, ".
             "j.color='{$jumbo->color}'";
 
             $db = neoDB::getInstance();
@@ -104,11 +106,10 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                width: 100%;
-                /* height: <?= ($jumbo["image"]) ? strval(400 * $jumbo["ratio"])."px" : "100%"; ?>; */
+                width: <?= ($jumbo["w"]) ? ($jumbo["w"]*100)."%" : "100%"; ?>;
                 position: relative;
-                left: 0px;
-                top: 0px;
+                left: <?= $jumbo["x"]; ?>px;
+                top: <?= $jumbo["y"]; ?>px;
             }
 
         </style>

@@ -6,14 +6,6 @@
 
 -----------------------------------------*/
 
-function tt($c=""){
-
-	if($c)
-		echo $c;
-	else
-		echo "vagina";
-}
-
-tt("penis");
+echo (9*100)."px";
 
 

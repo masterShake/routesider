@@ -302,6 +302,12 @@ Jumbo.prototype.jumboVis = function(){
 }
 
 //-----------------------------------------------
+// - change device layout click event
+Jumbo.prototype.layout = function(e){ e.preventDefault();
+
+}
+
+//-----------------------------------------------
 // - determine if the user has made any changes
 // - returns true if changed, false if unchanged
 Jumbo.prototype.deltaVals = function(){
