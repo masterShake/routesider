@@ -130,6 +130,9 @@ Jumbo = function(){
 	// keep track of active control panel
 	this.panel = -1;
 
+	// keep track of active layout
+	this.layout = null;
+
 	// temp variable
 	this.temp;
 
@@ -140,13 +143,16 @@ Jumbo = function(){
 
 	// set the canvas dimensions based on initial window size 
 	if(document.body.offsetWidth < 768){
-		jumboCanvas.className = "mobile";
+		jumboCanvas.className = 
+		this.layout = "mobile";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.77 + "px";
 	}else if(document.body.offsetWidth < 992){
-		jumboCanvas.className = "mobile2";
+		jumboCanvas.className = 
+		this.layout = "tablet";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.33 + "px";
 	}else{
-		jumboCanvas.className = "desktop";
+		jumboCanvas.className
+		this.layout = "desktop";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.63 + "px";
 	}
 
@@ -330,6 +336,9 @@ Jumbo.prototype.layout = function(e){ e.preventDefault();
 
 	// change the aspect ratio
 	jumboCanvas.style.height = this.dataset.h * jumboCanvas.offsetWidth + "px";
+
+	// set the layout property
+	jApp.layout = 
 
 	// change the class/scale
 	jumboCanvas.className = this.dataset.layout;

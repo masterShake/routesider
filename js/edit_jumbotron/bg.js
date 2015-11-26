@@ -596,7 +596,7 @@ CR.prototype.resizeMD = function(e){ e.preventDefault();
 // - mousemove, resize diagonally
 CR.prototype.resizeD = function(e){
 
-	if((jApp.bg.cropper.y - e.pageY) < ((jApp.nVals.h/jApp.nVals.w)*(jApp.bg.cropper.x - e.pageX))){
+	if((jApp.bg.cropper.y - e.pageY) < ((jApp.nVals[jApp.layout].h/jApp.nVals[jApp.layout].w)*(jApp.bg.cropper.x - e.pageX))){
 
 	// set the width
 	cropCanvas.children[0].style.width = 
@@ -604,7 +604,7 @@ CR.prototype.resizeD = function(e){
 
 	// set the width using the ratio
 	cropCanvas.children[0].style.height = 
-		(jApp.bg.cropper.h + ((jApp.nVals.h / jApp.nVals.w) * (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX)))) + "px";
+		(jApp.bg.cropper.h + ((jApp.nVals[jApp.layout].h / jApp.nVals[jApp.layout].w) * (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX)))) + "px";
 
 	}else{
 
@@ -614,7 +614,7 @@ CR.prototype.resizeD = function(e){
 
 	// set the width using the ratio
 	cropCanvas.children[0].style.width = 
-		(jApp.bg.cropper.w + ((jApp.nVals.w / jApp.nVals.h) * (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY)))) + "px";
+		(jApp.bg.cropper.w + ((jApp.nVals[jApp.layout].w / jApp.nVals[jApp.layout].h) * (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY)))) + "px";
 	}
 }
 
@@ -628,7 +628,7 @@ CR.prototype.resizeV= function(e){
 
 	// set the width using the ratio
 	cropCanvas.children[0].style.width = 
-		(jApp.bg.cropper.w + ((jApp.nVals.w / jApp.nVals.h) * (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY)))) + "px";
+		(jApp.bg.cropper.w + ((jApp.nVals[jApp.layout].w / jApp.nVals[jApp.layout].h) * (jApp.bg.cropper.Dy * (jApp.bg.cropper.y - e.pageY)))) + "px";
 }
 
 //-----------------------------------------------
@@ -641,7 +641,7 @@ CR.prototype.resizeH = function(e){
 
 	// set the width using the ratio
 	cropCanvas.children[0].style.height = 
-		(jApp.bg.cropper.h + ((jApp.nVals.h / jApp.nVals.w) * (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX)))) + "px";
+		(jApp.bg.cropper.h + ((jApp.nVals[jApp.layout].h / jApp.nVals[jApp.layout].w) * (jApp.bg.cropper.Dx * (jApp.bg.cropper.x - e.pageX)))) + "px";
 }
 
 //-----------------------------------------------
@@ -649,10 +649,10 @@ CR.prototype.resizeH = function(e){
 CR.prototype.resizeXY = function(e){
 
 	cropCanvas.children[0].style.left = 
-		jApp.nVals.x - (jApp.bg.cropper.Fx * (bgImg.offsetWidth - jApp.bg.cropper.w)) + "px";
+		jApp.nVals[jApp.layout].x - (jApp.bg.cropper.Fx * (bgImg.offsetWidth - jApp.bg.cropper.w)) + "px";
 
 	cropCanvas.children[0].style.top = 
-		jApp.nVals.y - (jApp.bg.cropper.Fy * (bgImg.offsetHeight - jApp.bg.cropper.h)) + "px";
+		jApp.nVals[jApp.layout].y - (jApp.bg.cropper.Fy * (bgImg.offsetHeight - jApp.bg.cropper.h)) + "px";
 
 }
 
@@ -668,12 +668,12 @@ CR.prototype.resizeMU = function(){
 	document.removeEventListener("mouseup", jApp.bg.cropper.resizeMU, false);
 
 	// set the new x y values
-	jApp.nVals.x = cropCanvas.children[0].offsetLeft;
-	jApp.nVals.y = cropCanvas.children[0].offsetTop;
+	jApp.nVals[jApp.layout].x = cropCanvas.children[0].offsetLeft;
+	jApp.nVals[jApp.layout].y = cropCanvas.children[0].offsetTop;
 
 	// set the width & height values
-	jApp.nVals.w = bgImg.offsetWidth / cropCanvas.offsetWidth;
-	jApp.nVals.h = jApp.nVals.w * jApp.nVals.h;
+	jApp.nVals[jApp.layout].w = bgImg.offsetWidth / cropCanvas.offsetWidth;
+	jApp.nVals[jApp.layout].h = jApp.nVals[jApp.layout].w * jApp.nVals[jApp.layout].h;
 
 	jApp.deltaVals();
 }
@@ -700,9 +700,9 @@ CR.prototype.repoMD = function(e){
 // - mousemove, reposition bg image
 CR.prototype.repoMM = function(e){
 	// set the top
-	cropCanvas.children[0].style.top = 	-(jApp.bg.cropper.y - e.pageY - jApp.nVals.y) + "px";
+	cropCanvas.children[0].style.top = 	-(jApp.bg.cropper.y - e.pageY - jApp.nVals[jApp.layout].y) + "px";
 	// set the left
-	cropCanvas.children[0].style.left = -(jApp.bg.cropper.x - e.pageX - jApp.nVals.x) + "px";
+	cropCanvas.children[0].style.left = -(jApp.bg.cropper.x - e.pageX - jApp.nVals[jApp.layout].x) + "px";
 }
 
 //-----------------------------------------------
@@ -719,8 +719,8 @@ CR.prototype.repoMU = function(e){
 	e.target.style.cursor = "-webkit-grab";
 
 	// set the nVals
-	jApp.nVals.x = this.parentElement.offsetLeft;
-	jApp.nVals.y = this.parentElement.offsetTop;
+	jApp.nVals[jApp.layout].x = this.parentElement.offsetLeft;
+	jApp.nVals[jApp.layout].y = this.parentElement.offsetTop;
 
 	// alert user to save
 	jApp.deltaVals();
@@ -744,9 +744,9 @@ CR.prototype.repoTM = function(e){
 	// keep page from scrolling or going back
 	e.preventDefault();
 	// set the top
-	cropCanvas.children[0].style.top = -1 * (jApp.bg.cropper.y - e.touches[0].pageY - jApp.nVals.y) + "px";
+	cropCanvas.children[0].style.top = -1 * (jApp.bg.cropper.y - e.touches[0].pageY - jApp.nVals[jApp.layout].y) + "px";
 	// set the left
-	cropCanvas.children[0].style.left = -1 * (jApp.bg.cropper.x - e.touches[0].pageX - jApp.nVals.x) + "px";
+	cropCanvas.children[0].style.left = -1 * (jApp.bg.cropper.x - e.touches[0].pageX - jApp.nVals[jApp.layout].x) + "px";
 }
 
 //-----------------------------------------------
@@ -757,8 +757,8 @@ CR.prototype.repoTE = function(e){  console.log("reposition touchend");
 	document.body.removeEventListener("touchmove", jApp.bg.cropper.repoTM, false);
 
 	// set the nVals
-	jApp.nVals.x = cropCanvas.children[0].offsetLeft;
-	jApp.nVals.y = cropCanvas.children[0].offsetTop;
+	jApp.nVals[jApp.layout].x = cropCanvas.children[0].offsetLeft;
+	jApp.nVals[jApp.layout].y = cropCanvas.children[0].offsetTop;
 
 	// alert user to save
 	jApp.deltaVals();

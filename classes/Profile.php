@@ -192,9 +192,11 @@ class Profile{
 		// add the active property
 		$json["active"] = $temp["active"];
 
-		
-		// calculate the aspect ratio, width/height
-		// $json["ratio"] = ($json["w"]) ? round($json["h"] / $json["w"], 2) : 1;
+		// set the layouts
+		$json["layouts"] = [];
+		$json["layouts"]["mobile"] = $results->getNodesByLabel("Mobile")->getProperties();
+		$json["layouts"]["tablet"] = $results->getNodesByLabel("Tablet")->getProperties();
+		$json["layouts"]["desktop"] = $results->getNodesByLabel("Desktop")->getProperties();
 
 		// add empty arrays for the attached nodes
 		$json["texts"] = [];
