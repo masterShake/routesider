@@ -194,9 +194,9 @@ class Profile{
 
 		// set the layouts
 		$json["layouts"] = [];
-		$json["layouts"]["mobile"] = $results->getNodesByLabel("Mobile")->getProperties();
-		$json["layouts"]["tablet"] = $results->getNodesByLabel("Tablet")->getProperties();
-		$json["layouts"]["desktop"] = $results->getNodesByLabel("Desktop")->getProperties();
+		$json["layouts"]["mobile"] = $results->getSingleNodeByLabel("Mobile")->getProperties();
+		$json["layouts"]["tablet"] = $results->getSingleNodeByLabel("Tablet")->getProperties();
+		$json["layouts"]["desktop"] = $results->getSingleNodeByLabel("Desktop")->getProperties();
 
 		// add empty arrays for the attached nodes
 		$json["texts"] = [];
