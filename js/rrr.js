@@ -45,9 +45,17 @@ var RRR = function(el){
     this.x = Math.round((el.parentElement.offsetWidth - el.offsetWidth) / 2);
     this.y = Math.round((el.parentElement.offsetWidth - el.offsetHeight) / 2);
 
+    // trigger
     this.ticking = 0;
+
+    // transform css object
     this.transform;
-    this.timer;
+
+    // initial scale
+    this.is;
+
+    // initial angle
+    this.ia;
 
     /* initializations */
 
@@ -103,22 +111,40 @@ RRR.prototype.reqUpdate = function(){
 //-----------------------------------------------
 // - pan touch
 RRR.prototype.pan = function(e){
+
 	rMap.a.transform.translate = {
         x: rMap.a.x + e.deltaX,
         y: rMap.a.y + e.deltaY
     };
+
+    rMap.a.reqUpdate();
 }
 
 //-----------------------------------------------
 // - rotate touch
-RRR.prototype.rotate = function(){
+// - uses RRR.ia (inital angle) property
+RRR.prototype.rotate = function(e){
 
+	if(e.type == 'rotatestart')
+	        rMap.a.ia = transform.angle || 0;
+
+	    rMap.a.transform.rz = 1;
+	    rMap.a.transform.angle = rMap.a.ia + e.rotation;
+
+	    rMap.a.reqUpdate();
 }
 
 //-----------------------------------------------
 // - pinch touch
-RRR.prototype.pinch = function(){
+// - uses RRR.is (initial scale) property
+RRR.prototype.pinch = function(e){
 
+	if(e.type == 'pinchstart')
+		rMap.a.is = rMap.a.transform.scale || 1;
+	
+	rMap.a.transform.scale = rMap.a.is * e.scale;
+	
+	rMap.a.reqUpdate();
 }
 
 
