@@ -42,14 +42,20 @@ var RRR = function(el){
 	this.el = el;
 
     // starting x and y
-    this.x = Math.round((el.parentElement.offsetWidth - el.offsetWidth) / 2);
-    this.y = Math.round((el.parentElement.offsetWidth - el.offsetHeight) / 2);
+	this.x = Math.round((el.parentElement.offsetWidth - el.offsetWidth) / 2) - 50;
+	this.y = Math.round((el.parentElement.offsetHeight - el.offsetHeight) / 2) - 50;
 
     // trigger
-    this.ticking = 0;
+    this.ticking = false;
 
     // transform css object
-    this.transform;
+    this.transform = {
+        translate: { x: this.x, y: this.y },
+        scale: 1,
+        angle: 0,
+        rx: 0,
+        ry: 0
+	};
 
     // initial scale
     this.is;
@@ -65,59 +71,64 @@ var RRR = function(el){
     // pan
     this.mc.add(new Hammer.Pan({threshold: 0, pointers: 0}));
     // rotate 
-	this.mc.add(new Hammer.Rotate({ threshold: 0 })).recognizeWith(mc.get('pan'));
+	this.mc.add(new Hammer.Rotate({ threshold: 0 })).recognizeWith(this.mc.get('pan'));
 	// pinch
-	this.mc.add(new Hammer.Pinch({ threshold: 0 })).recognizeWith([mc.get('pan'), mc.get('rotate')]);
+	this.mc.add(new Hammer.Pinch({ threshold: 0 })).recognizeWith([this.mc.get('pan'), this.mc.get('rotate')]);
 
 	// add the event listeners
 	this.mc.on("panstart panmove", this.pan);
+	this.mc.on("panend", this.panEnd);
 	this.mc.on("rotatestart rotatemove", this.rotate);
 	this.mc.on("pinchstart pinchmove", this.pinch);
-
-	// polyfill
-	this.reqFrame = (function () {
-	    return window[Hammer.prefixed(window, 'requestAnimationFrame')] || function (callback) {
-	        window.setTimeout(callback, 1000 / 60);
-	    };
-	})();
 }
 
 //-----------------------------------------------
 // - update element css transform properties
-RRR.prototype.update = function (){
+RRR.prototype.update = function (){ console.log(this.transform.translate);
     
     // set the element transform styles
     this.el.style.webkitTransform =
     this.el.style.mozTransform =
     this.el.style.transform =
 
-	    'translate3d(' + transform.translate.x + 'px, ' + transform.translate.y + 'px, 0) ' +
-	    'scale(' + transform.scale + ', ' + transform.scale + ') ' +
- 		'rotate3d('+ transform.rx +','+ transform.ry +','+ transform.rz +','+  transform.angle + 'deg)'
+	    'translate3d(' + this.transform.translate.x + 'px, ' + this.transform.translate.y + 'px, 0) ' +
+	    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
+ 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
 
  	// reset the ticker
-    this.ticking = 0;
+    this.ticking = false;
 }
 
 //-----------------------------------------------
-// - request an update of the css
+// - race conditions trigger, request an update
 RRR.prototype.reqUpdate = function(){
-	if(!ticking){
-		this.reqFrame(this.update);
-		this.ticking = 1;
+	if(!this.ticking){
+		this.ticking = true;
+		this.update();
 	}
 }
 
 //-----------------------------------------------
 // - pan touch
-RRR.prototype.pan = function(e){
+RRR.prototype.pan = function(e){ e.preventDefault();
 
+	// set the translate object props
 	rMap.a.transform.translate = {
         x: rMap.a.x + e.deltaX,
         y: rMap.a.y + e.deltaY
     };
 
+    // update the element
     rMap.a.reqUpdate();
+}
+
+//-----------------------------------------------
+// - user stops panning, reset the data
+RRR.prototype.panEnd = function(e){
+
+	// set the new starting position
+	rMap.a.x = rMap.a.x + e.deltaX;
+	rMap.a.y = rMap.a.y + e.deltaY;
 }
 
 //-----------------------------------------------
@@ -125,13 +136,12 @@ RRR.prototype.pan = function(e){
 // - uses RRR.ia (inital angle) property
 RRR.prototype.rotate = function(e){
 
-	if(e.type == 'rotatestart')
-	        rMap.a.ia = transform.angle || 0;
+		if(e.type == "rotatestart")
+			rMap.a.ia = rMap.a.transform.angle;
 
-	    rMap.a.transform.rz = 1;
-	    rMap.a.transform.angle = rMap.a.ia + e.rotation;
+    rMap.a.transform.angle = rMap.a.ia + e.rotation; // curr
 
-	    rMap.a.reqUpdate();
+    rMap.a.reqUpdate();
 }
 
 //-----------------------------------------------
@@ -139,12 +149,12 @@ RRR.prototype.rotate = function(e){
 // - uses RRR.is (initial scale) property
 RRR.prototype.pinch = function(e){
 
-	if(e.type == 'pinchstart')
-		rMap.a.is = rMap.a.transform.scale || 1;
-	
-	rMap.a.transform.scale = rMap.a.is * e.scale;
-	
-	rMap.a.reqUpdate();
+		if(e.type == "pinchstart")
+			rMap.a.is = rMap.a.transform.scale;
+
+	    rMap.a.transform.scale = rMap.a.is * e.scale;
+
+	    rMap.a.reqUpdate();
 }
 
 

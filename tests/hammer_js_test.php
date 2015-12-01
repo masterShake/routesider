@@ -24,6 +24,8 @@
                 width: 120px;
                 background-color: #fff;
                 box-shadow: 1px 1px 6px #AAA;
+                transform: translate3d(235px, 100px, 0px) scale(1, 1) rotate3d(0, 0, 0, 0deg);
+                /*transition: all 0.3s;*/
             }
 
         </style>
@@ -44,28 +46,12 @@
 
         <!-- javascript -->
         <script src="../js/hammer.min.js"></script>
+        <script src="../js/rrr.js"></script>
 
         <script>
 
-        (function(){
-
-            //-----------------------------------------------
-            //         RRR (resize, reposition, rotate)
-            //       ------------------------------------
-            //
-            // - drag to reposition
-            // - pinch or drag buttons to rotate
-            // 
-            //       
-            var R = function(el){
-
-                // starting x and y
-                this.x = Math.round((elem.parentElement.offsetWidth - el.offsetWidth) / 2);
-
-            }
-
-
-        })();
+            rMap.h["0"] = new RRR(hammerTime);
+            rMap.a = rMap.h["0"];
 
         </script>
     
