@@ -149,17 +149,17 @@
                                     <!-- data-fy = functional constant y -->
 
                                     <!-- top left --> 
-                                    <div data-de="d" data-dx="1" data-dy="1" data-fx="1" data-fy="1">
+                                    <div data-de="d" data-dx="1" data-dy="1" data-fx="0.5" data-fy="0.5">
                                         <div class="horiz"></div>
                                         <div class="vert"></div>
                                     </div>
                                     <!-- top center -->
-                                    <div data-de="v" data-dy="1" data-fx="0.5" data-fy="1">
+                                    <div data-de="v" data-dy="1" data-fx="0" data-fy="0.5">
                                         <div class="horiz"></div>
                                         <div class="vert"></div>
                                     </div>
                                     <!-- top right -->
-                                    <div data-de="d" data-dx="-1" data-dy="1" data-fx="0" data-fy="1">
+                                    <div data-de="d" data-dx="-1" data-dy="1" data-fx="-0.5" data-fy="0.5">
                                         <div class="horiz"></div>
                                         <div class="vert"></div>
                                     </div>
@@ -174,17 +174,17 @@
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- bottom left -->
-                                    <div data-de="d" data-dx="1" data-dy="-1" data-fx="1" data-fy="0">
+                                    <div data-de="d" data-dx="1" data-dy="-1" data-fx="0.5" data-fy="-0.5">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- bottom center -->
-                                    <div data-de="v" data-dy="-1" data-fx="0.5" data-fy="0">
+                                    <div data-de="v" data-dy="-1" data-fx="0" data-fy="-0.5">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- bottom right -->
-                                    <div data-de="d" data-dx="-1" data-dy="-1" data-fx="0" data-fy="0">
+                                    <div data-de="d" data-dx="-1" data-dy="-1" data-fx="-0.5" data-fy="-0.5">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>

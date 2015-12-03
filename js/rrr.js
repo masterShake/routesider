@@ -41,6 +41,9 @@ var RRR = function(el){
 	// style element
 	this.el = el;
 
+	// element aspect ratios
+	this.ratio = el.offsetHeight / el.offsetWidth;
+
 	// keep
 
     // starting x and y
@@ -86,8 +89,8 @@ var RRR = function(el){
 	this.mc.on("pinchstart pinchmove", this.pinch);
 
 	// get the drag-btns
-	this.mm[4].addEventListener('mousedown', this.resize, false);
-	this.mm[5].addEventListener('mousedown', this.resize, false);
+	for(var i = 0; i < this.mm.length; i++)
+		this.mm[i].addEventListener('mousedown', this.resize, false);
 }
 
 //-----------------------------------------------
@@ -176,7 +179,7 @@ RRR.prototype.resize = function(e){
     	Fx : parseFloat(this.dataset.fx), // functional
     	Fy : parseFloat(this.dataset.fy),
     	Dx : parseInt(this.dataset.dx), // directional
-    	Dy : parseInt(this.dataset.dx)
+    	Dy : parseInt(this.dataset.dy)
     };
 
     // set the initial scale
@@ -197,14 +200,15 @@ RRR.prototype.resize = function(e){
 RRR.prototype.d = function(e){
 
 	// if weighted deltaX > weighted deltaY
-	if( (rMap.a.mm.ix - e.pageX) > (rMap.a.el.offsetHeight/rMap.a.el.offsetWidth) * (rMap.a.mm.iy - e.pageY) )
+	if( (rMap.a.mm.ix - e.pageX) > rMap.a.ratio * (rMap.a.mm.iy - e.pageY) )
 
-		// scale by width
-		return;
+		// scale by width (horizontally)
+		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dx * (rMap.a.mm.ix - e.pageX) + rMap.a.mm.iw)/rMap.a.mm.iw);
 
-	// else
+	else
 
-		// scale by height
+		// scale by height (vertically)
+		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dy * (rMap.a.mm.iy - e.pageY) + rMap.a.mm.ih)/rMap.a.mm.ih);
 }
 
 //-----------------------------------------------
@@ -212,7 +216,6 @@ RRR.prototype.d = function(e){
 RRR.prototype.h = function(e){ 
 
 	// scale by delta width
-	// initial scale * ((deltaX + old width) / old width)
 	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dx * (rMap.a.mm.ix - e.pageX) + rMap.a.mm.iw)/rMap.a.mm.iw);
 
 	// update
@@ -223,8 +226,11 @@ RRR.prototype.h = function(e){
 // - mousemove, resize vertically
 RRR.prototype.v = function(e){
 
-	// scale by delta height
+	// scale by delta width
+	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dy * (rMap.a.mm.iy - e.pageY) + rMap.a.mm.ih)/rMap.a.mm.ih);
 
+	// update
+	rMap.a.reqUpdate();
 }
 
 //-----------------------------------------------
@@ -246,6 +252,8 @@ RRR.prototype.resizeEnd = function(e){
 
 	// remove the mousemove event
 	document.removeEventListener('mousemove', rMap.a.h, false);
+	document.removeEventListener('mousemove', rMap.a.v, false);
+	document.removeEventListener('mousemove', rMap.a.d, false);
 	document.removeEventListener('mousemove', rMap.a.xy, false);
 
 	// remove the mouseup event
