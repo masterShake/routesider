@@ -162,7 +162,7 @@ BGI = function(){
 
 	/* initialization */
 
-	// toggle the image upload canvas event
+	// toggle the image upload canvas element
 	bgToolbar.children[1].children[0].addEventListener("click", this.togCanvas, false); // background image button
 	bgCpanels.children[0].children[0].children[0]
 		.addEventListener("click", this.hideCanvas, false); // bgi control panel x
@@ -289,8 +289,7 @@ BGI.prototype.uploadCB = function(){
 
 		// set the nVals (new values) properties
 		jApp.nVals["image"] = jApp.temp["image"];
-		jApp.nVals["h"] = jApp.temp["h"];
-		jApp.nVals["w"] = jApp.temp["w"];
+		jApp.nVals["ratio"] = jApp.temp["ratio"];
 
 		// if there isn't already a background image
 		if(!window.hasOwnProperty("bgImg")){
@@ -471,7 +470,19 @@ CR = function(){
 
 	/* properties */
 
+	// keep track of the RRR obj (reposition, resize, rotate)
+	this.r = new RRR(cropCanvas.children[0]);
+	rMap.h[rMap.i++] = this.r;
+	rMap.a = this.r;
+
 	/* initializations */
+
+	// toggle the image upload canvas event
+	bgToolbar.children[1].children[1].addEventListener("click", this.togCrop, false); // background image button
+	bgCpanels.children[1].children[0].children[0]
+		.addEventListener("click", this.hideCrop, false); // bgi control panel x
+	bgToolbar.children[1].children[0].addEventListener("click", this.hideCrop, false); // crop button
+	bgToolbar.children[1].children[2].addEventListener("click", this.hideCrop, false); // bg color button
 }
 
 /* METHODS */

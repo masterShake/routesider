@@ -11,70 +11,22 @@
     // STEP 2: handle image upload
     //-------------------------------
 
-    include "scripts/jumbo_img_upload.php";
+    include "scripts/edit_jumbotron/img_upload.php";
 
 
     //-------------------------------
     // STEP 3: handle GET/POST params
     //-------------------------------
 
-    if(Input::exists()){
-
-        // save changes
-    	if(isset($_POST["json"])){
-
-            // decode the json
-            $jumbo = json_decode($_POST["json"]);
-
-            // if the user added a new background image
-            if(substr($jumbo->image, 0, 6) == "upload"){
-                // remove the "uploads/" prefix
-                $jumbo->image = substr($jumbo->image, 8);
-                // isolate the server root
-                $uRoot = $_SERVER["DOCUMENT_ROOT"]."/routesider/";
-                // move the file by renaming it
-                rename($uRoot . "uploads/" . $jumbo->image, $uRoot . "img/business/" . $jumbo->image);
-            }
-
-            // get the user's business
-            $user = new User();
-
-            $business = $user->business()[0];
-
-            $cypher = 
-            "MATCH (b:Business) WHERE b.id = " . $business->data("id") . " " .
-            "MATCH (b)-[:HAS_PROFILE]->(p)-[q:HAS_JUMBO]->(j) " .
-            "SET q.active={$jumbo->active}, " .
-            "j.image='{$jumbo->image}', ".
-            "j.opacity={$jumbo->opacity}, ".
-            "j.blur={$jumbo->blur}, ".
-            "j.h={$jumbo->h}, ".
-            "j.w={$jumbo->w}, ".
-            "j.x={$jumbo->x}, ".
-            "j.y={$jumbo->y}, ".
-            "j.color='{$jumbo->color}'";
-
-            $db = neoDB::getInstance();
-
-            $db->q($cypher);
-
-            exit("1");
-        }
-    }
+    include "scripts/edit_jumbotron/save.php";
 
     //-------------------------------------
     // instantiate global variables
     //-------------------------------------
 
-    $page = "edit_jumbotron";
-
-    $errors = []; //required
-
     $user = new User();
 
-    $business = $user->business();
-
-    $business = $business[0];
+    $business = $user->business()[0];
 
     $profile = $business->profile();
 
@@ -106,10 +58,10 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                width: <?= ($jumbo["w"]) ? ($jumbo["w"]*100)."%" : "100%"; ?>;
+                width: <?= ($jumbo["layouts"]["mobile"]["w"]) ? ($jumbo["layouts"]["mobile"]["w"]*100)."%" : "100%"; ?>;
                 position: relative;
-                left: <?= $jumbo["x"]; ?>px;
-                top: <?= $jumbo["y"]; ?>px;
+                left: <?= $jumbo["layouts"]["mobile"]["x"]; ?>px;
+                top: <?= $jumbo["layouts"]["mobile"]["y"]; ?>px;
             }
 
         </style>
@@ -190,49 +142,49 @@
                                         </div>
                                     </div>
 
-                                    <!-- data-c = case formula -->
+                                    <!-- data-de = directional event -->
                                     <!-- data-dx = directional constant x -->
                                     <!-- data-dy = directional constant y -->
                                     <!-- data-fx = functional constant x -->
                                     <!-- data-fy = functional constant y -->
 
                                     <!-- top left --> 
-                                    <div data-c="0" data-dx="1" data-dy="1" data-fx="1" data-fy="1">
+                                    <div data-de="d" data-dx="1" data-dy="1" data-fx="1" data-fy="1">
                                         <div class="horiz"></div>
                                         <div class="vert"></div>
                                     </div>
                                     <!-- top center -->
-                                    <div data-c="2" data-dy="1" data-fx="0.5" data-fy="1">
+                                    <div data-de="v" data-dy="1" data-fx="0.5" data-fy="1">
                                         <div class="horiz"></div>
                                         <div class="vert"></div>
                                     </div>
                                     <!-- top right -->
-                                    <div data-c="0" data-dx="-1" data-dy="1" data-fx="0" data-fy="1">
+                                    <div data-de="d" data-dx="-1" data-dy="1" data-fx="0" data-fy="1">
                                         <div class="horiz"></div>
                                         <div class="vert"></div>
                                     </div>
                                     <!-- center left -->
-                                    <div data-c="1" data-dx="1" data-fx="1" data-fy="0.5">
+                                    <div data-de="h" data-dx="1" data-fx="1" data-fy="0.5">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- center right -->
-                                    <div data-c="1" data-dx="-1" data-fx="0" data-fy="0.5">
+                                    <div data-de="h" data-dx="-1" data-fx="-1" data-fy="0.5">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- bottom left -->
-                                    <div data-c="0" data-dx="1" data-dy="-1" data-fx="1" data-fy="0">
+                                    <div data-de="d" data-dx="1" data-dy="-1" data-fx="1" data-fy="0">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- bottom center -->
-                                    <div data-c="2" data-dy="-1" data-fx="0.5" data-fy="0">
+                                    <div data-de="v" data-dy="-1" data-fx="0.5" data-fy="0">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- bottom right -->
-                                    <div data-c="0" data-dx="-1" data-dy="-1" data-fx="0" data-fy="0">
+                                    <div data-de="d" data-dx="-1" data-dy="-1" data-fx="0" data-fy="0">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
@@ -414,6 +366,8 @@
 
         <!-- javascripts -->
         <script src="js/main.js"></script>
+        <script src="js/hammer.min.js"></script>
+        <script src="js/rrr.js"></script>
         <script src="js/edit_jumbotron/edit_jumbotron.js"></script>
         <script src="js/edit_jumbotron/bg.js"></script>
         <script src="js/edit_jumbotron/tb.js"></script>

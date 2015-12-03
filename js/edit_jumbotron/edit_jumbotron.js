@@ -142,18 +142,18 @@ Jumbo = function(){
 	layoutView.children[0].addEventListener("click", rsApp.toggleDropdown, false);
 
 	// set the canvas dimensions based on initial window size 
-	if(document.body.offsetWidth < 768){
+	if(document.body.offsetWidth < 767){
 		jumboCanvas.className = 
 		this.layout = "mobile";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.77 + "px";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
 	}else if(document.body.offsetWidth < 992){
 		jumboCanvas.className = 
 		this.layout = "tablet";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.33 + "px";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
 	}else{
 		jumboCanvas.className
 		this.layout = "desktop";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.63 + "px";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
 	}
 
 	// set the canvas height
