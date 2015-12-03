@@ -44,8 +44,8 @@ var RRR = function(el){
 	// keep
 
     // starting x and y
-	this.x = Math.round((el.parentElement.offsetWidth - el.offsetWidth) / 2);
-	this.y = Math.round((el.parentElement.offsetHeight - el.offsetHeight) / 2);
+	this.x = 0; // Math.round((el.parentElement.offsetWidth - el.offsetWidth) / 2);
+	this.y = 0; // Math.round((el.parentElement.offsetHeight - el.offsetHeight) / 2);
 
     // trigger
     this.ticking = false;
@@ -232,16 +232,8 @@ RRR.prototype.v = function(e){
 RRR.prototype.xy = function(e){
 
 	// calculate the movements
-	
-	// transform x = delta scale * delta x * fx
-	rMap.a.transform.x = -Math.pow(rMap.a.transform.scale, 2) * rMap.a.el.parentElement.offsetWidth * rMap.a.mm.Fx;
-
-	// F(x) * delta scale
-	// rMap.a.transform.x = rMap.a.mm.Fx * (rMap.a.transform.scale / rMap.a.is); // console.log(rMap.a.transform.x);
-	// console.log(rMap.a.transform.x);
-
-	// rMap.a.transform.x = rMap.a.x - (rMap.a.mm.Fx * (rMap.a.el.offsetWidth - rMap.a.mm.iw));
-	// rMap.a.transform.y = rMap.a.y - (rMap.a.mm.Fy * (rMap.a.el.offsetHeight - rMap.a.mm.ih));
+	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.a.mm.Fx;
+	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.a.mm.Fy;
 
 	// update
 	rMap.a.reqUpdate();
@@ -258,7 +250,6 @@ RRR.prototype.resizeEnd = function(e){
 
 	// remove the mouseup event
 	document.removeEventListener('mouseup', rMap.a.resizeEnd, false);
-
 }
 
 

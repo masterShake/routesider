@@ -59,7 +59,7 @@
             /* rule 0 - bg image container */
             #cropCanvas>div{
                 width: <?= ($jumbo["layouts"]["mobile"]["w"]) ? ($jumbo["layouts"]["mobile"]["w"]*100)."%" : "100%"; ?>;
-                position: relative;
+                position: absolute;
                 left: <?= $jumbo["layouts"]["mobile"]["x"]; ?>px;
                 top: <?= $jumbo["layouts"]["mobile"]["y"]; ?>px;
             }
@@ -164,12 +164,12 @@
                                         <div class="vert"></div>
                                     </div>
                                     <!-- center left -->
-                                    <div data-de="h" data-dx="1" data-fx="1" data-fy="0.5">
+                                    <div data-de="h" data-dx="1" data-fx="0.5" data-fy="0">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
                                     <!-- center right -->
-                                    <div data-de="h" data-dx="-1" data-fx="-1" data-fy="0.5">
+                                    <div data-de="h" data-dx="-1" data-fx="-0.5" data-fy="0">
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
