@@ -188,6 +188,11 @@
                                         <div class="vert"></div>
                                         <div class="horiz"></div>
                                     </div>
+
+                                    <!-- mouse drag rotation button -->
+                                    <button type="button" class="btn btn-default btn-success">
+                                        <span class="glyphicon glyphicon-repeat"></span>
+                                    </button>
                                 </div>
                                 <!-- background image -->
                                 <?php if($jumbo["image"]){ ?>

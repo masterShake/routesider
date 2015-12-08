@@ -145,3 +145,14 @@
 .drag-btns>div:nth-child(9) .horiz{
 	top: -2px;
 }
+
+/* drag rotation button */
+.drag-btns>button{
+	cursor: -webkit-grab;
+	position: absolute;
+    padding: 8px 10px 4px;
+    font-size: 18px;
+    right: 25px;
+    top: 25px;
+    opacity: 0.75;
+}

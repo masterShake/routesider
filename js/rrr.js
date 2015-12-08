@@ -67,6 +67,9 @@ var RRR = function(el){
     // initial angle
     this.ia;
 
+    // keep track of the centerpoint
+    this.centerpoint;
+
     // mouse move constants, temp variable
     this.mm = el.children[0].children;
 
@@ -89,8 +92,10 @@ var RRR = function(el){
 	this.mc.on("pinchstart pinchmove", this.pinch);
 
 	// get the drag-btns
-	for(var i = 0; i < this.mm.length; i++)
+	for(var i = 1; i < this.mm.length - 1; i++)
 		this.mm[i].addEventListener('mousedown', this.resize, false);
+
+	this.el.addEventListener('mousedown', this.rotateMD, false);
 }
 
 //-----------------------------------------------
@@ -255,15 +260,55 @@ RRR.prototype.resizeEnd = function(e){
 	document.removeEventListener('mousemove', rMap.a.v, false);
 	document.removeEventListener('mousemove', rMap.a.d, false);
 	document.removeEventListener('mousemove', rMap.a.xy, false);
-
 	// remove the mouseup event
 	document.removeEventListener('mouseup', rMap.a.resizeEnd, false);
+
+	// apply the new x,y positioning
+	rMap.a.x = rMap.a.transform.x;
+	rMap.a.y = rMap.a.transform.y;
 }
 
+//-----------------------------------------------
+// - mousedown rotate
+RRR.prototype.rotateMD = function(e){
+	// get the object center relative to documnet
+	rMap.a.centerpoint = rMap.a.el.children[1].getBoundingClientRect(); 
 
+	rMap.a.centerpoint = {
+		x : (rMap.a.centerpoint.left + rMap.a.centerpoint.width/2),
+		y : (rMap.a.centerpoint.top + rMap.a.centerpoint.height/2)
+	};
 
+	// get the initial angle relative mouse client x,y
+	rMap.a.ia = Math.atan2(e.clientY - rMap.a.centerpoint.y, e.clientX - rMap.a.centerpoint.x); // * 180 / Math.PI;
 
+	console.log(rMap.a.ia);
 
+	// add the event listeners
+	// rMap.a.el.children[0].children[9]
+	// 	.addEventListener('mousemove', rMap.rotateMM, false);
+	// rMap.a.el.children[0].children[9]
+	// 	.addEventListener('mouseup', rMap.rotateMU, false);
+}
+
+//-----------------------------------------------
+// - mousemove rotate object
+RRR.prototype.rotateMM = function(e){
+
+	// get the difference new angle relative to old
+	// rMap.a.transform.angle = 
+
+	// update
+
+}
+
+//-----------------------------------------------
+// - mouseup end rotation
+RRR.prototype.rotateMU = function(e){
+
+	// remove the event listeners
+
+}
 
 
 
