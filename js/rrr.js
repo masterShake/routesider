@@ -68,7 +68,10 @@ var RRR = function(el){
     this.ia;
 
     // keep track of the centerpoint
-    this.centerpoint;
+    this.center;
+
+    // random temp variable
+    this.clientAngle;
 
     // mouse move constants, temp variable
     this.mm = el.children[0].children;
@@ -95,7 +98,7 @@ var RRR = function(el){
 	for(var i = 1; i < this.mm.length - 1; i++)
 		this.mm[i].addEventListener('mousedown', this.resize, false);
 
-	this.el.addEventListener('mousedown', this.rotateMD, false);
+	this.mm[9].addEventListener('mousedown', this.rotateMD, false);
 }
 
 //-----------------------------------------------
@@ -271,35 +274,46 @@ RRR.prototype.resizeEnd = function(e){
 //-----------------------------------------------
 // - mousedown rotate
 RRR.prototype.rotateMD = function(e){
-	// get the object center relative to documnet
-	rMap.a.centerpoint = rMap.a.el.children[1].getBoundingClientRect(); 
 
-	rMap.a.centerpoint = {
-		x : (rMap.a.centerpoint.left + rMap.a.centerpoint.width/2),
-		y : (rMap.a.centerpoint.top + rMap.a.centerpoint.height/2)
+	// get the initial angle
+	rMap.a.ia = rMap.a.transform.angle;
+
+	// get the object center relative to the window
+	rMap.a.center = rMap.a.el.children[1].getBoundingClientRect(); 
+	rMap.a.center = {
+		x : (rMap.a.center.left + rMap.a.center.width/2),
+		y : (rMap.a.center.top + rMap.a.center.height/2)
 	};
 
-	// get the initial angle relative mouse client x,y
-	rMap.a.ia = Math.atan2(e.clientY - rMap.a.centerpoint.y, e.clientX - rMap.a.centerpoint.x); // * 180 / Math.PI;
+	// get the initial client angle relative mouse client x,y
+	rMap.a.clientAngle = Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x); // * 180 / Math.PI;
 
-	console.log(rMap.a.ia);
+	console.log('Here is the initial radian value: ' + rMap.a.ia);
 
 	// add the event listeners
-	// rMap.a.el.children[0].children[9]
-	// 	.addEventListener('mousemove', rMap.rotateMM, false);
-	// rMap.a.el.children[0].children[9]
-	// 	.addEventListener('mouseup', rMap.rotateMU, false);
+	document.addEventListener('mousemove', rMap.a.rotateMM, false);
+	document.addEventListener('mouseup', rMap.a.rotateMU, false);
 }
 
 //-----------------------------------------------
 // - mousemove rotate object
 RRR.prototype.rotateMM = function(e){
 
-	// get the difference new angle relative to old
-	// rMap.a.transform.angle = 
+	// new radian val
+	// console.log(Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x));
+
+	// difference
+	// console.log(rMap.a.ia - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x));
+
+	// difference in degrees
+	// console.log((rMap.a.clientAngle - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x)) * -180 / Math.PI);
+
+	// new angle
+	rMap.a.transform.angle = rMap.a.ia + ((rMap.a.clientAngle - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x)) * -180 / Math.PI);
+	// console.log(rMap.a.transform.angle);
 
 	// update
-
+	rMap.a.reqUpdate();
 }
 
 //-----------------------------------------------
@@ -307,6 +321,8 @@ RRR.prototype.rotateMM = function(e){
 RRR.prototype.rotateMU = function(e){
 
 	// remove the event listeners
+	document.removeEventListener('mousemove', rMap.a.rotateMM, false);
+	document.removeEventListener('mousemove', rMap.a.rotateMU, false);
 
 }
 
