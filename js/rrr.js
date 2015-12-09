@@ -16,13 +16,13 @@ var r = function(){
 	this.hs = false;
 
 	// add event listener
-	listen('mousemove', rMap.a.onMouseMove, false);
+	document.addEventListener('mousemove', this.mt, false);
 }
 
 //-----------------------------------------------
 // - mouse trap, determine if user has mouse
-this.prototype.mt = function(e){
-  unlisten('mousemove', rMap.a.onMouseMove, false);
+r.prototype.mt = function(e){
+  document.removeEventListener('mousemove', rMap.a.m.hs, false);
   rMap.a.hs = true;
 }
 
@@ -74,12 +74,12 @@ var RRR = function(el){
     this.ia = 0;
 
     // set the mouse object
-    this.m = new mau5(el);
+    this.m = new mau5(this.el);
 
     /* initializations */
 
     // init the mc hammer manager object
-    this.mc = new Hammer.Manager(this.el.children[0].children[0]));
+    this.mc = new Hammer.Manager(this.el.children[0].children[0]);
     // pan
     this.mc.add(new Hammer.Pan({threshold: 0, pointers: 0}));
 
@@ -88,7 +88,7 @@ var RRR = function(el){
 	this.mc.on("panend", this.panEnd);
 
     // if user client has mouse
-    this.hs = false; 
+    // this.hs = false; 
 
     // if the user does not have touch
     if(! 'ontouchstart' in window) return;
@@ -215,10 +215,10 @@ RRR.prototype.pinch = function(e){
 //   + drag corner & edge buttons to resize
 //   + drag icon handle to rotate
 //       
-var mau5 = function(){
+var mau5 = function(el){
 
-	// the mousemove variables & init temp variable
-	this.mm = rMap.a.el.children[0].children;
+	// the position variables & init temp variable
+	this.p = el.children[0].children; //console.log(this.p);
 
 	// the centerpoint
 	this.c = null;
@@ -227,20 +227,20 @@ var mau5 = function(){
 	this.ima = null;
 
 	// get the drag-btns
-	for(var i = 1; i < this.mm.length - 1; i++)
-		this.mm[i].addEventListener('mousedown', this.resize, false);
+	for(var i = 1; i < this.p.length - 1; i++)
+		this.p[i].addEventListener('mousedown', this.resize, false);
 	// rotation button
-	this.mm[9].addEventListener('mousedown', this.rotateMD, false);
+	this.p[9].addEventListener('mousedown', this.rotateMD, false);
 }
 
 
 
 //-----------------------------------------------
 // - resize mouse down
-RRR.prototype.resize = function(e){
+mau5.prototype.resize = function(e){
 
 	// get the starting position of the mouse
-	rMap.a.mau5.mm = {
+	rMap.a.m.p = {
     	ix : e.pageX, 		  // initial mouse position
     	iy : e.pageY,
     	iw : this.parentElement.offsetWidth, // initial dimensions
@@ -255,37 +255,37 @@ RRR.prototype.resize = function(e){
     rMap.a.is = rMap.a.transform.scale;
 
 	// set the correct directional event
-	document.addEventListener("mousemove", rMap.a[this.dataset.de], false);
+	document.addEventListener("mousemove", rMap.a.m[this.dataset.de], false);
 
 	// set resize x,y position event
-	document.addEventListener("mousemove", rMap.a.xy, false);
+	document.addEventListener("mousemove", rMap.a.m.xy, false);
 
 	// set resize complete event
-	document.addEventListener("mouseup", rMap.a.resizeEnd, false);
+	document.addEventListener("mouseup", rMap.a.m.resizeEnd, false);
 }
 
 //-----------------------------------------------
 // - mousemove, resize diagonally
-RRR.prototype.d = function(e){
+mau5.prototype.d = function(e){
 
 	// if weighted deltaX > weighted deltaY
-	if( (rMap.a.mau5.mm.ix - e.pageX) > rMap.a.ratio * (rMap.a.mau5.mm.iy - e.pageY) )
+	if( (rMap.a.m.p.ix - e.pageX) > rMap.a.ratio * (rMap.a.m.p.iy - e.pageY) )
 
 		// scale by width (horizontally)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dx * (rMap.a.mau5.mm.ix - e.pageX) + rMap.a.mau5.mm.iw)/rMap.a.mau5.mm.iw);
+		rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dx * (rMap.a.m.p.ix - e.pageX) + rMap.a.m.p.iw)/rMap.a.m.p.iw);
 
 	else
 
 		// scale by height (vertically)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dy * (rMap.a.mau5.mm.iy - e.pageY) + rMap.a.mau5.mm.ih)/rMap.a.mau5.mm.ih);
+		rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dy * (rMap.a.m.p.iy - e.pageY) + rMap.a.m.p.ih)/rMap.a.m.p.ih);
 }
 
 //-----------------------------------------------
 // - mousemove, resize horizontally
-RRR.prototype.h = function(e){ 
+mau5.prototype.h = function(e){ 
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dx * (rMap.a.mau5.mm.ix - e.pageX) + rMap.a.mau5.mm.iw)/rMap.a.mau5.mm.iw);
+	rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dx * (rMap.a.m.p.ix - e.pageX) + rMap.a.m.p.iw)/rMap.a.m.p.iw);
 
 	// update
 	rMap.a.reqUpdate();
@@ -293,10 +293,10 @@ RRR.prototype.h = function(e){
 
 //-----------------------------------------------
 // - mousemove, resize vertically
-RRR.prototype.v = function(e){
+mau5.prototype.v = function(e){
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dy * (rMap.a.mau5.mm.iy - e.pageY) + rMap.a.mau5.mm.ih)/rMap.a.mau5.mm.ih);
+	rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dy * (rMap.a.m.p.iy - e.pageY) + rMap.a.m.p.ih)/rMap.a.m.p.ih);
 
 	// update
 	rMap.a.reqUpdate();
@@ -304,11 +304,11 @@ RRR.prototype.v = function(e){
 
 //-----------------------------------------------
 // - mousemove, reposition x,y accordingly
-RRR.prototype.xy = function(e){
+mau5.prototype.xy = function(e){
 
 	// calculate the movements
-	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.a.mau5.mm.Fx;
-	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.a.mau5.mm.Fy;
+	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.a.m.p.Fx;
+	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.a.m.p.Fy;
 
 	// update
 	rMap.a.reqUpdate();
@@ -317,13 +317,13 @@ RRR.prototype.xy = function(e){
 
 //-----------------------------------------------
 // - mouseup, cancel resize events
-RRR.prototype.resizeEnd = function(e){
+mau5.prototype.resizeEnd = function(e){
 
 	// remove the mousemove event
-	document.removeEventListener('mousemove', rMap.a.h, false);
-	document.removeEventListener('mousemove', rMap.a.v, false);
-	document.removeEventListener('mousemove', rMap.a.d, false);
-	document.removeEventListener('mousemove', rMap.a.xy, false);
+	document.removeEventListener('mousemove', rMap.a.m.h, false);
+	document.removeEventListener('mousemove', rMap.a.m.v, false);
+	document.removeEventListener('mousemove', rMap.a.m.d, false);
+	document.removeEventListener('mousemove', rMap.a.m.xy, false);
 	// remove the mouseup event
 	document.removeEventListener('mouseup', rMap.a.resizeEnd, false);
 
@@ -334,26 +334,26 @@ RRR.prototype.resizeEnd = function(e){
 
 //-----------------------------------------------
 // - mousedown rotate
-RRR.prototype.rotateMD = function(e){
+mau5.prototype.rotateMD = function(e){
 
 	// get the initial angle
 	rMap.a.ia = rMap.a.transform.angle;
 
-	// get the object center relative to the window
-	rMap.a.center = rMap.a.el.children[1].getBoundingClientRect(); 
-	rMap.a.center = {
-		x : (rMap.a.center.left + rMap.a.center.width/2),
-		y : (rMap.a.center.top + rMap.a.center.height/2)
+	// get the object m.c relative to the window
+	rMap.a.m.c = rMap.a.el.children[1].getBoundingClientRect(); 
+	rMap.a.m.c = {
+		x : (rMap.a.m.c.left + rMap.a.m.c.width/2),
+		y : (rMap.a.m.c.top + rMap.a.m.c.height/2)
 	};
 
 	// get the initial client angle relative mouse client x,y
-	rMap.a.ima = Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x); // * 180 / Math.PI;
+	rMap.a.m.ima = Math.atan2(e.clientY - rMap.a.m.c.y, e.clientX - rMap.a.m.c.x); // * 180 / Math.PI;
 
-	console.log('Here is the initial radian value: ' + rMap.a.ia);
+	// console.log('Here is the initial radian value: ' + rMap.a.m.ia);
 
 	// add the event listeners
-	document.addEventListener('mousemove', rMap.a.rotateMM, false);
-	document.addEventListener('mouseup', rMap.a.rotateMU, false);
+	document.addEventListener('mousemove', rMap.a.m.rotateMM, false);
+	document.addEventListener('mouseup', rMap.a.m.rotateMU, false);
 }
 
 //-----------------------------------------------
@@ -367,24 +367,28 @@ RRR.prototype.rotateMD = function(e){
 //				)
 
 // - initial angle
-RRR.prototype.rotateMM = function(e){\
+mau5.prototype.rotateMM = function(e){
 
 	// new angle
-	rMap.a.transform.angle = rMap.a.ia + ((rMap.a.ima - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x)) * -180 / Math.PI);
-	// console.log(rMap.a.transform.angle);
-
-	// update
+	rMap.a.transform.angle = rMap.a.ia + 
+							 (
+							 	( 	rMap.a.m.ima - 
+							 		Math.atan2(	e.clientY - rMap.a.m.c.y, e.clientX - rMap.a.m.c.x)
+							 	) * -180 / Math.PI
+							 );
+	// reqUpdate
 	rMap.a.reqUpdate();
 }
 
 //-----------------------------------------------
 // - mouseup end rotation
-RRR.prototype.rotateMU = function(e){
+mau5.prototype.rotateMU = function(e){
+
+	console.log(rMap.a.m.transform);
 
 	// remove the event listeners
-	document.removeEventListener('mousemove', rMap.a.rotateMM, false);
-	document.removeEventListener('mousemove', rMap.a.rotateMU, false);
-
+	document.removeEventListener('mousemove', rMap.a.m.rotateMM, false);
+	document.removeEventListener('mousemove', rMap.a.mrotateMU, false);
 }
 
 
