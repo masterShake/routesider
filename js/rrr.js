@@ -1,8 +1,8 @@
 
 //-----------------------------------------------
-// - closure to hold RRR objects
+// - closure hashmap to hold RRR objects
 var r = function(){
-
+	
 	// indexer
 	this.i = 0;
 
@@ -11,7 +11,21 @@ var r = function(){
 
 	// active RRR object
 	this.a = null;
+
+	// client has mouse
+	this.hs = false;
+
+	// add event listener
+	listen('mousemove', rMap.a.onMouseMove, false);
 }
+
+//-----------------------------------------------
+// - mouse trap, determine if user has mouse
+this.prototype.mt = function(e){
+  unlisten('mousemove', rMap.a.onMouseMove, false);
+  rMap.a.hs = true;
+}
+
 // init
 var rMap = new r();
 
@@ -27,11 +41,8 @@ var rMap = new r();
 //   + pinch to resize
 //   + twist to rotate
 //
-// - Mouse:
-//   + drag and drop to reposition
-//   + drag corner & edge buttons to resize
-//   + drag icon handle to rotate
-//       
+// - set mouse object
+//
 // - @ el => parent of .drag-btns
 //
 var RRR = function(el){
@@ -44,14 +55,9 @@ var RRR = function(el){
 	// element aspect ratios
 	this.ratio = el.offsetHeight / el.offsetWidth;
 
-	// keep
-
     // starting x and y
 	this.x = 0; // Math.round((el.parentElement.offsetWidth - el.offsetWidth) / 2);
 	this.y = 0; // Math.round((el.parentElement.offsetHeight - el.offsetHeight) / 2);
-
-    // trigger
-    this.ticking = false;
 
     // transform css object
     this.transform = {
@@ -62,43 +68,38 @@ var RRR = function(el){
 	};
 
     // initial scale
-    this.is;
+    this.is = 1;
 
     // initial angle
-    this.ia;
+    this.ia = 0;
 
-    // keep track of the centerpoint
-    this.center;
-
-    // random temp variable
-    this.clientAngle;
-
-    // mouse move constants, temp variable
-    this.mm = el.children[0].children;
+    // set the mouse object
+    this.m = new mau5(el);
 
     /* initializations */
 
     // init the mc hammer manager object
-    this.mc = new Hammer.Manager(this.mm[0]);
-
+    this.mc = new Hammer.Manager(this.el.children[0].children[0]));
     // pan
     this.mc.add(new Hammer.Pan({threshold: 0, pointers: 0}));
+
+	// pan event mouse & touch
+	this.mc.on("panstart panmove", this.pan);
+	this.mc.on("panend", this.panEnd);
+
+    // if user client has mouse
+    this.hs = false; 
+
+    // if the user does not have touch
+    if(! 'ontouchstart' in window) return;
+
     // rotate 
 	this.mc.add(new Hammer.Rotate({ threshold: 0 })).recognizeWith(this.mc.get('pan'));
 	// pinch
 	this.mc.add(new Hammer.Pinch({ threshold: 0 })).recognizeWith([this.mc.get('pan'), this.mc.get('rotate')]);
-
-	// add the event listeners
-	this.mc.on("panstart panmove", this.pan);
-	this.mc.on("panend", this.panEnd);
+	// set events
 	this.mc.on("rotatestart rotatemove", this.rotate);
 	this.mc.on("pinchstart pinchmove", this.pinch);
-
-	// get the drag-btns
-	for(var i = 1; i < this.mm.length - 1; i++)
-		this.mm[i].addEventListener('mousedown', this.resize, false);
-
-	this.mm[9].addEventListener('mousedown', this.rotateMD, false);
 }
 
 //-----------------------------------------------
@@ -174,12 +175,72 @@ RRR.prototype.pinch = function(e){
 	    rMap.a.reqUpdate();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+// 			mau5 (mouse move events)
+//
+// - Mouse:
+//   + drag and drop to reposition
+//   + drag corner & edge buttons to resize
+//   + drag icon handle to rotate
+//       
+var mau5 = function(){
+
+	// the mousemove variables & init temp variable
+	this.mm = rMap.a.el.children[0].children;
+
+	// the centerpoint
+	this.c = null;
+
+	// initial mouse angle
+	this.ima = null;
+
+	// get the drag-btns
+	for(var i = 1; i < this.mm.length - 1; i++)
+		this.mm[i].addEventListener('mousedown', this.resize, false);
+	// rotation button
+	this.mm[9].addEventListener('mousedown', this.rotateMD, false);
+}
+
+
+
 //-----------------------------------------------
 // - resize mouse down
 RRR.prototype.resize = function(e){
 
 	// get the starting position of the mouse
-	rMap.a.mm = {
+	rMap.a.mau5.mm = {
     	ix : e.pageX, 		  // initial mouse position
     	iy : e.pageY,
     	iw : this.parentElement.offsetWidth, // initial dimensions
@@ -208,15 +269,15 @@ RRR.prototype.resize = function(e){
 RRR.prototype.d = function(e){
 
 	// if weighted deltaX > weighted deltaY
-	if( (rMap.a.mm.ix - e.pageX) > rMap.a.ratio * (rMap.a.mm.iy - e.pageY) )
+	if( (rMap.a.mau5.mm.ix - e.pageX) > rMap.a.ratio * (rMap.a.mau5.mm.iy - e.pageY) )
 
 		// scale by width (horizontally)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dx * (rMap.a.mm.ix - e.pageX) + rMap.a.mm.iw)/rMap.a.mm.iw);
+		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dx * (rMap.a.mau5.mm.ix - e.pageX) + rMap.a.mau5.mm.iw)/rMap.a.mau5.mm.iw);
 
 	else
 
 		// scale by height (vertically)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dy * (rMap.a.mm.iy - e.pageY) + rMap.a.mm.ih)/rMap.a.mm.ih);
+		rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dy * (rMap.a.mau5.mm.iy - e.pageY) + rMap.a.mau5.mm.ih)/rMap.a.mau5.mm.ih);
 }
 
 //-----------------------------------------------
@@ -224,7 +285,7 @@ RRR.prototype.d = function(e){
 RRR.prototype.h = function(e){ 
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dx * (rMap.a.mm.ix - e.pageX) + rMap.a.mm.iw)/rMap.a.mm.iw);
+	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dx * (rMap.a.mau5.mm.ix - e.pageX) + rMap.a.mau5.mm.iw)/rMap.a.mau5.mm.iw);
 
 	// update
 	rMap.a.reqUpdate();
@@ -235,7 +296,7 @@ RRR.prototype.h = function(e){
 RRR.prototype.v = function(e){
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mm.Dy * (rMap.a.mm.iy - e.pageY) + rMap.a.mm.ih)/rMap.a.mm.ih);
+	rMap.a.transform.scale = rMap.a.is * ((rMap.a.mau5.mm.Dy * (rMap.a.mau5.mm.iy - e.pageY) + rMap.a.mau5.mm.ih)/rMap.a.mau5.mm.ih);
 
 	// update
 	rMap.a.reqUpdate();
@@ -246,8 +307,8 @@ RRR.prototype.v = function(e){
 RRR.prototype.xy = function(e){
 
 	// calculate the movements
-	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.a.mm.Fx;
-	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.a.mm.Fy;
+	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.a.mau5.mm.Fx;
+	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.a.mau5.mm.Fy;
 
 	// update
 	rMap.a.reqUpdate();
@@ -286,7 +347,7 @@ RRR.prototype.rotateMD = function(e){
 	};
 
 	// get the initial client angle relative mouse client x,y
-	rMap.a.clientAngle = Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x); // * 180 / Math.PI;
+	rMap.a.ima = Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x); // * 180 / Math.PI;
 
 	console.log('Here is the initial radian value: ' + rMap.a.ia);
 
@@ -297,19 +358,19 @@ RRR.prototype.rotateMD = function(e){
 
 //-----------------------------------------------
 // - mousemove rotate object
-RRR.prototype.rotateMM = function(e){
 
-	// new radian val
-	// console.log(Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x));
+// - formula:
+//    			initial object angle
+//			  + (   initial mouse angle
+//				  - delta degree from object 
+//					centerpoint
+//				)
 
-	// difference
-	// console.log(rMap.a.ia - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x));
-
-	// difference in degrees
-	// console.log((rMap.a.clientAngle - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x)) * -180 / Math.PI);
+// - initial angle
+RRR.prototype.rotateMM = function(e){\
 
 	// new angle
-	rMap.a.transform.angle = rMap.a.ia + ((rMap.a.clientAngle - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x)) * -180 / Math.PI);
+	rMap.a.transform.angle = rMap.a.ia + ((rMap.a.ima - Math.atan2(e.clientY - rMap.a.center.y, e.clientX - rMap.a.center.x)) * -180 / Math.PI);
 	// console.log(rMap.a.transform.angle);
 
 	// update
