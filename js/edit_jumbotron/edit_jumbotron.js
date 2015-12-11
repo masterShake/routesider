@@ -145,7 +145,7 @@ Jumbo = function(){
 	layoutView.children[0].addEventListener("click", rsApp.toggleDropdown, false);
 
 	// init the scaling event listeners
-	this.temp = layoutView.getElementsByTagName("a"); console.log(this.temp);
+	this.temp = layoutView.getElementsByTagName("a");
 	this.temp[0].addEventListener("click", this.lay, false);
 	this.temp[1].addEventListener("click", this.lay, false);
 	this.temp[2].addEventListener("click", this.lay, false);

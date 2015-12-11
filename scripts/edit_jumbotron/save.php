@@ -29,6 +29,12 @@ if(Input::exists()){
             rename($uRoot . "uploads/" . $jumbo->image, $uRoot . "img/business/" . $jumbo->image);
         }
 
+        // round the layout values
+        $jumbo->layouts->mobile->x = round($jumbo->layouts->mobile->x, 2);
+        $jumbo->layouts->mobile->y = round($jumbo->layouts->mobile->y, 2);
+        $jumbo->layouts->mobile->scale = round($jumbo->layouts->mobile->scale, 2);
+        $jumbo->layouts->mobile->angle = round($jumbo->layouts->mobile->angle, 2);
+
         // get the user's business
         $user = new User();
 
@@ -46,10 +52,10 @@ if(Input::exists()){
         "j.blur={$jumbo->blur}, ".
         "j.color='{$jumbo->color}', " .
         "j.ratio='{$jumbo->ratio}', " .
-        "m.x={$jumbo->layouts->mobile->x}, ".
-        "m.y={$jumbo->layouts->mobile->y}, ".
-        "m.scale={$jumbo->layouts->mobile->scale}, ".
-        "m.angle={$jumbo->layouts->mobile->angle}";
+        "m.x= {$jumbo->layouts->mobile->x}, ".
+        "m.y= {$jumbo->layouts->mobile->y}, ".
+        "m.scale= {$jumbo->layouts->mobile->scale}, ".
+        "m.angle= {$jumbo->layouts->mobile->angle}";
         // "t.x={$jumbo->layouts->tablet->x}, ".
         // "t.y={$jumbo->layouts->tablet->y}, ".
         // "t.scale={$jumbo->layouts->tablet->scale}, ".

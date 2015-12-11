@@ -58,10 +58,17 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                width: <?= ($jumbo["layouts"]["mobile"]["w"]) ? ($jumbo["layouts"]["mobile"]["w"]*100)."%" : "100%"; ?>;
+                width:100%;
                 position: absolute;
-                left: <?= $jumbo["layouts"]["mobile"]["x"]; ?>px;
-                top: <?= $jumbo["layouts"]["mobile"]["y"]; ?>px;
+                transform: translate(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px,<?= $jumbo["layouts"]["mobile"]["y"]; ?>px) rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>,<?= $jumbo["layouts"]["mobile"]["scale"]; ?>);
+
+                           /*
+                -webkit-transform: translate3d(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px, <?= $jumbo["layouts"]["mobile"]["y"]; ?>px, 0)
+                           scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>px, <?= $jumbo["layouts"]["mobile"]["scale"]; ?>px)
+                           rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg);
+                -moz-transform: translate3d(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px, <?= $jumbo["layouts"]["mobile"]["y"]; ?>px, 0)
+                           scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>px, <?= $jumbo["layouts"]["mobile"]["scale"]; ?>px)
+                           rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg);*/
             }
 
         </style>

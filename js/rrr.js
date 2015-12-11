@@ -73,6 +73,9 @@ var rr = function(el){
     // initial angle
     this.ia = 0;
 
+    // extract the transform values from the matrix
+    this.extractMatrix();
+
     // if the user has a mouse
     if(rMap.hs)
     	// set the mouse object
@@ -106,6 +109,46 @@ var rr = function(el){
 }
 
 //-----------------------------------------------
+// - extract the transform properties from the
+//   matrix
+rr.prototype.extractMatrix = function(){
+
+	// get the matrix properties, use ia as temp var
+	this.ia = window.getComputedStyle(this.el, null);
+
+	// get the transform properties
+	this.ia = this.ia.getPropertyValue('transform');
+
+	// convert the matrix to a list array
+	this.ia = this.ia.split('(')[1];
+	this.ia = this.ia.split(')')[0];
+	this.ia = this.ia.split(',');
+
+	// get the translate
+	this.x = 
+	this.transform.x = parseInt(this.ia[4]);
+	this.y = 
+	this.transform.y = parseInt(this.ia[5]);
+
+	// get the scale
+	this.is = 
+	this.transform.scale = Math.round(Math.sqrt(this.ia[0]*this.ia[0] + this.ia[1]*this.ia[1]) * 100) / 100;
+
+	// get the angle
+	this.ia = 
+	this.transform.angle = Math.round(Math.asin(this.ia[1]/this.is) * (180/Math.PI)); console.log(this.transform);
+
+	// set the element transform styles
+    this.el.style.webkitTransform =
+    this.el.style.mozTransform =
+    this.el.style.transform =
+
+	    'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+	    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
+ 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+}
+
+//-----------------------------------------------
 // - update element css transform properties
 rr.prototype.update = function (){ // console.log(this.transform.scale);
     
@@ -114,7 +157,7 @@ rr.prototype.update = function (){ // console.log(this.transform.scale);
     this.el.style.mozTransform =
     this.el.style.transform =
 
-	    'translate3d(' + this.transform.x + 'px, ' + this.transform.y + 'px, 0) ' +
+	    'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 	    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
  		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
 
