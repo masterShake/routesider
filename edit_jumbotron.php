@@ -268,17 +268,17 @@
                         <li class="list-group-item">
                             <!-- data-layout = jumboCanvas classname -->
                             <!-- data-h = canvas height -->
-                            <a href="#" data-layout="mobile" data-h="1.78">
+                            <a href="#" data-layout="mobile" data-h="1.42">
                                 <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
                             </a>
                         </li>
                         <li class="list-group-item">
-                            <a href="#" this-layout="tablet" data-h="1.33">
+                            <a href="#" data-layout="tablet" data-h="1.06">
                                 <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
                             </a>
                         </li>
                         <li class="list-group-item">
-                            <a href="#" this-layout="desktop" data-h="0.63" style="border-bottom: 0px;">
+                            <a href="#" data-layout="desktop" data-h="0.54" style="border-bottom: 0px;">
                                 <span class="icon-laptop"></span>&nbsp;&nbsp;PC
                             </a>
                         </li>

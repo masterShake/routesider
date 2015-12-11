@@ -38,16 +38,26 @@ if(Input::exists()){
         "MATCH (b:Business) WHERE b.id = " . $business->data("id") . " " .
         "MATCH (b)-[:HAS_PROFILE]->(p)-[q:HAS_JUMBO]->(j) " .
         "MATCH (j)-[:LAYOUT]->(m:Mobile) ".
+        "MATCH (j)-[:LAYOUT]->(t:Tablet) ".
+        "MATCH (j)-[:LAYOUT]->(d:Desktop) ".
         "SET q.active={$jumbo->active}, " .
         "j.image='{$jumbo->image}', ".
         "j.opacity={$jumbo->opacity}, ".
         "j.blur={$jumbo->blur}, ".
         "j.color='{$jumbo->color}', " .
         "j.ratio='{$jumbo->ratio}', " .
-        "m.h={$jumbo->layouts->mobile->h}, ".
-        "m.w={$jumbo->layouts->mobile->w}, ".
         "m.x={$jumbo->layouts->mobile->x}, ".
-        "m.y={$jumbo->layouts->mobile->y}";
+        "m.y={$jumbo->layouts->mobile->y}, ".
+        "m.scale={$jumbo->layouts->mobile->scale}, ".
+        "m.angle={$jumbo->layouts->mobile->angle}";
+        // "t.x={$jumbo->layouts->tablet->x}, ".
+        // "t.y={$jumbo->layouts->tablet->y}, ".
+        // "t.scale={$jumbo->layouts->tablet->scale}, ".
+        // "t.angle={$jumbo->layouts->tablet->angle}, ".
+        // "d.x={$jumbo->layouts->desktop->x}, ".
+        // "d.y={$jumbo->layouts->desktop->y}, ".
+        // "d.scale={$jumbo->layouts->desktop->scale}, ".
+        // "d.angle={$jumbo->layouts->desktop->angle}, ".
 
         $db = neoDB::getInstance();
 

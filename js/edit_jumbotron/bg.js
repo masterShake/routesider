@@ -181,22 +181,6 @@ BGI = function(){
 	// apply traditional upload fileselect event
 	this.file.children[0].children[1]
 		.addEventListener("change", this.fileSelect, false);
-
-	// get the background image control panel inputs
-	this.file = bgCpanels.children[0]
-					.getElementsByTagName("input");
-
-	// apply blur text input keyup event
-	this.file[0].addEventListener("keyup", this.bText, false);
-
-	// apply blur slider event
-	this.file[1].addEventListener("change", this.bSlide, false);
-
-	// apply opacity text input keyup event
-	this.file[2].addEventListener("keyup", this.oText, false);
-
-	// apply opacity slider event
-	this.file[3].addEventListener("change", this.oSlide, false);
 }
 
 /* METHODS */
@@ -319,111 +303,6 @@ BGI.prototype.uploadCB = function(){
 	}
 }
 
-//-----------------------------------------------
-// - when user slides opacity slider
-BGI.prototype.oSlide = function(){
-
-	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// change the opacity of the background img
-	bgImg.style.opacity = 
-
-	// update values
-	jApp.nVals["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - when user slides blur slider
-BGI.prototype.bSlide = function(){
-
-	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// update values
-	jApp.nVals["blur"] = parseInt(this.value);
-
-	// change the blur of the background img
-	bgImg.style.filter = 
-	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
-
-}
-
-//-----------------------------------------------
-// - keyup opacity text input
-BGI.prototype.oText = function(){ 
-
-	// if there is no input, return 
-	if( !this.value) return;
-
-	// if the value is not 1
-	if(this.value !== "1"){
-
-		// strip non numeric characters from the last 2 digits
-		this.value = this.value.replace(/[^\d.]/g, '');
-
-		// if the value of the first character is not 0
-		if( this.value.charAt(0) != "0" )
-
-			// pop a 0 in there
-			this.value = "0" + this.value;
-
-		// if the value of the second character is not "."
-		if( this.value.length > 1 && this.value.charAt(1) != "." )
-
-			// pop the decimal in there
-			this.value = "0." + this.value.substring(1, 3);
-	}
-
-	// update slider input
-	this.parentElement.children[2].value = 
-
-	// change the opacity of the background
-	bgImg.style.opacity = 
-
-	// update values
-	jApp.nVals["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - keyup blur text input
-// - must be an integer between 0 and 10
-BGI.prototype.bText = function(){
-
-	// if there is no input, return 
-	if( !this.value) return;
-
-	// replace all non-numeric characters
-	this.value = this.value.replace('/[^\d]/g', '');
-
-	// if the value is greater than 10
-	if(parseInt(this.value) > 10)
-		// remove the last number
-		this.value = this.value.substr(0,1);
-
-	// update the slider input
-	this.parentElement.children[2].value = 
-
-	// update the nVals
-	jApp.nVals["blur"] = parseInt(this.value);
-
-	// set the blur
-	bgImg.style.filter = 
-	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
-}
-
 
 
 
@@ -470,8 +349,8 @@ CR = function(){
 
 	/* properties */
 
-	// keep track of the RRR obj (reposition, resize, rotate)
-	this.r = new RRR(cropCanvas.children[0]);
+	// keep track of the rr obj (reposition, resize, rotate)
+	this.r = new rr(cropCanvas.children[0]);
 	rMap.h[rMap.i++] = this.r;
 	rMap.a = this.r;
 
@@ -604,6 +483,22 @@ BGC = function(){
 		// add wheelBtn event
 		this.temp[i].addEventListener("click", this.wheelBtn, false);
 
+	// get the background image control panel inputs
+	this.temp = bgCpanels.children[2]
+					.getElementsByTagName("input");
+
+	// apply blur text input keyup event
+	this.temp[2].addEventListener("keyup", this.bText, false);
+
+	// apply blur slider event
+	this.temp[3].addEventListener("change", this.bSlide, false);
+
+	// apply opacity text input keyup event
+	this.temp[4].addEventListener("keyup", this.oText, false);
+
+	// apply opacity slider event
+	this.temp[5].addEventListener("change", this.oSlide, false);
+
 	// set the temp color
 	this.temp = "#FFFFFF";
 }
@@ -735,6 +630,111 @@ BGC.prototype.resetCanvas = function(){
 	cropCanvas.children[0].children[0].style.display = "none";
 	// show the draggable elements' canvas
 	dragCanvas.style.display = "block";
+}
+
+//-----------------------------------------------
+// - when user slides opacity slider
+BGC.prototype.oSlide = function(){
+
+	// set the value of the text input
+	this.parentElement.children[1].value = 
+
+	// change the opacity of the background img
+	bgImg.style.opacity = 
+
+	// update values
+	jApp.nVals["opacity"] = parseFloat(this.value);
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - when user slides blur slider
+BGC.prototype.bSlide = function(){
+
+	// set the value of the text input
+	this.parentElement.children[1].value = 
+
+	// update values
+	jApp.nVals["blur"] = parseInt(this.value);
+
+	// change the blur of the background img
+	bgImg.style.filter = 
+	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
+
+}
+
+//-----------------------------------------------
+// - keyup opacity text input
+BGC.prototype.oText = function(){ 
+
+	// if there is no input, return 
+	if( !this.value) return;
+
+	// if the value is not 1
+	if(this.value !== "1"){
+
+		// strip non numeric characters from the last 2 digits
+		this.value = this.value.replace(/[^\d.]/g, '');
+
+		// if the value of the first character is not 0
+		if( this.value.charAt(0) != "0" )
+
+			// pop a 0 in there
+			this.value = "0" + this.value;
+
+		// if the value of the second character is not "."
+		if( this.value.length > 1 && this.value.charAt(1) != "." )
+
+			// pop the decimal in there
+			this.value = "0." + this.value.substring(1, 3);
+	}
+
+	// update slider input
+	this.parentElement.children[2].value = 
+
+	// change the opacity of the background
+	bgImg.style.opacity = 
+
+	// update values
+	jApp.nVals["opacity"] = parseFloat(this.value);
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - keyup blur text input
+// - must be an integer between 0 and 10
+BGC.prototype.bText = function(){
+
+	// if there is no input, return 
+	if( !this.value) return;
+
+	// replace all non-numeric characters
+	this.value = this.value.replace('/[^\d]/g', '');
+
+	// if the value is greater than 10
+	if(parseInt(this.value) > 10)
+		// remove the last number
+		this.value = this.value.substr(0,1);
+
+	// update the slider input
+	this.parentElement.children[2].value = 
+
+	// update the nVals
+	jApp.nVals["blur"] = parseInt(this.value);
+
+	// set the blur
+	bgImg.style.filter = 
+	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
 }
 
 

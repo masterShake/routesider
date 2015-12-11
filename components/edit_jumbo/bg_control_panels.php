@@ -23,34 +23,17 @@
                 </div>
                 <div><b>Background</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-image" style="font-size:18px;margin-right:5px;"></div>
-                <div><b>Image</b></div>
+                <div class="icon-upload" style="font-size:18px;margin-right:5px;"></div>
+                <div><b>Upload</b></div>
             </div>
             <div class="popover-content">
-                <!-- background image blur -->
-                <div class="half-slider" style="padding-left:10px;float:right;">
-                    <label>
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                        blur
-                    </label>
-                    <input type="text" class="form-control" maxlength="2" value='<?= ($jumbo["blur"]) ?>'>
-                    <input type="range" class="range-slider" min="0" max="10" step="1" value='<?= ($jumbo["blur"]) ?>'>
-                </div>
-                <!-- background image opacity -->
-                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                    <label>
-                        <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-                        opacity
-                    </label>
-                    <input type="text" class="form-control" maxlength="4" value='<?= ($jumbo["opacity"]) ?>'>
-                    <input type="range" class="range-slider" min="0" max="1" step="0.01" value="<?= ($jumbo["opacity"]) ?>">
-                </div>
+                
             </div>
             <div class="arrow" style="left:20px"></div>
         </div><!-- /background image control panel -->
 
         <!-- crop background image control panel -->
-        <div class="popover top control-panel" style="max-width:250px;">
+        <div class="popover top control-panel" style="max-width:270px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
@@ -58,15 +41,11 @@
                 </div>
                 <div><b>Background</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="glyphicon glyphicon-scissors" style="font-size:18px;margin-right:5px;"></div>
-                <div><b>Crop</b></div>
+                <div class="icon-enlarge" style="font-size:17px;margin-top:1px;margin-right:5px;"></div>
+                <div><b>Position</b></div>
             </div>
             <div class="popover-content" style="text-align:center;">
-                <div class="btn btn-default btn-success" id="crop-btn">
-                    <div>
-                        <span class="glyphicon glyphicon-scissors"></span> Crop Image
-                    </div>
-                </div>
+
             </div>
             <div class="arrow" style="left:63px"></div>
         </div><!-- /crop background image control panel -->
@@ -182,6 +161,27 @@
                     </div>
                 </div><!-- /hexigon color wheel -->
 
+                <hr style="margin-top:13px;margin-bottom:15px;">
+
+                <!-- background image blur -->
+                <div class="half-slider" style="padding-left:10px;float:right;">
+                    <label>
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        blur
+                    </label>
+                    <input type="text" class="form-control" maxlength="2" value='<?= ($jumbo["blur"]) ?>'>
+                    <input type="range" class="range-slider" min="0" max="10" step="1" value='<?= ($jumbo["blur"]) ?>'>
+                </div>
+                <!-- background image opacity -->
+                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                    <label>
+                        <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+                        opacity
+                    </label>
+                    <input type="text" class="form-control" maxlength="4" value='<?= ($jumbo["opacity"]) ?>'>
+                    <input type="range" class="range-slider" min="0" max="1" step="0.01" value="<?= ($jumbo["opacity"]) ?>">
+                </div>
+
             </div>
             <div class="arrow" style="left:107px"></div>
         </div><!-- /backgroung color control panel -->
@@ -201,11 +201,11 @@
         <div class="btn-group opts-toolbar" role="group" aria-label="edit background toolbar">
             <!-- edit background image -->
             <button type="button" class="btn btn-default" data-panel="0" aria-label="edit background image">
-                <span class="icon-image"></span>
+                <span class="icon-upload"></span>
             </button><!-- /edit background image -->
             <!-- crop background image -->
             <button type="button" class="btn btn-default" data-panel="1" aria-label="crop image">
-                <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
+                <span class="icon-enlarge" aria-hidden="true"></span>
             </button>
             <!-- edit background color -->
             <div role="button" class="btn btn-default" data-panel="2" aria-label="edit background color">

@@ -1,16 +1,17 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?4fgfc0');
-	src:url('../fonts/icomoon.eot?4fgfc0#iefix') format('embedded-opentype'),
-		url('../fonts/icomoon.ttf?4fgfc0') format('truetype'),
-		url('../fonts/icomoon.woff?4fgfc0') format('woff'),
-		url('../fonts/icomoon.svg?4fgfc0#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?387ktx');
+	src:url('../fonts/icomoon.eot?387ktx#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.ttf?387ktx') format('truetype'),
+		url('../fonts/icomoon.woff?387ktx') format('woff'),
+		url('../fonts/icomoon.svg?387ktx#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
+    /* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -44,6 +45,9 @@
 .icon-mobile2:before {
 	content: "\e906";
 }
+.icon-upload:before {
+	content: "\e918";
+}
 .icon-quotes-left:before {
 	content: "\e907";
 }
@@ -51,45 +55,48 @@
 	content: "\e908";
 }
 .icon-enlarge:before {
-	content: "\e90f";
-}
-.icon-equalizer:before {
 	content: "\e909";
 }
-.icon-list-numbered:before {
+.icon-equalizer:before {
 	content: "\e90a";
 }
-.icon-list2:before {
+.icon-list-numbered:before {
 	content: "\e90b";
 }
-.icon-exit:before {
+.icon-list2:before {
 	content: "\e90c";
 }
-.icon-underline:before {
+.icon-upload3:before {
 	content: "\e90d";
 }
-.icon-strikethrough:before {
+.icon-exit:before {
 	content: "\e90e";
 }
-.icon-new-tab:before {
+.icon-underline:before {
+	content: "\e90f";
+}
+.icon-strikethrough:before {
 	content: "\e910";
 }
-.icon-google-plus2:before {
+.icon-page-break:before {
 	content: "\e911";
 }
-.icon-facebook2:before {
+.icon-google-plus2:before {
 	content: "\e912";
 }
-.icon-instagram:before {
+.icon-facebook2:before {
 	content: "\e913";
 }
-.icon-twitter2:before {
+.icon-instagram:before {
 	content: "\e914";
 }
-.icon-tumblr2:before {
+.icon-twitter:before {
 	content: "\e915";
 }
-.icon-linkedin:before {
+.icon-tumblr2:before {
 	content: "\e916";
+}
+.icon-linkedin:before {
+	content: "\e917";
 }
 

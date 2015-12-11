@@ -134,36 +134,21 @@ Jumbo = function(){
 	this.layout = null;
 
 	// temp variable
-	this.temp;
+	this.temp = null;
 
 	/* initializations */
+
+	// set the canvas dimensions based on initial window size 
+	this.setDims();
 
 	// init the layout view dropdown
 	layoutView.children[0].addEventListener("click", rsApp.toggleDropdown, false);
 
-	// set the canvas dimensions based on initial window size 
-	if(document.body.offsetWidth < 767){
-		jumboCanvas.className = 
-		this.layout = "mobile";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
-	}else if(document.body.offsetWidth < 992){
-		jumboCanvas.className = 
-		this.layout = "tablet";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
-	}else{
-		jumboCanvas.className
-		this.layout = "desktop";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
-	}
-
-	// set the canvas height
-	jumboCanvas.style.height = jumboCanvas.offsetWidth 
-
 	// init the scaling event listeners
-	this.temp = layoutView.getElementsByTagName("a");
-	this.temp[0].addEventListener("click", this.layout, false);
-	this.temp[1].addEventListener("click", this.layout, false);
-	this.temp[2].addEventListener("click", this.layout, false);
+	this.temp = layoutView.getElementsByTagName("a"); console.log(this.temp);
+	this.temp[0].addEventListener("click", this.lay, false);
+	this.temp[1].addEventListener("click", this.lay, false);
+	this.temp[2].addEventListener("click", this.lay, false);
 
 	// get all the toolbars, add actBtn event
 	this.temp = document.getElementsByClassName("tb"); // console.log(this.temp);
@@ -208,6 +193,24 @@ Jumbo = function(){
 }
 
 /* METHODS */
+
+//-----------------------------------------------
+// - set the dimensions of preview device view
+Jumbo.prototype.setDims = function(){
+	if(document.body.offsetWidth < 767){
+		jumboCanvas.className =
+		this.layout = "mobile";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
+	}else if(document.body.offsetWidth < 992){
+		jumboCanvas.className = 
+		this.layout = "tablet";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
+	}else{
+		jumboCanvas.className
+		this.layout = "desktop";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
+	}
+};
 
 //-----------------------------------------------
 // - event to add/remove active btn class
@@ -329,7 +332,7 @@ Jumbo.prototype.jumboVis = function(){
 
 //-----------------------------------------------
 // - change device layout click event
-Jumbo.prototype.layout = function(e){ e.preventDefault();
+Jumbo.prototype.lay = function(e){ e.preventDefault();
 
 	// set the icon
 	layoutView.children[0].children[0].className = this.children[0].className;
@@ -517,21 +520,29 @@ cModal.prototype.launch = function(){
 	
 	// fade in
 	setTimeout(jApp.modal.fadeIn, 10);
+	
+	// drop modal on em
+	setTimeout(jApp.modal.dropIn, 130);
 }
 
 //-----------------------------------------------
-// - animate in
+// - modal in from top
 cModal.prototype.fadeIn = function(){
 
 	// prevent scrolling on the body
 	document.body.className = "modal-open";
 
-	// set the modal class
-	confModal.className = "modal fade in";
-
 	// set the backdrop class
 	confBD.className = "modal-backdrop fade in";
 
+}
+
+//-----------------------------------------------
+// - modal in from top
+cModal.prototype.dropIn = function(){
+
+	// set the modal class
+	confModal.className = "modal fade in";
 }
 
 //-----------------------------------------------

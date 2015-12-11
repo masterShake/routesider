@@ -242,17 +242,6 @@
 	  crop image
 ----------------------*/
 
-#crop-btn{
-	padding: 5px;
-}
-#crop-btn>div{
-	border: 2px dashed #3c763d;
-	padding: 4px 12px;
-	font-weight: 600;
-}
-#crop-btn span{
-	padding-right: 5px;
-}
 /* background image */
 #bgImg{
 	width: 100%;

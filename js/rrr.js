@@ -1,19 +1,19 @@
 
 //-----------------------------------------------
-// - closure hashmap to hold RRR objects
+// - closure hashmap to hold rr objects
 var r = function(){
 	
 	// indexer
 	this.i = 0;
 
-	// hashmap of the RRR objects
+	// hashmap of the rr objects
 	this.h = {};
 
-	// active RRR object
+	// active rr object
 	this.a = null;
 
 	// client has mouse
-	this.hs = false;
+	this.hs = true; // should be initially set to false
 
 	// add event listener
 	document.addEventListener('mousemove', this.mt, false);
@@ -22,7 +22,7 @@ var r = function(){
 //-----------------------------------------------
 // - mouse trap, determine if user has mouse
 r.prototype.mt = function(e){
-  document.removeEventListener('mousemove', rMap.a.m.hs, false);
+  document.removeEventListener('mousemove', rMap.mt, false);
   rMap.a.hs = true;
 }
 
@@ -31,7 +31,7 @@ var rMap = new r();
 
 
 //-----------------------------------------------
-//       RRR (resize, reposition, rotate)
+//       rr (resize, reposition, rotate)
 //     ------------------------------------
 //
 // - uses hammer js to detect touch events
@@ -45,7 +45,7 @@ var rMap = new r();
 //
 // - @ el => parent of .drag-btns
 //
-var RRR = function(el){
+var rr = function(el){
 
 	/* properties */
 
@@ -73,8 +73,11 @@ var RRR = function(el){
     // initial angle
     this.ia = 0;
 
-    // set the mouse object
-    this.m = new mau5(this.el);
+    // if the user has a mouse
+    if(rMap.hs)
+    	// set the mouse object
+    	rMap.m = 
+    	this.m = new mau5(this.el);
 
     /* initializations */
 
@@ -104,7 +107,7 @@ var RRR = function(el){
 
 //-----------------------------------------------
 // - update element css transform properties
-RRR.prototype.update = function (){ // console.log(this.transform.scale);
+rr.prototype.update = function (){ // console.log(this.transform.scale);
     
     // set the element transform styles
     this.el.style.webkitTransform =
@@ -117,11 +120,17 @@ RRR.prototype.update = function (){ // console.log(this.transform.scale);
 
  	// reset the ticker
     this.ticking = false;
+
+    // set the new vals
+    jApp.nVals.layouts[jApp.layout] = this.transform;
+
+    // prompt user to save
+    jApp.deltaVals();
 }
 
 //-----------------------------------------------
 // - race conditions trigger, request an update
-RRR.prototype.reqUpdate = function(){
+rr.prototype.reqUpdate = function(){
 	if(!this.ticking){
 		this.ticking = true;
 		this.update();
@@ -130,7 +139,7 @@ RRR.prototype.reqUpdate = function(){
 
 //-----------------------------------------------
 // - pan touch
-RRR.prototype.pan = function(e){ e.preventDefault();
+rr.prototype.pan = function(e){ e.preventDefault();
 
 	// set the translate object props
 	rMap.a.transform.x = rMap.a.x + e.deltaX;
@@ -142,7 +151,7 @@ RRR.prototype.pan = function(e){ e.preventDefault();
 
 //-----------------------------------------------
 // - user stops panning, reset the data
-RRR.prototype.panEnd = function(e){
+rr.prototype.panEnd = function(e){
 
 	// set the new starting position
 	rMap.a.x = rMap.a.x + e.deltaX;
@@ -151,8 +160,8 @@ RRR.prototype.panEnd = function(e){
 
 //-----------------------------------------------
 // - rotate touch
-// - uses RRR.ia (inital angle) property
-RRR.prototype.rotate = function(e){
+// - uses rr.ia (inital angle) property
+rr.prototype.rotate = function(e){
 
 	if(e.type == "rotatestart")
 		rMap.a.ia = rMap.a.transform.angle;
@@ -164,8 +173,8 @@ RRR.prototype.rotate = function(e){
 
 //-----------------------------------------------
 // - pinch touch
-// - uses RRR.is (initial scale) property
-RRR.prototype.pinch = function(e){
+// - uses rr.is (initial scale) property
+rr.prototype.pinch = function(e){
 
 		if(e.type == "pinchstart")
 			rMap.a.is = rMap.a.transform.scale;
@@ -240,7 +249,7 @@ var mau5 = function(el){
 mau5.prototype.resize = function(e){
 
 	// get the starting position of the mouse
-	rMap.a.m.p = {
+	rMap.m.p = {
     	ix : e.pageX, 		  // initial mouse position
     	iy : e.pageY,
     	iw : this.parentElement.offsetWidth, // initial dimensions
@@ -255,13 +264,13 @@ mau5.prototype.resize = function(e){
     rMap.a.is = rMap.a.transform.scale;
 
 	// set the correct directional event
-	document.addEventListener("mousemove", rMap.a.m[this.dataset.de], false);
+	document.addEventListener("mousemove", rMap.m[this.dataset.de], false);
 
 	// set resize x,y position event
-	document.addEventListener("mousemove", rMap.a.m.xy, false);
+	document.addEventListener("mousemove", rMap.m.xy, false);
 
 	// set resize complete event
-	document.addEventListener("mouseup", rMap.a.m.resizeEnd, false);
+	document.addEventListener("mouseup", rMap.m.resizeEnd, false);
 }
 
 //-----------------------------------------------
@@ -269,15 +278,15 @@ mau5.prototype.resize = function(e){
 mau5.prototype.d = function(e){
 
 	// if weighted deltaX > weighted deltaY
-	if( (rMap.a.m.p.ix - e.pageX) > rMap.a.ratio * (rMap.a.m.p.iy - e.pageY) )
+	if( (rMap.m.p.ix - e.pageX) > rMap.a.ratio * (rMap.m.p.iy - e.pageY) )
 
 		// scale by width (horizontally)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dx * (rMap.a.m.p.ix - e.pageX) + rMap.a.m.p.iw)/rMap.a.m.p.iw);
+		rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dx * (rMap.m.p.ix - e.pageX) + rMap.m.p.iw)/rMap.m.p.iw);
 
 	else
 
 		// scale by height (vertically)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dy * (rMap.a.m.p.iy - e.pageY) + rMap.a.m.p.ih)/rMap.a.m.p.ih);
+		rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dy * (rMap.m.p.iy - e.pageY) + rMap.m.p.ih)/rMap.m.p.ih);
 }
 
 //-----------------------------------------------
@@ -285,7 +294,7 @@ mau5.prototype.d = function(e){
 mau5.prototype.h = function(e){ 
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dx * (rMap.a.m.p.ix - e.pageX) + rMap.a.m.p.iw)/rMap.a.m.p.iw);
+	rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dx * (rMap.m.p.ix - e.pageX) + rMap.m.p.iw)/rMap.m.p.iw);
 
 	// update
 	rMap.a.reqUpdate();
@@ -296,7 +305,7 @@ mau5.prototype.h = function(e){
 mau5.prototype.v = function(e){
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.a.m.p.Dy * (rMap.a.m.p.iy - e.pageY) + rMap.a.m.p.ih)/rMap.a.m.p.ih);
+	rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dy * (rMap.m.p.iy - e.pageY) + rMap.m.p.ih)/rMap.m.p.ih);
 
 	// update
 	rMap.a.reqUpdate();
@@ -307,8 +316,8 @@ mau5.prototype.v = function(e){
 mau5.prototype.xy = function(e){
 
 	// calculate the movements
-	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.a.m.p.Fx;
-	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.a.m.p.Fy;
+	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.m.p.Fx;
+	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.m.p.Fy;
 
 	// update
 	rMap.a.reqUpdate();
@@ -320,10 +329,10 @@ mau5.prototype.xy = function(e){
 mau5.prototype.resizeEnd = function(e){
 
 	// remove the mousemove event
-	document.removeEventListener('mousemove', rMap.a.m.h, false);
-	document.removeEventListener('mousemove', rMap.a.m.v, false);
-	document.removeEventListener('mousemove', rMap.a.m.d, false);
-	document.removeEventListener('mousemove', rMap.a.m.xy, false);
+	document.removeEventListener('mousemove', rMap.m.h, false);
+	document.removeEventListener('mousemove', rMap.m.v, false);
+	document.removeEventListener('mousemove', rMap.m.d, false);
+	document.removeEventListener('mousemove', rMap.m.xy, false);
 	// remove the mouseup event
 	document.removeEventListener('mouseup', rMap.a.resizeEnd, false);
 
@@ -340,20 +349,20 @@ mau5.prototype.rotateMD = function(e){
 	rMap.a.ia = rMap.a.transform.angle;
 
 	// get the object m.c relative to the window
-	rMap.a.m.c = rMap.a.el.children[1].getBoundingClientRect(); 
-	rMap.a.m.c = {
-		x : (rMap.a.m.c.left + rMap.a.m.c.width/2),
-		y : (rMap.a.m.c.top + rMap.a.m.c.height/2)
+	rMap.m.c = rMap.a.el.children[1].getBoundingClientRect(); 
+	rMap.m.c = {
+		x : (rMap.m.c.left + rMap.m.c.width/2),
+		y : (rMap.m.c.top + rMap.m.c.height/2)
 	};
 
 	// get the initial client angle relative mouse client x,y
-	rMap.a.m.ima = Math.atan2(e.clientY - rMap.a.m.c.y, e.clientX - rMap.a.m.c.x); // * 180 / Math.PI;
+	rMap.m.ima = Math.atan2(e.clientY - rMap.m.c.y, e.clientX - rMap.m.c.x); // * 180 / Math.PI;
 
-	// console.log('Here is the initial radian value: ' + rMap.a.m.ia);
+	// console.log('Here is the initial radian value: ' + rMap.m.ia);
 
 	// add the event listeners
-	document.addEventListener('mousemove', rMap.a.m.rotateMM, false);
-	document.addEventListener('mouseup', rMap.a.m.rotateMU, false);
+	document.addEventListener('mousemove', rMap.m.rotateMM, false);
+	document.addEventListener('mouseup', rMap.m.rotateMU, false);
 }
 
 //-----------------------------------------------
@@ -372,8 +381,8 @@ mau5.prototype.rotateMM = function(e){
 	// new angle
 	rMap.a.transform.angle = rMap.a.ia + 
 							 (
-							 	( 	rMap.a.m.ima - 
-							 		Math.atan2(	e.clientY - rMap.a.m.c.y, e.clientX - rMap.a.m.c.x)
+							 	( 	rMap.m.ima - 
+							 		Math.atan2(	e.clientY - rMap.m.c.y, e.clientX - rMap.m.c.x)
 							 	) * -180 / Math.PI
 							 );
 	// reqUpdate
@@ -384,10 +393,10 @@ mau5.prototype.rotateMM = function(e){
 // - mouseup end rotation
 mau5.prototype.rotateMU = function(e){
 
-	console.log(rMap.a.m.transform);
+	console.log(rMap.m.transform);
 
 	// remove the event listeners
-	document.removeEventListener('mousemove', rMap.a.m.rotateMM, false);
+	document.removeEventListener('mousemove', rMap.m.rotateMM, false);
 	document.removeEventListener('mousemove', rMap.a.mrotateMU, false);
 }
 
