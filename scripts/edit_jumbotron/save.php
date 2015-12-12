@@ -55,21 +55,19 @@ if(Input::exists()){
         "m.x= {$jumbo->layouts->mobile->x}, ".
         "m.y= {$jumbo->layouts->mobile->y}, ".
         "m.scale= {$jumbo->layouts->mobile->scale}, ".
-        "m.angle= {$jumbo->layouts->mobile->angle}";
-        // "t.x={$jumbo->layouts->tablet->x}, ".
-        // "t.y={$jumbo->layouts->tablet->y}, ".
-        // "t.scale={$jumbo->layouts->tablet->scale}, ".
-        // "t.angle={$jumbo->layouts->tablet->angle}, ".
-        // "d.x={$jumbo->layouts->desktop->x}, ".
-        // "d.y={$jumbo->layouts->desktop->y}, ".
-        // "d.scale={$jumbo->layouts->desktop->scale}, ".
-        // "d.angle={$jumbo->layouts->desktop->angle}, ".
+        "m.angle= {$jumbo->layouts->mobile->angle}, ".
+        "t.x= {$jumbo->layouts->tablet->x}, ".
+        "t.y= {$jumbo->layouts->tablet->y}, ".
+        "t.scale= {$jumbo->layouts->tablet->scale}, ".
+        "t.angle= {$jumbo->layouts->tablet->angle}, ".
+        "d.x= {$jumbo->layouts->desktop->x}, ".
+        "d.y= {$jumbo->layouts->desktop->y}, ".
+        "d.scale= {$jumbo->layouts->desktop->scale}, ".
+        "d.angle= {$jumbo->layouts->desktop->angle}";
 
         $db = neoDB::getInstance();
 
         $db->q($cypher);
-
-        print_r($jumbo);
 
         exit("1");
     }

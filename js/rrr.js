@@ -26,6 +26,30 @@ r.prototype.mt = function(e){
   rMap.a.hs = true;
 }
 
+//-----------------------------------------------
+// - set inline transform styles from all rr
+//   objects based on layout
+r.prototype.setStyles = function(){ console.log(jApp.layout);
+
+	// if mobile
+	if(jApp.layout == 'mobile')
+		jApp.temp = document.styleSheets[7].rules[0].style.transform;
+	// if tablet
+	else if(jApp.layout == 'tablet')
+		jApp.temp = document.styleSheets[7].rules[1].cssRules[0].style.transform;
+	// if desktop
+	else if(jApp.layout == 'desktop')
+		jApp.temp = document.styleSheets[7].rules[2].cssRules[0].style.transform;
+
+	// loop through the hashmap
+	for(var x in this.h){
+		// set the inline style
+		this.h[x].el.style.transform = jApp.temp;
+		// set the transform object
+		this.h[x].extractMatrix();
+	}
+}
+
 // init
 var rMap = new r();
 
@@ -143,6 +167,9 @@ rr.prototype.extractMatrix = function(){
 // - update element css transform properties
 rr.prototype.update = function (){ // console.log(this.transform.scale);
     
+	// change the css rule
+	// document.styleSheets[7].rules[0].style.transform = 
+
     // set the element transform styles
     this.el.style.webkitTransform =
     this.el.style.mozTransform =
@@ -154,12 +181,6 @@ rr.prototype.update = function (){ // console.log(this.transform.scale);
 
  	// reset the ticker
     this.ticking = false;
-
-    // set the new vals
-    jApp.nVals.layouts[jApp.layout] = this.transform;
-
-    // prompt user to save
-    jApp.deltaVals();
 }
 
 //-----------------------------------------------
@@ -185,11 +206,23 @@ rr.prototype.pan = function(e){ e.preventDefault();
 
 //-----------------------------------------------
 // - user stops panning, reset the data
-rr.prototype.panEnd = function(e){
+rr.prototype.panEnd = function(e){ console.log('pan end'); console.log(jApp.layout);
 
 	// set the new starting position
 	rMap.a.x = rMap.a.x + e.deltaX;
 	rMap.a.y = rMap.a.y + e.deltaY;
+
+	// set the css stylesheet
+	rMap.a.setStyleSheet();
+
+ 	// remove the inline style
+ 	// rMap.a.el.removeAttribute('style');
+
+    // set the new vals
+    jApp.nVals.layouts[jApp.layout] = rMap.a.transform;
+
+    // prompt user to save
+    jApp.deltaVals(); console.log(jApp.nVals.layouts);
 }
 
 //-----------------------------------------------
@@ -218,7 +251,34 @@ rr.prototype.pinch = function(e){
 	    rMap.a.reqUpdate();
 }
 
+//-----------------------------------------------
+// - set the stylesheet rule based on preview layout
+rr.prototype.setStyleSheet = function(){
+	
+	// if mobile
+	if(jApp.layout == 'mobile'){
+		document.styleSheets[7].rules[0].style.transform = 
+			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
+	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	}
 
+	// if tablet
+	else if(jApp.layout == 'tablet'){
+		document.styleSheets[7].rules[1].cssRules[0].style.transform =
+			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
+	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	}
+
+	// if desktop
+	else if(jApp.layout == 'desktop'){
+		document.styleSheets[7].rules[2].cssRules[0].style.transform = 
+			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
+	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	}
+}
 
 
 

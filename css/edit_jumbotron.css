@@ -185,9 +185,11 @@
 ----------------------*/
 
 /* bg image container */
-/*#cropCanvas>div{
+#cropCanvas>div{
+	position: absolute;
+	width: 100%;
 }
-*/
+
 /*----------------------
 	bg img canvas
 ----------------------*/

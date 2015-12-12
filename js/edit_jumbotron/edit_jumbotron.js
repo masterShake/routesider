@@ -360,6 +360,8 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 	// change the dropdown text
 	layoutView.children[0].children[1].children[0].innerHTML = this.dataset.layout;
 
+	// set the style of the rr object
+	rMap.setStyles();
 }
 
 //-----------------------------------------------

@@ -53,36 +53,35 @@
         <link href="css/drag_btns.css" rel="stylesheet">
         <link href="css/edit_jumbotron.css" rel="stylesheet">
 
-        <!-- php dynamic styles (must be last style sheet) -->
+        <!-- php output user set dynamic styles -->
         <style>
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                
-    position: absolute;
-    /*width: 100%;*/
-                transform: translate(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px,<?= $jumbo["layouts"]["mobile"]["y"]; ?>px) rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>,<?= $jumbo["layouts"]["mobile"]["scale"]; ?>);
+                transform: translate(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px,<?= $jumbo["layouts"]["mobile"]["y"]; ?>px) 
+                           rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) 
+                           scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>,<?= $jumbo["layouts"]["mobile"]["scale"]; ?>);
             }
 
             /* Small devices (tablets, 768px and up) */
-           /* @media (min-width: @screen-sm-min) {
+            @media (min-width: 768px) {
 
                 #cropCanvas>div{
                     transform: translate(<?= $jumbo["layouts"]["tablet"]["x"]; ?>px,<?= $jumbo["layouts"]["tablet"]["y"]; ?>px) 
                                rotate3d(0,0,1,<?= $jumbo["layouts"]["tablet"]["angle"]; ?>deg) 
                                scale(<?= $jumbo["layouts"]["tablet"]["scale"]; ?>,<?= $jumbo["layouts"]["tablet"]["scale"]; ?>);
                 }
-            }*/
+            }
 
             /* Large devices (large desktops, 1200px and up) */
-            /*@media (min-width: @screen-lg-min) {
+            @media (min-width: 1200px) {
 
                 #cropCanvas>div{
                     transform: translate(<?= $jumbo["layouts"]["desktop"]["x"]; ?>px,<?= $jumbo["layouts"]["desktop"]["y"]; ?>px) 
                                rotate3d(0,0,1,<?= $jumbo["layouts"]["desktop"]["angle"]; ?>deg) 
                                scale(<?= $jumbo["layouts"]["desktop"]["scale"]; ?>,<?= $jumbo["layouts"]["desktop"]["scale"]; ?>);
                 }
-            }*/
+            }
 
         </style>
 
