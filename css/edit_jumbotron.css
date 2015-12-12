@@ -8,9 +8,12 @@
 		canvas		  
 ----------------------*/
 
-/* canvas title */
-#canvas-title{
-	margin-top: 0px;
+/* canvas layout title */
+#layoutTitle{
+	float:right;
+}
+#layoutTitle span{
+	padding-left: 5px;
 }
 /* main canvas elem */
 #jumboCanvas{
@@ -56,7 +59,7 @@
 ----------------------*/
 
 #jumbo-toolbar{
-	padding:12px;
+	padding:12px 0;
 	background-color: #d6e9c6;
 	box-shadow: 0 0 6px #676767;
 	margin-bottom: 20px;
@@ -166,6 +169,9 @@
 	padding: 0px 6px;
 	color: #5CB85C;
 }
+.conrol-panel .popover-content{
+	max-width: 100%;
+}
 .conrol-panel .popover-content hr{
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -174,6 +180,14 @@
 	position: relative;
 }
 
+/*----------------------
+	  crop canvas
+----------------------*/
+
+/* bg image container */
+/*#cropCanvas>div{
+}
+*/
 /*----------------------
 	bg img canvas
 ----------------------*/
@@ -377,4 +391,27 @@ tbody button.btn-color-selected{
     -ms-transform: translate(0,60px);
     -o-transform: translate(0,60px);
     transform: translate(0,60px);
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+	#layoutTitle{
+		margin-right: calc(50% - 50px);
+	}
+
+	#jumbo-toolbar .btn{
+		margin-right: 8px;
+		border-radius: 6px !important;
+	}
+
+	#bgCpanels .left-panel{
+	    border-right: 1px solid #ccc;
+	    padding-right: 30px;
+	}
+	#bgCpanels .half-slider{
+		height: 99px;
+		padding-top: 19px;
+	}
 }

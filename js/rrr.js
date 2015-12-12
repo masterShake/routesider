@@ -136,16 +136,7 @@ rr.prototype.extractMatrix = function(){
 
 	// get the angle
 	this.ia = 
-	this.transform.angle = Math.round(Math.asin(this.ia[1]/this.is) * (180/Math.PI)); console.log(this.transform);
-
-	// set the element transform styles
-    this.el.style.webkitTransform =
-    this.el.style.mozTransform =
-    this.el.style.transform =
-
-	    'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
-	    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
- 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	this.transform.angle = Math.round(Math.asin(this.ia[1]/this.is) * (180/Math.PI));
 }
 
 //-----------------------------------------------
@@ -435,8 +426,6 @@ mau5.prototype.rotateMM = function(e){
 //-----------------------------------------------
 // - mouseup end rotation
 mau5.prototype.rotateMU = function(e){
-
-	console.log(rMap.m.transform);
 
 	// remove the event listeners
 	document.removeEventListener('mousemove', rMap.m.rotateMM, false);

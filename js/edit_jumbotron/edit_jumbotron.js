@@ -130,8 +130,8 @@ Jumbo = function(){
 	// keep track of active control panel
 	this.panel = -1;
 
-	// keep track of active layout
-	this.layout = null;
+	// keep track of active layout, default mobile
+	this.layout = 'mobile';
 
 	// temp variable
 	this.temp = null;
@@ -169,7 +169,7 @@ Jumbo = function(){
 		.addEventListener("change", this.jumboVis, false);
 
 	// get the jumbo toolbar btns
-	this.temp = document.getElementById("jumbo-toolbar").children[1].children;
+	this.temp = document.getElementById("jumbo-toolbar").children[0].children[1].children;
 	// apply the event listeners to jumbo toolbar
 	this.temp[0].addEventListener("click", this.togOpts, false);
 	this.temp[1].addEventListener("click", this.togOpts, false);
@@ -196,19 +196,26 @@ Jumbo = function(){
 
 //-----------------------------------------------
 // - set the dimensions of preview device view
+// - default mobile view
 Jumbo.prototype.setDims = function(){
 	if(document.body.offsetWidth < 767){
-		jumboCanvas.className =
-		this.layout = "mobile";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
 	}else if(document.body.offsetWidth < 992){
 		jumboCanvas.className = 
-		this.layout = "tablet";
+		this.layout = 
+		layoutTitle.children[1].innerHTML = 
+		layoutView.children[0].children[1].children[0].innerHTML = "tablet";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
+		layoutTitle.children[0].className = 
+		layoutView.children[0].children[0].className = "icon-mobile2";
 	}else{
 		jumboCanvas.className
-		this.layout = "desktop";
+		this.layout = 
+		layoutTitle.children[1].innerHTML = 
+		layoutView.children[0].children[1].children[0].innerHTML = "desktop";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
+		layoutTitle.children[0].className = 
+		layoutView.children[0].children[0].className = "icon-laptop";
 	}
 };
 
@@ -334,7 +341,8 @@ Jumbo.prototype.jumboVis = function(){
 // - change device layout click event
 Jumbo.prototype.lay = function(e){ e.preventDefault();
 
-	// set the icon
+	// set the icons
+	layoutTitle.children[0].className = 
 	layoutView.children[0].children[0].className = this.children[0].className;
 
 	// change the aspect ratio
@@ -344,7 +352,13 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 	jApp.layout = 
 
 	// change the class/scale
-	jumboCanvas.className = this.dataset.layout;
+	jumboCanvas.className = 
+
+	// change the title text
+	layoutTitle.children[1].innerHTML = 
+
+	// change the dropdown text
+	layoutView.children[0].children[1].children[0].innerHTML = this.dataset.layout;
 
 }
 

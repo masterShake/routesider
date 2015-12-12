@@ -58,18 +58,31 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                width:100%;
-                position: absolute;
+                
+    position: absolute;
+    /*width: 100%;*/
                 transform: translate(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px,<?= $jumbo["layouts"]["mobile"]["y"]; ?>px) rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>,<?= $jumbo["layouts"]["mobile"]["scale"]; ?>);
-
-                           /*
-                -webkit-transform: translate3d(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px, <?= $jumbo["layouts"]["mobile"]["y"]; ?>px, 0)
-                           scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>px, <?= $jumbo["layouts"]["mobile"]["scale"]; ?>px)
-                           rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg);
-                -moz-transform: translate3d(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px, <?= $jumbo["layouts"]["mobile"]["y"]; ?>px, 0)
-                           scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>px, <?= $jumbo["layouts"]["mobile"]["scale"]; ?>px)
-                           rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg);*/
             }
+
+            /* Small devices (tablets, 768px and up) */
+           /* @media (min-width: @screen-sm-min) {
+
+                #cropCanvas>div{
+                    transform: translate(<?= $jumbo["layouts"]["tablet"]["x"]; ?>px,<?= $jumbo["layouts"]["tablet"]["y"]; ?>px) 
+                               rotate3d(0,0,1,<?= $jumbo["layouts"]["tablet"]["angle"]; ?>deg) 
+                               scale(<?= $jumbo["layouts"]["tablet"]["scale"]; ?>,<?= $jumbo["layouts"]["tablet"]["scale"]; ?>);
+                }
+            }*/
+
+            /* Large devices (large desktops, 1200px and up) */
+            /*@media (min-width: @screen-lg-min) {
+
+                #cropCanvas>div{
+                    transform: translate(<?= $jumbo["layouts"]["desktop"]["x"]; ?>px,<?= $jumbo["layouts"]["desktop"]["y"]; ?>px) 
+                               rotate3d(0,0,1,<?= $jumbo["layouts"]["desktop"]["angle"]; ?>deg) 
+                               scale(<?= $jumbo["layouts"]["desktop"]["scale"]; ?>,<?= $jumbo["layouts"]["desktop"]["scale"]; ?>);
+                }
+            }*/
 
         </style>
 
@@ -126,7 +139,9 @@
             <div class="container">
 
                 <!-- canvas title -->
-                <h3 id="canvas-title">Preview:</h3>
+                <h3 style="margin-top:0px;">Preview: 
+                    <span id="layoutTitle"><div class="icon-mobile" style="float:left;margin-top:2px;"></div><span>mobile</span></span>
+                </h3>
 
                 <!-- jumboCanvas -->
                 <!-- class = "mobile" || "tablet" || "laptop" -->
@@ -258,78 +273,81 @@
             </div><!-- /canvasses & control panels .container -->
 
             <!-- jumbo toolbar -->
-            <div id="jumbo-toolbar" class="container">
+            <div id="jumbo-toolbar">
+                <div class="container" >
 
-                <!-- device layout dropdown -->
-                <div class="dropup" id="layoutView">
-                    <div aria-haspopup="true" aria-expanded="true" role="button">
-                        <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
-                        <div style="padding-top:12px;float:right;">
-                            <span class="hidden-xs">mobile</span>
-                            <span class="caret"></span>
+                    <!-- device layout dropdown -->
+                    <div class="dropup" id="layoutView">
+                        <div aria-haspopup="true" aria-expanded="true" role="button">
+                            <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
+                            <div style="padding-top:12px;float:right;">
+                                <span class="hidden-xs" style="padding-left:6px;">mobile</span>
+                                <span class="caret"></span>
+                            </div>
                         </div>
-                    </div>
-                    <ul class="dropdown-menu" aria-labelledby="layout-view">
-                        <li class="dropdown-header">Layout View</li>
-                        <li role="separator" class="divider"></li>
-                        <li class="list-group-item">
-                            <!-- data-layout = jumboCanvas classname -->
-                            <!-- data-h = canvas height -->
-                            <a href="#" data-layout="mobile" data-h="1.42">
-                                <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#" data-layout="tablet" data-h="1.06">
-                                <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#" data-layout="desktop" data-h="0.54" style="border-bottom: 0px;">
-                                <span class="icon-laptop"></span>&nbsp;&nbsp;PC
-                            </a>
-                        </li>
-                    </ul>
-                </div><!-- /device layout dropdown -->
+                        <ul class="dropdown-menu" aria-labelledby="layout-view">
+                            <li class="dropdown-header">Layout View</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="list-group-item">
+                                <!-- data-layout = jumboCanvas classname -->
+                                <!-- data-h = canvas height -->
+                                <a href="#" data-layout="mobile" data-h="1.42">
+                                    <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#" data-layout="tablet" data-h="1.06">
+                                    <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#" data-layout="desktop" data-h="0.54" style="border-bottom: 0px;">
+                                    <span class="icon-laptop"></span>&nbsp;&nbsp;desktop
+                                </a>
+                            </li>
+                        </ul>
+                    </div><!-- /device layout dropdown -->
                 
-                <!-- components toolbar -->
-                <div class="btn-group btn-group-lg tb" role="group" aria-label="components toolbar">
-                    <!-- edit background -->
-                    <div role="button"
-                         class="btn btn-default"
-                         data-comp="bg" 
-                         aria-label="edit background">
-                        <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
-                            <span class="icon-image" aria-hidden="true"></span>
+                    <!-- components toolbar -->
+                    <div class="btn-group btn-group-lg tb" role="group" aria-label="components toolbar">
+                        <!-- edit background -->
+                        <div role="button"
+                             class="btn btn-default"
+                             data-comp="bg" 
+                             aria-label="edit background">
+                            <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
+                                <span class="icon-image" aria-hidden="true"></span>
+                            </div>
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </div>
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </div>
-                    <!-- add textbox -->
-                    <div role="button"
-                         class="btn btn-default" 
-                         data-comp="text" 
-                         aria-label="add textbox">
-                        <div class="dash-box" aria-hidden="true">Aa</div>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </div>
-                    <!-- add image overlay -->
-                    <div role="button"
-                         class="btn btn-default" 
-                         data-comp="img" 
-                         aria-label="add image overlay">
-                        <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </div>
-                    <!-- add button -->
-                    <div class="btn btn-default" 
-                         data-comp="btns" 
-                         aria-label="add button">
-                        <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        <!-- add textbox -->
+                        <div role="button"
+                             class="btn btn-default" 
+                             data-comp="text" 
+                             aria-label="add textbox">
+                            <div class="dash-box" aria-hidden="true">Aa</div>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </div>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </div>
-                </div><!-- /components toolbar -->
+                        <!-- add image overlay -->
+                        <div role="button"
+                             class="btn btn-default" 
+                             data-comp="img" 
+                             aria-label="add image overlay">
+                            <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </div>
+                        <!-- add button -->
+                        <div class="btn btn-default" 
+                             data-comp="btns" 
+                             aria-label="add button">
+                            <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                            </div>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </div>
+                    </div><!-- /components toolbar -->
+                
+                </div><!-- /container -->
             </div><!-- /jumbo-toolbar -->
 
             <!-- save button -->

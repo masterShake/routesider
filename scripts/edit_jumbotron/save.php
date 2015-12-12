@@ -69,6 +69,8 @@ if(Input::exists()){
 
         $db->q($cypher);
 
+        print_r($jumbo);
+
         exit("1");
     }
 }
