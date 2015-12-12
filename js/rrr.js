@@ -33,13 +33,13 @@ r.prototype.setStyles = function(){ console.log(jApp.layout);
 
 	// if mobile
 	if(jApp.layout == 'mobile')
-		jApp.temp = document.styleSheets[7].rules[0].style.transform;
+		jApp.temp = document.styleSheets[7].cssRules[0].style.transform;
 	// if tablet
 	else if(jApp.layout == 'tablet')
-		jApp.temp = document.styleSheets[7].rules[1].cssRules[0].style.transform;
+		jApp.temp = document.styleSheets[7].cssRules[1].cssRules[0].style.transform;
 	// if desktop
 	else if(jApp.layout == 'desktop')
-		jApp.temp = document.styleSheets[7].rules[2].cssRules[0].style.transform;
+		jApp.temp = document.styleSheets[7].cssRules[2].cssRules[0].style.transform;
 
 	// loop through the hashmap
 	for(var x in this.h){
@@ -101,10 +101,10 @@ var rr = function(el){
     this.extractMatrix();
 
     // if the user has a mouse
-    if(rMap.hs)
-    	// set the mouse object
-    	rMap.m = 
-    	this.m = new mau5(this.el);
+    // if(rMap.hs)
+    // 	// set the mouse object
+    // 	rMap.m = 
+    // 	this.m = new mau5(this.el);
 
     /* initializations */
 
@@ -206,23 +206,22 @@ rr.prototype.pan = function(e){ e.preventDefault();
 
 //-----------------------------------------------
 // - user stops panning, reset the data
-rr.prototype.panEnd = function(e){ console.log('pan end'); console.log(jApp.layout);
+rr.prototype.panEnd = function(e){ 
 
 	// set the new starting position
 	rMap.a.x = rMap.a.x + e.deltaX;
 	rMap.a.y = rMap.a.y + e.deltaY;
 
+ 	jApp.nVals.layouts[jApp.layout].x = rMap.a.transform.x;
+ 	jApp.nVals.layouts[jApp.layout].y = rMap.a.transform.y;
+ 	jApp.nVals.layouts[jApp.layout].scale = rMap.a.transform.scale;
+ 	jApp.nVals.layouts[jApp.layout].angle = rMap.a.transform.angle;
+
 	// set the css stylesheet
 	rMap.a.setStyleSheet();
 
- 	// remove the inline style
- 	// rMap.a.el.removeAttribute('style');
-
-    // set the new vals
-    jApp.nVals.layouts[jApp.layout] = rMap.a.transform;
-
-    // prompt user to save
-    jApp.deltaVals(); console.log(jApp.nVals.layouts);
+	// values changed
+	jApp.deltaVals();
 }
 
 //-----------------------------------------------
@@ -257,7 +256,7 @@ rr.prototype.setStyleSheet = function(){
 	
 	// if mobile
 	if(jApp.layout == 'mobile'){
-		document.styleSheets[7].rules[0].style.transform = 
+		document.styleSheets[7].cssRules[0].style.transform = 
 			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
@@ -265,7 +264,7 @@ rr.prototype.setStyleSheet = function(){
 
 	// if tablet
 	else if(jApp.layout == 'tablet'){
-		document.styleSheets[7].rules[1].cssRules[0].style.transform =
+		document.styleSheets[7].cssRules[1].cssRules[0].style.transform =
 			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
@@ -273,7 +272,7 @@ rr.prototype.setStyleSheet = function(){
 
 	// if desktop
 	else if(jApp.layout == 'desktop'){
-		document.styleSheets[7].rules[2].cssRules[0].style.transform = 
+		document.styleSheets[7].cssRules[2].cssRules[0].style.transform = 
 			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';

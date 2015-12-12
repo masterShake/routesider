@@ -34,6 +34,14 @@ if(Input::exists()){
         $jumbo->layouts->mobile->y = round($jumbo->layouts->mobile->y, 2);
         $jumbo->layouts->mobile->scale = round($jumbo->layouts->mobile->scale, 2);
         $jumbo->layouts->mobile->angle = round($jumbo->layouts->mobile->angle, 2);
+        $jumbo->layouts->tablet->x = round($jumbo->layouts->tablet->x, 2);
+        $jumbo->layouts->tablet->y = round($jumbo->layouts->tablet->y, 2);
+        $jumbo->layouts->tablet->scale = round($jumbo->layouts->tablet->scale, 2);
+        $jumbo->layouts->tablet->angle = round($jumbo->layouts->tablet->angle, 2);
+        $jumbo->layouts->desktop->x = round($jumbo->layouts->desktop->x, 2);
+        $jumbo->layouts->desktop->y = round($jumbo->layouts->desktop->y, 2);
+        $jumbo->layouts->desktop->scale = round($jumbo->layouts->desktop->scale, 2);
+        $jumbo->layouts->desktop->angle = round($jumbo->layouts->desktop->angle, 2);
 
         // get the user's business
         $user = new User();

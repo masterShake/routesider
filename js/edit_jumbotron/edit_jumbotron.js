@@ -370,8 +370,8 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 Jumbo.prototype.deltaVals = function(){
 	
 	// if the values have not changed
-	if( JSON.stringify(this.iVals) === JSON.stringify(this.nVals)
-		&& save2.className != "well" ){
+	if( JSON.stringify(this.iVals) == JSON.stringify(this.nVals)){
+		// && save2.className != "well" ){
 
 		// hide save alert
 		save1.style.display = "none";
