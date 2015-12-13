@@ -58,18 +58,20 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                transform: translate(<?= $jumbo["layouts"]["mobile"]["x"]; ?>px,<?= $jumbo["layouts"]["mobile"]["y"]; ?>px) 
-                           rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) 
+                transform: rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) 
                            scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>,<?= $jumbo["layouts"]["mobile"]["scale"]; ?>);
+                left: <?= $jumbo["layouts"]["mobile"]["x"]; ?>%;
+                top: <?= $jumbo["layouts"]["mobile"]["y"]; ?>%;
             }
 
             /* Small devices (tablets, 768px and up) */
             @media (min-width: 768px) {
 
                 #cropCanvas>div{
-                    transform: translate(<?= $jumbo["layouts"]["tablet"]["x"]; ?>px,<?= $jumbo["layouts"]["tablet"]["y"]; ?>px) 
-                               rotate3d(0,0,1,<?= $jumbo["layouts"]["tablet"]["angle"]; ?>deg) 
+                    transform: rotate3d(0,0,1,<?= $jumbo["layouts"]["tablet"]["angle"]; ?>deg) 
                                scale(<?= $jumbo["layouts"]["tablet"]["scale"]; ?>,<?= $jumbo["layouts"]["tablet"]["scale"]; ?>);
+                    left: <?= $jumbo["layouts"]["tablet"]["x"]; ?>%;
+                    top: <?= $jumbo["layouts"]["tablet"]["y"]; ?>%;
                 }
             }
 
@@ -77,9 +79,10 @@
             @media (min-width: 1200px) {
 
                 #cropCanvas>div{
-                    transform: translate(<?= $jumbo["layouts"]["desktop"]["x"]; ?>px,<?= $jumbo["layouts"]["desktop"]["y"]; ?>px) 
-                               rotate3d(0,0,1,<?= $jumbo["layouts"]["desktop"]["angle"]; ?>deg) 
+                    transform: rotate3d(0,0,1,<?= $jumbo["layouts"]["desktop"]["angle"]; ?>deg) 
                                scale(<?= $jumbo["layouts"]["desktop"]["scale"]; ?>,<?= $jumbo["layouts"]["desktop"]["scale"]; ?>);
+                    left: <?= $jumbo["layouts"]["desktop"]["x"]; ?>%;
+                    top: <?= $jumbo["layouts"]["desktop"]["y"]; ?>%;
                 }
             }
 

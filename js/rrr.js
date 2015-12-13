@@ -33,18 +33,20 @@ r.prototype.setStyles = function(){ console.log(jApp.layout);
 
 	// if mobile
 	if(jApp.layout == 'mobile')
-		jApp.temp = document.styleSheets[7].cssRules[0].style.transform;
+		jApp.temp = document.styleSheets[7].cssRules[0].style;
 	// if tablet
 	else if(jApp.layout == 'tablet')
-		jApp.temp = document.styleSheets[7].cssRules[1].cssRules[0].style.transform;
+		jApp.temp = document.styleSheets[7].cssRules[1].cssRules[0].style;
 	// if desktop
 	else if(jApp.layout == 'desktop')
-		jApp.temp = document.styleSheets[7].cssRules[2].cssRules[0].style.transform;
+		jApp.temp = document.styleSheets[7].cssRules[2].cssRules[0].style;
 
 	// loop through the hashmap
 	for(var x in this.h){
 		// set the inline style
-		this.h[x].el.style.transform = jApp.temp;
+		this.h[x].el.style.transform = jApp.temp.transform;
+		this.h[x].el.style.left = jApp.temp.left;
+		this.h[x].el.style.top = jApp.temp.top;
 		// set the transform object
 		this.h[x].extractMatrix();
 	}
@@ -150,9 +152,9 @@ rr.prototype.extractMatrix = function(){
 
 	// get the translate
 	this.x = 
-	this.transform.x = parseInt(this.ia[4]);
+	this.transform.x = this.el.offsetLeft;
 	this.y = 
-	this.transform.y = parseInt(this.ia[5]);
+	this.transform.y = this.el.offsetTop;
 
 	// get the scale
 	this.is = 
@@ -175,9 +177,12 @@ rr.prototype.update = function (){ // console.log(this.transform.scale);
     this.el.style.mozTransform =
     this.el.style.transform =
 
-	    'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+	    // 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 	    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
  		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+
+ 	this.el.style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+ 	this.el.style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 
  	// reset the ticker
     this.ticking = false;
@@ -212,8 +217,9 @@ rr.prototype.panEnd = function(e){
 	rMap.a.x = rMap.a.x + e.deltaX;
 	rMap.a.y = rMap.a.y + e.deltaY;
 
- 	jApp.nVals.layouts[jApp.layout].x = rMap.a.transform.x;
- 	jApp.nVals.layouts[jApp.layout].y = rMap.a.transform.y;
+	// set the nVals
+ 	jApp.nVals.layouts[jApp.layout].x = (rMap.a.transform.x/rMap.a.el.parentElement.offsetWidth)*100;
+ 	jApp.nVals.layouts[jApp.layout].y = (rMap.a.transform.y/rMap.a.el.parentElement.offsetHeight)*100;
  	jApp.nVals.layouts[jApp.layout].scale = rMap.a.transform.scale;
  	jApp.nVals.layouts[jApp.layout].angle = rMap.a.transform.angle;
 
@@ -257,25 +263,30 @@ rr.prototype.setStyleSheet = function(){
 	// if mobile
 	if(jApp.layout == 'mobile'){
 		document.styleSheets[7].cssRules[0].style.transform = 
-			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+			// 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	 	document.styleSheets[7].cssRules[0].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[0].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if tablet
 	else if(jApp.layout == 'tablet'){
 		document.styleSheets[7].cssRules[1].cssRules[0].style.transform =
-			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	 	document.styleSheets[7].cssRules[1].cssRules[0].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[1].cssRules[0].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if desktop
 	else if(jApp.layout == 'desktop'){
 		document.styleSheets[7].cssRules[2].cssRules[0].style.transform = 
-			'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
+			// 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	 	document.styleSheets[7].cssRules[2].cssRules[0].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[2].cssRules[0].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 }
 

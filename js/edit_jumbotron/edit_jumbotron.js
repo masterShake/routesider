@@ -200,7 +200,7 @@ Jumbo = function(){
 Jumbo.prototype.setDims = function(){
 	if(document.body.offsetWidth < 767){
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
-	}else if(document.body.offsetWidth < 992){
+	}else if(document.body.offsetWidth < 1200){
 		jumboCanvas.className = 
 		this.layout = 
 		layoutTitle.children[1].innerHTML = 

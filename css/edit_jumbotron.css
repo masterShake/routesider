@@ -403,6 +403,17 @@ tbody button.btn-color-selected{
 		margin-right: calc(50% - 50px);
 	}
 
+	#jumboCanvas.mobile{
+		max-width: 360px;
+		max-height: 511px;
+	    left: 50%;
+	    margin-left: -180px;
+	}
+
+	#jumboCanvas.desktop{
+		min-height: 388px;
+	}
+
 	#jumbo-toolbar .btn{
 		margin-right: 8px;
 		border-radius: 6px !important;
@@ -416,4 +427,29 @@ tbody button.btn-color-selected{
 		height: 99px;
 		padding-top: 19px;
 	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+	#jumboCanvas.mobile{
+		max-width: none;
+		max-height: none;
+		width: 432px !important;
+		height: 613px !important;
+	    left: 50%;
+	    margin-left: -216px;
+	}
+
+	#jumboCanvas.tablet{
+		width: 578px !important;
+		height: 613px !important;
+	    left: 50%;
+	    margin-left: -289px;
+	}
+
+	#jumboCanvas.desktop{
+		height: 613px !important;
+	}
+
 }
