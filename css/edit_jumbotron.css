@@ -324,6 +324,10 @@ tbody button.btn-color-selected{
 	box-shadow: 0 0 6px #676767;
 }
 
+/* text properties toolbar */
+#textProps .opts-toolbar .btn.active{
+	z-index: 0;
+}
 
 /*----------------------
 	   save alert

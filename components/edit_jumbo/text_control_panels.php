@@ -24,7 +24,7 @@
             </div>
             <div class="popover-content" style="text-align:center;">
                 <div class="input-group" style="max-width:100px;position:relative;left:50%;margin-left:-50px;">
-                    <input type="text" class="form-control" value="12px" aria-label="font size">
+                    <input type="text" class="form-control" value="12px" maxlength="4" aria-label="font size">
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret" style="-webkit-transform: rotate(180deg);-moz-transform: rotate(180deg);-o-transform: rotate(180deg);-ms-transform: rotate(180deg);transform: rotate(180deg);"></span></button>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -278,7 +278,7 @@
                 <div><b>Text Align</b></div>
             </div>
             <div class="popover-content" style="text-align:center;padding-top:18px;">
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyLeft" onmousedown="event.preventDefault()" aria-label="justify align left"><span class="glyphicon glyphicon-align-left"></span></button>
+                <button type="button" class="btn btn-default active" style="margin:0 6px;" data-excom="justifyLeft" onmousedown="event.preventDefault()" aria-label="justify align left"><span class="glyphicon glyphicon-align-left"></span></button>
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyCenter" onmousedown="event.preventDefault()" aria-label="justify align center"><span class="glyphicon glyphicon-align-center"></span></button>
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyRight" onmousedown="event.preventDefault()" aria-label="justify align right"><span class="glyphicon glyphicon-align-right"></span></button>
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyFull" onmousedown="event.preventDefault()" aria-label="justify align full"><span class="glyphicon glyphicon-align-justify"></span></button>

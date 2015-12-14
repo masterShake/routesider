@@ -42,6 +42,10 @@ var TB = function(){
 		justifyRight  : this.x[2],
 		justifyFull	  : this.x[3]
 	};
+
+	// add font size keyup event
+	this.x = textCpanels.getElementsByTagName('input');
+	this.x[0].addEventListener('keyup', this.keyFS, false);
 }
 
 /* METHODS */
@@ -116,7 +120,7 @@ TB.prototype.exCom = function(){
 //-----------------------------------------------
 // - determine which demands are active
 // - set buttons accordingly
-TB.prototype.qCom = function(){ console.log('calling qCom');
+TB.prototype.qCom = function(){
 	for(var x in jApp.texts.b){
 		jApp.texts.b[x].className = (document.queryCommandState(x)) ?
 													'btn btn-default active' :
@@ -132,8 +136,30 @@ TB.prototype.togRRR = function(){ return false;
 
 //-----------------------------------------------
 // - keyup set font size
-TB.prototype.keyFS = function(){ return false;
+TB.prototype.keyFS = function(e){
 
+	// if the text is blank
+	if(e.keyCode == 8) return;
+
+	// if the last 2 characters are not px
+	if(this.value.substr(-2) != 'px')
+		// append them to the end of the string
+		this.value = this.value.substr(0,2) + 'px';
+
+
+	// if the first character is not a number
+	if(this.value.length > 2 && !/^\d+$/.test(this.value.charAt(0)))
+		// remove it
+		this.value = this.value.substr(1, this.value.length - 1);
+
+	// if the second character is not a number
+	if(this.value.length > 3 && !/^\d+$/.test(this.value.charAt(1)))
+		// remove it
+		this.value = this.value.substr(0,1) + this.value.substr(2, this.value.length - 1);
+
+
+
+	this.setSelectionRange(this.value.length - 2,this.value.length - 2);
 }
 
 //-----------------------------------------------
