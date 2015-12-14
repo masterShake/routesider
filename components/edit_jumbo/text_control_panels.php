@@ -23,29 +23,18 @@
                 <div><b>Font Size</b></div>
             </div>
             <div class="popover-content" style="text-align:center;">
-                <div class="input-group" style="max-width:100px;position:relative;left:50%;margin-left:-50px;">
-                    <input type="text" class="form-control" value="12px" maxlength="4" aria-label="font size">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret" style="-webkit-transform: rotate(180deg);-moz-transform: rotate(180deg);-o-transform: rotate(180deg);-ms-transform: rotate(180deg);transform: rotate(180deg);"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#">8px</a></li>
-                            <li><a href="#">9px</a></li>
-                            <li><a href="#">10px</a></li>
-                            <li><a href="#">11px</a></li>
-                            <li><a href="#">12px</a></li>
-                            <li><a href="#">14px</a></li>
-                            <li><a href="#">16px</a></li>
-                            <li><a href="#">18px</a></li>
-                            <li><a href="#">20px</a></li>
-                            <li><a href="#">22px</a></li>
-                            <li><a href="#">24px</a></li>
-                            <li><a href="#">26px</a></li>
-                            <li><a href="#">28px</a></li>
-                            <li><a href="#">36px</a></li>
-                            <li><a href="#">48px</a></li>
-                            <li><a href="#">72px</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">custom</a></li>
+                <div class="input-group" style="max-width:70px;position:relative;left:50%;margin-left:-50px;">
+                    <input type="text" class="form-control" value="2" maxlength="1" aria-label="font size">
+                    <div class="input-group-btn dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-fs="1">1</a></li>
+                            <li><a href="#" data-fs="2">2</a></li>
+                            <li><a href="#" data-fs="3">3</a></li>
+                            <li><a href="#" data-fs="4">4</a></li>
+                            <li><a href="#" data-fs="5">5</a></li>
+                            <li><a href="#" data-fs="6">6</a></li>
+                            <li><a href="#" data-fs="7">7</a></li>
                         </ul>
                     </div><!-- /btn-group -->
                 </div><!-- /input-group -->

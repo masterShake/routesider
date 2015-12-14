@@ -46,6 +46,14 @@ var TB = function(){
 	// add font size keyup event
 	this.x = textCpanels.getElementsByTagName('input');
 	this.x[0].addEventListener('keyup', this.keyFS, false);
+
+	// init the dropdown
+	this.x[0].parentElement.children[1].children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+	// add click event to font sizes
+	this.x = this.x[0].parentElement.children[1].children[1].children;
+	for(var i = 0; i < this.x.length; i++)
+		this.x[i].children[0].addEventListener('click', this.clickFS, false);
 }
 
 /* METHODS */
@@ -67,7 +75,7 @@ TB.prototype.newTB = function(){
 	jApp.texts.i++;
 
 	// create a new textbox elem, store it in the hashmap
-	jApp.texts.h[jApp.texts.i] = document.createElement('div');
+	jApp.texts.h[jApp.texts.i] = document.createElement('textarea');
 
 	// set this to active textbox status
 	jApp.texts.a = jApp.texts.h[jApp.texts.i];
@@ -139,33 +147,40 @@ TB.prototype.togRRR = function(){ return false;
 TB.prototype.keyFS = function(e){
 
 	// if the text is blank
-	if(e.keyCode == 8) return;
-
+	// if(e.keyCode == 8) return;
 	// if the last 2 characters are not px
-	if(this.value.substr(-2) != 'px')
-		// append them to the end of the string
-		this.value = this.value.substr(0,2) + 'px';
+	// if(this.value.substr(-2) != 'px')
+	// 	// append them to the end of the string
+	// 	this.value = this.value.substr(0,2) + 'px';
+	// // if the first character is not a number
+	// if(this.value.length > 2 && !/^\d+$/.test(this.value.charAt(0)))
+	// 	// remove it
+	// 	this.value = this.value.substr(1, this.value.length - 1);
+	// // if the second character is not a number
+	// if(this.value.length > 3 && !/^\d+$/.test(this.value.charAt(1)))
+	// 	// remove it
+	// 	this.value = this.value.substr(0,1) + this.value.substr(2, this.value.length - 1);
+	// // move the caret curson to the position before the 'px'
+	// this.setSelectionRange(this.value.length - 2,this.value.length - 2);
 
+	// if no value, do nothing
+	if(!this.value) return;
 
-	// if the first character is not a number
-	if(this.value.length > 2 && !/^\d+$/.test(this.value.charAt(0)))
-		// remove it
-		this.value = this.value.substr(1, this.value.length - 1);
+	// if value is not a number, 0, or greater than 7, remove it
+	if(!/^\d+$/.test(this.value) || this.value == '0' || parseInt(this.value) > 7) this.value = '';
 
-	// if the second character is not a number
-	if(this.value.length > 3 && !/^\d+$/.test(this.value.charAt(1)))
-		// remove it
-		this.value = this.value.substr(0,1) + this.value.substr(2, this.value.length - 1);
-
-
-
-	this.setSelectionRange(this.value.length - 2,this.value.length - 2);
+	// set the font size
+	document.execCommand('fontSize', false, this.value);
 }
 
 //-----------------------------------------------
 // - click dropdown menu select font size
-TB.prototype.clickFS = function(){ return false;
-
+TB.prototype.clickFS = function(e){ e.preventDefault();
+	// set the value of the input
+	this.parentElement.parentElement.parentElement.parentElement.children[0]
+		.value = this.dataset.fs;
+	// set the font size
+	document.execCommand('fontSize', false, this.dataset.fs);
 }
 
 //-----------------------------------------------

@@ -311,8 +311,11 @@ tbody button.btn-color-selected{
 
 /* default inactive */
 .textbox{
-	height: 100px;
-	width: 200px;
+	height: auto;
+	width: auto;
+	min-height: 27px;
+	min-width: 80px;
+	resize: both;
 	position: absolute;
 	top: calc(50% - 50px);
 	left: calc(50% - 100px);
