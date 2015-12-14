@@ -103,10 +103,10 @@ var rr = function(el){
     this.extractMatrix();
 
     // if the user has a mouse
-    // if(rMap.hs)
-    // 	// set the mouse object
-    // 	rMap.m = 
-    // 	this.m = new mau5(this.el);
+    if(rMap.hs)
+    	// set the mouse object
+    	rMap.m = 
+    	this.m = new mau5(this.el);
 
     /* initializations */
 
@@ -443,6 +443,18 @@ mau5.prototype.resizeEnd = function(e){
 	// apply the new x,y positioning
 	rMap.a.x = rMap.a.transform.x;
 	rMap.a.y = rMap.a.transform.y;
+
+	// apply the new values
+	jApp.nVals.layouts[jApp.layout].x = (rMap.a.transform.x/rMap.a.el.parentElement.offsetWidth)*100;
+ 	jApp.nVals.layouts[jApp.layout].y = (rMap.a.transform.y/rMap.a.el.parentElement.offsetHeight)*100;
+	jApp.nVals.layouts[jApp.layout].scale = rMap.a.transform.scale;
+
+	// update the stylesheet
+	rMap.a.setStyleSheet();
+
+	// prompt user to save
+	jApp.deltaVals();
+
 }
 
 //-----------------------------------------------
@@ -500,6 +512,15 @@ mau5.prototype.rotateMU = function(e){
 	// remove the event listeners
 	document.removeEventListener('mousemove', rMap.m.rotateMM, false);
 	document.removeEventListener('mousemove', rMap.a.mrotateMU, false);
+
+	// set the new angle 
+	jApp.nVals.layouts[jApp.layout].angle = rMap.a.transform.angle;
+
+	// update the stylesheet
+	rMap.a.setStyleSheet();
+
+	// alert that the values have change
+	jApp.deltaVals();
 }
 
 

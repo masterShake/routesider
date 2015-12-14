@@ -111,7 +111,7 @@ Jumbo = function(){
 	// init background editor
 	this.bg = new BG();
 	// init textbox editor
-	this.text = new TB();
+	this.texts = new TB();
 	// init image overlay editor
 	this.img = new IO();
 	// init button editor
@@ -169,7 +169,7 @@ Jumbo = function(){
 		.addEventListener("change", this.jumboVis, false);
 
 	// get the jumbo toolbar btns
-	this.temp = document.getElementById("jumbo-toolbar").children[0].children[1].children;
+	this.temp = jumboToolbar.children[0].children[1].children;
 	// apply the event listeners to jumbo toolbar
 	this.temp[0].addEventListener("click", this.togOpts, false);
 	this.temp[1].addEventListener("click", this.togOpts, false);

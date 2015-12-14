@@ -24,22 +24,6 @@
     border-radius: 10px;
     overflow: hidden;
 }
-/* scaling layout div */
-/*#jumboCanvas.mobile>div,
-#jumboCanvas.tablet>div{
-	height: 100%;
-	width: 100%;
-	-ms-transform: scale(1);
-	-webkit-transform: scale(1);
-	transform: scale(1);
-}
-#jumboCanvas.desktop>div{
-	height: 200%;
-	width: 200%;
-	-ms-transform: scale(0.5);
-	-webkit-transform: scale(0.5);
-	transform: scale(0.5);
-}*/
 /* canvas layers */
 .j-canvas{
 	height: 100%;
@@ -58,13 +42,13 @@
 	jumbo toolbar
 ----------------------*/
 
-#jumbo-toolbar{
+#jumboToolbar{
 	padding:12px 0;
 	background-color: #d6e9c6;
 	box-shadow: 0 0 6px #676767;
 	margin-bottom: 20px;
 }
-#jumbo-toolbar .btn{
+#jumboToolbar .btn{
 	padding: 10px 12px;
 }
 .btn{
@@ -74,8 +58,8 @@
 	color: #3c763d;
 }
 /* components toolbar */
-#jumbo-toolbar .glyphicon-plus,
-#jumbo-toolbar .glyphicon-pencil{
+#jumboToolbar .glyphicon-plus,
+#jumboToolbar .glyphicon-pencil{
 	font-size: 12px;
 }
 /* little dashed box icons */
@@ -322,25 +306,22 @@ tbody button.btn-color-selected{
 
 
 /*----------------------
-	show bg img
+		textbox
 ----------------------*/
 
-#bgShow{    
-	float: right;
-    padding: 8px 10px;
-    border-radius: 3px;
-    box-shadow: 1px 2px 4px #ddd;
+/* default inactive */
+.textbox{
+	height: 100px;
+	width: 200px;
+	position: absolute;
+	top: calc(50% - 50px);
+	left: calc(50% - 100px);
 }
-#bgShow input,
-#bgShow span.glyphicon{
-	opacity: 0.6;
-}
-#bgShow input:hover{
-	opacity: 1;
-}
-#bgShow span.glyphicon{
-    padding-top: 4px;
-    font-size: 17px;
+
+/* active textbox */
+.textbox.active{
+	border: 1px solid #ccc;
+	box-shadow: 0 0 6px #676767;
 }
 
 
@@ -414,7 +395,7 @@ tbody button.btn-color-selected{
 		min-height: 388px;
 	}
 
-	#jumbo-toolbar .btn{
+	#jumboToolbar .btn{
 		margin-right: 8px;
 		border-radius: 6px !important;
 	}

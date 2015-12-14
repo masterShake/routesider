@@ -278,12 +278,12 @@
                 <div><b>Text Align</b></div>
             </div>
             <div class="popover-content" style="text-align:center;padding-top:18px;">
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-align="left" aria-label="left align"><span class="glyphicon glyphicon-align-left"></span></button>
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-align="center" aria-label="center align"><span class="glyphicon glyphicon-align-center"></span></button>
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-align="right" aria-label="right align"><span class="glyphicon glyphicon-align-right"></span></button>
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-align="justify" aria-label="justify align"><span class="glyphicon glyphicon-align-justify"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyLeft" onmousedown="event.preventDefault()" aria-label="justify align left"><span class="glyphicon glyphicon-align-left"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyCenter" onmousedown="event.preventDefault()" aria-label="justify align center"><span class="glyphicon glyphicon-align-center"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyRight" onmousedown="event.preventDefault()" aria-label="justify align right"><span class="glyphicon glyphicon-align-right"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyFull" onmousedown="event.preventDefault()" aria-label="justify align full"><span class="glyphicon glyphicon-align-justify"></span></button>
             </div>
-            <div class="arrow" style="left:150px"></div>
+            <div class="arrow" style="left:196px"></div>
         </div>
 
     </div>
@@ -291,36 +291,45 @@
     <!-- toolbar -->
     <div id="textToolbar">
 
+        <!-- delete button -->
+        <div class="btn-group opts-toolbar" style="float:right;margin-bottom:10px;" aria-label="delete textbox">
+            <button type="button" class="btn btn-default btn-danger" aria-label="delete textbox">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </div>
+
         <!-- toolbar 1 -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
             <!-- bold -->
-            <button type="button" class="btn btn-default" data-panel aria-label="bold">
+            <button type="button" class="btn btn-default" data-panel data-excom="bold" onmousedown="event.preventDefault()" aria-label="bold">
                 <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
             </button>
             <!-- italic -->
-            <button type="button" class="btn btn-default" data-panel aria-label="italic">
+            <button type="button" class="btn btn-default" data-panel data-excom="italic" onmousedown="event.preventDefault()" aria-label="italic">
                 <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
             </button>
             <!-- underline -->
-            <button type="button" class="btn btn-default" data-panel aria-label="underline">
+            <button type="button" class="btn btn-default" data-panel data-excom="underline" onmousedown="event.preventDefault()" aria-label="underline">
                 <span class="icon-underline" aria-hidden="true"></span>
             </button>
             <!-- strikethrough -->
-            <button type="button" class="btn btn-default" data-panel aria-label="strike through">
+            <button type="button" class="btn btn-default" data-panel data-excom="strikeThrough" onmousedown="event.preventDefault()" aria-label="strike through">
                 <span class="icon-strikethrough" aria-hidden="true"></span>
             </button>
             <!-- subscript -->
-            <button type="button" class="btn btn-default" data-panel aria-label="subscript">
+            <button type="button" class="btn btn-default" data-panel data-excom="subscript" onmousedown="event.preventDefault()" aria-label="subscript">
                 <span class="glyphicon glyphicon-subscript" aria-hidden="true"></span>
             </button>
             <!-- superscript -->
-            <button type="button" class="btn btn-default" data-panel aria-label="superscript">
+            <button type="button" class="btn btn-default" data-panel data-excom="superscript" onmousedown="event.preventDefault()" aria-label="superscript">
                 <span class="glyphicon glyphicon-superscript" aria-hidden="true"></span>
             </button>
         </div><!-- /toolbar 1 -->
         
         <!-- toolbar 2 -->
         <div class="btn-toolbar" role="toolbar">
+
+            <!-- text styling -->
             <div class="btn-group opts-toolbar" role="group" aria-label="edit textbox toolbar">
                 <!-- text-size -->
                 <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
@@ -334,20 +343,44 @@
                 <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
                     <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
                 </button>
+                <!-- edit background color -->
+                <div role="button" class="btn btn-default" data-panel aria-label="edit background color">
+                    <!-- color wheel icon -->
+                    <div class="colorwheel-icon">
+                        <div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div></div>
+                        </div>
+                    </div><!-- /colorwheel-icon -->
+                </div>
                 <!-- text align -->
                 <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
                     <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
                 </button>
+            </div><!-- /text styling -->
+
+            <!-- textbox positioning -->
+            <div class="btn-group opts-toolbar" style="float:right;" role="group" aria-label="reposition textbox toolbar">
                 <!-- move to front -->
                 <button type="button" class="btn btn-default" data-panel aria-label="move to front">
                     <span class="icon-stack" aria-hidden="true"></span>
                 </button>
-            </div>
-            <div class="btn-group opts-toolbar" style="float:right;" aria-label="delete textbox">
-                <button type="button" class="btn btn-default btn-danger" aria-label="delete textbox">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                <!-- reposition, resize, rotate -->
+                <button type="button" class="btn btn-default" data-panel aria-label="crop image">
+                    <span class="icon-enlarge" aria-hidden="true"></span>
                 </button>
-            </div>
+            </div> <!-- /text positioning -->
+
         </div><!-- /toolbar 2 -->
 
     </div><!-- /toolbar -->

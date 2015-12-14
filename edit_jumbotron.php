@@ -275,7 +275,7 @@
             </div><!-- /canvasses & control panels .container -->
 
             <!-- jumbo toolbar -->
-            <div id="jumbo-toolbar">
+            <div id="jumboToolbar">
                 <div class="container" >
 
                     <!-- device layout dropdown -->
