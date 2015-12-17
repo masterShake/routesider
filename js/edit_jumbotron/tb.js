@@ -21,6 +21,13 @@ var TB = function(){
 	// active textbox
 	this.a = null;
 
+	// color changing objects
+	this.c = new TC();
+
+	// help move the caret to the end
+	this.range = null;
+	this.sel = null;
+
 	// add event listener to the new textbox btn
 	jumboToolbar.children[0].children[1].children[1]
 		.addEventListener('click', this.newTB, false);
@@ -69,13 +76,13 @@ TB.prototype.close = function(){
 //-----------------------------------------------
 // - create new textbox element when user clicks
 //   the jumbo toolbar button
-TB.prototype.newTB = function(){
+TB.prototype.newTB = function(e){ e.preventDefault();
 
 	// increment the indexer
 	jApp.texts.i++;
 
 	// create a new textbox elem, store it in the hashmap
-	jApp.texts.h[jApp.texts.i] = document.createElement('textarea');
+	jApp.texts.h[jApp.texts.i] = document.createElement('div');
 
 	// set this to active textbox status
 	jApp.texts.a = jApp.texts.h[jApp.texts.i];
@@ -97,7 +104,7 @@ TB.prototype.newTB = function(){
 
 	// event to determine active exec commands
 	jApp.texts.a.addEventListener('keyup', jApp.texts.qCom, false);
-	jApp.texts.a.addEventListener('mousedown', jApp.texts.qCom, false);
+	jApp.texts.a.addEventListener('focus', jApp.texts.qCom, false);
 
 	// remove the newTB event listener
 	// jumboToolbar.children[0].children[1].children[1]
@@ -128,12 +135,27 @@ TB.prototype.exCom = function(){
 //-----------------------------------------------
 // - determine which demands are active
 // - set buttons accordingly
-TB.prototype.qCom = function(){
-	for(var x in jApp.texts.b){
+TB.prototype.qCom = function(e){
+	// set the class on the wysiwyg btns
+	for(var x in jApp.texts.b)
 		jApp.texts.b[x].className = (document.queryCommandState(x)) ?
 													'btn btn-default active' :
 													'btn btn-default';
-	}
+}
+
+//-----------------------------------------------
+// - move the cursor to the end of the active div
+TB.prototype.setEnd = function()
+{
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
+        this.range.selectNodeContents(this.a);//Select the entire contents of the element with the this.range
+        this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
+        this.sel = window.getSelection();//get the this.sel object (allows you to change this.sel)
+        this.sel.removeAllRanges();//remove any selections already made
+        this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
+    }
 }
 
 //-----------------------------------------------
@@ -145,23 +167,6 @@ TB.prototype.togRRR = function(){ return false;
 //-----------------------------------------------
 // - keyup set font size
 TB.prototype.keyFS = function(e){
-
-	// if the text is blank
-	// if(e.keyCode == 8) return;
-	// if the last 2 characters are not px
-	// if(this.value.substr(-2) != 'px')
-	// 	// append them to the end of the string
-	// 	this.value = this.value.substr(0,2) + 'px';
-	// // if the first character is not a number
-	// if(this.value.length > 2 && !/^\d+$/.test(this.value.charAt(0)))
-	// 	// remove it
-	// 	this.value = this.value.substr(1, this.value.length - 1);
-	// // if the second character is not a number
-	// if(this.value.length > 3 && !/^\d+$/.test(this.value.charAt(1)))
-	// 	// remove it
-	// 	this.value = this.value.substr(0,1) + this.value.substr(2, this.value.length - 1);
-	// // move the caret curson to the position before the 'px'
-	// this.setSelectionRange(this.value.length - 2,this.value.length - 2);
 
 	// if no value, do nothing
 	if(!this.value) return;
@@ -240,8 +245,42 @@ TB.prototype.del = function(){ return false;
 //-----------------------------------------------
 var TC = function(){
 
-	this.something = null;
+	// init the hexidecimal text input listener
+	this.tempHex = textCpanels.getElementsByTagName('input');
 
+	// keep track of the hex inputs
+	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[5]];
+
+	// keep track of the color pickers
+	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[6]];
+
+	// add hex event listeners
+	this.tempHex[1].addEventListener('keyup', this.hexText, false);
+	this.tempHex[3].addEventListener('keyup', this.hexText, false);
+	this.tempHex[5].addEventListener('keyup', this.hexText, false);
+
+	// add color picker event listeners
+	// this.tempHex[2].addEventListener('change', this.colorPick, false);
+	// this.tempHex[4].addEventListener('change', this.colorPick, false);
+	// this.tempHex[6].addEventListener('change', this.colorPick, false);
+
+	// get the paint buttons
+	this.tempHex = textCpanels.querySelectorAll('.paint-btn');
+
+	// keep track of the current color icon btn
+	this.icons = [this.tempHex[0], this.tempHex[1], this.tempHex[2]];
+
+	// add event listeners to the current color buttons
+	// this.tempHex[0].addEventListener('click', this.paintBtn, false);
+	// this.tempHex[1].addEventListener('click', this.paintBtn, false);
+	// this.tempHex[2].addEventListener('click', this.paintBtn, false);
+
+	// // get the colorwheel btns
+	// this.tempHex = textCpanels.querySelectorAll('[data-hex]');
+
+	// add event listeners to the colorwheel buttons
+	// for(var i = 0; i < this.tempHex.length; i++)
+	// 	this.tempHex[i].addEventListener('click', this.wheelBtn, false);
 }
 
 //-----------------------------------------------
@@ -293,9 +332,21 @@ TC.prototype.hexText = function(){
 
 	// if the input is now the proper length & format
 	if(this.value.length == 7){
-		// set the background color
-		jApp.bg.bgc.temp = this.value;
-		jApp.bg.bgc.setColor();
+
+		// focus on the div
+		jApp.texts.a.focus();
+
+		// move the caret to the end
+		jApp.texts.setEnd();
+		
+		// if this applies an execCommand
+		if(this.dataset.com)
+
+			// set the text color
+			document.execCommand(this.dataset.com, false, this.value);
+
+		// set the button color
+		jApp.texts.c.setColor(this.dataset.i, this.dataset.com, this.value);
 	}
 }
 
@@ -311,6 +362,12 @@ TC.prototype.hexBlur = function(){
 TC.prototype.colorPick = function(){
 	jApp.bg.bgc.temp = this.value.toUpperCase();
 	jApp.bg.bgc.setColor();
+}
+
+//-----------------------------------------------
+// - paint button event listener
+TC.prototype.paintBtn = function(){ return false;
+
 }
 
 //-----------------------------------------------
@@ -334,30 +391,40 @@ TC.prototype.wheelBtn = function(){
 // - set color icon
 // - set html5 color picker
 // - set background
-TC.prototype.setColor = function(){
+// 	  + i => element index in array
+//    + excom => execCommand name
+//    + val => hexidecimal value
+TC.prototype.setColor = function(i, excom, val){
 
-	// set preview background color
-	cropCanvas.style.backgroundColor = 
+	// focus
+	// jApp.texts.a.focus();
 
-	// set the preview icon background
-	this.icon.style.backgroundColor = 
+	// set the execCommand
+	document.execCommand('styleWithCSS', false, true);
+	document.execCommand(excom, false, val);
 
 	// set the text
-	this.texti.value = 
+	this.textis[i].value = 
 
 	// set the color picker
-	this.picki.value = 
+	this.pickis[i].value = val;
 
-	// & update the new values object
-	jApp.nVals.color = this.temp;
-
-	// set the preview icon color
-	this.icon.style.color = 
-		this.hexBright(this.hexToRgb(this.temp)) ?
-			"#444" : "#FFF";
-
-	// notify root node that values have changed
-	jApp.deltaVals();
+	// if this is the font color control panel
+	if(i == 0){
+		// set the font color
+		this.icons[0].style.color = val;
+		// set the background
+		this.icons[0].style.backgroundColor = 
+			this.hexBright(this.hexToRgb(val)) ?
+				"#444" : "#FFF";
+	}else{
+		// set the background color
+		this.icons[i].style.background = val;
+		// set the preview icon color
+		this.icons[i].style.color = 
+			this.hexBright(this.hexToRgb(this.temp)) ?
+				"#444" : "#FFF";
+	}
 }
 
 //-----------------------------------------------
