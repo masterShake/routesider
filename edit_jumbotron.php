@@ -325,7 +325,7 @@
                         <!-- add textbox -->
                         <div role="button"
                              class="btn btn-default" 
-                             data-comp="text" 
+                             data-comp="texts" 
                              aria-label="add textbox">
                             <div class="dash-box" aria-hidden="true">Aa</div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

@@ -1,5 +1,5 @@
 <!-- textbox options control panels -->
-<div id="textProps">
+<div id="textsProps">
     
     <hr>
     
@@ -10,7 +10,7 @@
     </div>
 
     <!-- control panels -->
-    <div id="textCpanels" style="position:relative;z-index:1;">
+    <div id="textsCpanels" style="position:relative;z-index:1;">
 
         <!-- text size -->
         <div class="popover top control-panel" style="margin-bottom:-43px;max-width:250px;">
@@ -196,10 +196,16 @@
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
+                    <!-- no color (transparent) textbox -->
+                    <div style="margin-top:10px;">
+                        <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
+                        <input type="checkbox" class="form-control" data-com="1" checked>
+                    </div>
+
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel">
+                <div class="color-wheel" style="height:122px;">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -287,13 +293,13 @@
                                         <td>
                                             <button type="button" 
                                                     class="btn paint-btn" 
-                                                    style='background-color: <?= $jumbo["color"]; ?>; color: #444;'>
+                                                    style='background-color: #FFFFFF;'>
                                                 <span class="glyphicon glyphicon-tint"></span>
                                             </button>
                                         </td>
                                         <td>
                                             <input type="text" 
-                                                   value='<?= $jumbo["color"]; ?>' 
+                                                   value='' 
                                                    class="form-control" 
                                                    maxlength="7"
                                                    data-com 
@@ -309,14 +315,20 @@
                             <div style="text-align:center;margin-top:14px;">
                                 <label>more colors:</label>
                                 <input type="color" 
-                                       value='<?= $jumbo["color"]; ?>'
+                                       value='#FFFFFF'
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
+
+                            <!-- no color (transparent) textbox -->
+                            <div style="margin-top:10px;">
+                                <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
+                                <input type="checkbox" class="form-control" data-com checked>
+                            </div>
 
                         </div>
 
                         <!-- color wheel -->
-                        <div class="color-wheel">
+                        <div class="color-wheel" style="height:126px;padding-top:13px;">
                             <!-- 3 -->
                             <div>
                                 <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -403,7 +415,7 @@
     </div>
 
     <!-- toolbar -->
-    <div id="textToolbar">
+    <div id="textsToolbar">
 
         <!-- delete button -->
         <div class="btn-group opts-toolbar" style="float:right;margin-bottom:10px;" aria-label="delete textbox">
@@ -458,7 +470,7 @@
                     <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
                 </button>
                 <!-- edit background color -->
-                <div role="button" class="btn btn-default" data-panel aria-label="edit background color">
+                <div role="button" class="btn btn-default" data-panel="3" aria-label="edit background color">
                     <!-- color wheel icon -->
                     <div class="colorwheel-icon">
                         <div>
@@ -478,7 +490,7 @@
                     </div><!-- /colorwheel-icon -->
                 </div>
                 <!-- text align -->
-                <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
+                <button type="button" class="btn btn-default" data-panel="4" aria-label="text align">
                     <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
                 </button>
             </div><!-- /text styling -->

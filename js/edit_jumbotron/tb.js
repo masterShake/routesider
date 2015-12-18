@@ -33,7 +33,7 @@ var TB = function(){
 		.addEventListener('click', this.newTB, false);
 
 	// add event listeners to execCommand buttons, temp var
-	this.x = textProps.querySelectorAll('[data-excom]');
+	this.x = textsProps.querySelectorAll('[data-excom]');
 	for(var j = 0; j < this.x.length; j++)
 		this.x[j].addEventListener('click', this.exCom, false);
 
@@ -51,7 +51,7 @@ var TB = function(){
 	};
 
 	// add font size keyup event
-	this.x = textCpanels.getElementsByTagName('input');
+	this.x = textsCpanels.getElementsByTagName('input');
 	this.x[0].addEventListener('keyup', this.keyFS, false);
 
 	// init the dropdown
@@ -246,26 +246,30 @@ TB.prototype.del = function(){ return false;
 var TC = function(){
 
 	// init the hexidecimal text input listener
-	this.tempHex = textCpanels.getElementsByTagName('input');
+	this.tempHex = textsCpanels.getElementsByTagName('input');
 
 	// keep track of the hex inputs
-	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[5]];
+	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[6]];
 
 	// keep track of the color pickers
-	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[6]];
+	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];
 
 	// add hex event listeners
 	this.tempHex[1].addEventListener('keyup', this.hexText, false);
 	this.tempHex[3].addEventListener('keyup', this.hexText, false);
-	this.tempHex[5].addEventListener('keyup', this.hexText, false);
+	this.tempHex[6].addEventListener('keyup', this.hexText, false);
 
 	// add color picker event listeners
 	// this.tempHex[2].addEventListener('change', this.colorPick, false);
 	// this.tempHex[4].addEventListener('change', this.colorPick, false);
-	// this.tempHex[6].addEventListener('change', this.colorPick, false);
+	// this.tempHex[7].addEventListener('change', this.colorPick, false);
+
+	// transparency checkbox
+	this.tempHex[5].addEventListener('change', this.trans, false);
+	this.tempHex[8].addEventListener('change', this.trans, false);
 
 	// get the paint buttons
-	this.tempHex = textCpanels.querySelectorAll('.paint-btn');
+	this.tempHex = textsCpanels.querySelectorAll('.paint-btn');
 
 	// keep track of the current color icon btn
 	this.icons = [this.tempHex[0], this.tempHex[1], this.tempHex[2]];
@@ -371,6 +375,30 @@ TC.prototype.paintBtn = function(){ return false;
 }
 
 //-----------------------------------------------
+// - transparent checkbox change event 
+// - change the opacity
+// - set execCommand or background color
+// - keep track of previous color, possibly reset
+TC.prototype.trans = function(){
+
+	// change the transparency of the parent element
+	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
+
+	// focus on the div
+	jApp.texts.a.focus();
+
+	// move the caret to the end
+	jApp.texts.setEnd();
+
+	// set exec command or elem bg
+	if(this.dataset.com == '1')
+		document.execCommand('backColor', false, ((this.checked) ? 'transparent' : '#FFFFFF'))
+
+	else
+		jApp.texts.a.style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
+}
+
+//-----------------------------------------------
 // - user clicks one of the color wheel colors
 // - set text
 // - set color icon
@@ -422,7 +450,7 @@ TC.prototype.setColor = function(i, excom, val){
 		this.icons[i].style.background = val;
 		// set the preview icon color
 		this.icons[i].style.color = 
-			this.hexBright(this.hexToRgb(this.temp)) ?
+			this.hexBright(this.hexToRgb(val)) ?
 				"#444" : "#FFF";
 	}
 }
