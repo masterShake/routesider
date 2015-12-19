@@ -94,6 +94,8 @@
                         <label>more colors:</label>
                         <input type="color" 
                                value='#FFFFFF'
+                               data-i="0"
+                               data-com="foreColor" 
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
@@ -193,6 +195,8 @@
                         <label>more colors:</label>
                         <input type="color" 
                                value='#FFFFFF'
+                               data-i="1" 
+                               data-com="backColor" 
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
@@ -316,6 +320,8 @@
                                 <label>more colors:</label>
                                 <input type="color" 
                                        value='#FFFFFF'
+                                       data-i="2"
+                                       data-com 
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 

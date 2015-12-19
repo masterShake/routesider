@@ -252,17 +252,17 @@ var TC = function(){
 	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[6]];
 
 	// keep track of the color pickers
-	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];
+	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];console.log(this.pickis);
 
-	// add hex event listeners
+	// add hex texts event listeners
 	this.tempHex[1].addEventListener('keyup', this.hexText, false);
 	this.tempHex[3].addEventListener('keyup', this.hexText, false);
 	this.tempHex[6].addEventListener('keyup', this.hexText, false);
 
 	// add color picker event listeners
-	// this.tempHex[2].addEventListener('change', this.colorPick, false);
-	// this.tempHex[4].addEventListener('change', this.colorPick, false);
-	// this.tempHex[7].addEventListener('change', this.colorPick, false);
+	this.pickis[0].addEventListener('change', this.colorPick, false);
+	this.pickis[1].addEventListener('change', this.colorPick, false);
+	this.pickis[2].addEventListener('change', this.colorPick, false);
 
 	// transparency checkbox
 	this.tempHex[5].addEventListener('change', this.trans, false);
@@ -342,12 +342,6 @@ TC.prototype.hexText = function(){
 
 		// move the caret to the end
 		jApp.texts.setEnd();
-		
-		// if this applies an execCommand
-		if(this.dataset.com)
-
-			// set the text color
-			document.execCommand(this.dataset.com, false, this.value);
 
 		// set the button color
 		jApp.texts.c.setColor(this.dataset.i, this.dataset.com, this.value);
@@ -363,9 +357,18 @@ TC.prototype.hexBlur = function(){
 
 //-----------------------------------------------
 // - html5 color picker change event
-TC.prototype.colorPick = function(){
-	jApp.bg.bgc.temp = this.value.toUpperCase();
-	jApp.bg.bgc.setColor();
+TC.prototype.colorPick = function(){ console.log('colorPick!')
+
+	// focus on the active element
+	// jApp.texts.a.focus(); 
+
+	// move the caret to the end
+	// jApp.texts.setEnd();
+	
+	jApp.texts.c.setColor( this.dataset.i,
+						  this.dataset.com,
+						  this.value.toUpperCase()
+						);
 }
 
 //-----------------------------------------------
@@ -422,10 +425,13 @@ TC.prototype.wheelBtn = function(){
 // 	  + i => element index in array
 //    + excom => execCommand name
 //    + val => hexidecimal value
-TC.prototype.setColor = function(i, excom, val){
+TC.prototype.setColor = function(i, excom, val){ console.log(val);
 
-	// focus
-	// jApp.texts.a.focus();
+	// focus on the active element
+	jApp.texts.a.focus(); 
+
+	// move the caret to the end
+	jApp.texts.setEnd();
 
 	// set the execCommand
 	if(i == 1) // backColor only
