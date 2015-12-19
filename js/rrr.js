@@ -140,10 +140,8 @@ var rr = function(el){
 rr.prototype.extractMatrix = function(){
 
 	// get the matrix properties, use ia as temp var
-	this.ia = window.getComputedStyle(this.el, null);
-
-	// get the transform properties
-	this.ia = this.ia.getPropertyValue('transform');
+	this.ia = window.getComputedStyle(this.el, null)
+				.getPropertyValue('transform');
 
 	// convert the matrix to a list array
 	this.ia = this.ia.split('(')[1];

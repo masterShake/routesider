@@ -254,7 +254,7 @@
         <div class="popover top control-panel" style="max-width:660px;margin-bottom:-43px;">
             <div class="popover-title"> 
                 
-                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -402,7 +402,7 @@
         <!-- text alignment -->
         <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>

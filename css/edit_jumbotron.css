@@ -316,11 +316,17 @@ tbody button.btn-color-selected{
 	min-height: 27px;
 	min-width: 80px;
 	font-size: 2;
-	resize: both;
-	overflow: hidden;
 	position: absolute;
 	top: calc(50% - 50px);
 	left: calc(50% - 100px);
+	transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.textbox>div{
+	min-height: 27px;
+	min-width: 80px;
+	resize: both;
+	overflow: hidden;
 }
 
 /* active textbox */
@@ -330,7 +336,7 @@ tbody button.btn-color-selected{
 }
 
 /* text properties toolbar */
-#textProps .opts-toolbar .btn.active{
+#textsProps .opts-toolbar .btn.active{
 	z-index: 0;
 }
 

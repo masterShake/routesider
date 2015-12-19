@@ -61,6 +61,10 @@ var TB = function(){
 	this.x = this.x[0].parentElement.children[1].children[1].children;
 	for(var i = 0; i < this.x.length; i++)
 		this.x[i].children[0].addEventListener('click', this.clickFS, false);
+
+	// toggle resize reposition rotate
+	textsToolbar.children[2].children[1].children[1]
+		.addEventListener('click', this.togRRR, false);
 }
 
 /* METHODS */
@@ -93,18 +97,32 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// apply the textbox class
 	jApp.texts.a.className = 'textbox active';
 
+	// add the drag buttons
+	jApp.texts.a.innerHTML = document.getElementById('drag-btns-html').value;
+
+	// put an editable div inside the .textbox div
+	jApp.texts.a.appendChild(document.createElement('div'));
+
 	// append the new textbox to the drag canvas
 	dragCanvas.appendChild(jApp.texts.a);
 
 	// set designMode to 'On'
-	jApp.texts.a.contentEditable = true;
+	jApp.texts.a.children[1].contentEditable = true;
+
+	// create & activate the rr object
+	rMap.i++;
+	rMap.h[rMap.i] = new rr(jApp.texts.a);
+	rMap.a = rMap.h[rMap.i];
+
+	// attribtue referrence to rr index
+	jApp.texts.a.setAttribute('data-r', rMap.i);
 
 	// focus on the element
-	jApp.texts.a.focus();
+	jApp.texts.a.children[1].focus();
 
 	// event to determine active exec commands
-	jApp.texts.a.addEventListener('keyup', jApp.texts.qCom, false);
-	jApp.texts.a.addEventListener('focus', jApp.texts.qCom, false);
+	jApp.texts.a.children[1].addEventListener('keyup', jApp.texts.qCom, false);
+	jApp.texts.a.children[1].addEventListener('focus', jApp.texts.qCom, false);
 
 	// remove the newTB event listener
 	// jumboToolbar.children[0].children[1].children[1]
@@ -159,9 +177,18 @@ TB.prototype.setEnd = function()
 }
 
 //-----------------------------------------------
-// - toggle resize, reposition, rotate
-TB.prototype.togRRR = function(){ return false;
-
+// - toggle resize, reposition, rotate btns
+TB.prototype.togRRR = function(){
+	// if the btns are not showing
+	if(this.className == 'btn btn-default'){
+		// show the .drag-btns
+		jApp.texts.a.children[0].style.display = 'block';
+		// add the active class
+		this.className = 'btn btn-default active';
+	}else{
+		jApp.texts.a.children[0].style.display = 'none';
+		this.className = 'btn btn-default';
+	}
 }
 
 //-----------------------------------------------
@@ -252,7 +279,7 @@ var TC = function(){
 	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[6]];
 
 	// keep track of the color pickers
-	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];console.log(this.pickis);
+	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];
 
 	// add hex texts event listeners
 	this.tempHex[1].addEventListener('keyup', this.hexText, false);
@@ -338,7 +365,7 @@ TC.prototype.hexText = function(){
 	if(this.value.length == 7){
 
 		// focus on the div
-		jApp.texts.a.focus();
+		jApp.texts.a.children[1].focus();
 
 		// move the caret to the end
 		jApp.texts.setEnd();
@@ -357,13 +384,7 @@ TC.prototype.hexBlur = function(){
 
 //-----------------------------------------------
 // - html5 color picker change event
-TC.prototype.colorPick = function(){ console.log('colorPick!')
-
-	// focus on the active element
-	// jApp.texts.a.focus(); 
-
-	// move the caret to the end
-	// jApp.texts.setEnd();
+TC.prototype.colorPick = function(){
 	
 	jApp.texts.c.setColor( this.dataset.i,
 						  this.dataset.com,
@@ -388,7 +409,7 @@ TC.prototype.trans = function(){
 	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
 
 	// focus on the div
-	jApp.texts.a.focus();
+	jApp.texts.a.children[1].focus();
 
 	// move the caret to the end
 	jApp.texts.setEnd();
@@ -398,7 +419,7 @@ TC.prototype.trans = function(){
 		document.execCommand('backColor', false, ((this.checked) ? 'transparent' : '#FFFFFF'))
 
 	else
-		jApp.texts.a.style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
+		jApp.texts.a.children[1].style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
 }
 
 //-----------------------------------------------
@@ -428,7 +449,7 @@ TC.prototype.wheelBtn = function(){
 TC.prototype.setColor = function(i, excom, val){ console.log(val);
 
 	// focus on the active element
-	jApp.texts.a.focus(); 
+	jApp.texts.a.children[1].focus(); 
 
 	// move the caret to the end
 	jApp.texts.setEnd();
@@ -437,7 +458,7 @@ TC.prototype.setColor = function(i, excom, val){ console.log(val);
 	if(i == 1) // backColor only
 		document.execCommand('styleWithCSS', false, true);
 	if(i == 2) // background only
-		jApp.texts.a.style.backgroundColor = val;
+		jApp.texts.a.children[1].style.backgroundColor = val;
 	else
 		document.execCommand(excom, false, val);
 
