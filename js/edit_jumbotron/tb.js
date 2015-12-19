@@ -65,6 +65,10 @@ var TB = function(){
 	// toggle resize reposition rotate
 	textsToolbar.children[2].children[1].children[1]
 		.addEventListener('click', this.togRRR, false);
+
+	// delete textbox prompt modal
+	textsToolbar.children[0].children[0]
+		.addEventListener('click', this.confirmDel, false);
 }
 
 /* METHODS */
@@ -91,14 +95,22 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// set designMode to 'On'
 	jApp.texts.a.children[1].contentEditable = true;
 
+	// attribtue referrence to rr index
+	jApp.texts.a.setAttribute('data-r', rMap.i);
+
 	// create & activate the rr object
 	rMap.i++;
 	rMap.h[rMap.i] = new rr(jApp.texts.a);
 	rMap.a = rMap.h[rMap.i];
 	rMap.newRules();
 
-	// attribtue referrence to rr index
-	jApp.texts.a.setAttribute('data-r', rMap.i);
+	// add the new textbox to the nVals
+	jApp.nVals.texts.push({
+		html : '',
+		mobile  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
+		tablet  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
+		desktop : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 }
+	});
 
 	// focus on the element
 	jApp.texts.a.children[1].focus();
@@ -232,6 +244,53 @@ TB.prototype.clickFS = function(e){ e.preventDefault();
 // - move active textbox to the front of all 
 //   elements in the dragCanvas
 TB.prototype.move2front = function(){ return false;
+
+}
+
+//-----------------------------------------------
+// - launch modal
+// - set modal inner html
+// - set modal callback
+TB.prototype.confirmDel = function(){
+
+	// set the modal title
+	confModal.getElementsByTagName("h4")[0]
+		.innerHTML = '<div class="dash-box" aria-hidden="true">Aa</div>' + 
+    				 'Delete background image';
+
+   	// set modal body
+   	confModal.children[0].children[0].children[1]
+   		.innerHTML = '<p>Are you sure you want to delete this textbox?</p>';
+
+   	// create a copy of the textbox
+   	jApp.texts.x = document.createElement('div');
+   	jApp.texts.x.style.textAlign = 'center';
+   	jApp.texts.x.appendChild(jApp.texts.a.children[1].cloneNode(true));
+   	confModal.children[0].children[0].children[1]
+   		.appendChild( jApp.texts.x );
+   	
+   	// remove the editable property
+   	jApp.texts.x.children[0].contentEditable = false;
+
+   	// add a border
+   	jApp.texts.x.children[0].style.border = '1px solid #ccc';
+
+   	// center it
+   	jApp.texts.x.children[0].style.display = "inline-block";
+
+   	// dimension it
+   	jApp.texts.x.children[0].style.width = jApp.texts.a.offsetWidth + 'px';
+   	jApp.texts.x.children[0].style.height = jApp.texts.a.offsetHeight + 'px';
+
+   	if(jApp.texts.a.offsetWidth > 200)
+	   	// scale it to be no more than 200px
+	   	jApp.texts.x.style.transform = 'scale('+(200/jApp.texts.a.offsetWidth)+','+(200/jApp.texts.a.offsetWidth)+')';
+
+   	// set modal callback
+   	jApp.modal.callback = jApp.texts.del;
+
+   	// launch the modal
+   	jApp.modal.launch();
 
 }
 
