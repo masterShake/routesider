@@ -7,6 +7,7 @@ var r = function(){
 	this.i = 0;
 
 	// hashmap of the rr objects
+	// background image always 0
 	this.h = {};
 
 	// active rr object
@@ -50,6 +51,37 @@ r.prototype.setStyles = function(){ console.log(jApp.layout);
 		// set the transform object
 		this.h[x].extractMatrix();
 	}
+}
+
+//-----------------------------------------------
+// - create new css style rules for new rr obj
+r.prototype.newRules = function(){
+
+	// mobile
+	document.styleSheets[7]
+		.insertRule( '#dragCanvas>div:nth-child('+this.i+')'+
+					 '{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
+					 '  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
+					 '  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }',
+					 this.i
+				   );
+	// tablet
+	document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2]
+		.insertRule( '#dragCanvas>div:nth-child('+this.i+')'+
+					 '{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
+					 '  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
+					 '  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }',
+					 this.i
+				   );
+
+	// desktop
+	document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1]
+		.insertRule( '#dragCanvas>div:nth-child('+this.i+')'+
+					 '{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
+					 '  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
+					 '  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }',
+					 this.i
+				   );
 }
 
 // init

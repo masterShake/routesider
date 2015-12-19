@@ -351,7 +351,7 @@ CR = function(){
 
 	// keep track of the rr obj (reposition, resize, rotate)
 	this.r = new rr(cropCanvas.children[0]);
-	rMap.h[rMap.i++] = this.r;
+	rMap.h[0] = this.r;
 	rMap.a = this.r;
 
 	/* initializations */

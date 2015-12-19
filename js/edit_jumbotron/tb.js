@@ -82,26 +82,8 @@ TB.prototype.close = function(){
 //   the jumbo toolbar button
 TB.prototype.newTB = function(e){ e.preventDefault();
 
-	// increment the indexer
-	jApp.texts.i++;
-
-	// create a new textbox elem, store it in the hashmap
-	jApp.texts.h[jApp.texts.i] = document.createElement('div');
-
 	// set this to active textbox status
-	jApp.texts.a = jApp.texts.h[jApp.texts.i];
-
-	// give the element an index key
-	jApp.texts.a.setAttribute('data-key', jApp.texts.i);
-
-	// apply the textbox class
-	jApp.texts.a.className = 'textbox active';
-
-	// add the drag buttons
-	jApp.texts.a.innerHTML = document.getElementById('drag-btns-html').value;
-
-	// put an editable div inside the .textbox div
-	jApp.texts.a.appendChild(document.createElement('div'));
+	jApp.texts.a = jApp.texts.createElem();
 
 	// append the new textbox to the drag canvas
 	dragCanvas.appendChild(jApp.texts.a);
@@ -113,6 +95,7 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	rMap.i++;
 	rMap.h[rMap.i] = new rr(jApp.texts.a);
 	rMap.a = rMap.h[rMap.i];
+	rMap.newRules();
 
 	// attribtue referrence to rr index
 	jApp.texts.a.setAttribute('data-r', rMap.i);
@@ -127,6 +110,36 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// remove the newTB event listener
 	// jumboToolbar.children[0].children[1].children[1]
 	// 	.removeEventListner('click', jApp.tBoxes.newTB, false);
+}
+
+//-----------------------------------------------
+// - helper function for newTB
+// - create the new element
+// - create the css rules for the new element
+TB.prototype.createElem = function(){
+
+	// increment the indexer
+	this.i++;
+
+	// create a new textbox elem, store it in the hashmap
+	this.h[this.i] = document.createElement('div');
+
+	// set it to active
+	this.a = this.h[this.i];
+
+	// give the element an index key
+	this.a.setAttribute('data-key', jApp.texts.i);
+
+	// apply the textbox class
+	this.a.className = 'textbox active';
+
+	// add the drag buttons
+	this.a.innerHTML = document.getElementById('drag-btns-html').value;
+
+	// put an editable div inside the .textbox div
+	this.a.appendChild(document.createElement('div'));
+
+	return this.a;
 }
 
 //-----------------------------------------------
