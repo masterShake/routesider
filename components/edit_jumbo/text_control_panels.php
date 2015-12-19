@@ -100,7 +100,7 @@
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel">
+                <div class="color-wheel" data-i="0" data-com="foreColor">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -205,7 +205,7 @@
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel" style="height:122px;">
+                <div class="color-wheel" style="height:122px;" data-i="1" data-com="backColor">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -247,7 +247,7 @@
         </div><!-- /text color -->
 
         <!-- background color control panel -->
-        <div class="popover top control-panel" style="max-width:660px;">
+        <div class="popover top control-panel" style="max-width:660px;margin-bottom:-43px;">
             <div class="popover-title"> 
                 
                 <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -328,7 +328,7 @@
                         </div>
 
                         <!-- color wheel -->
-                        <div class="color-wheel" style="height:126px;padding-top:13px;">
+                        <div class="color-wheel" style="height:126px;padding-top:13px;" data-i="2" data-com>
                             <!-- 3 -->
                             <div>
                                 <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -390,7 +390,7 @@
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:107px"></div>
+            <div class="arrow" style="left:151px"></div>
         </div><!-- /backgroung color control panel -->
 
         <!-- text alignment -->

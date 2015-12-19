@@ -280,11 +280,11 @@ var TC = function(){
 	// this.tempHex[2].addEventListener('click', this.paintBtn, false);
 
 	// // get the colorwheel btns
-	// this.tempHex = textCpanels.querySelectorAll('[data-hex]');
+	this.tempHex = textsCpanels.querySelectorAll('[data-hex]');
 
 	// add event listeners to the colorwheel buttons
-	// for(var i = 0; i < this.tempHex.length; i++)
-	// 	this.tempHex[i].addEventListener('click', this.wheelBtn, false);
+	for(var i = 0; i < this.tempHex.length; i++)
+		this.tempHex[i].addEventListener('click', this.wheelBtn, false);
 }
 
 //-----------------------------------------------
@@ -405,11 +405,11 @@ TC.prototype.trans = function(){
 // - set html5 color picker
 // - set background
 TC.prototype.wheelBtn = function(){
-	
-	jApp.bg.bgc.temp = this.dataset.hex;
 
-	jApp.bg.bgc.setColor();
-
+	jApp.texts.c.setColor( this.parentElement.parentElement.dataset.i,
+						   this.parentElement.parentElement.dataset.com, 
+						   this.dataset.hex
+						 );
 }
 
 //-----------------------------------------------
@@ -428,8 +428,12 @@ TC.prototype.setColor = function(i, excom, val){
 	// jApp.texts.a.focus();
 
 	// set the execCommand
-	document.execCommand('styleWithCSS', false, true);
-	document.execCommand(excom, false, val);
+	if(i == 1) // backColor only
+		document.execCommand('styleWithCSS', false, true);
+	if(i == 2) // background only
+		jApp.texts.a.style.backgroundColor = val;
+	else
+		document.execCommand(excom, false, val);
 
 	// set the text
 	this.textis[i].value = 
