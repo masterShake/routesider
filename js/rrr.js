@@ -54,7 +54,10 @@ r.prototype.setStyles = function(){ console.log(jApp.layout);
 }
 
 //-----------------------------------------------
-// - create new css style rules for new rr obj
+// - create new css style rules
+// - insert into 7th stylesheet
+// - tablet @media > 768px
+// - desktop @media > 1200px
 r.prototype.newRules = function(){
 
 	// mobile
@@ -292,31 +295,31 @@ rr.prototype.setStyleSheet = function(){
 	
 	// if mobile
 	if(jApp.layout == 'mobile'){
-		document.styleSheets[7].cssRules[0].style.transform = 
+		document.styleSheets[7].cssRules[this.el.dataset.r].style.transform = 
 			// 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
-	 	document.styleSheets[7].cssRules[0].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[0].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+	 	document.styleSheets[7].cssRules[this.el.dataset.r].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[this.el.dataset.r].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if tablet
 	else if(jApp.layout == 'tablet'){
-		document.styleSheets[7].cssRules[1].cssRules[0].style.transform =
+		document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.transform =
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
-	 	document.styleSheets[7].cssRules[1].cssRules[0].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[1].cssRules[0].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if desktop
 	else if(jApp.layout == 'desktop'){
-		document.styleSheets[7].cssRules[2].cssRules[0].style.transform = 
+		document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.transform = 
 			// 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
 		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
 	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
-	 	document.styleSheets[7].cssRules[2].cssRules[0].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[2].cssRules[0].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 }
 

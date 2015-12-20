@@ -95,22 +95,22 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// set designMode to 'On'
 	jApp.texts.a.children[1].contentEditable = true;
 
-	// attribtue referrence to rr index
-	jApp.texts.a.setAttribute('data-r', rMap.i);
-
 	// create & activate the rr object
 	rMap.i++;
 	rMap.h[rMap.i] = new rr(jApp.texts.a);
 	rMap.a = rMap.h[rMap.i];
 	rMap.newRules();
 
+	// attribtue referrence to rr index
+	jApp.texts.a.setAttribute('data-r', rMap.i);
+
 	// add the new textbox to the nVals
-	jApp.nVals.texts.push({
+	jApp.nVals.texts[jApp.texts.i] = {
 		html : '',
 		mobile  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
 		tablet  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
 		desktop : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 }
-	});
+	};
 
 	// focus on the element
 	jApp.texts.a.children[1].focus();
@@ -518,7 +518,7 @@ TC.prototype.wheelBtn = function(){
 // 	  + i => element index in array
 //    + excom => execCommand name
 //    + val => hexidecimal value
-TC.prototype.setColor = function(i, excom, val){ console.log(val);
+TC.prototype.setColor = function(i, excom, val){
 
 	// focus on the active element
 	jApp.texts.a.children[1].focus(); 
