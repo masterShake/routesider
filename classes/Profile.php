@@ -174,52 +174,60 @@ class Profile{
 	public function jumbo(){
 
 		$temp = "MATCH (b:Business) WHERE b.id = " . $this->_business->data("id") . " " .
-				"MATCH (b)-[:HAS_PROFILE]->(p)-[q:HAS_JUMBO]->(j) ".
-				"OPTIONAL MATCH (j)-[r]->(n) " .
-				"RETURN p, q, j, r, n";
+				"MATCH (b)-[:HAS_PROFILE]->(p)-[:SECTION]->(j) ".
+				"MATCH (j)-[r:COMPONENT]->(m)-[q]->(n) " .
+				"RETURN j, r, m, q, n";
 
-		$results = $this->_db->q($temp);
+		$results = $this->_db->q($temp); // query
 
 		// get the Jumbotron node
-		$json = $results->getSingleNodeByLabel("Jumbotron");
+		$json = $results->getSingleNodeByLabel("Jumbotron")->getProperties();
 
-		// get the HAS_JUMBO relationship/edge
-		$temp = $json->getSingleRelationship("HAS_JUMBO")->getProperties();
+		// background by default
+		$temp = $results->getSingleNodeByLabel("Background");
+		$json["bg"]  = $temp->getProperties();
+		// get the layouts
+		$json["bg"]["layout"] = [];
+		$temp = $temp->getOutboundRelationships();
+		foreach($temp as $t){
+			// mobile
+			if($t->getEndNode()->getLabel() == "Mobile")
+				$json["bg"]["layout"]["mobile"] = $t->getEndNode()->getProperties();
+			// tablet
+			if($t->getEndNode()->getLabel() == "Tablet")
+				$json["bg"]["layout"]["tablet"] = $t->getEndNode()->getProperties();
+			// desktop
+			if($t->getEndNode()->getLabel() == "Desktop")
+				$json["bg"]["layout"]["desktop"] = $t->getEndNode()->getProperties();
+		}
+		// background.layout.mobile
+		// $json["bg"]["l"]["m"] = 
+		// $json["bg"]["l"]["t"] = 
+		// $json["bg"]["l"]["d"] = 
 
-		// create a clean object
-		$json = $json->getProperties();
 
-		// add the active property
-		$json["active"] = $temp["active"];
-
-		// set the layouts
-		$json["layouts"] = [];
-		$json["layouts"]["mobile"] = $results->getSingleNodeByLabel("Mobile")->getProperties();
-		$json["layouts"]["tablet"] = $results->getSingleNodeByLabel("Tablet")->getProperties();
-		$json["layouts"]["desktop"] = $results->getSingleNodeByLabel("Desktop")->getProperties();
-
-		// add empty arrays for the attached nodes
-		$json["texts"] = [];
+		// optional
+		$json["tbs"] = [];
 		$json["imgs"] = [];
 		$json["btns"] = [];
 
-		// loop through the images and push their properties
-		$temp = $results->getNodesByLabel("Image");
-		foreach ($temp as $t) {
-			array_push($json["imgs"], $t->getProperties());
-		}
+		// // loop through the images and push their properties
+		// $temp = $results->getNodesByLabel("Image");
+		// foreach ($temp as $t) {
+		// 	array_push($json["imgs"], $t->getProperties());
+		// }
 
-		// texts
-		$temp = $results->getNodesByLabel("Textbox");
-		foreach ($temp as $t) {
-			array_push($json["texts"], $t->getProperties());
-		}
+		// // texts
+		// $temp = $results->getNodesByLabel("Textbox");
+		// foreach ($temp as $t) {
+		// 	array_push($json["texts"], $t->getProperties());
+		// }
 
-		// btns
-		$temp = $results->getNodesByLabel("Button");
-		foreach ($temp as $t) {
-			array_push($json["btns"], $t->getProperties());
-		}
+		// // btns
+		// $temp = $results->getNodesByLabel("Button");
+		// foreach ($temp as $t) {
+		// 	array_push($json["btns"], $t->getProperties());
+		// }
 
 		return $json;
 	}

@@ -33,7 +33,7 @@ var TB = function(){
 		.addEventListener('click', this.newTB, false);
 
 	// add event listeners to execCommand buttons, temp var
-	this.x = textsProps.querySelectorAll('[data-excom]');
+	this.x = tbsProps.querySelectorAll('[data-excom]');
 	for(var j = 0; j < this.x.length; j++)
 		this.x[j].addEventListener('click', this.exCom, false);
 
@@ -51,7 +51,7 @@ var TB = function(){
 	};
 
 	// add font size keyup event
-	this.x = textsCpanels.getElementsByTagName('input');
+	this.x = tbsCpanels.getElementsByTagName('input');
 	this.x[0].addEventListener('keyup', this.keyFS, false);
 
 	// init the dropdown
@@ -63,11 +63,11 @@ var TB = function(){
 		this.x[i].children[0].addEventListener('click', this.clickFS, false);
 
 	// toggle resize reposition rotate
-	textsToolbar.children[2].children[1].children[1]
+	tbsToolbar.children[2].children[1].children[1]
 		.addEventListener('click', this.togRRR, false);
 
 	// delete textbox prompt modal
-	textsToolbar.children[0].children[0]
+	tbsToolbar.children[0].children[0]
 		.addEventListener('click', this.confirmDel, false);
 }
 
@@ -87,25 +87,25 @@ TB.prototype.close = function(){
 TB.prototype.newTB = function(e){ e.preventDefault();
 
 	// set this to active textbox status
-	jApp.texts.a = jApp.texts.createElem();
+	jApp.tbs.a = jApp.tbs.createElem();
 
 	// append the new textbox to the drag canvas
-	dragCanvas.appendChild(jApp.texts.a);
+	dragCanvas.appendChild(jApp.tbs.a);
 
 	// set designMode to 'On'
-	jApp.texts.a.children[1].contentEditable = true;
+	jApp.tbs.a.children[1].contentEditable = true;
 
 	// create & activate the rr object
-	rMap.i++;
-	rMap.h[rMap.i] = new rr(jApp.texts.a);
-	rMap.a = rMap.h[rMap.i];
-	rMap.newRules();
+	rm.i++;
+	rm.h[rm.i] = new rr(jApp.tbs.a);
+	rm.a = rm.h[rm.i];
+	rm.newRules();
 
 	// attribtue referrence to rr index
-	jApp.texts.a.setAttribute('data-r', rMap.i);
+	jApp.tbs.a.setAttribute('data-r', rm.i);
 
 	// add the new textbox to the nVals
-	jApp.nVals.texts[jApp.texts.i] = {
+	jApp.nVals.tbs[jApp.tbs.i] = {
 		html : '',
 		mobile  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
 		tablet  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
@@ -113,11 +113,11 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	};
 
 	// focus on the element
-	jApp.texts.a.children[1].focus();
+	jApp.tbs.a.children[1].focus();
 
 	// event to determine active exec commands
-	jApp.texts.a.children[1].addEventListener('keyup', jApp.texts.qCom, false);
-	jApp.texts.a.children[1].addEventListener('focus', jApp.texts.qCom, false);
+	jApp.tbs.a.children[1].addEventListener('keyup', jApp.tbs.qCom, false);
+	jApp.tbs.a.children[1].addEventListener('focus', jApp.tbs.qCom, false);
 
 	// remove the newTB event listener
 	// jumboToolbar.children[0].children[1].children[1]
@@ -140,7 +140,7 @@ TB.prototype.createElem = function(){
 	this.a = this.h[this.i];
 
 	// give the element an index key
-	this.a.setAttribute('data-key', jApp.texts.i);
+	this.a.setAttribute('data-key', jApp.tbs.i);
 
 	// apply the textbox class
 	this.a.className = 'textbox active';
@@ -180,8 +180,8 @@ TB.prototype.exCom = function(){
 // - set buttons accordingly
 TB.prototype.qCom = function(e){
 	// set the class on the wysiwyg btns
-	for(var x in jApp.texts.b)
-		jApp.texts.b[x].className = (document.queryCommandState(x)) ?
+	for(var x in jApp.tbs.b)
+		jApp.tbs.b[x].className = (document.queryCommandState(x)) ?
 													'btn btn-default active' :
 													'btn btn-default';
 }
@@ -207,11 +207,11 @@ TB.prototype.togRRR = function(){
 	// if the btns are not showing
 	if(this.className == 'btn btn-default'){
 		// show the .drag-btns
-		jApp.texts.a.children[0].style.display = 'block';
+		jApp.tbs.a.children[0].style.display = 'block';
 		// add the active class
 		this.className = 'btn btn-default active';
 	}else{
-		jApp.texts.a.children[0].style.display = 'none';
+		jApp.tbs.a.children[0].style.display = 'none';
 		this.className = 'btn btn-default';
 	}
 }
@@ -263,31 +263,31 @@ TB.prototype.confirmDel = function(){
    		.innerHTML = '<p>Are you sure you want to delete this textbox?</p>';
 
    	// create a copy of the textbox
-   	jApp.texts.x = document.createElement('div');
-   	jApp.texts.x.style.textAlign = 'center';
-   	jApp.texts.x.appendChild(jApp.texts.a.children[1].cloneNode(true));
+   	jApp.tbs.x = document.createElement('div');
+   	jApp.tbs.x.style.textAlign = 'center';
+   	jApp.tbs.x.appendChild(jApp.tbs.a.children[1].cloneNode(true));
    	confModal.children[0].children[0].children[1]
-   		.appendChild( jApp.texts.x );
+   		.appendChild( jApp.tbs.x );
    	
    	// remove the editable property
-   	jApp.texts.x.children[0].contentEditable = false;
+   	jApp.tbs.x.children[0].contentEditable = false;
 
    	// add a border
-   	jApp.texts.x.children[0].style.border = '1px solid #ccc';
+   	jApp.tbs.x.children[0].style.border = '1px solid #ccc';
 
    	// center it
-   	jApp.texts.x.children[0].style.display = "inline-block";
+   	jApp.tbs.x.children[0].style.display = "inline-block";
 
    	// dimension it
-   	jApp.texts.x.children[0].style.width = jApp.texts.a.offsetWidth + 'px';
-   	jApp.texts.x.children[0].style.height = jApp.texts.a.offsetHeight + 'px';
+   	jApp.tbs.x.children[0].style.width = jApp.tbs.a.offsetWidth + 'px';
+   	jApp.tbs.x.children[0].style.height = jApp.tbs.a.offsetHeight + 'px';
 
-   	if(jApp.texts.a.offsetWidth > 200)
+   	if(jApp.tbs.a.offsetWidth > 200)
 	   	// scale it to be no more than 200px
-	   	jApp.texts.x.style.transform = 'scale('+(200/jApp.texts.a.offsetWidth)+','+(200/jApp.texts.a.offsetWidth)+')';
+	   	jApp.tbs.x.style.transform = 'scale('+(200/jApp.tbs.a.offsetWidth)+','+(200/jApp.tbs.a.offsetWidth)+')';
 
    	// set modal callback
-   	jApp.modal.callback = jApp.texts.del;
+   	jApp.modal.callback = jApp.tbs.del;
 
    	// launch the modal
    	jApp.modal.launch();
@@ -345,7 +345,7 @@ TB.prototype.del = function(){ return false;
 var TC = function(){
 
 	// init the hexidecimal text input listener
-	this.tempHex = textsCpanels.getElementsByTagName('input');
+	this.tempHex = tbsCpanels.getElementsByTagName('input');
 
 	// keep track of the hex inputs
 	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[6]];
@@ -353,7 +353,7 @@ var TC = function(){
 	// keep track of the color pickers
 	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];
 
-	// add hex texts event listeners
+	// add hex tbs event listeners
 	this.tempHex[1].addEventListener('keyup', this.hexText, false);
 	this.tempHex[3].addEventListener('keyup', this.hexText, false);
 	this.tempHex[6].addEventListener('keyup', this.hexText, false);
@@ -368,7 +368,7 @@ var TC = function(){
 	this.tempHex[8].addEventListener('change', this.trans, false);
 
 	// get the paint buttons
-	this.tempHex = textsCpanels.querySelectorAll('.paint-btn');
+	this.tempHex = tbsCpanels.querySelectorAll('.paint-btn');
 
 	// keep track of the current color icon btn
 	this.icons = [this.tempHex[0], this.tempHex[1], this.tempHex[2]];
@@ -379,7 +379,7 @@ var TC = function(){
 	// this.tempHex[2].addEventListener('click', this.paintBtn, false);
 
 	// // get the colorwheel btns
-	this.tempHex = textsCpanels.querySelectorAll('[data-hex]');
+	this.tempHex = tbsCpanels.querySelectorAll('[data-hex]');
 
 	// add event listeners to the colorwheel buttons
 	for(var i = 0; i < this.tempHex.length; i++)
@@ -437,13 +437,13 @@ TC.prototype.hexText = function(){
 	if(this.value.length == 7){
 
 		// focus on the div
-		jApp.texts.a.children[1].focus();
+		jApp.tbs.a.children[1].focus();
 
 		// move the caret to the end
-		jApp.texts.setEnd();
+		jApp.tbs.setEnd();
 
 		// set the button color
-		jApp.texts.c.setColor(this.dataset.i, this.dataset.com, this.value);
+		jApp.tbs.c.setColor(this.dataset.i, this.dataset.com, this.value);
 	}
 }
 
@@ -458,7 +458,7 @@ TC.prototype.hexBlur = function(){
 // - html5 color picker change event
 TC.prototype.colorPick = function(){
 	
-	jApp.texts.c.setColor( this.dataset.i,
+	jApp.tbs.c.setColor( this.dataset.i,
 						  this.dataset.com,
 						  this.value.toUpperCase()
 						);
@@ -481,17 +481,17 @@ TC.prototype.trans = function(){
 	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
 
 	// focus on the div
-	jApp.texts.a.children[1].focus();
+	jApp.tbs.a.children[1].focus();
 
 	// move the caret to the end
-	jApp.texts.setEnd();
+	jApp.tbs.setEnd();
 
 	// set exec command or elem bg
 	if(this.dataset.com == '1')
 		document.execCommand('backColor', false, ((this.checked) ? 'transparent' : '#FFFFFF'))
 
 	else
-		jApp.texts.a.children[1].style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
+		jApp.tbs.a.children[1].style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
 }
 
 //-----------------------------------------------
@@ -502,7 +502,7 @@ TC.prototype.trans = function(){
 // - set background
 TC.prototype.wheelBtn = function(){
 
-	jApp.texts.c.setColor( this.parentElement.parentElement.dataset.i,
+	jApp.tbs.c.setColor( this.parentElement.parentElement.dataset.i,
 						   this.parentElement.parentElement.dataset.com, 
 						   this.dataset.hex
 						 );
@@ -521,16 +521,16 @@ TC.prototype.wheelBtn = function(){
 TC.prototype.setColor = function(i, excom, val){
 
 	// focus on the active element
-	jApp.texts.a.children[1].focus(); 
+	jApp.tbs.a.children[1].focus(); 
 
 	// move the caret to the end
-	jApp.texts.setEnd();
+	jApp.tbs.setEnd();
 
 	// set the execCommand
 	if(i == 1) // backColor only
 		document.execCommand('styleWithCSS', false, true);
 	if(i == 2) // background only
-		jApp.texts.a.children[1].style.backgroundColor = val;
+		jApp.tbs.a.children[1].style.backgroundColor = val;
 	else
 		document.execCommand(excom, false, val);
 

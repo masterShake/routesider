@@ -62,7 +62,7 @@ BG.prototype.close = function(){
 BG.prototype.confirmDel = function(){
 
 	// if there is no background image
-	if(!jApp.iVals["image"])
+	if(!jApp.nVals.bg.image)
 		return;
 
 	// set the modal title
@@ -75,7 +75,9 @@ BG.prototype.confirmDel = function(){
    	confModal.children[0].children[0].children[1]
    		.innerHTML = '<p>Are you sure you want to delete this background image?</p>'+
    					 '<div style="text-align:center">'+
-   					 '	<img src="img/business/'+jApp.iVals.image+'" style="height:auto;width:auto;max-height:160px;max-width:100%" />'+
+   					 '	<img src="'+
+   					 (jApp.nVals.bg.image.substr(0,6) == 'upload' ? jApp.nVals.bg.image : 'img/business/'+jApp.nVals.bg.image)+
+   					 '" style="height:auto;width:auto;max-height:160px;max-width:100%" />'+
    					 '</div>';
 
    	// set modal callback
@@ -90,27 +92,85 @@ BG.prototype.confirmDel = function(){
 // - prompt the user to save
 BG.prototype.del = function(){
 
-	// reset all the nVals properties
-	jApp.nVals["image"] = 0;
-	jApp.nVals["blur"] = 0;
-	jApp.nVals["opacity"] = 1;
-	jApp.nVals["h"] = 0;
-	jApp.nVals["w"] = 0;
+	// reset all background properties
+	jApp.bg.resetProps();
+
+	// reset background styles in style sheet
+	jApp.bg.resetStyles();
 
 	// remove the background image
-	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[0]);
+	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[1]);
 
 	// add the default bg image placeholder
-	jApp.temp = document.createElement("div");
-	jApp.temp.className = "bg-placeholder";
-	jApp.temp.innerHTML = '<span class="icon-image"></span>';
-	cropCanvas.children[0].insertBefore(jApp.temp, cropCanvas.children[0].children[0]);
+	cropCanvas.children[0].appendChild(document.createElement("div"));
+	cropCanvas.children[0].children[1].className = "bg-placeholder";
+	cropCanvas.children[0].children[1].innerHTML = '<span class="icon-image"></span>';
+}
+
+//-----------------------------------------------
+// - reset background properties
+BG.prototype.resetProps = function(){
+
+	// reset all the nVals.bg properties
+	jApp.nVals.bg.image = 
+	jApp.nVals.bg.blur = 0;
+	jApp.nVals.bg.ratio = 
+	jApp.nVals.bg.opacity = 1;
+	jApp.nVals.bg.color = '#FFFFFF';
+
+	// reset all the layout properties
+	jApp.nVals.bg.layout.mobile.x =
+	jApp.nVals.bg.layout.mobile.y = 
+	jApp.nVals.bg.layout.mobile.a = 
+	jApp.nVals.bg.layout.tablet.x = 
+	jApp.nVals.bg.layout.tablet.y = 
+	jApp.nVals.bg.layout.tablet.a = 
+	jApp.nVals.bg.layout.desktop.x = 
+	jApp.nVals.bg.layout.desktop.y = 
+	jApp.nVals.bg.layout.desktop.a = 0;
+	jApp.nVals.bg.layout.mobile.s =
+	jApp.nVals.bg.layout.tablet.s =
+	jApp.nVals.bg.layout.desktop.s = 1;  
 
 	// values changed
 	jApp.deltaVals();
+
+	// reset all the inputs
+	jApp.temp = bgCpanels.getElementsByTagName('input');
+	jApp.temp[0].value = 			// hex text bg color
+	jApp.temp[1].value = 
+	bgCpanels.getElementsByTagName('button')[3]
+		.style.backgroundColor = 	// fill button
+	cropCanvas.style.backgroundColor = '#FFFFFF'; 
+	jApp.temp[2].value = 			// blur
+	jApp.temp[3].value = 0;
+	jApp.temp[4].value =			// opacity
+	jApp.temp[5].value = 1;
 }
 
+//-----------------------------------------------
+// - reset the stylesheet for the bg image
+BG.prototype.resetStyles = function(){
 
+	// transform 
+	document.styleSheets[7].cssRules[0].style.transform = 		// mobile
+	document.styleSheets[7].cssRules[1].cssRules[0].style.transform = // tablet
+	document.styleSheets[7].cssRules[2].cssRules[0].style.transform = // desktop
+	cropCanvas.children[0].style.transform = 					// inline
+		'rotate3d(0,0,1,0deg) scale(1,1)';
+
+	// left
+	document.styleSheets[7].cssRules[0].style.left = 			 // mobile
+	document.styleSheets[7].cssRules[1].cssRules[0].style.left = // tablet
+	document.styleSheets[7].cssRules[2].cssRules[0].style.left = // desktop
+	cropCanvas.children[0].style.left = 						 // inline
+	// top
+	document.styleSheets[7].cssRules[0].style.top = 			// mobile
+	document.styleSheets[7].cssRules[1].cssRules[0].style.top = // tablet
+	document.styleSheets[7].cssRules[2].cssRules[0].style.top = // desktop
+	cropCanvas.children[0].style.top = 					// inline
+		'0%';
+}
 
 
 
@@ -271,9 +331,9 @@ BGI.prototype.uploadCB = function(){
 		// parse the json
 		jApp.temp = JSON.parse(this.responseText);
 
-		// set the nVals (new values) properties
-		jApp.nVals["image"] = jApp.temp["image"];
-		jApp.nVals["ratio"] = jApp.temp["ratio"];
+		// set the nVals.bg (new values) properties
+		jApp.nVals.bg["image"] = jApp.temp["image"];
+		jApp.nVals.bg["ratio"] = jApp.temp["ratio"];
 
 		// if there isn't already a background image
 		if(!window.hasOwnProperty("bgImg")){
@@ -288,15 +348,13 @@ BGI.prototype.uploadCB = function(){
 
 			// set the id
 			cropCanvas.children[0].children[1].id = "bgImg";
+
+			// set the data-r property (index in rm object)
+			cropCanvas.children[0].setAttribute('data-r', '0');
 		}
 
 		// set the background image
-		bgImg.src = jApp.nVals["image"];
-
-		// THIS IS BROKEN
-		// set the background image width
-		// document.styleSheets[document.styleSheets.length - 1].rules[0]
-		// 	.style.height = (cropCanvas.offsetWidth * jApp.nVals["ratio"]) + "px";
+		bgImg.src = jApp.nVals.bg["image"];
 
 		// show save prompt
 		jApp.deltaVals();
@@ -351,8 +409,8 @@ CR = function(){
 
 	// keep track of the rr obj (reposition, resize, rotate)
 	this.r = new rr(cropCanvas.children[0]);
-	rMap.h[0] = this.r;
-	rMap.a = this.r;
+	rm.h[0] = this.r;
+	rm.a = this.r;
 
 	/* initializations */
 
@@ -610,7 +668,7 @@ BGC.prototype.setColor = function(){
 	this.picki.value = 
 
 	// & update the new values object
-	jApp.nVals.color = this.temp;
+	jApp.nVals.bg.color = this.temp;
 
 	// set the preview icon color
 	this.icon.style.color = 
@@ -643,7 +701,7 @@ BGC.prototype.oSlide = function(){
 	bgImg.style.opacity = 
 
 	// update values
-	jApp.nVals["opacity"] = parseFloat(this.value);
+	jApp.nVals.bg["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -657,7 +715,7 @@ BGC.prototype.bSlide = function(){
 	this.parentElement.children[1].value = 
 
 	// update values
-	jApp.nVals["blur"] = parseInt(this.value);
+	jApp.nVals.bg["blur"] = parseInt(this.value);
 
 	// change the blur of the background img
 	bgImg.style.filter = 
@@ -701,7 +759,7 @@ BGC.prototype.oText = function(){
 	bgImg.style.opacity = 
 
 	// update values
-	jApp.nVals["opacity"] = parseFloat(this.value);
+	jApp.nVals.bg["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -726,8 +784,8 @@ BGC.prototype.bText = function(){
 	// update the slider input
 	this.parentElement.children[2].value = 
 
-	// update the nVals
-	jApp.nVals["blur"] = parseInt(this.value);
+	// update the nVals.bg
+	jApp.nVals.bg["blur"] = parseInt(this.value);
 
 	// set the blur
 	bgImg.style.filter = 

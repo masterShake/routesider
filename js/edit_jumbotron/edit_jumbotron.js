@@ -111,9 +111,9 @@ Jumbo = function(){
 	// init background editor
 	this.bg = new BG();
 	// init textbox editor
-	this.texts = new TB();
+	this.tbs = new TB();
 	// init image overlay editor
-	this.img = new IO();
+	this.imgs = new IO();
 	// init button editor
 	this.btns = new BTN();
 
@@ -124,8 +124,8 @@ Jumbo = function(){
 	confModal.children[0].children[0].children[2].children[1]
 		.addEventListener("click", this.modal.callback, false); 
 
-	// keep track active toolbar
-	this.comp = null;
+	// keep track active component editor
+	this.a = null;
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -250,20 +250,20 @@ Jumbo.prototype.actBtn = function(){
 Jumbo.prototype.togOpts = function(){
 
 	// if there is an open/active options toolbar
-	if(jApp.comp){
+	if(jApp.a){
 
 		// close it
-		jApp[jApp.comp].close();
+		jApp[jApp.a].close();
 
 		// if a control panel is open
 		if(jApp.panel >= 0){
 
 			// close it
-			document.getElementById(jApp.comp+"Cpanels").children[jApp.panel]
+			document.getElementById(jApp.a+"Cpanels").children[jApp.panel]
 				.style.display = "none";
 
 			// show the opts title
-			document.getElementById(jApp.comp + "Props").children[1]
+			document.getElementById(jApp.a + "Props").children[1]
 				.style.display = "block";
 
 			// reset the panel property
@@ -272,24 +272,24 @@ Jumbo.prototype.togOpts = function(){
 		}
 
 		// hide the open options toolbar
-		document.getElementById(jApp.comp + "Props").style.display = "none";
+		document.getElementById(jApp.a + "Props").style.display = "none";
 
 	}
 
 	// if this options toolbar was already open
-	if(this.dataset.comp == jApp.comp){
+	if(this.dataset.a == jApp.a){
 
-		// reset the comp property to null
-		jApp.comp = null;
+		// reset the a property to null
+		jApp.a = null;
 
 		return;
 	}
 
-	// set the comp property
-	jApp.comp = this.dataset.comp;
+	// set the a property
+	jApp.a = this.dataset.a;
 
 	// open the selected properties options toolbar
-	document.getElementById(this.dataset.comp + "Props").style.display = "block";
+	document.getElementById(this.dataset.a + "Props").style.display = "block";
 }
 
 //-----------------------------------------------
@@ -300,7 +300,7 @@ Jumbo.prototype.togCpan = function(){
 	if(jApp.panel >= 0)
 
 		// close it
-		document.getElementById(jApp.comp+"Cpanels").children[jApp.panel]
+		document.getElementById(jApp.a+"Cpanels").children[jApp.panel]
 			.style.display = "none";
 	
 	//-----------------------------------------------
@@ -309,7 +309,7 @@ Jumbo.prototype.togCpan = function(){
 	if(!this.dataset.panel || this.dataset.panel == jApp.panel){
 
 		// show the opts title
-		document.getElementById(jApp.comp + "Props").children[1]
+		document.getElementById(jApp.a + "Props").children[1]
 			.style.display = "block";
 
 		// reset the active panel
@@ -322,11 +322,11 @@ Jumbo.prototype.togCpan = function(){
 	jApp.panel = this.dataset.panel;
 
 	// hide the opts title
-	document.getElementById(jApp.comp + "Props").children[1]
+	document.getElementById(jApp.a + "Props").children[1]
 		.style.display = "none";
 
 	// display the control panel
-	document.getElementById(jApp.comp + "Cpanels").children[this.dataset.panel]
+	document.getElementById(jApp.a + "Cpanels").children[this.dataset.panel]
 		.style.display = "block";
 }
 
@@ -361,7 +361,7 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 	layoutView.children[0].children[1].children[0].innerHTML = this.dataset.layout;
 
 	// set the style of the rr object
-	rMap.setStyles();
+	rm.setStyles();
 }
 
 //-----------------------------------------------

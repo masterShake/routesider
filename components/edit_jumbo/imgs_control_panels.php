@@ -1,5 +1,5 @@
 <!-- img options control panels -->
-<div id="imgProps">
+<div id="imgsProps">
     
     <hr>
     
@@ -10,7 +10,7 @@
     </div>
 
     <!-- toolbar -->
-    <div class="opts-toolbar" id="imgToolbar">
+    <div class="opts-toolbar" id="imgsToolbar">
     	<!-- delete -->
     	<button type="button" class="btn btn-default btn-danger" style="float:right;max-height:43px;" aria-label="delete image">
     		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

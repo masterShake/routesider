@@ -23,8 +23,8 @@ var r = function(){
 //-----------------------------------------------
 // - mouse trap, determine if user has mouse
 r.prototype.mt = function(e){
-  document.removeEventListener('mousemove', rMap.mt, false);
-  rMap.a.hs = true;
+  document.removeEventListener('mousemove', rm.mt, false);
+  rm.a.hs = true;
 }
 
 //-----------------------------------------------
@@ -88,7 +88,7 @@ r.prototype.newRules = function(){
 }
 
 // init
-var rMap = new r();
+var rm = new r();
 
 
 //-----------------------------------------------
@@ -121,11 +121,11 @@ var rr = function(el){
 	this.y = 0; // Math.round((el.parentElement.offsetHeight - el.offsetHeight) / 2);
 
     // transform css object
-    this.transform = {
+    this.t = {
         x: this.x, 
         y: this.y,
-        scale: 1,
-        angle: 0
+        s: 1,
+        a: 0
 	};
 
     // initial scale
@@ -134,16 +134,19 @@ var rr = function(el){
     // initial angle
     this.ia = 0;
 
-    // extract the transform values from the matrix
-    this.extractMatrix();
+    // ticking race condition trigger
+    this.tck = false;
 
     // if the user has a mouse
-    if(rMap.hs)
+    if(rm.hs)
     	// set the mouse object
-    	rMap.m = 
+    	rm.m = 
     	this.m = new mau5(this.el);
 
     /* initializations */
+
+    // extract the transform values from the matrix
+    this.extractMatrix();
 
     // init the mc hammer manager object
     this.mc = new Hammer.Manager(this.el.children[0].children[0]);
@@ -151,7 +154,7 @@ var rr = function(el){
     this.mc.add(new Hammer.Pan({threshold: 0, pointers: 0}));
 
 	// pan event mouse & touch
-	this.mc.on("panstart panmove", this.pan);
+	this.mc.on("panstart panmove", this.p);
 	this.mc.on("panend", this.panEnd);
 
     // if user client has mouse
@@ -165,8 +168,8 @@ var rr = function(el){
 	// pinch
 	this.mc.add(new Hammer.Pinch({ threshold: 0 })).recognizeWith([this.mc.get('pan'), this.mc.get('rotate')]);
 	// set events
-	this.mc.on("rotatestart rotatemove", this.rotate);
-	this.mc.on("pinchstart pinchmove", this.pinch);
+	this.mc.on("rotatestart rotatemove", this.r);
+	this.mc.on("pinchstart pinchmove", this.q);
 }
 
 //-----------------------------------------------
@@ -185,22 +188,22 @@ rr.prototype.extractMatrix = function(){
 
 	// get the translate
 	this.x = 
-	this.transform.x = this.el.offsetLeft;
+	this.t.x = this.el.offsetLeft;
 	this.y = 
-	this.transform.y = this.el.offsetTop;
+	this.t.y = this.el.offsetTop;
 
 	// get the scale
 	this.is = 
-	this.transform.scale = Math.round(Math.sqrt(this.ia[0]*this.ia[0] + this.ia[1]*this.ia[1]) * 100) / 100;
+	this.t.s = Math.round(Math.sqrt(this.ia[0]*this.ia[0] + this.ia[1]*this.ia[1]) * 100) / 100;
 
 	// get the angle
 	this.ia = 
-	this.transform.angle = Math.round(Math.asin(this.ia[1]/this.is) * (180/Math.PI));
+	this.t.a = Math.round(Math.asin(this.ia[1]/this.is) * (180/Math.PI));
 }
 
 //-----------------------------------------------
 // - update element css transform properties
-rr.prototype.update = function (){ // console.log(this.transform.scale);
+rr.prototype.u = function (){ // console.log(this.t.s);
     
 	// change the css rule
 	// document.styleSheets[7].rules[0].style.transform = 
@@ -210,36 +213,36 @@ rr.prototype.update = function (){ // console.log(this.transform.scale);
     this.el.style.mozTransform =
     this.el.style.transform =
 
-	    // 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
-	    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
- 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
+	    // 'translate(' + this.t.x + 'px, ' + this.t.y + 'px) ' +
+	    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
+ 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
 
- 	this.el.style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
- 	this.el.style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+ 	this.el.style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
+ 	this.el.style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
 
  	// reset the ticker
-    this.ticking = false;
+    this.tck = false;
 }
 
 //-----------------------------------------------
 // - race conditions trigger, request an update
-rr.prototype.reqUpdate = function(){
-	if(!this.ticking){
-		this.ticking = true;
-		this.update();
+rr.prototype.ru = function(){
+	if(!this.tck){
+		this.tck = true;
+		this.u();
 	}
 }
 
 //-----------------------------------------------
 // - pan touch
-rr.prototype.pan = function(e){ e.preventDefault();
+rr.prototype.p = function(e){ e.preventDefault();
 
 	// set the translate object props
-	rMap.a.transform.x = rMap.a.x + e.deltaX;
-    rMap.a.transform.y = rMap.a.y + e.deltaY;
+	rm.a.t.x = rm.a.x + e.deltaX;
+    rm.a.t.y = rm.a.y + e.deltaY;
     
     // update the element
-    rMap.a.reqUpdate();
+    rm.a.ru();
 }
 
 //-----------------------------------------------
@@ -247,17 +250,17 @@ rr.prototype.pan = function(e){ e.preventDefault();
 rr.prototype.panEnd = function(e){ 
 
 	// set the new starting position
-	rMap.a.x = rMap.a.x + e.deltaX;
-	rMap.a.y = rMap.a.y + e.deltaY;
+	rm.a.x = rm.a.x + e.deltaX;
+	rm.a.y = rm.a.y + e.deltaY;
 
 	// set the nVals
- 	jApp.nVals.layouts[jApp.layout].x = (rMap.a.transform.x/rMap.a.el.parentElement.offsetWidth)*100;
- 	jApp.nVals.layouts[jApp.layout].y = (rMap.a.transform.y/rMap.a.el.parentElement.offsetHeight)*100;
- 	jApp.nVals.layouts[jApp.layout].scale = rMap.a.transform.scale;
- 	jApp.nVals.layouts[jApp.layout].angle = rMap.a.transform.angle;
+ 	jApp.nVals[jApp.a].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+ 	jApp.nVals[jApp.a].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+ 	jApp.nVals[jApp.a].layout[jApp.layout].s = rm.a.t.s;
+ 	jApp.nVals[jApp.a].layout[jApp.layout].a = rm.a.t.a;
 
 	// set the css stylesheet
-	rMap.a.setStyleSheet();
+	rm.a.setStyleSheet();
 
 	// values changed
 	jApp.deltaVals();
@@ -266,27 +269,27 @@ rr.prototype.panEnd = function(e){
 //-----------------------------------------------
 // - rotate touch
 // - uses rr.ia (inital angle) property
-rr.prototype.rotate = function(e){
+rr.prototype.r = function(e){
 
 	if(e.type == "rotatestart")
-		rMap.a.ia = rMap.a.transform.angle;
+		rm.a.ia = rm.a.t.a;
 
-    rMap.a.transform.angle = rMap.a.ia + e.rotation; // curr
+    rm.a.t.a = rm.a.ia + e.rotation; // curr
 
-    rMap.a.reqUpdate();
+    rm.a.ru();
 }
 
 //-----------------------------------------------
 // - pinch touch
 // - uses rr.is (initial scale) property
-rr.prototype.pinch = function(e){
+rr.prototype.q = function(e){
 
 		if(e.type == "pinchstart")
-			rMap.a.is = rMap.a.transform.scale;
+			rm.a.is = rm.a.t.s;
 
-	    rMap.a.transform.scale = rMap.a.is * e.scale;
+	    rm.a.t.s = rm.a.is * e.scale;
 
-	    rMap.a.reqUpdate();
+	    rm.a.ru();
 }
 
 //-----------------------------------------------
@@ -296,30 +299,30 @@ rr.prototype.setStyleSheet = function(){
 	// if mobile
 	if(jApp.layout == 'mobile'){
 		document.styleSheets[7].cssRules[this.el.dataset.r].style.transform = 
-			// 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
-		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
-	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
-	 	document.styleSheets[7].cssRules[this.el.dataset.r].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[this.el.dataset.r].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+			// 'translate(' + this.t.x + 'px, ' + this.t.y + 'px) ' +
+		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
+	 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
+	 	document.styleSheets[7].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if tablet
 	else if(jApp.layout == 'tablet'){
 		document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.transform =
-		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
-	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
-	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
+	 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
+	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if desktop
 	else if(jApp.layout == 'desktop'){
 		document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.transform = 
-			// 'translate(' + this.transform.x + 'px, ' + this.transform.y + 'px) ' +
-		    'scale(' + this.transform.scale + ', ' + this.transform.scale + ') ' +
-	 		'rotate3d(0,0,1,'+  this.transform.angle + 'deg)';
-	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.left = (this.transform.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.top = (this.transform.y/this.el.parentElement.offsetHeight)*100+'%';
+			// 'translate(' + this.t.x + 'px, ' + this.t.y + 'px) ' +
+		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
+	 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
+	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 }
 
@@ -374,19 +377,19 @@ var mau5 = function(el){
 
 	// get the drag-btns
 	for(var i = 1; i < this.p.length - 1; i++)
-		this.p[i].addEventListener('mousedown', this.resize, false);
+		this.p[i].addEventListener('mousedown', this.s, false);
 	// rotation button
-	this.p[9].addEventListener('mousedown', this.rotateMD, false);
+	this.p[9].addEventListener('mousedown', this.rmd, false);
 }
 
 
 
 //-----------------------------------------------
 // - resize mouse down
-mau5.prototype.resize = function(e){
+mau5.prototype.s = function(e){
 
 	// get the starting position of the mouse
-	rMap.m.p = {
+	rm.m.p = {
     	ix : e.pageX, 		  // initial mouse position
     	iy : e.pageY,
     	iw : this.parentElement.offsetWidth, // initial dimensions
@@ -398,16 +401,16 @@ mau5.prototype.resize = function(e){
     };
 
     // set the initial scale
-    rMap.a.is = rMap.a.transform.scale;
+    rm.a.is = rm.a.t.s;
 
 	// set the correct directional event
-	document.addEventListener("mousemove", rMap.m[this.dataset.de], false);
+	document.addEventListener("mousemove", rm.m[this.dataset.de], false);
 
 	// set resize x,y position event
-	document.addEventListener("mousemove", rMap.m.xy, false);
+	document.addEventListener("mousemove", rm.m.xy, false);
 
-	// set resize complete event
-	document.addEventListener("mouseup", rMap.m.resizeEnd, false);
+	// set resize end event
+	document.addEventListener("mouseup", rm.m.re, false);
 }
 
 //-----------------------------------------------
@@ -415,15 +418,15 @@ mau5.prototype.resize = function(e){
 mau5.prototype.d = function(e){
 
 	// if weighted deltaX > weighted deltaY
-	if( (rMap.m.p.ix - e.pageX) > rMap.a.ratio * (rMap.m.p.iy - e.pageY) )
+	if( (rm.m.p.ix - e.pageX) > rm.a.ratio * (rm.m.p.iy - e.pageY) )
 
 		// scale by width (horizontally)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dx * (rMap.m.p.ix - e.pageX) + rMap.m.p.iw)/rMap.m.p.iw);
+		rm.a.t.s = rm.a.is * ((rm.m.p.Dx * (rm.m.p.ix - e.pageX) + rm.m.p.iw)/rm.m.p.iw);
 
 	else
 
 		// scale by height (vertically)
-		rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dy * (rMap.m.p.iy - e.pageY) + rMap.m.p.ih)/rMap.m.p.ih);
+		rm.a.t.s = rm.a.is * ((rm.m.p.Dy * (rm.m.p.iy - e.pageY) + rm.m.p.ih)/rm.m.p.ih);
 }
 
 //-----------------------------------------------
@@ -431,10 +434,10 @@ mau5.prototype.d = function(e){
 mau5.prototype.h = function(e){ 
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dx * (rMap.m.p.ix - e.pageX) + rMap.m.p.iw)/rMap.m.p.iw);
+	rm.a.t.s = rm.a.is * ((rm.m.p.Dx * (rm.m.p.ix - e.pageX) + rm.m.p.iw)/rm.m.p.iw);
 
 	// update
-	rMap.a.reqUpdate();
+	rm.a.ru();
 }
 
 //-----------------------------------------------
@@ -442,10 +445,10 @@ mau5.prototype.h = function(e){
 mau5.prototype.v = function(e){
 
 	// scale by delta width
-	rMap.a.transform.scale = rMap.a.is * ((rMap.m.p.Dy * (rMap.m.p.iy - e.pageY) + rMap.m.p.ih)/rMap.m.p.ih);
+	rm.a.t.s = rm.a.is * ((rm.m.p.Dy * (rm.m.p.iy - e.pageY) + rm.m.p.ih)/rm.m.p.ih);
 
 	// update
-	rMap.a.reqUpdate();
+	rm.a.ru();
 }
 
 //-----------------------------------------------
@@ -453,37 +456,37 @@ mau5.prototype.v = function(e){
 mau5.prototype.xy = function(e){
 
 	// calculate the movements
-	rMap.a.transform.x = rMap.a.x + (rMap.a.el.parentElement.offsetWidth - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetWidth)) * rMap.m.p.Fx;
-	rMap.a.transform.y = rMap.a.y + (rMap.a.el.parentElement.offsetHeight - (rMap.a.transform.scale * rMap.a.el.parentElement.offsetHeight)) * rMap.m.p.Fy;
+	rm.a.t.x = rm.a.x + (rm.a.el.parentElement.offsetWidth - (rm.a.t.s * rm.a.el.parentElement.offsetWidth)) * rm.m.p.Fx;
+	rm.a.t.y = rm.a.y + (rm.a.el.parentElement.offsetHeight - (rm.a.t.s * rm.a.el.parentElement.offsetHeight)) * rm.m.p.Fy;
 
 	// update
-	rMap.a.reqUpdate();
+	rm.a.ru();
 
 }
 
 //-----------------------------------------------
 // - mouseup, cancel resize events
-mau5.prototype.resizeEnd = function(e){
+mau5.prototype.re = function(e){
 
 	// remove the mousemove event
-	document.removeEventListener('mousemove', rMap.m.h, false);
-	document.removeEventListener('mousemove', rMap.m.v, false);
-	document.removeEventListener('mousemove', rMap.m.d, false);
-	document.removeEventListener('mousemove', rMap.m.xy, false);
+	document.removeEventListener('mousemove', rm.m.h, false);
+	document.removeEventListener('mousemove', rm.m.v, false);
+	document.removeEventListener('mousemove', rm.m.d, false);
+	document.removeEventListener('mousemove', rm.m.xy, false);
 	// remove the mouseup event
-	document.removeEventListener('mouseup', rMap.a.resizeEnd, false);
+	document.removeEventListener('mouseup', rm.a.re, false);
 
 	// apply the new x,y positioning
-	rMap.a.x = rMap.a.transform.x;
-	rMap.a.y = rMap.a.transform.y;
+	rm.a.x = rm.a.t.x;
+	rm.a.y = rm.a.t.y;
 
 	// apply the new values
-	jApp.nVals.layouts[jApp.layout].x = (rMap.a.transform.x/rMap.a.el.parentElement.offsetWidth)*100;
- 	jApp.nVals.layouts[jApp.layout].y = (rMap.a.transform.y/rMap.a.el.parentElement.offsetHeight)*100;
-	jApp.nVals.layouts[jApp.layout].scale = rMap.a.transform.scale;
+	jApp.nVals.layouts[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+ 	jApp.nVals.layouts[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+	jApp.nVals.layouts[jApp.layout].scale = rm.a.t.s;
 
 	// update the stylesheet
-	rMap.a.setStyleSheet();
+	rm.a.setStyleSheet();
 
 	// prompt user to save
 	jApp.deltaVals();
@@ -492,26 +495,26 @@ mau5.prototype.resizeEnd = function(e){
 
 //-----------------------------------------------
 // - mousedown rotate
-mau5.prototype.rotateMD = function(e){
+mau5.prototype.rmd = function(e){
 
 	// get the initial angle
-	rMap.a.ia = rMap.a.transform.angle;
+	rm.a.ia = rm.a.t.a;
 
 	// get the object m.c relative to the window
-	rMap.m.c = rMap.a.el.children[1].getBoundingClientRect(); 
-	rMap.m.c = {
-		x : (rMap.m.c.left + rMap.m.c.width/2),
-		y : (rMap.m.c.top + rMap.m.c.height/2)
+	rm.m.c = rm.a.el.children[1].getBoundingClientRect(); 
+	rm.m.c = {
+		x : (rm.m.c.left + rm.m.c.width/2),
+		y : (rm.m.c.top + rm.m.c.height/2)
 	};
 
 	// get the initial client angle relative mouse client x,y
-	rMap.m.ima = Math.atan2(e.clientY - rMap.m.c.y, e.clientX - rMap.m.c.x); // * 180 / Math.PI;
+	rm.m.ima = Math.atan2(e.clientY - rm.m.c.y, e.clientX - rm.m.c.x); // * 180 / Math.PI;
 
-	// console.log('Here is the initial radian value: ' + rMap.m.ia);
+	// console.log('Here is the initial radian value: ' + rm.m.ia);
 
 	// add the event listeners
-	document.addEventListener('mousemove', rMap.m.rotateMM, false);
-	document.addEventListener('mouseup', rMap.m.rotateMU, false);
+	document.addEventListener('mousemove', rm.m.rmm, false);
+	document.addEventListener('mouseup', rm.m.rmu, false);
 }
 
 //-----------------------------------------------
@@ -525,32 +528,32 @@ mau5.prototype.rotateMD = function(e){
 //				)
 
 // - initial angle
-mau5.prototype.rotateMM = function(e){
+mau5.prototype.rmm = function(e){
 
 	// new angle
-	rMap.a.transform.angle = rMap.a.ia + 
+	rm.a.t.a = rm.a.ia + 
 							 (
-							 	( 	rMap.m.ima - 
-							 		Math.atan2(	e.clientY - rMap.m.c.y, e.clientX - rMap.m.c.x)
+							 	( 	rm.m.ima - 
+							 		Math.atan2(	e.clientY - rm.m.c.y, e.clientX - rm.m.c.x)
 							 	) * -180 / Math.PI
 							 );
-	// reqUpdate
-	rMap.a.reqUpdate();
+	// ru
+	rm.a.ru();
 }
 
 //-----------------------------------------------
 // - mouseup end rotation
-mau5.prototype.rotateMU = function(e){
+mau5.prototype.rmu = function(e){
 
 	// remove the event listeners
-	document.removeEventListener('mousemove', rMap.m.rotateMM, false);
-	document.removeEventListener('mousemove', rMap.a.mrotateMU, false);
+	document.removeEventListener('mousemove', rm.m.rmm, false);
+	document.removeEventListener('mouseup', rm.a.rmu, false);
 
 	// set the new angle 
-	jApp.nVals.layouts[jApp.layout].angle = rMap.a.transform.angle;
+	jApp.nVals.layouts[jApp.layout].angle = rm.a.t.a;
 
 	// update the stylesheet
-	rMap.a.setStyleSheet();
+	rm.a.setStyleSheet();
 
 	// alert that the values have change
 	jApp.deltaVals();

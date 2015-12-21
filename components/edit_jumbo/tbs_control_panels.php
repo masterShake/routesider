@@ -1,5 +1,5 @@
 <!-- textbox options control panels -->
-<div id="textsProps">
+<div id="tbsProps">
     
     <hr>
     
@@ -10,7 +10,7 @@
     </div>
 
     <!-- control panels -->
-    <div id="textsCpanels" style="position:relative;z-index:1;">
+    <div id="tbsCpanels" style="position:relative;z-index:1;">
 
         <!-- text size -->
         <div class="popover top control-panel" style="margin-bottom:-43px;max-width:250px;">
@@ -375,14 +375,14 @@
                     <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
 
                     <div class="col-sm-6">
-                        <!-- background image blur -->
+                        <!-- textbox blur -->
                         <div class="half-slider" style="padding-left:10px;float:right;">
                             <label>
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 blur
                             </label>
-                            <input type="text" class="form-control" maxlength="2" value='<?= ($jumbo["blur"]) ?>'>
-                            <input type="range" class="range-slider" min="0" max="10" step="1" value='<?= ($jumbo["blur"]) ?>'>
+                            <input type="text" class="form-control" maxlength="2" value='0'>
+                            <input type="range" class="range-slider" min="0" max="10" step="1" value='0'>
                         </div>
                         <!-- background image opacity -->
                         <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
@@ -390,8 +390,8 @@
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" maxlength="4" value='<?= ($jumbo["opacity"]) ?>'>
-                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="<?= ($jumbo["opacity"]) ?>">
+                            <input type="text" class="form-control" maxlength="4" value='0'>
+                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
                         </div>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
@@ -421,7 +421,7 @@
     </div>
 
     <!-- toolbar -->
-    <div id="textsToolbar">
+    <div id="tbsToolbar">
 
         <!-- delete button -->
         <div class="btn-group opts-toolbar" style="float:right;margin-bottom:10px;" aria-label="delete textbox">

@@ -58,20 +58,20 @@
 
             /* rule 0 - bg image container */
             #cropCanvas>div{
-                transform: rotate3d(0,0,1,<?= $jumbo["layouts"]["mobile"]["angle"]; ?>deg) 
-                           scale(<?= $jumbo["layouts"]["mobile"]["scale"]; ?>,<?= $jumbo["layouts"]["mobile"]["scale"]; ?>);
-                left: <?= $jumbo["layouts"]["mobile"]["x"]; ?>%;
-                top: <?= $jumbo["layouts"]["mobile"]["y"]; ?>%;
+                transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["mobile"]["a"]; ?>deg) 
+                           scale(<?= $jumbo["bg"]["layout"]["mobile"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["mobile"]["s"]; ?>);
+                left: <?= $jumbo["bg"]["layout"]["mobile"]["x"]; ?>%;
+                top: <?= $jumbo["bg"]["layout"]["mobile"]["y"]; ?>%;
             }
 
             /* Small devices (tablets, 768px and up) */
             @media (min-width: 768px) {
 
                 #cropCanvas>div{
-                    transform: rotate3d(0,0,1,<?= $jumbo["layouts"]["tablet"]["angle"]; ?>deg) 
-                               scale(<?= $jumbo["layouts"]["tablet"]["scale"]; ?>,<?= $jumbo["layouts"]["tablet"]["scale"]; ?>);
-                    left: <?= $jumbo["layouts"]["tablet"]["x"]; ?>%;
-                    top: <?= $jumbo["layouts"]["tablet"]["y"]; ?>%;
+                transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["tablet"]["a"]; ?>deg) 
+                           scale(<?= $jumbo["bg"]["layout"]["tablet"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["tablet"]["s"]; ?>);
+                left: <?= $jumbo["bg"]["layout"]["tablet"]["x"]; ?>%;
+                top: <?= $jumbo["bg"]["layout"]["tablet"]["y"]; ?>%;
                 }
             }
 
@@ -79,10 +79,10 @@
             @media (min-width: 1200px) {
 
                 #cropCanvas>div{
-                    transform: rotate3d(0,0,1,<?= $jumbo["layouts"]["desktop"]["angle"]; ?>deg) 
-                               scale(<?= $jumbo["layouts"]["desktop"]["scale"]; ?>,<?= $jumbo["layouts"]["desktop"]["scale"]; ?>);
-                    left: <?= $jumbo["layouts"]["desktop"]["x"]; ?>%;
-                    top: <?= $jumbo["layouts"]["desktop"]["y"]; ?>%;
+                transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["desktop"]["a"]; ?>deg) 
+                           scale(<?= $jumbo["bg"]["layout"]["desktop"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["desktop"]["s"]; ?>);
+                left: <?= $jumbo["bg"]["layout"]["desktop"]["x"]; ?>%;
+                top: <?= $jumbo["bg"]["layout"]["desktop"]["y"]; ?>%;
                 }
             }
 
@@ -200,8 +200,8 @@
                     <div>
 
                         <!-- background image & crop layer -->
-                        <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["color"]; ?>;'>
-                            <div>
+                        <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["bg"]["color"]; ?>;'>
+                            <div data-r="0">
                                 <!-- dragable crop buttons -->
                                 <div class="drag-btns" style="display:none;">
 
@@ -266,9 +266,9 @@
                                     </button>
                                 </div>
                                 <!-- background image -->
-                                <?php if($jumbo["image"]){ ?>
+                                <?php if($jumbo["bg"]["image"]){ ?>
 
-                                    <img src='img/business/<?= $jumbo["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["blur"]; ?>px);filter: blur(<?= $jumbo["blur"]; ?>px);' />
+                                    <img src='img/business/<?= $jumbo["bg"]["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["bg"]["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["bg"]["blur"]; ?>px);filter: blur(<?= $jumbo["bg"]["blur"]; ?>px);' />
 
                                 <?php }else{ ?>
 
@@ -284,7 +284,7 @@
                         <div class="j-canvas" id="bgCanvas">
 
                             <!-- upload image the old fashioned way -->
-                            <div class="upload-oldfash" <?= ($jumbo["image"]) ? "style='opacity:0.7'" : ""; ?>>
+                            <div class="upload-oldfash" <?= ($jumbo["bg"]["image"]) ? "style='opacity:0.7'" : ""; ?>>
                                 <label>Files to upload:</label>
                                 <input type="file" 
                                        name="fileselect[]" 
@@ -310,10 +310,10 @@
                     <?php include "components/edit_jumbo/bg_control_panels.php"; ?>
 
                     <!-- text -->
-                    <?php include "components/edit_jumbo/text_control_panels.php"; ?>
+                    <?php include "components/edit_jumbo/tbs_control_panels.php"; ?>
 
                     <!-- images -->
-                    <?php include "components/edit_jumbo/img_control_panels.php"; ?>
+                    <?php include "components/edit_jumbo/imgs_control_panels.php"; ?>
 
                     <!-- buttons -->
                     <?php include "components/edit_jumbo/btns_control_panels.php"; ?>
@@ -362,7 +362,7 @@
                         <!-- edit background -->
                         <div role="button"
                              class="btn btn-default"
-                             data-comp="bg" 
+                             data-a="bg" 
                              aria-label="edit background">
                             <div class="dash-box" style="padding:3px 4px 1px;" aria-hidden="true">
                                 <span class="icon-image" aria-hidden="true"></span>
@@ -372,7 +372,7 @@
                         <!-- add textbox -->
                         <div role="button"
                              class="btn btn-default" 
-                             data-comp="texts" 
+                             data-a="tbs" 
                              aria-label="add textbox">
                             <div class="dash-box" aria-hidden="true">Aa</div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -380,14 +380,14 @@
                         <!-- add image overlay -->
                         <div role="button"
                              class="btn btn-default" 
-                             data-comp="img" 
+                             data-a="imgs" 
                              aria-label="add image overlay">
                             <div class="icon-images" style="font-size:22px;float:left;margin: 2px 5px 0 0;" aria-hidden="true"></div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </div>
                         <!-- add button -->
                         <div class="btn btn-default" 
-                             data-comp="btns" 
+                             data-a="btns" 
                              aria-label="add button">
                             <div class="dash-box" style="outline: 0px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
                                 <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
