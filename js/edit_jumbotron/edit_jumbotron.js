@@ -142,13 +142,19 @@ Jumbo = function(){
 	this.setDims();
 
 	// init the layout view dropdown
-	layoutView.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+	layoutD1.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+	layoutD2.children[0].addEventListener("click", rsApp.toggleDropdown, false);
 
 	// init the scaling event listeners
-	this.temp = layoutView.getElementsByTagName("a");
+	this.temp = layoutD1.getElementsByTagName("a");
 	this.temp[0].addEventListener("click", this.lay, false);
 	this.temp[1].addEventListener("click", this.lay, false);
 	this.temp[2].addEventListener("click", this.lay, false);
+	this.temp = layoutD2.getElementsByTagName("a");
+	this.temp[0].addEventListener("click", this.lay, false);
+	this.temp[1].addEventListener("click", this.lay, false);
+	this.temp[2].addEventListener("click", this.lay, false);
+
 
 	// get all the toolbars, add actBtn event
 	this.temp = document.getElementsByClassName("tb"); // console.log(this.temp);
@@ -203,19 +209,19 @@ Jumbo.prototype.setDims = function(){
 	}else if(document.body.offsetWidth < 1200){
 		jumboCanvas.className = 
 		this.layout = 
-		layoutTitle.children[1].innerHTML = 
-		layoutView.children[0].children[1].children[0].innerHTML = "tablet";
+		layoutD1.children[0].children[1].children[0].innerHTML = 
+		layoutD2.children[0].children[1].children[0].innerHTML = "tablet";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
-		layoutTitle.children[0].className = 
-		layoutView.children[0].children[0].className = "icon-mobile2";
+		layoutD1.children[0].children[0].className = 
+		layoutD2.children[0].children[0].className = "icon-mobile2";
 	}else{
 		jumboCanvas.className
 		this.layout = 
-		layoutTitle.children[1].innerHTML = 
-		layoutView.children[0].children[1].children[0].innerHTML = "desktop";
+		layoutD1.children[0].children[1].children[0].innerHTML = 
+		layoutD2.children[0].children[1].children[0].innerHTML = "desktop";
 		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
-		layoutTitle.children[0].className = 
-		layoutView.children[0].children[0].className = "icon-laptop";
+		layoutD1.children[0].children[0].className = 
+		layoutD2.children[0].children[0].className = "icon-laptop";
 	}
 };
 
@@ -341,9 +347,13 @@ Jumbo.prototype.jumboVis = function(){
 // - change device layout click event
 Jumbo.prototype.lay = function(e){ e.preventDefault();
 
+	// hide the dropdown
+	this.parentElement.parentElement.style.display = 'none';
+	document.body.removeEventListener("click", rsApp.closeDropdown, true);
+
 	// set the icons
-	layoutTitle.children[0].className = 
-	layoutView.children[0].children[0].className = this.children[0].className;
+	layoutD1.children[0].children[0].className = 
+	layoutD2.children[0].children[0].className = this.children[0].className;
 
 	// change the aspect ratio
 	jumboCanvas.style.height = this.dataset.h * jumboCanvas.offsetWidth + "px";
@@ -354,11 +364,9 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 	// change the class/scale
 	jumboCanvas.className = 
 
-	// change the title text
-	layoutTitle.children[1].innerHTML = 
-
 	// change the dropdown text
-	layoutView.children[0].children[1].children[0].innerHTML = this.dataset.layout;
+	layoutD1.children[0].children[1].children[0].innerHTML =
+	layoutD2.children[0].children[1].children[0].innerHTML = this.dataset.layout;
 
 	// set the style of the rr object
 	rm.setStyles();

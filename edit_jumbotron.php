@@ -187,10 +187,40 @@
             <!-- canvases & control panels container -->
             <div class="container">
 
+                <!-- device layout dropdown -->
+                <div class="dropdown layout-d" id="layoutD1">
+                    <div aria-haspopup="true" aria-expanded="true" role="button">
+                        <span class="icon-mobile" style="font-size:30px;" aria-hidden="true"></span>
+                        <div style="float:right;margin-top:-4px;">
+                            <span>mobile</span>
+                            <span class="caret"></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="layout-view">
+                        <li class="dropdown-header">Layout View</li>
+                        <li role="separator" class="divider"></li>
+                        <li class="list-group-item">
+                            <!-- data-layout = jumboCanvas classname -->
+                            <!-- data-h = canvas height -->
+                            <a href="#" data-layout="mobile" data-h="1.42">
+                                <span class="icon-mobile"></span>&nbsp;&nbsp;mobile
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" data-layout="tablet" data-h="1.06">
+                                <span class="icon-mobile2"></span>&nbsp;&nbsp;tablet
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" data-layout="desktop" data-h="0.54" style="border-bottom: 0px;">
+                                <span class="icon-laptop"></span>&nbsp;&nbsp;desktop
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /device layout dropdown -->
+
                 <!-- canvas title -->
-                <h3 style="margin-top:0px;">Preview: 
-                    <span id="layoutTitle"><div class="icon-mobile" style="float:left;margin-top:2px;"></div><span>mobile</span></span>
-                </h3>
+                <h3 style="margin-top:0px;max-width:100px;">Preview:</h3>
 
                 <!-- jumboCanvas -->
                 <!-- class = "mobile" || "tablet" || "laptop" -->
@@ -326,7 +356,7 @@
                 <div class="container" >
 
                     <!-- device layout dropdown -->
-                    <div class="dropup" id="layoutView">
+                    <div class="dropup layout-d" id="layoutD2">
                         <div aria-haspopup="true" aria-expanded="true" role="button">
                             <div class="icon-mobile" style="font-size:30px;float:left;margin-top:8px;" aria-hidden="true"></div>
                             <div style="padding-top:12px;float:right;">
