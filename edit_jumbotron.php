@@ -196,7 +196,7 @@
                             <span class="caret"></span>
                         </div>
                     </div>
-                    <ul class="dropdown-menu" aria-labelledby="layout-view">
+                    <ul class="dropdown-menu">
                         <li class="dropdown-header">Layout View</li>
                         <li role="separator" class="divider"></li>
                         <li class="list-group-item">
@@ -224,7 +224,7 @@
 
                 <!-- jumboCanvas -->
                 <!-- class = "mobile" || "tablet" || "laptop" -->
-                <div id="jumboCanvas">
+                <div id="jumboCanvas" class="mobile">
 
                     <!-- layout div -->
                     <div>
@@ -364,7 +364,7 @@
                                 <span class="caret"></span>
                             </div>
                         </div>
-                        <ul class="dropdown-menu" aria-labelledby="layout-view">
+                        <ul class="dropdown-menu">
                             <li class="dropdown-header">Layout View</li>
                             <li role="separator" class="divider"></li>
                             <li class="list-group-item">

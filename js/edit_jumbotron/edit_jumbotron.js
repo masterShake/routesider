@@ -215,7 +215,7 @@ Jumbo.prototype.setDims = function(){
 		layoutD1.children[0].children[0].className = 
 		layoutD2.children[0].children[0].className = "icon-mobile2";
 	}else{
-		jumboCanvas.className
+		jumboCanvas.className = 
 		this.layout = 
 		layoutD1.children[0].children[1].children[0].innerHTML = 
 		layoutD2.children[0].children[1].children[0].innerHTML = "desktop";

@@ -215,6 +215,13 @@
 .upload-oldfash input{
 	border: none;
 }
+/* in desktop layout */
+.desktop #bgCanvas{
+	padding-top: 60px;	
+}
+.desktop .upload-oldfash{
+	top: -50px;
+}
 
 /*----------------------
   bg img control panel
@@ -262,6 +269,10 @@
 	font-size: 36px;
 	padding-top: 50%;
 	color: #ccc;
+}
+/* in desktop layout */
+.desktop .bg-placeholder{
+	padding-top: 77px;
 }
 
 /*---------------------- 
@@ -411,6 +422,22 @@ tbody button.btn-color-selected{
 	    margin-left: -180px;
 	}
 
+	/* upload canvas mobile layout */
+	.mobile .bg-placeholder{
+		padding-top: 151px;
+	}
+	/* tablet */
+	.tablet #bgCanvas{
+		padding-top: 379px;
+	}
+	/* desktop */
+	.desktop #bgCanvas{
+		padding-top: 154px;
+	}
+	.desktop .bg-placeholder{
+		padding-top: 172px;
+	}
+
 	#jumboCanvas.desktop{
 		min-height: 388px;
 	}
@@ -453,4 +480,14 @@ tbody button.btn-color-selected{
 		height: 613px !important;
 	}
 
+	/* upload canvas */
+	.tablet #bgCanvas{
+		padding-top: 310px;
+	}
+	.desktop #bgCanvas{
+		padding-top: 258px;
+	}
+	.desktop .bg-placeholder{
+		padding-top: 276px;
+	}
 }

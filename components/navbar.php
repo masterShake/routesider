@@ -147,7 +147,7 @@
             </ul>
 
             <!-- search routesider -->
-            <form class="navbar-form navbar-right" role="search">
+            <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search Routesider">
                 <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
             </form>
