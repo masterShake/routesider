@@ -77,7 +77,24 @@ var TB = function(){
 // - user closes textbox control panel
 TB.prototype.close = function(){
 
-	return false;
+	// remove the active class
+	this.a.className = 'textbox';
+
+	// show the .toggle-edit elem
+	this.a.children[0].style.display = 'block';
+
+	// make sure the drag buttons are hidden
+	this.a.children[1].style.display = 'none';
+
+	// blur
+	this.a.children[2].blur();
+
+	// nullify the active textbox
+	this.a = null;
+
+	// re-add the newTB event listener
+	jumboToolbar.children[0].children[1].children[1]
+		.addEventListener('click', jApp.tbs.newTB, false);
 
 }
 
@@ -92,8 +109,13 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// append the new textbox to the drag canvas
 	dragCanvas.appendChild(jApp.tbs.a);
 
-	// set designMode to 'On'
-	jApp.tbs.a.children[1].contentEditable = true;
+	// add the new textbox to the nVals
+	jApp.nVals.tbs[jApp.tbs.i] = {
+		html : '',
+		mobile  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
+		tablet  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
+		desktop : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 }
+	};
 
 	// create & activate the rr object
 	rm.i++;
@@ -104,27 +126,25 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// attribtue referrence to rr index
 	jApp.tbs.a.setAttribute('data-r', rm.i);
 
-	// add the new textbox to the nVals
-	jApp.nVals.tbs[jApp.tbs.i] = {
-		html : '',
-		mobile  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
-		tablet  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
-		desktop : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 }
-	};
+	// hide the toggle editor element
+	jApp.tbs.a.children[0].style.display = 'none';
+
+	// set designMode to 'On'
+	jApp.tbs.a.children[2].contentEditable = true;
 
 	// focus on the element
-	jApp.tbs.a.children[1].focus();
+	jApp.tbs.a.children[2].focus();
 
 	// event to determine active exec commands
-	jApp.tbs.a.children[1].addEventListener('keyup', jApp.tbs.qCom, false);
-	jApp.tbs.a.children[1].addEventListener('focus', jApp.tbs.qCom, false);
+	jApp.tbs.a.children[2].addEventListener('keyup', jApp.tbs.qCom, false);
+	jApp.tbs.a.children[2].addEventListener('focus', jApp.tbs.qCom, false);
 
 	// events to determine fore & back colors
-	jApp.tbs.a.children[1].addEventListener('keyup', jApp.tbs.c.qCol, false);
+	jApp.tbs.a.children[2].addEventListener('keyup', jApp.tbs.c.qCol, false);
 
 	// remove the newTB event listener
-	// jumboToolbar.children[0].children[1].children[1]
-	// 	.removeEventListner('click', jApp.tBoxes.newTB, false);
+	jumboToolbar.children[0].children[1].children[1]
+		.removeEventListener('click', jApp.tbs.newTB, false);
 }
 
 //-----------------------------------------------
@@ -153,6 +173,12 @@ TB.prototype.createElem = function(){
 
 	// put an editable div inside the .textbox div
 	this.a.appendChild(document.createElement('div'));
+
+	// give it a class
+	this.a.children[1].className = 'content-edit';
+
+	// prepend a toggle editor
+	new TE(this.a);
 
 	return this.a;
 }
@@ -193,7 +219,7 @@ TB.prototype.qCom = function(e){
 // - move the cursor to the end of the active div
 TB.prototype.setEnd = function(){
     this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
-    this.range.selectNodeContents(this.a.children[1]);//Select the entire contents of the element with the this.range
+    this.range.selectNodeContents(this.a.children[2]);//Select the entire contents of the element with the this.range
     this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
     this.sel = window.getSelection();//get the this.sel object (allows you to change this.sel)
     this.sel.removeAllRanges();//remove any selections already made
@@ -206,11 +232,11 @@ TB.prototype.togRRR = function(){
 	// if the btns are not showing
 	if(this.className == 'btn btn-default'){
 		// show the .drag-btns
-		jApp.tbs.a.children[0].style.display = 'block';
+		jApp.tbs.a.children[1].style.display = 'block';
 		// add the active class
 		this.className = 'btn btn-default active';
 	}else{
-		jApp.tbs.a.children[0].style.display = 'none';
+		jApp.tbs.a.children[1].style.display = 'none';
 		this.className = 'btn btn-default';
 	}
 }
@@ -264,8 +290,8 @@ TB.prototype.confirmDel = function(){
    	// create a copy of the textbox
    	jApp.tbs.x = document.createElement('div');
    	jApp.tbs.x.style.textAlign = 'center';
-   	jApp.tbs.x.appendChild(jApp.tbs.a.children[1].cloneNode(true));
-   	confModal.children[0].children[0].children[1]
+   	jApp.tbs.x.appendChild(jApp.tbs.a.children[2].cloneNode(true));
+   	confModal.children[0].children[0].children[2]
    		.appendChild( jApp.tbs.x );
    	
    	// remove the editable property
@@ -379,8 +405,6 @@ var TC = function(){
 	for(var i = 0; i < this.tempHex.length; i++)
 		this.tempHex[i].addEventListener('click', this.wheelBtn, false);
 
-	// keyup set the color control panel
-
 }
 
 //-----------------------------------------------
@@ -445,7 +469,7 @@ TC.prototype.hexText = function(){
 	if(this.value.length == 7){
 
 		// focus on the div
-		jApp.tbs.a.children[1].focus();
+		jApp.tbs.a.children[2].focus();
 
 		// move the caret to the end
 		jApp.tbs.setEnd();
@@ -506,7 +530,7 @@ TC.prototype.trans = function(){
 	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
 
 	// focus on the div
-	jApp.tbs.a.children[1].focus();
+	jApp.tbs.a.children[2].focus();
 
 	// move the caret to the end
 	jApp.tbs.setEnd();
@@ -516,7 +540,7 @@ TC.prototype.trans = function(){
 		document.execCommand('backColor', false, ((this.checked) ? 'transparent' : '#FFFFFF'))
 
 	else
-		jApp.tbs.a.children[1].style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
+		jApp.tbs.a.children[2].style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
 }
 
 //-----------------------------------------------
@@ -544,14 +568,15 @@ TC.prototype.wheelBtn = function(){
 //    + excom => execCommand name
 //    + val => hexidecimal value
 TC.prototype.setColor = function(i, excom, val){
-
-	// set the execCommand
+	
 	if(i == 2) // background only
-		jApp.tbs.a.children[1].style.backgroundColor = val;
+		jApp.tbs.a.children[2].style.backgroundColor = val;
+	
+	// set the execCommand
 	if(excom){
 
 		// focus on the active element
-		jApp.tbs.a.children[1].focus(); 
+		jApp.tbs.a.children[2].focus(); 
 
 		// move the caret to the end
 		jApp.tbs.setEnd();
@@ -562,26 +587,35 @@ TC.prototype.setColor = function(i, excom, val){
 		document.execCommand(excom, false, val);
 	}
 
+	this.sch(i, val);
+}
+
+//-----------------------------------------------
+// - set color helper for html elems
+// - i => control panel index
+// - v => hexidecimal value
+TC.prototype.sch = function(i, v){
+
 	// set the text
 	this.textis[i].value = 
 
 	// set the color picker
-	this.pickis[i].value = val;
+	this.pickis[i].value = v;
 
 	// if this is the font color control panel
 	if(i == 0){
 		// set the font color
-		this.icons[0].style.color = val;
+		this.icons[0].style.color = v;
 		// set the background
 		this.icons[0].style.backgroundColor = 
-			this.hexBright(this.hexToRgb(val)) ?
+			this.hexBright(this.hexToRgb(v)) ?
 				"#444" : "#FFF";
 	}else{
 		// set the background color
-		this.icons[i].style.background = val;
+		this.icons[i].style.background = v;
 		// set the preview icon color
 		this.icons[i].style.color = 
-			this.hexBright(this.hexToRgb(val)) ?
+			this.hexBright(this.hexToRgb(v)) ?
 				"#444" : "#FFF";
 	}
 }
@@ -742,14 +776,28 @@ var TE = function(el){
 
 	/* properties */
 
+	this.el = el;
+
 	/* initializations */
 
 	// prepend a div
+	this.el.insertBefore(
+		document.createElement('div'),
+		this.el.children[0]
+	);
+
+	// set the class
+	this.el.children[0].className = 'toggle-edit';
 
 	// add a pencil button
+	this.el.children[0].innerHTML = '<button type="button" class="btn btn-default">'+
+										'<span class="glyphicon glyphicon-pencil"></span>'+
+									'</button>';
 
 	// add event listeners
-
+	this.el.children[0].addEventListener('mouseover', this.show, false);
+	this.el.children[0].addEventListener('mouseout', this.hide, false);
+	this.el.children[0].addEventListener('click', this.tog, false);
 }
 
 /* METHODS */
@@ -760,13 +808,43 @@ var TE = function(el){
 //   centerpoint
 // - fade in editor btn
 TE.prototype.show = function(){
-
+	this.style.opacity = 1;
 }
 
 //-----------------------------------------------
 // - click btn event, toggle editor mode
 TE.prototype.tog = function(){
 
+	// if there is no other active textbox
+	if(!jApp.tbs.a){
+
+		// display the control panel, first remove newTB event
+		jumboToolbar.children[0].children[1].children[1]
+			.removeEventListener('click', jApp.tbs.newTB, false);
+		jumboToolbar.children[0].children[1].children[1].click();
+
+	// if there is another textbox open
+	}else if(jApp.tbs.a !== this.parentElement){
+
+		// remove the active class
+		jApp.tbs.a.className = 'textbox';
+
+		// show the .toggle-edit elem
+		jApp.tbs.a.children[0].style.display = 'block';
+
+		// make sure the drag buttons are hidden
+		jApp.tbs.a.children[1].style.display = 'none';
+	}
+
+	// set the active textbox
+	jApp.tbs.a = this.parentElement;
+	jApp.tbs.a.className = 'textbox active';
+
+	// hide the .toggle-edit element
+	this.style.display = 'none';
+
+	// focus on the textbox
+	jApp.tbs.a.children[2].focus();
 }
 
 //-----------------------------------------------
@@ -775,7 +853,7 @@ TE.prototype.tog = function(){
 //   the textbox
 // - fade the button out
 TE.prototype.hide = function(){
-
+	this.style.opacity = 0;
 }
 
 

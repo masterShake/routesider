@@ -149,7 +149,7 @@ var rr = function(el){
     this.extractMatrix();
 
     // init the mc hammer manager object
-    this.mc = new Hammer.Manager(this.el.children[0].children[0]);
+    this.mc = new Hammer.Manager(this.el.children[1].children[0]);
     // pan
     this.mc.add(new Hammer.Pan({threshold: 0, pointers: 0}));
 
@@ -367,7 +367,7 @@ rr.prototype.setStyleSheet = function(){
 var mau5 = function(el){
 
 	// the position variables & init temp variable
-	this.p = el.children[0].children; //console.log(this.p);
+	this.p = el.children[1].children; //console.log(this.p);
 
 	// the centerpoint
 	this.c = null;
