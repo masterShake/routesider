@@ -30,7 +30,7 @@ r.prototype.mt = function(e){
 //-----------------------------------------------
 // - set inline transform styles from all rr
 //   objects based on layout
-r.prototype.setStyles = function(){ console.log(jApp.layout);
+r.prototype.setStyles = function(){
 
 	// if mobile
 	if(jApp.layout == 'mobile')

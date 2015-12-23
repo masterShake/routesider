@@ -119,6 +119,9 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	jApp.tbs.a.children[1].addEventListener('keyup', jApp.tbs.qCom, false);
 	jApp.tbs.a.children[1].addEventListener('focus', jApp.tbs.qCom, false);
 
+	// events to determine fore & back colors
+	jApp.tbs.a.children[1].addEventListener('keyup', jApp.tbs.c.qCol, false);
+
 	// remove the newTB event listener
 	// jumboToolbar.children[0].children[1].children[1]
 	// 	.removeEventListner('click', jApp.tBoxes.newTB, false);
@@ -188,17 +191,13 @@ TB.prototype.qCom = function(e){
 
 //-----------------------------------------------
 // - move the cursor to the end of the active div
-TB.prototype.setEnd = function()
-{
-    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-    {
-        this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
-        this.range.selectNodeContents(this.a);//Select the entire contents of the element with the this.range
-        this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
-        this.sel = window.getSelection();//get the this.sel object (allows you to change this.sel)
-        this.sel.removeAllRanges();//remove any selections already made
-        this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
-    }
+TB.prototype.setEnd = function(){
+    this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
+    this.range.selectNodeContents(this.a.children[1]);//Select the entire contents of the element with the this.range
+    this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
+    this.sel = window.getSelection();//get the this.sel object (allows you to change this.sel)
+    this.sel.removeAllRanges();//remove any selections already made
+    this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
 }
 
 //-----------------------------------------------
@@ -373,17 +372,15 @@ var TC = function(){
 	// keep track of the current color icon btn
 	this.icons = [this.tempHex[0], this.tempHex[1], this.tempHex[2]];
 
-	// add event listeners to the current color buttons
-	// this.tempHex[0].addEventListener('click', this.paintBtn, false);
-	// this.tempHex[1].addEventListener('click', this.paintBtn, false);
-	// this.tempHex[2].addEventListener('click', this.paintBtn, false);
-
 	// // get the colorwheel btns
 	this.tempHex = tbsCpanels.querySelectorAll('[data-hex]');
 
 	// add event listeners to the colorwheel buttons
 	for(var i = 0; i < this.tempHex.length; i++)
 		this.tempHex[i].addEventListener('click', this.wheelBtn, false);
+
+	// keyup set the color control panel
+
 }
 
 //-----------------------------------------------
@@ -416,6 +413,17 @@ TC.prototype.hexToRgb = function(hex) {
         g: parseInt(this.tempHex[2], 16),
         b: parseInt(this.tempHex[3], 16)
     } : null;
+}
+
+//-----------------------------------------------
+// - convert to hex
+TC.prototype.rgbToHex = function(rgb) {
+    return "#" + this.compToHex(rgb[0]) + this.compToHex(rgb[1]) + this.compToHex(rgb[2]);
+}
+// - helper
+TC.prototype.compToHex = function(c) {
+    this.tempHex = parseInt(c).toString(16);
+    return this.tempHex.length == 1 ? "0" + this.tempHex : this.tempHex;
 }
 
 //-----------------------------------------------
@@ -465,9 +473,26 @@ TC.prototype.colorPick = function(){
 }
 
 //-----------------------------------------------
-// - paint button event listener
-TC.prototype.paintBtn = function(){ return false;
-
+// - keyup set control panel color
+TC.prototype.qCol = function(){
+	// foreColor
+	jApp.tbs.c.setColor(
+		0,
+		0,
+		jApp.tbs.c.rgbToHex(
+			document.queryCommandValue('foreColor')
+				.split('(')[1].split(')')[0].split(',')
+		)
+	);
+	// backColor
+	jApp.tbs.c.setColor(
+		1,
+		0,
+		jApp.tbs.c.rgbToHex(
+			document.queryCommandValue('backColor')
+				.split('(')[1].split(')')[0].split(',')
+		)
+	);
 }
 
 //-----------------------------------------------
@@ -520,19 +545,22 @@ TC.prototype.wheelBtn = function(){
 //    + val => hexidecimal value
 TC.prototype.setColor = function(i, excom, val){
 
-	// focus on the active element
-	jApp.tbs.a.children[1].focus(); 
-
-	// move the caret to the end
-	jApp.tbs.setEnd();
-
 	// set the execCommand
-	if(i == 1) // backColor only
-		document.execCommand('styleWithCSS', false, true);
 	if(i == 2) // background only
 		jApp.tbs.a.children[1].style.backgroundColor = val;
-	else
+	if(excom){
+
+		// focus on the active element
+		jApp.tbs.a.children[1].focus(); 
+
+		// move the caret to the end
+		jApp.tbs.setEnd();
+
+		if(i == 1) // backColor only
+			document.execCommand('styleWithCSS', false, true);
+		
 		document.execCommand(excom, false, val);
+	}
 
 	// set the text
 	this.textis[i].value = 
@@ -671,6 +699,84 @@ TC.prototype.bText = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				TE (toggle editor)			
+//			  -----------------------
+//
+// - toggle editor mode
+//
+// - make sure button is within clickable area
+//
+//-----------------------------------------------
+
+/* CONSTRUCTOR */
+
+//-----------------------------------------------
+// - el => container parent element of textbox
+var TE = function(el){
+
+	/* properties */
+
+	/* initializations */
+
+	// prepend a div
+
+	// add a pencil button
+
+	// add event listeners
+
+}
+
+/* METHODS */
+
+//-----------------------------------------------
+// - focus, mouseover
+// - position editor button closest to canvas
+//   centerpoint
+// - fade in editor btn
+TE.prototype.show = function(){
+
+}
+
+//-----------------------------------------------
+// - click btn event, toggle editor mode
+TE.prototype.tog = function(){
+
+}
+
+//-----------------------------------------------
+// - blur, mouseout
+// - move the button back within the perimeter of
+//   the textbox
+// - fade the button out
+TE.prototype.hide = function(){
+
+}
 
 
 
