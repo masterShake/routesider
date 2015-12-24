@@ -207,9 +207,9 @@ class Profile{
 
 
 		// optional
-		$json["tbs"] = [];
-		$json["imgs"] = [];
-		$json["btns"] = [];
+		$json["tbs"]  = new stdClass();
+		$json["imgs"] = new stdClass();
+		$json["btns"] = new stdClass();
 
 		// // loop through the images and push their properties
 		// $temp = $results->getNodesByLabel("Image");

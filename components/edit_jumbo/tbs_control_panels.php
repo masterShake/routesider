@@ -203,13 +203,12 @@
                     <!-- no color (transparent) textbox -->
                     <div style="margin-top:10px;">
                         <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                        <input type="checkbox" class="form-control" data-com="1" checked>
+                        <input type="checkbox" class="form-control" data-i="1" checked>
                     </div>
-
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel" style="height:122px;" data-i="1" data-com="backColor">
+                <div class="color-wheel" style="height:122px;padding-top:12px;" data-i="1" data-com="backColor">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -328,7 +327,7 @@
                             <!-- no color (transparent) textbox -->
                             <div style="margin-top:10px;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                                <input type="checkbox" class="form-control" data-com checked>
+                                <input type="checkbox" class="form-control" data-i="2" checked>
                             </div>
 
                         </div>

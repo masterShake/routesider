@@ -112,9 +112,14 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// add the new textbox to the nVals
 	jApp.nVals.tbs[jApp.tbs.i] = {
 		html : '',
-		mobile  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
-		tablet  : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 },
-		desktop : { w : 80, h : 27, x : 48, y : 44, scale : 1, rotate : 0 }
+		bg : 'transparent',
+		opacity : 1,
+		blur: 0,
+		layout : {
+			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0 },
+			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0 },
+			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0 }
+		}
 	};
 
 	// create & activate the rr object
@@ -291,7 +296,7 @@ TB.prototype.confirmDel = function(){
    	jApp.tbs.x = document.createElement('div');
    	jApp.tbs.x.style.textAlign = 'center';
    	jApp.tbs.x.appendChild(jApp.tbs.a.children[2].cloneNode(true));
-   	confModal.children[0].children[0].children[2]
+   	confModal.children[0].children[0].children[1]
    		.appendChild( jApp.tbs.x );
    	
    	// remove the editable property
@@ -378,19 +383,8 @@ var TC = function(){
 	// keep track of the color pickers
 	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];
 
-	// add hex tbs event listeners
-	this.tempHex[1].addEventListener('keyup', this.hexText, false);
-	this.tempHex[3].addEventListener('keyup', this.hexText, false);
-	this.tempHex[6].addEventListener('keyup', this.hexText, false);
-
-	// add color picker event listeners
-	this.pickis[0].addEventListener('change', this.colorPick, false);
-	this.pickis[1].addEventListener('change', this.colorPick, false);
-	this.pickis[2].addEventListener('change', this.colorPick, false);
-
-	// transparency checkbox
-	this.tempHex[5].addEventListener('change', this.trans, false);
-	this.tempHex[8].addEventListener('change', this.trans, false);
+	// keep track of transparency checkbox
+	this.checkis = [null, this.tempHex[5], this.tempHex[8]];
 
 	// get the paint buttons
 	this.tempHex = tbsCpanels.querySelectorAll('.paint-btn');
@@ -398,13 +392,26 @@ var TC = function(){
 	// keep track of the current color icon btn
 	this.icons = [this.tempHex[0], this.tempHex[1], this.tempHex[2]];
 
+	// add hex tbs event listeners
+	this.textis[0].addEventListener('keyup', this.hexText, false);
+	this.textis[1].addEventListener('keyup', this.hexText, false);
+	this.textis[2].addEventListener('keyup', this.hexText, false);
+
+	// add color picker event listeners
+	this.pickis[0].addEventListener('change', this.colorPick, false);
+	this.pickis[1].addEventListener('change', this.colorPick, false);
+	this.pickis[2].addEventListener('change', this.colorPick, false);
+
+	// transparency checkbox
+	this.checkis[1].addEventListener('change', this.trans, false);
+	this.checkis[2].addEventListener('change', this.trans, false);
+
 	// // get the colorwheel btns
 	this.tempHex = tbsCpanels.querySelectorAll('[data-hex]');
 
 	// add event listeners to the colorwheel buttons
 	for(var i = 0; i < this.tempHex.length; i++)
 		this.tempHex[i].addEventListener('click', this.wheelBtn, false);
-
 }
 
 //-----------------------------------------------
@@ -525,22 +532,12 @@ TC.prototype.qCol = function(){
 // - set execCommand or background color
 // - keep track of previous color, possibly reset
 TC.prototype.trans = function(){
-
-	// change the transparency of the parent element
-	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
-
-	// focus on the div
-	jApp.tbs.a.children[2].focus();
-
-	// move the caret to the end
-	jApp.tbs.setEnd();
-
-	// set exec command or elem bg
-	if(this.dataset.com == '1')
-		document.execCommand('backColor', false, ((this.checked) ? 'transparent' : '#FFFFFF'))
-
-	else
-		jApp.tbs.a.children[2].style.backgroundColor = (this.checked) ? 'transparent' : '#FFFFFF';
+	// set the color
+	jApp.tbs.c.setColor(
+		this.dataset.i, 
+		(this.dataset.i == 1) ? 'backColor' : false,
+		(this.checked) ? 'transparent' : '#FFFFFF'
+	);
 }
 
 //-----------------------------------------------
@@ -581,7 +578,7 @@ TC.prototype.setColor = function(i, excom, val){
 		// move the caret to the end
 		jApp.tbs.setEnd();
 
-		if(i == 1) // backColor only
+		if(val == 'transparent') // backColor only
 			document.execCommand('styleWithCSS', false, true);
 		
 		document.execCommand(excom, false, val);
@@ -596,8 +593,17 @@ TC.prototype.setColor = function(i, excom, val){
 // - v => hexidecimal value
 TC.prototype.sch = function(i, v){
 
+	// if this is the checkbox
+	if(i > 0){
+		// set checkbox
+		this.checkis[i].checked = (v == 'transparent') ? true : false;
+		this.checkis[i].parentElement.style.opacity = 
+			(v == 'transparent') ? '1' : '0.5';
+		v = (v == 'transparent') ? '#FFFFFF' : v;
+	}
+
 	// set the text
-	this.textis[i].value = 
+	this.textis[i].value =
 
 	// set the color picker
 	this.pickis[i].value = v;
@@ -618,6 +624,9 @@ TC.prototype.sch = function(i, v){
 			this.hexBright(this.hexToRgb(v)) ?
 				"#444" : "#FFF";
 	}
+
+	// remove the styleWithCSS command
+	document.execCommand('styleWithCSS', false, false);
 }
 
 //-----------------------------------------------
@@ -766,6 +775,8 @@ TC.prototype.bText = function(){
 //
 // - make sure button is within clickable area
 //
+// - resize textbox even
+//
 //-----------------------------------------------
 
 /* CONSTRUCTOR */
@@ -798,6 +809,10 @@ var TE = function(el){
 	this.el.children[0].addEventListener('mouseover', this.show, false);
 	this.el.children[0].addEventListener('mouseout', this.hide, false);
 	this.el.children[0].addEventListener('click', this.tog, false);
+
+	// re-dimension div event
+	this.el.children[2].addEventListener('mouseup', this.reDim, false);
+	this.el.children[2].addEventListener('touchend', this.reDim, false);
 }
 
 /* METHODS */
@@ -856,7 +871,30 @@ TE.prototype.hide = function(){
 	this.style.opacity = 0;
 }
 
+//-----------------------------------------------
+// - user resizes content editable div
+TE.prototype.reDim = function(){
 
+	// set the nVals
+	jApp.nVals.tbs[this.parentElement.dataset.key]
+		.layout[jApp.layout].h = this.offsetHeight;
+	jApp.nVals.tbs[this.parentElement.dataset.key]
+		.layout[jApp.layout].w = this.offsetWidth; console.log(jApp.nVals.tbs[1]);
+
+	// set the css
+	if(jApp.layout == 'mobile'){
+		document.styleSheets[7].cssRules[parseInt(this.parentElement.dataset.r)].style.height = this.offsetHeight + 'px';
+		document.styleSheets[7].cssRules[parseInt(this.parentElement.dataset.r)].style.width = this.offsetWidth + 'px';
+	}else if(jApp.layout == 'tablet'){
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight;
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.height = this.offsetWidth;
+	}else{
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight;
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.height = this.offsetWidth;
+	}
+
+	jApp.deltaVals();
+}
 
 
 

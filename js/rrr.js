@@ -247,17 +247,24 @@ rr.prototype.p = function(e){ e.preventDefault();
 
 //-----------------------------------------------
 // - user stops panning, reset the data
-rr.prototype.panEnd = function(e){ 
+rr.prototype.panEnd = function(e){
 
 	// set the new starting position
 	rm.a.x = rm.a.x + e.deltaX;
 	rm.a.y = rm.a.y + e.deltaY;
 
 	// set the nVals
- 	jApp.nVals[jApp.a].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
- 	jApp.nVals[jApp.a].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
- 	jApp.nVals[jApp.a].layout[jApp.layout].s = rm.a.t.s;
- 	jApp.nVals[jApp.a].layout[jApp.layout].a = rm.a.t.a;
+	if(jApp.a == 'bg'){ // background
+		jApp.nVals['bg'].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+	 	jApp.nVals['bg'].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+	 	jApp.nVals['bg'].layout[jApp.layout].s = rm.a.t.s;
+	 	jApp.nVals['bg'].layout[jApp.layout].a = rm.a.t.a;
+	}else{ // all other components
+	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].s = rm.a.t.s;
+	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].a = rm.a.t.a;
+	}
 
 	// set the css stylesheet
 	rm.a.setStyleSheet();
