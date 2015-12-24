@@ -10,11 +10,14 @@ var r = function(){
 	// background image always 0
 	this.h = {};
 
+	// current z-index
+	this.z = 0;
+
 	// active rr object
 	this.a = null;
 
 	// client has mouse
-	this.hs = true; // should be initially set to false
+	this.hs = false; // should be initially set to false
 
 	// add event listener
 	document.addEventListener('mousemove', this.mt, false);
@@ -23,8 +26,14 @@ var r = function(){
 //-----------------------------------------------
 // - mouse trap, determine if user has mouse
 r.prototype.mt = function(e){
-  document.removeEventListener('mousemove', rm.mt, false);
-  rm.a.hs = true;
+  	// remove this event listener
+  	document.removeEventListener('mousemove', rm.mt, false);
+  	// set has mouse property to true
+  	rm.hs = true;
+  	// loop through the hashmap
+  	for(var x in rm.h)
+  		// create the mau5 object
+  		rm.h[x].m = new mau5(rm.h[x].el);
 }
 
 //-----------------------------------------------
@@ -137,11 +146,14 @@ var rr = function(el){
     // ticking race condition trigger
     this.tck = false;
 
+    // property to hold mau5 object just in case
+    this.m = null;
     // if the user has a mouse
-    if(rm.hs)
+    if(rm.hs){
     	// set the mouse object
     	rm.m = 
     	this.m = new mau5(this.el);
+    }
 
     /* initializations */
 

@@ -2,9 +2,11 @@
 //				   TB (textbox)			
 //			     ----------------
 //
-// - manage and track textbox objects
+// - manage & track textbox objects
 //
-// - apply event listeners to style buttons
+// - delete textbox objects
+//
+// - toggle textbox properties toolbar
 //
 //-----------------------------------------------
 
@@ -21,57 +23,30 @@ var TB = function(){
 	// active textbox
 	this.a = null;
 
-	// color changing objects
+	// init textbox style object
+	this.s = new TS();
+
+	// init textbox color object
 	this.c = new TC();
+
+	// init textbox editor object
+	this.te = new TE();
 
 	// help move the caret to the end
 	this.range = null;
 	this.sel = null;
 
+	// temp variable
+	this.t = null;
+
 	// add event listener to the new textbox btn
 	jumboToolbar.children[0].children[1].children[1]
 		.addEventListener('click', this.newTB, false);
-
-	// add event listeners to execCommand buttons, temp var
-	this.x = tbsProps.querySelectorAll('[data-excom]');
-	for(var j = 0; j < this.x.length; j++)
-		this.x[j].addEventListener('click', this.exCom, false);
-
-	// keep track of the buttons
-	this.b = {
-		bold 		  : this.x[4],
-		italic		  : this.x[5],
-		underline	  : this.x[6],
-		strikeThrough : this.x[7],
-		subscript	  : this.x[8],
-		justifyLeft	  : this.x[0],
-		justifyCenter : this.x[1],
-		justifyRight  : this.x[2],
-		justifyFull	  : this.x[3]
-	};
-
-	// add font size keyup event
-	this.x = tbsCpanels.getElementsByTagName('input');
-	this.x[0].addEventListener('keyup', this.keyFS, false);
-
-	// init the dropdown
-	this.x[0].parentElement.children[1].children[0].addEventListener("click", rsApp.toggleDropdown, false);
-
-	// add click event to font sizes
-	this.x = this.x[0].parentElement.children[1].children[1].children;
-	for(var i = 0; i < this.x.length; i++)
-		this.x[i].children[0].addEventListener('click', this.clickFS, false);
-
-	// toggle resize reposition rotate
-	tbsToolbar.children[2].children[1].children[1]
-		.addEventListener('click', this.togRRR, false);
 
 	// delete textbox prompt modal
 	tbsToolbar.children[0].children[0]
 		.addEventListener('click', this.confirmDel, false);
 }
-
-/* METHODS */
 
 //-----------------------------------------------
 // - user closes textbox control panel
@@ -94,7 +69,7 @@ TB.prototype.close = function(){
 
 	// re-add the newTB event listener
 	jumboToolbar.children[0].children[1].children[1]
-		.addEventListener('click', jApp.tbs.newTB, false);
+		.addEventListener('click', this.newTB, false);
 
 }
 
@@ -131,25 +106,8 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// attribtue referrence to rr index
 	jApp.tbs.a.setAttribute('data-r', rm.i);
 
-	// hide the toggle editor element
-	jApp.tbs.a.children[0].style.display = 'none';
-
-	// set designMode to 'On'
-	jApp.tbs.a.children[2].contentEditable = true;
-
-	// focus on the element
-	jApp.tbs.a.children[2].focus();
-
-	// event to determine active exec commands
-	jApp.tbs.a.children[2].addEventListener('keyup', jApp.tbs.qCom, false);
-	jApp.tbs.a.children[2].addEventListener('focus', jApp.tbs.qCom, false);
-
-	// events to determine fore & back colors
-	jApp.tbs.a.children[2].addEventListener('keyup', jApp.tbs.c.qCol, false);
-
-	// remove the newTB event listener
-	jumboToolbar.children[0].children[1].children[1]
-		.removeEventListener('click', jApp.tbs.newTB, false);
+	// apply the event listeners
+	jApp.tbs.ae();
 }
 
 //-----------------------------------------------
@@ -173,51 +131,42 @@ TB.prototype.createElem = function(){
 	// apply the textbox class
 	this.a.className = 'textbox active';
 
-	// add the drag buttons
-	this.a.innerHTML = document.getElementById('drag-btns-html').value;
+	// add the 3 children
+	this.a.innerHTML = '<div class="toggle-edit" style="display:none;">'+
+					   		'<button type="button" class="btn btn-default">'+
+								'<span class="glyphicon glyphicon-pencil"></span>'+
+							'</button>'+
+					   '</div>'+ 
+					   document.getElementById('drag-btns-html').value+
+					   '<div class="content-edit"></div>';
 
-	// put an editable div inside the .textbox div
-	this.a.appendChild(document.createElement('div'));
+	// apply toggle editor events
+	this.te.initLayer();
 
-	// give it a class
-	this.a.children[1].className = 'content-edit';
-
-	// prepend a toggle editor
-	new TE(this.a);
+	// set designMode to 'On'
+	this.a.children[2].contentEditable = true;
 
 	return this.a;
 }
 
 //-----------------------------------------------
-// - buttons that employ the execCommand function
-//    + bold
-//    + italic
-//    + underline
-//    + strike
-//    + subscript
-//    + superscript
-//    + justify left
-//    + justify center
-//    + justify right
-//    + justify full
-TB.prototype.exCom = function(){
-	// apply the execCommand
-	document.execCommand(this.dataset.excom, false, null);
-	// toggle the active class
-	this.className = (this.className == 'btn btn-default') ?
-						'btn btn-default active' : 
-						'btn btn-default' ;
-}
+// - apply event listeners to newly created
+//   textbox element
+TB.prototype.ae = function(){
 
-//-----------------------------------------------
-// - determine which demands are active
-// - set buttons accordingly
-TB.prototype.qCom = function(e){
-	// set the class on the wysiwyg btns
-	for(var x in jApp.tbs.b)
-		jApp.tbs.b[x].className = (document.queryCommandState(x)) ?
-													'btn btn-default active' :
-													'btn btn-default';
+	// focus on the element
+	this.a.children[2].focus();
+
+	// event to determine active exec commands
+	this.a.children[2].addEventListener('keyup', this.s.qCom, false);
+	this.a.children[2].addEventListener('focus', this.s.qCom, false);
+
+	// events to determine fore & back colors
+	this.a.children[2].addEventListener('keyup', this.c.qCol, false);
+
+	// remove the newTB event listener
+	jumboToolbar.children[0].children[1].children[1]
+		.removeEventListener('click', this.newTB, false);
 }
 
 //-----------------------------------------------
@@ -232,23 +181,227 @@ TB.prototype.setEnd = function(){
 }
 
 //-----------------------------------------------
-// - toggle resize, reposition, rotate btns
-TB.prototype.togRRR = function(){
-	// if the btns are not showing
-	if(this.className == 'btn btn-default'){
-		// show the .drag-btns
-		jApp.tbs.a.children[1].style.display = 'block';
-		// add the active class
-		this.className = 'btn btn-default active';
-	}else{
-		jApp.tbs.a.children[1].style.display = 'none';
-		this.className = 'btn btn-default';
+// - launch modal
+// - set modal inner html
+// - set modal callback
+TB.prototype.confirmDel = function(){
+
+	// if the textbox is empty & has no bg color
+	if(!jApp.tbs.a.children[2].childNodes.length 
+	&& !jApp.tbs.a.children[2].style.backgroundColor){
+		// delete it & return
+		jApp.tbs.del(); return;
 	}
+
+	// set the modal title
+	confModal.getElementsByTagName("h4")[0]
+		.innerHTML = '<div class="dash-box" aria-hidden="true">Aa</div>' + 
+    				 'Delete background image';
+
+   	// set modal body
+   	confModal.children[0].children[0].children[1]
+   		.innerHTML = '<p>Are you sure you want to delete this textbox?</p>';
+
+   	// create a copy of the textbox
+   	confModal.children[0].children[0].children[1]
+   		.appendChild( jApp.tbs.copy() );
+
+   	// set modal callback
+   	jApp.modal.callback = jApp.tbs.del;
+
+   	// launch the modal
+   	jApp.modal.launch();
+
+}
+
+//-----------------------------------------------
+// - helper function to replicate textbox
+TB.prototype.copy = function(){
+
+	// create a copy of the textbox
+   	this.t = document.createElement('div');
+   	
+   	// center styling
+   	this.t.style.textAlign = 'center';
+
+   	// clone the textbox
+   	this.t.appendChild(this.a.children[2].cloneNode(true));
+   	
+   	// remove the editable property
+   	this.t.children[0].contentEditable = false;
+
+   	// add a border
+   	this.t.children[0].style.border = '1px solid #ccc';
+
+   	// center it
+   	this.t.children[0].style.display = "inline-block";
+
+   	// dimension it
+   	this.t.children[0].style.width = this.a.offsetWidth + 'px';
+   	this.t.children[0].style.height = this.a.offsetHeight + 'px';
+
+   	if(this.a.offsetWidth > 200)
+	   	// scale it to be no more than 200px
+	   	this.t.style.transform = 'scale('+(200/this.a.offsetWidth)+','+(200/this.a.offsetWidth)+')';
+
+	return this.t;
+}
+
+//-----------------------------------------------
+// - delete active textbox
+TB.prototype.del = function(){
+
+	// gut the innards of the active textbox
+	jApp.tbs.a.innerHTML = '';
+
+	// remove it from the nVals
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key] = null;
+	delete jApp.nVals.tbs[jApp.tbs.a.dataset.key];
+
+	// hide it, but do not delete to maintain order
+	jApp.tbs.a.style.display = 'none';
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				TS (textbox style)			
+//			  ----------------------
+//
+// - manage the basic textbox style components:
+//    + bold
+//    + italic
+//    + underline
+//    + strikethrough
+//    + subscript
+//    + superscript
+//    + font size
+//    + justification
+//
+// - apply event listeners to buttons & inputs
+//
+//-----------------------------------------------
+
+/* CONSTRUCTOR */
+
+var TS = function(){
+
+	// style buttons hashmap
+	this.b = null;
+
+	// temp variable
+	this.t = null;
+
+	// add event listeners to execCommand buttons, temp var
+	this.t = tbsProps.querySelectorAll('[data-excom]');
+	for(var j = 0; j < this.t.length; j++)
+		this.t[j].addEventListener('click', this.exCom, false);
+
+	// keep track of the buttons
+	this.b = {
+		bold 		  : this.t[4],
+		italic		  : this.t[5],
+		underline	  : this.t[6],
+		strikeThrough : this.t[7],
+		subscript	  : this.t[8],
+		justifyLeft	  : this.t[0],
+		justifyCenter : this.t[1],
+		justifyRight  : this.t[2],
+		justifyFull	  : this.t[3]
+	};
+
+	// add font size keyup event
+	this.t = tbsCpanels.getElementsByTagName('input');
+	this.t[0].addEventListener('keyup', this.keyFS, false);
+
+	// init the dropdown
+	this.t[0].parentElement.children[1].children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+	// add click event to font sizes
+	this.t = this.t[0].parentElement.children[1].children[1].children;
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].children[0].addEventListener('click', this.clickFS, false);
+}
+
+//-----------------------------------------------
+// - buttons that employ the execCommand 
+//   function:
+//    + bold			+ superscript
+//    + italic			+ justify left
+//    + underline		+ justify center
+//    + strikethrough 	+ justify right
+//    + subscript 		+ justify full
+TS.prototype.exCom = function(){
+	// apply the execCommand
+	document.execCommand(this.dataset.excom, false, null);
+	// toggle the active class
+	this.className = (this.className == 'btn btn-default') ?
+						'btn btn-default active' : 
+						'btn btn-default' ;
+}
+
+//-----------------------------------------------
+// - keyup/focus on content editable div
+// - determine which demands are active
+// - set buttons accordingly
+TS.prototype.qCom = function(e){
+	// activate the proper wysiwig btns
+	jApp.tbs.s.qch();
+	// set the html property
+	jApp.nVals.tbs[this.parentElement.dataset.key].html = jApp.tbs.a.children[2].innerHTML;
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - query command state keyup helper
+// - theoretically should run a tinsy bit faster
+TS.prototype.qch = function(){
+	// set the class on the wysiwyg btns
+	for(var x in this.b)
+		this.b[x].className = (document.queryCommandState(x)) ?
+													'btn btn-default active' :
+													'btn btn-default';
 }
 
 //-----------------------------------------------
 // - keyup set font size
-TB.prototype.keyFS = function(e){
+TS.prototype.keyFS = function(e){
 
 	// if no value, do nothing
 	if(!this.value) return;
@@ -262,7 +415,7 @@ TB.prototype.keyFS = function(e){
 
 //-----------------------------------------------
 // - click dropdown menu select font size
-TB.prototype.clickFS = function(e){ e.preventDefault();
+TS.prototype.clickFS = function(e){ e.preventDefault();
 	// set the value of the input
 	this.parentElement.parentElement.parentElement.parentElement.children[0]
 		.value = this.dataset.fs;
@@ -270,65 +423,9 @@ TB.prototype.clickFS = function(e){ e.preventDefault();
 	document.execCommand('fontSize', false, this.dataset.fs);
 }
 
-//-----------------------------------------------
-// - move active textbox to the front of all 
-//   elements in the dragCanvas
-TB.prototype.move2front = function(){ return false;
 
-}
 
-//-----------------------------------------------
-// - launch modal
-// - set modal inner html
-// - set modal callback
-TB.prototype.confirmDel = function(){
 
-	// set the modal title
-	confModal.getElementsByTagName("h4")[0]
-		.innerHTML = '<div class="dash-box" aria-hidden="true">Aa</div>' + 
-    				 'Delete background image';
-
-   	// set modal body
-   	confModal.children[0].children[0].children[1]
-   		.innerHTML = '<p>Are you sure you want to delete this textbox?</p>';
-
-   	// create a copy of the textbox
-   	jApp.tbs.x = document.createElement('div');
-   	jApp.tbs.x.style.textAlign = 'center';
-   	jApp.tbs.x.appendChild(jApp.tbs.a.children[2].cloneNode(true));
-   	confModal.children[0].children[0].children[1]
-   		.appendChild( jApp.tbs.x );
-   	
-   	// remove the editable property
-   	jApp.tbs.x.children[0].contentEditable = false;
-
-   	// add a border
-   	jApp.tbs.x.children[0].style.border = '1px solid #ccc';
-
-   	// center it
-   	jApp.tbs.x.children[0].style.display = "inline-block";
-
-   	// dimension it
-   	jApp.tbs.x.children[0].style.width = jApp.tbs.a.offsetWidth + 'px';
-   	jApp.tbs.x.children[0].style.height = jApp.tbs.a.offsetHeight + 'px';
-
-   	if(jApp.tbs.a.offsetWidth > 200)
-	   	// scale it to be no more than 200px
-	   	jApp.tbs.x.style.transform = 'scale('+(200/jApp.tbs.a.offsetWidth)+','+(200/jApp.tbs.a.offsetWidth)+')';
-
-   	// set modal callback
-   	jApp.modal.callback = jApp.tbs.del;
-
-   	// launch the modal
-   	jApp.modal.launch();
-
-}
-
-//-----------------------------------------------
-// - delete active textbox
-TB.prototype.del = function(){ return false;
-
-}
 
 
 
@@ -366,31 +463,32 @@ TB.prototype.del = function(){ return false;
 //				TC (textbox color)			
 //			  ----------------------
 //
-// - control the various color properties of a 
-//   textbox
+// - set the various textbox color properties
 //
-// - apply event listeners to buttons & inputs
+// - manage colors in control panels
+//
+// - set opacity and blur
 //
 //-----------------------------------------------
 var TC = function(){
 
-	// init the hexidecimal text input listener
-	this.tempHex = tbsCpanels.getElementsByTagName('input');
+	// temp variable, get inputs
+	this.t = tbsCpanels.getElementsByTagName('input');
 
 	// keep track of the hex inputs
-	this.textis = [this.tempHex[1], this.tempHex[3], this.tempHex[6]];
+	this.textis = [this.t[1], this.t[3], this.t[6]];
 
 	// keep track of the color pickers
-	this.pickis = [this.tempHex[2], this.tempHex[4], this.tempHex[7]];
+	this.pickis = [this.t[2], this.t[4], this.t[7]];
 
 	// keep track of transparency checkbox
-	this.checkis = [null, this.tempHex[5], this.tempHex[8]];
+	this.checkis = [null, this.t[5], this.t[8]];
 
 	// get the paint buttons
-	this.tempHex = tbsCpanels.querySelectorAll('.paint-btn');
+	this.t = tbsCpanels.querySelectorAll('.paint-btn');
 
 	// keep track of the current color icon btn
-	this.icons = [this.tempHex[0], this.tempHex[1], this.tempHex[2]];
+	this.icons = [this.t[0], this.t[1], this.t[2]];
 
 	// add hex tbs event listeners
 	this.textis[0].addEventListener('keyup', this.hexText, false);
@@ -407,11 +505,11 @@ var TC = function(){
 	this.checkis[2].addEventListener('change', this.trans, false);
 
 	// // get the colorwheel btns
-	this.tempHex = tbsCpanels.querySelectorAll('[data-hex]');
+	this.t = tbsCpanels.querySelectorAll('[data-hex]');
 
 	// add event listeners to the colorwheel buttons
-	for(var i = 0; i < this.tempHex.length; i++)
-		this.tempHex[i].addEventListener('click', this.wheelBtn, false);
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].addEventListener('click', this.wheelBtn, false);
 }
 
 //-----------------------------------------------
@@ -437,12 +535,12 @@ TC.prototype.hexBright = function( rgbObj ){
 // - returns object with r, g, & b values
 TC.prototype.hexToRgb = function(hex) {
 	// convert to array of hex vals
-	this.tempHex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+	this.t = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 	// return the results as an object
-    return this.tempHex ? {
-        r: parseInt(this.tempHex[1], 16),
-        g: parseInt(this.tempHex[2], 16),
-        b: parseInt(this.tempHex[3], 16)
+    return this.t ? {
+        r: parseInt(this.t[1], 16),
+        g: parseInt(this.t[2], 16),
+        b: parseInt(this.t[3], 16)
     } : null;
 }
 
@@ -453,8 +551,8 @@ TC.prototype.rgbToHex = function(rgb) {
 }
 // - helper
 TC.prototype.compToHex = function(c) {
-    this.tempHex = parseInt(c).toString(16);
-    return this.tempHex.length == 1 ? "0" + this.tempHex : this.tempHex;
+    this.t = parseInt(c).toString(16);
+    return this.t.length == 1 ? "0" + this.t : this.t;
 }
 
 //-----------------------------------------------
@@ -771,11 +869,14 @@ TC.prototype.bText = function(){
 //				TE (toggle editor)			
 //			  -----------------------
 //
-// - toggle editor mode
+// - create element to toggle editor mode, apply
+//   event listeners
 //
-// - make sure button is within clickable area
+// - resize textbox event
 //
-// - resize textbox even
+// - toggle resize, reposition, rotate mode
+//
+// - move to front
 //
 //-----------------------------------------------
 
@@ -783,39 +884,35 @@ TC.prototype.bText = function(){
 
 //-----------------------------------------------
 // - el => container parent element of textbox
-var TE = function(el){
+var TE = function(){
 
 	/* properties */
 
-	this.el = el;
+	// move-to-front button
+	this.toFront = tbsToolbar.children[2].children[1].children[0]
+
+	// toggle rrr button
+	this.rrrBtn = tbsToolbar.children[2].children[1].children[1];
 
 	/* initializations */
 
-	// prepend a div
-	this.el.insertBefore(
-		document.createElement('div'),
-		this.el.children[0]
-	);
-
-	// set the class
-	this.el.children[0].className = 'toggle-edit';
-
-	// add a pencil button
-	this.el.children[0].innerHTML = '<button type="button" class="btn btn-default">'+
-										'<span class="glyphicon glyphicon-pencil"></span>'+
-									'</button>';
-
-	// add event listeners
-	this.el.children[0].addEventListener('mouseover', this.show, false);
-	this.el.children[0].addEventListener('mouseout', this.hide, false);
-	this.el.children[0].addEventListener('click', this.tog, false);
-
-	// re-dimension div event
-	this.el.children[2].addEventListener('mouseup', this.reDim, false);
-	this.el.children[2].addEventListener('touchend', this.reDim, false);
+	// toggle rrr event listener
+	this.rrrBtn.addEventListener('click', this.togRRR, false);
 }
 
 /* METHODS */
+
+TE.prototype.initLayer = function(){									
+
+	// add event listeners
+	jApp.tbs.a.children[0].addEventListener('mouseover', this.show, false);
+	jApp.tbs.a.children[0].addEventListener('mouseout', this.hide, false);
+	jApp.tbs.a.children[0].addEventListener('click', this.tog, false);
+
+	// re-dimension div event
+	jApp.tbs.a.children[2].addEventListener('mouseup', this.reDim, false);
+	jApp.tbs.a.children[2].addEventListener('touchend', this.reDim, false);
+}
 
 //-----------------------------------------------
 // - focus, mouseover
@@ -872,30 +969,63 @@ TE.prototype.hide = function(){
 }
 
 //-----------------------------------------------
+// - toggle resize, reposition, rotate btns
+TE.prototype.togRRR = function(){
+	// if the btns are not showing
+	if(this.className == 'btn btn-default'){
+		// show the .drag-btns
+		jApp.tbs.a.children[1].style.display = 'block';
+		// add the active class
+		this.className = 'btn btn-default active';
+	}else{
+		jApp.tbs.a.children[1].style.display = 'none';
+		this.className = 'btn btn-default';
+	}
+}
+
+//-----------------------------------------------
+// - move active textbox to the front of all 
+//   elements in the dragCanvas
+TE.prototype.move2front = function(){ return false;
+
+}
+
+//-----------------------------------------------
 // - user resizes content editable div
 TE.prototype.reDim = function(){
+
+	// if the textbox is empty & has no bg color
+	if(!jApp.tbs.a.children[2].childNodes.length 
+	&& !jApp.tbs.a.children[2].style.backgroundColor)
+		// do nothing
+		return;
+
+	// if dimensions have changed
+	if(jApp.nVals.tbs[this.parentElement.dataset.key].layout[jApp.layout].h == this.offsetHeight
+	&& jApp.nVals.tbs[this.parentElement.dataset.key].layout[jApp.layout].w == this.offsetWidth)
+		// do nothing
+		return;
 
 	// set the nVals
 	jApp.nVals.tbs[this.parentElement.dataset.key]
 		.layout[jApp.layout].h = this.offsetHeight;
 	jApp.nVals.tbs[this.parentElement.dataset.key]
-		.layout[jApp.layout].w = this.offsetWidth; console.log(jApp.nVals.tbs[1]);
+		.layout[jApp.layout].w = this.offsetWidth;
 
 	// set the css
 	if(jApp.layout == 'mobile'){
 		document.styleSheets[7].cssRules[parseInt(this.parentElement.dataset.r)].style.height = this.offsetHeight + 'px';
 		document.styleSheets[7].cssRules[parseInt(this.parentElement.dataset.r)].style.width = this.offsetWidth + 'px';
 	}else if(jApp.layout == 'tablet'){
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight;
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.height = this.offsetWidth;
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight + 'px';
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.width = this.offsetWidth + 'px';
 	}else{
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight;
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.height = this.offsetWidth;
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight + 'px';
+		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.width = this.offsetWidth + 'px';
 	}
 
 	jApp.deltaVals();
 }
-
 
 
 
