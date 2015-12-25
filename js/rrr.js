@@ -48,7 +48,7 @@ r.prototype.setStyles = function(){
 	else if(jApp.layout == 'tablet')
 		jApp.temp = document.styleSheets[7].cssRules[1].cssRules[0].style;
 	// if desktop
-	else if(jApp.layout == 'desktop')
+	else
 		jApp.temp = document.styleSheets[7].cssRules[2].cssRules[0].style;
 
 	// loop through the hashmap

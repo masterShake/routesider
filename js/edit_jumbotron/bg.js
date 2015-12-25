@@ -50,7 +50,7 @@ BG.prototype.close = function(){
 	// hide the upload background image canvas
 	bgCanvas.style.display = "none";
 	// hide the bg image drag buttons
-	cropCanvas.children[0].children[0].style.display = "none";
+	cropCanvas.children[0].children[1].style.display = "none";
 	// show the dragable elements canvas
 	dragCanvas.style.display = "block";
 }
@@ -99,12 +99,12 @@ BG.prototype.del = function(){
 	jApp.bg.resetStyles();
 
 	// remove the background image
-	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[1]);
+	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[2]);
 
 	// add the default bg image placeholder
 	cropCanvas.children[0].appendChild(document.createElement("div"));
-	cropCanvas.children[0].children[1].className = "bg-placeholder";
-	cropCanvas.children[0].children[1].innerHTML = '<span class="icon-image"></span>';
+	cropCanvas.children[0].children[2].className = "bg-placeholder";
+	cropCanvas.children[0].children[2].innerHTML = '<span class="icon-image"></span>';
 }
 
 //-----------------------------------------------
@@ -339,7 +339,7 @@ BGI.prototype.uploadCB = function(){
 		if(!window.hasOwnProperty("bgImg")){
 
 			// remove the placeholder
-			cropCanvas.children[0].removeChild(cropCanvas.children[0].children[1]);
+			cropCanvas.children[0].removeChild(cropCanvas.children[0].children[2]);
 
 			// insert an image element
 			cropCanvas.children[0].appendChild(
@@ -347,7 +347,7 @@ BGI.prototype.uploadCB = function(){
 			);
 
 			// set the id
-			cropCanvas.children[0].children[1].id = "bgImg";
+			cropCanvas.children[0].children[2].id = "bgImg";
 
 			// set the data-r property (index in rm object)
 			cropCanvas.children[0].setAttribute('data-r', '0');
@@ -428,14 +428,14 @@ CR = function(){
 // - toggle bg image drag buttons
 CR.prototype.togCrop = function(){
 	// if the bgCanvas is hidden
-	if(cropCanvas.children[0].children[0].offsetParent === null){
+	if(cropCanvas.children[0].children[1].offsetParent === null){
 		// show the bg image drag buttons
-		cropCanvas.children[0].children[0].style.display = "block";
+		cropCanvas.children[0].children[1].style.display = "block";
 		// hide the draggables canvas 
 		dragCanvas.style.display = "none";
 	}else{
 		// hide the bg image drag buttons
-		cropCanvas.children[0].children[0].style.display = "none";
+		cropCanvas.children[0].children[1].style.display = "none";
 		// show the draggables canvas
 		dragCanvas.style.display = "block";
 	}
@@ -445,7 +445,7 @@ CR.prototype.togCrop = function(){
 // - hide the bg image drag buttons
 CR.prototype.hideCrop = function(){
 	// hide the bg image drag buttons
-	cropCanvas.children[0].children[0].style.display = "none";
+	cropCanvas.children[0].children[1].style.display = "none";
 }
 
 
@@ -685,7 +685,7 @@ BGC.prototype.resetCanvas = function(){
 	// hide the upload background image
 	bgCanvas.style.display = "none";
 	// hide the crop buttons
-	cropCanvas.children[0].children[0].style.display = "none";
+	cropCanvas.children[0].children[1].style.display = "none";
 	// show the draggable elements' canvas
 	dragCanvas.style.display = "block";
 }
