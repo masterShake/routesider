@@ -507,6 +507,12 @@ var TC = function(){
 	// keep track of transparency checkbox
 	this.checkis = [null, this.t[5], this.t[8]];
 
+	// add the blur & opacity event listeners
+	this.t[9].addEventListener('keyup', this.bText, false);
+	this.t[10].addEventListener('change', this.bSlide, false);
+	this.t[11].addEventListener('keyup', this.oText, false);
+	this.t[12].addEventListener('change', this.oSlide, false);
+
 	// get the paint buttons
 	this.t = tbsCpanels.querySelectorAll('.paint-btn');
 
@@ -757,11 +763,11 @@ TC.prototype.oSlide = function(){
 	// set the value of the text input
 	this.parentElement.children[1].value = 
 
-	// change the opacity of the background img
-	bgImg.style.opacity = 
+	// change the opacity of the active textbox
+	jApp.tbs.a.style.opacity = 
 
 	// update values
-	jApp.nVals["opacity"] = parseFloat(this.value);
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -775,15 +781,14 @@ TC.prototype.bSlide = function(){
 	this.parentElement.children[1].value = 
 
 	// update values
-	jApp.nVals["blur"] = parseInt(this.value);
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["blur"] = parseInt(this.value);
 
 	// change the blur of the background img
-	bgImg.style.filter = 
-	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp.tbs.a.children[2].style.filter = 
+	jApp.tbs.a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
-
 }
 
 //-----------------------------------------------
@@ -816,10 +821,10 @@ TC.prototype.oText = function(){
 	this.parentElement.children[2].value = 
 
 	// change the opacity of the background
-	bgImg.style.opacity = 
+	jApp.tbs.a.style.opacity = 
 
 	// update values
-	jApp.nVals["opacity"] = parseFloat(this.value);
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -845,11 +850,11 @@ TC.prototype.bText = function(){
 	this.parentElement.children[2].value = 
 
 	// update the nVals
-	jApp.nVals["blur"] = parseInt(this.value);
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["blur"] = parseInt(this.value);
 
 	// set the blur
-	bgImg.style.filter = 
-	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp.tbs.a.children[2].style.filter = 
+	jApp.tbs.a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
