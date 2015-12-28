@@ -52,6 +52,13 @@ var TB = function(){
 // - user closes textbox control panel
 TB.prototype.close = function(){
 
+	// re-add the newTB event listener
+	jumboToolbar.children[0].children[1].children[1]
+		.addEventListener('click', this.newTB, false);
+
+	// if there is no active textbox, return
+	if(!this.a) return;
+
 	// remove the active class
 	this.a.className = 'textbox';
 
@@ -66,11 +73,6 @@ TB.prototype.close = function(){
 
 	// nullify the active textbox
 	this.a = null;
-
-	// re-add the newTB event listener
-	jumboToolbar.children[0].children[1].children[1]
-		.addEventListener('click', this.newTB, false);
-
 }
 
 //-----------------------------------------------
@@ -171,11 +173,13 @@ TB.prototype.ae = function(){
 
 //-----------------------------------------------
 // - move the cursor to the end of the active div
-TB.prototype.setEnd = function(){
+TB.prototype.setEnd = function(){ 
+	this.sel = window.getSelection();
+	// if there is a selection, do not move to the end
+	if(this.sel.focusOffset) return;
     this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
     this.range.selectNodeContents(this.a.children[2]);//Select the entire contents of the element with the this.range
     this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
-    this.sel = window.getSelection();//get the this.sel object (allows you to change this.sel)
     this.sel.removeAllRanges();//remove any selections already made
     this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
 }
@@ -263,6 +267,12 @@ TB.prototype.del = function(){
 
 	// prompt save
 	jApp.deltaVals();
+
+	// remove the active textbox
+	jApp.tbs.a = null;
+
+	// hide the textbox properties toolbar
+	jumboToolbar.children[0].children[1].children[1].click();
 }
 
 

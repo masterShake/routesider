@@ -200,27 +200,40 @@ class Profile{
 			if($t->getEndNode()->getLabel() == "Desktop")
 				$json["bg"]["layout"]["desktop"] = $t->getEndNode()->getProperties();
 		}
-		// background.layout.mobile
-		// $json["bg"]["l"]["m"] = 
-		// $json["bg"]["l"]["t"] = 
-		// $json["bg"]["l"]["d"] = 
 
-
-		// optional
+		// create new objects to hold the components
 		$json["tbs"]  = new stdClass();
 		$json["imgs"] = new stdClass();
 		$json["btns"] = new stdClass();
+
+		// get all the textboxes
+		$temp = $results->getNodesByLabel("Textbox");
+		// loop through all the textboxes
+		for($i = 0; $i < count($temp); $i++) {
+			// set the properties 
+			$json["tbs"]->{(string)$i} = $temp[$i]->getProperties();
+			// create empty layouts array
+			$json["tbs"]->{(string)$i}["layout"] = [];
+			// get the layouts
+			$t = $temp[$i]->getOutboundRelationships();
+			// loop through the layouts
+			foreach($t as $u){
+				// mobile
+				if($u->getEndNode()->getLabel() == "Mobile")
+					$json["tbs"]->{(string)$i}["layout"]["mobile"] = $u->getEndNode()->getProperties();
+				// tablet
+				if($u->getEndNode()->getLabel() == "Tablet")
+					$json["tbs"]->{(string)$i}["layout"]["tablet"] = $u->getEndNode()->getProperties();
+				// desktop
+				if($u->getEndNode()->getLabel() == "Desktop")
+					$json["tbs"]->{(string)$i}["layout"]["desktop"] = $u->getEndNode()->getProperties();
+			}
+		}
 
 		// // loop through the images and push their properties
 		// $temp = $results->getNodesByLabel("Image");
 		// foreach ($temp as $t) {
 		// 	array_push($json["imgs"], $t->getProperties());
-		// }
-
-		// // texts
-		// $temp = $results->getNodesByLabel("Textbox");
-		// foreach ($temp as $t) {
-		// 	array_push($json["texts"], $t->getProperties());
 		// }
 
 		// // btns
