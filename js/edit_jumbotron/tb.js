@@ -89,7 +89,7 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// add the new textbox to the nVals
 	jApp.nVals.tbs[jApp.tbs.i] = {
 		html : '',
-		bg : 'transparent',
+		color : 'transparent',
 		opacity : 1,
 		blur: 0,
 		layout : {
@@ -173,10 +173,10 @@ TB.prototype.ae = function(){
 
 //-----------------------------------------------
 // - move the cursor to the end of the active div
-TB.prototype.setEnd = function(){ 
+TB.prototype.setEnd = function(){
 	this.sel = window.getSelection();
-	// if there is a selection, do not move to the end
-	if(this.sel.focusOffset) return;
+	// if there is a selection or box is already in focus
+	if(this.sel.toString()) return;
     this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
     this.range.selectNodeContents(this.a.children[2]);//Select the entire contents of the element with the this.range
     this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
@@ -393,7 +393,7 @@ TS.prototype.qCom = function(e){
 	// activate the proper wysiwig btns
 	jApp.tbs.s.qch();
 	// set the html property
-	jApp.nVals.tbs[this.parentElement.dataset.key].html = jApp.tbs.a.children[2].innerHTML;
+	jApp.nVals.tbs[this.parentElement.dataset.key].html = this.innerHTML;
 	// prompt save
 	jApp.deltaVals();
 }
@@ -416,8 +416,15 @@ TS.prototype.keyFS = function(e){
 	// if no value, do nothing
 	if(!this.value) return;
 
-	// if value is not a number, 0, or greater than 7, remove it
-	if(!/^\d+$/.test(this.value) || this.value == '0' || parseInt(this.value) > 7) this.value = '';
+	// if value is not a number, 0, or greater than 7 
+	if(!/^\d+$/.test(this.value) || this.value == '0' || parseInt(this.value) > 7){
+		this.value = ''; return;
+	}
+
+	// focus on the textbox
+	this.blur();
+	jApp.tbs.a.children[2].focus();
+	jApp.tbs.setEnd();
 
 	// set the font size
 	document.execCommand('fontSize', false, this.value);
@@ -429,6 +436,12 @@ TS.prototype.clickFS = function(e){ e.preventDefault();
 	// set the value of the input
 	this.parentElement.parentElement.parentElement.parentElement.children[0]
 		.value = this.dataset.fs;
+	// hide the dropdown
+	this.parentElement.parentElement.style.display = 'none';
+	// focus on the textbox
+	this.blur();
+	jApp.tbs.a.children[2].focus();
+	jApp.tbs.setEnd();
 	// set the font size
 	document.execCommand('fontSize', false, this.dataset.fs);
 }
@@ -674,11 +687,11 @@ TC.prototype.wheelBtn = function(){
 //    + val => hexidecimal value
 TC.prototype.setColor = function(i, excom, val){
 	
-	if(i == 2) // background only
-		jApp.tbs.a.children[2].style.backgroundColor = val;
+	if(i == 2){ // background only
+		jApp.tbs.a.style.backgroundColor = 
+		jApp.nVals.tbs[jApp.tbs.a.dataset.key].color = val;
 	
-	// set the execCommand
-	if(excom){
+	}else{ // set the execCommand
 
 		// focus on the active element
 		jApp.tbs.a.children[2].focus(); 

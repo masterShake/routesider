@@ -45,7 +45,7 @@ if(Input::exists()){
         }
 
         // decode the json
-        $jumbo = json_decode($_POST["json"]);
+        $jumbo = json_decode($_POST["json"]); // print_r($jumbo); exit();
 
         // if the user added a new background image
         if($jumbo->bg->image && substr($jumbo->bg->image, 0, 6) == "upload"){
@@ -160,7 +160,7 @@ if(Input::exists()){
             "MATCH (a)-[:HAS_PROFILE]->(p:Profile)-[:SECTION]->(j:Jumbotron) ".
             "MERGE (j)-[:COMPONENT]->(t:Textbox { ".
                 "html:'{$textbox->html}', ".
-                "bg:'{$textbox->bg}', ".
+                "color:'{$textbox->color}', ".
                 "opacity:{$textbox->opacity}, ".
                 "blur:{$textbox->blur}". 
             "}) ".

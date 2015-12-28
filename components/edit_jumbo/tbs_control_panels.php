@@ -10,7 +10,7 @@
     </div>
 
     <!-- control panels -->
-    <div id="tbsCpanels" style="position:relative;z-index:1;">
+    <div id="tbsCpanels" style="position:relative;z-index:3;">
 
         <!-- text size -->
         <div class="popover top control-panel" style="margin-bottom:-43px;max-width:250px;">
