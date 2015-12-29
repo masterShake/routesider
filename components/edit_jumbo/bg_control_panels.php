@@ -209,7 +209,7 @@
                 <span class="icon-upload"></span>
             </button><!-- /edit background image -->
             <!-- crop background image -->
-            <button type="button" class="btn btn-default" data-panel="1" aria-label="crop image">
+            <button type="button" class='btn btn-default<?= ($jumbo["bg"]["image"]) ? "" : " inactive"; ?>' data-panel="1" aria-label="crop image">
                 <span class="icon-enlarge" aria-hidden="true"></span>
             </button>
             <!-- edit background color -->

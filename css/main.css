@@ -62,6 +62,19 @@ input[type=checkbox]{
     background-color: #f2dede;
     border-color: #ebccd1;
 }
+/* button function unavailable */
+.btn.inactive{
+	background-color: inherit !important;
+	box-shadow: none !important;
+	border-color: #ccc !important;
+	color: #ccc;
+	cursor: default;
+}
+/*.btn.inactive:hover,
+.btn.inactive:focus,
+.btn.inactive:active{
+}*/
+
 /*.btn-success.active{
 	background-color: #5cb85c;
 }

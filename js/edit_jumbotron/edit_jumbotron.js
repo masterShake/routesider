@@ -253,7 +253,7 @@ Jumbo.prototype.actBtn = function(){
 
 //-----------------------------------------------
 // - toggle an options toolbar
-Jumbo.prototype.togOpts = function(){
+Jumbo.prototype.togOpts = function(e){ e.preventDefault();
 
 	// if there is an open/active options toolbar
 	if(jApp.a){
@@ -301,6 +301,9 @@ Jumbo.prototype.togOpts = function(){
 //-----------------------------------------------
 // - toggle an options control panel
 Jumbo.prototype.togCpan = function(){
+
+	// if this button is inactive, do nothing
+	if(this.className.substr(-8) == 'inactive') return;
 
 	// if there is an open/active control panel
 	if(jApp.panel >= 0)

@@ -1005,6 +1005,9 @@ TE.prototype.togRRR = function(){
 		jApp.tbs.a.children[1].style.display = 'block';
 		// add the active class
 		this.className = 'btn btn-default active';
+		// set the r map active objects
+		rm.a = rm.h[jApp.tbs.a.dataset.r];
+		rm.m = rm.a.m;
 	}else{
 		jApp.tbs.a.children[1].style.display = 'none';
 		this.className = 'btn btn-default';

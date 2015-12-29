@@ -16,8 +16,14 @@ var r = function(){
 	// active rr object
 	this.a = null;
 
+	// active mau5 object
+	this.m = null;
+
 	// client has mouse
 	this.hs = false; // should be initially set to false
+
+	// temp variable
+	this.u = '';
 
 	// add event listener
 	document.addEventListener('mousemove', this.mt, false);
@@ -25,7 +31,7 @@ var r = function(){
 
 //-----------------------------------------------
 // - mouse trap, determine if user has mouse
-r.prototype.mt = function(e){
+r.prototype.mt = function(e){ e.preventDefault();
   	// remove this event listener
   	document.removeEventListener('mousemove', rm.mt, false);
   	// set has mouse property to true
@@ -41,24 +47,26 @@ r.prototype.mt = function(e){
 //   objects based on layout
 r.prototype.setStyles = function(){
 
-	// if mobile
-	if(jApp.layout == 'mobile')
-		jApp.temp = document.styleSheets[7].cssRules[0].style;
-	// if tablet
-	else if(jApp.layout == 'tablet')
-		jApp.temp = document.styleSheets[7].cssRules[1].cssRules[0].style;
-	// if desktop
-	else
-		jApp.temp = document.styleSheets[7].cssRules[2].cssRules[0].style;
+	// loop through each of the objects in the hashmap
+	for(var j = 0; j <= this.i; j++){
 
-	// loop through the hashmap
-	for(var x in this.h){
-		// set the inline style
-		this.h[x].el.style.transform = jApp.temp.transform;
-		this.h[x].el.style.left = jApp.temp.left;
-		this.h[x].el.style.top = jApp.temp.top;
-		// set the transform object
-		this.h[x].extractMatrix();
+		// remove the inline style attribute
+		this.h[j].removeAttribute('style');
+
+		// //get the correct stylesheet
+		// if(jApp.layout == 'mobile')		 // mobile
+		// 	jApp.temp = document.styleSheets[7].cssRules[j].style;
+		// else if(jApp.layout == 'tablet') // tablet
+		// 	jApp.temp = document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style;
+		// else 							 // desktop
+		// 	jApp.temp = document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style;
+
+		// // set the inline style
+		// this.h[j].el.style.transform = jApp.temp.transform;
+		// this.h[j].el.style.top = jApp.temp.top;
+		// this.h[j].el.style.left = jApp.temp.left;
+		// // set the transform object
+		// this.h[x].extractMatrix();
 	}
 }
 
@@ -69,31 +77,39 @@ r.prototype.setStyles = function(){
 // - desktop @media > 1200px
 r.prototype.newRules = function(){
 
+	// default: scale 1, rotate 0, element centered
+	this.u = '#dragCanvas>div:nth-child('+this.i+')'+
+				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
+				'  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
+				'  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }';
+
 	// mobile
 	document.styleSheets[7]
-		.insertRule( '#dragCanvas>div:nth-child('+this.i+')'+
-					 '{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-					 '  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
-					 '  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }',
-					 this.i
-				   );
+		.insertRule(this.u, this.i);
 	// tablet
-	document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2]
-		.insertRule( '#dragCanvas>div:nth-child('+this.i+')'+
-					 '{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-					 '  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
-					 '  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }',
-					 this.i
-				   );
-
+	document.styleSheets[7].cssRules[this.i + 1]
+		.insertRule(this.u, this.i);
 	// desktop
-	document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1]
-		.insertRule( '#dragCanvas>div:nth-child('+this.i+')'+
-					 '{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-					 '  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
-					 '  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }',
-					 this.i
-				   );
+	document.styleSheets[7].cssRules[this.i + 2]
+		.insertRule(this.u, this.i);
+}
+
+//-----------------------------------------------
+// - for testing only
+r.prototype.getRules = function(){
+
+	console.log('mobile rules');
+	for(var j = 0; j <= this.i; j++)
+		console.log(document.styleSheets[7].cssRules[j].style.transform);
+
+	console.log('tablet rules');
+	for(var j = 0; j <= this.i; j++)
+		console.log(document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style.transform);
+
+	console.log('desktop rules');
+	for(var j = 0; j <= this.i; j++)
+		console.log(document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style.transform);
+
 }
 
 // init
@@ -500,9 +516,15 @@ mau5.prototype.re = function(e){
 	rm.a.y = rm.a.t.y;
 
 	// apply the new values
-	jApp.nVals.layouts[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
- 	jApp.nVals.layouts[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
-	jApp.nVals.layouts[jApp.layout].scale = rm.a.t.s;
+	if(jApp.a == 'bg'){
+		jApp.nVals.bg.layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+	 	jApp.nVals.bg.layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+		jApp.nVals.bg.layout[jApp.layout].s = rm.a.t.s;
+	}else{
+		jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+		jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].s = rm.a.t.s;
+	}
 
 	// update the stylesheet
 	rm.a.setStyleSheet();
@@ -569,8 +591,10 @@ mau5.prototype.rmu = function(e){
 	document.removeEventListener('mouseup', rm.a.rmu, false);
 
 	// set the new angle 
-	jApp.nVals.layouts[jApp.layout].angle = rm.a.t.a;
-
+	if(jApp.a == 'bg')
+		jApp.nVals.bg.layout[jApp.layout].a = rm.a.t.a;
+	else
+		jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].a = rm.a.t.a;
 	// update the stylesheet
 	rm.a.setStyleSheet();
 

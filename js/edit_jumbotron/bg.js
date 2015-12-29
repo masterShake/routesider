@@ -105,6 +105,9 @@ BG.prototype.del = function(){
 	cropCanvas.children[0].appendChild(document.createElement("div"));
 	cropCanvas.children[0].children[2].className = "bg-placeholder";
 	cropCanvas.children[0].children[2].innerHTML = '<span class="icon-image"></span>';
+
+	// deactivate the repo/resize/crop button
+	bgToolbar.children[1].children[1].className = 'btn btn-default inactive';
 }
 
 //-----------------------------------------------
@@ -336,7 +339,7 @@ BGI.prototype.uploadCB = function(){
 		jApp.nVals.bg["ratio"] = jApp.temp["ratio"];
 
 		// if there isn't already a background image
-		if(!window.hasOwnProperty("bgImg")){
+		if(!document.getElementById('bgImg')){
 
 			// remove the placeholder
 			cropCanvas.children[0].removeChild(cropCanvas.children[0].children[2]);
@@ -351,6 +354,9 @@ BGI.prototype.uploadCB = function(){
 
 			// set the data-r property (index in rm object)
 			cropCanvas.children[0].setAttribute('data-r', '0');
+
+			// activate the repo/resize button
+			bgToolbar.children[1].children[1].className = 'btn btn-default';
 		}
 
 		// set the background image
@@ -427,8 +433,13 @@ CR = function(){
 // -----------------------------------------------
 // - toggle bg image drag buttons
 CR.prototype.togCrop = function(){
+	// if there is no background image, do nothing
+	if(!document.getElementById('bgImg')) return;
 	// if the bgCanvas is hidden
 	if(cropCanvas.children[0].children[1].offsetParent === null){
+		// set the active rMap object
+		rm.a = rm.h[0];
+		rm.m = rm.a.m;
 		// show the bg image drag buttons
 		cropCanvas.children[0].children[1].style.display = "block";
 		// hide the draggables canvas 
