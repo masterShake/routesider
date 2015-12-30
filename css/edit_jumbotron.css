@@ -385,6 +385,24 @@ tbody button.btn-color-selected{
 }
 
 /*----------------------
+visibility control panel
+----------------------*/
+
+.checkbox-inline{
+	width: 29%;
+	text-align: center;
+}
+.checkbox-inline>span{
+	font-size: 26px;
+	padding-left: 2px;
+}
+.checkbox-inline>div{
+	font-size: 10px;
+	float: left;
+	margin-left: -3px;
+}
+
+/*----------------------
 	   save alert
 ----------------------*/
 

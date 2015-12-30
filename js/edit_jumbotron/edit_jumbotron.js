@@ -108,15 +108,6 @@ Jumbo = function(){
 	// keep track of new values (identical at first)
 	this.nVals = JSON.parse( document.getElementById("i-vals").value );
 
-	// init background editor
-	this.bg = new BG();
-	// init textbox editor
-	this.tbs = new TB();
-	// init image overlay editor
-	this.imgs = new IO();
-	// init button editor
-	this.btns = new BTN();
-
 	// instantiate confirmation modal object
 	this.modal = new cModal();
 
@@ -189,6 +180,10 @@ Jumbo = function(){
 		// apply the even listener
 		this.temp[i].addEventListener("click", this.togCpan, false);
 
+	// remove the event listener from btn #4
+	if(this.temp[4].className.substr(-8) == 'inactive')
+		this.temp[4].removeEventListener('click', this.togCpan, false);
+
 	// add event listener to the save btn
 	save1.children[1].addEventListener("click", this.save, false);
 	save2.children[0].addEventListener("click", this.save, false);
@@ -196,6 +191,16 @@ Jumbo = function(){
 	// close the save alert
 	save1.children[0].addEventListener("click", this.xSA, false);
 
+	// init other page objects, avoid race conditions
+
+	// init background editor
+	this.bg = new BG();
+	// init textbox editor
+	this.tbs = new TB();
+	// init image overlay editor
+	this.imgs = new IO();
+	// init button editor
+	this.btns = new BTN();
 }
 
 /* METHODS */
@@ -303,7 +308,7 @@ Jumbo.prototype.togOpts = function(e){ e.preventDefault();
 Jumbo.prototype.togCpan = function(){
 
 	// if this button is inactive, do nothing
-	if(this.className.substr(-8) == 'inactive') return;
+	// if(this.className.substr(-8) == 'inactive') return;
 
 	// if there is an open/active control panel
 	if(jApp.panel >= 0)

@@ -108,6 +108,7 @@ BG.prototype.del = function(){
 
 	// deactivate the repo/resize/crop button
 	bgToolbar.children[1].children[1].className = 'btn btn-default inactive';
+	bgToolbar.children[1].children[1].removeEventListener('click', jApp.togCpan, false);
 }
 
 //-----------------------------------------------
@@ -364,6 +365,7 @@ BGI.prototype.uploadCB = function(){
 
 			// activate the repo/resize button
 			bgToolbar.children[1].children[1].className = 'btn btn-default';
+			bgToolbar.children[1].children[1].removeEventListener('click', jApp.togCpan, false);
 		}
 
 		// set the background image

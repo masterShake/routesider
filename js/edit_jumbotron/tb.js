@@ -44,7 +44,7 @@ var TB = function(){
 		.addEventListener('click', this.newTB, false);
 
 	// delete textbox prompt modal
-	tbsToolbar.children[0].children[0]
+	tbsToolbar.children[0].children[3].children[0]
 		.addEventListener('click', this.confirmDel, false);
 }
 
@@ -920,10 +920,10 @@ var TE = function(){
 	/* properties */
 
 	// move-to-front button
-	this.toFront = tbsToolbar.children[2].children[1].children[0]
+	this.toFront = tbsToolbar.children[0].children[2].children[0]
 
 	// toggle rrr button
-	this.rrrBtn = tbsToolbar.children[2].children[1].children[1];
+	this.rrrBtn = tbsToolbar.children[0].children[2].children[1];
 
 	/* initializations */
 
