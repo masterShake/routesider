@@ -133,6 +133,9 @@ TB.prototype.createElem = function(){
 	// apply the textbox class
 	this.a.className = 'textbox active';
 
+	// set the transform style
+	this.a.style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
+
 	// add the 3 children
 	this.a.innerHTML = '<div class="toggle-edit" style="display:none;">'+
 					   		'<button type="button" class="btn btn-default">'+
@@ -694,7 +697,7 @@ TC.prototype.wheelBtn = function(){
 TC.prototype.setColor = function(i, excom, val){
 	
 	if(i == 2){ // background only
-		jApp.tbs.a.style.backgroundColor = 
+		jApp.tbs.a.children[2].style.backgroundColor = 
 		jApp.nVals.tbs[jApp.tbs.a.dataset.key].color = val;
 	
 	}else{ // set the execCommand
@@ -764,7 +767,7 @@ TC.prototype.oSlide = function(){
 	this.parentElement.children[1].value = 
 
 	// change the opacity of the active textbox
-	jApp.tbs.a.style.opacity = 
+	jApp.tbs.a.children[2].style.opacity = 
 
 	// update values
 	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
@@ -821,7 +824,7 @@ TC.prototype.oText = function(){
 	this.parentElement.children[2].value = 
 
 	// change the opacity of the background
-	jApp.tbs.a.style.opacity = 
+	jApp.tbs.a.children[2].style.opacity = 
 
 	// update values
 	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
@@ -935,11 +938,11 @@ TE.prototype.initLayer = function(){
 	// add event listeners
 	jApp.tbs.a.children[0].addEventListener('mouseover', this.show, false);
 	jApp.tbs.a.children[0].addEventListener('mouseout', this.hide, false);
-	jApp.tbs.a.children[0].addEventListener('click', this.tog, false);
+	jApp.tbs.a.children[0].addEventListener('mousedown', this.tog, false);
 
 	// re-dimension div event
-	jApp.tbs.a.children[2].addEventListener('mouseup', this.reDim, false);
-	jApp.tbs.a.children[2].addEventListener('touchend', this.reDim, false);
+	jApp.tbs.a.addEventListener('mouseup', this.reDim, false);
+	jApp.tbs.a.addEventListener('touchend', this.reDim, false);
 }
 
 //-----------------------------------------------
@@ -1025,37 +1028,30 @@ TE.prototype.move2front = function(){ return false;
 // - user resizes content editable div
 TE.prototype.reDim = function(){
 
-	// if the textbox is empty & has no bg color
-	if(!jApp.tbs.a.children[2].childNodes.length 
-	&& !jApp.tbs.a.children[2].style.backgroundColor)
-		// do nothing
-		return;
-
-	// if dimensions have changed
-	if(jApp.nVals.tbs[this.parentElement.dataset.key].layout[jApp.layout].h == this.offsetHeight
-	&& jApp.nVals.tbs[this.parentElement.dataset.key].layout[jApp.layout].w == this.offsetWidth)
+	// if dimensions have not changed
+	if(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout].h == jApp.tbs.a.offsetHeight
+	&& jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout].w == jApp.tbs.a.offsetWidth)
 		// do nothing
 		return;
 
 	// set the nVals
-	jApp.nVals.tbs[this.parentElement.dataset.key]
-		.layout[jApp.layout].h = this.offsetHeight;
-	jApp.nVals.tbs[this.parentElement.dataset.key]
-		.layout[jApp.layout].w = this.offsetWidth;
-
-	// set the css
-	if(jApp.layout == 'mobile'){
-		document.styleSheets[7].cssRules[parseInt(this.parentElement.dataset.r)].style.height = this.offsetHeight + 'px';
-		document.styleSheets[7].cssRules[parseInt(this.parentElement.dataset.r)].style.width = this.offsetWidth + 'px';
-	}else if(jApp.layout == 'tablet'){
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight + 'px';
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 2].cssRules[this.parentElement.dataset.r].style.width = this.offsetWidth + 'px';
-	}else{
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.height = this.offsetHeight + 'px';
-		document.styleSheets[7].cssRules[document.styleSheets[7].cssRules.length - 1].cssRules[this.parentElement.dataset.r].style.width = this.offsetWidth + 'px';
-	}
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
+		.layout[jApp.layout].h = jApp.tbs.a.offsetHeight;
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
+		.layout[jApp.layout].w = jApp.tbs.a.offsetWidth; console.log(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout]);
 
 	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - user changes layout
+// - set the height and width of the content 
+//   editable div inside the textbox element
+TE.prototype.setDims = function(){
+	for(var x in jApp.tbs.h){
+		jApp.tbs.h[x].children[2].style.width = jApp.nVals.tbs[x].layout[jApp.layout].w + 'px';
+		jApp.tbs.h[x].children[2].style.height = jApp.nVals.tbs[x].layout[jApp.layout].h + 'px';
+	}
 }
 
 

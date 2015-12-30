@@ -373,6 +373,9 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 
 	// set the style of the rr object
 	rm.setStyles();
+
+	// set the height & width of all the textboxes
+	jApp.tbs.te.setDims();
 }
 
 //-----------------------------------------------

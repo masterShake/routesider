@@ -348,6 +348,8 @@ tbody button.btn-color-selected{
 .textbox>div.content-edit{
 	min-height: 27px;
 	min-width: 80px;
+	height: 100%;
+	width: 100%;
 }
 .textbox.active>div.content-edit{	
 	overflow: hidden;

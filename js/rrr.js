@@ -50,23 +50,21 @@ r.prototype.setStyles = function(){
 	// loop through each of the objects in the hashmap
 	for(var j = 0; j <= this.i; j++){
 
-		// remove the inline style attribute
-		this.h[j].removeAttribute('style');
+		//get the correct stylesheet
+		if(jApp.layout == 'mobile')		 // mobile
+			jApp.temp = document.styleSheets[7].cssRules[j].style;
+		else if(jApp.layout == 'tablet') // tablet
+			jApp.temp = document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style;
+		else 							 // desktop
+			jApp.temp = document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style;
 
-		// //get the correct stylesheet
-		// if(jApp.layout == 'mobile')		 // mobile
-		// 	jApp.temp = document.styleSheets[7].cssRules[j].style;
-		// else if(jApp.layout == 'tablet') // tablet
-		// 	jApp.temp = document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style;
-		// else 							 // desktop
-		// 	jApp.temp = document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style;
+		// loop through the specified styles
+		for(var k = 0; k < jApp.temp.length; k++)
+			// set them as inline styles on the element
+			this.h[j].el.style[jApp.temp[k]] = jApp.temp[jApp.temp[k]];
 
-		// // set the inline style
-		// this.h[j].el.style.transform = jApp.temp.transform;
-		// this.h[j].el.style.top = jApp.temp.top;
-		// this.h[j].el.style.left = jApp.temp.left;
-		// // set the transform object
-		// this.h[x].extractMatrix();
+		// set the transform object
+		this.h[j].extractMatrix();
 	}
 }
 
@@ -81,7 +79,7 @@ r.prototype.newRules = function(){
 	this.u = '#dragCanvas>div:nth-child('+this.i+')'+
 				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
 				'  left: calc(50% - '+(this.a.el.offsetWidth/2)+'px);' +
-				'  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px); }';
+				'  top: calc(50% - '+(this.a.el.offsetHeight/2)+'px);}';
 
 	// mobile
 	document.styleSheets[7]
@@ -100,15 +98,15 @@ r.prototype.getRules = function(){
 
 	console.log('mobile rules');
 	for(var j = 0; j <= this.i; j++)
-		console.log(document.styleSheets[7].cssRules[j].style.transform);
+		console.log(document.styleSheets[7].cssRules[j].style);
 
 	console.log('tablet rules');
 	for(var j = 0; j <= this.i; j++)
-		console.log(document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style.transform);
+		console.log(document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style);
 
 	console.log('desktop rules');
 	for(var j = 0; j <= this.i; j++)
-		console.log(document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style.transform);
+		console.log(document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style);
 
 }
 
@@ -207,7 +205,10 @@ rr.prototype.extractMatrix = function(){
 
 	// get the matrix properties, use ia as temp var
 	this.ia = window.getComputedStyle(this.el, null)
-				.getPropertyValue('transform');
+				.getPropertyValue('transform'); 
+
+	if(this.ia == 'none')
+		this.ia = this.el.style.transform;
 
 	// convert the matrix to a list array
 	this.ia = this.ia.split('(')[1];
@@ -343,21 +344,21 @@ rr.prototype.setStyleSheet = function(){
 
 	// if tablet
 	else if(jApp.layout == 'tablet'){
-		document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.transform =
+		document.styleSheets[7].cssRules[rm.i + 1].cssRules[this.el.dataset.r].style.transform =
 		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
 	 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
-	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[1].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
+	 	document.styleSheets[7].cssRules[rm.i + 1].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[rm.i + 1].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 
 	// if desktop
 	else if(jApp.layout == 'desktop'){
-		document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.transform = 
+		document.styleSheets[7].cssRules[rm.i + 2].cssRules[this.el.dataset.r].style.transform = 
 			// 'translate(' + this.t.x + 'px, ' + this.t.y + 'px) ' +
 		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
 	 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
-	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
-	 	document.styleSheets[7].cssRules[2].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
+	 	document.styleSheets[7].cssRules[rm.i + 2].cssRules[this.el.dataset.r].style.left = (this.t.x/this.el.parentElement.offsetWidth)*100+'%';
+	 	document.styleSheets[7].cssRules[rm.i + 2].cssRules[this.el.dataset.r].style.top = (this.t.y/this.el.parentElement.offsetHeight)*100+'%';
 	}
 }
 

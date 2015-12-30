@@ -149,6 +149,8 @@ BG.prototype.resetProps = function(){
 	jApp.temp[3].value = 0;
 	jApp.temp[4].value =			// opacity
 	jApp.temp[5].value = 1;
+
+	return true;
 }
 
 //-----------------------------------------------
@@ -157,20 +159,20 @@ BG.prototype.resetStyles = function(){
 
 	// transform 
 	document.styleSheets[7].cssRules[0].style.transform = 		// mobile
-	document.styleSheets[7].cssRules[1].cssRules[0].style.transform = // tablet
-	document.styleSheets[7].cssRules[2].cssRules[0].style.transform = // desktop
+	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.transform = // tablet
+	document.styleSheets[7].cssRules[rm.i + 2].cssRules[0].style.transform = // desktop
 	cropCanvas.children[0].style.transform = 					// inline
 		'rotate3d(0,0,1,0deg) scale(1,1)';
 
 	// left
 	document.styleSheets[7].cssRules[0].style.left = 			 // mobile
-	document.styleSheets[7].cssRules[1].cssRules[0].style.left = // tablet
-	document.styleSheets[7].cssRules[2].cssRules[0].style.left = // desktop
+	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.left = // tablet
+	document.styleSheets[7].cssRules[rm.i + 2].cssRules[0].style.left = // desktop
 	cropCanvas.children[0].style.left = 						 // inline
 	// top
 	document.styleSheets[7].cssRules[0].style.top = 			// mobile
-	document.styleSheets[7].cssRules[1].cssRules[0].style.top = // tablet
-	document.styleSheets[7].cssRules[2].cssRules[0].style.top = // desktop
+	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.top = // tablet
+	document.styleSheets[7].cssRules[rm.i + 2].cssRules[0].style.top = // desktop
 	cropCanvas.children[0].style.top = 					// inline
 		'0%';
 }
@@ -286,8 +288,9 @@ BGI.prototype.fileSelect = function(e) {
 
 	// cancel event and hover styling
 	jApp.bg.bgi.fileHover(e);
-	
-	// display the spinner
+
+	// display gif spinner
+	// bgCanvas.children[2].style.display = 'block';
 
 	// fetch FileList object
 	jApp.bg.bgi.file = e.target.files || e.dataTransfer.files;// process all File objects
@@ -299,7 +302,7 @@ BGI.prototype.fileSelect = function(e) {
 
 //-----------------------------------------------
 // - upload image
-BGI.prototype.uploadFile = function(){ console.log(this.file);
+BGI.prototype.uploadFile = function(){
 
 	// - delete the previous xhr object
 	// - it will be properly garbage collected
@@ -329,7 +332,11 @@ BGI.prototype.uploadFile = function(){ console.log(this.file);
 //-----------------------------------------------
 // - img file upload callback 
 BGI.prototype.uploadCB = function(){
-	if (this.readyState == 4) { console.log(this.responseText);
+	if (this.readyState == 4) { // console.log(this.responseText);
+
+		// reset the background properties, avoid race conds.
+		jApp.temp = jApp.bg.resetProps();
+		jApp.bg.resetStyles();
 
 		// parse the json
 		jApp.temp = JSON.parse(this.responseText);
@@ -360,7 +367,10 @@ BGI.prototype.uploadCB = function(){
 		}
 
 		// set the background image
-		bgImg.src = jApp.nVals.bg["image"];
+		bgImg.src = jApp.temp["image"];
+
+		// hide the spinner
+		// bgCanvas.children[2].style.display = 'none';
 
 		// show save prompt
 		jApp.deltaVals();

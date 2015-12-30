@@ -389,8 +389,8 @@
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" maxlength="4" value='0'>
-                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="0">
+                            <input type="text" class="form-control" maxlength="4" value='1'>
+                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
                         </div>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->

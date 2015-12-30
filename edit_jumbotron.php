@@ -326,6 +326,10 @@
                             <!-- text -->
                             <div style="position:relative;font-size:12px;left:calc(50% - 18px);max-width:32px;text-shadow: 0px 0px 4px #FFF;">&#45; or &#45;</div>
                             Drag &amp; Drop
+
+                            <!-- <div style="text-align:center;font-size:280px;opacity:0.6;position:absolute;top:calc(50% - 140px);z-index:2;display:none;">
+                                <div class="glyphicon glyphicon-refresh loading"></div>
+                            </div> -->
                         </div>
 
                         <!-- add & edit text, images, & btns layer -->
