@@ -565,7 +565,7 @@ mau5.prototype.rmu = function(e){
 
 	// remove the event listeners
 	document.removeEventListener('mousemove', rm.m.rmm, false);
-	document.removeEventListener('mouseup', rm.a.rmu, false);
+	document.removeEventListener('mouseup', rm.m.rmu, false);
 
 	// set the new angle 
 	if(jApp.a == 'bg')

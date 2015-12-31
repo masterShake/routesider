@@ -86,6 +86,12 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	// append the new textbox to the drag canvas
 	dragCanvas.appendChild(jApp.tbs.a);
 
+	// create & activate the rr object
+	rm.i++;
+	rm.z++;
+	rm.h[rm.i] = new rr(jApp.tbs.a);
+	rm.a = rm.h[rm.i];
+
 	// add the new textbox to the nVals
 	jApp.nVals.tbs[jApp.tbs.i] = {
 		html : '',
@@ -93,17 +99,13 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 		opacity : 1,
 		blur: 0,
 		deleted: 0,
+		z : rm.z,
 		layout : {
 			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
 			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
 			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 }
 		}
 	};
-
-	// create & activate the rr object
-	rm.i++;
-	rm.h[rm.i] = new rr(jApp.tbs.a);
-	rm.a = rm.h[rm.i];
 
 	// attribtue referrence to rr index
 	jApp.tbs.a.setAttribute('data-r', rm.i);
@@ -173,6 +175,7 @@ TB.prototype.newRules = function(r){
 				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
 				'  left: calc(50% - '+(this.a.offsetWidth/2)+'px);' +
 				'  top: calc(50% - '+(this.a.offsetHeight/2)+'px);' +
+				'  z-index: '+rm.z+';' +
 				'  display: block;}';
 
 	// mobile
@@ -950,26 +953,33 @@ var TE = function(){
 
 	/* properties */
 
-	// move-to-front button
-	this.toFront = tbsToolbar.children[0].children[2].children[0]
+	// move-to-front button, temp variable
+	this.toFront = tbsToolbar.getElementsByTagName('button');
 
-	// toggle rrr button
-	this.rrrBtn = tbsToolbar.children[0].children[2].children[1];
+	// clicking any toolbar button hides toggles off rrr
+	for(var i = 0; i < this.toFront.length; i++)
+		this.toFront[i].addEventListener('click', this.rrrOff, false);
+
+	// exceptthe rrr button
+	this.toFront[11].removeEventListener('click', this.rrrOff, false);
+
+	// set toggle rrr button
+	this.rrrBtn = this.toFront[11];
+
+	// set toFront button
+	this.toFront = this.toFront[10];
+	this.toFront.addEventListener('click', this.move2front, false);
+
+	// toggle rrr event listener
+	this.rrrBtn.addEventListener('click', this.togRRR, false);
 
 	// layout visibility checkboxes
 	this.vBoxes = tbsCpanels.children[5].getElementsByTagName('input');
-
-	/* initializations */
 
 	// visibility events
 	this.vBoxes[0].addEventListener('change', this.vis, false);
 	this.vBoxes[1].addEventListener('change', this.vis, false);
 	this.vBoxes[2].addEventListener('change', this.vis, false);
-
-	// toggle rrr event listener
-	this.rrrBtn.addEventListener('click', this.togRRR, false);
-
-
 }
 
 /* METHODS */
@@ -1032,6 +1042,8 @@ TE.prototype.tog = function(){
 
 	// set the visibility checkboxes
 	jApp.tbs.te.setVis();
+
+	// determine if this is the foremost element 
 }
 
 //-----------------------------------------------
@@ -1062,9 +1074,31 @@ TE.prototype.togRRR = function(){
 }
 
 //-----------------------------------------------
+// - hide rrr when user clicks something else
+TE.prototype.rrrOff = function(){
+	// hide the rrr element
+	jApp.tbs.a.children[1].style.display = 'none';
+	// button default
+	jApp.tbs.te.rrrBtn.className = 'btn btn-default';
+}
+
+//-----------------------------------------------
 // - move active textbox to the front of all 
 //   elements in the dragCanvas
-TE.prototype.move2front = function(){ return false;
+TE.prototype.move2front = function(){ 
+
+	// incriment the rm z-index property
+	rm.z++;
+
+	// set the nVals property
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key].z = 
+
+	// set the active textbox z index
+	jApp.tbs.a.style.zIndex = 
+
+	// set the z index for the stylesheet
+	document.styleSheets[7].cssRules[jApp.tbs.a.dataset.r]
+		.style.zIndex = rm.z;
 
 }
 
@@ -1131,7 +1165,8 @@ TE.prototype.reDim = function(){
 	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
 		.layout[jApp.layout].h = jApp.tbs.a.offsetHeight;
 	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
-		.layout[jApp.layout].w = jApp.tbs.a.offsetWidth; console.log(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout]);
+		.layout[jApp.layout].w = jApp.tbs.a.offsetWidth; 
+	// console.log(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout]);
 
 	jApp.deltaVals();
 }

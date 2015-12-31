@@ -165,7 +165,8 @@ if(Input::exists()){
                 "html:'{$textbox->html}', ".
                 "color:'{$textbox->color}', ".
                 "opacity:{$textbox->opacity}, ".
-                "blur:{$textbox->blur}". 
+                "blur:{$textbox->blur}, ".
+                "z:{$textbox->z}". 
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Mobile { ".
                 "w:{$textbox->layout->mobile->w}, ".
@@ -173,7 +174,8 @@ if(Input::exists()){
                 "x:{$textbox->layout->mobile->x}, ".
                 "y:{$textbox->layout->mobile->y}, ".
                 "s:{$textbox->layout->mobile->s}, ".
-                "r:{$textbox->layout->mobile->r} ".
+                "r:{$textbox->layout->mobile->r}, ".
+                "v:{$textbox->layout->mobile->v} ".
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Tablet { ".
                 "w:{$textbox->layout->tablet->w}, ".
@@ -181,7 +183,8 @@ if(Input::exists()){
                 "x:{$textbox->layout->tablet->x}, ".
                 "y:{$textbox->layout->tablet->y}, ".
                 "s:{$textbox->layout->tablet->s}, ".
-                "r:{$textbox->layout->tablet->r} ".
+                "r:{$textbox->layout->tablet->r}, ".
+                "v:{$textbox->layout->tablet->v} ".
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Desktop { ".
                 "w:{$textbox->layout->desktop->w}, ".
@@ -189,7 +192,8 @@ if(Input::exists()){
                 "x:{$textbox->layout->desktop->x}, ".
                 "y:{$textbox->layout->desktop->y}, ".
                 "s:{$textbox->layout->desktop->s}, ".
-                "r:{$textbox->layout->desktop->r} ".
+                "r:{$textbox->layout->desktop->r}, ".
+                "v:{$textbox->layout->desktop->v} ".
             "})";
 
             $db->q($cypher);
