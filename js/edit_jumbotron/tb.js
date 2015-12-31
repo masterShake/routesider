@@ -93,9 +93,9 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 		opacity : 1,
 		blur: 0,
 		layout : {
-			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0 },
-			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0 },
-			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0 }
+			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
+			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
+			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 }
 		}
 	};
 
@@ -103,13 +103,18 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	rm.i++;
 	rm.h[rm.i] = new rr(jApp.tbs.a);
 	rm.a = rm.h[rm.i];
-	rm.newRules();
 
 	// attribtue referrence to rr index
 	jApp.tbs.a.setAttribute('data-r', rm.i);
+	
+	// insert the new css rules
+	jApp.tbs.newRules(rm.i);
 
 	// apply the event listeners
 	jApp.tbs.ae();
+
+	// set the checkbox visibility
+	jApp.tbs.te.setVis();
 }
 
 //-----------------------------------------------
@@ -152,6 +157,32 @@ TB.prototype.createElem = function(){
 	this.a.children[2].contentEditable = true;
 
 	return this.a;
+}
+
+//-----------------------------------------------
+// - create new css style rules
+// - insert into 7th stylesheet
+// - tablet @media > 768px
+// - desktop @media > 1200px
+// - r => rrrMap object key
+TB.prototype.newRules = function(r){
+
+	// default: scale 1, rotate 0, element centered
+	this.t = '#dragCanvas>div:nth-child('+r+')'+
+				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
+				'  left: calc(50% - '+(this.a.offsetWidth/2)+'px);' +
+				'  top: calc(50% - '+(this.a.offsetHeight/2)+'px);' +
+				'  display: block;}';
+
+	// mobile
+	document.styleSheets[7]
+		.insertRule(this.t, r);
+	// tablet
+	document.styleSheets[7].cssRules[r + 1]
+		.insertRule(this.t, r);
+	// desktop
+	document.styleSheets[7].cssRules[r + 2]
+		.insertRule(this.t, r);
 }
 
 //-----------------------------------------------
@@ -925,10 +956,20 @@ var TE = function(){
 	// toggle rrr button
 	this.rrrBtn = tbsToolbar.children[0].children[2].children[1];
 
+	// layout visibility checkboxes
+	this.vBoxes = tbsCpanels.children[5].getElementsByTagName('input');
+
 	/* initializations */
+
+	// visibility events
+	this.vBoxes[0].addEventListener('change', this.vis, false);
+	this.vBoxes[1].addEventListener('change', this.vis, false);
+	this.vBoxes[2].addEventListener('change', this.vis, false);
 
 	// toggle rrr event listener
 	this.rrrBtn.addEventListener('click', this.togRRR, false);
+
+
 }
 
 /* METHODS */
@@ -988,6 +1029,9 @@ TE.prototype.tog = function(){
 
 	// focus on the textbox
 	jApp.tbs.a.children[2].focus();
+
+	// set the visibility checkboxes
+	jApp.tbs.te.setVis();
 }
 
 //-----------------------------------------------
@@ -1022,6 +1066,55 @@ TE.prototype.togRRR = function(){
 //   elements in the dragCanvas
 TE.prototype.move2front = function(){ return false;
 
+}
+
+//-----------------------------------------------
+// - change visibility for element in layout
+// - prompt delete if invisible for all 3
+TE.prototype.vis = function(){
+
+	// set the nVals
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
+
+	// if all three are unchecked
+	if(!jApp.tbs.te.vBoxes[0].checked
+	&& !jApp.tbs.te.vBoxes[1].checked
+	&& !jApp.tbs.te.vBoxes[2].checked){
+
+		// recheck 
+		this.checked = true;
+
+		// prompt delete modal
+		jApp.tbs.confirmDel(); return;
+	}
+
+	// temp variable, more efficient
+	jApp.temp = (this.checked) ? 'block' : 'none';
+
+	// set the style sheet
+	if(this.value == 'mobile') 		// mobile
+		document.styleSheets[7].cssRules[jApp.tbs.a.dataset.r]
+			.style.display = jApp.temp;
+	else if(this.value == 'tablet') // tablet
+		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp.tbs.a.dataset.r]
+			.style.display = jApp.temp;
+	else 							// desktop
+		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp.tbs.a.dataset.r]
+			.style.display = jApp.temp;
+
+	// checkbox cooresponds to current layout
+	if(this.value == jApp.layout)
+		// add an inline style
+		jApp.tbs.a.style.display = jApp.temp;
+}
+
+//-----------------------------------------------
+// - set visibility when user makes existing
+//   textbox active
+TE.prototype.setVis = function(){
+	this.vBoxes[0].checked = (jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout.mobile.v);
+	this.vBoxes[1].checked = (jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout.tablet.v);
+	this.vBoxes[2].checked = (jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout.desktop.v);
 }
 
 //-----------------------------------------------

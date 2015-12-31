@@ -501,6 +501,11 @@ visibility control panel
 		height: 99px;
 		padding-top: 19px;
 	}
+
+	/* textbox */
+	.textbox{
+		display: block;
+	}
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -535,5 +540,10 @@ visibility control panel
 	}
 	.desktop .bg-placeholder{
 		padding-top: 276px;
+	}
+
+	/* textbox */
+	.textbox{
+		display: block;
 	}
 }
