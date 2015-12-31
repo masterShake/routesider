@@ -953,22 +953,24 @@ var TE = function(){
 
 	/* properties */
 
-	// move-to-front button, temp variable
-	this.toFront = tbsToolbar.getElementsByTagName('button');
-
-	// clicking any toolbar button hides toggles off rrr
-	for(var i = 0; i < this.toFront.length; i++)
-		this.toFront[i].addEventListener('click', this.rrrOff, false);
-
-	// exceptthe rrr button
-	this.toFront[11].removeEventListener('click', this.rrrOff, false);
-
-	// set toggle rrr button
-	this.rrrBtn = this.toFront[11];
+	// temp variable
+	this.t = tbsToolbar.getElementsByTagName('button');
 
 	// set toFront button
-	this.toFront = this.toFront[10];
+	this.toFront = this.t[10];
+
+	// toFront event listener
 	this.toFront.addEventListener('click', this.move2front, false);
+
+	// clicking any toolbar button hides toggles off rrr
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].addEventListener('click', this.rrrOff, false);
+
+	// exceptthe rrr button
+	this.t[11].removeEventListener('click', this.rrrOff, false);
+
+	// set toggle rrr button
+	this.rrrBtn = this.t[11];
 
 	// toggle rrr event listener
 	this.rrrBtn.addEventListener('click', this.togRRR, false);
@@ -1043,7 +1045,34 @@ TE.prototype.tog = function(){
 	// set the visibility checkboxes
 	jApp.tbs.te.setVis();
 
+	// set the background color control panel
+	jApp.tbs.te.setBg();
+
 	// determine if this is the foremost element 
+}
+
+//-----------------------------------------------
+// - proto.tog helper
+// - set background color elements when user
+//   activates existing textbox
+TE.prototype.setBg = function(){
+
+	// get all the inputs
+	this.t = tbsCpanels.children[3].getElementsByTagName('input');
+
+	// get the current textbox values
+	jApp.temp = jApp.nVals.tbs[jApp.tbs.a.dataset.key];
+
+	// set the background color
+	jApp.tbs.c.setColor(2, false, jApp.temp.color);
+
+	// set the blur
+	this.t[3].value = 
+	this.t[4].value = jApp.temp.blur;
+
+	// set the opacity
+	this.t[5].value = 
+	this.t[6].value = jApp.temp.opacity;
 }
 
 //-----------------------------------------------

@@ -152,6 +152,33 @@ if(Input::exists()){
 
         // add all the new components
 
+        // sort & set the components' z-indices
+
+        // create array of z indexes
+        $z = [];
+
+        // loop through all the textboxes
+        foreach ($jumbo["tbs"] as $key => $textbox) {
+
+            // put them in a seperate array
+            $z[$textbox["z"]] = $key;
+        }
+
+        // sort $z array by key
+        ksort($z);
+
+        // indexer
+        $i = 0;
+
+        // reset the z index
+        foreach ($z as $zIndex => $key) {
+             
+             $i++; // increment
+
+            // set a new z index for textbox object
+            $jumbo["tbs"][$key]["z"] = $i;
+         } 
+
         // loop through all the textboxes
         foreach($jumbo->tbs as $textbox){
 
