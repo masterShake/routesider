@@ -92,6 +92,7 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 		color : 'transparent',
 		opacity : 1,
 		blur: 0,
+		deleted: 0,
 		layout : {
 			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
 			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
@@ -293,8 +294,7 @@ TB.prototype.del = function(){
 	jApp.tbs.a.innerHTML = '';
 
 	// remove it from the nVals
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key] = null;
-	delete jApp.nVals.tbs[jApp.tbs.a.dataset.key];
+	jApp.nVals.tbs[jApp.tbs.a.dataset.key].deleted = 1;
 
 	// hide it, but do not delete to maintain order
 	jApp.tbs.a.style.display = 'none';
@@ -1142,8 +1142,10 @@ TE.prototype.reDim = function(){
 //   editable div inside the textbox element
 TE.prototype.setDims = function(){
 	for(var x in jApp.tbs.h){
-		jApp.tbs.h[x].children[2].style.width = jApp.nVals.tbs[x].layout[jApp.layout].w + 'px';
-		jApp.tbs.h[x].children[2].style.height = jApp.nVals.tbs[x].layout[jApp.layout].h + 'px';
+		if(jApp.tbs.h[x].children.length){
+			jApp.tbs.h[x].children[2].style.width = jApp.nVals.tbs[x].layout[jApp.layout].w + 'px';
+			jApp.tbs.h[x].children[2].style.height = jApp.nVals.tbs[x].layout[jApp.layout].h + 'px';
+		}
 	}
 }
 

@@ -155,6 +155,9 @@ if(Input::exists()){
         // loop through all the textboxes
         foreach($jumbo->tbs as $textbox){
 
+            // do no perform query if deleted
+            if($textbox->deleted) continue;
+
             $cypher = 
             "MATCH (a:Business) WHERE a.id = " . $business->data("id") . " " .
             "MATCH (a)-[:HAS_PROFILE]->(p:Profile)-[:SECTION]->(j:Jumbotron) ".
