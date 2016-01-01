@@ -157,11 +157,13 @@ if(Input::exists()){
         // create array of z indexes
         $z = [];
 
+        // $x = get_object_vars($jumbo->tbs); print_r($x); exit();
+
         // loop through all the textboxes
-        foreach ($jumbo["tbs"] as $key => $textbox) {
+        foreach ($jumbo->tbs as $key => $textbox) {
 
             // put them in a seperate array
-            $z[$textbox["z"]] = $key;
+            $z[$textbox->z] = $key;
         }
 
         // sort $z array by key
@@ -176,7 +178,7 @@ if(Input::exists()){
              $i++; // increment
 
             // set a new z index for textbox object
-            $jumbo["tbs"][$key]["z"] = $i;
+            $jumbo->tbs->{$key}->z = $i;
          } 
 
         // loop through all the textboxes
