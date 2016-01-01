@@ -203,7 +203,7 @@ if(Input::exists()){
                 "x:{$textbox->layout->mobile->x}, ".
                 "y:{$textbox->layout->mobile->y}, ".
                 "s:{$textbox->layout->mobile->s}, ".
-                "s:{$textbox->layout->mobile->a}, ".
+                "a:{$textbox->layout->mobile->a}, ".
                 "r:{$textbox->layout->mobile->r}, ".
                 "v:{$textbox->layout->mobile->v} ".
             "}) ".

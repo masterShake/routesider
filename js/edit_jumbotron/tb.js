@@ -32,12 +32,9 @@ var TB = function(){
 	// init textbox editor object
 	this.te = new TE();
 
-	// help move the caret to the end
+	// help move the caret to the end, temp vars init
 	this.range = null;
 	this.sel = null;
-
-	// temp variable
-	this.t = null;
 
 	// add event listener to the new textbox btn
 	jumboToolbar.children[0].children[1].children[1]
@@ -46,6 +43,43 @@ var TB = function(){
 	// delete textbox prompt modal
 	tbsToolbar.children[0].children[3].children[0]
 		.addEventListener('click', this.confirmDel, false);
+
+	// init existing textboxes
+
+	// temp variable, get all existing textboxes
+	this.t = dragCanvas.getElementsByClassName('textbox');
+
+	// temp variable get layout
+	if(document.body.offsetWidth < 767)
+		this.sel = 'mobile';
+	else if(document.body.offsetWidth < 1200)
+		this.sel = 'tablet';
+	else
+		this.sel = 'desktop';
+
+	// get the iValss
+	this.range = JSON.parse( document.getElementById("i-vals").value );
+
+	// loop through the textboxes
+	for(var i = 0; i < this.t.length; i++){
+
+		// make that shit content editable
+		this.t[i].children[2].contentEditable = true;
+
+		// init toggle editor events
+		this.te.initLayer(this.t[i]);
+
+		// event to determine active exec commands
+		this.t[i].children[2].addEventListener('keyup', this.s.qCom, false);
+		this.t[i].children[2].addEventListener('focus', this.s.qCom, false);
+
+		// events to determine fore & back colors
+		this.t[i].children[2].addEventListener('keyup', this.c.qCol, false);
+
+		// set the height and width
+		this.t[i].children[2].style.height = this.range.tbs[i].layout[this.sel].h+'px';
+		this.t[i].children[2].style.width = this.range.tbs[i].layout[this.sel].w+'px';
+	}
 }
 
 //-----------------------------------------------
@@ -162,7 +196,7 @@ TB.prototype.createElem = function(){
 					   '<div class="content-edit"></div>';
 
 	// apply toggle editor events
-	this.te.initLayer();
+	this.te.initLayer(this.a);
 
 	// set designMode to 'On'
 	this.a.children[2].contentEditable = true;
@@ -994,16 +1028,16 @@ var TE = function(){
 
 /* METHODS */
 
-TE.prototype.initLayer = function(){									
+TE.prototype.initLayer = function(tElem){									
 
 	// add event listeners
-	jApp.tbs.a.children[0].addEventListener('mouseover', this.show, false);
-	jApp.tbs.a.children[0].addEventListener('mouseout', this.hide, false);
-	jApp.tbs.a.children[0].addEventListener('mousedown', this.tog, false);
+	tElem.children[0].addEventListener('mouseover', this.show, false);
+	tElem.children[0].addEventListener('mouseout', this.hide, false);
+	tElem.children[0].addEventListener('mousedown', this.tog, false);
 
 	// re-dimension div event
-	jApp.tbs.a.addEventListener('mouseup', this.reDim, false);
-	jApp.tbs.a.addEventListener('touchend', this.reDim, false);
+	tElem.addEventListener('mouseup', this.reDim, false);
+	tElem.addEventListener('touchend', this.reDim, false);
 }
 
 //-----------------------------------------------
@@ -1191,6 +1225,9 @@ TE.prototype.setVis = function(){
 //-----------------------------------------------
 // - user resizes content editable div
 TE.prototype.reDim = function(){
+
+	// make sure that we have an active textbox
+	if(jApp.tbs.a === null) return;
 
 	// if dimensions have not changed
 	if(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout].h == jApp.tbs.a.offsetHeight

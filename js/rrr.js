@@ -2,16 +2,17 @@
 //-----------------------------------------------
 // - closure hashmap to hold rr objects
 var r = function(){
-	
-	// indexer
-	this.i = 0;
 
 	// hashmap of the rr objects
-	// background image always 0
 	this.h = {};
+	// temp variable, all dragable elems
+	this.u = dragCanvas.children;
 
-	// current z-index
-	this.z = 0;
+	// set index - number of rotating elements + bg
+	this.i = 
+
+	// set z index - starting at 1
+	this.z = this.u.length;
 
 	// active rr object
 	this.a = null;
@@ -21,9 +22,6 @@ var r = function(){
 
 	// client has mouse
 	this.hs = false; // should be initially set to false
-
-	// temp variable
-	this.u = '';
 
 	// add event listener
 	document.addEventListener('mousemove', this.mt, false);
@@ -85,9 +83,6 @@ r.prototype.getRules = function(){
 		console.log(document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style);
 
 }
-
-// init
-var rm = new r();
 
 
 //-----------------------------------------------
@@ -579,6 +574,37 @@ mau5.prototype.rmu = function(e){
 	jApp.deltaVals();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// init
+var rm = new r();
+
+// set existing
+
+// loop through the dragable children
+for(var i = 0; i < rm.i; i++){
+	// create new rr elements
+	rm.h[i+1] = new rr(rm.u[i]);
+
+}
 
 
 

@@ -56,84 +56,7 @@
         <!-- php output user set dynamic styles -->
         <style>
 
-            /* rule 0 - bg image container */
-            #cropCanvas>div{
-                transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["mobile"]["a"]; ?>deg) 
-                           scale(<?= $jumbo["bg"]["layout"]["mobile"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["mobile"]["s"]; ?>);
-                left: <?= $jumbo["bg"]["layout"]["mobile"]["x"]; ?>%;
-                top: <?= $jumbo["bg"]["layout"]["mobile"]["y"]; ?>%;
-            }
-
-            <?php $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
-
-            #dragCanvas>div:nth-child(<?= $i; ?>){
-                transform: rotate3d(0,0,1,<?= $textbox["layout"]["mobile"]["a"]; ?>deg) 
-                           scale(<?= $textbox["layout"]["mobile"]["s"]; ?>,<?= $textbox["layout"]["mobile"]["s"]; ?>);
-                left: <?= $textbox["layout"]["mobile"]["x"]; ?>%;
-                top: <?= $textbox["layout"]["mobile"]["y"]; ?>%;
-                display: <?= ($textbox["layout"]["mobile"]["v"]) ? "block" : "none"; ?>;
-                height: <?= $textbox["layout"]["mobile"]["h"]; ?>px;
-                width: <?= $textbox["layout"]["mobile"]["w"]; ?>px;
-                z-index: <?= $textbox["z"]; ?>;
-            }
-
-            <?php $i++; } ?>
-
-            /* Small devices (tablets, 768px and up) */
-            @media (min-width: 768px) {
-
-                #cropCanvas>div{
-                transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["tablet"]["a"]; ?>deg) 
-                           scale(<?= $jumbo["bg"]["layout"]["tablet"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["tablet"]["s"]; ?>);
-                left: <?= $jumbo["bg"]["layout"]["tablet"]["x"]; ?>%;
-                top: <?= $jumbo["bg"]["layout"]["tablet"]["y"]; ?>%;
-                }
-
-                <?php $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
-
-                #dragCanvas>div:nth-child(<?= $i; ?>){
-                    transform: rotate3d(0,0,1,<?= $textbox["layout"]["tablet"]["a"]; ?>deg) 
-                               scale(<?= $textbox["layout"]["tablet"]["s"]; ?>,<?= $textbox["layout"]["tablet"]["s"]; ?>);
-                    left: <?= $textbox["layout"]["tablet"]["x"]; ?>%;
-                    top: <?= $textbox["layout"]["tablet"]["y"]; ?>%;
-                    display: <?= ($textbox["layout"]["tablet"]["v"]) ? "block" : "none"; ?>;
-                    height: <?= $textbox["layout"]["tablet"]["h"]; ?>px;
-                    width: <?= $textbox["layout"]["tablet"]["w"]; ?>px;
-                    z-index: <?= $textbox["z"]; ?>;
-                }
-
-                <?php $i++; } ?>
-            }
-
-            /* Large devices (large desktops, 1200px and up) */
-            @media (min-width: 1200px) {
-
-                #cropCanvas>div{
-                transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["desktop"]["a"]; ?>deg) 
-                           scale(<?= $jumbo["bg"]["layout"]["desktop"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["desktop"]["s"]; ?>);
-                left: <?= $jumbo["bg"]["layout"]["desktop"]["x"]; ?>%;
-                top: <?= $jumbo["bg"]["layout"]["desktop"]["y"]; ?>%;
-                }
-
-                <?php 
-
-                /* output textbox css rules */ 
-
-                $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
-
-                #dragCanvas>div:nth-child(<?= $i; ?>){
-                    transform: rotate3d(0,0,1,<?= $textbox["layout"]["desktop"]["a"]; ?>deg) 
-                               scale(<?= $textbox["layout"]["desktop"]["s"]; ?>,<?= $textbox["layout"]["desktop"]["s"]; ?>);
-                    left: <?= $textbox["layout"]["desktop"]["x"]; ?>%;
-                    top: <?= $textbox["layout"]["desktop"]["y"]; ?>%;
-                    display: <?= ($textbox["layout"]["desktop"]["v"]) ? "block" : "none"; ?>;
-                    height: <?= $textbox["layout"]["desktop"]["h"]; ?>px;
-                    width: <?= $textbox["layout"]["desktop"]["w"]; ?>px;
-                    z-index: <?= $textbox["z"]; ?>;
-                }
-
-                <?php $i++; } ?>
-            }
+            <?php include "components/edit_jumbo/dragables_css.php"; ?>
 
         </style>
 
@@ -151,49 +74,7 @@
 
         <!-- drag btn html -->
         <textarea id="drag-btns-html" style="display:none;">
-            <div class="drag-btns" style="display:none;">
-                <div>
-                    <div style="top:calc(50% - 10px);left:calc(50% - 10px);">
-                        <div class="vert" style="left:4px"></div>
-                        <div class="horiz" style="top:-6px;"></div>
-                    </div>
-                </div>
-                <div data-de="d" data-dx="1" data-dy="1" data-fx="0.5" data-fy="0.5">
-                    <div class="horiz"></div>
-                    <div class="vert"></div>
-                </div>
-                <div data-de="v" data-dy="1" data-fx="0" data-fy="0.5">
-                    <div class="horiz"></div>
-                    <div class="vert"></div>
-                </div>
-                <div data-de="d" data-dx="-1" data-dy="1" data-fx="-0.5" data-fy="0.5">
-                    <div class="horiz"></div>
-                    <div class="vert"></div>
-                </div>
-                <div data-de="h" data-dx="1" data-fx="0.5" data-fy="0">
-                    <div class="vert"></div>
-                    <div class="horiz"></div>
-                </div>
-                <div data-de="h" data-dx="-1" data-fx="-0.5" data-fy="0">
-                    <div class="vert"></div>
-                    <div class="horiz"></div>
-                </div>
-                <div data-de="d" data-dx="1" data-dy="-1" data-fx="0.5" data-fy="-0.5">
-                    <div class="vert"></div>
-                    <div class="horiz"></div>
-                </div>
-                <div data-de="v" data-dy="-1" data-fx="0" data-fy="-0.5">
-                    <div class="vert"></div>
-                    <div class="horiz"></div>
-                </div>
-                <div data-de="d" data-dx="-1" data-dy="-1" data-fx="-0.5" data-fy="-0.5">
-                    <div class="vert"></div>
-                    <div class="horiz"></div>
-                </div>
-                <button type="button" class="btn btn-default btn-success">
-                    <span class="glyphicon glyphicon-repeat"></span>
-                </button>
-            </div>
+            <?php include "components/edit_jumbo/drag_btns.php"; ?>
         </textarea>
 
         <!-- page content -->
@@ -284,68 +165,7 @@
                                 <!-- placeholder div, not used for bg image -->
                                 <div style="display:none;"></div>
                                 <!-- dragable crop buttons -->
-                                <div class="drag-btns" style="display:none;">
-
-                                    <!-- reposition drag elem -->
-                                    <div>
-                                        <div style="top:calc(50% - 10px);left:calc(50% - 10px);">
-                                            <div class="vert" style="left:4px"></div>
-                                            <div class="horiz" style="top:-6px;"></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- data-de = directional event -->
-                                    <!-- data-dx = directional constant x -->
-                                    <!-- data-dy = directional constant y -->
-                                    <!-- data-fx = functional constant x -->
-                                    <!-- data-fy = functional constant y -->
-
-                                    <!-- top left --> 
-                                    <div data-de="d" data-dx="1" data-dy="1" data-fx="0.5" data-fy="0.5">
-                                        <div class="horiz"></div>
-                                        <div class="vert"></div>
-                                    </div>
-                                    <!-- top center -->
-                                    <div data-de="v" data-dy="1" data-fx="0" data-fy="0.5">
-                                        <div class="horiz"></div>
-                                        <div class="vert"></div>
-                                    </div>
-                                    <!-- top right -->
-                                    <div data-de="d" data-dx="-1" data-dy="1" data-fx="-0.5" data-fy="0.5">
-                                        <div class="horiz"></div>
-                                        <div class="vert"></div>
-                                    </div>
-                                    <!-- center left -->
-                                    <div data-de="h" data-dx="1" data-fx="0.5" data-fy="0">
-                                        <div class="vert"></div>
-                                        <div class="horiz"></div>
-                                    </div>
-                                    <!-- center right -->
-                                    <div data-de="h" data-dx="-1" data-fx="-0.5" data-fy="0">
-                                        <div class="vert"></div>
-                                        <div class="horiz"></div>
-                                    </div>
-                                    <!-- bottom left -->
-                                    <div data-de="d" data-dx="1" data-dy="-1" data-fx="0.5" data-fy="-0.5">
-                                        <div class="vert"></div>
-                                        <div class="horiz"></div>
-                                    </div>
-                                    <!-- bottom center -->
-                                    <div data-de="v" data-dy="-1" data-fx="0" data-fy="-0.5">
-                                        <div class="vert"></div>
-                                        <div class="horiz"></div>
-                                    </div>
-                                    <!-- bottom right -->
-                                    <div data-de="d" data-dx="-1" data-dy="-1" data-fx="-0.5" data-fy="-0.5">
-                                        <div class="vert"></div>
-                                        <div class="horiz"></div>
-                                    </div>
-
-                                    <!-- mouse drag rotation button -->
-                                    <button type="button" class="btn btn-default btn-success">
-                                        <span class="glyphicon glyphicon-repeat"></span>
-                                    </button>
-                                </div>
+                                <?php include "components/edit_jumbo/drag_btns.php"; ?>
                                 <!-- background image -->
                                 <?php if($jumbo["bg"]["image"]){ ?>
 
@@ -382,7 +202,39 @@
                         </div>
 
                         <!-- add & edit text, images, & btns layer -->
-                        <div class="j-canvas" id="dragCanvas"></div>
+                        <div class="j-canvas" id="dragCanvas">
+                            
+                        <?php
+
+                        // r index for rrr hashmap & css position
+                        $r = 1;
+
+                        // i index for jApp.tbs textbox hashmap
+                        $i = 0;
+
+                        // iterate through the textboxes
+                        foreach($jumbo["tbs"] as $textbox){ ?>
+
+                            <div class="textbox" data-r="<?= $r; ?>" data-key="<?= $i; ?>">
+                                <!-- toggle edit mode -->
+                                <div class="toggle-edit" style="display:block;">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                               </div>
+                               <!-- reposition, resize, rotate -->
+                               <?php include "components/edit_jumbo/drag_btns.php"; ?>
+                               <!-- content editable -->
+                               <div class="content-edit" style="min-height:27px;min-width:80px;background-color:<?= $textbox["color"]; ?>;opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);">
+                                   <?= $textbox["html"]; ?>
+                               </div>
+                            </div>
+
+                        <?php $r++; $i++; }
+
+                        ?>
+
+                        </div>
 
                     </div><!-- /layout div -->
 
