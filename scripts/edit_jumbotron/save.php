@@ -203,6 +203,7 @@ if(Input::exists()){
                 "x:{$textbox->layout->mobile->x}, ".
                 "y:{$textbox->layout->mobile->y}, ".
                 "s:{$textbox->layout->mobile->s}, ".
+                "s:{$textbox->layout->mobile->a}, ".
                 "r:{$textbox->layout->mobile->r}, ".
                 "v:{$textbox->layout->mobile->v} ".
             "}) ".
@@ -212,6 +213,7 @@ if(Input::exists()){
                 "x:{$textbox->layout->tablet->x}, ".
                 "y:{$textbox->layout->tablet->y}, ".
                 "s:{$textbox->layout->tablet->s}, ".
+                "a:{$textbox->layout->tablet->a}, ".
                 "r:{$textbox->layout->tablet->r}, ".
                 "v:{$textbox->layout->tablet->v} ".
             "}) ".
@@ -221,6 +223,7 @@ if(Input::exists()){
                 "x:{$textbox->layout->desktop->x}, ".
                 "y:{$textbox->layout->desktop->y}, ".
                 "s:{$textbox->layout->desktop->s}, ".
+                "a:{$textbox->layout->desktop->a}, ".
                 "r:{$textbox->layout->desktop->r}, ".
                 "v:{$textbox->layout->desktop->v} ".
             "})";

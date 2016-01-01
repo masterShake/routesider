@@ -64,6 +64,21 @@
                 top: <?= $jumbo["bg"]["layout"]["mobile"]["y"]; ?>%;
             }
 
+            <?php $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
+
+            #dragCanvas>div:nth-child(<?= $i; ?>){
+                transform: rotate3d(0,0,1,<?= $textbox["layout"]["mobile"]["a"]; ?>deg) 
+                           scale(<?= $textbox["layout"]["mobile"]["s"]; ?>,<?= $textbox["layout"]["mobile"]["s"]; ?>);
+                left: <?= $textbox["layout"]["mobile"]["x"]; ?>%;
+                top: <?= $textbox["layout"]["mobile"]["y"]; ?>%;
+                display: <?= ($textbox["layout"]["mobile"]["v"]) ? "block" : "none"; ?>;
+                height: <?= $textbox["layout"]["mobile"]["h"]; ?>px;
+                width: <?= $textbox["layout"]["mobile"]["w"]; ?>px;
+                z-index: <?= $textbox["z"]; ?>;
+            }
+
+            <?php $i++; } ?>
+
             /* Small devices (tablets, 768px and up) */
             @media (min-width: 768px) {
 
@@ -73,6 +88,21 @@
                 left: <?= $jumbo["bg"]["layout"]["tablet"]["x"]; ?>%;
                 top: <?= $jumbo["bg"]["layout"]["tablet"]["y"]; ?>%;
                 }
+
+                <?php $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
+
+                #dragCanvas>div:nth-child(<?= $i; ?>){
+                    transform: rotate3d(0,0,1,<?= $textbox["layout"]["tablet"]["a"]; ?>deg) 
+                               scale(<?= $textbox["layout"]["tablet"]["s"]; ?>,<?= $textbox["layout"]["tablet"]["s"]; ?>);
+                    left: <?= $textbox["layout"]["tablet"]["x"]; ?>%;
+                    top: <?= $textbox["layout"]["tablet"]["y"]; ?>%;
+                    display: <?= ($textbox["layout"]["tablet"]["v"]) ? "block" : "none"; ?>;
+                    height: <?= $textbox["layout"]["tablet"]["h"]; ?>px;
+                    width: <?= $textbox["layout"]["tablet"]["w"]; ?>px;
+                    z-index: <?= $textbox["z"]; ?>;
+                }
+
+                <?php $i++; } ?>
             }
 
             /* Large devices (large desktops, 1200px and up) */
@@ -84,6 +114,25 @@
                 left: <?= $jumbo["bg"]["layout"]["desktop"]["x"]; ?>%;
                 top: <?= $jumbo["bg"]["layout"]["desktop"]["y"]; ?>%;
                 }
+
+                <?php 
+
+                /* output textbox css rules */ 
+
+                $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
+
+                #dragCanvas>div:nth-child(<?= $i; ?>){
+                    transform: rotate3d(0,0,1,<?= $textbox["layout"]["desktop"]["a"]; ?>deg) 
+                               scale(<?= $textbox["layout"]["desktop"]["s"]; ?>,<?= $textbox["layout"]["desktop"]["s"]; ?>);
+                    left: <?= $textbox["layout"]["desktop"]["x"]; ?>%;
+                    top: <?= $textbox["layout"]["desktop"]["y"]; ?>%;
+                    display: <?= ($textbox["layout"]["desktop"]["v"]) ? "block" : "none"; ?>;
+                    height: <?= $textbox["layout"]["desktop"]["h"]; ?>px;
+                    width: <?= $textbox["layout"]["desktop"]["w"]; ?>px;
+                    z-index: <?= $textbox["z"]; ?>;
+                }
+
+                <?php $i++; } ?>
             }
 
         </style>

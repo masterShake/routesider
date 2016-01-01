@@ -101,9 +101,17 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 		deleted: 0,
 		z : rm.z,
 		layout : {
-			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
-			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 },
-			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, r : 0, v : 1 }
+			// w => width
+			// h => height
+			// x => left
+			// y => top
+			// s => scale
+			// a => angle
+			// r => ?
+			// v => visible
+			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, r : 0, v : 1 },
+			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, r : 0, v : 1 },
+			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, r : 0, v : 1 }
 		}
 	};
 
