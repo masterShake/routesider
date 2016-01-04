@@ -399,6 +399,8 @@ visibility control panel
 .checkbox-inline>div{
 	font-size: 10px;
 	float: left;
+}
+#tbsCpanels.checkbox-inline>div{
 	margin-left: -3px;
 }
 
