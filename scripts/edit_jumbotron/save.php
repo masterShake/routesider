@@ -113,10 +113,9 @@ if(Input::exists()){
         $cypher = 
         "MATCH (a:Business) WHERE a.id = " . $business->data("id") . " " .
         "MATCH (a)-[:HAS_PROFILE]->(p:Profile)-[:SECTION]->(j:Jumbotron) " .
-        "MATCH (j)-[q:COMPONENT]->(t:Textbox) ".
-        "MATCH (j)-[r:COMPONENT]->(b:Button) ".
-        "MATCH (j)-[s:COMPONENT]->(i:Image) ".
-        "DELETE q, t, r, b, s, i";
+        "MATCH (j)-[q:COMPONENT]->(m)-[r]->(n) ".
+        "WHERE NOT m:Background ".
+        "DELETE q, m, r, n";
 
         $db->q($cypher);
 

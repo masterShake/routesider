@@ -61,25 +61,28 @@ var TB = function(){
 	this.range = JSON.parse( document.getElementById("i-vals").value );
 
 	// loop through the textboxes
-	for(var i = 0; i < this.t.length; i++){
+	for(this.i; this.i < this.t.length; this.i++){
+
+		// push elem onto the hashmap
+		this.h[this.i] = this.t[this.i];
 
 		// make that shit content editable
-		this.t[i].children[2].contentEditable = true;
+		this.t[this.i].children[2].contentEditable = true;
 
 		// init toggle editor events
-		this.te.initLayer(this.t[i]);
+		this.te.initLayer(this.t[this.i]);
 
 		// event to determine active exec commands
-		this.t[i].children[2].addEventListener('keyup', this.s.qCom, false);
-		this.t[i].children[2].addEventListener('focus', this.s.qCom, false);
+		this.t[this.i].children[2].addEventListener('keyup', this.s.qCom, false);
+		this.t[this.i].children[2].addEventListener('focus', this.s.qCom, false);
 
 		// events to determine fore & back colors
-		this.t[i].children[2].addEventListener('keyup', this.c.qCol, false);
+		this.t[this.i].children[2].addEventListener('keyup', this.c.qCol, false);
 
 		// set the height and width
-		this.t[i].children[2].style.height = this.range.tbs[i].layout[this.sel].h+'px';
-		this.t[i].children[2].style.width = this.range.tbs[i].layout[this.sel].w+'px';
-	}
+		this.t[this.i].children[2].style.height = this.range.tbs[this.i].layout[this.sel].h+'px';
+		this.t[this.i].children[2].style.width = this.range.tbs[this.i].layout[this.sel].w+'px';
+	}this.i--;
 }
 
 //-----------------------------------------------
@@ -782,7 +785,8 @@ TC.prototype.setColor = function(i, excom, val){
 		jApp.tbs.a.children[2].focus(); 
 
 		// move the caret to the end
-		jApp.tbs.setEnd();
+		if(excom)
+			jApp.tbs.setEnd();
 
 		if(val == 'transparent') // backColor only
 			document.execCommand('styleWithCSS', false, true);
@@ -1240,7 +1244,6 @@ TE.prototype.reDim = function(){
 		.layout[jApp.layout].h = jApp.tbs.a.offsetHeight;
 	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
 		.layout[jApp.layout].w = jApp.tbs.a.offsetWidth; 
-	// console.log(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout]);
 
 	jApp.deltaVals();
 }
