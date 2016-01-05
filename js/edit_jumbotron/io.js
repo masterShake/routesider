@@ -20,13 +20,16 @@ IO = function(){
 	this.a = null;
 
 	// temp variable
-	this.s = null;
+	this.v = null;
 
 	// temp variable
 	this.t = null;
 
 	// image uploader
-	this.iu = new IU();
+	this.iu = new IU(this);
+
+	// image styler
+	this.is = new IS(this);
 
 	// apply event listener to new io button
 	jumboToolbar.children[0].children[1].children[2]
@@ -168,12 +171,12 @@ IO.prototype.newRules = function(r){
 IO.prototype.act = function(){ 
 
 	// get the toolbar btns
-	this.s = imgsToolbar.children[0].children;
+	this.v = imgsToolbar.children[0].children;
 
 	// remove the inactive class
-	this.s[1].className = 'btn btn-default';
-	this.s[2].className = 'btn btn-default';
-	this.s[3].className = 'btn btn-default';
+	this.v[1].className = 'btn btn-default';
+	this.v[2].className = 'btn btn-default';
+	this.v[3].className = 'btn btn-default';
 
 	// add the event listeners
 
@@ -184,12 +187,12 @@ IO.prototype.act = function(){
 IO.prototype.dAct = function(){
 
 	// get the toolbar btns
-	this.s = imgsToolbar.children[0].children;
+	this.v = imgsToolbar.children[0].children;
 
 	// remove the inactive class
-	this.s[1].className = 'btn btn-default inactive';
-	this.s[2].className = 'btn btn-default inactive';
-	this.s[3].className = 'btn btn-default inactive';
+	this.v[1].className = 'btn btn-default inactive';
+	this.v[2].className = 'btn btn-default inactive';
+	this.v[3].className = 'btn btn-default inactive';
 
 	// remove the event listeners
 
@@ -256,21 +259,27 @@ IO.prototype.del = function(){ return false;
 
 /* CONSTRUCTOR */
 
-var IU = function(){
+var IU = function(io){
+
+	// reference to the io object
+	this.io = io;
 
 	// ajax object
-	this.xhr = null;
+	this.xhr = 
 
 	// file for upload
-	this.file = null;
+	this.file = 
+
+	// temp variable
+	this.t = null;
 
 }
 
 /* METHODS */
 
 //-----------------------------------------------
-// - file dragover method 
-IU.prototype.fileHover = function(e){
+// - file hover, dragover file to drop 
+IU.prototype.fh = function(e){
 	e.stopPropagation();
 	e.preventDefault();
 	this.style.border = (e.type == "dragover" ? "3px solid #5CB85C" : "3px dashed #CCC");
@@ -283,9 +292,6 @@ IU.prototype.fileSelect = function(e) {
 	// cancel event and hover styling
 	jApp.imgs.iu.fileHover(e);
 
-	// display gif spinner
-	// bgCanvas.children[2].style.display = 'block';
-
 	// fetch FileList object
 	jApp.imgs.iu.file = e.target.files || e.dataTransfer.files;// process all File objects
 	jApp.imgs.iu.file = jApp.imgs.iu.file[0];
@@ -297,6 +303,9 @@ IU.prototype.fileSelect = function(e) {
 //-----------------------------------------------
 // - upload image
 IU.prototype.uploadFile = function(){
+
+	// append a loading gif spinner
+	this.l();
 
 	// - delete the previous xhr object
 	// - it will be properly garbage collected
@@ -324,32 +333,64 @@ IU.prototype.uploadFile = function(){
 }
 
 //-----------------------------------------------
+// - append a loading gif spinner to indicate 
+//   that the file is being uploaded
+IU.prototype.l = function(){
+	this.t = document.createElement('div');
+	this.t.className = 'uploading';
+	this.t.innerHTML = '<span class="glyphicon glyphicon-refresh loading"></span>';
+	this.io.a.children[2].appendChild(this.t);
+}
+
+//-----------------------------------------------
 // - img file upload callback 
 IU.prototype.uploadCB = function(){
-	if (this.readyState == 4) { console.log(this.responseText);
+	
+	if (this.readyState != 4) return; console.log(this.responseText);
 
-		// parse the json
-		jApp.temp = JSON.parse(this.responseText);
+	// parse the json
+	jApp.temp = JSON.parse(this.responseText);
 
-		// set the nVals
+	// remove the last child of the active image overlay
+	jApp.imgs.a.removeChild(jApp.imgs.a.children[2]);
 
-		// remove the last child of the active image overlay
+	// append a new img tag
+	jApp.imgs.a.appendChild(
+		document.createElement('img')
+	);
 
-		// append a new img tag
+	// set the nVals
+	jApp.nVals.imgs[jApp.imgs.a.dataset.key].src = 
 
-		// set the img src
+	// set the img src
+	jApp.imgs.a.children[2].src = jApp.temp["image"];
 
-		// remove the draghover, dragleave events
+	// remove the draghover, dragleave events
+	jApp.imgs.a.removeEventListener('dragover', jApp.imgs.iu.fileHover, false);
+	jApp.imgs.a.removeEventListener("dragleave", jApp.imgs.iu.fileHover, false);
+	jApp.imgs.a.removeEventListener("drop", jApp.imgs.iu.fileSelect, false);
 
-		// activate the image overlay property toolbars
-	}
+	// activate the image overlay property toolbars
+	jApp.imgs.act();
 }
 
 //-----------------------------------------------
 // - apply image uploader events to newly created
 //   image overlay element
-IU.prototype.ae = function(){ return false;
+IU.prototype.ae = function(){
 
+	// apply file dragover event
+	this.io.a.addEventListener("dragover", this.fileHover, false);
+
+	// apply file dragleave event
+	this.io.a.addEventListener("dragleave", this.fileHover, false);
+
+	// apply file drop event
+	this.io.a.addEventListener("drop", this.fileSelect, false);
+
+	// apply traditional upload fileselect event
+	this.io.a.children[2].children[0].children[1]
+		.addEventListener("change", this.fileSelect, false);
 }
 
 
@@ -379,6 +420,35 @@ IU.prototype.ae = function(){ return false;
 
 
 
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				 IS (image styler)				
+//			   ---------------------
+//
+// - set image opacity, blur, and bg color
+//
+// - toggle rotate, resize, repostion element
+//
+// - set layout visibility
+//
+//-----------------------------------------------
+
+/* CONSTRUCTOR */
+
+var IS = function(io){
+
+	this.io = io;
+
+}
 
 
 

@@ -419,14 +419,24 @@ visibility control panel
 	text-align: center;
 	position: absolute;
 }
+/* before user uploads an image */
 .image-overlay.empty{
 	border: 3px dashed #ccc;
 	border-radius: 8px;
 }
-.image-overlay>div{
-	position: relative;
+/* direct children and uploading spinner */
+.image-overlay>div,
+.image-overlay .uploading{
+	position: absolute;
+	height: 100%;
+	width: 100%;
 }
-.image-overlay .upload-oldfash{
+/* uploading elements */
+.image-overlay .upload-oldfash,
+.image-overlay .icon-image,
+.image-overlay .text{
+	position: relative
+}.image-overlay .upload-oldfash{
     left: 15px;
     top: 30px;
 }
@@ -437,9 +447,21 @@ visibility control panel
 }
 .image-overlay .text{
 	top: 65px;
+	text-shadow: 0px 0px 4px #FFF;
 }
 .image-overlay span{
 	font-size: 12px;
+}
+/* spinning loader placeholder thing */
+.image-overlay .uploading{
+	background: rgba(255,255,255,0.65);
+	padding: 25px;
+	font-size: 200px;
+}
+/* user uploaded image */
+.image-overlay img{
+	width: 100%;
+	height: auto;
 }
 
 /*----------------------
