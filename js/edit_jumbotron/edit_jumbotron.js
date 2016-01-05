@@ -193,6 +193,8 @@ Jumbo = function(){
 
 	// init other page objects, avoid race conditions
 
+	// init the component styler
+	this.cs = new CS();
 	// init background editor
 	this.bg = new BG();
 	// init textbox editor
@@ -480,6 +482,274 @@ Jumbo.prototype.saveCB = function(r){ console.log(r);
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//			   CS (component styler)
+// 			 -------------------------	
+//
+// - convert hexidecimal to RGB
+//
+// - convert RGB to hexidecimal
+// 
+// - event listeners for blur and opacity text
+//   inputs and sliders
+//
+// - set the visibility of an element in various
+//   layouts
+// 
+// - toggle the resize, reposition, rotate elem
+//
+//-----------------------------------------------
+
+var CS = function(){
+
+	// temp variable
+	this.t = null;
+
+	// textbox checkboxes
+	this.tbsB = tbsCpanel.children[5].getElementsByTagName('input');
+
+	// image overlay checkboxes
+	this.imgsB = imgsCpanel.children[5].getElementsByTagName('input');
+
+	// get the visibility checkboxes
+	this.imgsB = imgsCpanels.children[1].getElementsByTagName('input');
+
+	// visibility events
+	this.imgsB[0].addEventListener('change', this.vis, false);
+	this.imgsB[1].addEventListener('change', this.vis, false);
+	this.imgsB[2].addEventListener('change', this.vis, false);
+
+}
+
+//-----------------------------------------------
+// - algorithm to determine if a hex value is 
+//   light or dark.
+// - @rgbObj -> object with r, g, & b values as
+//   returned by hext to rgb function
+// - returns a value between 0 and 1
+// - #000 would return a value of 0
+// - #FFF would return a value of 1
+// - all other colors would be somewhere
+//   inbetween
+// - values below .6 should be overlaid with
+//   white text
+// - values above .6, overlaid with black
+CS.prototype.hexBright = function( rgbObj ){
+	// calculate & return weighted average
+	return (( rgbObj.r*0.299 + rgbObj.g*0.587 + rgbObj.b*0.114 ) / 256 > 0.6);
+}
+//-----------------------------------------------
+// - algorithm to convert hex to rgb
+// - @hex -> hexidecimal as string
+// - returns object with r, g, & b values
+CS.prototype.hexToRgb = function(hex) {
+	// convert to array of hex vals
+	this.t = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+	// return the results as an object
+    return this.t ? {
+        r: parseInt(this.t[1], 16),
+        g: parseInt(this.t[2], 16),
+        b: parseInt(this.t[3], 16)
+    } : null;
+}
+
+//-----------------------------------------------
+// - convert to hex
+CS.prototype.rgbToHex = function(rgb) {
+    return "#" + this.compToHex(rgb[0]) + this.compToHex(rgb[1]) + this.compToHex(rgb[2]);
+}
+// - helper
+CS.prototype.compToHex = function(c) {
+    this.t = parseInt(c).toString(16);
+    return this.t.length == 1 ? "0" + this.t : this.t;
+}
+
+//-----------------------------------------------
+// - when user slides opacity slider
+CS.prototype.oSlide = function(){
+
+	// set the value of the text input
+	this.parentElement.children[1].value = 
+
+	// change the opacity of the active textbox
+	jApp[jApp.a].a.children[2].style.opacity = 
+
+	// update values
+	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["opacity"] = parseFloat(this.value);
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - when user slides blur slider
+CS.prototype.bSlide = function(){
+
+	// set the value of the text input
+	this.parentElement.children[1].value = 
+
+	// update values
+	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["blur"] = parseInt(this.value);
+
+	// change the blur of the background img
+	jApp[jApp.a].a.children[2].style.filter = 
+	jApp[jApp.a].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - keyup opacity text input
+CS.prototype.oText = function(){ 
+
+	// if there is no input, return 
+	if( !this.value) return;
+
+	// if the value is not 1
+	if(this.value !== "1"){
+
+		// strip non numeric characters from the last 2 digits
+		this.value = this.value.replace(/[^\d.]/g, '');
+
+		// if the value of the first character is not 0
+		if( this.value.charAt(0) != "0" )
+
+			// pop a 0 in there
+			this.value = "0" + this.value;
+
+		// if the value of the second character is not "."
+		if( this.value.length > 1 && this.value.charAt(1) != "." )
+
+			// pop the decimal in there
+			this.value = "0." + this.value.substring(1, 3);
+	}
+
+	// update slider input
+	this.parentElement.children[2].value = 
+
+	// change the opacity of the background
+	jApp[jApp.a].a.children[2].style.opacity = 
+
+	// update values
+	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["opacity"] = parseFloat(this.value);
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - keyup blur text input
+// - must be an integer between 0 and 10
+CS.prototype.bText = function(){
+
+	// if there is no input, return 
+	if( !this.value) return;
+
+	// replace all non-numeric characters
+	this.value = this.value.replace('/[^\d]/g', '');
+
+	// if the value is greater than 10
+	if(parseInt(this.value) > 10)
+		// remove the last number
+		this.value = this.value.substr(0,1);
+
+	// update the slider input
+	this.parentElement.children[2].value = 
+
+	// update the nVals
+	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["blur"] = parseInt(this.value);
+
+	// set the blur
+	jApp[jApp.a].a.children[2].style.filter = 
+	jApp[jApp.a].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - change visibility for element in layout
+// - prompt delete if invisible for all 3
+CS.prototype.vis = function(){
+
+	// set the nVals
+	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
+
+	// if all three are unchecked
+	if(!jApp.cs[jApp.a + 'B'][0].checked
+	&& !jApp.cs[jApp.a + 'B'][1].checked
+	&& !jApp.cs[jApp.a + 'B'][2].checked){
+
+		// recheck 
+		this.checked = true;
+
+		// prompt delete modal
+		jApp[jApp.a].confirmDel(); return;
+	}
+
+	// temp variable, more efficient
+	jApp.temp = (this.checked) ? 'block' : 'none';
+
+	// set the style sheet
+	if(this.value == 'mobile') 		// mobile
+		document.styleSheets[7].cssRules[jApp[jApp.a].a.dataset.r]
+			.style.display = jApp.temp;
+	else if(this.value == 'tablet') // tablet
+		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp[jApp.a].a.dataset.r]
+			.style.display = jApp.temp;
+	else 							// desktop
+		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp[jApp.a].a.dataset.r]
+			.style.display = jApp.temp;
+
+	// checkbox cooresponds to current layout
+	if(this.value == jApp.layout)
+		// add an inline style
+		jApp[jApp.a].a.style.display = jApp.temp;
+}
+
+//-----------------------------------------------
+// - set checkboxes of cPanel when user activates
+//   an dragable object
+CS.prototype.setVis = function(){
+	this[jApp.a + 'B'][0].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.mobile.v);
+	this[jApp.a + 'B'][1].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.tablet.v);
+	this[jApp.a + 'B'][2].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.desktop.v);
+}
 
 
 

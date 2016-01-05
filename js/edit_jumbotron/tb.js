@@ -1006,7 +1006,7 @@ var TE = function(){
 	this.toFront = this.t[10];
 
 	// toFront event listener
-	this.toFront.addEventListener('click', this.move2front, false);
+	this.toFront.addEventListener('click', rm.move2front, false);
 
 	// clicking any toolbar button hides toggles off rrr
 	for(var i = 0; i < this.t.length; i++)
@@ -1035,8 +1035,8 @@ var TE = function(){
 TE.prototype.initLayer = function(tElem){									
 
 	// add event listeners
-	tElem.children[0].addEventListener('mouseover', this.show, false);
-	tElem.children[0].addEventListener('mouseout', this.hide, false);
+	// tElem.children[0].addEventListener('mouseover', this.show, false);
+	// tElem.children[0].addEventListener('mouseout', this.hide, false);
 	tElem.children[0].addEventListener('mousedown', this.tog, false);
 
 	// re-dimension div event
@@ -1049,9 +1049,9 @@ TE.prototype.initLayer = function(tElem){
 // - position editor button closest to canvas
 //   centerpoint
 // - fade in editor btn
-TE.prototype.show = function(){
-	this.style.opacity = 1;
-}
+// TE.prototype.show = function(){
+// 	this.style.opacity = 1;
+// }
 
 //-----------------------------------------------
 // - click btn event, toggle editor mode
@@ -1126,9 +1126,9 @@ TE.prototype.setBg = function(){
 // - move the button back within the perimeter of
 //   the textbox
 // - fade the button out
-TE.prototype.hide = function(){
-	this.style.opacity = 0;
-}
+// TE.prototype.hide = function(){
+// 	this.style.opacity = 0;
+// }
 
 //-----------------------------------------------
 // - toggle resize, reposition, rotate btns
@@ -1155,26 +1155,6 @@ TE.prototype.rrrOff = function(){
 	jApp.tbs.a.children[1].style.display = 'none';
 	// button default
 	jApp.tbs.te.rrrBtn.className = 'btn btn-default';
-}
-
-//-----------------------------------------------
-// - move active textbox to the front of all 
-//   elements in the dragCanvas
-TE.prototype.move2front = function(){ 
-
-	// incriment the rm z-index property
-	rm.z++;
-
-	// set the nVals property
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key].z = 
-
-	// set the active textbox z index
-	jApp.tbs.a.style.zIndex = 
-
-	// set the z index for the stylesheet
-	document.styleSheets[7].cssRules[jApp.tbs.a.dataset.r]
-		.style.zIndex = rm.z;
-
 }
 
 //-----------------------------------------------

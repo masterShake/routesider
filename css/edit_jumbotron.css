@@ -375,6 +375,9 @@ tbody button.btn-color-selected{
 	opacity: 0;
 	cursor: pointer;
 }
+.toggle-edit:hover{
+	opacity: 1;
+}
 .toggle-edit>button{
 	position: absolute;
 	bottom: 10px;

@@ -434,11 +434,7 @@ IU.prototype.ae = function(){
 //				 IS (image styler)				
 //			   ---------------------
 //
-// - set image opacity, blur, and bg color
-//
-// - toggle rotate, resize, repostion element
-//
-// - set layout visibility
+// - bg color
 //
 //-----------------------------------------------
 
@@ -446,9 +442,128 @@ IU.prototype.ae = function(){
 
 var IS = function(io){
 
+	// track the io parent node
 	this.io = io;
 
 }
+
+/* METHODS */
+
+//-----------------------------------------------
+// - keyup event change background color hex text
+// - make sure that first character is always a
+//   hashtag
+// - if legit hex value, display color
+IS.prototype.hexText = function(){
+	
+	// if the first character is not a #
+	if(this.value.charAt(0) != "#")
+		// put the hashtag in front of the text
+		this.value = "#" + this.value;
+
+	// remove any input that is not 0-9, A-F
+	this.value = "#" + this.value.substr(1,6).replace(/[^0-9a-f]+/gi, '');
+
+	// if the input is now the proper length & format
+	if(this.value.length == 7){
+
+		// focus on the div
+		jApp.tbs.a.children[2].focus();
+
+		// move the caret to the end
+		jApp.tbs.setEnd();
+
+		// set the button color
+		jApp.tbs.c.setColor(this.dataset.i, this.dataset.com, this.value);
+	}
+}
+
+//-----------------------------------------------
+// - blur event for hex input
+// - set value to previous compliant hex value
+IS.prototype.hexBlur = function(){
+	this.value = jApp.bg.bgc.temp;
+}
+
+//-----------------------------------------------
+// - html5 color picker change event
+IS.prototype.colorPick = function(){
+	
+	jApp.tbs.c.setColor( this.dataset.i,
+						  this.dataset.com,
+						  this.value.toUpperCase()
+						);
+}
+
+//-----------------------------------------------
+// - transparent checkbox change event 
+// - change the opacity
+// - set execCommand or background color
+// - keep track of previous color, possibly reset
+IS.prototype.trans = function(){
+	// set the color
+	jApp.tbs.c.setColor(
+		this.dataset.i, 
+		(this.dataset.i == 1) ? 'backColor' : false,
+		(this.checked) ? 'transparent' : '#FFFFFF'
+	);
+}
+
+//-----------------------------------------------
+// - user clicks one of the color wheel colors
+// - set text
+// - set color icon
+// - set html5 color picker
+// - set background
+IS.prototype.wheelBtn = function(){
+
+	jApp.tbs.c.setColor( this.parentElement.parentElement.dataset.i,
+						   this.parentElement.parentElement.dataset.com, 
+						   this.dataset.hex
+						 );
+}
+
+//-----------------------------------------------
+// - set the colors of:
+// 	  + image overlay background
+//    + little paint button
+//    + text input
+//    + color input
+//    + transparency checkbox
+IS.prototype.setColor = function(){}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
