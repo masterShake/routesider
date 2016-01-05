@@ -181,7 +181,7 @@ TB.prototype.createElem = function(){
 	this.a = this.h[this.i];
 
 	// give the element an index key
-	this.a.setAttribute('data-key', jApp.tbs.i);
+	this.a.setAttribute('data-key', this.i);
 
 	// apply the textbox class
 	this.a.className = 'textbox active';
