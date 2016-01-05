@@ -200,7 +200,7 @@
         <div class="btn-group opts-toolbar" role="group" aria-label="edit image overlay">
             <!-- background color, opacity, blur -->
             <div type="button" class="btn btn-default" data-panel="0" aria-label="background color, blur, opacity">
-                 <!-- color wheel icon -->
+                <!-- color wheel icon -->
                 <div class="colorwheel-icon">
                     <div>
                         <div></div>
@@ -219,15 +219,15 @@
                 </div><!-- /colorwheel-icon -->
             </div>
             <!-- resize, reposition, rotate -->
-            <button type="button" class="btn btn-default" data-panel aria-label="resize, reposition, rotate">
+            <button type="button" class="btn btn-default inactive" data-panel aria-label="resize, reposition, rotate">
                 <span class="icon-enlarge" aria-hidden="true"></span>
             </button>
         	<!-- move to front -->
-        	<button type="button" class="btn btn-default" data-panel aria-label="move to front">
+        	<button type="button" class="btn btn-default inactive" data-panel aria-label="move to front">
         		<span class="icon-stack" aria-hidden="true"></span>
         	</button>
             <!-- visibility -->
-            <button type="button" class="btn btn-default" data-panel="1" aria-label="move to front">
+            <button type="button" class="btn btn-default inactive" data-panel="1" aria-label="move to front">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
         </div>
