@@ -99,7 +99,7 @@ r.prototype.move2front = function(){
 	rm.a.el.style.zIndex = 
 
 	// set the z index for the stylesheet
-	document.styleSheets[7].cssRules[jApp[jApp.a].a.dataset.r]
+	document.styleSheets[7].cssRules[rm.a.el.dataset.r]
 		.style.zIndex = rm.z;
 
 }

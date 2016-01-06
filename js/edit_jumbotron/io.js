@@ -34,6 +34,14 @@ IO = function(){
 	// apply event listener to new io button
 	jumboToolbar.children[0].children[1].children[2]
 		.addEventListener('click', this.newImg, false);
+
+	// move to front button
+	imgsToolbar.children[0].children[2]
+		.addEventListener('click', rm.move2front, false);
+
+	// prompt delete
+	imgsToolbar.children[1].children[0]
+		.addEventListener('click', this.confirmDel, false);	
 }
 
 /* METHODS */
@@ -109,6 +117,9 @@ IO.prototype.newImg = function(e){ e.preventDefault();
 	// apply any event listeners
 	imgs.iu.ae();
 
+    // reset the style control panel
+    imgs.is.setBg();
+
 	// set the visibility checkboxes
 	jApp.cs.imgsB[0].checked = 
 	jApp.cs.imgsB[1].checked = 
@@ -154,7 +165,7 @@ IO.prototype.createElem = function(){
 	                    '</div>';
 
     // apply the toggle editor events
-
+    this.a.children[0].addEventListener('click', this.is.tog, false);
 
     // return new element
     return this.a;
@@ -220,13 +231,75 @@ IO.prototype.dAct = function(){
 
 //-----------------------------------------------
 // - confirm delete active image overlay
-IO.prototype.confirmDel = function(){ return false;
+IO.prototype.confirmDel = function(){
 
+	// if the user has not uploaded an image
+	if(imgs.a.children[2].tagName !== 'IMG'){
+		// delete the element, do not prompt modal
+		imgs.del(); return;
+	}
+
+	// set the modal title
+	confModal.getElementsByTagName("h4")[0]
+		.innerHTML = '<div class="icon-images"></div> Delete image overlay';
+
+	// set the modal body
+	confModal.children[0].children[0].children[1]
+   		.innerHTML = '<p>Are you sure you want to delete this image?</p>';
+
+   	// copy the image
+   	confModal.children[0].children[0].children[1]
+   		.appendChild(imgs.copy());
+
+   	// size it
+   	confModal.children[0].children[0].children[1].children[1]
+   		.style.maxWidth = '200px';
+
+   	// set the modal callback
+   	jApp.modal.callback = imgs.del;
+
+   	// launch the modal
+   	jApp.modal.launch();
+}
+
+//-----------------------------------------------
+// - make a copy of the image
+IO.prototype.copy = function(){
+
+	// create an empty div
+	this.t = document.createElement('div');
+
+	// give it a class
+	this.t.className = 'm-container';
+
+	// insert the image
+	this.t.appendChild(this.a.children[2].cloneNode());
+
+	return this.t;
 }
 
 //-----------------------------------------------
 // - delete image overlay
-IO.prototype.del = function(){ return false;
+IO.prototype.del = function(){ 
+
+	// gut the innards of the active image overlay
+	imgs.a.innerHTML = '';
+
+	// remove it from the nVals
+	jApp.nVals.imgs[imgs.a.dataset.key] = null;
+	delete jApp.nVals.imgs[imgs.a.dataset.key];
+
+	// hide it, but do not delete to maintain order
+	imgs.a.style.display = 'none';
+
+	// prompt save
+	jApp.deltaVals();
+
+	// remove the active textbox
+	imgs.a = null;
+
+	// hide the textbox properties toolbar
+	jumboToolbar.children[0].children[1].children[2].click();
 
 }
 
@@ -417,9 +490,11 @@ IU.prototype.ae = function(){
 	// apply traditional upload fileselect event
 	this.io.a.children[2].children[0].children[1]
 		.addEventListener("change", this.fs, false);
+
+	// remove the newImg event listener
+	jumboToolbar.children[0].children[1].children[2]
+		.removeEventListener('click', imgs.newImg, false);
 }
-
-
 
 
 
@@ -667,7 +742,78 @@ IS.prototype.rrrOff = function(){
 	imgs.is.rrrBtn.className = 'btn btn-default';
 }
 
+//-----------------------------------------------
+// - click btn event, toggle editor mode
+IS.prototype.tog = function(){
 
+	// if there is no other active textbox
+	if(!imgs.a){
+
+		// display the control panel, first remove newImg event
+		jumboToolbar.children[0].children[1].children[2]
+			.removeEventListener('click', imgs.newImg, false);
+		jumboToolbar.children[0].children[1].children[2].click();
+
+	// if there is another textbox open
+	}else if(imgs.a !== this.parentElement){
+
+		// remove the active class
+		imgs.a.className = 'image-overlay';
+
+		// show the .toggle-edit elem
+		imgs.a.children[0].style.display = 'block';
+
+		// make sure the drag buttons are hidden
+		imgs.a.children[1].style.display = 'none';
+	}
+
+	// set the active element
+	imgs.a = this.parentElement;
+	imgs.a.className = 'image-overlay active';
+	rm.a = rm.h[this.parentElement.dataset.r];
+
+	// hide the .toggle-edit element
+	this.style.display = 'none';
+
+	// set the visibility checkboxes
+	cs.setVis();
+
+	// set the blur, opacity, and background control panel
+	imgs.is.setBg();
+
+	// determine if this is the foremost element 
+}
+
+//-----------------------------------------------
+// - set blur, opacity, and background color of
+//   control panel when user toggles/actives image
+IS.prototype.setBg = function(){
+
+	// if the image overlay is transparent
+	if(jApp.nVals.imgs[imgs.a.dataset.key].color == 'transparent'){
+		// check the checkbox
+		this.checki.checked = true;
+		this.checki.parentElement.style.opacity = '1';
+		this.texti.value = '';
+		this.icon.style.backgroundColor = '#FFF';
+		this.icon.style.color = '#444';
+		this.picki.value = '#FFFFFF';
+	}else{
+		// set the color picker, let js to the rest
+		this.checki.checked = false;
+		this.checki.parentElement.style.opacity = '0.5';
+		this.picki.value = jApp.nVals.imgs[imgs.a.dataset.key].color;
+		this.picki.dispatchEvent(new Event('change'));
+	}
+
+	// set the opacity & blur
+	this.io.v = imgsCpanels.children[0].getElementsByTagName('input');
+	this.io.v[3].value =
+	this.io.v[4].value = jApp.nVals.imgs[imgs.a.dataset.key].blur;
+	this.io.v[5].value =
+	this.io.v[6].value = jApp.nVals.imgs[imgs.a.dataset.key].opacity;
+
+}
 
 
 

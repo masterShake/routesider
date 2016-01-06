@@ -421,7 +421,7 @@ visibility control panel
 }
 .image-overlay.active{
 	box-shadow: 0 0 6px #676767;
-	border: 1px solid #5CB85C;
+	outline: 1px solid #5CB85C;
 }
 /* before user uploads an image */
 .image-overlay.empty{
@@ -529,6 +529,18 @@ visibility control panel
     transform: translate(0,60px);
 }
 
+/* container to hold cloned elements inside modal body */
+.m-container{
+	min-width: 100%;
+	text-align: center;
+}
+.m-container img{
+	max-width: 100%;
+	max-height: 300px;
+	opacity: 1 !important;
+	filter: blur(0px) !important;
+	-webkit-filter: blur(0px) !important;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {

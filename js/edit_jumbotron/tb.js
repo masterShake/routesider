@@ -342,7 +342,8 @@ TB.prototype.del = function(){
 	tbs.a.innerHTML = '';
 
 	// remove it from the nVals
-	jApp.nVals.tbs[tbs.a.dataset.key].deleted = 1;
+	jApp.nVals.tbs[tbs.a.dataset.key] = null;
+	delete jApp.nVals.tbs[tbs.a.dataset.key];
 
 	// hide it, but do not delete to maintain order
 	tbs.a.style.display = 'none';
