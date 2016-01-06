@@ -191,13 +191,14 @@ IO.prototype.act = function(){
 
 	// get the toolbar btns
 	this.v = imgsToolbar.children[0].children;
-
-	// remove the inactive class
+	
+	// set the inactive class
+	this.v[0].className = 'btn btn-default';
 	this.v[1].className = 'btn btn-default';
 	this.v[2].className = 'btn btn-default';
 	this.v[3].className = 'btn btn-default';
 
-	// add the event listeners
+	imgsToolbar.children[0].children[4].style.display = 'none';
 
 }
 
@@ -207,14 +208,14 @@ IO.prototype.dAct = function(){
 
 	// get the toolbar btns
 	this.v = imgsToolbar.children[0].children;
-
-	// remove the inactive class
+	
+	// set the inactive class
+	this.v[0].className = 'btn btn-default inactive';
 	this.v[1].className = 'btn btn-default inactive';
 	this.v[2].className = 'btn btn-default inactive';
 	this.v[3].className = 'btn btn-default inactive';
 
-	// remove the event listeners
-
+	imgsToolbar.children[0].children[4].style.display = 'block';
 }
 
 //-----------------------------------------------
@@ -639,9 +640,9 @@ IS.prototype.makeTrans = function(){
 
 //-----------------------------------------------
 // - toggle resize, reposition, rotate btns
-IS.prototype.togRRR = function(){
+IS.prototype.togRRR = function(){ console.log('toggle a bitch');
 	// if the btns are not showing
-	if(this.className == 'btn btn-default'){
+	if(imgs.a.children[1].offsetParent === null){
 		// show the .drag-btns
 		imgs.a.children[1].style.display = 'block';
 		// add the active class
@@ -658,6 +659,8 @@ IS.prototype.togRRR = function(){
 //-----------------------------------------------
 // - hide rrr when user clicks something else
 IS.prototype.rrrOff = function(){
+	// if rrrBtn is currently inactive, do nothing
+	if(imgs.is.rrrBtn.className == 'btn btn-default inactive') return;
 	// hide the rrr element
 	imgs.a.children[1].style.display = 'none';
 	// button default

@@ -199,7 +199,7 @@
         <!-- group 1 -->
         <div class="btn-group opts-toolbar" role="group" aria-label="edit image overlay">
             <!-- background color, opacity, blur -->
-            <div type="button" class="btn btn-default" data-panel="0" aria-label="background color, blur, opacity">
+            <div type="button" class="btn btn-default inactive" data-panel="0" aria-label="background color, blur, opacity">
                 <!-- color wheel icon -->
                 <div class="colorwheel-icon">
                     <div>
@@ -227,9 +227,10 @@
         		<span class="icon-stack" aria-hidden="true"></span>
         	</button>
             <!-- visibility -->
-            <button type="button" class="btn btn-default inactive" data-panel="1" aria-label="move to front">
+            <button type="button" class="btn btn-default inactive" data-panel="1" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
+            <div style="height:42px;width:100%;position:relative;background:rgba(255,255,255,0.6);display:block;"></div>
         </div>
 
         <!-- group 2 -->

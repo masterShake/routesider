@@ -66,6 +66,10 @@
 	margin-top: -1px;
 }
 
+/* inactive color wheel icon */
+.inactive .colorwheel-icon>div>div{
+	background-color: #ccc !important;
+}
 
 /*----------------------
 	color wheel
