@@ -787,7 +787,6 @@ CS.prototype.setVis = function(){
 
 
 
-
 //-----------------------------------------------
 //			 cModal (confirmation modal)				
 //		   -------------------------------

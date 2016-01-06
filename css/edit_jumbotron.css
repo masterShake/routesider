@@ -472,8 +472,10 @@ visibility control panel
 }
 /* user uploaded image */
 .image-overlay img{
-	width: 100%;
-	height: auto;
+	position: initial;
+	max-width: 320px;
+	/*width: auto;
+	height: auto;*/
 }
 
 /*----------------------

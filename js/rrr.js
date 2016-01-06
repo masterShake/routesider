@@ -452,7 +452,7 @@ var mau5 = function(el){
 
 //-----------------------------------------------
 // - resize mouse down
-mau5.prototype.s = function(e){
+mau5.prototype.s = function(e){ console.log('mousedown resize');
 
 	// get the starting position of the mouse
 	rm.m.p = {

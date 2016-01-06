@@ -40,8 +40,24 @@ IO = function(){
 
 IO.prototype.close = function(){
 
-	return false;
+	// re-add the newTB event listener
+	jumboToolbar.children[0].children[1].children[2]
+		.addEventListener('click', this.newImg, false);
 
+	// if there is no active textbox, return
+	if(!this.a) return;
+
+	// remove the active class
+	this.a.className = 'image-overlay';
+
+	// show the .toggle-edit elem
+	this.a.children[0].style.display = 'block';
+
+	// make sure the drag buttons are hidden
+	this.a.children[1].style.display = 'none';
+
+	// nullify the active image overlay
+	this.a = null;
 }
 
 //-----------------------------------------------
@@ -485,6 +501,18 @@ var IS = function(io){
 	// loop through the btns and set event listener
 	for(var i = 2; i < this.t.length; i++)
 		this.t[i].addEventListener('click', this.wheelBtn, false);
+
+	// get the properties toolbar btns
+	this.t = imgsToolbar.children[0].children;
+
+	// get the toggle rrr btn, add event listener
+	this.rrrBtn = this.t[1];
+	this.rrrBtn.addEventListener('click', this.togRRR, false);
+
+	// add rrr off event to remaining toolbar btns
+	this.t[0].addEventListener('click', this.rrrOff, false);
+	this.t[2].addEventListener('click', this.rrrOff, false);
+	this.t[3].addEventListener('click', this.rrrOff, false);
 }
 
 /* METHODS */
@@ -553,7 +581,7 @@ IS.prototype.wheelBtn = function(){
 //    + text input
 //    + color input
 //    + transparency checkbox
-IS.prototype.setColor = function(){ console.log('set color called');
+IS.prototype.setColor = function(){
 
 	// if the value has been set to transparent
 	if(this.t == 'transparent')
@@ -607,6 +635,33 @@ IS.prototype.makeTrans = function(){
 		// set the icon
 		this.icon.style.backgroundColor = '#FFF';
 		this.icon.style.color = '#444';
+}
+
+//-----------------------------------------------
+// - toggle resize, reposition, rotate btns
+IS.prototype.togRRR = function(){
+	// if the btns are not showing
+	if(this.className == 'btn btn-default'){
+		// show the .drag-btns
+		imgs.a.children[1].style.display = 'block';
+		// add the active class
+		this.className = 'btn btn-default active';
+		// set the r map active objects
+		rm.a = rm.h[imgs.a.dataset.r];
+		rm.m = rm.a.m;
+	}else{
+		imgs.a.children[1].style.display = 'none';
+		this.className = 'btn btn-default';
+	}
+}
+
+//-----------------------------------------------
+// - hide rrr when user clicks something else
+IS.prototype.rrrOff = function(){
+	// hide the rrr element
+	imgs.a.children[1].style.display = 'none';
+	// button default
+	imgs.is.rrrBtn.className = 'btn btn-default';
 }
 
 
