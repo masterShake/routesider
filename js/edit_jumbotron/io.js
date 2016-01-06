@@ -50,22 +50,22 @@ IO.prototype.close = function(){
 IO.prototype.newImg = function(e){ e.preventDefault(); 
 
 	// deactive the properties toolbar buttons
-	jApp.imgs.iu.dAct();
+	imgs.dAct();
 
 	// create the new image overlay uploader elem
-	jApp.imgs.a = jApp.imgs.createElem();
+	imgs.a = imgs.createElem();
 
 	// append the new textbox to the drag canvas
-	dragCanvas.appendChild(jApp.imgs.a);
+	dragCanvas.appendChild(imgs.a);
 
 	// create & activate the rr object
 	rm.i++;
 	rm.z++;
-	rm.h[rm.i] = new rr(jApp.imgs.a);
+	rm.h[rm.i] = new rr(imgs.a);
 	rm.a = rm.h[rm.i];
 
 	// add the new image overlay to the nVals
-	jApp.nVals.imgs[jApp.imgs.i] = {
+	jApp.nVals.imgs[imgs.i] = {
 		src : '',
 		color : 'transparent',
 		opacity : 1,
@@ -85,15 +85,18 @@ IO.prototype.newImg = function(e){ e.preventDefault();
 	};
 
 	// attribtue referrence to rr index
-	jApp.imgs.a.setAttribute('data-r', rm.i);
+	imgs.a.setAttribute('data-r', rm.i);
 	
 	// insert the new css rules
-	jApp.imgs.newRules(rm.i);
+	imgs.newRules(rm.i);
 
 	// apply any event listeners
-	jApp.imgs.iu.ae();
+	imgs.iu.ae();
 
 	// set the visibility checkboxes
+	jApp.cs.imgsB[0].checked = 
+	jApp.cs.imgsB[1].checked = 
+	jApp.cs.imgsB[2].checked = true;
 }
 
 //-----------------------------------------------
@@ -282,22 +285,22 @@ var IU = function(io){
 IU.prototype.fh = function(e){
 	e.stopPropagation();
 	e.preventDefault();
-	this.style.border = (e.type == "dragover" ? "3px solid #5CB85C" : "3px dashed #CCC");
+	e.currentTarget.className = (e.type == "dragover" ? "image-overlay active empty dragover" : "image-overlay active empty");
 }
 
 //-----------------------------------------------
 // - file selection event listener
-IU.prototype.fileSelect = function(e) {
+IU.prototype.fs = function(e) {
 
 	// cancel event and hover styling
-	jApp.imgs.iu.fileHover(e);
+	imgs.iu.fh(e);
 
 	// fetch FileList object
-	jApp.imgs.iu.file = e.target.files || e.dataTransfer.files;// process all File objects
-	jApp.imgs.iu.file = jApp.imgs.iu.file[0];
+	imgs.iu.file = e.target.files || e.dataTransfer.files;// process all File objects
+	imgs.iu.file = imgs.iu.file[0];
 
 	// upload the file
-	jApp.imgs.iu.uploadFile();
+	imgs.iu.uploadFile();
 }
 
 //-----------------------------------------------
@@ -323,7 +326,7 @@ IU.prototype.uploadFile = function(){
 	  ){
 
 	  	// add an event listener to the ajax request
-	  	this.xhr.onreadystatechange = jApp.imgs.iu.uploadCB;
+	  	this.xhr.onreadystatechange = imgs.iu.uploadCB;
 
 		// ajax
 		this.xhr.open("POST", document.URL, true);
@@ -351,27 +354,33 @@ IU.prototype.uploadCB = function(){
 	// parse the json
 	jApp.temp = JSON.parse(this.responseText);
 
+	// remoe the .empty class
+	imgs.a.className = 'image-overlay active';
+
 	// remove the last child of the active image overlay
-	jApp.imgs.a.removeChild(jApp.imgs.a.children[2]);
+	imgs.a.removeChild(imgs.a.children[2]);
 
 	// append a new img tag
-	jApp.imgs.a.appendChild(
+	imgs.a.appendChild(
 		document.createElement('img')
 	);
 
 	// set the nVals
-	jApp.nVals.imgs[jApp.imgs.a.dataset.key].src = 
+	jApp.nVals.imgs[imgs.a.dataset.key].src = 
 
 	// set the img src
-	jApp.imgs.a.children[2].src = jApp.temp["image"];
+	imgs.a.children[2].src = jApp.temp["image"];
 
 	// remove the draghover, dragleave events
-	jApp.imgs.a.removeEventListener('dragover', jApp.imgs.iu.fileHover, false);
-	jApp.imgs.a.removeEventListener("dragleave", jApp.imgs.iu.fileHover, false);
-	jApp.imgs.a.removeEventListener("drop", jApp.imgs.iu.fileSelect, false);
+	imgs.a.removeEventListener('dragover', imgs.iu.fh, false);
+	imgs.a.removeEventListener("dragleave", imgs.iu.fh, false);
+	imgs.a.removeEventListener("drop", imgs.iu.fs, false);
 
 	// activate the image overlay property toolbars
-	jApp.imgs.act();
+	imgs.act();
+
+	// prompt save
+	jApp.deltaVals();
 }
 
 //-----------------------------------------------
@@ -380,17 +389,17 @@ IU.prototype.uploadCB = function(){
 IU.prototype.ae = function(){
 
 	// apply file dragover event
-	this.io.a.addEventListener("dragover", this.fileHover, false);
+	this.io.a.addEventListener("dragover", this.fh, false);
 
 	// apply file dragleave event
-	this.io.a.addEventListener("dragleave", this.fileHover, false);
+	this.io.a.addEventListener("dragleave", this.fh, false);
 
 	// apply file drop event
-	this.io.a.addEventListener("drop", this.fileSelect, false);
+	this.io.a.addEventListener("drop", this.fs, false);
 
 	// apply traditional upload fileselect event
 	this.io.a.children[2].children[0].children[1]
-		.addEventListener("change", this.fileSelect, false);
+		.addEventListener("change", this.fs, false);
 }
 
 
@@ -445,6 +454,37 @@ var IS = function(io){
 	// track the io parent node
 	this.io = io;
 
+	// store last color, temp variable, get the inputs
+	this.t = imgsCpanels.children[0].getElementsByTagName('input');
+
+	// get the text input
+	this.texti = this.t[0];
+
+	// get the color input
+	this.picki = this.t[1];
+
+	// get the transparency checkbox
+	this.checki = this.t[2];
+
+	// hexidecimal text input event
+	this.texti.addEventListener('keyup', this.hexText, false);
+	this.texti.addEventListener('blur', this.hexBlur, false);
+
+	// color input change event
+	this.picki.addEventListener('change', this.colorPick, false);
+
+	// transparency checkbox change event
+	this.checki.addEventListener('change', this.trans, false);
+
+	// get color btns
+	this.t = imgsCpanels.children[0].getElementsByTagName('button');
+
+	// set the current color btn
+	this.icon = this.t[1];
+
+	// loop through the btns and set event listener
+	for(var i = 2; i < this.t.length; i++)
+		this.t[i].addEventListener('click', this.wheelBtn, false);
 }
 
 /* METHODS */
@@ -467,14 +507,11 @@ IS.prototype.hexText = function(){
 	// if the input is now the proper length & format
 	if(this.value.length == 7){
 
-		// focus on the div
-		jApp.tbs.a.children[2].focus();
-
-		// move the caret to the end
-		jApp.tbs.setEnd();
+		// set the temp color variable
+		imgs.is.t = this.value;
 
 		// set the button color
-		jApp.tbs.c.setColor(this.dataset.i, this.dataset.com, this.value);
+		imgs.is.setColor();
 	}
 }
 
@@ -482,45 +519,31 @@ IS.prototype.hexText = function(){
 // - blur event for hex input
 // - set value to previous compliant hex value
 IS.prototype.hexBlur = function(){
-	this.value = jApp.bg.bgc.temp;
+	this.value = imgs.is.t;
 }
 
 //-----------------------------------------------
 // - html5 color picker change event
 IS.prototype.colorPick = function(){
-	
-	jApp.tbs.c.setColor( this.dataset.i,
-						  this.dataset.com,
-						  this.value.toUpperCase()
-						);
+	imgs.is.t = this.value;
+	imgs.is.setColor();
 }
 
 //-----------------------------------------------
 // - transparent checkbox change event 
 // - change the opacity
-// - set execCommand or background color
 // - keep track of previous color, possibly reset
 IS.prototype.trans = function(){
-	// set the color
-	jApp.tbs.c.setColor(
-		this.dataset.i, 
-		(this.dataset.i == 1) ? 'backColor' : false,
-		(this.checked) ? 'transparent' : '#FFFFFF'
-	);
+	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
+	imgs.is.t = (this.checked) ? 'transparent' : '#FFFFFF';
+	imgs.is.setColor();
 }
 
 //-----------------------------------------------
 // - user clicks one of the color wheel colors
-// - set text
-// - set color icon
-// - set html5 color picker
-// - set background
 IS.prototype.wheelBtn = function(){
-
-	jApp.tbs.c.setColor( this.parentElement.parentElement.dataset.i,
-						   this.parentElement.parentElement.dataset.com, 
-						   this.dataset.hex
-						 );
+	imgs.is.t = this.dataset.hex;
+	imgs.is.setColor();
 }
 
 //-----------------------------------------------
@@ -530,8 +553,61 @@ IS.prototype.wheelBtn = function(){
 //    + text input
 //    + color input
 //    + transparency checkbox
-IS.prototype.setColor = function(){}
+IS.prototype.setColor = function(){ console.log('set color called');
 
+	// if the value has been set to transparent
+	if(this.t == 'transparent')
+
+		return this.makeTrans();
+
+	// set preview background color
+	this.io.a.style.backgroundColor = 
+
+	// set the preview icon background
+	this.icon.style.backgroundColor = 
+
+	// set the text
+	this.texti.value = 
+
+	// set the color picker
+	this.picki.value = 
+
+	// & update the new values object
+	jApp.nVals.imgs[this.io.a.dataset.key].color = this.t;
+
+	// set the preview icon color
+	this.icon.style.color = 
+		cs.hexBright(cs.hexToRgb(this.t)) ?
+			"#444" : "#FFF";
+
+	// uncheck the transparency
+	this.checki.checked = false;
+	this.checki.parentElement.style.opacity = '0.5';
+
+	// notify root node that values have changed
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - make the background color transparent
+IS.prototype.makeTrans = function(){
+
+		// set preview background color
+		this.io.a.style.backgroundColor = 
+
+		// & update the new values object
+		jApp.nVals.imgs[this.io.a.dataset.key].color = this.t;
+
+		// set the text
+		this.texti.value = '';
+
+		// set the color picker
+		this.picki.value = '#FFFFFF';
+
+		// set the icon
+		this.icon.style.backgroundColor = '#FFF';
+		this.icon.style.color = '#444';
+}
 
 
 

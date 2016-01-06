@@ -30,7 +30,7 @@ if ($fn) {
     // - create a unique name for the file
     // - e.g. "username_123.jpg";
     $fc = explode(".", $fn); // print_r($fc);
-    $newName = rand(0, 1000);
+    $newName = rand(0, 10000);
     $newName = $user->data("username") . "_" . $newName . "." . $fc[1]; 
 
     // change the name of the file to ensure it is unique

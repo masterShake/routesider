@@ -81,7 +81,7 @@ BG.prototype.confirmDel = function(){
    					 '</div>';
 
    	// set modal callback
-   	jApp.modal.callback = jApp.bg.del;
+   	jApp.modal.callback = bg.del;
 
    	// launch the modal
    	jApp.modal.launch();
@@ -93,10 +93,10 @@ BG.prototype.confirmDel = function(){
 BG.prototype.del = function(){
 
 	// reset all background properties
-	jApp.bg.resetProps();
+	bg.resetProps();
 
 	// reset background styles in style sheet
-	jApp.bg.resetStyles();
+	bg.resetStyles();
 
 	// remove the background image
 	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[2]);
@@ -288,17 +288,17 @@ BGI.prototype.fileHover = function(e){
 BGI.prototype.fileSelect = function(e) {
 
 	// cancel event and hover styling
-	jApp.bg.bgi.fileHover(e);
+	bg.bgi.fileHover(e);
 
 	// display gif spinner
 	// bgCanvas.children[2].style.display = 'block';
 
 	// fetch FileList object
-	jApp.bg.bgi.file = e.target.files || e.dataTransfer.files;// process all File objects
-	jApp.bg.bgi.file = jApp.bg.bgi.file[0];
+	bg.bgi.file = e.target.files || e.dataTransfer.files;// process all File objects
+	bg.bgi.file = bg.bgi.file[0];
 
 	// upload the file
-	jApp.bg.bgi.uploadFile();
+	bg.bgi.uploadFile();
 }
 
 //-----------------------------------------------
@@ -321,7 +321,7 @@ BGI.prototype.uploadFile = function(){
 	  ){
 
 	  	// add an event listener to the ajax request
-	  	this.xhr.onreadystatechange = jApp.bg.bgi.uploadCB;
+	  	this.xhr.onreadystatechange = bg.bgi.uploadCB;
 
 		// ajax
 		this.xhr.open("POST", document.URL, true);
@@ -336,8 +336,8 @@ BGI.prototype.uploadCB = function(){
 	if (this.readyState == 4) { // console.log(this.responseText);
 
 		// reset the background properties, avoid race conds.
-		jApp.temp = jApp.bg.resetProps();
-		jApp.bg.resetStyles();
+		jApp.temp = bg.resetProps();
+		bg.resetStyles();
 
 		// parse the json
 		jApp.temp = JSON.parse(this.responseText);
@@ -636,8 +636,8 @@ BGC.prototype.hexText = function(){
 	// if the input is now the proper length & format
 	if(this.value.length == 7){
 		// set the background color
-		jApp.bg.bgc.temp = this.value;
-		jApp.bg.bgc.setColor();
+		bg.bgc.temp = this.value;
+		bg.bgc.setColor();
 	}
 }
 
@@ -645,14 +645,14 @@ BGC.prototype.hexText = function(){
 // - blur event for hex input
 // - set value to previous compliant hex value
 BGC.prototype.hexBlur = function(){
-	this.value = jApp.bg.bgc.temp;
+	this.value = bg.bgc.temp;
 }
 
 //-----------------------------------------------
 // - html5 color picker change event
 BGC.prototype.colorPick = function(){
-	jApp.bg.bgc.temp = this.value.toUpperCase();
-	jApp.bg.bgc.setColor();
+	bg.bgc.temp = this.value.toUpperCase();
+	bg.bgc.setColor();
 }
 
 //-----------------------------------------------
@@ -663,9 +663,9 @@ BGC.prototype.colorPick = function(){
 // - set background
 BGC.prototype.wheelBtn = function(){
 	
-	jApp.bg.bgc.temp = this.dataset.hex;
+	bg.bgc.temp = this.dataset.hex;
 
-	jApp.bg.bgc.setColor();
+	bg.bgc.setColor();
 
 }
 

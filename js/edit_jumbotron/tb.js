@@ -118,19 +118,19 @@ TB.prototype.close = function(){
 TB.prototype.newTB = function(e){ e.preventDefault();
 
 	// set this to active textbox status
-	jApp.tbs.a = jApp.tbs.createElem();
+	tbs.a = tbs.createElem();
 
 	// append the new textbox to the drag canvas
-	dragCanvas.appendChild(jApp.tbs.a);
+	dragCanvas.appendChild(tbs.a);
 
 	// create & activate the rr object
 	rm.i++;
 	rm.z++;
-	rm.h[rm.i] = new rr(jApp.tbs.a);
+	rm.h[rm.i] = new rr(tbs.a);
 	rm.a = rm.h[rm.i];
 
 	// add the new textbox to the nVals
-	jApp.nVals.tbs[jApp.tbs.i] = {
+	jApp.nVals.tbs[tbs.i] = {
 		html : '',
 		color : 'transparent',
 		opacity : 1,
@@ -153,16 +153,16 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	};
 
 	// attribtue referrence to rr index
-	jApp.tbs.a.setAttribute('data-r', rm.i);
+	tbs.a.setAttribute('data-r', rm.i);
 	
 	// insert the new css rules
-	jApp.tbs.newRules(rm.i);
+	tbs.newRules(rm.i);
 
 	// apply the event listeners
-	jApp.tbs.ae();
+	tbs.ae();
 
 	// set the checkbox visibility
-	jApp.tbs.te.setVis();
+	tbs.te.setVis();
 }
 
 //-----------------------------------------------
@@ -274,10 +274,10 @@ TB.prototype.setEnd = function(){
 TB.prototype.confirmDel = function(){
 
 	// if the textbox is empty & has no bg color
-	if(!jApp.tbs.a.children[2].childNodes.length 
-	&& !jApp.tbs.a.children[2].style.backgroundColor){
+	if(!tbs.a.children[2].childNodes.length 
+	&& !tbs.a.children[2].style.backgroundColor){
 		// delete it & return
-		jApp.tbs.del(); return;
+		tbs.del(); return;
 	}
 
 	// set the modal title
@@ -291,10 +291,10 @@ TB.prototype.confirmDel = function(){
 
    	// create a copy of the textbox
    	confModal.children[0].children[0].children[1]
-   		.appendChild( jApp.tbs.copy() );
+   		.appendChild( tbs.copy() );
 
    	// set modal callback
-   	jApp.modal.callback = jApp.tbs.del;
+   	jApp.modal.callback = tbs.del;
 
    	// launch the modal
    	jApp.modal.launch();
@@ -339,19 +339,19 @@ TB.prototype.copy = function(){
 TB.prototype.del = function(){
 
 	// gut the innards of the active textbox
-	jApp.tbs.a.innerHTML = '';
+	tbs.a.innerHTML = '';
 
 	// remove it from the nVals
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key].deleted = 1;
+	jApp.nVals.tbs[tbs.a.dataset.key].deleted = 1;
 
 	// hide it, but do not delete to maintain order
-	jApp.tbs.a.style.display = 'none';
+	tbs.a.style.display = 'none';
 
 	// prompt save
 	jApp.deltaVals();
 
 	// remove the active textbox
-	jApp.tbs.a = null;
+	tbs.a = null;
 
 	// hide the textbox properties toolbar
 	jumboToolbar.children[0].children[1].children[1].click();
@@ -473,7 +473,7 @@ TS.prototype.exCom = function(){
 // - set buttons accordingly
 TS.prototype.qCom = function(e){
 	// activate the proper wysiwig btns
-	jApp.tbs.s.qch();
+	tbs.s.qch();
 	// set the html property
 	jApp.nVals.tbs[this.parentElement.dataset.key].html = this.innerHTML;
 	// prompt save
@@ -505,8 +505,8 @@ TS.prototype.keyFS = function(e){
 
 	// focus on the textbox
 	this.blur();
-	jApp.tbs.a.children[2].focus();
-	jApp.tbs.setEnd();
+	tbs.a.children[2].focus();
+	tbs.setEnd();
 
 	// set the font size
 	document.execCommand('fontSize', false, this.value);
@@ -522,8 +522,8 @@ TS.prototype.clickFS = function(e){ e.preventDefault();
 	this.parentElement.parentElement.style.display = 'none';
 	// focus on the textbox
 	this.blur();
-	jApp.tbs.a.children[2].focus();
-	jApp.tbs.setEnd();
+	tbs.a.children[2].focus();
+	tbs.setEnd();
 	// set the font size
 	document.execCommand('fontSize', false, this.dataset.fs);
 }
@@ -685,13 +685,13 @@ TC.prototype.hexText = function(){
 	if(this.value.length == 7){
 
 		// focus on the div
-		jApp.tbs.a.children[2].focus();
+		tbs.a.children[2].focus();
 
 		// move the caret to the end
-		jApp.tbs.setEnd();
+		tbs.setEnd();
 
 		// set the button color
-		jApp.tbs.c.setColor(this.dataset.i, this.dataset.com, this.value);
+		tbs.c.setColor(this.dataset.i, this.dataset.com, this.value);
 	}
 }
 
@@ -706,7 +706,7 @@ TC.prototype.hexBlur = function(){
 // - html5 color picker change event
 TC.prototype.colorPick = function(){
 	
-	jApp.tbs.c.setColor( this.dataset.i,
+	tbs.c.setColor( this.dataset.i,
 						  this.dataset.com,
 						  this.value.toUpperCase()
 						);
@@ -716,19 +716,19 @@ TC.prototype.colorPick = function(){
 // - keyup set control panel color
 TC.prototype.qCol = function(){
 	// foreColor
-	jApp.tbs.c.setColor(
+	tbs.c.setColor(
 		0,
 		0,
-		jApp.tbs.c.rgbToHex(
+		tbs.c.rgbToHex(
 			document.queryCommandValue('foreColor')
 				.split('(')[1].split(')')[0].split(',')
 		)
 	);
 	// backColor
-	jApp.tbs.c.setColor(
+	tbs.c.setColor(
 		1,
 		0,
-		jApp.tbs.c.rgbToHex(
+		tbs.c.rgbToHex(
 			document.queryCommandValue('backColor')
 				.split('(')[1].split(')')[0].split(',')
 		)
@@ -742,7 +742,7 @@ TC.prototype.qCol = function(){
 // - keep track of previous color, possibly reset
 TC.prototype.trans = function(){
 	// set the color
-	jApp.tbs.c.setColor(
+	tbs.c.setColor(
 		this.dataset.i, 
 		(this.dataset.i == 1) ? 'backColor' : false,
 		(this.checked) ? 'transparent' : '#FFFFFF'
@@ -757,7 +757,7 @@ TC.prototype.trans = function(){
 // - set background
 TC.prototype.wheelBtn = function(){
 
-	jApp.tbs.c.setColor( this.parentElement.parentElement.dataset.i,
+	tbs.c.setColor( this.parentElement.parentElement.dataset.i,
 						   this.parentElement.parentElement.dataset.com, 
 						   this.dataset.hex
 						 );
@@ -776,17 +776,17 @@ TC.prototype.wheelBtn = function(){
 TC.prototype.setColor = function(i, excom, val){
 	
 	if(i == 2){ // background only
-		jApp.tbs.a.children[2].style.backgroundColor = 
-		jApp.nVals.tbs[jApp.tbs.a.dataset.key].color = val;
+		tbs.a.children[2].style.backgroundColor = 
+		jApp.nVals.tbs[tbs.a.dataset.key].color = val;
 	
 	}else{ // set the execCommand
 
 		// focus on the active element
-		jApp.tbs.a.children[2].focus(); 
+		tbs.a.children[2].focus(); 
 
 		// move the caret to the end
 		if(excom)
-			jApp.tbs.setEnd();
+			tbs.setEnd();
 
 		if(val == 'transparent') // backColor only
 			document.execCommand('styleWithCSS', false, true);
@@ -847,10 +847,10 @@ TC.prototype.oSlide = function(){
 	this.parentElement.children[1].value = 
 
 	// change the opacity of the active textbox
-	jApp.tbs.a.children[2].style.opacity = 
+	tbs.a.children[2].style.opacity = 
 
 	// update values
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
+	jApp.nVals.tbs[tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -864,11 +864,11 @@ TC.prototype.bSlide = function(){
 	this.parentElement.children[1].value = 
 
 	// update values
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["blur"] = parseInt(this.value);
+	jApp.nVals.tbs[tbs.a.dataset.key]["blur"] = parseInt(this.value);
 
 	// change the blur of the background img
-	jApp.tbs.a.children[2].style.filter = 
-	jApp.tbs.a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+	tbs.a.children[2].style.filter = 
+	tbs.a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
@@ -904,10 +904,10 @@ TC.prototype.oText = function(){
 	this.parentElement.children[2].value = 
 
 	// change the opacity of the background
-	jApp.tbs.a.children[2].style.opacity = 
+	tbs.a.children[2].style.opacity = 
 
 	// update values
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
+	jApp.nVals.tbs[tbs.a.dataset.key]["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -933,11 +933,11 @@ TC.prototype.bText = function(){
 	this.parentElement.children[2].value = 
 
 	// update the nVals
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key]["blur"] = parseInt(this.value);
+	jApp.nVals.tbs[tbs.a.dataset.key]["blur"] = parseInt(this.value);
 
 	// set the blur
-	jApp.tbs.a.children[2].style.filter = 
-	jApp.tbs.a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+	tbs.a.children[2].style.filter = 
+	tbs.a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
@@ -1058,41 +1058,41 @@ TE.prototype.initLayer = function(tElem){
 TE.prototype.tog = function(){
 
 	// if there is no other active textbox
-	if(!jApp.tbs.a){
+	if(!tbs.a){
 
 		// display the control panel, first remove newTB event
 		jumboToolbar.children[0].children[1].children[1]
-			.removeEventListener('click', jApp.tbs.newTB, false);
+			.removeEventListener('click', tbs.newTB, false);
 		jumboToolbar.children[0].children[1].children[1].click();
 
 	// if there is another textbox open
-	}else if(jApp.tbs.a !== this.parentElement){
+	}else if(tbs.a !== this.parentElement){
 
 		// remove the active class
-		jApp.tbs.a.className = 'textbox';
+		tbs.a.className = 'textbox';
 
 		// show the .toggle-edit elem
-		jApp.tbs.a.children[0].style.display = 'block';
+		tbs.a.children[0].style.display = 'block';
 
 		// make sure the drag buttons are hidden
-		jApp.tbs.a.children[1].style.display = 'none';
+		tbs.a.children[1].style.display = 'none';
 	}
 
 	// set the active textbox
-	jApp.tbs.a = this.parentElement;
-	jApp.tbs.a.className = 'textbox active';
+	tbs.a = this.parentElement;
+	tbs.a.className = 'textbox active';
 
 	// hide the .toggle-edit element
 	this.style.display = 'none';
 
 	// focus on the textbox
-	jApp.tbs.a.children[2].focus();
+	tbs.a.children[2].focus();
 
 	// set the visibility checkboxes
-	jApp.tbs.te.setVis();
+	tbs.te.setVis();
 
 	// set the background color control panel
-	jApp.tbs.te.setBg();
+	tbs.te.setBg();
 
 	// determine if this is the foremost element 
 }
@@ -1107,10 +1107,10 @@ TE.prototype.setBg = function(){
 	this.t = tbsCpanels.children[3].getElementsByTagName('input');
 
 	// get the current textbox values
-	jApp.temp = jApp.nVals.tbs[jApp.tbs.a.dataset.key];
+	jApp.temp = jApp.nVals.tbs[tbs.a.dataset.key];
 
 	// set the background color
-	jApp.tbs.c.setColor(2, false, jApp.temp.color);
+	tbs.c.setColor(2, false, jApp.temp.color);
 
 	// set the blur
 	this.t[3].value = 
@@ -1136,14 +1136,14 @@ TE.prototype.togRRR = function(){
 	// if the btns are not showing
 	if(this.className == 'btn btn-default'){
 		// show the .drag-btns
-		jApp.tbs.a.children[1].style.display = 'block';
+		tbs.a.children[1].style.display = 'block';
 		// add the active class
 		this.className = 'btn btn-default active';
 		// set the r map active objects
-		rm.a = rm.h[jApp.tbs.a.dataset.r];
+		rm.a = rm.h[tbs.a.dataset.r];
 		rm.m = rm.a.m;
 	}else{
-		jApp.tbs.a.children[1].style.display = 'none';
+		tbs.a.children[1].style.display = 'none';
 		this.className = 'btn btn-default';
 	}
 }
@@ -1152,9 +1152,9 @@ TE.prototype.togRRR = function(){
 // - hide rrr when user clicks something else
 TE.prototype.rrrOff = function(){
 	// hide the rrr element
-	jApp.tbs.a.children[1].style.display = 'none';
+	tbs.a.children[1].style.display = 'none';
 	// button default
-	jApp.tbs.te.rrrBtn.className = 'btn btn-default';
+	tbs.te.rrrBtn.className = 'btn btn-default';
 }
 
 //-----------------------------------------------
@@ -1163,18 +1163,18 @@ TE.prototype.rrrOff = function(){
 TE.prototype.vis = function(){
 
 	// set the nVals
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
+	jApp.nVals.tbs[tbs.a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
 
 	// if all three are unchecked
-	if(!jApp.tbs.te.vBoxes[0].checked
-	&& !jApp.tbs.te.vBoxes[1].checked
-	&& !jApp.tbs.te.vBoxes[2].checked){
+	if(!tbs.te.vBoxes[0].checked
+	&& !tbs.te.vBoxes[1].checked
+	&& !tbs.te.vBoxes[2].checked){
 
 		// recheck 
 		this.checked = true;
 
 		// prompt delete modal
-		jApp.tbs.confirmDel(); return;
+		tbs.confirmDel(); return;
 	}
 
 	// temp variable, more efficient
@@ -1182,28 +1182,28 @@ TE.prototype.vis = function(){
 
 	// set the style sheet
 	if(this.value == 'mobile') 		// mobile
-		document.styleSheets[7].cssRules[jApp.tbs.a.dataset.r]
+		document.styleSheets[7].cssRules[tbs.a.dataset.r]
 			.style.display = jApp.temp;
 	else if(this.value == 'tablet') // tablet
-		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp.tbs.a.dataset.r]
+		document.styleSheets[7].cssRules[rm.i + 1].cssRules[tbs.a.dataset.r]
 			.style.display = jApp.temp;
 	else 							// desktop
-		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp.tbs.a.dataset.r]
+		document.styleSheets[7].cssRules[rm.i + 2].cssRules[tbs.a.dataset.r]
 			.style.display = jApp.temp;
 
 	// checkbox cooresponds to current layout
 	if(this.value == jApp.layout)
 		// add an inline style
-		jApp.tbs.a.style.display = jApp.temp;
+		tbs.a.style.display = jApp.temp;
 }
 
 //-----------------------------------------------
 // - set visibility when user makes existing
 //   textbox active
 TE.prototype.setVis = function(){
-	this.vBoxes[0].checked = (jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout.mobile.v);
-	this.vBoxes[1].checked = (jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout.tablet.v);
-	this.vBoxes[2].checked = (jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout.desktop.v);
+	this.vBoxes[0].checked = (jApp.nVals.tbs[tbs.a.dataset.key].layout.mobile.v);
+	this.vBoxes[1].checked = (jApp.nVals.tbs[tbs.a.dataset.key].layout.tablet.v);
+	this.vBoxes[2].checked = (jApp.nVals.tbs[tbs.a.dataset.key].layout.desktop.v);
 }
 
 //-----------------------------------------------
@@ -1211,19 +1211,19 @@ TE.prototype.setVis = function(){
 TE.prototype.reDim = function(){
 
 	// make sure that we have an active textbox
-	if(jApp.tbs.a === null) return;
+	if(tbs.a === null) return;
 
 	// if dimensions have not changed
-	if(jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout].h == jApp.tbs.a.offsetHeight
-	&& jApp.nVals.tbs[jApp.tbs.a.dataset.key].layout[jApp.layout].w == jApp.tbs.a.offsetWidth)
+	if(jApp.nVals.tbs[tbs.a.dataset.key].layout[jApp.layout].h == tbs.a.offsetHeight
+	&& jApp.nVals.tbs[tbs.a.dataset.key].layout[jApp.layout].w == tbs.a.offsetWidth)
 		// do nothing
 		return;
 
 	// set the nVals
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
-		.layout[jApp.layout].h = jApp.tbs.a.offsetHeight;
-	jApp.nVals.tbs[jApp.tbs.a.dataset.key]
-		.layout[jApp.layout].w = jApp.tbs.a.offsetWidth; 
+	jApp.nVals.tbs[tbs.a.dataset.key]
+		.layout[jApp.layout].h = tbs.a.offsetHeight;
+	jApp.nVals.tbs[tbs.a.dataset.key]
+		.layout[jApp.layout].w = tbs.a.offsetWidth; 
 
 	jApp.deltaVals();
 }
@@ -1233,10 +1233,10 @@ TE.prototype.reDim = function(){
 // - set the height and width of the content 
 //   editable div inside the textbox element
 TE.prototype.setDims = function(){
-	for(var x in jApp.tbs.h){
-		if(jApp.tbs.h[x].children.length){
-			jApp.tbs.h[x].children[2].style.width = jApp.nVals.tbs[x].layout[jApp.layout].w + 'px';
-			jApp.tbs.h[x].children[2].style.height = jApp.nVals.tbs[x].layout[jApp.layout].h + 'px';
+	for(var x in tbs.h){
+		if(tbs.h[x].children.length){
+			tbs.h[x].children[2].style.width = jApp.nVals.tbs[x].layout[jApp.layout].w + 'px';
+			tbs.h[x].children[2].style.height = jApp.nVals.tbs[x].layout[jApp.layout].h + 'px';
 		}
 	}
 }

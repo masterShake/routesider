@@ -75,8 +75,8 @@ RS.prototype.toggleMobileMenu = function(){
 
 
 
-
-var Jumbo, jApp;
+// declare the global variables
+var jApp, cs, bg, tbs, imgs, btns;
 
 //-----------------------------------------------
 //				Jumbo (root node)			
@@ -194,15 +194,15 @@ Jumbo = function(){
 	// init other page objects, avoid race conditions
 
 	// init the component styler
-	this.cs = new CS();
+	cs = this.cs = new CS();
 	// init background editor
-	this.bg = new BG();
+	bg = this.bg = new BG();
 	// init textbox editor
-	this.tbs = new TB();
+	tbs = this.tbs = new TB();
 	// init image overlay editor
-	this.imgs = new IO();
+	imgs = this.imgs = new IO();
 	// init button editor
-	this.btns = new BTN();
+	btns = this.btns = new BTN();
 }
 
 /* METHODS */
@@ -540,18 +540,24 @@ var CS = function(){
 	this.t = null;
 
 	// textbox checkboxes
-	this.tbsB = tbsCpanel.children[5].getElementsByTagName('input');
+	this.tbsB = tbsCpanels.children[5].getElementsByTagName('input');
 
 	// image overlay checkboxes
-	this.imgsB = imgsCpanel.children[5].getElementsByTagName('input');
-
-	// get the visibility checkboxes
 	this.imgsB = imgsCpanels.children[1].getElementsByTagName('input');
 
 	// visibility events
 	this.imgsB[0].addEventListener('change', this.vis, false);
 	this.imgsB[1].addEventListener('change', this.vis, false);
 	this.imgsB[2].addEventListener('change', this.vis, false);
+
+	// image overlay style events
+	this.t = imgsCpanels.children[0].getElementsByTagName('input');
+	// blur
+	this.t[3].addEventListener('keyup', this.bText, false);
+	this.t[4].addEventListener('change', this.bSlide, false);
+	// opacity
+	this.t[5].addEventListener('keyup', this.oText, false);
+	this.t[6].addEventListener('change', this.oSlide, false);
 
 }
 

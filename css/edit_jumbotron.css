@@ -359,8 +359,7 @@ tbody button.btn-color-selected{
 	resize: both;
 }
 /* active dragables */
-.textbox.active,
-.image-overlay.active{
+.textbox.active{
 	border: 1px solid #ccc;
 	box-shadow: 0 0 6px #676767;
 }
@@ -416,16 +415,26 @@ visibility control panel
 ----------------------*/
 
 .image-overlay{
-	width: 250px;
-	height: 250px;
 	background: rgba(255,255,255,0.65);
 	text-align: center;
 	position: absolute;
+}
+.image-overlay.active{
+	box-shadow: 0 0 6px #676767;
+	border: 1px solid #5CB85C;
 }
 /* before user uploads an image */
 .image-overlay.empty{
 	border: 3px dashed #ccc;
 	border-radius: 8px;
+	width: 250px;
+	height: 250px;
+}
+.image-overlay.empty:hover{
+	border-color: #999;
+}
+.image-overlay.empty.dragover{
+	border: 3px solid #5CB85C;
 }
 /* direct children and uploading spinner */
 .image-overlay>div,
