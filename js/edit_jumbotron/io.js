@@ -42,6 +42,19 @@ IO = function(){
 	// prompt delete
 	imgsToolbar.children[1].children[0]
 		.addEventListener('click', this.confirmDel, false);	
+
+	// get all the image overlay objects
+	this.t = dragCanvas.getElementsByClassName('image-overlay');
+
+	// loop though the image overlay elements
+	for(var i = 0; i < this.t.length; i++){
+
+		// push elem onto the hashmap
+		this.h[this.i] = this.t[this.i];
+
+		// add toggle event
+		this.t[i].children[0].addEventListener('click', this.is.tog, false);
+	}
 }
 
 /* METHODS */
@@ -749,6 +762,9 @@ IS.prototype.rrrOff = function(){
 // - click btn event, toggle editor mode
 IS.prototype.tog = function(){
 
+	// hide the .toggle-edit element
+	this.style.display = 'none';
+
 	// if there is no other active textbox
 	if(!imgs.a){
 
@@ -775,16 +791,15 @@ IS.prototype.tog = function(){
 	imgs.a.className = 'image-overlay active';
 	rm.a = rm.h[this.parentElement.dataset.r];
 
-	// hide the .toggle-edit element
-	this.style.display = 'none';
-
 	// set the visibility checkboxes
 	cs.setVis();
 
 	// set the blur, opacity, and background control panel
 	imgs.is.setBg();
 
-	// determine if this is the foremost element 
+	// activate the buttons
+	imgs.act();
+
 }
 
 //-----------------------------------------------

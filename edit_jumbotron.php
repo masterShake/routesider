@@ -244,11 +244,11 @@
                                     <button type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                               </div>
-                               <!-- reposition, resize, rotate -->
-                               <?php include "components/edit_jumbo/drag_btns.php"; ?>
-                               <!-- image -->
-                               <img src='img/business/<?= $image["src"]; ?>' style='background-color:<?= $textbox["color"]; ?>;opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);border-radius:<?= ($textbox["round"]/2); ?>%;'>
+                                </div>
+                                <!-- reposition, resize, rotate -->
+                                <?php include "components/edit_jumbo/drag_btns.php"; ?>
+                                <!-- image -->
+                                <img src='img/business/<?= $image["src"]; ?>' style='background-color:<?= $image["color"]; ?>;opacity:<?= $image["opacity"]; ?>;filter:blur(<?= $image["blur"]; ?>px);-webkit-filter:blur(<?= $image["blur"]; ?>px);border-radius:<?= ($image["round"]/2); ?>%;'>            
                             </div>
 
                         <?php $r++; $i++; }
