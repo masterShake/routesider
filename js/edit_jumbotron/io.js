@@ -36,7 +36,7 @@ IO = function(){
 		.addEventListener('click', this.newImg, false);
 
 	// move to front button
-	imgsToolbar.children[0].children[2]
+	imgsToolbar.children[0].children[3]
 		.addEventListener('click', rm.move2front, false);
 
 	// prompt delete
@@ -208,8 +208,9 @@ IO.prototype.act = function(){
 	this.v[1].className = 'btn btn-default';
 	this.v[2].className = 'btn btn-default';
 	this.v[3].className = 'btn btn-default';
+	this.v[4].className = 'btn btn-default';
 
-	imgsToolbar.children[0].children[4].style.display = 'none';
+	imgsToolbar.children[0].children[5].style.display = 'none';
 
 }
 
@@ -225,8 +226,9 @@ IO.prototype.dAct = function(){
 	this.v[1].className = 'btn btn-default inactive';
 	this.v[2].className = 'btn btn-default inactive';
 	this.v[3].className = 'btn btn-default inactive';
+	this.v[4].className = 'btn btn-default inactive';
 
-	imgsToolbar.children[0].children[4].style.display = 'block';
+	imgsToolbar.children[0].children[5].style.display = 'block';
 }
 
 //-----------------------------------------------
@@ -582,13 +584,14 @@ var IS = function(io){
 	this.t = imgsToolbar.children[0].children;
 
 	// get the toggle rrr btn, add event listener
-	this.rrrBtn = this.t[1];
+	this.rrrBtn = this.t[2];
 	this.rrrBtn.addEventListener('click', this.togRRR, false);
 
 	// add rrr off event to remaining toolbar btns
 	this.t[0].addEventListener('click', this.rrrOff, false);
-	this.t[2].addEventListener('click', this.rrrOff, false);
+	this.t[1].addEventListener('click', this.rrrOff, false);
 	this.t[3].addEventListener('click', this.rrrOff, false);
+	this.t[4].addEventListener('click', this.rrrOff, false);
 }
 
 /* METHODS */

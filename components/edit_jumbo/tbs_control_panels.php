@@ -265,7 +265,7 @@
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyRight" onmousedown="event.preventDefault()" aria-label="justify align right"><span class="glyphicon glyphicon-align-right"></span></button>
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyFull" onmousedown="event.preventDefault()" aria-label="justify align full"><span class="glyphicon glyphicon-align-justify"></span></button>
             </div>
-            <div class="arrow" style="left:196px"></div>
+            <div class="arrow" style="left:151px"></div>
         </div>
 
         <!-- background color control panel -->
@@ -414,7 +414,7 @@
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:151px"></div>
+            <div class="arrow" style="left:196px"></div>
         </div><!-- /backgroung color control panel -->
 
         <!-- element roundness -->

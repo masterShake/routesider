@@ -1004,7 +1004,7 @@ var TE = function(){
 	this.t = tbsToolbar.getElementsByTagName('button');
 
 	// set toFront button
-	this.toFront = this.t[10];
+	this.toFront = this.t[11];
 
 	// toFront event listener
 	this.toFront.addEventListener('click', rm.move2front, false);
@@ -1014,10 +1014,10 @@ var TE = function(){
 		this.t[i].addEventListener('click', this.rrrOff, false);
 
 	// exceptthe rrr button
-	this.t[11].removeEventListener('click', this.rrrOff, false);
+	this.t[12].removeEventListener('click', this.rrrOff, false);
 
 	// set toggle rrr button
-	this.rrrBtn = this.t[11];
+	this.rrrBtn = this.t[12];
 
 	// toggle rrr event listener
 	this.rrrBtn.addEventListener('click', this.togRRR, false);

@@ -156,10 +156,30 @@
             <div class="arrow" style="left:20px"></div>
         </div>
 
+        <!-- roundness -->
+        <div class="popover top control-panel" style="max-width:310px;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="icon-images" style="font-size:18px;margin-right:5px;" aria-hidden="true"></div>
+                <div><b>Image Overlay</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="icon-radio-unchecked" style="font-size:17px;margin-right:5px;"></div>
+                <div><b>Roundness</b></div>
+            </div>
+            <div class="popover-content roundness" style="padding-left:87px;">
+                <div></div>
+                <div class="input-group">
+                    <input type="text" class="form-control" maxlength="3" value="0">
+                    <span class="input-group-addon">%</span>
+                </div>
+            </div>
+            <div class="arrow" style="left:65px"></div>
+        </div>
+
         <!-- visibility -->
         <div class="popover top control-panel" style="max-width:292px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="icon-images" style="font-size:18px;margin-right:5px;" aria-hidden="true"></div>
                 <div><b>Image Overlay</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -188,7 +208,7 @@
                     </label>
                 </form>
             </div>
-            <div class="arrow" style="left:152px"></div>
+            <div class="arrow" style="left:196px"></div>
         </div><!-- /visibility -->
 
     </div><!-- /control panels -->
@@ -218,6 +238,10 @@
                     </div>
                 </div><!-- /colorwheel-icon -->
             </div>
+            <!-- roundness -->
+            <button type="button" class="btn btn-default inactive" data-panel="1" aria-label="element roundness">
+                <span class="icon-radio-unchecked" aria-hidden="true"></span>
+            </button>
             <!-- resize, reposition, rotate -->
             <button type="button" class="btn btn-default inactive" data-panel aria-label="resize, reposition, rotate">
                 <span class="icon-enlarge" aria-hidden="true"></span>
@@ -227,10 +251,10 @@
         		<span class="icon-stack" aria-hidden="true"></span>
         	</button>
             <!-- visibility -->
-            <button type="button" class="btn btn-default inactive" data-panel="1" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
+            <button type="button" class="btn btn-default inactive" data-panel="2" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
-            <div style="height:42px;width:100%;position:relative;background:rgba(255,255,255,0.6);display:block;"></div>
+            <div style="height:42px;width:100%;position:relative;display:block;"></div>
         </div>
 
         <!-- group 2 -->

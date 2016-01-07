@@ -547,18 +547,10 @@ var CS = function(){
 	this.tbsB[1].addEventListener('change', this.vis, false);
 	this.tbsB[2].addEventListener('change', this.vis, false);
 
-	// image overlay checkboxes
-	this.imgsB = imgsCpanels.children[1].getElementsByTagName('input');
-
 	// roundness
 	this.t = tbsCpanels.children[5].children[1].children[1].children[0];
 	this.t.addEventListener('keyup', this.rUp, false);
 	this.t.addEventListener('keydown', this.rDo, false);
-
-	// visibility events
-	this.imgsB[0].addEventListener('change', this.vis, false);
-	this.imgsB[1].addEventListener('change', this.vis, false);
-	this.imgsB[2].addEventListener('change', this.vis, false);
 
 	// image overlay style events
 	this.t = imgsCpanels.children[0].getElementsByTagName('input');
@@ -568,6 +560,19 @@ var CS = function(){
 	// opacity
 	this.t[5].addEventListener('keyup', this.oText, false);
 	this.t[6].addEventListener('change', this.oSlide, false);
+
+	// roundness
+	this.t = imgsCpanels.children[1].children[1].children[1].children[0];
+	this.t.addEventListener('keyup', this.rUp, false);
+	this.t.addEventListener('keydown', this.rDo, false);
+
+	// image overlay checkboxes
+	this.imgsB = imgsCpanels.children[2].getElementsByTagName('input');
+
+	// visibility events
+	this.imgsB[0].addEventListener('change', this.vis, false);
+	this.imgsB[1].addEventListener('change', this.vis, false);
+	this.imgsB[2].addEventListener('change', this.vis, false);
 
 }
 
