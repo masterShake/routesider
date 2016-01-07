@@ -44,27 +44,40 @@ if(Input::exists()){
             }
         }
 
-        // decode the json
-        $jumbo = json_decode($_POST["json"]); // print_r($jumbo); exit();
-
-        // if the user added a new background image
-        if($jumbo->bg->image && substr($jumbo->bg->image, 0, 6) == "upload"){
+        //-----------------------------------------------
+        // - move image from /uploads/ to /imgs/business/ 
+        function moveImg($filename){
+             // if this is NOT a new image
+            if(substr($filename, 0, 6) != "upload") return $filename;
             // remove the "uploads/" prefix
-            $jumbo->bg->image = substr($jumbo->bg->image, 8);
+            $filename = substr($filename, 8);
             // isolate the server root
             $uRoot = $_SERVER["DOCUMENT_ROOT"]."/routesider/";
             // move the file by renaming it
-            rename($uRoot . "uploads/" . $jumbo->bg->image, $uRoot . "img/business/" . $jumbo->bg->image);
+            rename($uRoot . "uploads/" . $filename, $uRoot . "img/business/" . $filename);
+            // return the new name
+            return $filename;
         }
+
+        // decode the json
+        $jumbo = json_decode($_POST["json"]); // print_r($jumbo); exit();
 
         // if the image is not a number, add single quotes
         if($jumbo->bg->image)
             $jumbo->bg->image = "'".$jumbo->bg->image."'";
 
+        // move the background image if necessary
+        $jumbo->bg->image = moveImg($jumbo->bg->image);
+
+        // move the image overlays to permanent folder if necessary
+        foreach ($jumbo->imgs as $key => $image)
+            $image->src = moveImg($image->src);
+        
+
         // round out the layout values
         roundBg($jumbo->bg);
         roundIt($jumbo->tbs);
-        // roundIt($jumbo->imgs);
+        roundIt($jumbo->imgs);
         // roundIt($jumbo->btns);
 
 
@@ -149,35 +162,31 @@ if(Input::exists()){
 
         $db->q($cypher);
 
-        // add all the new components
-
-        // sort & set the components' z-indices
-
         // create array of z indexes
         $z = [];
 
-        // $x = get_object_vars($jumbo->tbs); print_r($x); exit();
-
         // loop through all the textboxes
-        foreach ($jumbo->tbs as $key => $textbox) {
-
+        foreach ($jumbo->tbs as $key => $textbox) 
             // put them in a seperate array
-            $z[$textbox->z] = $key;
-        }
+            $z[$textbox->z] = $textbox;
 
-        // sort $z array by key
+        // image overlays
+        foreach ($jumbo->imgs as $key => $image)
+            $z[$image->z] = $image;
+
+        // sort $z array by z index
         ksort($z);
 
         // indexer
         $i = 0;
 
         // reset the z index
-        foreach ($z as $zIndex => $key) {
+        foreach ($z as $zIndex => $component) {
              
              $i++; // increment
 
             // set a new z index for textbox object
-            $jumbo->tbs->{$key}->z = $i;
+            $component->z = $i;
          } 
 
         // loop through all the textboxes
@@ -223,10 +232,46 @@ if(Input::exists()){
             "})";
 
             $db->q($cypher);
-
         }
 
-            // merge them with the jumbotron
+        // loop through all the image overlays
+        foreach($jumbo->imgs as $image){
+
+            $cypher = 
+            "MATCH (a:Business) WHERE a.id = " . $business->data("id") . " " .
+            "MATCH (a)-[:HAS_PROFILE]->(p:Profile)-[:SECTION]->(j:Jumbotron) ".
+            "MERGE (j)-[:COMPONENT]->(i:Image { ".
+                "src:'{$image->src}', ".
+                "color:'{$image->color}', ".
+                "opacity:{$image->opacity}, ".
+                "blur:{$image->blur}, ".
+                "z:{$image->z}, ". 
+                "round:{$image->round}".
+            "}) ".
+            "MERGE (i)-[:LAYOUT]->(:Mobile { ".
+                "x:{$image->layout->mobile->x}, ".
+                "y:{$image->layout->mobile->y}, ".
+                "s:{$image->layout->mobile->s}, ".
+                "a:{$image->layout->mobile->a}, ".
+                "v:{$image->layout->mobile->v} ".
+            "}) ".
+            "MERGE (i)-[:LAYOUT]->(:Tablet { ".
+                "x:{$image->layout->tablet->x}, ".
+                "y:{$image->layout->tablet->y}, ".
+                "s:{$image->layout->tablet->s}, ".
+                "a:{$image->layout->tablet->a}, ".
+                "v:{$image->layout->tablet->v} ".
+            "}) ".
+            "MERGE (i)-[:LAYOUT]->(:Desktop { ".
+                "x:{$image->layout->desktop->x}, ".
+                "y:{$image->layout->desktop->y}, ".
+                "s:{$image->layout->desktop->s}, ".
+                "a:{$image->layout->desktop->a}, ".
+                "v:{$image->layout->desktop->v} ".
+            "})";
+
+            $db->q($cypher);
+        }
 
         exit("1");
     }
