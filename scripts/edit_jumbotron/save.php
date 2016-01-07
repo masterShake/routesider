@@ -183,9 +183,6 @@ if(Input::exists()){
         // loop through all the textboxes
         foreach($jumbo->tbs as $textbox){
 
-            // do no perform query if deleted
-            if($textbox->deleted) continue;
-
             $cypher = 
             "MATCH (a:Business) WHERE a.id = " . $business->data("id") . " " .
             "MATCH (a)-[:HAS_PROFILE]->(p:Profile)-[:SECTION]->(j:Jumbotron) ".
@@ -194,7 +191,8 @@ if(Input::exists()){
                 "color:'{$textbox->color}', ".
                 "opacity:{$textbox->opacity}, ".
                 "blur:{$textbox->blur}, ".
-                "z:{$textbox->z}". 
+                "z:{$textbox->z}, ". 
+                "round:{$textbox->round}".
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Mobile { ".
                 "w:{$textbox->layout->mobile->w}, ".
@@ -203,7 +201,6 @@ if(Input::exists()){
                 "y:{$textbox->layout->mobile->y}, ".
                 "s:{$textbox->layout->mobile->s}, ".
                 "a:{$textbox->layout->mobile->a}, ".
-                "r:{$textbox->layout->mobile->r}, ".
                 "v:{$textbox->layout->mobile->v} ".
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Tablet { ".
@@ -213,7 +210,6 @@ if(Input::exists()){
                 "y:{$textbox->layout->tablet->y}, ".
                 "s:{$textbox->layout->tablet->s}, ".
                 "a:{$textbox->layout->tablet->a}, ".
-                "r:{$textbox->layout->tablet->r}, ".
                 "v:{$textbox->layout->tablet->v} ".
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Desktop { ".
@@ -223,7 +219,6 @@ if(Input::exists()){
                 "y:{$textbox->layout->desktop->y}, ".
                 "s:{$textbox->layout->desktop->s}, ".
                 "a:{$textbox->layout->desktop->a}, ".
-                "r:{$textbox->layout->desktop->r}, ".
                 "v:{$textbox->layout->desktop->v} ".
             "})";
 

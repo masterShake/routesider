@@ -229,7 +229,7 @@ class Profile{
 					$json["tbs"]->{(string)$i}["layout"]["desktop"] = $u->getEndNode()->getProperties();
 			}
 			// set the deleted property
-			$json["tbs"]->{(string)$i}["deleted"] = 0;
+			// $json["tbs"]->{(string)$i}["deleted"] = 0;
 		}
 
 		// // loop through the images and push their properties

@@ -779,7 +779,7 @@ CS.prototype.setVis = function(){
 CS.prototype.rUp = function(){
 
 	// if there is no input, return 
-	if(!this.value) return; console.log('we have a value');
+	if(!this.value) return;
 
 	// replace all non-numeric characters
 	this.value = this.value.replace(/\D/g, ''); console.log(this.value.replace(/[^\d]/g, ''));
@@ -796,6 +796,9 @@ CS.prototype.rUp = function(){
 	// set the roundness of the active dragable
 	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
 
+	// set the nVals
+	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].round = parseInt(this.value);
+	jApp.deltaVals();
 }
 
 //-----------------------------------------------

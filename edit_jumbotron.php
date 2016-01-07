@@ -225,7 +225,7 @@
                                <!-- reposition, resize, rotate -->
                                <?php include "components/edit_jumbo/drag_btns.php"; ?>
                                <!-- content editable -->
-                               <div class="content-edit" style="min-height:27px;min-width:80px;background-color:<?= $textbox["color"]; ?>;opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);">
+                               <div class="content-edit" style='min-height:27px;min-width:80px;background-color:<?= $textbox["color"]; ?>;opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);border-radius:<?= ($textbox["round"]/2); ?>%;'>
                                    <?= $textbox["html"]; ?>
                                </div>
                             </div>

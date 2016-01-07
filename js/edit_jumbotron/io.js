@@ -94,8 +94,8 @@ IO.prototype.newImg = function(e){ e.preventDefault();
 		color : 'transparent',
 		opacity : 1,
 		blur: 0,
-		deleted: 0,
 		z : rm.z,
+		round : 0,
 		layout : {
 			// x => left
 			// y => top
