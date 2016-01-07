@@ -228,21 +228,31 @@ class Profile{
 				if($u->getEndNode()->getLabel() == "Desktop")
 					$json["tbs"]->{(string)$i}["layout"]["desktop"] = $u->getEndNode()->getProperties();
 			}
-			// set the deleted property
-			// $json["tbs"]->{(string)$i}["deleted"] = 0;
 		}
 
-		// // loop through the images and push their properties
-		// $temp = $results->getNodesByLabel("Image");
-		// foreach ($temp as $t) {
-		// 	array_push($json["imgs"], $t->getProperties());
-		// }
-
-		// // btns
-		// $temp = $results->getNodesByLabel("Button");
-		// foreach ($temp as $t) {
-		// 	array_push($json["btns"], $t->getProperties());
-		// }
+		// get all the image overlays
+		$temp = $results->getNodesByLabel("Image");
+		// loop through all the image overlays
+		for($i = 0; $i < count($temp); $i++) {
+			// set the properties 
+			$json["imgs"]->{(string)$i} = $temp[$i]->getProperties();
+			// create empty layouts array
+			$json["imgs"]->{(string)$i}["layout"] = [];
+			// get the layouts
+			$t = $temp[$i]->getOutboundRelationships();
+			// loop through the layouts
+			foreach($t as $u){
+				// mobile
+				if($u->getEndNode()->getLabel() == "Mobile")
+					$json["imgs"]->{(string)$i}["layout"]["mobile"] = $u->getEndNode()->getProperties();
+				// tablet
+				if($u->getEndNode()->getLabel() == "Tablet")
+					$json["imgs"]->{(string)$i}["layout"]["tablet"] = $u->getEndNode()->getProperties();
+				// desktop
+				if($u->getEndNode()->getLabel() == "Desktop")
+					$json["imgs"]->{(string)$i}["layout"]["desktop"] = $u->getEndNode()->getProperties();
+			}
+		}
 
 		return $json;
 	}

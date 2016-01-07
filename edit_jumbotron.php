@@ -232,6 +232,27 @@
 
                         <?php $r++; $i++; }
 
+                        // clear $i
+                        $i = 0;
+
+                        // iterate through the image overlays
+                        foreach($jumbo["imgs"] as $image){ ?>
+
+                            <div class="image-overlay" data-r="<?= $r; ?>" data-key="<?= $i; ?>">
+                                <!-- toggle edit mode -->
+                                <div class="toggle-edit" style="display:block;">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                               </div>
+                               <!-- reposition, resize, rotate -->
+                               <?php include "components/edit_jumbo/drag_btns.php"; ?>
+                               <!-- image -->
+                               <img src='img/business/<?= $image["src"]; ?>' style='background-color:<?= $textbox["color"]; ?>;opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);border-radius:<?= ($textbox["round"]/2); ?>%;'>
+                            </div>
+
+                        <?php $r++; $i++; }
+
                         ?>
 
                         </div>
