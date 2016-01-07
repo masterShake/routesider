@@ -162,7 +162,7 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	tbs.ae();
 
 	// set the checkbox visibility
-	tbs.te.setVis();
+	cs.setVis();
 }
 
 //-----------------------------------------------
@@ -1021,14 +1021,6 @@ var TE = function(){
 
 	// toggle rrr event listener
 	this.rrrBtn.addEventListener('click', this.togRRR, false);
-
-	// layout visibility checkboxes
-	this.vBoxes = tbsCpanels.children[5].getElementsByTagName('input');
-
-	// visibility events
-	this.vBoxes[0].addEventListener('change', this.vis, false);
-	this.vBoxes[1].addEventListener('change', this.vis, false);
-	this.vBoxes[2].addEventListener('change', this.vis, false);
 }
 
 /* METHODS */
@@ -1044,15 +1036,6 @@ TE.prototype.initLayer = function(tElem){
 	tElem.addEventListener('mouseup', this.reDim, false);
 	tElem.addEventListener('touchend', this.reDim, false);
 }
-
-//-----------------------------------------------
-// - focus, mouseover
-// - position editor button closest to canvas
-//   centerpoint
-// - fade in editor btn
-// TE.prototype.show = function(){
-// 	this.style.opacity = 1;
-// }
 
 //-----------------------------------------------
 // - click btn event, toggle editor mode
@@ -1083,6 +1066,9 @@ TE.prototype.tog = function(){
 	tbs.a = this.parentElement;
 	tbs.a.className = 'textbox active';
 
+	// set active rrr
+	rm.a = rm.h[this.parentElement.dataset.r];
+
 	// hide the .toggle-edit element
 	this.style.display = 'none';
 
@@ -1090,7 +1076,7 @@ TE.prototype.tog = function(){
 	tbs.a.children[2].focus();
 
 	// set the visibility checkboxes
-	tbs.te.setVis();
+	cs.setVis();
 
 	// set the background color control panel
 	tbs.te.setBg();
@@ -1105,7 +1091,7 @@ TE.prototype.tog = function(){
 TE.prototype.setBg = function(){
 
 	// get all the inputs
-	this.t = tbsCpanels.children[3].getElementsByTagName('input');
+	this.t = tbsCpanels.children[4].getElementsByTagName('input');
 
 	// get the current textbox values
 	jApp.temp = jApp.nVals.tbs[tbs.a.dataset.key];
@@ -1121,15 +1107,6 @@ TE.prototype.setBg = function(){
 	this.t[5].value = 
 	this.t[6].value = jApp.temp.opacity;
 }
-
-//-----------------------------------------------
-// - blur, mouseout
-// - move the button back within the perimeter of
-//   the textbox
-// - fade the button out
-// TE.prototype.hide = function(){
-// 	this.style.opacity = 0;
-// }
 
 //-----------------------------------------------
 // - toggle resize, reposition, rotate btns
@@ -1156,55 +1133,6 @@ TE.prototype.rrrOff = function(){
 	tbs.a.children[1].style.display = 'none';
 	// button default
 	tbs.te.rrrBtn.className = 'btn btn-default';
-}
-
-//-----------------------------------------------
-// - change visibility for element in layout
-// - prompt delete if invisible for all 3
-TE.prototype.vis = function(){
-
-	// set the nVals
-	jApp.nVals.tbs[tbs.a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
-
-	// if all three are unchecked
-	if(!tbs.te.vBoxes[0].checked
-	&& !tbs.te.vBoxes[1].checked
-	&& !tbs.te.vBoxes[2].checked){
-
-		// recheck 
-		this.checked = true;
-
-		// prompt delete modal
-		tbs.confirmDel(); return;
-	}
-
-	// temp variable, more efficient
-	jApp.temp = (this.checked) ? 'block' : 'none';
-
-	// set the style sheet
-	if(this.value == 'mobile') 		// mobile
-		document.styleSheets[7].cssRules[tbs.a.dataset.r]
-			.style.display = jApp.temp;
-	else if(this.value == 'tablet') // tablet
-		document.styleSheets[7].cssRules[rm.i + 1].cssRules[tbs.a.dataset.r]
-			.style.display = jApp.temp;
-	else 							// desktop
-		document.styleSheets[7].cssRules[rm.i + 2].cssRules[tbs.a.dataset.r]
-			.style.display = jApp.temp;
-
-	// checkbox cooresponds to current layout
-	if(this.value == jApp.layout)
-		// add an inline style
-		tbs.a.style.display = jApp.temp;
-}
-
-//-----------------------------------------------
-// - set visibility when user makes existing
-//   textbox active
-TE.prototype.setVis = function(){
-	this.vBoxes[0].checked = (jApp.nVals.tbs[tbs.a.dataset.key].layout.mobile.v);
-	this.vBoxes[1].checked = (jApp.nVals.tbs[tbs.a.dataset.key].layout.tablet.v);
-	this.vBoxes[2].checked = (jApp.nVals.tbs[tbs.a.dataset.key].layout.desktop.v);
 }
 
 //-----------------------------------------------

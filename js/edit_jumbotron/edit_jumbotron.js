@@ -540,10 +540,20 @@ var CS = function(){
 	this.t = null;
 
 	// textbox checkboxes
-	this.tbsB = tbsCpanels.children[5].getElementsByTagName('input');
+	this.tbsB = tbsCpanels.children[6].getElementsByTagName('input');
+
+	// visibility events
+	this.tbsB[0].addEventListener('change', this.vis, false);
+	this.tbsB[1].addEventListener('change', this.vis, false);
+	this.tbsB[2].addEventListener('change', this.vis, false);
 
 	// image overlay checkboxes
 	this.imgsB = imgsCpanels.children[1].getElementsByTagName('input');
+
+	// roundness
+	this.t = tbsCpanels.children[5].children[1].children[1].children[0];
+	this.t.addEventListener('keyup', this.rUp, false);
+	this.t.addEventListener('keydown', this.rDo, false);
 
 	// visibility events
 	this.imgsB[0].addEventListener('change', this.vis, false);
@@ -757,7 +767,62 @@ CS.prototype.setVis = function(){
 	this[jApp.a + 'B'][2].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.desktop.v);
 }
 
+//-----------------------------------------------
+// - keyup adjust the roundness
+// - numbers only
+// - set the css of the elements
+CS.prototype.rUp = function(){
 
+	// if there is no input, return 
+	if(!this.value) return; console.log('we have a value');
+
+	// replace all non-numeric characters
+	this.value = this.value.replace(/\D/g, ''); console.log(this.value.replace(/[^\d]/g, ''));
+
+	// if the value is greater than 10
+	if(parseInt(this.value) > 100)
+		// remove the last number
+		this.value = this.value.substr(0,2);
+
+	// set the roundness of the example element
+	this.parentElement.parentElement.children[0]
+		.style.borderRadius = 
+
+	// set the roundness of the active dragable
+	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+
+}
+
+//-----------------------------------------------
+// - keydown adjust the roundness
+// - increment or decriment the value of the
+//   roundness input
+CS.prototype.rDo = function(e){
+
+	// if the value is blank, set it to 0
+	if(!this.value) this.value = '0';
+
+	// if our value is not a number
+	else if(isNaN(parseInt(this.value))) return;
+
+	// if up arrow, increment value
+	if(e.keyCode == '38' && this.value !== '100')
+		this.value = parseInt(this.value)+1;
+
+	// else if down arrow, decriment value
+	else if(e.keyCode == '40' && this.value !== '0')
+		this.value = parseInt(this.value)-1;
+
+	// if neither of these keys, do nothing
+	else return;
+
+	// set the roundness of the example element
+	this.parentElement.parentElement.children[0]
+		.style.borderRadius = 
+
+	// set the roundness of the active dragable
+	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+}
 
 
 

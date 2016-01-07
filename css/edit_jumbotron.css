@@ -411,6 +411,28 @@ visibility control panel
 }
 
 /*----------------------
+ roundness control panel
+----------------------*/
+
+.roundness{
+	padding: 15px 0 4px 64px;
+}
+.roundness>div:nth-child(1){
+	height: 24px;
+	width: 24px;
+	border: 2px solid #444;
+	float: left;
+	margin-right: 16px;
+	margin-top: 4px;
+}
+.roundness>div.input-group{
+	max-width: 90px;
+}
+.roundness .form-control{
+	text-align: right;
+}
+
+/*----------------------
 	image overlay
 ----------------------*/
 

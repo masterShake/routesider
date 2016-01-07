@@ -87,7 +87,7 @@ r.prototype.getRules = function(){
 //-----------------------------------------------
 // - move active textbox to the front of all 
 //   elements in the dragCanvas
-r.prototype.move2front = function(){ 
+r.prototype.move2front = function(){ console.log(document.styleSheets[7].cssRules[rm.a.el.dataset.r]);
 
 	// incriment the rm z-index property
 	rm.z++;

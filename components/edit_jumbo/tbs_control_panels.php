@@ -249,11 +249,30 @@
             <div class="arrow" style="left:107px"></div>
         </div><!-- /text color -->
 
+        <!-- text alignment -->
+        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="glyphicon glyphicon-align-left" style="font-size:17px;margin-right:5px;"></div>
+                <div><b>Text Align</b></div>
+            </div>
+            <div class="popover-content" style="text-align:center;padding-top:18px;">
+                <button type="button" class="btn btn-default active" style="margin:0 6px;" data-excom="justifyLeft" onmousedown="event.preventDefault()" aria-label="justify align left"><span class="glyphicon glyphicon-align-left"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyCenter" onmousedown="event.preventDefault()" aria-label="justify align center"><span class="glyphicon glyphicon-align-center"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyRight" onmousedown="event.preventDefault()" aria-label="justify align right"><span class="glyphicon glyphicon-align-right"></span></button>
+                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyFull" onmousedown="event.preventDefault()" aria-label="justify align full"><span class="glyphicon glyphicon-align-justify"></span></button>
+            </div>
+            <div class="arrow" style="left:196px"></div>
+        </div>
+
         <!-- background color control panel -->
         <div class="popover top control-panel" style="max-width:660px;margin-bottom:-43px;">
             <div class="popover-title"> 
                 
-                <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -398,29 +417,30 @@
             <div class="arrow" style="left:151px"></div>
         </div><!-- /backgroung color control panel -->
 
-        <!-- text alignment -->
+        <!-- element roundness -->
         <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="glyphicon glyphicon-align-left" style="font-size:17px;margin-right:5px;"></div>
-                <div><b>Text Align</b></div>
+                <div class="icon-radio-unchecked" style="font-size:17px;margin-right:5px;"></div>
+                <div><b>Roundness</b></div>
             </div>
-            <div class="popover-content" style="text-align:center;padding-top:18px;">
-                <button type="button" class="btn btn-default active" style="margin:0 6px;" data-excom="justifyLeft" onmousedown="event.preventDefault()" aria-label="justify align left"><span class="glyphicon glyphicon-align-left"></span></button>
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyCenter" onmousedown="event.preventDefault()" aria-label="justify align center"><span class="glyphicon glyphicon-align-center"></span></button>
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyRight" onmousedown="event.preventDefault()" aria-label="justify align right"><span class="glyphicon glyphicon-align-right"></span></button>
-                <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyFull" onmousedown="event.preventDefault()" aria-label="justify align full"><span class="glyphicon glyphicon-align-justify"></span></button>
+            <div class="popover-content roundness">
+                <div></div>
+                <div class="input-group">
+                    <input type="text" class="form-control" maxlength="3" value="0">
+                    <span class="input-group-addon">%</span>
+                </div>
             </div>
-            <div class="arrow" style="left:196px"></div>
+            <div class="arrow" style="left:240px"></div>
         </div>
 
         <!-- element visibility -->
         <div class="popover top control-panel" style="margin-bottom:-96px;max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -502,8 +522,12 @@
                 <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
                     <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
                 </button>
+                <!-- text align -->
+                <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
+                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                </button>
                 <!-- edit background color -->
-                <div role="button" class="btn btn-default" data-panel="3" aria-label="edit background color">
+                <div role="button" class="btn btn-default" data-panel="4" aria-label="edit background color">
                     <!-- color wheel icon -->
                     <div class="colorwheel-icon">
                         <div>
@@ -522,9 +546,9 @@
                         </div>
                     </div><!-- /colorwheel-icon -->
                 </div>
-                <!-- text align -->
-                <button type="button" class="btn btn-default" data-panel="4" aria-label="text align">
-                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                <!-- element roundness -->
+                <button type="button" class="btn btn-default" data-panel="5" aria-label="element roundess">
+                    <span class="icon-radio-unchecked" aria-hidden="true"></span>
                 </button>
             </div><!-- /text styling -->
 
@@ -539,7 +563,7 @@
                     <span class="icon-enlarge" aria-hidden="true"></span>
                 </button>
                 <!-- layout visibility -->
-                <button type="button" class="btn btn-default" data-panel="5" aria-label="layout visibility">
+                <button type="button" class="btn btn-default" data-panel="6" aria-label="layout visibility">
                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                 </button>
             </div> <!-- /text positioning -->
