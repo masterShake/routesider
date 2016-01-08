@@ -13,7 +13,7 @@
     <div id="tbsCpanels" style="position:relative;z-index:3;">
 
         <!-- text size -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:250px;">
+        <div class="popover top control-panel tier-2" style="max-width:250px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -43,7 +43,7 @@
         </div><!-- /text size -->
 
         <!-- text color -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -144,7 +144,7 @@
         </div><!-- /text color -->
 
         <!-- text background -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -250,7 +250,7 @@
         </div><!-- /text color -->
 
         <!-- text alignment -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
+        <div class="popover top control-panel tier-2" style="max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -269,7 +269,7 @@
         </div>
 
         <!-- background color control panel -->
-        <div class="popover top control-panel" style="max-width:660px;margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2" style="max-width:660px;">
             <div class="popover-title"> 
                 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -418,7 +418,7 @@
         </div><!-- /backgroung color control panel -->
 
         <!-- element roundness -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
+        <div class="popover top control-panel tier-2" style="max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -438,7 +438,7 @@
         </div>
 
         <!-- element visibility -->
-        <div class="popover top control-panel" style="margin-bottom:-96px;max-width:264px;">
+        <div class="popover top control-panel tier-3" style="max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -475,107 +475,102 @@
     </div>
 
     <!-- toolbar -->
-    <div id="tbsToolbar">
+    <div class="btn-toolbar" id="tbsToolbar" role="toolbar">
 
-        <!-- toolbar 2 -->
-        <div class="btn-toolbar" role="toolbar">
+        <!-- toolbar 1 -->
+        <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
+            <!-- bold -->
+            <button type="button" class="btn btn-default" data-panel data-excom="bold" onmousedown="event.preventDefault()" aria-label="bold">
+                <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+            </button>
+            <!-- italic -->
+            <button type="button" class="btn btn-default" data-panel data-excom="italic" onmousedown="event.preventDefault()" aria-label="italic">
+                <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
+            </button>
+            <!-- underline -->
+            <button type="button" class="btn btn-default" data-panel data-excom="underline" onmousedown="event.preventDefault()" aria-label="underline">
+                <span class="icon-underline" aria-hidden="true"></span>
+            </button>
+            <!-- strikethrough -->
+            <button type="button" class="btn btn-default" data-panel data-excom="strikeThrough" onmousedown="event.preventDefault()" aria-label="strike through">
+                <span class="icon-strikethrough" aria-hidden="true"></span>
+            </button>
+            <!-- subscript -->
+            <button type="button" class="btn btn-default" data-panel data-excom="subscript" onmousedown="event.preventDefault()" aria-label="subscript">
+                <span class="glyphicon glyphicon-subscript" aria-hidden="true"></span>
+            </button>
+            <!-- superscript -->
+            <button type="button" class="btn btn-default" data-panel data-excom="superscript" onmousedown="event.preventDefault()" aria-label="superscript">
+                <span class="glyphicon glyphicon-superscript" aria-hidden="true"></span>
+            </button>
+        </div><!-- /toolbar 1 -->
 
-            <!-- toolbar 1 -->
-            <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
-                <!-- bold -->
-                <button type="button" class="btn btn-default" data-panel data-excom="bold" onmousedown="event.preventDefault()" aria-label="bold">
-                    <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
-                </button>
-                <!-- italic -->
-                <button type="button" class="btn btn-default" data-panel data-excom="italic" onmousedown="event.preventDefault()" aria-label="italic">
-                    <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
-                </button>
-                <!-- underline -->
-                <button type="button" class="btn btn-default" data-panel data-excom="underline" onmousedown="event.preventDefault()" aria-label="underline">
-                    <span class="icon-underline" aria-hidden="true"></span>
-                </button>
-                <!-- strikethrough -->
-                <button type="button" class="btn btn-default" data-panel data-excom="strikeThrough" onmousedown="event.preventDefault()" aria-label="strike through">
-                    <span class="icon-strikethrough" aria-hidden="true"></span>
-                </button>
-                <!-- subscript -->
-                <button type="button" class="btn btn-default" data-panel data-excom="subscript" onmousedown="event.preventDefault()" aria-label="subscript">
-                    <span class="glyphicon glyphicon-subscript" aria-hidden="true"></span>
-                </button>
-                <!-- superscript -->
-                <button type="button" class="btn btn-default" data-panel data-excom="superscript" onmousedown="event.preventDefault()" aria-label="superscript">
-                    <span class="glyphicon glyphicon-superscript" aria-hidden="true"></span>
-                </button>
-            </div><!-- /toolbar 1 -->
-
-            <!-- text styling -->
-            <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
-                <!-- text-size -->
-                <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
-                    <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
-                </button>
-                <!-- text color -->
-                <button type="button" class="btn btn-default" data-panel="1" aria-label="text-color">
-                    <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
-                </button>
-                <!-- text background-->
-                <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
-                    <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
-                </button>
-                <!-- text align -->
-                <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
-                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                </button>
-                <!-- edit background color -->
-                <div role="button" class="btn btn-default" data-panel="4" aria-label="edit background color">
-                    <!-- color wheel icon -->
-                    <div class="colorwheel-icon">
-                        <div>
-                            <div></div>
-                        </div>
-                        <div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <div>
-                            <div></div>
-                        </div>
-                    </div><!-- /colorwheel-icon -->
-                </div>
-                <!-- element roundness -->
-                <button type="button" class="btn btn-default" data-panel="5" aria-label="element roundess">
-                    <span class="icon-radio-unchecked" aria-hidden="true"></span>
-                </button>
-            </div><!-- /text styling -->
-
-            <!-- textbox positioning -->
-            <div class="btn-group opts-toolbar" role="group" aria-label="reposition textbox toolbar">
-                <!-- move to front -->
-                <button type="button" class="btn btn-default" data-panel aria-label="move to front">
-                    <span class="icon-stack" aria-hidden="true"></span>
-                </button>
-                <!-- reposition, resize, rotate -->
-                <button type="button" class="btn btn-default" data-panel aria-label="crop image">
-                    <span class="icon-enlarge" aria-hidden="true"></span>
-                </button>
-                <!-- layout visibility -->
-                <button type="button" class="btn btn-default" data-panel="6" aria-label="layout visibility">
-                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                </button>
-            </div> <!-- /text positioning -->
-
-            <!-- delete button -->
-            <div class="btn-group opts-toolbar" style="float:right;margin-bottom:10px;" aria-label="delete textbox">
-                <button type="button" class="btn btn-default btn-danger" aria-label="delete textbox">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </button>
+        <!-- text styling -->
+        <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
+            <!-- text-size -->
+            <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
+                <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
+            </button>
+            <!-- text color -->
+            <button type="button" class="btn btn-default" data-panel="1" aria-label="text-color">
+                <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
+            </button>
+            <!-- text background-->
+            <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
+                <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+            </button>
+            <!-- text align -->
+            <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
+                <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+            </button>
+            <!-- edit background color -->
+            <div role="button" class="btn btn-default" data-panel="4" aria-label="edit background color">
+                <!-- color wheel icon -->
+                <div class="colorwheel-icon">
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div></div>
+                    </div>
+                </div><!-- /colorwheel-icon -->
             </div>
+            <!-- element roundness -->
+            <button type="button" class="btn btn-default" data-panel="5" aria-label="element roundess">
+                <span class="icon-radio-unchecked" aria-hidden="true"></span>
+            </button>
+        </div><!-- /text styling -->
 
-        </div><!-- /toolbar 2 -->
+        <!-- textbox positioning -->
+        <div class="btn-group opts-toolbar" role="group" aria-label="reposition textbox toolbar">
+            <!-- move to front -->
+            <button type="button" class="btn btn-default" data-panel aria-label="move to front">
+                <span class="icon-stack" aria-hidden="true"></span>
+            </button>
+            <!-- reposition, resize, rotate -->
+            <button type="button" class="btn btn-default" data-panel aria-label="crop image">
+                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+            </button>
+            <!-- layout visibility -->
+            <button type="button" class="btn btn-default" data-panel="6" aria-label="layout visibility">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            </button>
+        </div> <!-- /text positioning -->
+
+        <!-- delete button -->
+        <div class="btn-group opts-toolbar" style="float:right;margin-bottom:10px;" aria-label="delete textbox">
+            <button type="button" class="btn btn-default btn-danger" aria-label="delete textbox">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </div>
 
     </div><!-- /toolbar -->
 

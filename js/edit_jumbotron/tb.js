@@ -41,7 +41,7 @@ var TB = function(){
 		.addEventListener('click', this.newTB, false);
 
 	// delete textbox prompt modal
-	tbsToolbar.children[0].children[3].children[0]
+	tbsToolbar.children[3].children[0]
 		.addEventListener('click', this.confirmDel, false);
 
 	// init existing textboxes

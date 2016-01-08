@@ -244,7 +244,7 @@
             </button>
             <!-- resize, reposition, rotate -->
             <button type="button" class="btn btn-default inactive" data-panel aria-label="resize, reposition, rotate">
-                <span class="icon-enlarge" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
         	<!-- move to front -->
         	<button type="button" class="btn btn-default inactive" data-panel aria-label="move to front">
