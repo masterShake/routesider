@@ -1,82 +1,16 @@
-//-----------------------------------------------
-//
-//				Edit Jumbotron App
-//
-// - Edit all the properties of the business 
-//   jumbotron
-//
-//
-//
-//-----------------------------------------------
 
+/* global variables */
 
-
-//-----------------------------------------------
-//
-//		   	 additional RS methods
-//
-//----------------------------------------------- 
-
-//----------------------------------------------
-// - Event listener toggle slide out menu for
-//   pages with no map
-RS.prototype.toggleMobileMenu = function(){
-	// set the max width of the content cover
-	// if the menu is hidden and the window is mobile-sized
-	if( document.getElementById("page-content").style.transform != "translate(270px, 0px)"
-		&& window.innerWidth < 768 ){
-		// open the menu
-		document.getElementById("page-content").style.transform = "translate(270px, 0px)";
-		document.getElementById("content-cover").style.transform = "translate(270px, 0px)";
-		// cover the content
-		document.getElementById("content-cover").style.display = "block";
-		// set timer to reveal #content-cover
-		setTimeout( rsApp.showContentCover , 200 );
-	}else{
-		// close the menu
-		document.getElementById("page-content").style.transform = "translate(0px, 0px)";
-		document.getElementById("content-cover").style.transform = "translate(0px, 0px)";
-		// reveal the content
-		document.getElementById("content-cover").style.opacity = "0";
-		// set timer to hide #content-cover
-		setTimeout( rsApp.hideContentCover , 300 );
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// declare the global variables
-var jApp, cs, bg, tbs, imgs, btns;
+var jApp,	// Jumbo app
+	layout, // layout class
+	modal,	// confirmation modal 
+	cs,		// component styler
+	ts,		// text styler
+	tc,		// text color
+	bg,		// background
+	tbs,	// textbox
+	imgs,	// image overlay
+	btns; 	// button
 
 //-----------------------------------------------
 //				Jumbo (root node)			
@@ -108,56 +42,28 @@ Jumbo = function(){
 	// keep track of new values (identical at first)
 	this.nVals = JSON.parse( document.getElementById("i-vals").value );
 
-	// instantiate confirmation modal object
-	this.modal = new cModal();
-
-	// add the modal confirmation event listern out here
-	confModal.children[0].children[0].children[2].children[1]
-		.addEventListener("click", this.modal.callback, false); 
-
 	// keep track active component editor
 	this.a = null;
 
 	// keep track of active control panel
 	this.panel = -1;
 
-	// keep track of active layout, default mobile
-	this.layout = 'mobile';
-
 	// temp variable
-	this.temp = null;
+	this.t = null;
 
 	/* initializations */
 
-	// set the canvas dimensions based on initial window size 
-	this.setDims();
-
-	// init the layout view dropdown
-	layoutD1.children[0].addEventListener("click", rsApp.toggleDropdown, false);
-	layoutD2.children[0].addEventListener("click", rsApp.toggleDropdown, false);
-
-	// init the scaling event listeners
-	this.temp = layoutD1.getElementsByTagName("a");
-	this.temp[0].addEventListener("click", this.lay, false);
-	this.temp[1].addEventListener("click", this.lay, false);
-	this.temp[2].addEventListener("click", this.lay, false);
-	this.temp = layoutD2.getElementsByTagName("a");
-	this.temp[0].addEventListener("click", this.lay, false);
-	this.temp[1].addEventListener("click", this.lay, false);
-	this.temp[2].addEventListener("click", this.lay, false);
-
-
 	// get all the toolbars, add actBtn event
-	this.temp = document.getElementsByClassName("tb"); // console.log(this.temp);
+	this.t = document.getElementsByClassName("tb"); // console.log(this.t);
 
 	// loop through the opts-toolbars
-	for(var i = 0; i < this.temp.length; i++){
+	for(var i = 0; i < this.t.length; i++){
 
 		// loop through all the btns in the toolbar
-		for(var j = 0; j < this.temp[i].children.length; j++){
+		for(var j = 0; j < this.t[i].children.length; j++){
 
 			// add event listener to each of the btns
-			this.temp[i].children[j].addEventListener("click", this.actBtn, false);
+			this.t[i].children[j].addEventListener("click", this.actBtn, false);
 		}
 	}
 
@@ -166,23 +72,23 @@ Jumbo = function(){
 		.addEventListener("change", this.jumboVis, false);
 
 	// get the jumbo toolbar btns
-	this.temp = jumboToolbar.children[0].children[1].children;
+	this.t = jumboToolbar.children[0].children[1].children;
 	// apply the event listeners to jumbo toolbar
-	this.temp[0].addEventListener("click", this.togOpts, false);
-	this.temp[1].addEventListener("click", this.togOpts, false);
-	this.temp[2].addEventListener("click", this.togOpts, false);
-	this.temp[3].addEventListener("click", this.togOpts, false);
+	this.t[0].addEventListener("click", this.togOpts, false);
+	this.t[1].addEventListener("click", this.togOpts, false);
+	this.t[2].addEventListener("click", this.togOpts, false);
+	this.t[3].addEventListener("click", this.togOpts, false);
 
 	// get all buttons that toggle control panels
-	this.temp = document.querySelectorAll('[data-panel]');
+	this.t = document.querySelectorAll('[data-panel]');
 	// loop through the buttons
-	for(var i = 0; i < this.temp.length; i++)
+	for(var i = 0; i < this.t.length; i++)
 		// apply the even listener
-		this.temp[i].addEventListener("click", this.togCpan, false);
+		this.t[i].addEventListener("click", this.togCpan, false);
 
 	// remove the event listener from btn #4
-	if(this.temp[4].className.substr(-8) == 'inactive')
-		this.temp[4].removeEventListener('click', this.togCpan, false);
+	if(this.t[4].className.substr(-8) == 'inactive')
+		this.t[4].removeEventListener('click', this.togCpan, false);
 
 	// add event listener to the save btn
 	save1.children[1].addEventListener("click", this.save, false);
@@ -192,9 +98,6 @@ Jumbo = function(){
 	save1.children[0].addEventListener("click", this.xSA, false);
 
 	// init other page objects, avoid race conditions
-
-	// init the component styler
-	cs = this.cs = new CS();
 	// init background editor
 	bg = this.bg = new BG();
 	// init textbox editor
@@ -207,30 +110,7 @@ Jumbo = function(){
 
 /* METHODS */
 
-//-----------------------------------------------
-// - set the dimensions of preview device view
-// - default mobile view
-Jumbo.prototype.setDims = function(){
-	if(document.body.offsetWidth < 767){
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
-	}else if(document.body.offsetWidth < 1200){
-		jumboCanvas.className = 
-		this.layout = 
-		layoutD1.children[0].children[1].children[0].innerHTML = 
-		layoutD2.children[0].children[1].children[0].innerHTML = "tablet";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
-		layoutD1.children[0].children[0].className = 
-		layoutD2.children[0].children[0].className = "icon-mobile2";
-	}else{
-		jumboCanvas.className = 
-		this.layout = 
-		layoutD1.children[0].children[1].children[0].innerHTML = 
-		layoutD2.children[0].children[1].children[0].innerHTML = "desktop";
-		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
-		layoutD1.children[0].children[0].className = 
-		layoutD2.children[0].children[0].className = "icon-laptop";
-	}
-};
+
 
 //-----------------------------------------------
 // - event to add/remove active btn class
@@ -351,38 +231,6 @@ Jumbo.prototype.togCpan = function(){
 Jumbo.prototype.jumboVis = function(){
 	jApp.nVals.active = (this.checked) ? 1 : 0;
 	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - change device layout click event
-Jumbo.prototype.lay = function(e){ e.preventDefault();
-
-	// hide the dropdown
-	this.parentElement.parentElement.style.display = 'none';
-	document.body.removeEventListener("click", rsApp.closeDropdown, true);
-
-	// set the icons
-	layoutD1.children[0].children[0].className = 
-	layoutD2.children[0].children[0].className = this.children[0].className;
-
-	// change the aspect ratio
-	jumboCanvas.style.height = this.dataset.h * jumboCanvas.offsetWidth + "px";
-
-	// set the layout property
-	jApp.layout = 
-
-	// change the class/scale
-	jumboCanvas.className = 
-
-	// change the dropdown text
-	layoutD1.children[0].children[1].children[0].innerHTML =
-	layoutD2.children[0].children[1].children[0].innerHTML = this.dataset.layout;
-
-	// set the style of the rr object
-	rm.setStyles();
-
-	// set the height & width of all the textboxes
-	jApp.tbs.te.setDims();
 }
 
 //-----------------------------------------------
@@ -515,459 +363,127 @@ Jumbo.prototype.saveCB = function(r){ console.log(r);
 
 
 
-
 //-----------------------------------------------
-//			   CS (component styler)
-// 			 -------------------------	
+//				 L (layout class)			
+//			   --------------------
 //
-// - convert hexidecimal to RGB
+// - keep track of active layout state
 //
-// - convert RGB to hexidecimal
-// 
-// - event listeners for blur and opacity text
-//   inputs and sliders
+// - set the dimensions of preview canvas
 //
-// - set the visibility of an element in various
-//   layouts
-// 
-// - toggle the resize, reposition, rotate elem
+// - change layout state
 //
 //-----------------------------------------------
 
-var CS = function(){
-
-	// temp variable
-	this.t = null;
-
-	// textbox checkboxes
-	this.tbsB = tbsCpanels.children[6].getElementsByTagName('input');
-
-	// visibility events
-	this.tbsB[0].addEventListener('change', this.vis, false);
-	this.tbsB[1].addEventListener('change', this.vis, false);
-	this.tbsB[2].addEventListener('change', this.vis, false);
-
-	// roundness
-	this.t = tbsCpanels.children[5].children[1].children[1].children[0];
-	this.t.addEventListener('keyup', this.rUp, false);
-	this.t.addEventListener('keydown', this.rDo, false);
-
-	// image overlay style events
-	this.t = imgsCpanels.children[0].getElementsByTagName('input');
-	// blur
-	this.t[3].addEventListener('keyup', this.bText, false);
-	this.t[4].addEventListener('change', this.bSlide, false);
-	// opacity
-	this.t[5].addEventListener('keyup', this.oText, false);
-	this.t[6].addEventListener('change', this.oSlide, false);
-
-	// roundness
-	this.t = imgsCpanels.children[1].children[1].children[1].children[0];
-	this.t.addEventListener('keyup', this.rUp, false);
-	this.t.addEventListener('keydown', this.rDo, false);
-
-	// image overlay checkboxes
-	this.imgsB = imgsCpanels.children[2].getElementsByTagName('input');
-
-	// visibility events
-	this.imgsB[0].addEventListener('change', this.vis, false);
-	this.imgsB[1].addEventListener('change', this.vis, false);
-	this.imgsB[2].addEventListener('change', this.vis, false);
-
-}
-
-//-----------------------------------------------
-// - algorithm to determine if a hex value is 
-//   light or dark.
-// - @rgbObj -> object with r, g, & b values as
-//   returned by hext to rgb function
-// - returns a value between 0 and 1
-// - #000 would return a value of 0
-// - #FFF would return a value of 1
-// - all other colors would be somewhere
-//   inbetween
-// - values below .6 should be overlaid with
-//   white text
-// - values above .6, overlaid with black
-CS.prototype.hexBright = function( rgbObj ){
-	// calculate & return weighted average
-	return (( rgbObj.r*0.299 + rgbObj.g*0.587 + rgbObj.b*0.114 ) / 256 > 0.6);
-}
-//-----------------------------------------------
-// - algorithm to convert hex to rgb
-// - @hex -> hexidecimal as string
-// - returns object with r, g, & b values
-CS.prototype.hexToRgb = function(hex) {
-	// convert to array of hex vals
-	this.t = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-	// return the results as an object
-    return this.t ? {
-        r: parseInt(this.t[1], 16),
-        g: parseInt(this.t[2], 16),
-        b: parseInt(this.t[3], 16)
-    } : null;
-}
-
-//-----------------------------------------------
-// - convert to hex
-CS.prototype.rgbToHex = function(rgb) {
-    return "#" + this.compToHex(rgb[0]) + this.compToHex(rgb[1]) + this.compToHex(rgb[2]);
-}
-// - helper
-CS.prototype.compToHex = function(c) {
-    this.t = parseInt(c).toString(16);
-    return this.t.length == 1 ? "0" + this.t : this.t;
-}
-
-//-----------------------------------------------
-// - when user slides opacity slider
-CS.prototype.oSlide = function(){
-
-	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// change the opacity of the active textbox
-	jApp[jApp.a].a.children[2].style.opacity = 
-
-	// update values
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - when user slides blur slider
-CS.prototype.bSlide = function(){
-
-	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// update values
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["blur"] = parseInt(this.value);
-
-	// change the blur of the background img
-	jApp[jApp.a].a.children[2].style.filter = 
-	jApp[jApp.a].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - keyup opacity text input
-CS.prototype.oText = function(){ 
-
-	// if there is no input, return 
-	if( !this.value) return;
-
-	// if the value is not 1
-	if(this.value !== "1"){
-
-		// strip non numeric characters from the last 2 digits
-		this.value = this.value.replace(/[^\d.]/g, '');
-
-		// if the value of the first character is not 0
-		if( this.value.charAt(0) != "0" )
-
-			// pop a 0 in there
-			this.value = "0" + this.value;
-
-		// if the value of the second character is not "."
-		if( this.value.length > 1 && this.value.charAt(1) != "." )
-
-			// pop the decimal in there
-			this.value = "0." + this.value.substring(1, 3);
-	}
-
-	// update slider input
-	this.parentElement.children[2].value = 
-
-	// change the opacity of the background
-	jApp[jApp.a].a.children[2].style.opacity = 
-
-	// update values
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - keyup blur text input
-// - must be an integer between 0 and 10
-CS.prototype.bText = function(){
-
-	// if there is no input, return 
-	if( !this.value) return;
-
-	// replace all non-numeric characters
-	this.value = this.value.replace('/[^\d]/g', '');
-
-	// if the value is greater than 10
-	if(parseInt(this.value) > 10)
-		// remove the last number
-		this.value = this.value.substr(0,1);
-
-	// update the slider input
-	this.parentElement.children[2].value = 
-
-	// update the nVals
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["blur"] = parseInt(this.value);
-
-	// set the blur
-	jApp[jApp.a].a.children[2].style.filter = 
-	jApp[jApp.a].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - change visibility for element in layout
-// - prompt delete if invisible for all 3
-CS.prototype.vis = function(){
-
-	// set the nVals
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
-
-	// if all three are unchecked
-	if(!jApp.cs[jApp.a + 'B'][0].checked
-	&& !jApp.cs[jApp.a + 'B'][1].checked
-	&& !jApp.cs[jApp.a + 'B'][2].checked){
-
-		// recheck 
-		this.checked = true;
-
-		// prompt delete modal
-		jApp[jApp.a].confirmDel(); return;
-	}
-
-	// temp variable, more efficient
-	jApp.temp = (this.checked) ? 'block' : 'none';
-
-	// set the style sheet
-	if(this.value == 'mobile') 		// mobile
-		document.styleSheets[7].cssRules[jApp[jApp.a].a.dataset.r]
-			.style.display = jApp.temp;
-	else if(this.value == 'tablet') // tablet
-		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp[jApp.a].a.dataset.r]
-			.style.display = jApp.temp;
-	else 							// desktop
-		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp[jApp.a].a.dataset.r]
-			.style.display = jApp.temp;
-
-	// checkbox cooresponds to current layout
-	if(this.value == jApp.layout)
-		// add an inline style
-		jApp[jApp.a].a.style.display = jApp.temp;
-}
-
-//-----------------------------------------------
-// - set checkboxes of cPanel when user activates
-//   an dragable object
-CS.prototype.setVis = function(){
-	this[jApp.a + 'B'][0].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.mobile.v);
-	this[jApp.a + 'B'][1].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.tablet.v);
-	this[jApp.a + 'B'][2].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.desktop.v);
-}
-
-//-----------------------------------------------
-// - keyup adjust the roundness
-// - numbers only
-// - set the css of the elements
-CS.prototype.rUp = function(){
-
-	// if there is no input, return 
-	if(!this.value) return;
-
-	// replace all non-numeric characters
-	this.value = this.value.replace(/\D/g, ''); console.log(this.value.replace(/[^\d]/g, ''));
-
-	// if the value is greater than 10
-	if(parseInt(this.value) > 100)
-		// remove the last number
-		this.value = this.value.substr(0,2);
-
-	// set the roundness of the example element
-	this.parentElement.parentElement.children[0]
-		.style.borderRadius = 
-
-	// set the roundness of the active dragable
-	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
-
-	// set the nVals
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].round = parseInt(this.value);
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - keydown adjust the roundness
-// - increment or decriment the value of the
-//   roundness input
-CS.prototype.rDo = function(e){
-
-	// if the value is blank, set it to 0
-	if(!this.value) this.value = '0';
-
-	// if our value is not a number
-	else if(isNaN(parseInt(this.value))) return;
-
-	// if up arrow, increment value
-	if(e.keyCode == '38' && this.value !== '100')
-		this.value = parseInt(this.value)+1;
-
-	// else if down arrow, decriment value
-	else if(e.keyCode == '40' && this.value !== '0')
-		this.value = parseInt(this.value)-1;
-
-	// if neither of these keys, do nothing
-	else return;
-
-	// set the roundness of the example element
-	this.parentElement.parentElement.children[0]
-		.style.borderRadius = 
-
-	// set the roundness of the active dragable
-	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-----------------------------------------------
-//			 cModal (confirmation modal)				
-//		   -------------------------------
-//
-// - dynamically set the modal content
-//
-// - display the modal
-//
-// - hide the modal
-//
-// - perform callback
-//
-//-----------------------------------------------
-
-/* CONSTRUCTOR */
-
-cModal = function(){
+var L = function(){
 
 	/* properties */
 
-	// keep track of the callback function, temp variable
-	this.callback = null;
+	// active layout state
+	this.a = 'mobile';
 
-	/* initializations */
+	/* initialize */
 
-	// add close event listeners
-	confModal.addEventListener("click", this.fadeOut, false);
-}
+	// set the dimensions of the preview canvas
+	this.init();
 
-/* METHODS */
+	// init the layout view dropdown
+	layoutD1.children[0].addEventListener("click", rsApp.toggleDropdown, false);
+	layoutD2.children[0].addEventListener("click", rsApp.toggleDropdown, false);
 
-//-----------------------------------------------
-// - launch modal
-cModal.prototype.launch = function(){
-
-	// show the modal
-	confModal.style.display = "block";
-
-	// show the backdrop
-	confBD.style.display = "block";
-	
-	// fade in
-	setTimeout(jApp.modal.fadeIn, 10);
-	
-	// drop modal on em
-	setTimeout(jApp.modal.dropIn, 130);
+	// temp variable, init the change layout event listeners
+	this.t = layoutD1.getElementsByTagName("a");
+	this.t[0].addEventListener("click", this.lay, false);
+	this.t[1].addEventListener("click", this.lay, false);
+	this.t[2].addEventListener("click", this.lay, false);
+	this.t = layoutD2.getElementsByTagName("a");
+	this.t[0].addEventListener("click", this.lay, false);
+	this.t[1].addEventListener("click", this.lay, false);
+	this.t[2].addEventListener("click", this.lay, false);
 }
 
 //-----------------------------------------------
-// - modal in from top
-cModal.prototype.fadeIn = function(){
+// - set the dimensions of preview device view
+// - default mobile view
+L.prototype.init = function(){
+	if(document.body.offsetWidth < 767){
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.42 + "px";
+	}else if(document.body.offsetWidth < 1200){
+		jumboCanvas.className = 
+		this.a = 
+		layoutD1.children[0].children[1].children[0].innerHTML = 
+		layoutD2.children[0].children[1].children[0].innerHTML = "tablet";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 1.06 + "px";
+		layoutD1.children[0].children[0].className = 
+		layoutD2.children[0].children[0].className = "icon-mobile2";
+	}else{
+		jumboCanvas.className = 
+		this.a = 
+		layoutD1.children[0].children[1].children[0].innerHTML = 
+		layoutD2.children[0].children[1].children[0].innerHTML = "desktop";
+		jumboCanvas.style.height = jumboCanvas.offsetWidth * 0.54 + "px";
+		layoutD1.children[0].children[0].className = 
+		layoutD2.children[0].children[0].className = "icon-laptop";
+	}
+};
 
-	// prevent scrolling on the body
-	document.body.className = "modal-open";
+//-----------------------------------------------
+// - change device layout click event
+Jumbo.prototype.lay = function(e){ e.preventDefault();
 
-	// set the backdrop class
-	confBD.className = "modal-backdrop fade in";
+	// hide the dropdown
+	this.parentElement.parentElement.style.display = 'none';
+	document.body.removeEventListener("click", rsApp.closeDropdown, true);
 
+	// set the icons
+	layoutD1.children[0].children[0].className = 
+	layoutD2.children[0].children[0].className = this.children[0].className;
+
+	// change the aspect ratio
+	jumboCanvas.style.height = this.dataset.h * jumboCanvas.offsetWidth + "px";
+
+	// set the layout property
+	layout.a = 
+
+	// change the class/scale
+	jumboCanvas.className = 
+
+	// change the dropdown text
+	layoutD1.children[0].children[1].children[0].innerHTML =
+	layoutD2.children[0].children[1].children[0].innerHTML = this.dataset.layout;
+
+	// set the style of the rr object
+	layout.setStyles();
+
+	// set the height & width of all the textboxes
+	jApp.tbs.te.setDims();
 }
 
 //-----------------------------------------------
-// - modal in from top
-cModal.prototype.dropIn = function(){
+// - set inline transform styles from all rr
+//   objects based on layout
+L.prototype.setStyles = function(){
 
-	// set the modal class
-	confModal.className = "modal fade in";
-}
+	// loop through each of the objects in the hashmap
+	for(var j = 0; j <= rm.i; j++){
 
-//-----------------------------------------------
-// - animate out
-cModal.prototype.fadeOut = function(e){
+		//get the correct stylesheet
+		if(this.a == 'mobile')		 // mobile
+			this.t = document.styleSheets[7].cssRules[j].style;
+		else if(this.a == 'tablet') // tablet
+			this.t = document.styleSheets[7].cssRules[rm.i + 1].cssRules[j].style;
+		else 							 // desktop
+			this.t = document.styleSheets[7].cssRules[rm.i + 2].cssRules[j].style;
 
-	// if the user confirmed the deletion button
-	if(e.target.className == "btn btn-default btn-danger"
-	|| e.target.className == "glyphicon glyphicon-trash")
-		jApp.modal.callback();
+		// loop through the specified styles
+		for(var k = 0; k < this.t.length; k++)
+			// set them as inline styles on the element
+			rm.h[j].el.style[this.t[k]] = this.t[this.t[k]];
 
-	// if we clicked one of the buttons or backdrop
-	if(	e.target.tagName == "BUTTON" 
-	|| e.target.parentElement.tagName == "BUTTON"
-	|| e.target.id == "confModal" ){
-
-		// set the modal class
-		confModal.className = "modal fade";
-
-		// set the backdrop class
-		confBD.className = "modal-backdrop fade";
-
-		// hide the elements
-		setTimeout(jApp.modal.hide, 300);
+		// set the transform object
+		rm.h[j].extractMatrix();
 	}
 }
-
-//-----------------------------------------------
-// - hide modal elements
-cModal.prototype.hide = function(){
-	// hide the modal
-	confModal.style.display = "none";
-	// hide the backdrop
-	confBD.style.display = "none";
-	// remove the modal class from the body
-	document.body.className = "";
-}
-
-
-
-
-
 
 
 
@@ -1010,6 +526,12 @@ document.addEventListener("DOMContentLoaded", function(){
     // create new RS object
     rsApp = new RS();
 
+	// init layout
+	layout = new L();
+	// init confirmation modal
+	modal = new cModal();
+	// init the component styler
+	cs = new CS();
     // create new Jumbo (edit jumbotron) object
     jApp = new Jumbo();
 

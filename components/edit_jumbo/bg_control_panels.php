@@ -210,7 +210,7 @@
             </button><!-- /edit background image -->
             <!-- crop background image -->
             <button type="button" class='btn btn-default<?= ($jumbo["bg"]["image"]) ? "" : " inactive"; ?>' data-panel="1" aria-label="crop image">
-                <span class="icon-enlarge" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
             <!-- edit background color -->
             <div role="button" class="btn btn-default" data-panel="2" aria-label="edit background color">

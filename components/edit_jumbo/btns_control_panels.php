@@ -15,7 +15,7 @@
     <div id="btnsCpanels" style="position:relative;z-index:1;">
 
         <!-- text size -->
-        <div class="popover top control-panel" style="max-width:250px;margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2" style="max-width:250px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -58,7 +58,7 @@
         </div><!-- /text size -->
 
         <!-- text color -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -152,22 +152,12 @@
                     </div>
                 </div><!-- /hexigon color wheel -->
 
-                <hr>
-
-                <!-- opacity -->
-                <div class="color-o">
-                	<div class="glyphicon glyphicon-adjust"></div>
-                	<label>opacity</label>
-                	<input type="text" class="form-control" value="1">
-                	<input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                </div>
-
             </div>
             <div class="arrow" style="left:63px"></div>
         </div><!-- /text color -->
 
         <!-- text background -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2">
            <div class="popover-title"> 
                 <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -275,7 +265,7 @@
         </div><!-- /text color -->
 
         <!-- background color control panel -->
-        <div class="popover top control-panel" style="max-width:660px;margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -421,11 +411,11 @@
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:196px"></div>
+            <div class="arrow" style="left:161px"></div>
         </div><!-- /backgroung color control panel -->
 
         <!-- border color -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;">
+        <div class="popover top control-panel tier-2">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -521,31 +511,20 @@
 
                 <hr>
 
-                <!-- background image blur -->
-                <div class="half-slider" style="padding-left:10px;float:right;">
-                    <label>
-                        <span class="glyphicon glyphicon-minus"></span>
-                        thickness
-                    </label>
+                <!-- opacity -->
+                <div class="color-o">
+                    <div class="glyphicon glyphicon-minus"></div>
+                    <label>thickness</label>
                     <input type="text" class="form-control" value="1">
                     <input type="range" class="range-slider" min="0" max="10" step="1" value="1">
                 </div>
-                <!-- background image opacity -->
-                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                    <label>
-                        <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
-                        opacity
-                    </label>
-                    <input type="text" class="form-control" value="1">
-                    <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                </div>
 
             </div>
-            <div class="arrow" style="left:151px"></div>
+            <div class="arrow" style="left:205px"></div>
         </div><!-- /border color -->
 
         <!-- element roundness -->
-        <div class="popover top control-panel" style="margin-bottom:-43px;max-width:264px;">
+        <div class="popover top control-panel tier-2" style="max-width:264px;">
            <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -563,11 +542,11 @@
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
-            <div class="arrow" style="left:240px"></div>
+            <div class="arrow" style="left:249px"></div>
         </div>
 
         <!-- URL -->
-        <div class="popover top control-panel" style="margin-bottom:-96px;">
+        <div class="popover top control-panel tier-3">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -586,7 +565,7 @@
         </div><!-- /URL -->
     	
     	<!-- padding -->
-    	<div class="popover top control-panel" style="margin-bottom:-96px;">
+    	<div class="popover top control-panel tier-3">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -697,7 +676,7 @@
         </div><!-- /toolbar 1 -->
 
         <!-- toolbar 2 -->
-        <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="button style">
+        <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="text style">
             <!-- text-size -->
             <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
                 <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
@@ -710,6 +689,10 @@
             <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
                 <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             </button>
+        </div>
+
+        <!-- toolbar 3 -->
+        <div class="btn-group opts-toolbar" style="margin-bottom:10px;margin-left:10px;" role="group" aria-label="button style">
             <!-- edit background color -->
             <div role="button" class="btn btn-default" data-panel="3" aria-label="edit background color">
                 <!-- color wheel icon -->
@@ -732,15 +715,15 @@
             </div>
             <!-- border style -->
             <button type="button" class="btn btn-default" data-panel="4" aria-label="border style">
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                <span class="icon-checkbox-unchecked" aria-hidden="true"></span>
             </button>
             <!-- element roundness -->
             <button type="button" class="btn btn-default" data-panel="5" aria-label="element roundess">
                 <span class="icon-radio-unchecked" aria-hidden="true"></span>
             </button>
-        </div><!-- /toolbar 2 -->
+        </div><!-- /toolbar 3 -->
 
-        <!-- toolbar 3 -->
+        <!-- toolbar 4 -->
 	    <div class="btn-group opts-toolbar" role="group" aria-label="edit button toolbar">
             <!-- hyperlink -->
             <button type="button" class="btn btn-default" data-panel="6" aria-label="button link">
@@ -762,7 +745,7 @@
             <button type="button" class="btn btn-default" data-panel="8" aria-label="layout visibility">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
-	    </div><!-- /toolbar 3 -->
+	    </div><!-- /toolbar 4 -->
 
 	    <!-- delete button -->
 	    <div class="btn-group opts-toolbar" style="float:right;" aria-label="delete button">

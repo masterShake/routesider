@@ -1,3 +1,5 @@
+
+var ts;
 //-----------------------------------------------
 //				   TB (textbox)			
 //			     ----------------
@@ -24,7 +26,7 @@ var TB = function(){
 	this.a = null;
 
 	// init textbox style object
-	this.s = new TS();
+	ts = this.s = new TS();
 
 	// init textbox color object
 	this.c = new TC();
@@ -135,7 +137,6 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 		color : 'transparent',
 		opacity : 1,
 		blur: 0,
-		deleted: 0,
 		z : rm.z,
 		round : 0,
 		layout : {
@@ -157,7 +158,7 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 	tbs.a.setAttribute('data-r', rm.i);
 	
 	// insert the new css rules
-	tbs.newRules(rm.i);
+	rm.newRules();
 
 	// apply the event listeners
 	tbs.ae();
@@ -209,33 +210,6 @@ TB.prototype.createElem = function(){
 }
 
 //-----------------------------------------------
-// - create new css style rules
-// - insert into 7th stylesheet
-// - tablet @media > 768px
-// - desktop @media > 1200px
-// - r => rrrMap object key
-TB.prototype.newRules = function(r){
-
-	// default: scale 1, rotate 0, element centered
-	this.t = '#dragCanvas>div:nth-child('+r+')'+
-				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-				'  left: calc(50% - '+(this.a.offsetWidth/2)+'px);' +
-				'  top: calc(50% - '+(this.a.offsetHeight/2)+'px);' +
-				'  z-index: '+rm.z+';' +
-				'  display: block;}';
-
-	// mobile
-	document.styleSheets[7]
-		.insertRule(this.t, r);
-	// tablet
-	document.styleSheets[7].cssRules[r + 1]
-		.insertRule(this.t, r);
-	// desktop
-	document.styleSheets[7].cssRules[r + 2]
-		.insertRule(this.t, r);
-}
-
-//-----------------------------------------------
 // - apply event listeners to newly created
 //   textbox element
 TB.prototype.ae = function(){
@@ -253,19 +227,6 @@ TB.prototype.ae = function(){
 	// remove the newTB event listener
 	jumboToolbar.children[0].children[1].children[1]
 		.removeEventListener('click', this.newTB, false);
-}
-
-//-----------------------------------------------
-// - move the cursor to the end of the active div
-TB.prototype.setEnd = function(){
-	this.sel = window.getSelection();
-	// if there is a selection or box is already in focus
-	if(this.sel.toString()) return;
-    this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
-    this.range.selectNodeContents(this.a.children[2]);//Select the entire contents of the element with the this.range
-    this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
-    this.sel.removeAllRanges();//remove any selections already made
-    this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
 }
 
 //-----------------------------------------------
@@ -415,28 +376,36 @@ TB.prototype.del = function(){
 
 var TS = function(){
 
-	// style buttons hashmap
-	this.b = null;
-
-	// temp variable
-	this.t = null;
+	this.sel = null;
+	this.range = null;
 
 	// add event listeners to execCommand buttons, temp var
-	this.t = tbsProps.querySelectorAll('[data-excom]');
+	this.t = document.querySelectorAll('[data-excom]');
 	for(var j = 0; j < this.t.length; j++)
 		this.t[j].addEventListener('click', this.exCom, false);
 
-	// keep track of the buttons
-	this.b = {
+	// keep track of the buttons for textbox
+	this.tbsB = {
 		bold 		  : this.t[4],
 		italic		  : this.t[5],
 		underline	  : this.t[6],
 		strikeThrough : this.t[7],
 		subscript	  : this.t[8],
+		superscript	  : this.t[9],
 		justifyLeft	  : this.t[0],
 		justifyCenter : this.t[1],
 		justifyRight  : this.t[2],
 		justifyFull	  : this.t[3]
+	};
+
+	// keep track of the btn toolbar buttons
+	this.btnsB = {
+		bold 		  : this.t[10],
+		italic		  : this.t[11],
+		underline	  : this.t[12],
+		strikeThrough : this.t[13],
+		subscript	  : this.t[14],
+		superscript   : this.t[15]
 	};
 
 	// add font size keyup event
@@ -450,6 +419,31 @@ var TS = function(){
 	this.t = this.t[0].parentElement.children[1].children[1].children;
 	for(var i = 0; i < this.t.length; i++)
 		this.t[i].children[0].addEventListener('click', this.clickFS, false);
+
+	// add font size keyup event
+	this.t = btnsCpanels.getElementsByTagName('input');
+	this.t[0].addEventListener('keyup', this.keyFS, false);
+
+	// init the dropdown
+	this.t[0].parentElement.children[1].children[0].addEventListener("click", rsApp.toggleDropdown, false);
+
+	// add click event to font sizes
+	this.t = this.t[0].parentElement.children[1].children[1].children;
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].children[0].addEventListener('click', this.clickFS, false);
+}
+
+//-----------------------------------------------
+// - move the cursor to the end of the active div
+TB.prototype.setEnd = function(){
+	this.sel = window.getSelection();
+	// if there is a selection or box is already in focus
+	if(this.sel.toString()) return;
+    this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
+    this.range.selectNodeContents(this.a.children[2]);//Select the entire contents of the element with the this.range
+    this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
+    this.sel.removeAllRanges();//remove any selections already made
+    this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
 }
 
 //-----------------------------------------------
@@ -477,7 +471,7 @@ TS.prototype.qCom = function(e){
 	// activate the proper wysiwig btns
 	tbs.s.qch();
 	// set the html property
-	jApp.nVals.tbs[this.parentElement.dataset.key].html = this.innerHTML;
+	jApp.nVals[jApp.a][this.parentElement.dataset.key].html = this.innerHTML;
 	// prompt save
 	jApp.deltaVals();
 }
@@ -486,9 +480,11 @@ TS.prototype.qCom = function(e){
 // - query command state keyup helper
 // - theoretically should run a tinsy bit faster
 TS.prototype.qch = function(){
+	// get the active button group
+	this.t = this[jApp.a + 'B'];
 	// set the class on the wysiwyg btns
 	for(var x in this.b)
-		this.b[x].className = (document.queryCommandState(x)) ?
+		this.t[x].className = (document.queryCommandState(x)) ?
 													'btn btn-default active' :
 													'btn btn-default';
 }
@@ -507,8 +503,8 @@ TS.prototype.keyFS = function(e){
 
 	// focus on the textbox
 	this.blur();
-	tbs.a.children[2].focus();
-	tbs.setEnd();
+	jApp[jApp.a].a.children[2].focus();
+	ts.setEnd();
 
 	// set the font size
 	document.execCommand('fontSize', false, this.value);
@@ -524,8 +520,8 @@ TS.prototype.clickFS = function(e){ e.preventDefault();
 	this.parentElement.parentElement.style.display = 'none';
 	// focus on the textbox
 	this.blur();
-	tbs.a.children[2].focus();
-	tbs.setEnd();
+	jApp[jApp.a].a.children[2].focus();
+	ts.setEnd();
 	// set the font size
 	document.execCommand('fontSize', false, this.dataset.fs);
 }
@@ -788,7 +784,7 @@ TC.prototype.setColor = function(i, excom, val){
 
 		// move the caret to the end
 		if(excom)
-			tbs.setEnd();
+			ts.setEnd();
 
 		if(val == 'transparent') // backColor only
 			document.execCommand('styleWithCSS', false, true);

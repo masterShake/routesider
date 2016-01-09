@@ -125,7 +125,7 @@ IO.prototype.newImg = function(e){ e.preventDefault();
 	imgs.a.setAttribute('data-r', rm.i);
 	
 	// insert the new css rules
-	imgs.newRules(rm.i);
+	rm.newRules();
 
 	// apply any event listeners
 	imgs.iu.ae();
@@ -134,9 +134,9 @@ IO.prototype.newImg = function(e){ e.preventDefault();
     imgs.is.setBg();
 
 	// set the visibility checkboxes
-	jApp.cs.imgsB[0].checked = 
-	jApp.cs.imgsB[1].checked = 
-	jApp.cs.imgsB[2].checked = true;
+	cs.imgsB[0].checked = 
+	cs.imgsB[1].checked = 
+	cs.imgsB[2].checked = true;
 }
 
 //-----------------------------------------------
@@ -182,31 +182,6 @@ IO.prototype.createElem = function(){
 
     // return new element
     return this.a;
-}
-
-//-----------------------------------------------
-// - create css rules for new image overlay elem
-// - r => index in rMap for rrr object
-IO.prototype.newRules = function(r){
-
-	// default: scale 1, rotate 0, element centered
-	this.t = '#dragCanvas>div:nth-child('+r+')'+
-				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-				'  left: calc(50% - 125px);' +
-				'  top: calc(50% - 125px);' +
-				'  z-index: '+rm.z+';' +
-				'  display: block;}';
-
-	// mobile
-	document.styleSheets[7]
-		.insertRule(this.t, r);
-	// tablet
-	document.styleSheets[7].cssRules[r + 1]
-		.insertRule(this.t, r);
-	// desktop
-	document.styleSheets[7].cssRules[r + 2]
-		.insertRule(this.t, r);
-
 }
 
 //-----------------------------------------------

@@ -67,6 +67,33 @@ r.prototype.setStyles = function(){
 }
 
 //-----------------------------------------------
+// - create new css style rules
+// - insert into 7th stylesheet
+// - tablet @media > 768px
+// - desktop @media > 1200px
+// - r => rrrMap object key
+r.prototype.newRules = function(){ console.log(this.i);
+
+	// default: scale 1, rotate 0, element centered
+	this.u = '#dragCanvas>div:nth-child('+this.i+')'+
+				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
+				'  left: calc(50% - '+(this.a.offsetWidth/2)+'px);' +
+				'  top: calc(50% - '+(this.a.offsetHeight/2)+'px);' +
+				'  z-index: '+this.z+';' +
+				'  display: block;}';
+
+	// mobile
+	document.styleSheets[7]
+		.insertRule(this.u, this.i);
+	// tablet
+	document.styleSheets[7].cssRules[this.i + 1]
+		.insertRule(this.u, this.i);
+	// desktop
+	document.styleSheets[7].cssRules[this.i + 2]
+		.insertRule(this.u, this.i);
+}
+
+//-----------------------------------------------
 // - for testing only
 r.prototype.getRules = function(){
 

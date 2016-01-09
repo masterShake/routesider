@@ -36,6 +36,7 @@ foreach($jumbo["imgs"] as $image){  ?>
     top: <?= $image["layout"]["mobile"]["y"]; ?>%;
     display: <?= ($image["layout"]["mobile"]["v"]) ? "block" : "none"; ?>;
     z-index: <?= $image["z"]; ?>;
+}
 
 <?php $i++; } ?>
 
