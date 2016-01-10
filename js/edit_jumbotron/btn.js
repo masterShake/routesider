@@ -58,7 +58,7 @@ BTN.prototype.newBtn = function(e){ e.preventDefault();
 		opacity : 1,
 		blur: 0,
 		z : rm.z,
-		border: '0px';
+		border: '0px',
 		round : 0,
 		padding: '5px 10px',
 		url : '',

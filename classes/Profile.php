@@ -185,20 +185,21 @@ class Profile{
 
 		// background by default
 		$temp = $results->getSingleNodeByLabel("Background");
-		$json["bg"]  = $temp->getProperties();
+		$json["bg"]  = [];
+		$json["bg"][]= $temp->getProperties();
 		// get the layouts
-		$json["bg"]["layout"] = [];
+		$json["bg"][0]["layout"] = [];
 		$temp = $temp->getOutboundRelationships();
 		foreach($temp as $t){
 			// mobile
 			if($t->getEndNode()->getLabel() == "Mobile")
-				$json["bg"]["layout"]["mobile"] = $t->getEndNode()->getProperties();
+				$json["bg"][0]["layout"]["mobile"] = $t->getEndNode()->getProperties();
 			// tablet
 			if($t->getEndNode()->getLabel() == "Tablet")
-				$json["bg"]["layout"]["tablet"] = $t->getEndNode()->getProperties();
+				$json["bg"][0]["layout"]["tablet"] = $t->getEndNode()->getProperties();
 			// desktop
 			if($t->getEndNode()->getLabel() == "Desktop")
-				$json["bg"]["layout"]["desktop"] = $t->getEndNode()->getProperties();
+				$json["bg"][0]["layout"]["desktop"] = $t->getEndNode()->getProperties();
 		}
 
 		// create new objects to hold the components

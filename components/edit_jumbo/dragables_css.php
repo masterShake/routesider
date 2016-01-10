@@ -8,10 +8,10 @@
 ?>
 /* rule 0 - bg image container */
 #cropCanvas>div{
-    transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["mobile"]["a"]; ?>deg) 
-               scale(<?= $jumbo["bg"]["layout"]["mobile"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["mobile"]["s"]; ?>);
-    left: <?= $jumbo["bg"]["layout"]["mobile"]["x"]; ?>%;
-    top: <?= $jumbo["bg"]["layout"]["mobile"]["y"]; ?>%;
+    transform: rotate3d(0,0,1,<?= $jumbo["bg"][0]["layout"]["mobile"]["a"]; ?>deg) 
+               scale(<?= $jumbo["bg"][0]["layout"]["mobile"]["s"]; ?>,<?= $jumbo["bg"][0]["layout"]["mobile"]["s"]; ?>);
+    left: <?= $jumbo["bg"][0]["layout"]["mobile"]["x"]; ?>%;
+    top: <?= $jumbo["bg"][0]["layout"]["mobile"]["y"]; ?>%;
 }
 
 <?php $i=1; foreach($jumbo["tbs"] as $textbox){  ?>
@@ -44,10 +44,10 @@ foreach($jumbo["imgs"] as $image){  ?>
 @media (min-width: 768px) {
 
     #cropCanvas>div{
-	    transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["tablet"]["a"]; ?>deg) 
-	               scale(<?= $jumbo["bg"]["layout"]["tablet"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["tablet"]["s"]; ?>);
-	    left: <?= $jumbo["bg"]["layout"]["tablet"]["x"]; ?>%;
-	    top: <?= $jumbo["bg"]["layout"]["tablet"]["y"]; ?>%;
+	    transform: rotate3d(0,0,1,<?= $jumbo["bg"][0]["layout"]["tablet"]["a"]; ?>deg) 
+	               scale(<?= $jumbo["bg"][0]["layout"]["tablet"]["s"]; ?>,<?= $jumbo["bg"][0]["layout"]["tablet"]["s"]; ?>);
+	    left: <?= $jumbo["bg"][0]["layout"]["tablet"]["x"]; ?>%;
+	    top: <?= $jumbo["bg"][0]["layout"]["tablet"]["y"]; ?>%;
     }
 
     <?php 
@@ -87,10 +87,10 @@ foreach($jumbo["imgs"] as $image){  ?>
 @media (min-width: 1200px) {
 
     #cropCanvas>div{
-    transform: rotate3d(0,0,1,<?= $jumbo["bg"]["layout"]["desktop"]["a"]; ?>deg) 
-               scale(<?= $jumbo["bg"]["layout"]["desktop"]["s"]; ?>,<?= $jumbo["bg"]["layout"]["desktop"]["s"]; ?>);
-    left: <?= $jumbo["bg"]["layout"]["desktop"]["x"]; ?>%;
-    top: <?= $jumbo["bg"]["layout"]["desktop"]["y"]; ?>%;
+    transform: rotate3d(0,0,1,<?= $jumbo["bg"][0]["layout"]["desktop"]["a"]; ?>deg) 
+               scale(<?= $jumbo["bg"][0]["layout"]["desktop"]["s"]; ?>,<?= $jumbo["bg"][0]["layout"]["desktop"]["s"]; ?>);
+    left: <?= $jumbo["bg"][0]["layout"]["desktop"]["x"]; ?>%;
+    top: <?= $jumbo["bg"][0]["layout"]["desktop"]["y"]; ?>%;
     }
 
     <?php $i=1; foreach($jumbo["tbs"] as $textbox){  ?>

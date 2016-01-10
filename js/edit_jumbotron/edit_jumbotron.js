@@ -101,11 +101,11 @@ Jumbo = function(){
 	// init background editor
 	bg = this.bg = new BG();
 	// init textbox editor
-	tbs = this.tbs = new TB();
+	// tbs = this.tbs = new TB();
 	// init image overlay editor
-	imgs = this.imgs = new IO();
+	// imgs = this.imgs = new IO();
 	// init button editor
-	btns = this.btns = new BTN();
+	// btns = this.btns = new BTN();
 }
 
 /* METHODS */
@@ -531,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	// init confirmation modal
 	modal = new cModal();
 	// init the component styler
-	cs = new CS();
+	cm = new CM();
     // create new Jumbo (edit jumbotron) object
     jApp = new Jumbo();
 

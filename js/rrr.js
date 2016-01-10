@@ -40,31 +40,7 @@ r.prototype.mt = function(e){ e.preventDefault();
   		rm.h[x].m = new mau5(rm.h[x].el);
 }
 
-//-----------------------------------------------
-// - set inline transform styles from all rr
-//   objects based on layout
-r.prototype.setStyles = function(){
 
-	// loop through each of the objects in the hashmap
-	for(var j = 0; j <= this.i; j++){
-
-		//get the correct stylesheet
-		if(jApp.layout == 'mobile')		 // mobile
-			jApp.temp = document.styleSheets[7].cssRules[j].style;
-		else if(jApp.layout == 'tablet') // tablet
-			jApp.temp = document.styleSheets[7].cssRules[this.i + 1].cssRules[j].style;
-		else 							 // desktop
-			jApp.temp = document.styleSheets[7].cssRules[this.i + 2].cssRules[j].style;
-
-		// loop through the specified styles
-		for(var k = 0; k < jApp.temp.length; k++)
-			// set them as inline styles on the element
-			this.h[j].el.style[jApp.temp[k]] = jApp.temp[jApp.temp[k]];
-
-		// set the transform object
-		this.h[j].extractMatrix();
-	}
-}
 
 //-----------------------------------------------
 // - create new css style rules

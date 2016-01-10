@@ -19,21 +19,15 @@ BG = function(){
 	// init background image editor
 	this.bgi = new BGI();
 	// init cropper
-	this.cropper = new CR();
+	// this.cropper = new CR();
 	// init background color editor
-	this.bgc = new BGC();
+	// this.bgc = new BGC();
 
-	// title block
-	this.tBlock = bgProps.children[1];
-	// canvases
-	this.canvas = bgCanvas.children;
-	// control panels (also use as temp variable)
-	this.cPanel = bgCpanels.children; 
-	// toolbar btns
-	this.tBtn = bgToolbar.children;
+	// active element (never changes, for consistency with other components)
+	this.a = cropCanvas.children[0];
 
-	// index of active control panel
-	this.prop = -1;
+	// temp variable
+	this.t = null;
 
 	/* initializations */
 
@@ -140,16 +134,16 @@ BG.prototype.resetProps = function(){
 	jApp.deltaVals();
 
 	// reset all the inputs
-	jApp.temp = bgCpanels.getElementsByTagName('input');
-	jApp.temp[0].value = 			// hex text bg color
-	jApp.temp[1].value = 
+	this.t = bgCpanels.getElementsByTagName('input');
+	this.t[0].value = 			// hex text bg color
+	this.t[1].value = 
 	bgCpanels.getElementsByTagName('button')[3]
 		.style.backgroundColor = 	// fill button
 	cropCanvas.style.backgroundColor = '#FFFFFF'; 
-	jApp.temp[2].value = 			// blur
-	jApp.temp[3].value = 0;
-	jApp.temp[4].value =			// opacity
-	jApp.temp[5].value = 1;
+	this.t[2].value = 			// blur
+	this.t[3].value = 0;
+	this.t[4].value =			// opacity
+	this.t[5].value = 1;
 
 	return true;
 }
@@ -336,15 +330,15 @@ BGI.prototype.uploadCB = function(){
 	if (this.readyState == 4) { // console.log(this.responseText);
 
 		// reset the background properties, avoid race conds.
-		jApp.temp = bg.resetProps();
+		bg.t = bg.resetProps();
 		bg.resetStyles();
 
 		// parse the json
-		jApp.temp = JSON.parse(this.responseText);
+		bg.t = JSON.parse(this.responseText);
 
 		// set the nVals.bg (new values) properties
-		jApp.nVals.bg["image"] = jApp.temp["image"];
-		jApp.nVals.bg["ratio"] = jApp.temp["ratio"];
+		jApp.nVals.bg["image"] = bg.t["image"];
+		jApp.nVals.bg["ratio"] = bg.t["ratio"];
 
 		// if there isn't already a background image
 		if(!document.getElementById('bgImg')){
@@ -369,7 +363,7 @@ BGI.prototype.uploadCB = function(){
 		}
 
 		// set the background image
-		bgImg.src = jApp.temp["image"];
+		bgImg.src = bg.t["image"];
 
 		// hide the spinner
 		// bgCanvas.children[2].style.display = 'none';
@@ -407,69 +401,6 @@ BGI.prototype.uploadCB = function(){
 
 
 
-
-
-//-----------------------------------------------
-//				   CR (cropper)				
-//			     ----------------
-//
-// - toggle draggable button circles
-//
-// - crop jumbotron background image
-//
-//-----------------------------------------------
-
-/* CONSTRUCTOR */
-
-CR = function(){
-
-	/* properties */
-
-	// keep track of the rr obj (reposition, resize, rotate)
-	this.r = new rr(cropCanvas.children[0]);
-	rm.h[0] = this.r;
-	rm.a = this.r;
-
-	/* initializations */
-
-	// toggle the image upload canvas event
-	bgToolbar.children[1].children[1].addEventListener("click", this.togCrop, false); // background image button
-	bgCpanels.children[1].children[0].children[0]
-		.addEventListener("click", this.hideCrop, false); // bgi control panel x
-	bgToolbar.children[1].children[0].addEventListener("click", this.hideCrop, false); // crop button
-	bgToolbar.children[1].children[2].addEventListener("click", this.hideCrop, false); // bg color button
-}
-
-/* METHODS */
-
-// -----------------------------------------------
-// - toggle bg image drag buttons
-CR.prototype.togCrop = function(){
-	// if there is no background image, do nothing
-	if(!document.getElementById('bgImg')) return;
-	// if the bgCanvas is hidden
-	if(cropCanvas.children[0].children[1].offsetParent === null){
-		// set the active rMap object
-		rm.a = rm.h[0];
-		rm.m = rm.a.m;
-		// show the bg image drag buttons
-		cropCanvas.children[0].children[1].style.display = "block";
-		// hide the draggables canvas 
-		dragCanvas.style.display = "none";
-	}else{
-		// hide the bg image drag buttons
-		cropCanvas.children[0].children[1].style.display = "none";
-		// show the draggables canvas
-		dragCanvas.style.display = "block";
-	}
-}
-
-//-----------------------------------------------
-// - hide the bg image drag buttons
-CR.prototype.hideCrop = function(){
-	// hide the bg image drag buttons
-	cropCanvas.children[0].children[1].style.display = "none";
-}
 
 
 
@@ -584,124 +515,6 @@ BGC = function(){
 	this.temp = "#FFFFFF";
 }
 
-/* METHODS */
-
-//-----------------------------------------------
-// - algorithm to determine if a hex value is 
-//   light or dark.
-// - @rgbObj -> object with r, g, & b values as
-//   returned by hext to rgb function
-// - returns a value between 0 and 1
-// - #000 would return a value of 0
-// - #FFF would return a value of 1
-// - all other colors would be somewhere
-//   inbetween
-// - values below .6 should be overlaid with
-//   white text
-// - values above .6, overlaid with black
-BGC.prototype.hexBright = function( rgbObj ){
-	// calculate & return weighted average
-	return (( rgbObj.r*0.299 + rgbObj.g*0.587 + rgbObj.b*0.114 ) / 256 > 0.6);
-}
-//-----------------------------------------------
-// - algorithm to convert hex to rgb
-// - @hex -> hexidecimal as string
-// - returns object with r, g, & b values
-BGC.prototype.hexToRgb = function(hex) {
-	// convert to array of hex vals
-	this.tempHex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-	// return the results as an object
-    return this.tempHex ? {
-        r: parseInt(this.tempHex[1], 16),
-        g: parseInt(this.tempHex[2], 16),
-        b: parseInt(this.tempHex[3], 16)
-    } : null;
-}
-
-//-----------------------------------------------
-// - keyup event change background color hex text
-// - make sure that first character is always a
-//   hashtag
-// - if legit hex value, display color
-BGC.prototype.hexText = function(){
-	
-	// if the first character is not a #
-	if(this.value.charAt(0) != "#")
-		// put the hashtag in front of the text
-		this.value = "#" + this.value;
-
-	// remove any input that is not 0-9, A-F
-	this.value = "#" + this.value.substr(1,6).replace(/[^0-9a-f]+/gi, '');
-
-	// if the input is now the proper length & format
-	if(this.value.length == 7){
-		// set the background color
-		bg.bgc.temp = this.value;
-		bg.bgc.setColor();
-	}
-}
-
-//-----------------------------------------------
-// - blur event for hex input
-// - set value to previous compliant hex value
-BGC.prototype.hexBlur = function(){
-	this.value = bg.bgc.temp;
-}
-
-//-----------------------------------------------
-// - html5 color picker change event
-BGC.prototype.colorPick = function(){
-	bg.bgc.temp = this.value.toUpperCase();
-	bg.bgc.setColor();
-}
-
-//-----------------------------------------------
-// - user clicks one of the color wheel colors
-// - set text
-// - set color icon
-// - set html5 color picker
-// - set background
-BGC.prototype.wheelBtn = function(){
-	
-	bg.bgc.temp = this.dataset.hex;
-
-	bg.bgc.setColor();
-
-}
-
-//-----------------------------------------------
-// - master bg color setter method
-// - hex --> hexidecimal color
-// - set text
-// - set color icon
-// - set html5 color picker
-// - set background
-BGC.prototype.setColor = function(){
-
-	// set preview background color
-	cropCanvas.style.backgroundColor = 
-
-	// set the preview icon background
-	this.icon.style.backgroundColor = 
-
-	// set the text
-	this.texti.value = 
-
-	// set the color picker
-	this.picki.value = 
-
-	// & update the new values object
-	jApp.nVals.bg.color = this.temp;
-
-	// set the preview icon color
-	this.icon.style.color = 
-		this.hexBright(this.hexToRgb(this.temp)) ?
-			"#444" : "#FFF";
-
-	// notify root node that values have changed
-	jApp.deltaVals();
-}
-
 //-----------------------------------------------
 // - display the proper elements
 BGC.prototype.resetCanvas = function(){
@@ -712,117 +525,6 @@ BGC.prototype.resetCanvas = function(){
 	// show the draggable elements' canvas
 	dragCanvas.style.display = "block";
 }
-
-//-----------------------------------------------
-// - when user slides opacity slider
-BGC.prototype.oSlide = function(){
-
-	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// change the opacity of the background img
-	bgImg.style.opacity = 
-
-	// update values
-	jApp.nVals.bg["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - when user slides blur slider
-BGC.prototype.bSlide = function(){
-
-	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// update values
-	jApp.nVals.bg["blur"] = parseInt(this.value);
-
-	// change the blur of the background img
-	bgImg.style.filter = 
-	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
-
-}
-
-//-----------------------------------------------
-// - keyup opacity text input
-BGC.prototype.oText = function(){ 
-
-	// if there is no input, return 
-	if( !this.value) return;
-
-	// if the value is not 1
-	if(this.value !== "1"){
-
-		// strip non numeric characters from the last 2 digits
-		this.value = this.value.replace(/[^\d.]/g, '');
-
-		// if the value of the first character is not 0
-		if( this.value.charAt(0) != "0" )
-
-			// pop a 0 in there
-			this.value = "0" + this.value;
-
-		// if the value of the second character is not "."
-		if( this.value.length > 1 && this.value.charAt(1) != "." )
-
-			// pop the decimal in there
-			this.value = "0." + this.value.substring(1, 3);
-	}
-
-	// update slider input
-	this.parentElement.children[2].value = 
-
-	// change the opacity of the background
-	bgImg.style.opacity = 
-
-	// update values
-	jApp.nVals.bg["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - keyup blur text input
-// - must be an integer between 0 and 10
-BGC.prototype.bText = function(){
-
-	// if there is no input, return 
-	if( !this.value) return;
-
-	// replace all non-numeric characters
-	this.value = this.value.replace('/[^\d]/g', '');
-
-	// if the value is greater than 10
-	if(parseInt(this.value) > 10)
-		// remove the last number
-		this.value = this.value.substr(0,1);
-
-	// update the slider input
-	this.parentElement.children[2].value = 
-
-	// update the nVals.bg
-	jApp.nVals.bg["blur"] = parseInt(this.value);
-
-	// set the blur
-	bgImg.style.filter = 
-	bgImg.style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-
-
-
-
-
 
 
 

@@ -160,16 +160,16 @@
                     <div>
 
                         <!-- background image & crop layer -->
-                        <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["bg"]["color"]; ?>;'>
-                            <div data-r="0">
+                        <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["bg"][0]["color"]; ?>;'>
+                            <div data-r="0" data-key="0">
                                 <!-- placeholder div, not used for bg image -->
                                 <div style="display:none;"></div>
                                 <!-- dragable crop buttons -->
                                 <?php include "components/edit_jumbo/drag_btns.php"; ?>
                                 <!-- background image -->
-                                <?php if($jumbo["bg"]["image"]){ ?>
+                                <?php if($jumbo["bg"][0]["image"]){ ?>
 
-                                    <img src='img/business/<?= $jumbo["bg"]["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["bg"]["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["bg"]["blur"]; ?>px);filter: blur(<?= $jumbo["bg"]["blur"]; ?>px);' />
+                                    <img src='img/business/<?= $jumbo["bg"][0]["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["bg"][0]["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["bg"][0]["blur"]; ?>px);filter: blur(<?= $jumbo["bg"][0]["blur"]; ?>px);' />
 
                                 <?php }else{ ?>
 
@@ -185,7 +185,7 @@
                         <div class="j-canvas" id="bgCanvas">
 
                             <!-- upload image the old fashioned way -->
-                            <div class="upload-oldfash" <?= ($jumbo["bg"]["image"]) ? "style='opacity:0.7'" : ""; ?>>
+                            <div class="upload-oldfash" <?= ($jumbo["bg"][0]["image"]) ? "style='opacity:0.7'" : ""; ?>>
                                 <label>Files to upload:</label>
                                 <input type="file" 
                                        name="fileselect[]" 

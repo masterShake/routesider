@@ -98,14 +98,14 @@
                                         <td>
                                             <button type="button" 
                                                     class="btn" 
-                                                    style='background-color: <?= $jumbo["bg"]["color"]; ?>; color: #444;'
+                                                    style='background-color: <?= $jumbo["bg"][0]["color"]; ?>; color: #444;'
                                                     aria-label="edit jumbotron background color, use color wheel to select colors">
                                                 <span class="glyphicon glyphicon-tint"></span>
                                             </button>
                                         </td>
                                         <td>
                                             <input type="text" 
-                                                   value='<?= $jumbo["bg"]["color"]; ?>' 
+                                                   value='<?= $jumbo["bg"][0]["color"]; ?>' 
                                                    class="form-control" 
                                                    maxlength="7"
                                                    style="text-transform:uppercase" 
@@ -119,7 +119,7 @@
                             <div style="text-align:center;margin-top:14px;">
                                 <label>more colors:</label>
                                 <input type="color" 
-                                       value='<?= $jumbo["bg"]["color"]; ?>'
+                                       value='<?= $jumbo["bg"][0]["color"]; ?>'
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
@@ -168,23 +168,23 @@
 
                     <div class="col-sm-6">
                         <!-- background image blur -->
-                        <div class="half-slider" style="padding-left:10px;float:right;">
+                        <form class="half-slider blur-form" style="padding-left:10px;float:right;">
                             <label>
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 blur
                             </label>
-                            <input type="text" class="form-control" maxlength="2" value='<?= ($jumbo["bg"]["blur"]) ?>'>
-                            <input type="range" class="range-slider" min="0" max="10" step="1" value='<?= ($jumbo["bg"]["blur"]) ?>'>
-                        </div>
+                            <input type="text" class="form-control" maxlength="2" value='<?= ($jumbo["bg"][0]["blur"]) ?>'>
+                            <input type="range" class="range-slider" min="0" max="10" step="1" value='<?= ($jumbo["bg"][0]["blur"]) ?>'>
+                        </form>
                         <!-- background image opacity -->
-                        <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                        <form class="half-slider opacity-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
                             <label>
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" maxlength="4" value='<?= ($jumbo["bg"]["opacity"]) ?>'>
-                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="<?= ($jumbo["bg"]["opacity"]) ?>">
-                        </div>
+                            <input type="text" class="form-control" data-elem="child" maxlength="4" value='<?= ($jumbo["bg"][0]["opacity"]) ?>'>
+                            <input type="range" class="range-slider" data-elem="child" min="0" max="1" step="0.01" value="<?= ($jumbo["bg"][0]["opacity"]) ?>">
+                        </forms>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
@@ -209,7 +209,7 @@
                 <span class="icon-upload"></span>
             </button><!-- /edit background image -->
             <!-- crop background image -->
-            <button type="button" class='btn btn-default<?= ($jumbo["bg"]["image"]) ? "" : " inactive"; ?>' data-panel="1" aria-label="crop image">
+            <button type="button" class='btn btn-default<?= ($jumbo["bg"][0]["image"]) ? "" : " inactive"; ?>' data-panel="1" aria-label="crop image">
                 <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
             <!-- edit background color -->
