@@ -193,7 +193,7 @@
 ----------------------*/
 
 /* bg image container */
-#cropCanvas>div{
+#bgElem{
 	position: absolute;
 	width: 100%;
 }

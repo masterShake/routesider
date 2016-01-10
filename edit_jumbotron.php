@@ -160,8 +160,8 @@
                     <div>
 
                         <!-- background image & crop layer -->
-                        <div class="j-canvas" id="cropCanvas" style='background-color:<?= $jumbo["bg"][0]["color"]; ?>;'>
-                            <div data-r="0" data-key="0">
+                        <div class="j-canvas" style='background-color:<?= $jumbo["bg"][0]["color"]; ?>;'>
+                            <div id="bgElem" data-r="0" data-key="0">
                                 <!-- placeholder div, not used for bg image -->
                                 <div style="display:none;"></div>
                                 <!-- dragable crop buttons -->

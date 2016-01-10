@@ -96,7 +96,7 @@ r.prototype.move2front = function(){ console.log(document.styleSheets[7].cssRule
 	rm.z++;
 
 	// set the nVals property
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].z = 
+	jApp.nVals[as][jApp[as].a.dataset.key].z = 
 
 	// set the active textbox z index
 	rm.a.el.style.zIndex = 
@@ -314,19 +314,12 @@ rr.prototype.panEnd = function(e){
 	// set the new starting position
 	rm.a.x = rm.a.x + e.deltaX;
 	rm.a.y = rm.a.y + e.deltaY;
-
-	// set the nVals
-	if(jApp.a == 'bg'){ // background
-		jApp.nVals['bg'].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
-	 	jApp.nVals['bg'].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
-	 	jApp.nVals['bg'].layout[jApp.layout].s = rm.a.t.s;
-	 	jApp.nVals['bg'].layout[jApp.layout].a = rm.a.t.a;
-	}else{ // all other components
-	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
-	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
-	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].s = rm.a.t.s;
-	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].a = rm.a.t.a;
-	}
+ 	
+ 	// set the positioning and layout
+ 	jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+ 	jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+ 	jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].s = rm.a.t.s;
+ 	jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].a = rm.a.t.a;
 
 	// set the css stylesheet
 	rm.a.setStyleSheet();
@@ -366,7 +359,7 @@ rr.prototype.q = function(e){
 rr.prototype.setStyleSheet = function(){
 	
 	// if mobile
-	if(jApp.layout == 'mobile'){
+	if(layout.a == 'mobile'){
 		document.styleSheets[7].cssRules[this.el.dataset.r].style.transform = 
 			// 'translate(' + this.t.x + 'px, ' + this.t.y + 'px) ' +
 		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
@@ -376,7 +369,7 @@ rr.prototype.setStyleSheet = function(){
 	}
 
 	// if tablet
-	else if(jApp.layout == 'tablet'){
+	else if(layout.a == 'tablet'){
 		document.styleSheets[7].cssRules[rm.i + 1].cssRules[this.el.dataset.r].style.transform =
 		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
 	 		'rotate3d(0,0,1,'+  this.t.a + 'deg)';
@@ -385,7 +378,7 @@ rr.prototype.setStyleSheet = function(){
 	}
 
 	// if desktop
-	else if(jApp.layout == 'desktop'){
+	else if(layout.a == 'desktop'){
 		document.styleSheets[7].cssRules[rm.i + 2].cssRules[this.el.dataset.r].style.transform = 
 			// 'translate(' + this.t.x + 'px, ' + this.t.y + 'px) ' +
 		    'scale(' + this.t.s + ', ' + this.t.s + ') ' +
@@ -550,14 +543,14 @@ mau5.prototype.re = function(e){
 	rm.a.y = rm.a.t.y;
 
 	// apply the new values
-	if(jApp.a == 'bg'){
-		jApp.nVals.bg.layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
-	 	jApp.nVals.bg.layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
-		jApp.nVals.bg.layout[jApp.layout].s = rm.a.t.s;
+	if(as == 'bg'){
+		jApp.nVals.bg.layout[layout.a].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+	 	jApp.nVals.bg.layout[layout.a].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+		jApp.nVals.bg.layout[layout.a].s = rm.a.t.s;
 	}else{
-		jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
-	 	jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
-		jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].s = rm.a.t.s;
+		jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].x = (rm.a.t.x/rm.a.el.parentElement.offsetWidth)*100;
+	 	jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].y = (rm.a.t.y/rm.a.el.parentElement.offsetHeight)*100;
+		jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].s = rm.a.t.s;
 	}
 
 	// update the stylesheet
@@ -625,10 +618,10 @@ mau5.prototype.rmu = function(e){
 	document.removeEventListener('mouseup', rm.m.rmu, false);
 
 	// set the new angle 
-	if(jApp.a == 'bg')
-		jApp.nVals.bg.layout[jApp.layout].a = rm.a.t.a;
+	if(as == 'bg')
+		jApp.nVals.bg.layout[layout.a].a = rm.a.t.a;
 	else
-		jApp.nVals[jApp.a][rm.a.el.dataset.key].layout[jApp.layout].a = rm.a.t.a;
+		jApp.nVals[as][rm.a.el.dataset.key].layout[layout.a].a = rm.a.t.a;
 	// update the stylesheet
 	rm.a.setStyleSheet();
 

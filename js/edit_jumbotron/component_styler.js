@@ -15,13 +15,13 @@ var CM = function(){
 	this.a = -1;
 
 	// init component stylers
-	this.cs = new CS();
+	cs = this.cs = new CS();
 
 	// init the text stylers
 	// this.ts = [ new TS('tbs'), new TS('btns') ];
 
 	// init text color objects
-	// this.tc = [ new TC('tbs'), new TC('btns') ];
+	tc = this.tc = new TC();
 
 	// keep track of selection and range
 	this.sel = null;
@@ -35,7 +35,7 @@ CM.prototype.setEnd = function(){
 	// if there is a selection or box is already in focus
 	if(this.sel.toString()) return;
     this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
-    this.range.selectNodeContents(jApp[jApp.a].a.children[2]);//Select the entire contents of the element with the this.range
+    this.range.selectNodeContents(jApp[as].a.children[2]);//Select the entire contents of the element with the this.range
     this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
     this.sel.removeAllRanges();//remove any selections already made
     this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
@@ -113,7 +113,7 @@ TS.prototype.qCom = function(e){
 	// activate the proper wysiwig btns
 	cm.ts[cm.a].qch();
 	// set the html property
-	jApp.nVals[jApp.a][this.parentElement.dataset.key].html = this.innerHTML;
+	jApp.nVals[as][this.parentElement.dataset.key].html = this.innerHTML;
 	// prompt save
 	jApp.deltaVals();
 }
@@ -143,7 +143,7 @@ TS.prototype.keyFS = function(e){
 
 	// focus on the textbox
 	this.blur();
-	jApp[jApp.a].a.children[2].focus();
+	jApp[as].a.children[2].focus();
 	cm.setEnd();
 
 	// set the font size
@@ -160,7 +160,7 @@ TS.prototype.clickFS = function(e){ e.preventDefault();
 	this.parentElement.parentElement.style.display = 'none';
 	// focus on the textbox
 	this.blur();
-	jApp[jApp.a].a.children[2].focus();
+	jApp[as].a.children[2].focus();
 	cm.setEnd();
 	// set the font size
 	document.execCommand('fontSize', false, this.dataset.fs);
@@ -179,25 +179,29 @@ TS.prototype.clickFS = function(e){ e.preventDefault();
 //-----------------------------------------------
 var TC = function(){
 
-	// temp variable
-	this.t = null;
-
 	// loop through all the hex inputs
-
+	this.t = document.querySelectorAll('input.colorize[type="text"]');
+	for(var i = 0; i < this.t.length; i++)
 		// keyup event
+		this.t[i].addEventListener('keyup', this.hexText, false);
 
 	// loop through all the color pickers
-
-		// change event
+	this.t = document.querySelectorAll('input.colorize[type="color"]');
+	for(var i = 0; i < this.t.length; i++)
+		// keyup event
+		this.t[i].addEventListener('change', this.colorPick, false);
 
 	// loop through all the color wheel buttons
-
+	this.t = document.querySelectorAll('[data-hex]');
+	for(var i = 0; i < this.t.length; i++)
 		// click event
+		this.t[i].addEventListener('click', this.wheelBtn, false);
 
 	// loop through all the transparency checkboxes
-
+	this.t = document.querySelectorAll('input.colorize[type="checkbox"]');
+	for(var i = 0; i < this.t.length; i++)
 		// change event
-
+		this.t[i].addEventListener('change', this.trans, false);
 }
 
 //-----------------------------------------------
@@ -244,6 +248,87 @@ TC.prototype.compToHex = function(c) {
 }
 
 //-----------------------------------------------
+// - keyup event change background color hex text
+// - make sure that first character is always a
+//   hashtag
+// - if legit hex value, display color
+TC.prototype.hexText = function(){
+	
+	// if the first character is not a #
+	if(this.value.charAt(0) != "#")
+		// put the hashtag in front of the text
+		this.value = "#" + this.value;
+
+	// remove any input that is not 0-9, A-F
+	this.value = "#" + this.value.substr(1,6).replace(/[^0-9a-f]+/gi, '');
+
+	// if the input is now the proper length & format
+	if(this.value.length == 7){
+
+		// set the color elements
+		tc.setElems(this.value, this.dataset.i);
+
+		// set the property
+		tc[this.dataset.func](this.value, this.dataset.i);
+	}
+}
+
+//-----------------------------------------------
+// - HTML5 color pick change event
+TC.prototype.colorPick = function(){
+
+	// set the color elements
+	tc.setElems(this.value, this.dataset.i);
+
+	// set the property
+	tc[this.dataset.func](this.value, this.dataset.i);
+}
+
+//-----------------------------------------------
+// - user clicks one of the color wheel colors
+// - set text
+// - set color icon
+// - set html5 color picker
+// - set background
+TC.prototype.wheelBtn = function(){
+
+	tc.setElems(this.dataset.hex, this.parentElement.parentElement.dataset.i);
+
+	// set the property
+	tc[this.parentElement.parentElement.dataset.func](this.dataset.hex, this.parentElement.parentElement.dataset.i);
+}
+
+//-----------------------------------------------
+// - transparent checkbox change event 
+// - change the opacity
+// - set execCommand or background color
+// - keep track of previous color, possibly reset
+TC.prototype.trans = function(){
+	
+	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
+
+}
+
+//-----------------------------------------------
+// - set color elements of control panel
+// - i => index of elements in array
+TC.prototype.setElems = function(hex, i){
+
+	// set the text input
+	jApp[as].c.texti[i].value = 
+
+	// set the color picker input
+	jApp[as].c.picki[i].value = 
+
+	// set the icon background color
+	jApp[as].c.icon[i].style.backgroundColor = hex;
+
+	// set the icon color
+	jApp[as].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) );
+
+}
+
+//-----------------------------------------------
 // - keyup set control panel color
 TC.prototype.qCol = function(){
 	// foreColor
@@ -267,32 +352,31 @@ TC.prototype.qCol = function(){
 }
 
 //-----------------------------------------------
-// - transparent checkbox change event 
-// - change the opacity
-// - set execCommand or background color
-// - keep track of previous color, possibly reset
-TC.prototype.trans = function(){
-	// set the color
-	tbs.c.setColor(
-		this.dataset.i, 
-		(this.dataset.i == 1) ? 'backColor' : false,
-		(this.checked) ? 'transparent' : '#FFFFFF'
-	);
+// - set foreColor of content editable
+TC.prototype.foreColor = function(){}
+
+//-----------------------------------------------
+// - set backColor of content editable
+TC.prototype.backColor = function(){}
+
+//-----------------------------------------------
+// - set background color of active element
+TC.prototype.bg = function(hex, i){
+
+	// set preview background color
+	bgElem.parentElement.style.backgroundColor = 
+
+	// & update the new values object
+	jApp.nVals.bg[0].color = hex;
+
+	// notify root node that values have changed
+	jApp.deltaVals();
 }
 
 //-----------------------------------------------
-// - user clicks one of the color wheel colors
-// - set text
-// - set color icon
-// - set html5 color picker
-// - set background
-TC.prototype.wheelBtn = function(){
+// - set border color of active element
+TC.prototype.borderColor = function(){}
 
-	tbs.c.setColor( this.parentElement.parentElement.dataset.i,
-						   this.parentElement.parentElement.dataset.com, 
-						   this.dataset.hex
-						 );
-}
 
 //-----------------------------------------------
 // - master bg color setter method
@@ -370,38 +454,6 @@ TC.prototype.sch = function(i, v){
 	document.execCommand('styleWithCSS', false, false);
 }
 
-//-----------------------------------------------
-// - set background color for bg & btns
-// - set text
-// - set color icon
-// - set html5 color picker
-// - set background
-TC.prototype.bgColor = function(){
-
-	// set preview background color
-	cropCanvas.style.backgroundColor = 
-
-	// set the preview icon background
-	this.icon.style.backgroundColor = 
-
-	// set the text
-	this.texti.value = 
-
-	// set the color picker
-	this.picki.value = 
-
-	// & update the new values object
-	jApp.nVals.bg.color = this.temp;
-
-	// set the preview icon color
-	this.icon.style.color = 
-		this.hexBright(this.hexToRgb(this.temp)) ?
-			"#444" : "#FFF";
-
-	// notify root node that values have changed
-	jApp.deltaVals();
-}
-
 
 //-----------------------------------------------
 //			   CS (component styler)
@@ -448,8 +500,25 @@ var CS = function(c){
 		this.t[i].children[2].addEventListener('change', this.bSlide, false);
 	}
 
-	// loop through all the properties toolbar buttons
+	// loop through all the properties toolbars
+	this.t = document.getElementsByClassName('opts-toolbar');
+	for(var i = 0; i < this.t.length; i++){
 
+		// get the buttons
+		this.u = this.t[i].children;
+
+		// loop through the buttons
+		for(var j = 0; j < this.u.length; j++){ 
+
+			// if this is the toggle button
+			if(this.u[j].children[0].className == 'glyphicon glyphicon-move')
+				// toggle rrr event
+				this.u[j].addEventListener('click', this.rrr, false);
+			else
+				// hide the rrr element event
+				this.u[j].addEventListener('click', this.rOff, false);
+		}
+	}
 		// add togRRR event to rrrBtn
 
 		// add rrrOff event to all other buttons
@@ -479,14 +548,6 @@ var CS = function(c){
 	// this.t.addEventListener('keyup', this.rUp, false);
 	// this.t.addEventListener('keydown', this.rDo, false);
 
-	// // image overlay style events
-	// this.t = imgsCpanels.children[0].getElementsByTagName('input');
-	// // blur
-	// this.t[3].addEventListener('keyup', this.bText, false);
-	// this.t[4].addEventListener('change', this.bSlide, false);
-	// // opacity
-	// this.t[5].addEventListener('keyup', this.oText, false);
-	// this.t[6].addEventListener('change', this.oSlide, false);
 
 	// // roundness
 	// this.t = imgsCpanels.children[1].children[1].children[1].children[0];
@@ -509,17 +570,17 @@ CS.prototype.oSlide = function(){
 
 	if(this.dataset.elem == 'parent')
 		// change the opacity of the active textbox
-		jApp[jApp.a].a.style.opacity = parseFloat(this.value);
+		jApp[as].a.style.opacity = parseFloat(this.value);
 
 	else
 		// change the opacity of the active textbox
-		jApp[jApp.a].a.children[2].style.opacity = parseFloat(this.value);
+		jApp[as].a.children[2].style.opacity = parseFloat(this.value);
 
 	// set the value of the text input
 	this.parentElement.children[1].value = 
 
 	// update values
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["opacity"] = parseFloat(this.value);
+	jApp.nVals[as][jApp[as].a.dataset.key]["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -533,11 +594,11 @@ CS.prototype.bSlide = function(){
 	this.parentElement.children[1].value = 
 
 	// update values
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["blur"] = parseInt(this.value);
+	jApp.nVals[as][jApp[as].a.dataset.key]["blur"] = parseInt(this.value);
 
 	// change the blur of the background img
-	jApp[jApp.a].a.children[2].style.filter = 
-	jApp[jApp.a].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp[as].a.children[2].style.filter = 
+	jApp[as].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
@@ -572,17 +633,17 @@ CS.prototype.oText = function(){
 	// determine if change affects parent or child 2
 	if(this.dataset.elem == 'parent')
 		// change the opacity of the background
-		jApp[jApp.a].a.style.opacity = parseFloat(this.value); 
+		jApp[as].a.style.opacity = parseFloat(this.value); 
 
 	else
 		// change the opacity of the background
-		jApp[jApp.a].a.children[2].style.opacity = parseFloat(this.value); 
+		jApp[as].a.children[2].style.opacity = parseFloat(this.value); 
 
 	// update slider input
 	this.parentElement.children[2].value = 
 
 	// update values
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["opacity"] = parseFloat(this.value);
+	jApp.nVals[as][jApp[as].a.dataset.key]["opacity"] = parseFloat(this.value);
 
 	// prompt save
 	jApp.deltaVals();
@@ -608,14 +669,41 @@ CS.prototype.bText = function(){
 	this.parentElement.children[2].value = 
 
 	// update the nVals
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key]["blur"] = parseInt(this.value);
+	jApp.nVals[as][jApp[as].a.dataset.key]["blur"] = parseInt(this.value);
 
 	// set the blur
-	jApp[jApp.a].a.children[2].style.filter = 
-	jApp[jApp.a].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp[as].a.children[2].style.filter = 
+	jApp[as].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - toggle resize, reposition, rotate btns
+CS.prototype.rrr = function(){
+	// if the btns are not showing
+	if(this.className == 'btn btn-default'){
+		// show the .drag-btns
+		jApp[as].a.children[1].style.display = 'block';
+		// add the active class
+		this.className = 'btn btn-default active';
+		// set the r map active objects
+		rm.a = rm.h[jApp[as].a.dataset.r];
+		rm.m = rm.a.m;
+	}else{
+		jApp[as].a.children[1].style.display = 'none';
+		this.className = 'btn btn-default';
+	}
+}
+
+//-----------------------------------------------
+// - hide rrr when user clicks something else
+CS.prototype.rOff = function(){
+	// hide the rrr element
+	jApp[as].a.children[1].style.display = 'none';
+	// button default
+	jApp[as].rBtn.className = 'btn btn-default';
 }
 
 //-----------------------------------------------
@@ -624,18 +712,18 @@ CS.prototype.bText = function(){
 CS.prototype.vis = function(){
 
 	// set the nVals
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
+	jApp.nVals[as][jApp[as].a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
 
 	// if all three are unchecked
-	if(!jApp.cs[jApp.a + 'B'][0].checked
-	&& !jApp.cs[jApp.a + 'B'][1].checked
-	&& !jApp.cs[jApp.a + 'B'][2].checked){
+	if(!jApp.cs[as + 'B'][0].checked
+	&& !jApp.cs[as + 'B'][1].checked
+	&& !jApp.cs[as + 'B'][2].checked){
 
 		// recheck 
 		this.checked = true;
 
 		// prompt delete modal
-		jApp[jApp.a].confirmDel(); return;
+		jApp[as].confirmDel(); return;
 	}
 
 	// temp variable, more efficient
@@ -643,28 +731,28 @@ CS.prototype.vis = function(){
 
 	// set the style sheet
 	if(this.value == 'mobile') 		// mobile
-		document.styleSheets[7].cssRules[jApp[jApp.a].a.dataset.r]
+		document.styleSheets[7].cssRules[jApp[as].a.dataset.r]
 			.style.display = jApp.t;
 	else if(this.value == 'tablet') // tablet
-		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp[jApp.a].a.dataset.r]
+		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp[as].a.dataset.r]
 			.style.display = jApp.t;
 	else 							// desktop
-		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp[jApp.a].a.dataset.r]
+		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp[as].a.dataset.r]
 			.style.display = jApp.t;
 
 	// checkbox cooresponds to current layout
 	if(this.value == layout.a)
 		// add an inline style
-		jApp[jApp.a].a.style.display = jApp.t;
+		jApp[as].a.style.display = jApp.t;
 }
 
 //-----------------------------------------------
 // - set checkboxes of cPanel when user activates
 //   an dragable object
 CS.prototype.setVis = function(){
-	this[jApp.a + 'B'][0].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.mobile.v);
-	this[jApp.a + 'B'][1].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.tablet.v);
-	this[jApp.a + 'B'][2].checked = (jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].layout.desktop.v);
+	this[as + 'B'][0].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.mobile.v);
+	this[as + 'B'][1].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.tablet.v);
+	this[as + 'B'][2].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.desktop.v);
 }
 
 //-----------------------------------------------
@@ -689,10 +777,10 @@ CS.prototype.rUp = function(){
 		.style.borderRadius = 
 
 	// set the roundness of the active dragable
-	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
 
 	// set the nVals
-	jApp.nVals[jApp.a][jApp[jApp.a].a.dataset.key].round = parseInt(this.value);
+	jApp.nVals[as][jApp[as].a.dataset.key].round = parseInt(this.value);
 	jApp.deltaVals();
 }
 
@@ -724,34 +812,7 @@ CS.prototype.rDo = function(e){
 		.style.borderRadius = 
 
 	// set the roundness of the active dragable
-	jApp[jApp.a].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
-}
-
-//-----------------------------------------------
-// - toggle resize, reposition, rotate btns
-CS.prototype.togRRR = function(){
-	// if the btns are not showing
-	if(this.className == 'btn btn-default'){
-		// show the .drag-btns
-		jApp[jApp.a].a.children[1].style.display = 'block';
-		// add the active class
-		this.className = 'btn btn-default active';
-		// set the r map active objects
-		rm.a = rm.h[tbs.a.dataset.r];
-		rm.m = rm.a.m;
-	}else{
-		tbs.a.children[1].style.display = 'none';
-		this.className = 'btn btn-default';
-	}
-}
-
-//-----------------------------------------------
-// - hide rrr when user clicks something else
-CS.prototype.rrrOff = function(){
-	// hide the rrr element
-	jApp[jApp.a].a.children[1].style.display = 'none';
-	// button default
-	tbs.te.rrrBtn.className = 'btn btn-default';
+	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
 }
 
 

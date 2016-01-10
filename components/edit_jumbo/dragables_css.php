@@ -7,7 +7,7 @@
 -----------------------------------------------*/
 ?>
 /* rule 0 - bg image container */
-#cropCanvas>div{
+#bgElem{
     transform: rotate3d(0,0,1,<?= $jumbo["bg"][0]["layout"]["mobile"]["a"]; ?>deg) 
                scale(<?= $jumbo["bg"][0]["layout"]["mobile"]["s"]; ?>,<?= $jumbo["bg"][0]["layout"]["mobile"]["s"]; ?>);
     left: <?= $jumbo["bg"][0]["layout"]["mobile"]["x"]; ?>%;
@@ -43,7 +43,7 @@ foreach($jumbo["imgs"] as $image){  ?>
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 
-    #cropCanvas>div{
+    #bgElem{
 	    transform: rotate3d(0,0,1,<?= $jumbo["bg"][0]["layout"]["tablet"]["a"]; ?>deg) 
 	               scale(<?= $jumbo["bg"][0]["layout"]["tablet"]["s"]; ?>,<?= $jumbo["bg"][0]["layout"]["tablet"]["s"]; ?>);
 	    left: <?= $jumbo["bg"][0]["layout"]["tablet"]["x"]; ?>%;
@@ -86,7 +86,7 @@ foreach($jumbo["imgs"] as $image){  ?>
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
-    #cropCanvas>div{
+    #bgElem{
     transform: rotate3d(0,0,1,<?= $jumbo["bg"][0]["layout"]["desktop"]["a"]; ?>deg) 
                scale(<?= $jumbo["bg"][0]["layout"]["desktop"]["s"]; ?>,<?= $jumbo["bg"][0]["layout"]["desktop"]["s"]; ?>);
     left: <?= $jumbo["bg"][0]["layout"]["desktop"]["x"]; ?>%;

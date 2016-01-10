@@ -33,16 +33,16 @@ if(Input::exists()){
             }
         }
         // rounding function for bg only
-        function roundBg($component){
-            // loop through each of the layouts
-            foreach($component->layout as $device => $cssRules){
-                // loop through each of the values
-                foreach($cssRules as $rule => $val){
-                    // round the value to the nearest hundredth
-                    $component->layout->{$device}->{$rule} = round($val, 2);
-                }
-            }
-        }
+        // function roundBg($component){
+        //     // loop through each of the layouts
+        //     foreach($component->layout as $device => $cssRules){
+        //         // loop through each of the values
+        //         foreach($cssRules as $rule => $val){
+        //             // round the value to the nearest hundredth
+        //             $component->layout->{$device}->{$rule} = round($val, 2);
+        //         }
+        //     }
+        // }
 
         //-----------------------------------------------
         // - move image from /uploads/ to /imgs/business/ 
@@ -62,12 +62,13 @@ if(Input::exists()){
         // decode the json
         $jumbo = json_decode($_POST["json"]); // print_r($jumbo); exit();
 
-        // if the image is not a number, add single quotes
-        if($jumbo->bg->image)
-            $jumbo->bg->image = "'".$jumbo->bg->image."'";
-
         // move the background image if necessary
-        $jumbo->bg->image = moveImg($jumbo->bg->image);
+
+        // if the image is not a number, add single quotes
+        if($jumbo->bg[0]->image){
+            $jumbo->bg[0]->image = moveImg($jumbo->bg[0]->image);
+            $jumbo->bg[0]->image = "'".$jumbo->bg[0]->image."'";
+        }
 
         // move the image overlays to permanent folder if necessary
         foreach ($jumbo->imgs as $key => $image)
@@ -75,7 +76,7 @@ if(Input::exists()){
         
 
         // round out the layout values
-        roundBg($jumbo->bg);
+        roundIt($jumbo->bg);
         roundIt($jumbo->tbs);
         roundIt($jumbo->imgs);
         // roundIt($jumbo->btns);
@@ -142,23 +143,23 @@ if(Input::exists()){
         "MATCH (b)-[:LAYOUT]->(t:Tablet) ".
         "MATCH (b)-[:LAYOUT]->(d:Desktop) ".
         "SET j.active={$jumbo->active}, ".
-        "b.image={$jumbo->bg->image}, ".
-        "b.opacity={$jumbo->bg->opacity}, ".
-        "b.blur={$jumbo->bg->blur}, ".
-        "b.color='{$jumbo->bg->color}', " .
-        "b.ratio={$jumbo->bg->ratio}, " .
-        "m.x= {$jumbo->bg->layout->mobile->x}, ".
-        "m.y= {$jumbo->bg->layout->mobile->y}, ".
-        "m.s= {$jumbo->bg->layout->mobile->s}, ".
-        "m.a= {$jumbo->bg->layout->mobile->a}, ".
-        "t.x= {$jumbo->bg->layout->tablet->x}, ".
-        "t.y= {$jumbo->bg->layout->tablet->y}, ".
-        "t.s= {$jumbo->bg->layout->tablet->s}, ".
-        "t.a= {$jumbo->bg->layout->tablet->a}, ".
-        "d.x= {$jumbo->bg->layout->desktop->x}, ".
-        "d.y= {$jumbo->bg->layout->desktop->y}, ".
-        "d.s= {$jumbo->bg->layout->desktop->s}, ".
-        "d.a= {$jumbo->bg->layout->desktop->a}";
+        "b.image={$jumbo->bg[0]->image}, ".
+        "b.opacity={$jumbo->bg[0]->opacity}, ".
+        "b.blur={$jumbo->bg[0]->blur}, ".
+        "b.color='{$jumbo->bg[0]->color}', " .
+        "b.ratio={$jumbo->bg[0]->ratio}, " .
+        "m.x= {$jumbo->bg[0]->layout->mobile->x}, ".
+        "m.y= {$jumbo->bg[0]->layout->mobile->y}, ".
+        "m.s= {$jumbo->bg[0]->layout->mobile->s}, ".
+        "m.a= {$jumbo->bg[0]->layout->mobile->a}, ".
+        "t.x= {$jumbo->bg[0]->layout->tablet->x}, ".
+        "t.y= {$jumbo->bg[0]->layout->tablet->y}, ".
+        "t.s= {$jumbo->bg[0]->layout->tablet->s}, ".
+        "t.a= {$jumbo->bg[0]->layout->tablet->a}, ".
+        "d.x= {$jumbo->bg[0]->layout->desktop->x}, ".
+        "d.y= {$jumbo->bg[0]->layout->desktop->y}, ".
+        "d.s= {$jumbo->bg[0]->layout->desktop->s}, ".
+        "d.a= {$jumbo->bg[0]->layout->desktop->a}";
 
         $db->q($cypher);
 

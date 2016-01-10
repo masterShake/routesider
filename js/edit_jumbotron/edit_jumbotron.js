@@ -2,8 +2,10 @@
 /* global variables */
 
 var jApp,	// Jumbo app
+	as,     // active state
 	layout, // layout class
 	modal,	// confirmation modal 
+	cm,     // component manager
 	cs,		// component styler
 	ts,		// text styler
 	tc,		// text color
@@ -41,9 +43,6 @@ Jumbo = function(){
 
 	// keep track of new values (identical at first)
 	this.nVals = JSON.parse( document.getElementById("i-vals").value );
-
-	// keep track active component editor
-	this.a = null;
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -143,20 +142,20 @@ Jumbo.prototype.actBtn = function(){
 Jumbo.prototype.togOpts = function(e){ e.preventDefault();
 
 	// if there is an open/active options toolbar
-	if(jApp.a){
+	if(as){
 
 		// close it
-		jApp[jApp.a].close();
+		jApp[as].close();
 
 		// if a control panel is open
 		if(jApp.panel >= 0){
 
 			// close it
-			document.getElementById(jApp.a+"Cpanels").children[jApp.panel]
+			document.getElementById(as+"Cpanels").children[jApp.panel]
 				.style.display = "none";
 
 			// show the opts title
-			document.getElementById(jApp.a + "Props").children[1]
+			document.getElementById(as + "Props").children[1]
 				.style.display = "block";
 
 			// reset the panel property
@@ -165,21 +164,21 @@ Jumbo.prototype.togOpts = function(e){ e.preventDefault();
 		}
 
 		// hide the open options toolbar
-		document.getElementById(jApp.a + "Props").style.display = "none";
+		document.getElementById(as + "Props").style.display = "none";
 
 	}
 
 	// if this options toolbar was already open
-	if(this.dataset.a == jApp.a){
+	if(this.dataset.a == as){
 
 		// reset the a property to null
-		jApp.a = null;
+		as = null;
 
 		return;
 	}
 
 	// set the a property
-	jApp.a = this.dataset.a;
+	as = this.dataset.a;
 
 	// open the selected properties options toolbar
 	document.getElementById(this.dataset.a + "Props").style.display = "block";
@@ -196,7 +195,7 @@ Jumbo.prototype.togCpan = function(){
 	if(jApp.panel >= 0)
 
 		// close it
-		document.getElementById(jApp.a+"Cpanels").children[jApp.panel]
+		document.getElementById(as+"Cpanels").children[jApp.panel]
 			.style.display = "none";
 	
 	//-----------------------------------------------
@@ -205,7 +204,7 @@ Jumbo.prototype.togCpan = function(){
 	if(!this.dataset.panel || this.dataset.panel == jApp.panel){
 
 		// show the opts title
-		document.getElementById(jApp.a + "Props").children[1]
+		document.getElementById(as + "Props").children[1]
 			.style.display = "block";
 
 		// reset the active panel
@@ -218,11 +217,11 @@ Jumbo.prototype.togCpan = function(){
 	jApp.panel = this.dataset.panel;
 
 	// hide the opts title
-	document.getElementById(jApp.a + "Props").children[1]
+	document.getElementById(as + "Props").children[1]
 		.style.display = "none";
 
 	// display the control panel
-	document.getElementById(jApp.a + "Cpanels").children[this.dataset.panel]
+	document.getElementById(as + "Cpanels").children[this.dataset.panel]
 		.style.display = "block";
 }
 
@@ -429,7 +428,7 @@ L.prototype.init = function(){
 
 //-----------------------------------------------
 // - change device layout click event
-Jumbo.prototype.lay = function(e){ e.preventDefault();
+L.prototype.lay = function(e){
 
 	// hide the dropdown
 	this.parentElement.parentElement.style.display = 'none';
@@ -456,7 +455,7 @@ Jumbo.prototype.lay = function(e){ e.preventDefault();
 	layout.setStyles();
 
 	// set the height & width of all the textboxes
-	jApp.tbs.te.setDims();
+	// jApp.tbs.te.setDims();
 }
 
 //-----------------------------------------------

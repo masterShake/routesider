@@ -21,19 +21,29 @@ BG = function(){
 	// init cropper
 	// this.cropper = new CR();
 	// init background color editor
-	// this.bgc = new BGC();
+	this.c = new BGC();
 
 	// active element (never changes, for consistency with other components)
-	this.a = cropCanvas.children[0];
+	this.a = bgElem;
 
 	// temp variable
 	this.t = null;
 
+	// get the toggle resize, reposition, rototate button
+	this.rBtn = bgToolbar.children[1].children[1];
+
 	/* initializations */
+
+	// init the rrr object
+	rm.h[0] = new rr(bgElem);
 
 	// confirm delete background image event
 	bgToolbar.children[0].children[0]
 		.addEventListener("click", this.confirmDel, false);
+
+	// hide the dragables canvas on open
+	jumboToolbar.children[0].children[1].children[0]
+		.addEventListener('click', this.hideDrag, false);
 }
 
 //-----------------------------------------------
@@ -42,11 +52,21 @@ BG = function(){
 // - show the dragCanvas
 BG.prototype.close = function(){
 	// hide the upload background image canvas
-	bgCanvas.style.display = "none";
+	bgCanvas.style.display = 'none';
 	// hide the bg image drag buttons
-	cropCanvas.children[0].children[1].style.display = "none";
+	bgElem.children[1].style.display = 'none';
 	// show the dragable elements canvas
-	dragCanvas.style.display = "block";
+	dragCanvas.style.display = 'block';
+	// hide the dragables canvas on open
+	jumboToolbar.children[0].children[1].children[0]
+		.addEventListener('click', this.hideDrag, false);
+}
+
+//-----------------------------------------------
+// - hide the drag canvas when editing background
+BG.prototype.hideDrag = function(){
+	dragCanvas.style.display = 'none';
+	this.removeEventListener('click', bg.hideDrag, false);
 }
 
 //-----------------------------------------------
@@ -56,7 +76,7 @@ BG.prototype.close = function(){
 BG.prototype.confirmDel = function(){
 
 	// if there is no background image
-	if(!jApp.nVals.bg.image)
+	if(!jApp.nVals.bg[0].image)
 		return;
 
 	// set the modal title
@@ -70,7 +90,7 @@ BG.prototype.confirmDel = function(){
    		.innerHTML = '<p>Are you sure you want to delete this background image?</p>'+
    					 '<div style="text-align:center">'+
    					 '	<img src="'+
-   					 (jApp.nVals.bg.image.substr(0,6) == 'upload' ? jApp.nVals.bg.image : 'img/business/'+jApp.nVals.bg.image)+
+   					 (jApp.nVals.bg[0].image.substr(0,6) == 'upload' ? jApp.nVals.bg[0].image : 'img/business/'+jApp.nVals.bg[0].image)+
    					 '" style="height:auto;width:auto;max-height:160px;max-width:100%" />'+
    					 '</div>';
 
@@ -93,12 +113,12 @@ BG.prototype.del = function(){
 	bg.resetStyles();
 
 	// remove the background image
-	cropCanvas.children[0].removeChild(cropCanvas.children[0].children[2]);
+	bgElem.removeChild(bgElem.children[2]);
 
 	// add the default bg image placeholder
-	cropCanvas.children[0].appendChild(document.createElement("div"));
-	cropCanvas.children[0].children[2].className = "bg-placeholder";
-	cropCanvas.children[0].children[2].innerHTML = '<span class="icon-image"></span>';
+	bgElem.appendChild(document.createElement("div"));
+	bgElem.children[2].className = "bg-placeholder";
+	bgElem.children[2].innerHTML = '<span class="icon-image"></span>';
 
 	// deactivate the repo/resize/crop button
 	bgToolbar.children[1].children[1].className = 'btn btn-default inactive';
@@ -109,26 +129,26 @@ BG.prototype.del = function(){
 // - reset background properties
 BG.prototype.resetProps = function(){
 
-	// reset all the nVals.bg properties
-	jApp.nVals.bg.image = 
-	jApp.nVals.bg.blur = 0;
-	jApp.nVals.bg.ratio = 
-	jApp.nVals.bg.opacity = 1;
-	jApp.nVals.bg.color = '#FFFFFF';
+	// reset all the nVals.bg[0] properties
+	jApp.nVals.bg[0].image = 
+	jApp.nVals.bg[0].blur = 0;
+	jApp.nVals.bg[0].ratio = 
+	jApp.nVals.bg[0].opacity = 1;
+	jApp.nVals.bg[0].color = '#FFFFFF';
 
 	// reset all the layout properties
-	jApp.nVals.bg.layout.mobile.x =
-	jApp.nVals.bg.layout.mobile.y = 
-	jApp.nVals.bg.layout.mobile.a = 
-	jApp.nVals.bg.layout.tablet.x = 
-	jApp.nVals.bg.layout.tablet.y = 
-	jApp.nVals.bg.layout.tablet.a = 
-	jApp.nVals.bg.layout.desktop.x = 
-	jApp.nVals.bg.layout.desktop.y = 
-	jApp.nVals.bg.layout.desktop.a = 0;
-	jApp.nVals.bg.layout.mobile.s =
-	jApp.nVals.bg.layout.tablet.s =
-	jApp.nVals.bg.layout.desktop.s = 1;  
+	jApp.nVals.bg[0].layout.mobile.x =
+	jApp.nVals.bg[0].layout.mobile.y = 
+	jApp.nVals.bg[0].layout.mobile.a = 
+	jApp.nVals.bg[0].layout.tablet.x = 
+	jApp.nVals.bg[0].layout.tablet.y = 
+	jApp.nVals.bg[0].layout.tablet.a = 
+	jApp.nVals.bg[0].layout.desktop.x = 
+	jApp.nVals.bg[0].layout.desktop.y = 
+	jApp.nVals.bg[0].layout.desktop.a = 0;
+	jApp.nVals.bg[0].layout.mobile.s =
+	jApp.nVals.bg[0].layout.tablet.s =
+	jApp.nVals.bg[0].layout.desktop.s = 1;  
 
 	// values changed
 	jApp.deltaVals();
@@ -139,7 +159,7 @@ BG.prototype.resetProps = function(){
 	this.t[1].value = 
 	bgCpanels.getElementsByTagName('button')[3]
 		.style.backgroundColor = 	// fill button
-	cropCanvas.style.backgroundColor = '#FFFFFF'; 
+	bgElem.parentElement.style.backgroundColor = '#FFFFFF'; 
 	this.t[2].value = 			// blur
 	this.t[3].value = 0;
 	this.t[4].value =			// opacity
@@ -156,19 +176,19 @@ BG.prototype.resetStyles = function(){
 	document.styleSheets[7].cssRules[0].style.transform = 		// mobile
 	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.transform = // tablet
 	document.styleSheets[7].cssRules[rm.i + 2].cssRules[0].style.transform = // desktop
-	cropCanvas.children[0].style.transform = 					// inline
+	bgElem.style.transform = 					// inline
 		'rotate3d(0,0,1,0deg) scale(1,1)';
 
 	// left
 	document.styleSheets[7].cssRules[0].style.left = 			 // mobile
 	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.left = // tablet
 	document.styleSheets[7].cssRules[rm.i + 2].cssRules[0].style.left = // desktop
-	cropCanvas.children[0].style.left = 						 // inline
+	bgElem.style.left = 						 // inline
 	// top
 	document.styleSheets[7].cssRules[0].style.top = 			// mobile
 	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.top = // tablet
 	document.styleSheets[7].cssRules[rm.i + 2].cssRules[0].style.top = // desktop
-	cropCanvas.children[0].style.top = 					// inline
+	bgElem.style.top = 					// inline
 		'0%';
 }
 
@@ -222,13 +242,6 @@ BGI = function(){
 
 	/* initialization */
 
-	// toggle the image upload canvas element
-	bgToolbar.children[1].children[0].addEventListener("click", this.togCanvas, false); // background image button
-	bgCpanels.children[0].children[0].children[0]
-		.addEventListener("click", this.hideCanvas, false); // bgi control panel x
-	bgToolbar.children[1].children[1].addEventListener("click", this.hideCanvas, false); // crop button
-	bgToolbar.children[1].children[2].addEventListener("click", this.hideCanvas, false); // bg color button
-
 	// apply file dragover event
 	this.file.addEventListener("dragover", this.fileHover, false);
 
@@ -244,30 +257,6 @@ BGI = function(){
 }
 
 /* METHODS */
-
-// -----------------------------------------------
-// - toggle upload canvas
-BGI.prototype.togCanvas = function(){
-	// if the bgCanvas is hidden
-	if(bgCanvas.offsetParent === null){
-		// show the canvas
-		bgCanvas.style.display = "block";
-		// hide the draggables 
-		dragCanvas.style.display = "none";
-	}else{
-		// hide the canvas
-		bgCanvas.style.display = "none";
-		// show the draggables 
-		dragCanvas.style.display = "block";
-	}
-}
-
-//-----------------------------------------------
-// - hide the canvas
-BGI.prototype.hideCanvas = function(){
-	// hide the canvas
-	bgCanvas.style.display = "none";
-}
 
 //-----------------------------------------------
 // - file dragover method 
@@ -336,26 +325,26 @@ BGI.prototype.uploadCB = function(){
 		// parse the json
 		bg.t = JSON.parse(this.responseText);
 
-		// set the nVals.bg (new values) properties
-		jApp.nVals.bg["image"] = bg.t["image"];
-		jApp.nVals.bg["ratio"] = bg.t["ratio"];
+		// set the nVals.bg[0] (new values) properties
+		jApp.nVals.bg[0]["image"] = bg.t["image"];
+		jApp.nVals.bg[0]["ratio"] = bg.t["ratio"];
 
 		// if there isn't already a background image
 		if(!document.getElementById('bgImg')){
 
 			// remove the placeholder
-			cropCanvas.children[0].removeChild(cropCanvas.children[0].children[2]);
+			bgElem.removeChild(bgElem.children[2]);
 
 			// insert an image element
-			cropCanvas.children[0].appendChild(
+			bgElem.appendChild(
 				document.createElement("img")
 			);
 
 			// set the id
-			cropCanvas.children[0].children[2].id = "bgImg";
+			bgElem.children[2].id = "bgImg";
 
 			// set the data-r property (index in rm object)
-			cropCanvas.children[0].setAttribute('data-r', '0');
+			bgElem.setAttribute('data-r', '0');
 
 			// activate the repo/resize button
 			bgToolbar.children[1].children[1].className = 'btn btn-default';
@@ -464,66 +453,35 @@ BGC = function(){
 
 	/* properties */
 
-	// temp variable, get the control panel
-	this.temp = bgCpanels.children[2];
-
-	// color fill btn
-	this.icon = this.temp.getElementsByTagName("button")[1];
-	// text input
-	this.texti = this.temp.getElementsByTagName("input")[0];
-	// HTML5 color picker
-	this.picki = this.temp.getElementsByTagName("input")[1];
+	// get the .colorize elements
+	this.picki = bgCpanels.getElementsByClassName('colorize');
+	// keep them in arrays for consistency with other components
+	this.icon = [this.picki[0]];
+	this.texti = [this.picki[1]];
+	this.picki = [this.picki[2]];
 
 	/* initializations */
 
-	// canvas display event
+	// toggle the upload background image bgCanvas
+	bgToolbar.children[1].children[0]
+		.addEventListener('click', this.togCanvas, false);
+	bgToolbar.children[1].children[1]
+		.addEventListener('click', this.hideCanvas, false);
 	bgToolbar.children[1].children[2]
-		.addEventListener("click", this.resetCanvas, false);
-
-	// hexidecimal text keyup & blur events
-	this.texti.addEventListener("keyup", this.hexText, false);
-	this.texti.addEventListener("blur", this.hexBlur, false);
-
-	// html5 color picker change event
-	this.picki.addEventListener("change", this.colorPick, false);
-
-	// get the color wheel btns
-	this.temp = this.temp.getElementsByTagName("button");
-
-	// loop through the color wheel btns
-	for(var i = 2; i < this.temp.length; i++)
-		// add wheelBtn event
-		this.temp[i].addEventListener("click", this.wheelBtn, false);
-
-	// get the background image control panel inputs
-	this.temp = bgCpanels.children[2]
-					.getElementsByTagName("input");
-
-	// apply blur text input keyup event
-	this.temp[2].addEventListener("keyup", this.bText, false);
-
-	// apply blur slider event
-	this.temp[3].addEventListener("change", this.bSlide, false);
-
-	// apply opacity text input keyup event
-	this.temp[4].addEventListener("keyup", this.oText, false);
-
-	// apply opacity slider event
-	this.temp[5].addEventListener("change", this.oSlide, false);
-
-	// set the temp color
-	this.temp = "#FFFFFF";
+		.addEventListener('click', this.hideCanvas, false);
+}
+// -----------------------------------------------
+// - toggle upload canvas
+BGC.prototype.togCanvas = function(){
+	// show the canvas
+	bgCanvas.style.display = (bgCanvas.offsetParent === null) ? "block" : "none";
 }
 
 //-----------------------------------------------
-// - display the proper elements
-BGC.prototype.resetCanvas = function(){
-	// hide the upload background image
+// - hide the canvas
+BGC.prototype.hideCanvas = function(){
+	// hide the canvas
 	bgCanvas.style.display = "none";
-	// hide the crop buttons
-	cropCanvas.children[0].children[1].style.display = "none";
-	// show the draggable elements' canvas
-	dragCanvas.style.display = "block";
 }
 
 

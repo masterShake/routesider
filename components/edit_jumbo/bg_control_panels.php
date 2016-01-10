@@ -14,46 +14,10 @@
     <!-- control panels -->
     <div id="bgCpanels">
 
-        <!-- background image control panel -->
-        <div class="popover top control-panel">
-            <div class="popover-title"> 
-                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
-                    <span class="icon-image" aria-hidden="true"></span>
-                </div>
-                <div><b>Background</b></div>
-                <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-upload" style="font-size:18px;margin-right:5px;"></div>
-                <div><b>Upload</b></div>
-            </div>
-            <div class="popover-content">
-                
-            </div>
-            <div class="arrow" style="left:20px"></div>
-        </div><!-- /background image control panel -->
-
-        <!-- crop background image control panel -->
-        <div class="popover top control-panel" style="max-width:270px;">
-            <div class="popover-title"> 
-                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
-                    <span class="icon-image" aria-hidden="true"></span>
-                </div>
-                <div><b>Background</b></div>
-                <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-enlarge" style="font-size:17px;margin-top:1px;margin-right:5px;"></div>
-                <div><b>Position</b></div>
-            </div>
-            <div class="popover-content" style="text-align:center;">
-
-            </div>
-            <div class="arrow" style="left:63px"></div>
-        </div><!-- /crop background image control panel -->
-
         <!-- background color control panel -->
         <div class="popover top control-panel" style="max-width:660px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
                     <span class="icon-image" aria-hidden="true"></span>
                 </div>
@@ -97,7 +61,7 @@
                                     <tr>
                                         <td>
                                             <button type="button" 
-                                                    class="btn" 
+                                                    class="btn colorize"
                                                     style='background-color: <?= $jumbo["bg"][0]["color"]; ?>; color: #444;'
                                                     aria-label="edit jumbotron background color, use color wheel to select colors">
                                                 <span class="glyphicon glyphicon-tint"></span>
@@ -106,7 +70,9 @@
                                         <td>
                                             <input type="text" 
                                                    value='<?= $jumbo["bg"][0]["color"]; ?>' 
-                                                   class="form-control" 
+                                                   class="form-control colorize" 
+                                                   data-i="0"
+                                                   data-func="bg"
                                                    maxlength="7"
                                                    style="text-transform:uppercase" 
                                                    aria-label="background color hexidecimal color value">
@@ -119,6 +85,9 @@
                             <div style="text-align:center;margin-top:14px;">
                                 <label>more colors:</label>
                                 <input type="color" 
+                                       class="colorize" 
+                                       data-i="0"
+                                       data-func="bg"
                                        value='<?= $jumbo["bg"][0]["color"]; ?>'
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
@@ -126,7 +95,7 @@
                         </div>
 
                         <!-- color wheel -->
-                        <div class="color-wheel">
+                        <div class="color-wheel" data-i="0" data-func="bg">
                             <!-- 3 -->
                             <div>
                                 <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -184,7 +153,7 @@
                             </label>
                             <input type="text" class="form-control" data-elem="child" maxlength="4" value='<?= ($jumbo["bg"][0]["opacity"]) ?>'>
                             <input type="range" class="range-slider" data-elem="child" min="0" max="1" step="0.01" value="<?= ($jumbo["bg"][0]["opacity"]) ?>">
-                        </forms>
+                        </form>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
@@ -205,15 +174,15 @@
 
         <div class="btn-group opts-toolbar" role="group" aria-label="edit background toolbar">
             <!-- edit background image -->
-            <button type="button" class="btn btn-default" data-panel="0" aria-label="edit background image">
+            <button type="button" class="btn btn-default" data-panel aria-label="edit background image">
                 <span class="icon-upload"></span>
             </button><!-- /edit background image -->
             <!-- crop background image -->
-            <button type="button" class='btn btn-default<?= ($jumbo["bg"][0]["image"]) ? "" : " inactive"; ?>' data-panel="1" aria-label="crop image">
+            <button type="button" class='btn btn-default<?= ($jumbo["bg"][0]["image"]) ? "" : " inactive"; ?>' data-panel aria-label="crop image">
                 <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
             <!-- edit background color -->
-            <div role="button" class="btn btn-default" data-panel="2" aria-label="edit background color">
+            <div role="button" class="btn btn-default" data-panel="0" aria-label="edit background color">
                 <!-- color wheel icon -->
                 <div class="colorwheel-icon">
                     <div>
