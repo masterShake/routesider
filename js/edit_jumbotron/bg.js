@@ -172,6 +172,11 @@ BG.prototype.resetProps = function(){
 // - reset the stylesheet for the bg image
 BG.prototype.resetStyles = function(){
 
+	// inline
+	bgElem.children[2].style.opacity = '1';
+	bgElem.children[2].style.filter = 
+	bgElem.children[2].style.webkitFilter = 'blur(0px)';
+
 	// transform 
 	document.styleSheets[7].cssRules[0].style.transform = 		// mobile
 	document.styleSheets[7].cssRules[rm.i + 1].cssRules[0].style.transform = // tablet

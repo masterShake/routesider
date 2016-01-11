@@ -21,6 +21,12 @@ cModal = function(){
 	// keep track of the callback function, temp variable
 	this.callback = null;
 
+	// keep track of the title
+	this.title = confModal.getElementsByTagName("h4")[0];
+
+	// keep track of the body
+	this.body = confModal.children[0].children[0].children[1];
+
 	/* initializations */
 
 	// add the modal confirmation event listern out here

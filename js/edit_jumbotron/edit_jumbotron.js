@@ -100,7 +100,7 @@ Jumbo = function(){
 	// init background editor
 	bg = this.bg = new BG();
 	// init textbox editor
-	// tbs = this.tbs = new TB();
+	tbs = this.tbs = new TB();
 	// init image overlay editor
 	// imgs = this.imgs = new IO();
 	// init button editor

@@ -69,7 +69,7 @@
                             <tr>
                                 <td>
                                     <button type="button" 
-                                            class="btn paint-btn" 
+                                            class="btn paint-btn colorize" 
                                             style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
                                             aria-label="edit jumbotron background color, use color wheel to select colors">
                                         <span class="glyphicon glyphicon-text-color" style="font-size:17px;"></span>
@@ -78,10 +78,10 @@
                                 <td>
                                     <input type="text" 
                                            value='#000000' 
-                                           class="form-control" 
+                                           class="form-control colorize" 
                                            style="text-transform:uppercase" 
                                            maxlength="7"
-                                           data-com="foreColor"
+                                           data-func="foreColor"
                                            data-i="0"
                                            aria-label="background color hexidecimal color value">
                                 </td>
@@ -94,15 +94,16 @@
                         <label>more colors:</label>
                         <input type="color" 
                                value='#FFFFFF'
+                               class="colorize"
+                               data-func="foreColor"
                                data-i="0"
-                               data-com="foreColor" 
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel" data-i="0" data-com="foreColor">
+                <div class="color-wheel" data-i="0" data-func="foreColor">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -170,7 +171,7 @@
                             <tr>
                                 <td>
                                     <button type="button" 
-                                            class="btn paint-btn" 
+                                            class="btn paint-btn colorize" 
                                             style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
                                             aria-label="edit jumbotron background color, use color wheel to select colors">
                                         <span class="glyphicon glyphicon-text-background" style="font-size:17px;"></span>
@@ -179,10 +180,10 @@
                                 <td>
                                     <input type="text" 
                                            value='' 
-                                           class="form-control" 
+                                           class="form-control colorize" 
                                            style="text-transform:uppercase" 
                                            maxlength="7"
-                                           data-com="backColor"
+                                           data-func="backColor"
                                            data-i="1"
                                            aria-label="background color hexidecimal color value">
                                 </td>
@@ -194,21 +195,22 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label>more colors:</label>
                         <input type="color" 
+                               class="colorize"
                                value='#FFFFFF'
-                               data-i="1" 
-                               data-com="backColor" 
+                               data-func="backColor"
+                               data-i="1"  
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
                     <!-- no color (transparent) textbox -->
                     <div style="margin-top:10px;">
                         <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                        <input type="checkbox" class="form-control" data-i="1" checked>
+                        <input type="checkbox" class="form-control colorize" data-func="backColor" data-i="1" checked>
                     </div>
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel" style="height:122px;padding-top:12px;" data-i="1" data-com="backColor">
+                <div class="color-wheel" style="height:122px;padding-top:12px;" data-i="1" data-func="backColor">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -314,7 +316,7 @@
                                     <tr>
                                         <td>
                                             <button type="button" 
-                                                    class="btn paint-btn" 
+                                                    class="btn paint-btn colorize" 
                                                     style='background-color: #FFFFFF;'>
                                                 <span class="glyphicon glyphicon-tint"></span>
                                             </button>
@@ -322,9 +324,9 @@
                                         <td>
                                             <input type="text" 
                                                    value='' 
-                                                   class="form-control" 
+                                                   class="form-control colorize" 
                                                    maxlength="7"
-                                                   data-com 
+                                                   data-func="bgColor"
                                                    data-i="2"
                                                    style="text-transform:uppercase" 
                                                    aria-label="background color hexidecimal color value">
@@ -337,22 +339,23 @@
                             <div style="text-align:center;margin-top:14px;">
                                 <label>more colors:</label>
                                 <input type="color" 
+                                       class="colorize"
                                        value='#FFFFFF'
                                        data-i="2"
-                                       data-com 
+                                       data-func="bgColor"
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
                             <!-- no color (transparent) textbox -->
                             <div style="margin-top:10px;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                                <input type="checkbox" class="form-control" data-i="2" checked>
+                                <input type="checkbox" class="form-control colorize" data-i="2" data-func="bgColor" checked>
                             </div>
 
                         </div>
 
                         <!-- color wheel -->
-                        <div class="color-wheel" style="height:126px;padding-top:13px;" data-i="2" data-com>
+                        <div class="color-wheel" style="height:126px;padding-top:13px;" data-i="2" data-func="bgColor">
                             <!-- 3 -->
                             <div>
                                 <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -444,7 +447,7 @@
                             <tr>
                                 <td>
                                     <button type="button" 
-                                            class="btn" 
+                                            class="btn colorize" 
                                             style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
                                             aria-label="edit button border color, use color wheel to select colors">
                                         <span class="icon-checkbox-unchecked" style="font-size:17px;"></span>
@@ -453,9 +456,11 @@
                                 <td>
                                     <input type="text" 
                                            value='#000000' 
-                                           class="form-control" 
+                                           class="form-control colorize" 
                                            maxlength="7"
-                                           style="text-transform:uppercase" 
+                                           style="text-transform:uppercase"
+                                           data-func="borderColor"
+                                           data-i="3" 
                                            aria-label="background color hexidecimal color value">
                                 </td>
                             </tr>
@@ -466,14 +471,17 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label>more colors:</label>
                         <input type="color" 
+                               class="colorize"
                                value='#444444'
+                               data-func="borderColor"
+                               data-i="3"
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel">
+                <div class="color-wheel" data-func="borderColor" data-i="3">
                     <!-- 3 -->
                     <div>
                         <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -513,12 +521,12 @@
                 <hr>
 
                 <!-- opacity -->
-                <div class="color-o">
+                <form class="color-o border-form">
                     <div class="glyphicon glyphicon-minus"></div>
                     <label>thickness</label>
                     <input type="text" class="form-control" value="1">
                     <input type="range" class="range-slider" min="0" max="10" step="1" value="1">
-                </div>
+                </form>
 
             </div>
             <div class="arrow" style="left:205px"></div>

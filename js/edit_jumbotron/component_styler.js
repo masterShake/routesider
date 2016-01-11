@@ -269,7 +269,7 @@ TC.prototype.hexText = function(){
 		tc.setElems(this.value, this.dataset.i);
 
 		// set the property
-		tc[this.dataset.func](this.value, this.dataset.i);
+		tc[this.dataset.func](this.value);
 	}
 }
 
@@ -281,7 +281,7 @@ TC.prototype.colorPick = function(){
 	tc.setElems(this.value, this.dataset.i);
 
 	// set the property
-	tc[this.dataset.func](this.value, this.dataset.i);
+	tc[this.dataset.func](this.value);
 }
 
 //-----------------------------------------------
@@ -295,7 +295,7 @@ TC.prototype.wheelBtn = function(){
 	tc.setElems(this.dataset.hex, this.parentElement.parentElement.dataset.i);
 
 	// set the property
-	tc[this.parentElement.parentElement.dataset.func](this.dataset.hex, this.parentElement.parentElement.dataset.i);
+	tc[this.parentElement.parentElement.dataset.func](this.dataset.hex);
 }
 
 //-----------------------------------------------
@@ -353,15 +353,58 @@ TC.prototype.qCol = function(){
 
 //-----------------------------------------------
 // - set foreColor of content editable
-TC.prototype.foreColor = function(){}
+TC.prototype.foreColor = function(hex){
+
+	// focus on the active element
+	jApp[as].a.children[2].focus(); 
+
+	// set the cursor to the end
+	cm.setEnd();
+	
+	// set the execCommand	
+	document.execCommand('foreColor', false, hex);
+}
 
 //-----------------------------------------------
 // - set backColor of content editable
-TC.prototype.backColor = function(){}
+TC.prototype.backColor = function(hex){
+
+	// focus on the active element
+	jApp[as].a.children[2].focus(); 
+
+	// set the cursor to the end
+	cm.setEnd();
+	
+	// set the execCommand	
+	document.execCommand('backColor', false, hex);
+
+}
+
+//-----------------------------------------------
+// - set border color of active element
+TC.prototype.bgColor = function(hex){
+
+	// set the element background color
+	jApp[as].a.style.backgroundColor = 
+
+	// update the nVals obejct
+	jApp.nVals[as][jApp[as].a.dataset.key].color = hex;
+
+	// prompt save 
+	jApp.deltaVals();
+
+}
+
+//-----------------------------------------------
+// - set border color of active element
+TC.prototype.borderColor = function(hex){ console.log('borderColor called');
+
+}
 
 //-----------------------------------------------
 // - set background color of active element
-TC.prototype.bg = function(hex, i){
+// - only used for the background component
+TC.prototype.bg = function(hex){
 
 	// set preview background color
 	bgElem.parentElement.style.backgroundColor = 
@@ -373,86 +416,7 @@ TC.prototype.bg = function(hex, i){
 	jApp.deltaVals();
 }
 
-//-----------------------------------------------
-// - set border color of active element
-TC.prototype.borderColor = function(){}
 
-
-//-----------------------------------------------
-// - master bg color setter method
-// - hex --> hexidecimal color
-// - set text
-// - set color icon
-// - set html5 color picker
-// - set background
-// 	  + i => element index in array
-//    + excom => execCommand name
-//    + val => hexidecimal value
-TC.prototype.setColor = function(i, excom, val){
-	
-	if(i == 2){ // background only
-		tbs.a.children[2].style.backgroundColor = 
-		jApp.nVals.tbs[tbs.a.dataset.key].color = val;
-	
-	}else{ // set the execCommand
-
-		// focus on the active element
-		tbs.a.children[2].focus(); 
-
-		// move the caret to the end
-		if(excom)
-			ts.setEnd();
-
-		if(val == 'transparent') // backColor only
-			document.execCommand('styleWithCSS', false, true);
-		
-		document.execCommand(excom, false, val);
-	}
-
-	this.sch(i, val);
-}
-
-//-----------------------------------------------
-// - set color helper for html elems
-// - i => control panel index
-// - v => hexidecimal value
-TC.prototype.sch = function(i, v){
-
-	// if this is the checkbox
-	if(i > 0){
-		// set checkbox
-		this.checkis[i].checked = (v == 'transparent') ? true : false;
-		this.checkis[i].parentElement.style.opacity = 
-			(v == 'transparent') ? '1' : '0.5';
-		v = (v == 'transparent') ? '#FFFFFF' : v;
-	}
-
-	// set the text
-	this.textis[i].value =
-
-	// set the color picker
-	this.pickis[i].value = v;
-
-	// if this is the font color control panel
-	if(i == 0){
-		// set the font color
-		this.icons[0].style.color = v;
-		// set the background
-		this.icons[0].style.backgroundColor = 
-			this.hexBright(this.hexToRgb(v)) ?
-				"#444" : "#FFF";
-	}else{
-		// set the background color
-		this.icons[i].style.background = v;
-		// set the preview icon color
-		this.icons[i].style.color = 
-			this.hexBright(this.hexToRgb(v)) ?
-				"#444" : "#FFF";
-	}
-
-	// remove the styleWithCSS command
-	document.execCommand('styleWithCSS', false, false);
-}
 
 
 //-----------------------------------------------
