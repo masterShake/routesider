@@ -50,10 +50,10 @@ cModal.prototype.launch = function(){
 	confBD.style.display = "block";
 	
 	// fade in
-	setTimeout(jApp.modal.fadeIn, 10);
+	setTimeout(modal.fadeIn, 10);
 	
 	// drop modal on em
-	setTimeout(jApp.modal.dropIn, 130);
+	setTimeout(modal.dropIn, 130);
 }
 
 //-----------------------------------------------
@@ -83,7 +83,7 @@ cModal.prototype.fadeOut = function(e){
 	// if the user confirmed the deletion button
 	if(e.target.className == "btn btn-default btn-danger"
 	|| e.target.className == "glyphicon glyphicon-trash")
-		jApp.modal.callback();
+		modal.callback();
 
 	// if we clicked one of the buttons or backdrop
 	if(	e.target.tagName == "BUTTON" 
@@ -97,7 +97,7 @@ cModal.prototype.fadeOut = function(e){
 		confBD.className = "modal-backdrop fade";
 
 		// hide the elements
-		setTimeout(jApp.modal.hide, 300);
+		setTimeout(modal.hide, 300);
 	}
 }
 

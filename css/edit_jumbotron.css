@@ -396,6 +396,13 @@ tbody button.btn-color-selected{
 	color: #AAA !important;
 	border-color: #AAA !important;
 }
+/* dragable element background */
+.background{
+	position: absolute;
+	height:100%;
+	width:100%;
+	z-index: -1;
+}
 /* text properties toolbar */
 #textsProps .opts-toolbar .btn.active{
 	z-index: 0;
@@ -405,19 +412,19 @@ tbody button.btn-color-selected{
 visibility control panel
 ----------------------*/
 
-.checkbox-inline{
+label.vis{
 	width: 29%;
 	text-align: center;
 }
-.checkbox-inline>span{
+label.vis>span{
 	font-size: 26px;
 	padding-left: 2px;
 }
-.checkbox-inline>div{
+label.vis>div{
 	font-size: 10px;
 	float: left;
 }
-#tbsCpanels.checkbox-inline>div{
+#tbsCpanels label.vis>div{
 	margin-left: -3px;
 }
 

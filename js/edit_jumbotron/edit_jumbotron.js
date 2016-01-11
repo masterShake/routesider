@@ -428,7 +428,7 @@ L.prototype.init = function(){
 
 //-----------------------------------------------
 // - change device layout click event
-L.prototype.lay = function(e){
+L.prototype.lay = function(e){ e.preventDefault();
 
 	// hide the dropdown
 	this.parentElement.parentElement.style.display = 'none';

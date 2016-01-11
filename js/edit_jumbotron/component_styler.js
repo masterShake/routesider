@@ -18,7 +18,7 @@ var CM = function(){
 	cs = this.cs = new CS();
 
 	// init the text stylers
-	// this.ts = [ new TS('tbs'), new TS('btns') ];
+	ts =  this.ts = new TS();
 
 	// init text color objects
 	tc = this.tc = new TC();
@@ -35,57 +35,98 @@ CM.prototype.setEnd = function(){
 	// if there is a selection or box is already in focus
 	if(this.sel.toString()) return;
     this.range = document.createRange();//Create a this.range (a this.range is a like the this.sel but invisible)
-    this.range.selectNodeContents(jApp[as].a.children[2]);//Select the entire contents of the element with the this.range
+    this.range.selectNodeContents(jApp[as].a.children[3]);//Select the entire contents of the element with the this.range
     this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
     this.sel.removeAllRanges();//remove any selections already made
     this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 //				 TS (text styler)
 // 			   --------------------
+//
+// - handle execCommand button events
+//
+// - temp variables t & u 
 //
 //-----------------------------------------------
 
 var TS = function(c){
 
-	// temp variables, keep track of range and selection
-	this.sel = null;
-	this.range = null;
-
 	// get all the execCommand buttons (toolbar only)
-	this.sel = document.getElementById(c + 'Toolbar')
-				.querySelectorAll('[data-excom]');
+	this.t = document.querySelectorAll('[data-excom]'); 
 
 	// add event listeners to the buttons
-	for(var i = 0; i < this.sel.length; i++)
-		this.sel[i].addEventListener('click', this.exCom, false);
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].addEventListener('click', this.exCom, false);
 
-	// keep a map of all the buttons
-	this.b = {
-		bold 		  : this.t[0],
-		italic		  : this.t[1],
-		underline	  : this.t[2],
-		strikeThrough : this.t[3],
-		subscript	  : this.t[4],
-		superscript   : this.t[5]
-	};
-
-	// get the font size input group
-	this.sel = document.getElementById(c + 'Cpanels').children[0].children[1].children[0];
+	// get the text size input group/dropdown menu
+	this.t = document.getElementsByClassName('text-size');
 
 	// add keyup event listener to the input
-	this.sel.children[0]
+	this.t[0].children[0]
+		.addEventListener('keyup', this.keyFS, false);
+	this.t[1].children[0]
 		.addEventListener('keyup', this.keyFS, false);
 
 	// init the dropdown
-	this.sel.children[1].children[0]
+	this.t[0].children[1].children[0]
+		.addEventListener("click", rsApp.toggleDropdown, false);
+	this.t[1].children[1].children[0]
 		.addEventListener("click", rsApp.toggleDropdown, false);
 
 	// add click event to font sizes
-	this.range = this.sel.children[1].children[1].children;
-	for(var i = 0; i < this.range.length; i++)
-		this.range[i].addEventListener('click', this.clickFS, false);
+	this.u = this.t[0].children[1].children[1].children;
+	for(var i = 0; i < this.u.length; i++)
+		this.u[i].children[0].addEventListener('click', this.clickFS, false);
+	this.u = this.t[1].children[1].children[1].children;
+	for(var i = 0; i < this.u.length; i++)
+		this.u[i].children[0].addEventListener('click', this.clickFS, false);
 }
 
 //-----------------------------------------------
@@ -96,7 +137,11 @@ var TS = function(c){
 //    + underline		+ justify center
 //    + strikethrough 	+ justify right
 //    + subscript 		+ justify full
-TS.prototype.exCom = function(){
+TS.prototype.exCom = function(e){ e.preventDefault();
+	// focus on the element
+	jApp[as].a.children[3].focus();
+	// set the cursor to the end if necessary
+	cm.setEnd();
 	// apply the execCommand
 	document.execCommand(this.dataset.excom, false, null);
 	// toggle the active class
@@ -111,7 +156,7 @@ TS.prototype.exCom = function(){
 // - set buttons accordingly
 TS.prototype.qCom = function(e){
 	// activate the proper wysiwig btns
-	cm.ts[cm.a].qch();
+	ts.qch();
 	// set the html property
 	jApp.nVals[as][this.parentElement.dataset.key].html = this.innerHTML;
 	// prompt save
@@ -122,9 +167,11 @@ TS.prototype.qCom = function(e){
 // - query command state keyup helper
 // - theoretically should run a tinsy bit faster
 TS.prototype.qch = function(){
+	// temp variable get the text style buttons hashmap
+	this.t = jApp[as].c.b;
 	// set the class on the wysiwyg btns
-	for(var x in this.b)
-		this.b[x].className = (document.queryCommandState(x)) ?
+	for(var x in this.t)
+		this.t[x].className = (document.queryCommandState(x)) ?
 													'btn btn-default active' :
 													'btn btn-default';
 }
@@ -143,7 +190,7 @@ TS.prototype.keyFS = function(e){
 
 	// focus on the textbox
 	this.blur();
-	jApp[as].a.children[2].focus();
+	jApp[as].a.children[3].focus();
 	cm.setEnd();
 
 	// set the font size
@@ -160,11 +207,54 @@ TS.prototype.clickFS = function(e){ e.preventDefault();
 	this.parentElement.parentElement.style.display = 'none';
 	// focus on the textbox
 	this.blur();
-	jApp[as].a.children[2].focus();
+	jApp[as].a.children[3].focus();
 	cm.setEnd();
 	// set the font size
 	document.execCommand('fontSize', false, this.dataset.fs);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //-----------------------------------------------
@@ -331,23 +421,23 @@ TC.prototype.setElems = function(hex, i){
 //-----------------------------------------------
 // - keyup set control panel color
 TC.prototype.qCol = function(){
-	// foreColor
-	tbs.c.setColor(
-		0,
-		0,
-		tbs.c.rgbToHex(
+
+	// set the foreColor control panel
+	tc.setElems(
+		tc.rgbToHex(
 			document.queryCommandValue('foreColor')
 				.split('(')[1].split(')')[0].split(',')
-		)
+		),
+		0
 	);
-	// backColor
-	tbs.c.setColor(
-		1,
-		0,
-		tbs.c.rgbToHex(
+
+	// set the backColor control panel
+	tc.setElems(
+		tc.rgbToHex(
 			document.queryCommandValue('backColor')
 				.split('(')[1].split(')')[0].split(',')
-		)
+		),
+		1
 	);
 }
 
@@ -356,7 +446,7 @@ TC.prototype.qCol = function(){
 TC.prototype.foreColor = function(hex){
 
 	// focus on the active element
-	jApp[as].a.children[2].focus(); 
+	jApp[as].a.children[3].focus(); 
 
 	// set the cursor to the end
 	cm.setEnd();
@@ -370,7 +460,7 @@ TC.prototype.foreColor = function(hex){
 TC.prototype.backColor = function(hex){
 
 	// focus on the active element
-	jApp[as].a.children[2].focus(); 
+	jApp[as].a.children[3].focus(); 
 
 	// set the cursor to the end
 	cm.setEnd();
@@ -385,7 +475,7 @@ TC.prototype.backColor = function(hex){
 TC.prototype.bgColor = function(hex){
 
 	// set the element background color
-	jApp[as].a.style.backgroundColor = 
+	jApp[as].a.children[2].style.backgroundColor = 
 
 	// update the nVals obejct
 	jApp.nVals[as][jApp[as].a.dataset.key].color = hex;
@@ -419,6 +509,45 @@ TC.prototype.bg = function(hex){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 //			   CS (component styler)
 // 			 -------------------------	
@@ -435,12 +564,13 @@ TC.prototype.bg = function(hex){
 // 
 // - toggle the resize, reposition, rotate elem
 //
-// - c => component prefix
+// - temp variables t & u
 //
 //-----------------------------------------------
 
-var CS = function(c){
+var CS = function(){
 
+	// opacity
 
 	// loop through all opacity forms
 	this.t = document.getElementsByClassName('opacity-form');
@@ -453,6 +583,8 @@ var CS = function(c){
 		this.t[i].children[2].addEventListener('change', this.oSlide, false);
 	}
 
+	// blur
+
 	// loop through all the blur forms
 	this.t = document.getElementsByClassName('blur-form');
 	for(var i = 0; i < this.t.length; i++){
@@ -463,6 +595,8 @@ var CS = function(c){
 		// slider event
 		this.t[i].children[2].addEventListener('change', this.bSlide, false);
 	}
+
+	// toggle resize, reposition, rotate
 
 	// loop through all the properties toolbars
 	this.t = document.getElementsByClassName('opts-toolbar');
@@ -483,49 +617,25 @@ var CS = function(c){
 				this.u[j].addEventListener('click', this.rOff, false);
 		}
 	}
-		// add togRRR event to rrrBtn
 
-		// add rrrOff event to all other buttons
+	// visibility checkboxes
 
+	// loop through all the visibility checkboxes
+	this.t = document.getElementsByClassName('vis');
+	for(var i = 0; i < this.t.length; i++)
 
+		// add the event listener to the checkbox
+		this.t[i].children[0].addEventListener('change', this.vis, false);
 
+	// roundness
 
-
-
-
-
-
-
-	// temp variable
-	// this.t = null;
-
-	// // textbox checkboxes
-	// this.tbsB = tbsCpanels.children[7].getElementsByTagName('input');
-
-	// // visibility events
-	// this.tbsB[0].addEventListener('change', this.vis, false);
-	// this.tbsB[1].addEventListener('change', this.vis, false);
-	// this.tbsB[2].addEventListener('change', this.vis, false);
-
-	// // roundness
-	// this.t = tbsCpanels.children[5].children[1].children[1].children[0];
-	// this.t.addEventListener('keyup', this.rUp, false);
-	// this.t.addEventListener('keydown', this.rDo, false);
-
-
-	// // roundness
-	// this.t = imgsCpanels.children[1].children[1].children[1].children[0];
-	// this.t.addEventListener('keyup', this.rUp, false);
-	// this.t.addEventListener('keydown', this.rDo, false);
-
-	// // image overlay checkboxes
-	// this.imgsB = imgsCpanels.children[2].getElementsByTagName('input');
-
-	// // visibility events
-	// this.imgsB[0].addEventListener('change', this.vis, false);
-	// this.imgsB[1].addEventListener('change', this.vis, false);
-	// this.imgsB[2].addEventListener('change', this.vis, false);
-
+	this.t = document.querySelectorAll('.roundness input');
+	this.t[0].addEventListener('keydown', this.rDo, false);
+	this.t[0].addEventListener('keyup', this.rUp, false);
+	this.t[1].addEventListener('keydown', this.rDo, false);
+	this.t[1].addEventListener('keyup', this.rUp, false);
+	this.t[2].addEventListener('keydown', this.rDo, false);
+	this.t[2].addEventListener('keyup', this.rUp, false);
 }
 
 //-----------------------------------------------
@@ -538,7 +648,7 @@ CS.prototype.oSlide = function(){
 
 	else
 		// change the opacity of the active textbox
-		jApp[as].a.children[2].style.opacity = parseFloat(this.value);
+		jApp[as].a.children[3].style.opacity = parseFloat(this.value);
 
 	// set the value of the text input
 	this.parentElement.children[1].value = 
@@ -561,8 +671,8 @@ CS.prototype.bSlide = function(){
 	jApp.nVals[as][jApp[as].a.dataset.key]["blur"] = parseInt(this.value);
 
 	// change the blur of the background img
-	jApp[as].a.children[2].style.filter = 
-	jApp[as].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp[as].a.style.filter = 
+	jApp[as].a.style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
@@ -601,7 +711,7 @@ CS.prototype.oText = function(){
 
 	else
 		// change the opacity of the background
-		jApp[as].a.children[2].style.opacity = parseFloat(this.value); 
+		jApp[as].a.children[3].style.opacity = parseFloat(this.value); 
 
 	// update slider input
 	this.parentElement.children[2].value = 
@@ -636,8 +746,8 @@ CS.prototype.bText = function(){
 	jApp.nVals[as][jApp[as].a.dataset.key]["blur"] = parseInt(this.value);
 
 	// set the blur
-	jApp[as].a.children[2].style.filter = 
-	jApp[as].a.children[2].style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp[as].a.style.filter = 
+	jApp[as].a.style.webkitFilter = "blur("+this.value+"px)"; 
 
 	// prompt save
 	jApp.deltaVals();
@@ -671,6 +781,52 @@ CS.prototype.rOff = function(){
 }
 
 //-----------------------------------------------
+// - toggle editor mode for a dragable element
+CS.prototype.tog = function(){
+
+	// if this is not the active state/properties toolbar hidden
+	if(this.dataset.as !== as){
+
+		// remove the new element event listener
+		jApp[this.dataset.as].compBtn
+			.removeEventListener('click', jApp[this.dataset.as].newElem, false);
+
+		// trigger the click event to show the toolbar/initialize
+		jApp[this.dataset.as].compBtn.click();
+	
+	// else if the correct toolbar is already showing
+	}else{
+
+		// remove the active class from the previously active elem
+		jApp[as].a.className = jApp[as].a.className
+									.substr(0, jApp[as].a.className.length - 7);
+
+		// hide the drag buttons												
+		this.rOff();
+
+		// display the toggle editor elem
+		jApp[as].a.children[0].style.display = 'block';
+	}
+
+	// set the active element, use dataset for race conditions
+	jApp[this.dataset.as].a = this.parentElement;
+
+	// set the active class
+	this.parentElement.className = this.parentElement.className = ' active';
+
+	// set the active rrr element
+	rm.a = rm.h[this.parentElement.dataset.r];
+
+	// hide the toggler element
+	this.style.display = 'none';
+
+	// set the visibility checkboxes
+	cs.setVis();
+
+	// set the background and border color checkboxes
+}
+
+//-----------------------------------------------
 // - change visibility for element in layout
 // - prompt delete if invisible for all 3
 CS.prototype.vis = function(){
@@ -678,10 +834,13 @@ CS.prototype.vis = function(){
 	// set the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
 
+	// get the checkbox of the active state object
+	cs.u = jApp[as].c.v;
+
 	// if all three are unchecked
-	if(!jApp.cs[as + 'B'][0].checked
-	&& !jApp.cs[as + 'B'][1].checked
-	&& !jApp.cs[as + 'B'][2].checked){
+	if(!cs.u[0].checked
+	&& !cs.u[1].checked
+	&& !cs.u[2].checked){
 
 		// recheck 
 		this.checked = true;
@@ -691,32 +850,37 @@ CS.prototype.vis = function(){
 	}
 
 	// temp variable, more efficient
-	jApp.t = (this.checked) ? 'block' : 'none';
+	cs.t = (this.checked) ? 'block' : 'none';
 
 	// set the style sheet
 	if(this.value == 'mobile') 		// mobile
 		document.styleSheets[7].cssRules[jApp[as].a.dataset.r]
-			.style.display = jApp.t;
+			.style.display = cs.t;
 	else if(this.value == 'tablet') // tablet
 		document.styleSheets[7].cssRules[rm.i + 1].cssRules[jApp[as].a.dataset.r]
-			.style.display = jApp.t;
+			.style.display = cs.t;
 	else 							// desktop
 		document.styleSheets[7].cssRules[rm.i + 2].cssRules[jApp[as].a.dataset.r]
-			.style.display = jApp.t;
+			.style.display = cs.t;
 
 	// checkbox cooresponds to current layout
 	if(this.value == layout.a)
 		// add an inline style
-		jApp[as].a.style.display = jApp.t;
+		jApp[as].a.style.display = cs.t;
 }
 
 //-----------------------------------------------
 // - set checkboxes of cPanel when user activates
 //   an dragable object
 CS.prototype.setVis = function(){
-	this[as + 'B'][0].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.mobile.v);
-	this[as + 'B'][1].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.tablet.v);
-	this[as + 'B'][2].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.desktop.v);
+	
+	// get the checkboxes of the active state toolbar
+	this.t = jApp[as].c.v;
+
+	// set them in accordance with the user defined values
+	this.t[0].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.mobile.v);
+	this.t[1].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.tablet.v);
+	this.t[2].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.desktop.v);
 }
 
 //-----------------------------------------------

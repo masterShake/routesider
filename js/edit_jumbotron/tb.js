@@ -27,12 +27,12 @@ var TB = function(){
 	// init the TBC object
 	this.c = new TBC();
 
-	// add event listener to the new textbox btn
-	jumboToolbar.children[0].children[1].children[1]
-		.addEventListener('click', this.newTB, false);
+	// add event listener to the new textbox component btn
+	this.compBtn = jumboToolbar.children[0].children[1].children[1];
+	this.compBtn.addEventListener('click', this.newElem, false);
 
 	// delete textbox prompt modal
-	tbsToolbar.children[3].children[0]
+	tbsToolbar.children[4].children[0]
 		.addEventListener('click', this.confirmDel, false);
 }
 
@@ -40,9 +40,8 @@ var TB = function(){
 // - user closes textbox control panel
 TB.prototype.close = function(){
 
-	// re-add the newTB event listener
-	jumboToolbar.children[0].children[1].children[1]
-		.addEventListener('click', this.newTB, false);
+	// re-add the newElem event listener
+	this.compBtn.addEventListener('click', this.newElem, false);
 
 	// if there is no active textbox, return
 	if(!this.a) return;
@@ -57,7 +56,7 @@ TB.prototype.close = function(){
 	this.a.children[1].style.display = 'none';
 
 	// blur
-	this.a.children[2].blur();
+	this.a.children[3].blur();
 
 	// nullify the active textbox
 	this.a = null;
@@ -66,7 +65,7 @@ TB.prototype.close = function(){
 //-----------------------------------------------
 // - create new textbox element when user clicks
 //   the jumbo toolbar button
-TB.prototype.newTB = function(e){ e.preventDefault();
+TB.prototype.newElem = function(e){ e.preventDefault();
 
 	// set this to active textbox status
 	tbs.a = tbs.createElem();
@@ -105,19 +104,13 @@ TB.prototype.newTB = function(e){ e.preventDefault();
 
 	// attribtue referrence to rr index
 	tbs.a.setAttribute('data-r', rm.i);
-	
-	// insert the new css rules
-	// rm.newRules();
 
 	// apply the event listeners
-	// tbs.ae();
-
-	// set the checkbox visibility
-	// cs.setVis();
+	tbs.ae();
 }
 
 //-----------------------------------------------
-// - helper function for newTB
+// - helper function for newElem
 // - create the new element
 // - create the css rules for the new element
 TB.prototype.createElem = function(){
@@ -141,20 +134,49 @@ TB.prototype.createElem = function(){
 	this.a.style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
 
 	// add the 3 children
-	this.a.innerHTML = '<div class="toggle-edit" style="display:none;">'+
+	this.a.innerHTML = '<div class="toggle-edit" data-as="tbs" style="display:none;">'+
 					   		'<button type="button" class="btn btn-default">'+
 								'<span class="glyphicon glyphicon-pencil"></span>'+
 							'</button>'+
 					   '</div>'+ 
 					   document.getElementById('drag-btns-html').value+
+					   '<div class="background"></div>'+
 					   '<div class="content-edit"></div>';
 
-	// apply toggle editor events
-
 	// set designMode to 'On'
-	this.a.children[2].contentEditable = true;
+	this.a.children[3].contentEditable = true;
 
 	return this.a;
+}
+
+//-----------------------------------------------
+// - add event listeners to new textbox element
+TB.prototype.ae = function(){
+
+	// remove newElem event listener
+	this.compBtn.removeEventListener('click', this.newElem, false);
+
+	// active/deactivate execCommand buttons as user types
+	this.a.children[3].addEventListener('keyup', ts.qCom, false);
+	this.a.children[3].addEventListener('focus', ts.qCom, false);
+
+	// set control panel properties of foreColor & backColor
+	this.a.children[3].addEventListener('keyup', tc.qCol, false);
+
+	// toggle editor
+	this.a.children[0].addEventListener('click', cs.tog, false);
+
+	// re-dimension event
+	this.a.children[3].addEventListener('touchend', this.c.reDim, false);
+	this.a.children[3].addEventListener('mouseup', this.c.reDim, false);
+
+	// insert new style sheet rules
+	rm.newRules();
+
+	// set visibility checkboxes
+	this.c.v[0].checked = 
+	this.c.v[1].checked = 
+	this.c.v[2].checked = true;
 }
 
 //-----------------------------------------------
@@ -164,8 +186,8 @@ TB.prototype.createElem = function(){
 TB.prototype.confirmDel = function(){
 
 	// if the textbox is empty & has no bg color
-	if(!tbs.a.children[2].childNodes.length 
-	&& !tbs.a.children[2].style.backgroundColor){
+	if(!tbs.a.children[3].childNodes.length 
+	&& !tbs.a.children[3].style.backgroundColor){
 		// delete it & return
 		tbs.del(); return;
 	}
@@ -199,7 +221,7 @@ TB.prototype.copy = function(){
    	this.t.style.textAlign = 'center';
 
    	// clone the textbox
-   	this.t.appendChild(this.a.children[2].cloneNode(true));
+   	this.t.appendChild(this.a.children[3].cloneNode(true));
    	
    	// remove the editable property
    	this.t.children[0].contentEditable = false;
@@ -213,6 +235,12 @@ TB.prototype.copy = function(){
    	// dimension it
    	this.t.children[0].style.width = this.a.offsetWidth + 'px';
    	this.t.children[0].style.height = this.a.offsetHeight + 'px';
+
+   	// set the background color
+   	this.t.children[0].style.backgroundColor = this.a.children[2].style.backgroundColor;
+
+   	// set the border radius
+   	this.t.children[0].style.borderRadius = this.a.children[2].style.borderRadius;
 
    	if(this.a.offsetWidth > 200)
 	   	// scale it to be no more than 200px
@@ -299,5 +327,47 @@ var TBC = function(){
 	this.icon = tbsCpanels.querySelectorAll('button.colorize[type="button"]');
 
 	// get the trasparency checkboxes
-	this.trani = tbsCpanels.querySelectorAll('input.colorize[type="checkbox"]')
+	this.trani = tbsCpanels.querySelectorAll('input.colorize[type="checkbox"]');
+
+	// keep a map of all the execCom buttons
+	this.b = document.querySelectorAll('[data-excom]');
+
+	// keep track of the buttons for textbox
+	this.b = {
+		bold 		  : this.b[4],
+		italic		  : this.b[5],
+		underline	  : this.b[6],
+		strikeThrough : this.b[7],
+		subscript	  : this.b[8],
+		superscript	  : this.b[9],
+		justifyLeft	  : this.b[0],
+		justifyCenter : this.b[1],
+		justifyRight  : this.b[2],
+		justifyFull	  : this.b[3]
+	};
+
+	// track visibility checkboxes
+	this.v = tbsCpanels.children[7].getElementsByTagName('input');
+}
+
+//-----------------------------------------------
+// - user resizes content editable div
+TBC.prototype.reDim = function(){
+
+	// make sure that we have an active textbox
+	if(tbs.a === null) return;
+
+	// if dimensions have not changed
+	if(jApp.nVals.tbs[this.parentElement.dataset.key].layout[layout.a].h == this.parentElement.offsetHeight
+	&& jApp.nVals.tbs[this.parentElement.dataset.key].layout[layout.a].w == this.parentElement.offsetWidth)
+		// do nothing
+		return;
+
+	// set the nVals
+	jApp.nVals.tbs[this.parentElement.dataset.key]
+		.layout[layout.a].h = this.parentElement.offsetHeight;
+	jApp.nVals.tbs[this.parentElement.dataset.key]
+		.layout[layout.a].w = this.parentElement.offsetWidth; 
+
+	jApp.deltaVals();
 }

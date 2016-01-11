@@ -23,7 +23,7 @@
                 <div><b>Font Size</b></div>
             </div>
             <div class="popover-content" style="text-align:center;">
-                <div class="input-group" style="max-width:70px;position:relative;left:50%;margin-left:-50px;">
+                <div class="input-group text-size" style="max-width:70px;position:relative;left:50%;margin-left:-50px;">
                     <input type="text" class="form-control" value="2" maxlength="1" aria-label="font size">
                     <div class="input-group-btn dropup">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
@@ -397,23 +397,23 @@
 
                     <div class="col-sm-6">
                         <!-- textbox blur -->
-                        <div class="half-slider" style="padding-left:10px;float:right;">
+                        <form class="half-slider blur-form" style="padding-left:10px;float:right;">
                             <label>
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 blur
                             </label>
                             <input type="text" class="form-control" maxlength="2" value='0'>
                             <input type="range" class="range-slider" min="0" max="10" step="1" value='0'>
-                        </div>
+                        </form>
                         <!-- background image opacity -->
-                        <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                        <form class="half-slider opacity-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
                             <label>
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" maxlength="4" value='1'>
-                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                        </div>
+                            <input type="text" class="form-control" data-elem="parent" maxlength="4" value='1'>
+                            <input type="range" class="range-slider" data-elem="parent" min="0" max="1" step="0.01" value="1">
+                        </form>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
@@ -565,19 +565,19 @@
             <div class="popover-content" style="padding-top:16px;padding-bottom:3px;">
                 <form class="form-inline">
                     <!-- mobile -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="mobile" checked>
                         <span class="icon-mobile"></span>
                         <div>mobile</div>
                     </label>
                     <!-- tablet -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="tablet" checked>
                         <span class="icon-mobile2"></span>
                         <div>tablet</div>
                     </label>
                     <!-- desktop -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="desktop" checked>
                         <span class="icon-laptop"></span>
                         <div>desktop</div>
