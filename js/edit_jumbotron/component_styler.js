@@ -487,7 +487,28 @@ TC.prototype.bgColor = function(hex){
 
 //-----------------------------------------------
 // - set border color of active element
-TC.prototype.borderColor = function(hex){ console.log('borderColor called');
+TC.prototype.borderColor = function(hex){
+
+	// if there is no border thickness
+	if(!jApp.nVals[as][jApp[as].a.dataset.key].borderwidth){
+
+		tc.t = document.getElementById(as + 'Cpanels')
+				.getElementsByClassName('border-form')[0]
+					.children[2];
+		tc.t.value = 
+		tc.t.parentElement.children[3].value = 
+		jApp.nVals[as][jApp[as].a.dataset.key].borderwidth = 1;
+		jApp[as].a.children[2].style.borderWidth = '1px';
+	}
+
+	// set the element background color
+	jApp[as].a.children[2].style.borderColor = 
+
+	// update the nVals obejct
+	jApp.nVals[as][jApp[as].a.dataset.key]['bordercolor'] = hex;
+
+	// prompt save 
+	jApp.deltaVals();
 
 }
 
@@ -559,6 +580,8 @@ TC.prototype.bg = function(hex){
 // - event listeners for blur and opacity text
 //   inputs and sliders
 //
+// - border thickness input and slider
+//
 // - set the visibility of an element in various
 //   layouts
 // 
@@ -594,6 +617,19 @@ var CS = function(){
 
 		// slider event
 		this.t[i].children[2].addEventListener('change', this.bSlide, false);
+	}
+
+	// border thickness
+
+	// loop through all the border forms
+	this.t = document.getElementsByClassName('border-form');
+	for(var i = 0; i < this.t.length; i++){
+
+		// keyup event
+		this.t[i].children[2].addEventListener('keyup', this.tText, false);
+
+		// slider event
+		this.t[i].children[3].addEventListener('change', this.tSlide, false);
 	}
 
 	// toggle resize, reposition, rotate
@@ -679,6 +715,23 @@ CS.prototype.bSlide = function(){
 }
 
 //-----------------------------------------------
+// - when user slides border thickness slider
+CS.prototype.tSlide = function(){
+
+	// set the value of the text input
+	this.parentElement.children[2].value = 
+
+	// update the nVals
+	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
+
+	// set the inline styles
+	jApp[as].a.children[2].style.borderWidth = this.value + 'px';
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
 // - keyup opacity text input
 CS.prototype.oText = function(){ 
 
@@ -748,6 +801,34 @@ CS.prototype.bText = function(){
 	// set the blur
 	jApp[as].a.style.filter = 
 	jApp[as].a.style.webkitFilter = "blur("+this.value+"px)"; 
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - keyup set border width text input
+CS.prototype.tText = function(){
+
+	// if there is no text, return
+	if(!this.value) return;
+
+	// replace all non-numeric characters
+	this.value = this.value.replace(/[^\d]/g, '');
+
+	// if the value is greater than 10
+	if(parseInt(this.value) > 10)
+		// remove the last number
+		this.value = this.value.substr(0,1);
+
+	// update the slider input
+	this.parentElement.children[3].value = 
+
+	// update the nVals
+	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
+
+	// set the inline css
+	jApp[as].a.children[2].style.borderWidth = this.value + 'px';
 
 	// prompt save
 	jApp.deltaVals();
@@ -893,7 +974,7 @@ CS.prototype.rUp = function(){
 	if(!this.value) return;
 
 	// replace all non-numeric characters
-	this.value = this.value.replace(/\D/g, ''); console.log(this.value.replace(/[^\d]/g, ''));
+	this.value = this.value.replace(/\D/g, '');
 
 	// if the value is greater than 10
 	if(parseInt(this.value) > 100)

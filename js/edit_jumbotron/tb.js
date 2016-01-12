@@ -87,6 +87,8 @@ TB.prototype.newElem = function(e){ e.preventDefault();
 		blur: 0,
 		z : rm.z,
 		round : 0,
+		borderwidth: 0,
+		bordercolor: '#FFFFFF',
 		layout : {
 			// w => width
 			// h => height
@@ -187,7 +189,7 @@ TB.prototype.confirmDel = function(){
 
 	// if the textbox is empty & has no bg color
 	if(!tbs.a.children[3].childNodes.length 
-	&& !tbs.a.children[3].style.backgroundColor){
+	&& !tbs.a.children[2].style.backgroundColor){
 		// delete it & return
 		tbs.del(); return;
 	}
@@ -371,3 +373,17 @@ TBC.prototype.reDim = function(){
 
 	jApp.deltaVals();
 }
+
+//-----------------------------------------------
+// - user changes layout
+// - set the height and width of the content 
+//   editable div inside the textbox element
+TBC.prototype.setDims = function(){
+	for(var x in tbs.h){
+		if(tbs.h[x].children.length){
+			tbs.h[x].children[3].style.width = jApp.nVals.tbs[x].layout[layout.a].w + 'px';
+			tbs.h[x].children[3].style.height = jApp.nVals.tbs[x].layout[layout.a].h + 'px';
+		}
+	}
+}
+

@@ -455,7 +455,7 @@ L.prototype.lay = function(e){ e.preventDefault();
 	layout.setStyles();
 
 	// set the height & width of all the textboxes
-	// jApp.tbs.te.setDims();
+	tbs.c.setDims();
 }
 
 //-----------------------------------------------

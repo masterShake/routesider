@@ -524,8 +524,8 @@
                 <form class="color-o border-form">
                     <div class="glyphicon glyphicon-minus"></div>
                     <label>thickness</label>
-                    <input type="text" class="form-control" value="1">
-                    <input type="range" class="range-slider" min="0" max="10" step="1" value="1">
+                    <input type="text" class="form-control" value="0">
+                    <input type="range" class="range-slider" min="0" max="10" step="1" value="0">
                 </form>
 
             </div>
