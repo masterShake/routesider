@@ -271,7 +271,7 @@
         </div>
 
         <!-- background color control panel -->
-        <div class="popover top control-panel tier-2" style="max-width:660px;">
+        <div class="popover top control-panel tier-3" style="max-width:660px;">
             <div class="popover-title"> 
                 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -417,11 +417,11 @@
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:196px"></div>
+            <div class="arrow" style="left:20px"></div>
         </div><!-- /backgroung color control panel -->
 
         <!-- border color -->
-        <div class="popover top control-panel tier-2">
+        <div class="popover top control-panel tier-3">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -520,8 +520,8 @@
 
                 <hr>
 
-                <!-- opacity -->
-                <form class="color-o border-form">
+                <!-- thickness -->
+                <form class="full-slider border-form">
                     <div class="glyphicon glyphicon-minus"></div>
                     <label>thickness</label>
                     <input type="text" class="form-control" value="0">
@@ -532,10 +532,50 @@
             <div class="arrow" style="left:205px"></div>
         </div><!-- /border color -->
 
-        <!-- element roundness -->
-        <div class="popover top control-panel tier-2" style="max-width:264px;">
+        <!-- shadow -->
+        <div class="popover top control-panel tier-3">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;text-shadow: 1px 1px 4px #343434;"></div>
+                <div><b>Shadow</b></div>
+            </div>
+            <div class="popover-content">
+
+                <!-- shadow color -->
+
+                <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
+                
+                <!-- adjust levels -->
+                <div>
+                    <!-- softness -->
+                    <form class="form-inline half-slider">
+                        <div class="form-group">
+                            <label><span class="icon-brightness-contrast" aria-hidden="true"></span> softness</label>
+                            <input type="text" class="form-control" value="5" />
+                            <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
+                        </div>
+                    </form>
+                    <!-- spread -->
+
+                    <!-- shadow x -->
+
+                    <!-- shadow y -->
+
+                </div>
+
+                <!-- inset -->
+
+            </div>
+            <div class="arrow" style="left:240px"></div>
+        </div>
+
+        <!-- element roundness -->
+        <div class="popover top control-panel tier-3" style="max-width:264px;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -553,9 +593,9 @@
         </div>
 
         <!-- element visibility -->
-        <div class="popover top control-panel tier-3" style="max-width:264px;">
+        <div class="popover top control-panel tier-4" style="max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="8" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -592,57 +632,61 @@
     <!-- toolbar -->
     <div class="btn-toolbar" id="tbsToolbar" role="toolbar">
 
-        <!-- toolbar 1 -->
+        <!-- [0] - font -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="edit textbox toolbar">
-            <!-- bold -->
+            <!-- [0] bold -->
             <button type="button" class="btn btn-default" data-panel data-excom="bold" onmousedown="event.preventDefault()" aria-label="bold">
                 <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
             </button>
-            <!-- italic -->
+            <!-- [1] italic -->
             <button type="button" class="btn btn-default" data-panel data-excom="italic" onmousedown="event.preventDefault()" aria-label="italic">
                 <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
             </button>
-            <!-- underline -->
+            <!-- [2] underline -->
             <button type="button" class="btn btn-default" data-panel data-excom="underline" onmousedown="event.preventDefault()" aria-label="underline">
                 <span class="icon-underline" aria-hidden="true"></span>
             </button>
-            <!-- strikethrough -->
+            <!-- [3] strikethrough -->
             <button type="button" class="btn btn-default" data-panel data-excom="strikeThrough" onmousedown="event.preventDefault()" aria-label="strike through">
                 <span class="icon-strikethrough" aria-hidden="true"></span>
             </button>
-            <!-- subscript -->
+            <!-- [4] subscript -->
             <button type="button" class="btn btn-default" data-panel data-excom="subscript" onmousedown="event.preventDefault()" aria-label="subscript">
                 <span class="glyphicon glyphicon-subscript" aria-hidden="true"></span>
             </button>
-            <!-- superscript -->
+            <!-- [5] superscript -->
             <button type="button" class="btn btn-default" data-panel data-excom="superscript" onmousedown="event.preventDefault()" aria-label="superscript">
                 <span class="glyphicon glyphicon-superscript" aria-hidden="true"></span>
             </button>
-        </div><!-- /toolbar 1 -->
+        </div><!-- /font toolbar 1 -->
 
-        <!-- text styling -->
+        <!-- [1] - text styling -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="text styling">
-            <!-- text-size -->
+            <!-- [0] - text-size -->
             <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
                 <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
             </button>
-            <!-- text color -->
+            <!-- [1]- text color -->
             <button type="button" class="btn btn-default" data-panel="1" aria-label="text-color">
                 <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
             </button>
-            <!-- text background-->
+            <!-- [2] - text background-->
             <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
                 <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             </button>
-            <!-- text align -->
+            <!-- [3] - horizontal rule -->
+            <button type="button" class="btn btn-default" data-panel aria-label="insert horizontal rule line">
+                <span class="icon-page-break" aria-hidden="true"></span>
+            </button>
+            <!-- [4] - text align -->
             <button type="button" class="btn btn-default" data-panel="3" aria-label="text align">
                 <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
             </button>
         </div><!-- /text styling -->
 
-        <!-- element styling -->
-        <div class="btn-group opts-toolbar" style="margin-bottom:10px;margin-left:10px;" role="group" aria-label="element styling">
-            <!-- edit background color -->
+        <!-- [2] element styling -->
+        <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="element styling">
+            <!-- [0] edit background color -->
             <div role="button" class="btn btn-default" data-panel="4" aria-label="edit background color">
                 <!-- color wheel icon -->
                 <div class="colorwheel-icon">
@@ -662,17 +706,21 @@
                     </div>
                 </div><!-- /colorwheel-icon -->
             </div>
-            <!-- border style -->
+            <!-- [1] border style -->
             <button type="button" class="btn btn-default" data-panel="5" aria-label="border style">
                 <span class="icon-checkbox-unchecked" aria-hidden="true"></span>
             </button>
-            <!-- element roundness -->
-            <button type="button" class="btn btn-default" data-panel="6" aria-label="element roundess">
+            <!-- [2] shadow -->
+            <button type="button" class="btn btn-default" data-panel="6" aria-label="shadow">
+                <span class="icon-checkbox-unchecked" style="text-shadow: 1px 1px 4px #343434;" aria-hidden="true"></span>
+            </button>
+            <!-- [3] element roundness -->
+            <button type="button" class="btn btn-default" data-panel="7" aria-label="element roundess">
                 <span class="icon-radio-unchecked" aria-hidden="true"></span>
             </button>
         </div><!-- /text styling -->
 
-        <!-- textbox positioning -->
+        <!-- [3] positioning -->
         <div class="btn-group opts-toolbar" role="group" aria-label="reposition textbox toolbar">
             <!-- move to front -->
             <button type="button" class="btn btn-default" data-panel aria-label="move to front">
@@ -683,12 +731,12 @@
                 <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
             <!-- layout visibility -->
-            <button type="button" class="btn btn-default" data-panel="7" aria-label="layout visibility">
+            <button type="button" class="btn btn-default" data-panel="8" aria-label="layout visibility">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
-        </div> <!-- /text positioning -->
+        </div> <!-- /positioning -->
 
-        <!-- delete button -->
+        <!-- [4] delete button -->
         <div class="btn-group opts-toolbar" style="float:right;margin-bottom:10px;" aria-label="delete textbox">
             <button type="button" class="btn btn-default btn-danger" aria-label="delete textbox">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

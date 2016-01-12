@@ -349,7 +349,25 @@ var TBC = function(){
 	};
 
 	// track visibility checkboxes
-	this.v = tbsCpanels.children[7].getElementsByTagName('input');
+	this.v = tbsCpanels.children[8].getElementsByTagName('input');
+
+	// hr rule event
+	tbsToolbar.children[1].children[3]
+		.addEventListener('click', this.hr, false);
+}
+
+//-----------------------------------------------
+// - horizontal line rule
+TBC.prototype.hr = function(e){ e.preventDefault();
+	// focus
+	tbs.a.children[3].focus();
+	cm.setEnd();
+	// exec command insert the hr line
+	document.execCommand('insertHorizontalRule', false, null);
+	// set the html property
+	jApp.nVals[as][this.parentElement.dataset.key].html = tbs.a.children[3].innerHTML;
+	// prompt save
+	jApp.deltaVals();
 }
 
 //-----------------------------------------------
