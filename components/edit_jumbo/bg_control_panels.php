@@ -92,6 +92,11 @@
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
+                            <!-- transparency checkbox -->
+                            <div style="display:none;">
+                                <input type="checkbox" class="colorize"/>
+                            </div>
+
                         </div>
 
                         <!-- color wheel -->

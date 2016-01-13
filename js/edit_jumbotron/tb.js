@@ -89,7 +89,7 @@ TB.prototype.newElem = function(e){ e.preventDefault();
 		round : 0,
 		borderwidth: 0,
 		bordercolor: '#FFFFFF',
-		shadow : {active : 0, color : '#444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
+		shadow : {active : 0, color : '#444444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
 		layout : {
 			// w => width
 			// h => height
@@ -330,7 +330,7 @@ var TBC = function(){
 	this.icon = tbsCpanels.querySelectorAll('button.colorize[type="button"]');
 
 	// get the trasparency checkboxes
-	this.trani = tbsCpanels.querySelectorAll('input.colorize[type="checkbox"]');
+	this.checki = tbsCpanels.querySelectorAll('input.colorize[type="checkbox"]');
 
 	// keep a map of all the execCom buttons
 	this.b = document.querySelectorAll('[data-excom]');

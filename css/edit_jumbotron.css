@@ -382,7 +382,7 @@ tbody button.btn-color-selected{
 /* active dragables */
 .textbox.active{
 	border: 1px solid #ccc;
-	box-shadow: 0 0 6px #676767;
+	/*box-shadow: 0 0 6px #676767;*/
 }
 /* toggle edit mode */
 .toggle-edit{

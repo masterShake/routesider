@@ -100,6 +100,11 @@
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
+                    <!-- transparency checkbox -->
+                    <div style="display:none;">
+                        <input type="checkbox" class="colorize"/>
+                    </div>
+
                 </div>
 
                 <!-- color wheel -->
@@ -381,6 +386,11 @@
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
+                    <!-- transparency checkbox -->
+                    <div style="display:none;">
+                        <input type="checkbox" class="colorize"/>
+                    </div>
+
                 </div>
 
                 <!-- color wheel -->
@@ -462,7 +472,7 @@
                     <!-- no color (transparent) textbox -->
                     <div style="margin-top:10px;">
                         <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
-                        <input type="checkbox" class="form-control" checked>
+                        <input type="checkbox" class="form-control colorize" checked>
                     </div>
                 </div>
                 <!-- color wheel -->
@@ -474,7 +484,7 @@
                 <div>
                     <!-- softness -->
                     <form class="form-inline full-slider">
-                        <div class="form-group" data-prop="softness">
+                        <div class="form-group" data-prop="softness" data-i="4">
                             <label>softness <span class="icon-brightness-contrast" aria-hidden="true"></span></label>
                             <input type="text" class="form-control" maxlength="2" value="4" />
                             <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
@@ -482,7 +492,7 @@
                     </form>
                     <!-- spread -->
                     <form class="form-inline full-slider">
-                        <div class="form-group" data-prop="spread">
+                        <div class="form-group" data-prop="spread" data-i="4">
                             <label>spread <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span></label>
                             <input type="text" class="form-control" maxlength="2" value="4" />
                             <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
@@ -490,7 +500,7 @@
                     </form>
                     <!-- shadow x -->
                     <form class="form-inline full-slider">
-                        <div class="form-group" data-prop="x">
+                        <div class="form-group" data-prop="x" data-i="4">
                             <label>x <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></label>
                             <input type="text" class="form-control" maxlength="3" value="0" />
                             <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
@@ -498,7 +508,7 @@
                     </form>
                     <!-- shadow y -->
                     <form class="form-inline full-slider">
-                        <div class="form-group" data-prop="y">
+                        <div class="form-group" data-prop="y" data-i="4">
                             <label>y <span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span></label>
                             <input type="text" class="form-control" maxlength="3" value="0" />
                             <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
@@ -511,11 +521,11 @@
                     <form class="form-inline">
                         <div class="form-group" style="float:right;width:50%;text-align:center;">
                             <label style="height:23px;width:23px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888 inset;float: left;"></label>
-                            <input type="radio" class="form-control" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
+                            <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
                         </div>
                         <div class="form-group" style="width:50%;">
                             <label style="height:20px;width:20px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888;float: left;"></label>
-                            <input type="radio" class="form-control" style="max-width: 22px;height: 24px;" name="tb-inset" value="0" checked>
+                            <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;" name="tb-inset" value="0" checked>
                         </div>
                     </form>
                 </div><!-- /inset -->

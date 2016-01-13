@@ -17,6 +17,9 @@ var CM = function(){
 	// init component stylers
 	cs = this.cs = new CS();
 
+	// init shadow styler
+	ss = this.ss = new SS();
+
 	// init the text stylers
 	ts =  this.ts = new TS();
 
@@ -416,6 +419,9 @@ TC.prototype.setElems = function(hex, i){
 	// set the icon color
 	jApp[as].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) );
 
+	// uncheck the transparency checkbox
+	jApp[as].c.checki[i].checked = false;
+	jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
 }
 
 //-----------------------------------------------
@@ -602,14 +608,19 @@ var SS = function(){
 
 	// loop through text inputs 0-99
 	this.t = document.querySelectorAll('.shadow input[value="4"]');
-	for(var i = 0; i < this.t.length; i++)
+	for(var i = 0; i < this.t.length; i++){
 		// add keyup event
 		this.t[i].addEventListener('keyup', this.keyA, false);
+		// blur event
+		this.t[i].addEventListener('blur', this.sBlur, false);
+	}
 
 	// loop through text inputs 0-99
 	this.t = document.querySelectorAll('.shadow input[value="0"]');
-	for(var i = 0; i < this.t.length; i++)
+	for(var i = 0; i < this.t.length; i++){
 		this.t[i].addEventListener('keyup', this.keyB, false);
+		this.t[i].addEventListener('blur', this.sBlur, false);
+	}
 
 	// loop through the inset radio buttons
 	this.t = document.querySelectorAll('.shadow input[type="radio"]');
@@ -624,7 +635,14 @@ var SS = function(){
 
 //-----------------------------------------------
 // - update the shadow of the active element
-SS.prototype.update = function(){
+SS.prototype.update = function(i){
+	// make sure we got an i variable, or use last checkbox in array
+	i = i || jApp[as].c.checki.length - 1;
+	// set the checkbox
+	jApp[as].c.checki[i].checked = false;
+	jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
+	// set the nVal as active
+	this.t.active = 1;
 	// get the nVals of the shadow
 	jApp[as].a.children[2].style.boxShadow = this.t.x + 'px '+ 
 											 this.t.y + 'px '+ 
@@ -648,7 +666,7 @@ SS.prototype.slide = function(){
 	// set the text input
 	this.parentElement.children[1].value = parseInt(this.value);
 	// update
-	ss.update();
+	ss.update(this.parentElement.dataset.i);
 }
 
 //-----------------------------------------------
@@ -656,11 +674,11 @@ SS.prototype.slide = function(){
 //   0 to 99
 SS.prototype.keyA = function(){
 
-	// if there is no input, return 
-	if( !this.value) return;
-
 	// replace all non-numeric characters
 	this.value = this.value.replace(/[^\d]/g, '');
+
+	// if there is no input, return 
+	if(!this.value) return;
 
 	// set the nVals temp variable
 	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
@@ -669,8 +687,10 @@ SS.prototype.keyA = function(){
 	this.parentElement.children[2].value = 
 
 	// update the nVals
-	this.t[this.parentElement.dataset.prop] = parseInt(this.value);
+	ss.t[this.parentElement.dataset.prop] = parseInt(this.value);
 
+	// update
+	ss.update(this.parentElement.dataset.i);
 }
 
 //-----------------------------------------------
@@ -678,11 +698,11 @@ SS.prototype.keyA = function(){
 //   -99 to 99
 SS.prototype.keyB = function(){
 
-	// if there is no input return
-	if( !this.value ) return;
-
 	// replace all non numeric characters
 	this.value = this.value.replace(/-?\d?\d?/, '');
+
+	// if there is no input return
+	if(!this.value ) return;
 
 	// set the nVals temp variable
 	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
@@ -691,39 +711,51 @@ SS.prototype.keyB = function(){
 	this.parentElement.children[2].value = 
 
 	// update the nVals
-	this.t[this.parentElement.dataset.prop] = parseInt(this.value);	
+	ss.t[this.parentElement.dataset.prop] = parseInt(this.value);	
+
+	// update
+	ss.update(this.parentElement.dataset.i);
+}
+
+//-----------------------------------------------
+// - blur empty text input
+SS.prototype.sBlur = function(){
+	// reset the value
+	this.value = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'][this.parentElement.dataset.prop];
 }
 
 //-----------------------------------------------
 // - change event, radio buttons shadow inset
-SS.prototype.inset = function(){
+SS.prototype.inset = function(e){ e.preventDefault();
 	// set the nVals object
 	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];	
 	// set the inset value
 	ss.t.inset = parseInt(this.value);
 	// update the shadow
-	ss.update();
+	ss.update(this.dataset.i);
 }
 
 //-----------------------------------------------
 // - toggle box shadow css rule
-SS.prototype.tog = function(){
-
+SS.prototype.tog = function(e){ e.preventDefault();
+	// set the t variable
+	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
 	// if no shadow
 	if(this.checked){
 		// make the parent full opaque
 		this.parentElement.style.opacity = '1';
 		// set the nVals
-		jApp.nVals[as][jApp[as].a.dataset.key].shadow.active = 1;
+		ss.t.active = 0;
 		// remove the box shadow css rule
 		jApp[as].a.children[2].style.boxShadow = 'none';
-	}else{
+	}else{ console.log('show the shadow');
 		// make the parent semi transparent
 		this.parentElement.style.opacity = '0.5';
 		// set the nVals
-		jApp.nVals[as][jApp[as].a.dataset.key].shadow.active = 1;
+		ss.t.active = 1;
+		// update with previous values
+		ss.update();
 	}
-
 }
 
 
