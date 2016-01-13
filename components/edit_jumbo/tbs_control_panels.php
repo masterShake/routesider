@@ -401,11 +401,16 @@
                 <hr>
 
                 <!-- thickness -->
-                <form class="full-slider border-form">
-                    <div class="glyphicon glyphicon-minus"></div>
-                    <label>thickness</label>
-                    <input type="text" class="form-control" value="0">
+                <form class="half-slider thickness-form" style="padding-left:10px;float:right;">
+                    <label><span class="glyphicon glyphicon-minus"></span> thickness</label>
+                    <input type="text" class="form-control" maxlength="2" value="0">
                     <input type="range" class="range-slider" min="0" max="10" step="1" value="0">
+                </form>
+                <!-- roundness -->
+                <form class="half-slider roundness-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                    <label><span class="icon-radio-unchecked"></span> roundness</label>
+                    <input type="text" class="form-control" maxlength="3" value="0">
+                    <input type="range" class="range-slider" min="0" max="100" step="1" value="0">
                 </form>
 
             </div>
@@ -534,30 +539,10 @@
             <div class="arrow" style="left:240px"></div>
         </div>
 
-        <!-- element roundness -->
-        <div class="popover top control-panel tier-3" style="max-width:264px;">
-            <div class="popover-title"> 
-                <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
-                <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-radio-unchecked" style="font-size:17px;margin-right:5px;"></div>
-                <div><b>Roundness</b></div>
-            </div>
-            <div class="popover-content roundness">
-                <div></div>
-                <div class="input-group">
-                    <input type="text" class="form-control" maxlength="3" value="0">
-                    <span class="input-group-addon">%</span>
-                </div>
-            </div>
-            <div class="arrow" style="left:240px"></div>
-        </div>
-
         <!-- element visibility -->
         <div class="popover top control-panel tier-4" style="max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="8" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
                 <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
@@ -676,10 +661,6 @@
             <button type="button" class="btn btn-default" data-panel="6" aria-label="shadow">
                 <span class="icon-checkbox-unchecked" style="text-shadow: 1px 1px 4px #343434;" aria-hidden="true"></span>
             </button>
-            <!-- [3] element roundness -->
-            <button type="button" class="btn btn-default" data-panel="7" aria-label="element roundess">
-                <span class="icon-radio-unchecked" aria-hidden="true"></span>
-            </button>
         </div><!-- /text styling -->
 
         <!-- [3] positioning -->
@@ -693,7 +674,7 @@
                 <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
             </button>
             <!-- layout visibility -->
-            <button type="button" class="btn btn-default" data-panel="8" aria-label="layout visibility">
+            <button type="button" class="btn btn-default" data-panel="7" aria-label="layout visibility">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
         </div> <!-- /positioning -->

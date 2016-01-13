@@ -499,10 +499,10 @@ TC.prototype.borderColor = function(hex){
 	if(!jApp.nVals[as][jApp[as].a.dataset.key].borderwidth){
 
 		tc.t = document.getElementById(as + 'Cpanels')
-				.getElementsByClassName('border-form')[0]
-					.children[2];
+				.getElementsByClassName('thickness-form')[0]
+					.children[1];
 		tc.t.value = 
-		tc.t.parentElement.children[3].value = 
+		tc.t.parentElement.children[2].value = 
 		jApp.nVals[as][jApp[as].a.dataset.key].borderwidth = 1;
 		jApp[as].a.children[2].style.borderWidth = '1px';
 	}
@@ -841,14 +841,30 @@ var CS = function(){
 	// border thickness
 
 	// loop through all the border forms
-	this.t = document.getElementsByClassName('border-form');
+	this.t = document.getElementsByClassName('thickness-form');
 	for(var i = 0; i < this.t.length; i++){
 
 		// keyup event
-		this.t[i].children[2].addEventListener('keyup', this.tText, false);
+		this.t[i].children[1].addEventListener('keyup', this.tText, false);
 
 		// slider event
-		this.t[i].children[3].addEventListener('change', this.tSlide, false);
+		this.t[i].children[2].addEventListener('change', this.tSlide, false);
+	}
+
+	// border roundness
+
+	// loop through all the border forms
+	this.t = document.getElementsByClassName('roundness-form');
+	for(var i = 0; i < this.t.length; i++){
+
+		// keyup event
+		this.t[i].children[1].addEventListener('keyup', this.rUp, false);
+
+		// keydown event
+		this.t[i].children[1].addEventListener('keydown', this.rDo, false);
+
+		// slider event
+		this.t[i].children[2].addEventListener('change', this.rSlide, false);
 	}
 
 	// toggle resize, reposition, rotate
@@ -881,16 +897,6 @@ var CS = function(){
 
 		// add the event listener to the checkbox
 		this.t[i].children[0].addEventListener('change', this.vis, false);
-
-	// roundness
-
-	this.t = document.querySelectorAll('.roundness input');
-	this.t[0].addEventListener('keydown', this.rDo, false);
-	this.t[0].addEventListener('keyup', this.rUp, false);
-	this.t[1].addEventListener('keydown', this.rDo, false);
-	this.t[1].addEventListener('keyup', this.rUp, false);
-	this.t[2].addEventListener('keydown', this.rDo, false);
-	this.t[2].addEventListener('keyup', this.rUp, false);
 }
 
 //-----------------------------------------------
@@ -938,7 +944,7 @@ CS.prototype.bSlide = function(){
 CS.prototype.tSlide = function(){
 
 	// set the value of the text input
-	this.parentElement.children[2].value = 
+	this.parentElement.children[1].value = 
 
 	// update the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
@@ -1041,7 +1047,7 @@ CS.prototype.tText = function(){
 		this.value = this.value.substr(0,1);
 
 	// update the slider input
-	this.parentElement.children[3].value = 
+	this.parentElement.children[2].value = 
 
 	// update the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
@@ -1200,9 +1206,12 @@ CS.prototype.rUp = function(){
 		// remove the last number
 		this.value = this.value.substr(0,2);
 
-	// set the roundness of the example element
-	this.parentElement.parentElement.children[0]
-		.style.borderRadius = 
+	// if the leading number is a 0, remove it
+	if(this.value.charAt(0) == '0')
+		this.value = this.value.substr(1, this.value.length);
+
+	// set the slider input
+	this.parentElement.children[2].value = this.value;
 
 	// set the roundness of the active dragable
 	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
@@ -1235,12 +1244,26 @@ CS.prototype.rDo = function(e){
 	// if neither of these keys, do nothing
 	else return;
 
-	// set the roundness of the example element
-	this.parentElement.parentElement.children[0]
-		.style.borderRadius = 
+	// set the slider
+	this.parentElement.children[2].value = this.value;
 
 	// set the roundness of the active dragable
 	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
 }
 
+//-----------------------------------------------
+// - user slides roundness slider input
+CS.prototype.rSlide = function(){
 
+	// set the value of the text input
+	this.parentElement.children[1].value = 
+
+	// update the nVals
+	jApp.nVals[as][jApp[as].a.dataset.key]['round'] = parseInt(this.value);
+
+	// set the inline styles
+	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+
+	// prompt save
+	jApp.deltaVals();
+}

@@ -350,7 +350,7 @@ var TBC = function(){
 	};
 
 	// track visibility checkboxes
-	this.v = tbsCpanels.children[8].getElementsByTagName('input');
+	this.v = tbsCpanels.children[7].getElementsByTagName('input');
 
 	// hr rule event
 	tbsToolbar.children[1].children[3]
