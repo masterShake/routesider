@@ -8,6 +8,7 @@ var jApp,	// Jumbo app
 	cm,     // component manager
 	cs,		// component styler
 	ts,		// text styler
+	ss,		// shadow styler
 	tc,		// text color
 	bg,		// background
 	tbs,	// textbox

@@ -104,40 +104,9 @@
 
                 <!-- color wheel -->
                 <div class="color-wheel" data-i="0" data-func="foreColor">
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                    </div>
-                    <!-- 5 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                    </div>
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                    </div>
+
+                    <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+
                 </div><!-- /hexigon color wheel -->
 
             </div>
@@ -211,40 +180,7 @@
 
                 <!-- color wheel -->
                 <div class="color-wheel" style="height:122px;padding-top:12px;" data-i="1" data-func="backColor">
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                    </div>
-                    <!-- 5 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                    </div>
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                    </div>
+                    <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
                 </div><!-- /hexigon color wheel -->
 
             </div>
@@ -356,40 +292,7 @@
 
                         <!-- color wheel -->
                         <div class="color-wheel" style="height:126px;padding-top:13px;" data-i="2" data-func="bgColor">
-                            <!-- 3 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                                <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                                <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                            </div>
-                            <!-- 4 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                                <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                                <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                                <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                            </div>
-                            <!-- 5 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                                <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                                <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                                <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                                <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                            </div>
-                            <!-- 4 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                                <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                                <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                                <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                            </div>
-                            <!-- 3 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                                <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                                <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                            </div>
+                            <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
                         </div><!-- /hexigon color wheel -->
                     </div><!-- /col-md-6 -->
 
@@ -482,40 +385,7 @@
 
                 <!-- color wheel -->
                 <div class="color-wheel" data-func="borderColor" data-i="3">
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                    </div>
-                    <!-- 5 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                    </div>
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                    </div>
+                    <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
                 </div><!-- /hexigon color wheel -->
 
                 <hr>
@@ -542,31 +412,113 @@
                 <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;text-shadow: 1px 1px 4px #343434;"></div>
                 <div><b>Shadow</b></div>
             </div>
-            <div class="popover-content">
-
+            <div class="popover-content shadow">
                 <!-- shadow color -->
+                <div style="width:135px;float:right;">
+                    <!-- hex table -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>hex</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- fill -->
+                            <tr>
+                                <td>
+                                    <button type="button" 
+                                            class="btn colorize" 
+                                            style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
+                                            aria-label="edit button border color, use color wheel to select colors">
+                                        <span class="icon-checkbox-unchecked" style="font-size:17px;"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="text" 
+                                           value='#000000' 
+                                           class="form-control colorize" 
+                                           maxlength="7"
+                                           style="text-transform:uppercase"
+                                           data-func="shadowColor"
+                                           data-i="4" 
+                                           aria-label="background color hexidecimal color value">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table><!-- /hex table -->
 
+                    <!-- HTML5 color picker -->
+                    <div style="text-align:center;margin-top:14px;">
+                        <label>more colors:</label>
+                        <input type="color" 
+                               class="colorize"
+                               value='#444444'
+                               data-func="shadowColor"
+                               data-i="4"
+                               aria-label="select from complete color wheel">
+                    </div><!-- /full color wheel -->
+
+                    <!-- no color (transparent) textbox -->
+                    <div style="margin-top:10px;">
+                        <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
+                        <input type="checkbox" class="form-control" checked>
+                    </div>
+                </div>
+                <!-- color wheel -->
+                <div class="color-wheel" style="height:127px;padding-top:13px;" data-func="shadowColor" data-i="4">
+                    <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+                </div><!-- /hexigon color wheel -->
                 <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
-                
                 <!-- adjust levels -->
                 <div>
                     <!-- softness -->
-                    <form class="form-inline half-slider">
-                        <div class="form-group">
-                            <label><span class="icon-brightness-contrast" aria-hidden="true"></span> softness</label>
-                            <input type="text" class="form-control" value="5" />
+                    <form class="form-inline full-slider">
+                        <div class="form-group" data-prop="softness">
+                            <label>softness <span class="icon-brightness-contrast" aria-hidden="true"></span></label>
+                            <input type="text" class="form-control" maxlength="2" value="4" />
                             <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
                         </div>
                     </form>
                     <!-- spread -->
-
+                    <form class="form-inline full-slider">
+                        <div class="form-group" data-prop="spread">
+                            <label>spread <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span></label>
+                            <input type="text" class="form-control" maxlength="2" value="4" />
+                            <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
+                        </div>
+                    </form>
                     <!-- shadow x -->
-
+                    <form class="form-inline full-slider">
+                        <div class="form-group" data-prop="x">
+                            <label>x <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></label>
+                            <input type="text" class="form-control" maxlength="3" value="0" />
+                            <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
+                        </div>
+                    </form>
                     <!-- shadow y -->
-
-                </div>
-
+                    <form class="form-inline full-slider">
+                        <div class="form-group" data-prop="y">
+                            <label>y <span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span></label>
+                            <input type="text" class="form-control" maxlength="3" value="0" />
+                            <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
+                        </div>
+                    </form>
+                </div><!-- /softness -->
+                <hr>
                 <!-- inset -->
+                <div>
+                    <form class="form-inline">
+                        <div class="form-group" style="float:right;width:50%;text-align:center;">
+                            <label style="height:23px;width:23px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888 inset;float: left;"></label>
+                            <input type="radio" class="form-control" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
+                        </div>
+                        <div class="form-group" style="width:50%;">
+                            <label style="height:20px;width:20px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888;float: left;"></label>
+                            <input type="radio" class="form-control" style="max-width: 22px;height: 24px;" name="tb-inset" value="0" checked>
+                        </div>
+                    </form>
+                </div><!-- /inset -->
 
             </div>
             <div class="arrow" style="left:240px"></div>
@@ -728,7 +680,7 @@
             </button>
             <!-- reposition, resize, rotate -->
             <button type="button" class="btn btn-default" data-panel aria-label="crop image">
-                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
             </button>
             <!-- layout visibility -->
             <button type="button" class="btn btn-default" data-panel="8" aria-label="layout visibility">

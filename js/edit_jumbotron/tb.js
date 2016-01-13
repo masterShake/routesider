@@ -89,6 +89,7 @@ TB.prototype.newElem = function(e){ e.preventDefault();
 		round : 0,
 		borderwidth: 0,
 		bordercolor: '#FFFFFF',
+		shadow : {active : 0, color : '#444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
 		layout : {
 			// w => width
 			// h => height

@@ -259,7 +259,7 @@ button.colorize{
 
 /* full slider */
 .full-slider div{
-    float: left;
+	text-align: right;
     font-size: 17px;
     margin-top: 2px;
     margin-right: 6px;
@@ -273,6 +273,7 @@ button.colorize{
 	float: right;
 	width: 110px;
 	margin-right: 12px;
+	margin-left: 12px;
 }
 
 /* half slide input */
