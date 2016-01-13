@@ -222,8 +222,57 @@ Jumbo.prototype.togCpan = function(){
 		.style.display = "none";
 
 	// display the control panel
-	document.getElementById(as + "Cpanels").children[this.dataset.panel]
-		.style.display = "block";
+	jApp.showPan(this);
+}
+
+//-----------------------------------------------
+// - set the styles for the selected control
+//   panel and display it
+// - elem => button element that was clicked
+Jumbo.prototype.showPan = function(elem){ // console.log(elem.offsetLeft);console.log(elem.parentElement.offsetLeft);console.log(elem.parentElement.parentElement.offsetLeft);
+
+	// get the control panel
+	this.t = document.getElementById(as + "Cpanels").children[elem.dataset.panel];
+
+	// if elem button is in the top row, do nothing
+	if(!elem.parentElement.offsetTop) return;
+
+	// set the bottom margin
+	this.t.style.marginBottom = '-' + (elem.parentElement.offsetTop - elem.parentElement.parentElement.offsetTop - 9) + 'px';
+
+	// if elem is a mobile device
+	if(layout.a == 'mobile'){
+		// set the arrow position
+		this.t.children[2].style.left = (elem.offsetLeft + elem.parentElement.offsetLeft + 5) + 'px';
+		// display the control panel
+		this.t.style.display = 'block';
+		// end function
+		return;	
+	}
+
+	// display the control panel
+	this.t.style.display = 'block';
+	// calculate the margin left of the control panel
+	layout.t = (elem.offsetLeft + elem.parentElement.offsetLeft - elem.parentElement.parentElement.offsetLeft + 15);
+		
+	// if margin left is too low
+	if((layout.t - this.t.offsetWidth/2) < 0){
+		this.t.style.marginLeft = '0';
+		this.t.children[2].style.left = layout.t + 'px';
+
+	// if the margin is too high
+	}else if((layout.t - this.t.offsetWidth/2) > (this.t.parentElement.offsetWidth - this.t.offsetWidth)){
+		this.t.style.marginLeft = (layout.t - this.t.offsetWidth/2) - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px';
+		console.log(layout.t);
+		console.log(layout.t - this.t.offsetWidth/2);
+		console.log(this.t.parentElement.offsetWidth - this.t.offsetWidth);
+		this.t.children[2].style.left = layout.t - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px';
+	
+	// else if everything fits
+	}else{
+		this.t.style.marginLeft = (layout.t - this.t.offsetWidth/2) + 'px';
+		this.t.children[2].style.left = (this.t.offsetWidth/2) + 'px';
+	}
 }
 
 //-----------------------------------------------

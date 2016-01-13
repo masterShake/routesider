@@ -48,7 +48,7 @@ r.prototype.mt = function(e){ e.preventDefault();
 // - tablet @media > 768px
 // - desktop @media > 1200px
 // - r => rrrMap object key
-r.prototype.newRules = function(){ console.log(this.i);
+r.prototype.newRules = function(){
 
 	// default: scale 1, rotate 0, element centered
 	this.u = '#dragCanvas>div:nth-child('+this.i+')'+

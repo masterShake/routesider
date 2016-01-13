@@ -13,7 +13,7 @@
     <div id="tbsCpanels" style="position:relative;z-index:3;">
 
         <!-- text size -->
-        <div class="popover top control-panel tier-2" style="max-width:250px;">
+        <div class="popover top control-panel" style="max-width:250px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -39,11 +39,11 @@
                     </div><!-- /btn-group -->
                 </div><!-- /input-group -->
             </div>
-            <div class="arrow" style="left:20px"></div>
+            <div class="arrow"></div>
         </div><!-- /text size -->
 
         <!-- text color -->
-        <div class="popover top control-panel tier-2">
+        <div class="popover top control-panel" style="max-width:310px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -115,11 +115,11 @@
                 </div><!-- /hexigon color wheel -->
 
             </div>
-            <div class="arrow" style="left:63px"></div>
+            <div class="arrow"></div>
         </div><!-- /text color -->
 
         <!-- text background -->
-        <div class="popover top control-panel tier-2">
+        <div class="popover top control-panel" style="max-width:310px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -189,11 +189,11 @@
                 </div><!-- /hexigon color wheel -->
 
             </div>
-            <div class="arrow" style="left:107px"></div>
+            <div class="arrow"></div>
         </div><!-- /text color -->
 
         <!-- text alignment -->
-        <div class="popover top control-panel tier-2" style="max-width:264px;">
+        <div class="popover top control-panel" style="max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -208,11 +208,11 @@
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyRight" onmousedown="event.preventDefault()" aria-label="justify align right"><span class="glyphicon glyphicon-align-right"></span></button>
                 <button type="button" class="btn btn-default" style="margin:0 6px;" data-excom="justifyFull" onmousedown="event.preventDefault()" aria-label="justify align full"><span class="glyphicon glyphicon-align-justify"></span></button>
             </div>
-            <div class="arrow" style="left:151px"></div>
+            <div class="arrow"></div>
         </div>
 
         <!-- background color control panel -->
-        <div class="popover top control-panel tier-3" style="max-width:660px;">
+        <div class="popover top control-panel" style="max-width:660px;">
             <div class="popover-title"> 
                 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -325,11 +325,11 @@
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:20px"></div>
+            <div class="arrow"></div>
         </div><!-- /backgroung color control panel -->
 
         <!-- border color -->
-        <div class="popover top control-panel tier-3">
+        <div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -414,11 +414,11 @@
                 </form>
 
             </div>
-            <div class="arrow" style="left:205px"></div>
+            <div class="arrow"></div>
         </div><!-- /border color -->
 
         <!-- shadow -->
-        <div class="popover top control-panel tier-3">
+        <div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -536,11 +536,11 @@
                 </div><!-- /inset -->
 
             </div>
-            <div class="arrow" style="left:240px"></div>
+            <div class="arrow"></div>
         </div>
 
         <!-- element visibility -->
-        <div class="popover top control-panel tier-4" style="max-width:264px;">
+        <div class="popover top control-panel" style="max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -571,7 +571,7 @@
                     </label>
                 </form>
             </div>
-            <div class="arrow" style="left:107px"></div>
+            <div class="arrow"></div>
         </div><!-- /element visibility control panel -->
 
     </div>
