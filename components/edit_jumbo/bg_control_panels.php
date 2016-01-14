@@ -15,7 +15,7 @@
     <div id="bgCpanels">
 
         <!-- background color control panel -->
-        <div class="popover top control-panel" style="max-width:660px;">
+        <div class="popover top control-panel" style="max-width:612px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding: 0px 3px 1px;max-height: 18px;" aria-hidden="true">
@@ -42,7 +42,7 @@
                 <div><b>Color</b></div>
             </div>
 
-            <div class="popover-content container" style="max-width:100%;">
+            <div class="popover-content container">
                 <div class="row">
 
                     <div class="col-sm-6 left-panel">
@@ -109,7 +109,7 @@
 
                     <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 right-panel">
                         <!-- background image blur -->
                         <form class="half-slider blur-form" style="padding-left:10px;float:right;">
                             <label>

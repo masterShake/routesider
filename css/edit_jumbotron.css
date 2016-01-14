@@ -171,10 +171,10 @@ button.colorize{
 	padding: 0px 6px;
 	color: #5CB85C;
 }
-.conrol-panel .popover-content{
+.control-panel .popover-content{
 	max-width: 100%;
 }
-.conrol-panel .popover-content hr{
+.control-panel .popover-content hr{
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -250,6 +250,9 @@ button.colorize{
     font-size: 17px;
     margin-top: 2px;
     margin-right: 6px;
+}
+.full-slider .form-group{
+	width: 100%;
 }
 .full-slider .form-control{
 	float: right;
@@ -449,7 +452,6 @@ label.vis>div{
 .roundness .form-control{
 	text-align: right;
 }
-
 /*----------------------
 	image overlay
 ----------------------*/
@@ -626,12 +628,21 @@ label.vis>div{
 		max-width: none;
 	}
 
-	#bgCpanels .left-panel{
+	.left-panel{
 	    border-right: 1px solid #ccc;
-	    padding-right: 30px;
 	}
-	#bgCpanels .half-slider{
-		height: 99px;
+	.left-panel,
+	.right-panel{
+		height: 127px;
+	}
+	.center-panel{
+		padding-right:0px;
+	}
+	.center-panel form{
+		margin-bottom: 10px;
+	}
+	.half-slider{
+		height: 100%;
 		padding-top: 19px;
 	}
 

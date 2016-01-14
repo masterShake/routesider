@@ -263,9 +263,6 @@ Jumbo.prototype.showPan = function(elem){ // console.log(elem.offsetLeft);consol
 	// if the margin is too high
 	}else if((layout.t - this.t.offsetWidth/2) > (this.t.parentElement.offsetWidth - this.t.offsetWidth)){
 		this.t.style.marginLeft = (layout.t - this.t.offsetWidth/2) - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px';
-		console.log(layout.t);
-		console.log(layout.t - this.t.offsetWidth/2);
-		console.log(this.t.parentElement.offsetWidth - this.t.offsetWidth);
 		this.t.children[2].style.left = layout.t - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px';
 	
 	// else if everything fits
