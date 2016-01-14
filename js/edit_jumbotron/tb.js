@@ -25,7 +25,7 @@ var TB = function(){
 	this.rBtn = tbsToolbar.children[3].children[1];
 
 	// init the TBC object
-	this.c = new TBC();
+	this.c = new TBC(this);
 
 	// add event listener to the new textbox component btn
 	this.compBtn = jumboToolbar.children[0].children[1].children[1];
@@ -318,7 +318,7 @@ TB.prototype.del = function(){
 //
 //-----------------------------------------------
 
-var TBC = function(){
+var TBC = function(tbs){
 
 	// get the text inputs
 	this.texti = tbsCpanels.querySelectorAll('input.colorize[type="text"]');
@@ -331,6 +331,30 @@ var TBC = function(){
 
 	// get the trasparency checkboxes
 	this.checki = tbsCpanels.querySelectorAll('input.colorize[type="checkbox"]');
+
+	// temp variable get layout
+	if(document.body.offsetWidth < 767)
+		tbs.a = 'mobile';
+	else if(document.body.offsetWidth < 1200)
+		tbs.a = 'tablet';
+	else
+		tbs.a = 'desktop';
+
+	// temp get the iVals
+	tbs.i = JSON.parse(document.getElementById('i-vals').value);
+
+	// loop through the textboxes
+	this.b = dragCanvas.getElementsByClassName('content-edit');
+	for(var i = 0; i < this.b.length; i++){
+		this.b[i].addEventListener('mouseup', this.reDim, false);
+		this.b[i].addEventListener('touchend', this.reDim, false);
+		this.b[i].style.height = tbs.i['tbs'][i].layout[tbs.a].h+'px';
+		this.b[i].style.width = tbs.i['tbs'][i].layout[tbs.a].w+'px';
+		// push it onto the hashmap
+		tbs.h[i] = this.b[i].parentElement;
+	}
+	tbs.i = this.b.length - 1;
+	tbs.a = null;
 
 	// keep a map of all the execCom buttons
 	this.b = document.querySelectorAll('[data-excom]');

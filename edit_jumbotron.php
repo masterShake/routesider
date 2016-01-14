@@ -161,15 +161,17 @@
 
                         <!-- background image & crop layer -->
                         <div class="j-canvas" style='background-color:<?= $jumbo["bg"][0]["color"]; ?>;'>
-                            <div id="bgElem" data-r="0" data-key="0">
+                            <div id="bgElem" data-r="0" data-key="0" style='-webkit-filter: blur(<?= $jumbo["bg"][0]["blur"]; ?>px);filter: blur(<?= $jumbo["bg"][0]["blur"]; ?>px);'>
                                 <!-- placeholder div, not used for bg image -->
                                 <div style="display:none;"></div>
                                 <!-- dragable crop buttons -->
                                 <?php include "components/edit_jumbo/drag_btns.php"; ?>
+                                <!-- placeholder div, not used for bg image -->
+                                <div style="display:none;"></div>
                                 <!-- background image -->
                                 <?php if($jumbo["bg"][0]["image"]){ ?>
 
-                                    <img src='img/business/<?= $jumbo["bg"][0]["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["bg"][0]["opacity"]; ?>;-webkit-filter: blur(<?= $jumbo["bg"][0]["blur"]; ?>px);filter: blur(<?= $jumbo["bg"][0]["blur"]; ?>px);' />
+                                    <img src='img/business/<?= $jumbo["bg"][0]["image"]; ?>' alt="" id="bgImg" style='opacity:<?= $jumbo["bg"][0]["opacity"]; ?>;' />
 
                                 <?php }else{ ?>
 
@@ -215,17 +217,19 @@
                         // iterate through the textboxes
                         foreach($jumbo["tbs"] as $textbox){ ?>
 
-                            <div class="textbox" data-r="<?= $r; ?>" data-key="<?= $i; ?>">
+                            <div class="textbox" data-r="<?= $r; ?>" data-key="<?= $i; ?>" style="opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);">
                                 <!-- toggle edit mode -->
-                                <div class="toggle-edit" style="display:block;">
+                                <div class="toggle-edit" data-as="tbs" style="display:block;">
                                     <button type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
                                </div>
                                <!-- reposition, resize, rotate -->
                                <?php include "components/edit_jumbo/drag_btns.php"; ?>
+                               <!-- background element -->
+                               <div class="background" style='background-color:<?= $textbox["color"]; ?>;border-radius:<?= ($textbox["round"]/2); ?>%;border-width:<?= $textbox["borderwidth"]; ?>;border-color:<?= $textbox["bordercolor"]; ?>;box-shadow:<?= $textbox["shadow"]["x"] ."px ".$textbox["shadow"]["y"]."px ".$textbox["shadow"]["softness"]."px ".$textbox["shadow"]["spread"]."px ".$textbox["shadow"]["color"]; ?><?= ($textbox["shadow"]["inset"]) ? " inset" : "";  ?>;'></div>
                                <!-- content editable -->
-                               <div class="content-edit" style='min-height:27px;min-width:80px;background-color:<?= $textbox["color"]; ?>;opacity:<?= $textbox["opacity"]; ?>;filter:blur(<?= $textbox["blur"]; ?>px);-webkit-filter:blur(<?= $textbox["blur"]; ?>px);border-radius:<?= ($textbox["round"]/2); ?>%;'>
+                               <div class="content-edit" contentEditable="true" style='min-height:27px;min-width:80px;'>
                                    <?= $textbox["html"]; ?>
                                </div>
                             </div>

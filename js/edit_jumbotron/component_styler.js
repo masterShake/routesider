@@ -130,6 +130,13 @@ var TS = function(c){
 	this.u = this.t[1].children[1].children[1].children;
 	for(var i = 0; i < this.u.length; i++)
 		this.u[i].children[0].addEventListener('click', this.clickFS, false);
+
+	// add keyup event to existing content-editable divs
+	this.t = dragCanvas.getElementsByClassName('content-edit');
+	for(var i = 0; i < this.t.length; i++){
+		this.t[i].addEventListener('keyup', this.qCom, false);
+		this.t[i].addEventListener('focus', this.qCom, false);
+	}
 }
 
 //-----------------------------------------------
@@ -295,6 +302,11 @@ var TC = function(){
 	for(var i = 0; i < this.t.length; i++)
 		// change event
 		this.t[i].addEventListener('change', this.trans, false);
+
+	// add keyup event to existing content-editable divs
+	this.t = dragCanvas.getElementsByClassName('content-edit');
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].addEventListener('keyup', this.qCol, false);
 }
 
 //-----------------------------------------------
@@ -880,7 +892,7 @@ var CS = function(){
 		for(var j = 0; j < this.u.length; j++){ 
 
 			// if this is the toggle button
-			if(this.u[j].children[0].className == 'glyphicon glyphicon-move')
+			if(this.u[j].children[0].className == 'glyphicon glyphicon-fullscreen')
 				// toggle rrr event
 				this.u[j].addEventListener('click', this.rrr, false);
 			else
@@ -897,6 +909,13 @@ var CS = function(){
 
 		// add the event listener to the checkbox
 		this.t[i].children[0].addEventListener('change', this.vis, false);
+
+	// loop through existing dragable elements
+	this.t = dragCanvas.children;
+	for(var i = 0; i < this.t.length; i++)
+
+		// apply the tog event listener
+		this.t[i].children[0].addEventListener('click', this.tog, false);
 }
 
 //-----------------------------------------------
@@ -933,7 +952,7 @@ CS.prototype.bSlide = function(){
 
 	// change the blur of the background img
 	jApp[as].a.style.filter = 
-	jApp[as].a.style.webkitFilter = "blur("+this.value+"px)"; 
+	jApp[as].a.style.webkitFilter = (this.value == 0) ? 'none' : 'blur('+this.value+'px)'; 
 
 	// prompt save
 	jApp.deltaVals();
@@ -1108,7 +1127,7 @@ CS.prototype.tog = function(){
 									.substr(0, jApp[as].a.className.length - 7);
 
 		// hide the drag buttons												
-		this.rOff();
+		cs.rOff();
 
 		// display the toggle editor elem
 		jApp[as].a.children[0].style.display = 'block';
@@ -1118,7 +1137,7 @@ CS.prototype.tog = function(){
 	jApp[this.dataset.as].a = this.parentElement;
 
 	// set the active class
-	this.parentElement.className = this.parentElement.className = ' active';
+	this.parentElement.className = this.parentElement.className + ' active';
 
 	// set the active rrr element
 	rm.a = rm.h[this.parentElement.dataset.r];

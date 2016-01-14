@@ -95,10 +95,10 @@ BG.prototype.confirmDel = function(){
    					 '</div>';
 
    	// set modal callback
-   	jApp.modal.callback = bg.del;
+   	modal.callback = bg.del;
 
    	// launch the modal
-   	jApp.modal.launch();
+   	modal.launch();
 }
 
 //-----------------------------------------------
@@ -113,12 +113,12 @@ BG.prototype.del = function(){
 	bg.resetStyles();
 
 	// remove the background image
-	bgElem.removeChild(bgElem.children[2]);
+	bgElem.removeChild(bgElem.children[3]);
 
 	// add the default bg image placeholder
 	bgElem.appendChild(document.createElement("div"));
-	bgElem.children[2].className = "bg-placeholder";
-	bgElem.children[2].innerHTML = '<span class="icon-image"></span>';
+	bgElem.children[3].className = "bg-placeholder";
+	bgElem.children[3].innerHTML = '<span class="icon-image"></span>';
 
 	// deactivate the repo/resize/crop button
 	bgToolbar.children[1].children[1].className = 'btn btn-default inactive';
@@ -173,9 +173,9 @@ BG.prototype.resetProps = function(){
 BG.prototype.resetStyles = function(){
 
 	// inline
-	bgElem.children[2].style.opacity = '1';
-	bgElem.children[2].style.filter = 
-	bgElem.children[2].style.webkitFilter = 'blur(0px)';
+	bgElem.children[3].style.opacity = '1';
+	bgElem.children[3].style.filter = 
+	bgElem.children[3].style.webkitFilter = 'blur(0px)';
 
 	// transform 
 	document.styleSheets[7].cssRules[0].style.transform = 		// mobile
@@ -338,7 +338,7 @@ BGI.prototype.uploadCB = function(){
 		if(!document.getElementById('bgImg')){
 
 			// remove the placeholder
-			bgElem.removeChild(bgElem.children[2]);
+			bgElem.removeChild(bgElem.children[3]);
 
 			// insert an image element
 			bgElem.appendChild(
@@ -346,7 +346,7 @@ BGI.prototype.uploadCB = function(){
 			);
 
 			// set the id
-			bgElem.children[2].id = "bgImg";
+			bgElem.children[3].id = "bgImg";
 
 			// set the data-r property (index in rm object)
 			bgElem.setAttribute('data-r', '0');
@@ -459,12 +459,12 @@ BGC = function(){
 	/* properties */
 
 	// get the .colorize elements
-	this.picki = bgCpanels.getElementsByClassName('colorize');
+	this.checki = bgCpanels.getElementsByClassName('colorize');
 	// keep them in arrays for consistency with other components
-	this.icon = [this.picki[0]];
-	this.texti = [this.picki[1]];
-	this.picki = [this.picki[2]];
-
+	this.icon = [this.checki[0]];
+	this.texti = [this.checki[1]];
+	this.picki = [this.checki[2]];
+	this.checki = [this.checki[3]];
 	/* initializations */
 
 	// toggle the upload background image bgCanvas

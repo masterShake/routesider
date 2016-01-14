@@ -228,6 +228,9 @@ class Profile{
 				// desktop
 				if($u->getEndNode()->getLabel() == "Desktop")
 					$json["tbs"]->{(string)$i}["layout"]["desktop"] = $u->getEndNode()->getProperties();
+				// shadow
+				if($u->getEndNode()->getLabel() == "Shadow")
+					$json["tbs"]->{(string)$i}["shadow"] = $u->getEndNode()->getProperties();
 			}
 		}
 
@@ -252,6 +255,9 @@ class Profile{
 				// desktop
 				if($u->getEndNode()->getLabel() == "Desktop")
 					$json["imgs"]->{(string)$i}["layout"]["desktop"] = $u->getEndNode()->getProperties();
+				// shadow
+				if($u->getEndNode()->getLabel() == "Shadow")
+					$json["imgs"]->{(string)$i}["shadow"] = $u->getEndNode()->getProperties();
 			}
 		}
 

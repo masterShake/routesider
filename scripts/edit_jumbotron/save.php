@@ -202,7 +202,9 @@ if(Input::exists()){
                 "opacity:{$textbox->opacity}, ".
                 "blur:{$textbox->blur}, ".
                 "z:{$textbox->z}, ". 
-                "round:{$textbox->round}".
+                "round:{$textbox->round}, ".
+                "bordercolor:'{$textbox->bordercolor}', ".
+                "borderwidth:{$textbox->borderwidth}".
             "}) ".
             "MERGE (t)-[:LAYOUT]->(:Mobile { ".
                 "w:{$textbox->layout->mobile->w}, ".
@@ -230,6 +232,15 @@ if(Input::exists()){
                 "s:{$textbox->layout->desktop->s}, ".
                 "a:{$textbox->layout->desktop->a}, ".
                 "v:{$textbox->layout->desktop->v} ".
+            "}) ".
+            "MERGE (t)-[:FILTER]->(:Shadow { ".
+                "active:{$textbox->shadow->active}, ".
+                "color:'{$textbox->shadow->color}', ".
+                "inset:{$textbox->shadow->inset}, ".
+                "softness:{$textbox->shadow->softness}, ".
+                "spread:{$textbox->shadow->spread}, ".
+                "x:{$textbox->shadow->x}, ".
+                "y:{$textbox->shadow->y} ".
             "})";
 
             $db->q($cypher);
