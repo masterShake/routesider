@@ -212,7 +212,7 @@
         </div>
 
         <!-- background color control panel -->
-        <div class="popover top control-panel" style="min-width:600px;">
+        <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
                 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -329,7 +329,7 @@
         </div><!-- /backgroung color control panel -->
 
         <!-- border color -->
-        <div class="popover top control-panel" style="min-width:600px;">
+        <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -423,7 +423,7 @@
         </div><!-- /border color -->
 
         <!-- shadow -->
-        <div class="popover top control-panel" style="width:720px;">
+        <div class="popover top control-panel" style="width:719px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
@@ -533,15 +533,15 @@
                     </div>
                     <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
                     <!-- inset -->
-                    <div class="col-sm-2 right-panel">
-                        <form class="form-inline">
-                            <div class="form-group" style="float:right;width:50%;text-align:center;">
-                                <label style="height:23px;width:23px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888 inset;float: left;"></label>
-                                <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
-                            </div>
-                            <div class="form-group" style="width:50%;">
-                                <label style="height:20px;width:20px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888;float: left;"></label>
+                    <div class="col-sm-2">
+                        <form class="row inset-form">
+                            <div class="col-xs-6 col-sm-12">
+                                <label style="float:left;height:22px;width:22px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888;float: left;"></label>
                                 <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;" name="tb-inset" value="0" checked>
+                            </div>
+                            <div class="col-xs-6 col-sm-12">
+                                <label style="float:left;height:23px;width:23px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888 inset;float: left;"></label>
+                                <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
                             </div>
                         </form>
                     </div><!-- /inset -->

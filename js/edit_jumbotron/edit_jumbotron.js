@@ -254,19 +254,23 @@ Jumbo.prototype.showPan = function(elem){ // console.log(elem.offsetLeft);consol
 	this.t.style.display = 'block';
 	// calculate the margin left of the control panel
 	layout.t = (elem.offsetLeft + elem.parentElement.offsetLeft - elem.parentElement.parentElement.offsetLeft + 15);
-		
+
+	// if the control panel is too large
+	if(this.t.offsetWidth + (layout.t - this.t.offsetWidth/2) > this.t.parentElement.offsetWidth){ console.log('too big');
+		this.t.style.marginLeft = (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px'; 
+		this.t.children[2].style.left = layout.t - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px'; 
 	// if margin left is too low
-	if((layout.t - this.t.offsetWidth/2) < 0){
+	}else if((layout.t - this.t.offsetWidth/2) < 0){ console.log('too far left');
 		this.t.style.marginLeft = '0';
 		this.t.children[2].style.left = layout.t + 'px';
 
 	// if the margin is too high
-	}else if((layout.t - this.t.offsetWidth/2) > (this.t.parentElement.offsetWidth - this.t.offsetWidth)){
+	}else if((layout.t - this.t.offsetWidth/2) > (this.t.parentElement.offsetWidth - this.t.offsetWidth)){ console.log('too far right');
 		this.t.style.marginLeft = (layout.t - this.t.offsetWidth/2) - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px';
 		this.t.children[2].style.left = layout.t - (this.t.parentElement.offsetWidth - this.t.offsetWidth) + 'px';
 	
 	// else if everything fits
-	}else{
+	}else{ console.log('fits just fine');
 		this.t.style.marginLeft = (layout.t - this.t.offsetWidth/2) + 'px';
 		this.t.children[2].style.left = (this.t.offsetWidth/2) + 'px';
 	}

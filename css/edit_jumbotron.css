@@ -171,6 +171,7 @@ button.colorize{
 	padding: 0px 6px;
 	color: #5CB85C;
 }
+.control-panel,
 .control-panel .popover-content{
 	max-width: 100%;
 }
@@ -644,6 +645,12 @@ label.vis>div{
 	.half-slider{
 		height: 100%;
 		padding-top: 19px;
+	}
+	.inset-form{
+		padding-top: 30px;
+	}
+	.inset-form>div:nth-child(1){
+		margin-bottom: 30px;
 	}
 
 	/* textbox */
