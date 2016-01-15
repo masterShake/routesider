@@ -97,7 +97,6 @@ TB.prototype.newElem = function(e){ e.preventDefault();
 			// y => top
 			// s => scale
 			// a => angle
-			// r => ?
 			// v => visible
 			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
 			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
@@ -144,11 +143,7 @@ TB.prototype.createElem = function(){
 					   '</div>'+ 
 					   document.getElementById('drag-btns-html').value+
 					   '<div class="background"></div>'+
-					   '<div class="content-edit"></div>';
-
-	// set designMode to 'On'
-	this.a.children[3].contentEditable = true;
-
+					   '<div class="content-edit" contenteditable="true"></div>';
 	return this.a;
 }
 
