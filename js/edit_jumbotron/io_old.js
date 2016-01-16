@@ -263,7 +263,7 @@ IO.prototype.copy = function(){
 	this.t.className = 'm-container';
 
 	// insert the image
-	this.t.appendChild(this.a.children[2].cloneNode());
+	this.t.appendChild(this.a.cloneNode());
 
 	return this.t;
 }

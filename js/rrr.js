@@ -53,11 +53,12 @@ r.prototype.newRules = function(){
 	// default: scale 1, rotate 0, element centered
 	this.u = '#dragCanvas>div:nth-child('+this.i+')'+
 				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-				'  left: calc(50% - '+(this.a.offsetWidth/2)+'px);' +
-				'  top: calc(50% - '+(this.a.offsetHeight/2)+'px);' +
+				'  left: calc(50% - '+(jApp[as].a.offsetWidth/2)+'px);' +
+				'  top: calc(50% - '+(jApp[as].a.offsetHeight/2)+'px);' +
 				'  z-index: '+this.z+';' +
 				'  display: block;}';
-
+window.boner = document.styleSheets[7].cssRules[this.i + 1];
+console.log(boner);
 	// mobile
 	document.styleSheets[7]
 		.insertRule(this.u, this.i);

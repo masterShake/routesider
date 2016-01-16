@@ -67,6 +67,8 @@
                                                    value='' 
                                                    class="form-control" 
                                                    maxlength="7"
+                                                   data-func="bgColor"
+                                                   data-i="0"
                                                    style="text-transform:uppercase" 
                                                    aria-label="background color hexidecimal color value">
                                         </td>
@@ -79,19 +81,21 @@
                                 <label>more colors:</label>
                                 <input type="color" 
                                        value='#FFFFFF'
+                                       data-func="bgColor"
+                                       data-i="0"
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
                             <!-- no color (transparent) textbox -->
                             <div style="margin-top:10px;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                                <input type="checkbox" class="form-control" checked>
+                                <input type="checkbox" class="form-control colorize" data-func="bgColor" data-i="0" checked>
                             </div>
 
                         </div>
 
                         <!-- color wheel -->
-                        <div class="color-wheel" style="height:126px;padding-top:13px;">
+                        <div class="color-wheel" data-func="bgColor" data-i="0" style="height:126px;padding-top:13px;">
                             <!-- 3 -->
                             <div>
                                 <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
@@ -153,27 +157,229 @@
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:20px"></div>
+            <div class="arrow"></div>
         </div>
 
-        <!-- roundness -->
-        <div class="popover top control-panel" style="max-width:310px;">
+        <!-- border color -->
+        <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="icon-images" style="font-size:18px;margin-right:5px;" aria-hidden="true"></div>
                 <div><b>Image Overlay</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-radio-unchecked" style="font-size:17px;margin-right:5px;"></div>
-                <div><b>Roundness</b></div>
+                <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;"></div>
+                <div><b>Border</b></div>
             </div>
-            <div class="popover-content roundness" style="padding-left:87px;">
-                <div></div>
-                <div class="input-group">
-                    <input type="text" class="form-control" maxlength="3" value="0">
-                    <span class="input-group-addon">%</span>
-                </div>
+            <div class="popover-content container">
+                <div class="row">
+
+                    <div class="col-sm-6 left-panel">
+                        <div style="width:135px;float:right;">
+            
+                            <!-- hex table -->
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>hex</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- fill -->
+                                    <tr>
+                                        <td>
+                                            <button type="button" 
+                                                    class="btn colorize" 
+                                                    style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
+                                                    aria-label="edit button border color, use color wheel to select colors">
+                                                <span class="icon-checkbox-unchecked" style="font-size:17px;"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <input type="text" 
+                                                   value='#000000' 
+                                                   class="form-control colorize" 
+                                                   maxlength="7"
+                                                   style="text-transform:uppercase"
+                                                   data-func="borderColor"
+                                                   data-i="1" 
+                                                   aria-label="background color hexidecimal color value">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table><!-- /hex table -->
+
+                            <!-- HTML5 color picker -->
+                            <div style="text-align:center;margin-top:14px;">
+                                <label>more colors:</label>
+                                <input type="color" 
+                                       class="colorize"
+                                       value='#444444'
+                                       data-func="borderColor"
+                                       data-i="1"
+                                       aria-label="select from complete color wheel">
+                            </div><!-- /full color wheel -->
+
+                            <!-- transparency checkbox -->
+                            <div style="display:none;">
+                                <input type="checkbox" class="colorize"/>
+                            </div>
+
+                        </div>
+
+                        <!-- color wheel -->
+                        <div class="color-wheel" data-func="borderColor" data-i="1">
+                            <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+                        </div><!-- /hexigon color wheel -->
+                    </div><!-- /left-panel -->
+
+                    <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
+
+                    <div class="col-sm-6 right-panel">
+                        <!-- thickness -->
+                        <form class="half-slider thickness-form" style="padding-left:10px;float:right;">
+                            <label><span class="glyphicon glyphicon-minus"></span> thickness</label>
+                            <input type="text" class="form-control" maxlength="2" value="0">
+                            <input type="range" class="range-slider" min="0" max="10" step="1" value="0">
+                        </form>
+                        <!-- roundness -->
+                        <form class="half-slider roundness-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                            <label><span class="icon-radio-unchecked"></span> roundness</label>
+                            <input type="text" class="form-control" maxlength="3" value="0">
+                            <input type="range" class="range-slider" min="0" max="100" step="1" value="0">
+                        </form>
+                    </div><!-- /right panel -->
+                </div><!-- /row -->
+            </div><!-- /popover-content container -->
+            <div class="arrow"></div>
+        </div><!-- /border color -->
+
+        <!-- shadow -->
+        <div class="popover top control-panel" style="width:719px;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="icon-images" style="font-size:18px;margin-right:5px;" aria-hidden="true"></div>
+                <div><b>Image Overlay</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;text-shadow: 1px 1px 4px #343434;"></div>
+                <div><b>Shadow</b></div>
             </div>
-            <div class="arrow" style="left:65px"></div>
+            <div class="popover-content container shadow">
+                <div class="row">
+
+                    <div class="col-sm-5 left-panel">
+                        <!-- shadow color -->
+                        <div style="width:135px;float:right;">
+                            <!-- hex table -->
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>hex</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- fill -->
+                                    <tr>
+                                        <td>
+                                            <button type="button" 
+                                                    class="btn colorize" 
+                                                    style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
+                                                    aria-label="edit button border color, use color wheel to select colors">
+                                                <span class="icon-checkbox-unchecked" style="font-size:17px;"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <input type="text" 
+                                                   value='#000000' 
+                                                   class="form-control colorize" 
+                                                   maxlength="7"
+                                                   style="text-transform:uppercase"
+                                                   data-func="shadowColor"
+                                                   data-i="2" 
+                                                   aria-label="background color hexidecimal color value">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table><!-- /hex table -->
+
+                            <!-- HTML5 color picker -->
+                            <div style="text-align:center;margin-top:14px;">
+                                <label>more colors:</label>
+                                <input type="color" 
+                                       class="colorize"
+                                       value='#444444'
+                                       data-func="shadowColor"
+                                       data-i="2"
+                                       aria-label="select from complete color wheel">
+                            </div><!-- /full color wheel -->
+
+                            <!-- no color (transparent) textbox -->
+                            <div style="margin-top:10px;">
+                                <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
+                                <input type="checkbox" class="form-control colorize" checked>
+                            </div>
+                        </div>
+                        <!-- color wheel -->
+                        <div class="color-wheel" style="height:127px;padding-top:13px;" data-func="shadowColor" data-i="2">
+                            <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+                        </div><!-- /hexigon color wheel -->
+                    </div><!-- /left-panel -->
+
+                    <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
+
+                    <!-- adjust levels -->
+                    <div class="col-sm-5 center-panel">
+                        <!-- softness -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="softness" data-i="2">
+                                <label>softness <span class="icon-brightness-contrast" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="2" value="4" />
+                                <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
+                            </div>
+                        </form>
+                        <!-- spread -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="spread" data-i="2">
+                                <label>spread <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="2" value="4" />
+                                <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
+                            </div>
+                        </form>
+                        <!-- shadow x -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="x" data-i="2">
+                                <label>x <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="3" value="0" />
+                                <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
+                            </div>
+                        </form>
+                        <!-- shadow y -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="y" data-i="2">
+                                <label>y <span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="3" value="0" />
+                                <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
+                            </div>
+                        </form>
+                    </div>
+                    <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
+                    <!-- inset -->
+                    <div class="col-sm-2">
+                        <form class="row inset-form">
+                            <div class="col-xs-6 col-sm-12">
+                                <label style="float:left;height:22px;width:22px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888;float: left;"></label>
+                                <input type="radio" class="form-control" data-i="2" style="max-width: 22px;height: 24px;" name="tb-inset" value="0" checked>
+                            </div>
+                            <div class="col-xs-6 col-sm-12">
+                                <label style="float:left;height:23px;width:23px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888 inset;float: left;"></label>
+                                <input type="radio" class="form-control" data-i="2" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
+                            </div>
+                        </form>
+                    </div><!-- /inset -->
+                </div><!-- /row -->
+            </div>
+            <div class="arrow"></div>
         </div>
 
         <!-- visibility -->
@@ -189,26 +395,26 @@
             <div class="popover-content" style="padding-top:16px;padding-bottom:3px;">
                 <form class="form-inline">
                     <!-- mobile -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="mobile" checked>
                         <span class="icon-mobile"></span><br>
                         <div>mobile</div>
                     </label>
                     <!-- tablet -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="tablet" checked>
                         <span class="icon-mobile2"></span><br>
                         <div>tablet</div>
                     </label>
                     <!-- desktop -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="desktop" checked>
                         <span class="icon-laptop"></span><br>
                         <div>desktop</div>
                     </label>
                 </form>
             </div>
-            <div class="arrow" style="left:196px"></div>
+            <div class="arrow"></div>
         </div><!-- /visibility -->
 
     </div><!-- /control panels -->
@@ -218,7 +424,7 @@
         
         <!-- group 1 -->
         <div class="btn-group opts-toolbar" role="group" aria-label="edit image overlay">
-            <!-- background color, opacity, blur -->
+            <!-- [0] background color, opacity, blur -->
             <div type="button" class="btn btn-default inactive" data-panel="0" aria-label="background color, blur, opacity">
                 <!-- color wheel icon -->
                 <div class="colorwheel-icon">
@@ -238,20 +444,24 @@
                     </div>
                 </div><!-- /colorwheel-icon -->
             </div>
-            <!-- roundness -->
-            <button type="button" class="btn btn-default inactive" data-panel="1" aria-label="element roundness">
-                <span class="icon-radio-unchecked" aria-hidden="true"></span>
+            <!-- [1] border style -->
+            <button type="button" class="btn btn-default inactive" data-panel="1" aria-label="border style">
+                <span class="icon-checkbox-unchecked" aria-hidden="true"></span>
             </button>
-            <!-- resize, reposition, rotate -->
+            <!-- [2] shadow -->
+            <button type="button" class="btn btn-default inactive" data-panel="2" aria-label="shadow">
+                <span class="icon-checkbox-unchecked" style="text-shadow: 1px 1px 4px #343434;" aria-hidden="true"></span>
+            </button>
+            <!-- [3] move to front -->
+            <button type="button" class="btn btn-default inactive" data-panel aria-label="move to front">
+                <span class="icon-stack" aria-hidden="true"></span>
+            </button>
+            <!-- [4] resize, reposition, rotate -->
             <button type="button" class="btn btn-default inactive" data-panel aria-label="resize, reposition, rotate">
                 <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
-        	<!-- move to front -->
-        	<button type="button" class="btn btn-default inactive" data-panel aria-label="move to front">
-        		<span class="icon-stack" aria-hidden="true"></span>
-        	</button>
-            <!-- visibility -->
-            <button type="button" class="btn btn-default inactive" data-panel="2" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
+            <!-- [5] visibility -->
+            <button type="button" class="btn btn-default inactive" data-panel="3" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
             <div style="height:42px;width:100%;position:relative;display:block;"><span></span></div>

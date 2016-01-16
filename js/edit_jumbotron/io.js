@@ -44,7 +44,7 @@ IO.prototype.close = function(){
 	this.compBtn.addEventListener('click', this.newImg, false);
 
 	// if there is no active image overlay, return
-	this(!this.a) return;
+	if(!this.a) return;
 
 	// remove the active class
 	this.a.className = 'image-overlay';
@@ -98,10 +98,7 @@ IO.prototype.newElem = function(e){ e.preventDefault();
 	};
 
 	// attribtue referrence to rr index
-	tbs.a.setAttribute('data-r', rm.i);
-
-	// apply the event listeners
-	this.ae();
+	imgs.a.setAttribute('data-r', rm.i);
 }
 
 //-----------------------------------------------
@@ -144,12 +141,19 @@ IO.prototype.createElem = function(){
 	                        '<div class="icon-image"></div>'+
 	                        '<div class="text"><span>-or-</span><br>Drag &amp; Drop</div>'+
 	                    '</div>';
+
+	// apply the event listeners
+	imgs.ae();
+
 	return this.a;
 }
 
 //-----------------------------------------------
 // - add event listeners to new image overlay btn
-TB.prototype.ae = function(){
+IO.prototype.ae = function(){
+
+	// add event listeners to the uploader
+	this.ui.ae();
 
 	// remove newElem event listener
 	this.compBtn.removeEventListener('click', this.newElem, false);
@@ -167,7 +171,269 @@ TB.prototype.ae = function(){
 
 }
 
+//-----------------------------------------------
+// - confirm delete active image overlay
+IO.prototype.confirmDel = function(){
 
+	// if the user has not uploaded an image
+	if(imgs.a.children[2].tagName !== 'IMG'){
+		// delete the element, do not prompt modal
+		imgs.del(); return;
+	}
+
+	// set the modal title
+	confModal.getElementsByTagName("h4")[0]
+		.innerHTML = '<div class="icon-images"></div> Delete image overlay';
+
+	// set the modal body
+	confModal.children[0].children[0].children[1]
+   		.innerHTML = '<p>Are you sure you want to delete this image?</p>';
+
+   	// copy the image
+   	confModal.children[0].children[0].children[1]
+   		.appendChild(imgs.copy());
+
+   	// size it
+   	confModal.children[0].children[0].children[1].children[1]
+   		.style.maxWidth = '200px';
+
+   	// set the modal callback
+   	jApp.modal.callback = imgs.del;
+
+   	// launch the modal
+   	jApp.modal.launch();
+}
+
+//-----------------------------------------------
+// - make a copy of the image
+IO.prototype.copy = function(){
+
+	// create an empty div
+	this.t = document.createElement('div');
+
+	// give it a class
+	this.t.className = 'm-container';
+
+	// insert the image
+	this.t.appendChild(this.a.cloneNode());
+
+	return this.t;
+}
+
+//-----------------------------------------------
+// - delete image overlay
+IO.prototype.del = function(){ 
+
+	// gut the innards of the active image overlay
+	imgs.a.innerHTML = '';
+
+	// remove it from the nVals
+	jApp.nVals.imgs[imgs.a.dataset.key] = null;
+	delete jApp.nVals.imgs[imgs.a.dataset.key];
+
+	// hide it, but do not delete to maintain order
+	imgs.a.style.display = 'none';
+
+	// prompt save
+	jApp.deltaVals();
+
+	// remove the active textbox
+	imgs.a = null;
+
+	// hide the textbox properties toolbar
+	jumboToolbar.children[0].children[1].children[2].click();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				 UI (image uploader)				
+//			   -----------------------
+//
+// - drag and drop upload events
+//
+// - traditional upload events
+//
+// - activate properties toolbar
+//
+//-----------------------------------------------
+
+/* CONSTRUCTOR */
+
+var UI = function(io){
+
+	// reference to the io object
+	this.io = io;
+
+	// ajax object
+	this.xhr = 
+
+	// file for upload
+	this.file = 
+
+	// temp variable
+	this.t = null;
+
+}
+
+/* METHODS */
+
+//-----------------------------------------------
+// - file hover, dragover file to drop 
+UI.prototype.fh = function(e){
+	e.stopPropagation();
+	e.preventDefault();
+	e.currentTarget.className = (e.type == "dragover" ? "image-overlay active empty dragover" : "image-overlay active empty");
+}
+
+//-----------------------------------------------
+// - file selection event listener
+UI.prototype.fs = function(e) {
+
+	// cancel event and hover styling
+	imgs.ui.fh(e);
+
+	// fetch FileList object
+	imgs.ui.file = e.target.files || e.dataTransfer.files;// process all File objects
+	imgs.ui.file = imgs.ui.file[0];
+
+	// upload the file
+	imgs.ui.uploadFile();
+}
+
+//-----------------------------------------------
+// - upload image
+UI.prototype.uploadFile = function(){
+
+	// append a loading gif spinner
+	this.l();
+
+	// - delete the previous xhr object
+	// - it will be properly garbage collected
+	this.xhr = null;
+
+	// create a new one
+	this.xhr = new XMLHttpRequest();
+
+	// if file is the correct type and size
+	if( (this.file.type == "image/jpeg" || 
+		 this.file.type == "image/jpg"  ||
+		 this.file.type == "image/png"  ||
+		 this.file.type == "image/gif") && 
+		 this.file.size < 9999999999999999
+	  ){
+
+	  	// add an event listener to the ajax request
+	  	this.xhr.onreadystatechange = imgs.ui.uploadCB;
+
+		// ajax
+		this.xhr.open("POST", document.URL, true);
+		this.xhr.setRequestHeader("X-file-name", this.file.name);
+		this.xhr.send(this.file);
+	}
+}
+
+//-----------------------------------------------
+// - append a loading gif spinner to indicate 
+//   that the file is being uploaded
+UI.prototype.l = function(){
+	this.t = document.createElement('div');
+	this.t.className = 'uploading';
+	this.t.innerHTML = '<span class="glyphicon glyphicon-refresh loading"></span>';
+	this.io.a.children[3].appendChild(this.t);
+}
+
+//-----------------------------------------------
+// - img file upload callback 
+UI.prototype.uploadCB = function(){
+	
+	if (this.readyState != 4) return; console.log(this.responseText);
+
+	// parse the json
+	jApp.temp = JSON.parse(this.responseText);
+
+	// remoe the .empty class
+	imgs.a.className = 'image-overlay active';
+
+	// remove the last child of the active image overlay
+	imgs.a.removeChild(imgs.a.children[3]);
+
+	// append a new img tag
+	imgs.a.appendChild(
+		document.createElement('img')
+	);
+
+	// set the nVals
+	jApp.nVals.imgs[imgs.a.dataset.key].src = 
+
+	// set the img src
+	imgs.a.children[3].src = jApp.temp["image"];
+
+	// remove the draghover, dragleave events
+	imgs.a.removeEventListener('dragover', imgs.ui.fh, false);
+	imgs.a.removeEventListener("dragleave", imgs.ui.fh, false);
+	imgs.a.removeEventListener("drop", imgs.ui.fs, false);
+
+	// activate the image overlay property toolbars
+	imgs.c.act();
+
+	// prompt save
+	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - apply image uploader events to newly created
+//   image overlay element
+UI.prototype.ae = function(){
+
+	// apply file dragover event
+	imgs.a.addEventListener("dragover", this.fh, false);
+
+	// apply file dragleave event
+	imgs.a.addEventListener("dragleave", this.fh, false);
+
+	// apply file drop event
+	imgs.a.addEventListener("drop", this.fs, false);
+
+	// apply traditional upload fileselect event
+	imgs.a.children[3].children[0].children[1]
+		.addEventListener("change", this.fs, false);
+}
 
 
 
