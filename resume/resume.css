@@ -17,6 +17,11 @@
 	transition: .3s;
 }
 
+a,
+a:hover{
+	color: #5CB85C;
+}
+
 
 /*----------------------
 	google map
@@ -44,12 +49,12 @@
 	width: 128px;
 	margin-left: calc(50% - 57px);
 }
-.navbar .hidden-sm-up{
+.navbar .hidden-md-up{
 	float: right;
 }
 #navLinks{
 	text-align: center;    
-	background: rgba(255,255,255,0.8);
+	background: rgba(255,255,255,0.9);
     padding: 20px;
     border-radius: 4px;
     display:none;
@@ -57,6 +62,7 @@
 }
 .navbar-nav a.nav-link{
 	float: none;
+	margin-left: 0px !important;
 }
 
 /* ------ logo ---------------------- */
@@ -66,7 +72,7 @@
 	font-weight: 600;
 	font-size: 18px;
 	height: 30px;
-	background: rgba(255,255,255,0.7);
+	background: rgba(255,255,255,0.9);
 }
 .logo div{
 	color:#333;
@@ -87,7 +93,8 @@
 
 	/* navbar */
 	.navbar-brand{
-		margin-left: 73px;
+		margin-left: 66px;
+		margin-right: 12px;
 	}
 	#navLinks{
 		text-align: none;    
@@ -95,17 +102,42 @@
 	    padding: 0;
 	    border-radius: none;
 	    display: block !important;
-	    transform: translate(0px, 0px) scale(1,1) rotateY(0deg);
+	    transform: translate(0px, 0px) scale(1,1) rotateY(0deg) !important;
 	}
 	.navbar-nav a.nav-link,
 	.navbar form{
 		float: left;
+	}
+	.navbar form{
+		width: calc(100% - 480px);
+		max-width: 300px;
+	}
+	.navbar-nav>div{
+		float: right;
+		background: rgba(255,255,255,0.9);
+		border-radius: 6px;
+		padding: 0 12px;
+	}
+	.navbar-nav a.nav-link:not(:first-child){
+		margin-left: 16px !important;
 	}
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
 
+	/* navbar */
+	.navbar-nav a.nav-link{
+		background: rgba(255,255,255,0.9);
+		border-radius: 6px;
+		padding: 6px 10px;
+	}
+	.navbar-nav>div{
+		float: right;
+		background: transparent;
+		border-radius: 0px;
+		padding: 0;
+	}
 }
 
 /* Large devices (large desktops, 1200px and up) */

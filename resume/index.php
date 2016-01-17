@@ -25,7 +25,7 @@
             <nav class="navbar">
                 <div class="container">
                     <!-- toggle mobile menu button -->
-                    <button type="button" class="btn hidden-sm-up">
+                    <button type="button" class="btn hidden-md-up">
                         <span class="octicon octicon-three-bars"></span>
                     </button>
                     <!-- brand -->
@@ -51,9 +51,11 @@
                                 <input type="text" class="form-control" placeholder="Search">
                             </div>
                         </form>
-                        <a class="nav-item nav-link active" href="#">map builder <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">installation</a>
-                        <a class="nav-item nav-link" href="#">resume</a>
+                        <div>
+                            <a class="nav-item nav-link active" href="#">map builder <span class="sr-only">(current)</span></a>
+                            <a class="nav-item nav-link" href="#">installation</a>
+                            <a class="nav-item nav-link" href="#">resume</a>
+                        </div>
                     </div>
                 </div><!-- /container -->
             </nav><!-- /navbar-default -->

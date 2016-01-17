@@ -28,7 +28,7 @@ var R = function(){
 	this.getLocation();
 
 	// set the togNav event listener
-	document.querySelectorAll('.navbar .hidden-sm-up')[0]
+	document.querySelectorAll('.navbar .hidden-md-up')[0]
 		.addEventListener('click', this.togNav, false);
 }
 
