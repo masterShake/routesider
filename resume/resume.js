@@ -26,6 +26,10 @@ var R = function(){
 
 	// request the user's location
 	this.getLocation();
+
+	// set the togNav event listener
+	document.querySelectorAll('.navbar .hidden-sm-up')[0]
+		.addEventListener('click', this.togNav, false);
 }
 
 //-----------------------------------------------
@@ -72,9 +76,37 @@ R.prototype.locationSuccess = function(position){
 // - location denied, do nothing
 R.prototype.locationError = function(){ return false; }
 
+//-----------------------------------------------
+// - toggle mobile navbar
+R.prototype.togNav = function(){ console.log('togNav called');
 
+	// if the navigation menu is showing
+	if(navLinks.offsetParent !== null){
 
+		// shrink the navigation
+		navLinks.style.transform = 'translate(129px, -93px) scale(0.1,0.1) rotateY(180deg)';
+		// set timeout to hide it
+		setTimeout(rApp.hideNav, 300);
+	}else{
 
+		// show the navigation
+		navLinks.style.display = 'block';
+
+		// set time out to transform in
+		setTimeout(rApp.showNav, 10);
+	}
+
+}
+//-----------------------------------------------
+// - animate in the navbar
+R.prototype.showNav = function(){
+	navLinks.style.transform = 'translate(0px, 55px) scale(1,1) rotateY(0deg)';
+}
+//-----------------------------------------------
+// - hide the navbar
+R.prototype.hideNav = function(){
+	navLinks.style.display = 'none';
+}
 
 
 

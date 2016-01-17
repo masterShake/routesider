@@ -7,7 +7,15 @@
 /*----------------------
 	animate elements
 ----------------------*/
-
+.navbar-logo,
+#navLinks,
+.navbar form{
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+	transition: .3s;
+}
 
 
 /*----------------------
@@ -33,11 +41,22 @@
 
 /* routesider logo */
 .navbar-brand{
-	width: 130px;
+	width: 128px;
 	margin-left: calc(50% - 57px);
 }
 .navbar .hidden-sm-up{
 	float: right;
+}
+#navLinks{
+	text-align: center;    
+	background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-radius: 4px;
+    display:none;
+    transform: translate(129px, -93px) scale(0.1,0.1) rotateY(180deg);
+}
+.navbar-nav a.nav-link{
+	float: none;
 }
 
 /* ------ logo ---------------------- */
@@ -52,10 +71,9 @@
 .logo div{
 	color:#333;
 	line-height: 167%;
-	width:50%;
 }
 .logo .route{
-	max-width: 65px;
+	max-width: 70px;
 }
 
 /* ------ end logo ------------------ */
@@ -64,9 +82,36 @@
 
 
 
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
 
+	/* navbar */
+	.navbar-brand{
+		margin-left: 73px;
+	}
+	#navLinks{
+		text-align: none;    
+		background: none;
+	    padding: 0;
+	    border-radius: none;
+	    display: block !important;
+	    transform: translate(0px, 0px) scale(1,1) rotateY(0deg);
+	}
+	.navbar-nav a.nav-link,
+	.navbar form{
+		float: left;
+	}
+}
 
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
 
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
 
 
 
