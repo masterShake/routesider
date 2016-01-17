@@ -14,16 +14,51 @@
 	google map
 ----------------------*/
 
-#map-canvas{
+#map-canvas,
+#page-content{
 	height: 100%;
 	width: 100%;
+}
+#map-canvas{
+	position: absolute;
+}
+#page-content{
 	position: absolute;
 }
 
 
+/*----------------------
+		navbar
+----------------------*/
 
+/* routesider logo */
+.navbar-brand{
+	width: 130px;
+	margin-left: calc(50% - 57px);
+}
+.navbar .hidden-sm-up{
+	float: right;
+}
 
+/* ------ logo ---------------------- */
+.logo{
+	text-transform: uppercase;
+	text-align: left;
+	font-weight: 600;
+	font-size: 18px;
+	height: 30px;
+	background: rgba(255,255,255,0.7);
+}
+.logo div{
+	color:#333;
+	line-height: 167%;
+	width:50%;
+}
+.logo .route{
+	max-width: 65px;
+}
 
+/* ------ end logo ------------------ */
 
 
 
