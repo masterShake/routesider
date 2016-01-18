@@ -7,7 +7,7 @@
 /*----------------------
 	animate elements
 ----------------------*/
-.navbar-logo,
+#logo,
 #navLinks,
 .navbar form{
 	-webkit-transition: .3s;
@@ -28,14 +28,14 @@ a:hover{
 ----------------------*/
 
 #map-canvas,
-#page-content{
+#pageContent{
 	height: 100%;
 	width: 100%;
 }
 #map-canvas{
 	position: fixed !important;
 }
-#page-content{
+#pageContent{
 	position: absolute;
 	top: 500px;
 }
@@ -48,12 +48,18 @@ a:hover{
 .navbar{
 	position: absolute;
 	top: -500px;
-	width: 100%
+	width: 100%;
+}
+.navbar .container{
+	padding: 0;
 }
 /* routesider logo */
 .navbar-brand{
+	z-index: 1;
 	width: 128px;
-	margin-left: calc(50% - 57px);
+	margin-left: -65px;
+	left: 50%;
+	position: absolute;
 }
 .navbar .hidden-md-up{
 	float: right;
@@ -87,27 +93,81 @@ a:hover{
 .logo .route{
 	max-width: 70px;
 }
+#logo.starting{
+	transform: scale(2.1,2.1) translate(0px, 59px);
+}
 
 /* ------ end logo ------------------ */
 
+/* lead */
+#lead{
+	position: absolute;
+	top: -470px;
+	background: rgba(255,255,255,0.9);
+	height: 300px;
+	width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    text-align: center;
+    padding: 12px;
+    padding-top: 85px;
+}
+#lead .input-group-addon{
+	background-color: #fff;
+	cursor: pointer;
+}
+#lead input{
+	border-right: 0px;
+}
+#lead span.input-group-addon:hover,
+#lead ol span{
+	color: #5CB85C;
+}
+#lead ol{
+	text-align:left;
+	font-size:14px;
+}
+
+/*----------------------
+		toolbar
+  ----------------------*/
+
+#mapTools{
+    left: 50%;
+    margin-left: -104px;
+    bottom: 13px;
+}
 
 /*----------------------
 		instructions
   ----------------------*/
-
-#install{
+.pull-tab{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-color: #fff;
+    right: 52px;
+    top: -2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.pull-tab,
+#how-to-install
+{
 	background: rgba(255,255,255,0.9);
+	box-shadow:  0px -2.5px 4px 0px #dcdcdc
+}
+#how-to-install{
 	padding: 10px 15px;
 	border-radius: 6px;
-	text-shadow: 0px 0px 2px #fff;
 }
-#install article{
+#how-to-install article{
 	margin-bottom: 10px;
 }
-#install article img{
+#how-to-install article img{
 	max-width: 100%;
 }
-#install article>div{
+#how-to-install article>div{
 	margin-bottom: 15px;
 }
 
@@ -159,11 +219,11 @@ footer input, footer textarea{
 
 	/* navbar */
 	.navbar{
-		width:460px;
+		width:420px;
 		right: 0px;
 	}
 	.navbar-brand{
-		margin-left: 66px;
+		margin-left: 0px;
 		margin-right: 8px;
 	}
 	#navLinks{
@@ -183,9 +243,11 @@ footer input, footer textarea{
 		background: rgba(255,255,255,0.9);
 		border-radius: 6px;
 		padding: 0 12px;
+		width: 100%
 	}
-	.navbar-nav a.nav-link:not(:first-child){
-		margin-left: 16px !important;
+	.navbar-nav a.nav-link{
+		width: 33%;
+		text-align: center;
 	}
 }
 
@@ -193,20 +255,28 @@ footer input, footer textarea{
 @media (min-width: 992px) {
 
 	/* navbar */
-	.navbar-nav a.nav-link{
-		background: rgba(255,255,255,0.9);
-		border-radius: 6px;
-		padding: 6px 10px;
+	.navbar{
+		width: 100%;
+	}
+	.navbar form{
+		width: calc(100% - 480px);
+		max-width: 300px;
 	}
 	.navbar-nav>div{
 		float: right;
 		background: transparent;
 		border-radius: 0px;
 		padding: 0;
+		width: 320px;
 	}
-	.navbar form{
-		width: calc(100% - 480px);
-		max-width: 300px;
+	.navbar-nav a.nav-link{
+		width:auto;
+		background: rgba(255,255,255,0.9);
+		border-radius: 6px;
+		padding: 6px 10px;
+	}
+	.navbar-nav a.nav-link:not(:first-child){
+		margin-left: 16px !important;
 	}
 
 	/*----------------------

@@ -1,5 +1,6 @@
-var rApp, // resume app
-	gm;	  // google map object
+var rApp, 	// resume app
+	gm,   	// google map object
+	layout;	// sets position of #pageContent 
 
 
 
@@ -93,7 +94,7 @@ R.prototype.togNav = function(){ console.log('togNav called');
 		navLinks.style.display = 'block';
 
 		// set time out to transform in
-		setTimeout(rApp.showNav, 10);
+		setTimeout(rApp.showNav, 20);
 	}
 
 }
@@ -132,6 +133,83 @@ R.prototype.hideNav = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				L (layout object)
+//			  ---------------------
+//
+// - set the position of the page-content and
+//   navbar on page load and resize
+//
+//-----------------------------------------------
+
+var L = function(){
+
+	// set the position of the pageContent & navbar
+	this.resize();
+
+	// apply a resize event to the window
+	window.addEventListener('resize', this.resize);
+
+}
+
+//-----------------------------------------------
+// - handle page resize event
+L.prototype.resize = function(){
+
+	// set the position of the page content
+	pageContent.style.top = (window.innerHeight - 60) + 'px'; console.log(pageContent.children[0]);
+
+	// set the position of the navbar
+	pageContent.children[0].style.top =
+	pageContent.children[1].style.top = -(window.innerHeight - 60) + 'px';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 //
 // 					initialize 
@@ -142,6 +220,7 @@ rApp = new R();
 
 document.addEventListener("DOMContentLoaded", function(){
 
-	return false;
+	// set the layout
+	layout = new L();
 
 }, false);
