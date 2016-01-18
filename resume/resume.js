@@ -25,6 +25,10 @@ var R = function(){
 	this.userLat = 37.65120864327176;
 	this.userLng = -122.091064453125;
 
+	// autocomplete objects
+	this.autoComp1 = 
+	this.autoComp2 = null;
+
 	// request the user's location
 	this.getLocation();
 
@@ -44,6 +48,14 @@ R.prototype.initMap = function(){
 					// map options
 					{ center: {lat: this.userLat, lng: this.userLng}, zoom: 9 }
 			     );
+
+	// init the autocomplete objects
+	this.autoComp1 = new google.maps.places.Autocomplete(navLinks.children[0].children[0]);
+	this.autoComp2 = new google.maps.places.Autocomplete(lead.children[2].children[0]);
+
+	// add autocomplete event listeners
+	this.autoComp1.addListener('place_changed', this.selPlace);
+	this.autoComp2.addListener('place_changed', this.selPlace);
 }
 
 //-----------------------------------------------
@@ -76,6 +88,15 @@ R.prototype.locationSuccess = function(position){
 //-----------------------------------------------
 // - location denied, do nothing
 R.prototype.locationError = function(){ return false; }
+
+//-----------------------------------------------
+// - user selects a place via google maps autocomplete
+R.prototype.selPlace = function(){ // console.log(this); console.log(rApp.autoComp2.getPlace());
+	// console.log(this.getPlace());
+	layout.buryLead();
+	gm.setCenter(this.getPlace().geometry.location);
+    gm.setZoom(17);  // Why 17? Because it looks good.
+}
 
 //-----------------------------------------------
 // - toggle mobile navbar
@@ -164,6 +185,9 @@ var L = function(){
 	// apply a resize event to the window
 	window.addEventListener('resize', this.resize);
 
+	// apply the bury lead event to the little x button
+	lead.children[0].addEventListener('click', this.buryLead);
+
 }
 
 //-----------------------------------------------
@@ -171,14 +195,34 @@ var L = function(){
 L.prototype.resize = function(){
 
 	// set the position of the page content
-	pageContent.style.top = (window.innerHeight - 60) + 'px'; console.log(pageContent.children[0]);
+	pageContent.style.top = (window.innerHeight - 60) + 'px';
 
 	// set the position of the navbar
 	pageContent.children[0].style.top =
 	pageContent.children[1].style.top = -(window.innerHeight - 60) + 'px';
 }
 
-
+//-----------------------------------------------
+// - destroy the lead element
+L.prototype.buryLead = function(){
+	// set the logo back into position
+	logo.className = 'navbar-brand';
+	// if there is a lead
+	if(document.getElementById('lead')){
+		// kill the opacity
+		lead.style.opacity = '0';
+		// set timeout to remove lead element
+		setTimeout(layout.removeLead, 300);
+	}
+	// hide the mobile menu
+	navLinks.style.transform = 'translate(129px, -93px) scale(0.1,0.1) rotateY(180deg)';
+	setTimeout(rApp.hideNav, 300);
+}
+//-----------------------------------------------
+// - helper function, removes lead child element
+L.prototype.removeLead = function(){
+	lead.parentElement.removeChild(lead);
+}
 
 
 

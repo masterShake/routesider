@@ -9,7 +9,8 @@
 ----------------------*/
 #logo,
 #navLinks,
-.navbar form{
+.navbar form,
+#lead{
 	-webkit-transition: .3s;
 	-moz-transition: .3s;
 	-ms-transition: .3s;
@@ -112,6 +113,12 @@ a:hover{
     padding: 12px;
     padding-top: 85px;
 }
+#lead button{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 2;
+}
 #lead .input-group-addon{
 	background-color: #fff;
 	cursor: pointer;
@@ -145,11 +152,13 @@ a:hover{
     position: absolute;
     height: 50px;
     width: 50px;
-    background-color: #fff;
     right: 52px;
-    top: -2px;
+    top: -11px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    text-align: center;
+    padding-top: 12px;
+    font-size: 20px;
 }
 .pull-tab,
 #how-to-install

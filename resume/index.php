@@ -31,11 +31,9 @@
                     <!-- nav links -->
                     <div class="nav navbar-nav" id="navLinks">
                         <!-- search bar -->
-                        <form role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                        </form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
                         <div>
                             <a class="nav-item nav-link active" href="#">map builder <span class="sr-only">(current)</span></a>
                             <a class="nav-item nav-link" href="#install">installation</a>
@@ -67,6 +65,9 @@
                 <section>
                     <!-- lead panel -->
                     <div id="lead">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <p><b>A place for products - coming soon!</b></p>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="search" aria-label="search the world to start you map">
@@ -98,7 +99,9 @@
                 </section>
 
                 <!-- embed instructions -->
-                <div class="pull-tab"></div>
+                <div class="pull-tab">
+                    <span class="icon-circle-up"></span>
+                </div>
                 <section id="how-to-install">
                     <h2>How to embed map</h2>
                     <hr>
