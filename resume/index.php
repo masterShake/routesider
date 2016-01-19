@@ -59,51 +59,104 @@
                 </div>
             </a>
 
-            <!-- container -->
-            <div class="container">
-                <!-- map builder -->
-                <section>
-                    <!-- lead panel -->
-                    <div id="lead">
-                        <button type="button" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <p><b>A place for products - coming soon!</b></p>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="search" aria-label="search the world to start you map">
-                            <span class="input-group-addon"><span class="icon-search"></span></span>
-                        </div>
-                        <hr>
-                        <div style="text-align:left;padding-bottom:6px;font-size:14px;">Build a map:</div>
-                        <ol>
-                            <li><span class="icon-search"></span> search for you location</li>
-                            <li><span class="icon-location"></span> drop pins or draw polygons</li>
-                            <li><span class="icon-embed2"></span> embed map code</li>
-                        </ol>
+            <!-- lead -->
+            <section class="container">
+                <div id="lead">
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p><b>A place for products - coming soon!</b></p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="search" aria-label="search the world to start you map">
+                        <span class="input-group-addon"><span class="icon-search"></span></span>
                     </div>
-                    <!-- control panels -->
-                    <div id="cPanel">
-                    </div>
-                    <!-- toolbar -->
-                    <div class="btn-group" id="mapTools" role="create map" aria-label="map builder toolbar">
-                        <button type="button" class="btn" aria-label="drop new pin">
-                            <span class="icon-location"></span>
-                        </button>
-                        <button type="button" class="btn" aria-label="draw new polygon">
-                            <span class="icon-map"></span>
-                        </button>
-                        <button type="button" class="btn" aria-label="get code">
-                            <span class="icon-embed2"></span>
-                        </button>
-                    </div>
-                </section>
-
-                <!-- embed instructions -->
-                <div class="pull-tab">
-                    <span class="icon-circle-up"></span>
+                    <hr>
+                    <div style="text-align:left;padding-bottom:6px;font-size:14px;">Build a map:</div>
+                    <ol>
+                        <li><span class="icon-search"></span> search for you location</li>
+                        <li><span class="icon-location"></span> drop pins or draw polygons</li>
+                        <li><span class="icon-embed2"></span> embed map code</li>
+                    </ol>
                 </div>
+            </section><!-- /lead -->
+
+            <!-- map builder -->
+            <section class="container">
+
+                <!-- control panels -->
+                <div id="cPanels">
+
+                    <!-- drop pin -->
+                    <div class="popover popover-top" style="display:block;">
+                        <div class="popover-arrow"></div>
+                        <h3 class="popover-title">
+                            <span class="icon-location"></span>Drop Pin
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </h3>
+                        <div class="popover-content container">
+                            <div class="row">
+                                <!-- drop pin instructions -->
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li>Tap or click to drop pin</li>
+                                        <li>Upload custom pin icon</li>
+                                    </ul>
+                                    <div class="current-icon">
+                                        <div>
+                                            <button type="button" class="close" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <span class="icon-location"></span>
+                                        </div>
+                                        <h6>Current icon: </h6>
+                                    </div>
+                                </div><!-- /drop pin instructions -->
+                                <!-- upload custom pin -->
+                                <div class="col-md-6" style="padding:4px;">
+                                    <div class="upload-img">
+                                        <div>
+                                            <label>Files to upload:</label>
+                                            <input type="file" 
+                                                   name="fileselect[]" 
+                                                   multiple="multiple" />
+                                        </div>
+                                        <p>- or -</p>
+                                        <p>Drag &amp; Drop</p>
+                                    </div>
+                                </div><!-- upload custom pin -->
+                            </div><!-- /row -->
+                        </div><!-- /popover-content container -->
+                    </div><!-- / drop pin -->
+
+                </div><!-- /control panels -->
+
+                <!-- toolbar -->
+                <div class="btn-group" id="mapTools" role="create map" aria-label="map builder toolbar">
+                    <button type="button" class="btn" data-panel="0" aria-label="drop new pin">
+                        <span class="icon-location"></span>
+                    </button>
+                    <button type="button" class="btn" data-panel="1" aria-label="draw new polygon">
+                        <span class="icon-map"></span>
+                    </button>
+                    <button type="button" class="btn" data-panel aria-label="get code">
+                        <span class="icon-eye"></span>
+                    </button>
+                    <button type="button" class="btn" data-panel="2" aria-label="get code">
+                        <span class="icon-embed2"></span>
+                    </button>
+                </div><!-- /toolbar -->
+
+            </section><!-- /map-maker -->
+
+            <!-- embed instructions -->
+            <div class="container">
                 <section id="how-to-install">
                     <h2>How to embed map</h2>
+                    <div class="pull-tab">
+                        <span class="icon-circle-up"></span>
+                    </div>
                     <hr>
                     <!-- step 1: -->
                     <article class="row">
@@ -125,18 +178,17 @@
                             <p>Sit vel vitae blandit, duis suspendisse in, placerat mauris ligula, luctus porttitor tortor proin. Ac neque id eget luctus sem, justo et ligula id urna. Tempor orci placerat neque eget id. Sed rhoncus purus at amet quis fusce, nisl rhoncus. Eget commodo in sociis duis placerat at, lacinia porta risus urna consectetuer id suspendisse. Ullamcorper tristique eu bibendum per quis, duis purus aptent scelerisque dapibus sed, a enim consectetuer nulla nulla, mi sem metus vestibulum ut ante.</p>
                         </div>
                     </article>
-                </section><!-- /instructions -->
+                </section><!-- /how-to-install -->
+            </div><!-- /container -->
 
-                <!-- my resume -->
-                <section></section>   
-
-            </div> <!--/container -->
+            <!-- my resume -->
+            <section></section>   
 
             <?php include '../components/footer.php'; ?>
 
         </div>
                 
         <script src="resume.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=rApp.initMap"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=mm.initMap"></script>
     </body>
 </html>
