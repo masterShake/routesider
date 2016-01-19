@@ -98,7 +98,7 @@
                         <div class="popover-content container">
                             <div class="row">
                                 <!-- drop pin instructions -->
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="margin-bottom:10px;">
                                     <ul>
                                         <li>Tap or click to drop pin</li>
                                         <li>Upload custom pin icon</li>
@@ -114,7 +114,7 @@
                                     </div>
                                 </div><!-- /drop pin instructions -->
                                 <!-- upload custom pin -->
-                                <div class="col-md-6" style="padding:4px;">
+                                <div class="col-md-6" style="padding: 0 8px;">
                                     <div class="upload-img">
                                         <div>
                                             <label>Files to upload:</label>
@@ -122,8 +122,8 @@
                                                    name="fileselect[]" 
                                                    multiple="multiple" />
                                         </div>
-                                        <p>- or -</p>
-                                        <p>Drag &amp; Drop</p>
+                                        <p style="margin-bottom:0;margin-top:14px;">- or -</p>
+                                        <p style="margin-bottom:0;font-size:18px;">Drag &amp; Drop</p>
                                     </div>
                                 </div><!-- upload custom pin -->
                             </div><!-- /row -->
