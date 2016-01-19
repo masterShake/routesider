@@ -1,6 +1,7 @@
 var rApp, 	// resume app
-	mm,		// map methods object
 	gm,   	// google map object
+	mm,		// map methods object
+	mb,		// map builder root node
 	layout;	// sets position of #pageContent 
 
 
@@ -215,6 +216,117 @@ MM.prototype.selPlace = function(){
 
 
 
+
+
+//-----------------------------------------------
+//				 MB (map builder)
+//			   --------------------
+//
+// - root node for map builder objects
+//
+// - toggle popover
+//
+//-----------------------------------------------
+
+var MB = function(){ console.log('created new MB object');
+
+	// get the toolbar buttons
+	this.p = mapTools.children;
+	// toggle the cooresponding control panel
+	this.p[0].addEventListener('click', this.togPan);
+	this.p[1].addEventListener('click', this.togPan);
+	this.p[2].addEventListener('click', this.togPan);
+	this.p[3].addEventListener('click', this.togPan);
+
+	// get the control panel buttons
+	this.p = cPanels.getElementsByClassName('close');
+	// set the toggle event listener
+	this.p[0].addEventListener('click', this.shrink);
+	// this.p[1].addEventListener('click', this.shrink);
+	// this.p[2].addEventListener('click', this.shrink);
+
+	// keep track of active control panel
+	this.panel = -1;
+}
+
+//-----------------------------------------------
+// - toggle display of the corresponding control
+//   panel
+MB.prototype.togPan = function(){ console.log('togPan called');
+
+	// if there is an open/active control panel
+	if(mb.panel >= 0)
+		// close it
+		cPanels.children[mb.panel].style.display = 'none';
+
+	// if this panel was already open
+	if(!this.dataset.panel || this.dataset.panel == mb.panel){
+		// reset active panel index
+		mb.panel = -1;
+		// do nothing
+		return;
+	}
+
+	// display the proper control panel
+	cPanels.children[this.dataset.panel].style.display = 'block';
+	// set the new panel index
+	mb.panel = this.dataset.panel;
+}
+
+//-----------------------------------------------
+// - shrink or expand popover content
+MB.prototype.shrink = function(){
+	
+	// if the popover content is already shrunk
+	if(this.parentElement.parentElement.children[3].offsetHeight == 45){
+		// rotate the button
+		this.style.transform = 'rotate(270deg)';
+		// hide the fade
+		this.parentElement.parentElement.children[2].style.display = 'none';
+		// shrink the popover content
+		this.parentElement.parentElement.children[3].style.height = 'auto';
+		// money
+		return;
+	}
+	// rotate the button
+	this.style.transform = 'rotate(90deg)';
+	// hide the fade
+	this.parentElement.parentElement.children[2].style.display = 'block';
+	// shrink the popover content
+	this.parentElement.parentElement.children[3].style.height = '45px';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 //				L (layout object)
 //			  ---------------------
@@ -228,9 +340,6 @@ var L = function(){
 
 	// temp variable
 	this.t = null;
-
-	// keep track of open panels
-	this.panel = -1;
 
 	// set the position of the pageContent & navbar
 	this.resize();
@@ -308,31 +417,6 @@ L.prototype.actBtn = function(){
 	this.className = this.className + " active";
 }
 
-//-----------------------------------------------
-// - toggle display of the corresponding control
-//   panel
-L.prototype.togCpan = function(){
-
-	// if there is an open/active control panel
-	if(layout.panel >= 0)
-		// close it
-		cPanels.children[layout.panel].style.display = 'none';
-
-	// if this panel was already open
-	if(!this.dataset.panel || this.dataset.panel == layout.panel){
-		// reset active panel index
-		layout.panel = -1;
-		// do nothing
-		return;
-	}
-
-	// display the proper control panel
-	cPanels.children[this.datset.panel].style.display = 'block';
-	// set the new panel index
-	layout.panel = this.dataset.panel;
-}
-
-
 
 
 
@@ -376,5 +460,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	// set the layout
 	layout = new L();
+
+	// init map builder
+	mb = new MB();
 
 }, false);

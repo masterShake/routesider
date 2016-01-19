@@ -87,14 +87,15 @@
                 <div id="cPanels">
 
                     <!-- drop pin -->
-                    <div class="popover popover-top" style="display:block;">
+                    <div class="popover popover-top">
                         <div class="popover-arrow"></div>
                         <h3 class="popover-title">
                             <span class="icon-location"></span>Drop Pin
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                            <button type="button" class="close" aria-label="shrink or grow">
+                                <span aria-hidden="true">&#171;</span>
                             </button>
                         </h3>
+                        <div class="popover-fade"></div>
                         <div class="popover-content container">
                             <div class="row">
                                 <!-- drop pin instructions -->

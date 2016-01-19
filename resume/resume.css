@@ -10,11 +10,10 @@
 #logo,
 #navLinks,
 .navbar form,
-#lead{
+#lead,
+.popover-title button{
 	-webkit-transition: .3s;
-	-moz-transition: .3s;
 	-ms-transition: .3s;
-	-o-transition: .3s;
 	transition: .3s;
 }
 
@@ -29,7 +28,7 @@ button.active,
 button:active{
 	box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
 }
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
 	outline: none;
 }
 /*----------------------
@@ -147,6 +146,7 @@ button:active{
   ----------------------*/
 
 .popover{
+	display: none;
 	position: relative;
 	margin-bottom: 22px;
 }
@@ -155,8 +155,28 @@ button:active{
 	text-align: center;
 	font-weight: 600;
 }
+.popover-title button{
+	transform: rotate(270deg);
+    margin-top: -3px;
+}
 .popover-title>span{
 	color: #5CB85C;
+}
+.popover-content{
+	overflow: hidden;
+	height: auto;
+	position: relative;
+}
+.popover-fade{  
+	position: absolute;
+	z-index:1;
+	height: 100%;
+	width: 99%;
+	display: none;
+    background: -webkit-linear-gradient(white, transparent); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, transparent); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, transparent); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, transparent); /* Standard syntax (must be last) */
 }
 /* current icon */
 .current-icon h6{
@@ -165,10 +185,11 @@ button:active{
 .current-icon>div{
 	font-size: 24px;
 	padding: 4px;
+	padding-bottom: 0px;
 	float: right;
 	border-radius: 4px;
 	border: 1px solid transparent;
-	margin-top: -12px;
+	margin-top: -16px;
 	margin-right: 24px;
 }
 .current-icon>div:hover{
