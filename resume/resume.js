@@ -442,14 +442,18 @@ PM.prototype.createIW = function(){
 	this.u.className = 'info-window';
 
 	// set the inner HTML
-	this.u.innerHTML = '<div class="input-group input-group-lg">'+
-					   		'<input type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon2">'+
+	this.u.innerHTML = '<div class="window-text">'+
+						   '<input type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon2">'+
+						   '<textarea placeholder="description"></textarea>'+
 					   '</div>'+
-					   '<textarea placeholder="description"></textarea>'+
-					   '<input type="checkbox" class="form-control" checked/>'+
-					   '<span class="icon-eye"></span>'+
-					   '<span>display info window</span>'+
-					   '<button class="btn btn-danger" data-i="'+this.i+'"><span class="icon-bin"></span></button>';
+					   '<div class="window-buttons">'+
+						   '<button class="btn btn-danger" data-i="'+this.i+'"><span class="icon-bin"></span></button>'+
+					   	   '<label>'+
+							   '<input type="checkbox" class="form-control" checked/>'+
+							   '<span class="icon-eye"></span>'+
+						   '</label>'+
+						   '<div>display window</div>'+
+					   '</div>';
 
 	// init the new info window javascript
 	this.initIW();					   
@@ -474,7 +478,7 @@ PM.prototype.initIW = function(){
 	this.t.addListener('click', this.openIW);
 
 	// add the delete event
-	this.u.children[5].addEventListener('click', this.del);
+	this.u.children[1].children[0].addEventListener('click', this.del);
 }
 
 //-----------------------------------------------
