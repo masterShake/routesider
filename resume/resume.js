@@ -443,13 +443,14 @@ PM.prototype.createIW = function(){
 
 	// set the inner HTML
 	this.u.innerHTML = '<div class="window-text">'+
-						   '<input type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon2">'+
+						   '<div></div>'+
+						   '<input type="text" class="form-control" placeholder="Title" aria-describedby="include info window for this pin" />'+
 						   '<textarea placeholder="description"></textarea>'+
 					   '</div>'+
 					   '<div class="window-buttons">'+
 						   '<button class="btn btn-danger" data-i="'+this.i+'"><span class="icon-bin"></span></button>'+
 					   	   '<label>'+
-							   '<input type="checkbox" class="form-control" checked/>'+
+							   '<input type="checkbox" class="form-control" checked />'+
 							   '<span class="icon-eye"></span>'+
 						   '</label>'+
 						   '<div>display window</div>'+
@@ -477,6 +478,10 @@ PM.prototype.initIW = function(){
 	// apply the info window to the new pin
 	this.t.addListener('click', this.openIW);
 
+	// add the display infowindow event
+	this.u.children[1].children[1].children[0]
+		.addEventListener('change', this.togWin);
+
 	// add the delete event
 	this.u.children[1].children[0].addEventListener('click', this.del);
 }
@@ -485,6 +490,25 @@ PM.prototype.initIW = function(){
 // - open info window
 PM.prototype.openIW = function(){
 	pm.wins[this.i].open(gm, this);
+}
+
+//-----------------------------------------------
+// - toggle info window display
+PM.prototype.togWin = function(){
+
+	// get the veil element
+	pm.t = this.parentElement.parentElement
+				.parentElement.children[0].children[0];
+
+	// hide veil
+	if(this.checked){
+		pm.t.style.zIndex = '-1';
+		pm.t.style.opacity = '0';
+	// show the veil
+	}else{
+		pm.t.style.zIndex = 
+		pm.t.style.opacity = '1';
+	}
 }
 
 //-----------------------------------------------

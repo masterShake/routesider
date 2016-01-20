@@ -248,6 +248,14 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 .window-text{
 	position: relative;
 }
+.window-text div{
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(255,255,255,0.7);
+}
 .window-text input,
 .window-text textarea{
 	margin: 7px 0;
