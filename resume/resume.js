@@ -2,6 +2,8 @@ var rApp, 	// resume app
 	gm,   	// google map object
 	mm,		// map methods object
 	mb,		// map builder root node
+	as,		// active state
+	pm,		// pin mode
 	layout;	// sets position of #pageContent 
 
 
@@ -141,6 +143,9 @@ MM.prototype.initMap = function(){
 	// add autocomplete event listeners
 	this.autoComp1.addListener('place_changed', this.selPlace);
 	this.autoComp2.addListener('place_changed', this.selPlace);
+
+	// init the pin object
+	pm = mb.pm = new PM();
 }
 
 //-----------------------------------------------
@@ -180,6 +185,12 @@ MM.prototype.selPlace = function(){
 	layout.buryLead();
 	gm.setCenter(this.getPlace().geometry.location);
     gm.setZoom(17);  // Why 17? Because it looks good.
+	// drop pin
+	new google.maps.Marker({
+						    position: this.getPlace().geometry.location,
+    						animation: google.maps.Animation.DROP,
+						    map: gm
+						  });
 }
 
 
@@ -229,6 +240,12 @@ MM.prototype.selPlace = function(){
 //-----------------------------------------------
 
 var MB = function(){ console.log('created new MB object');
+
+	// keep track of the active editor state
+	as = this.as = null;
+
+	// keep track of the pin mode object
+	this.pm = null;
 
 	// get the toolbar buttons
 	this.p = mapTools.children;
@@ -301,6 +318,185 @@ MB.prototype.shrink = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				   PM (pin mode)
+//				 -----------------
+//
+// - methods related to dropping and edition pin
+//
+//-----------------------------------------------
+
+var PM = function(){
+
+	// iterator
+	this.i = 0;
+
+	// keep track of the array of pins
+	this.pins = {};
+
+	// keep track of the corresponding infowindows
+	this.wins = {};
+
+	// temp variables
+	this.t,
+	this.u,
+	this.v = null;
+
+	// initialize the pin editor button
+	mapTools.children[0].addEventListener('click', this.init);
+
+}
+
+//-----------------------------------------------
+// - initialize pin editor mode
+PM.prototype.init = function(){
+
+	// if pin mode is already initialized
+	if(as == 'pin'){
+		// terminate pin mode
+		pm.end(); return;
+	}
+	// change map cursor to crosshair
+	gm.setOptions({draggableCursor:'crosshair'});
+	// set the click event
+	gm.addListener('click', pm.drop);
+}
+
+//-----------------------------------------------
+// - terminate pin editor mode
+PM.prototype.end = function(){
+	// remove the google maps listener
+	gm.removeListener('click', this.drop);
+	// reset the cursors
+	gm.setOptions({draggableCursor:'drag'});
+	// close any open wins
+	for(var i = 0; i < this.wins.length; i++)
+		this.wins[i].close();
+}
+
+//-----------------------------------------------
+// - click drop pin
+PM.prototype.drop = function(e){
+	// create & drop new pin
+	pm.t = new google.maps.Marker
+			({
+			    position: {lat:e.latLng.lat(),lng:e.latLng.lng()},
+				animation: google.maps.Animation.DROP,
+			    map: gm
+			});
+
+	// give the pin an id
+	pm.i++;
+	pm.t.set('i', pm.i);
+
+	// push it onto the hashmap
+	pm.pins[pm.i] = pm.t;
+
+	// create the info window
+	pm.createIW();
+}
+
+//-----------------------------------------------
+// - create info window element
+PM.prototype.createIW = function(){
+
+	// create a div
+	this.u = document.createElement('div');
+
+	// set the .info-window class
+	this.u.className = 'info-window';
+
+	// set the inner HTML
+	this.u.innerHTML = '<div class="input-group input-group-lg">'+
+					   		'<input type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon2">'+
+					   '</div>'+
+					   '<textarea placeholder="description"></textarea>'+
+					   '<input type="checkbox" class="form-control" checked/>'+
+					   '<span class="icon-eye"></span>'+
+					   '<span>display info window</span>'+
+					   '<button class="btn btn-danger" data-i="'+this.i+'"><span class="icon-bin"></span></button>';
+
+	// init the new info window javascript
+	this.initIW();					   
+}
+
+//-----------------------------------------------
+// - init the new info window javascript
+PM.prototype.initIW = function(){
+	
+	// create the infoWindow object
+	this.v = new google.maps.InfoWindow({
+			    content: this.u
+			 });
+
+	// set the info window id
+	this.v.set('i', this.i);
+
+	// push it onto the array
+	this.wins[this.i] = this.v;					   
+
+	// apply the info window to the new pin
+	this.t.addListener('click', this.openIW);
+
+	// add the delete event
+	this.u.children[5].addEventListener('click', this.del);
+}
+
+//-----------------------------------------------
+// - open info window
+PM.prototype.openIW = function(){
+	pm.wins[this.i].open(gm, this);
+}
+
+//-----------------------------------------------
+// - delete a pin 
+PM.prototype.del = function(){
+
+	// delete the info window object
+	pm.wins[this.dataset.i].setMap(null);
+	pm.wins[this.dataset.i] = null;
+	delete pm.wins[this.dataset.i];
+
+	// delete pin
+	pm.pins[this.dataset.i].setMap(null);
+	pm.pins[this.dataset.i] = null;
+	delete pm.pins[this.dataset.i];
+}
 
 
 
@@ -453,6 +649,9 @@ L.prototype.actBtn = function(){
 // init the map methods object
 mm = new MM();
 
+// init map builder
+mb = new MB();
+
 document.addEventListener("DOMContentLoaded", function(){
 
 	// init the page object
@@ -460,8 +659,5 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	// set the layout
 	layout = new L();
-
-	// init map builder
-	mb = new MB();
 
 }, false);
