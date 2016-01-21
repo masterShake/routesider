@@ -45,6 +45,7 @@ if ($fn) {
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" href="icomoon.css">
+        <link rel="stylesheet" href="color_wheel.css">
         <link rel="stylesheet" href="resume.css">
     </head>
     <body>
@@ -125,7 +126,7 @@ if ($fn) {
                         <div class="popover-arrow"></div>
                         <h3 class="popover-title">
                             <span class="icon-location"></span>Drop Pin
-                            <button type="button" class="close" aria-label="shrink or grow">
+                            <button type="button" class="close" data-panel="0" aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
                             </button>
                         </h3>
@@ -164,6 +165,136 @@ if ($fn) {
                             </div><!-- /row -->
                         </div><!-- /popover-content container -->
                     </div><!-- / drop pin -->
+
+                    <!-- new polygon -->
+                    <div class="popover popover-top">
+                        <div class="popover-arrow"></div>
+                        <div class="popover-title map">
+                            <div class="icon-map"></div>
+                            <div class="icon-plus"></div>New Polygon
+                            <button type="button" class="close" data-panel="1" aria-label="shrink or grow">
+                                <span aria-hidden="true">&#171;</span>
+                            </button>
+                        </div>
+                        <div class="popover-fade"></div>
+                        <div class="popover-content new-poly">
+                            <ul>
+                                <li>tap to add points</li>
+                                <li>press the "complete" button to connect the dots</li>
+                            </ul>
+                            <button type="button" class="btn" id="undo" aria-label="undo">
+                                <span class="icon-undo2" aria-hidden="true"></span> undo
+                            </button>
+                            <button type="button" class="btn" id="redo" aria-label="undo">
+                                redo <span class="icon-redo2" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn" id="complete-polygon" aria-label="complete the polygon">
+                                <span class="icon-spinner7" aria-hidden="true"></span> complete
+                            </button>
+                        </div><!-- /popover-content container -->
+                    </div><!-- /new polygon -->
+
+                    <!-- edit polygon -->
+                    <div class="popover popover-top" id="poly">
+                        <div class="popover-arrow"></div>
+                        <div class="popover-title map">
+                            <div class="icon-map" style="margin-top:1px;"></div>
+                            <div class="icon-pencil" style="font-size:10px;margin-top:4px;"></div>Edit Polygon
+                            <button type="button" class="close" data-panel="2" aria-label="shrink or grow">
+                                <span aria-hidden="true">&#171;</span>
+                            </button>
+                        </div>
+                        <div class="popover-fade"></div>
+                        <div class="popover-content container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <!-- hex table -->
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">
+                                                    <div>opacity</div>
+                                                    <span>hex</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- stroke -->
+                                            <tr>
+                                                <td>
+                                                    <button type="button" 
+                                                            class="btn" 
+                                                            style="background-color:#5CB85C;color:#FFF;"
+                                                            aria-label="edit polygon border">
+                                                        <span class="icon-checkbox-unchecked"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <input type="text" 
+                                                           value="#5CB85C" 
+                                                           class="form-control hex-text" 
+                                                           aria-label="polygon stroke hexidecimal color value">
+                                                </td>
+                                                <td>
+                                                    <input type="text"
+                                                           value="0.8"
+                                                           class="form-control opacity-text" 
+                                                           max-length="4"
+                                                           aria-label="polygon stroke opacity between 0 and 1">
+                                                </td>
+                                            </tr>
+                                            <!-- fill -->
+                                            <tr>
+                                                <td style="padding-top:4px;">
+                                                    <button type="button" 
+                                                            class="btn" 
+                                                            style="background-color:#FFF;color:#444;"
+                                                            aria-label="edit polygon fill">
+                                                        <span class="icon-droplet"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <input type="text" 
+                                                           value="#DFF0D8"
+                                                           class="form-control hex-text" 
+                                                           aria-label="polygon fill hexidecimal color value">
+                                                </td>
+                                                <td>
+                                                    <input type="text" 
+                                                           value="0.5"
+                                                           class="form-control opacity-text" 
+                                                           max-length="4"
+                                                           aria-label="polygon fill opacity between 0 and 1">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table><!-- /hex & opacity table -->
+                                    <!-- color wheel -->
+                                    <div class="color-wheel">
+                                        <?php include 'color_wheel_btns.php'; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <!-- color picker -->
+                                        <div class="col-xs-6 col-md-12">
+                                            <lable>
+                                                <span>more<span class="hidden-xs-down"> colors</span>:</span> 
+                                                <input type="color" class="form-control" aria-label="full HTML5 color wheel" style="max-width:40px;padding:3px 7px;display:inline;" value="#5CB85C"/>
+                                            </lable>
+                                        </div>
+                                        <!-- opacity slider -->
+                                        <div class="col-xs-6 col-md-12">
+                                            <span class="icon-brightness-contrast" style="font-size:18px;max-width:11%;"></span>
+                                            <input type="range" type="range" min="0" max="1" step="0.01" value="0.8" style="width:calc(100% - 30px);margin-left:5px;"/>
+                                        </div>
+                                    </div><!-- /row -->
+                                </div>
+                            </div><!-- /row -->
+                        </div><!-- /popover-content container -->
+                    </div><!-- /edit-polygon -->
+
+                    <!-- embed code -->
 
                 </div><!-- /control panels -->
 

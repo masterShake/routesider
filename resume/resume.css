@@ -11,7 +11,8 @@
 #navLinks,
 .navbar form,
 #lead,
-.popover-title button{
+.popover-title button,
+.upload-img{
 	-webkit-transition: .3s;
 	-ms-transition: .3s;
 	transition: .3s;
@@ -155,12 +156,34 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	text-align: center;
 	font-weight: 600;
 }
+/* map related popover title */
+.popover-title.map{
+	line-height: 1.1;
+	text-align: left;
+}
+.popover-title.map .icon-map{
+	margin-left:calc(50% - 66px);
+}
+.popover-title.map .icon-plus{
+	font-size: 8px;
+	margin-top: 5px;
+}
+.popover-title.map .icon-plus,
+.popover-title.map .icon-pencil{
+	margin-left: 2px;
+	margin-right: 4px;
+}
+/* close button */
 .popover-title button{
 	transform: rotate(270deg);
     margin-top: -3px;
 }
-.popover-title>span{
+.popover-title>span,
+.popover-title>div{
 	color: #5CB85C;
+}
+.popover-title>div{
+	float:left;
 }
 .popover-content{
 	overflow: hidden;
@@ -178,6 +201,11 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
     background: -moz-linear-gradient(white, transparent); /* For Firefox 3.6 to 15 */
     background: linear-gradient(white, transparent); /* Standard syntax (must be last) */
 }
+
+/*----------------------
+	drop pin panel
+  ----------------------*/
+
 /* current icon */
 .current-icon h6{
 	padding-left: 10px;
@@ -232,6 +260,60 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
     left: 50%;
     margin-left: -110px;
     top: 4px;
+}
+
+/*----------------------
+	 polygon panels
+  ----------------------*/
+
+#poly{
+	min-width:100%;
+	max-width: 486px !important;
+}
+/* undo, redo, complete buttons */
+ .new-poly button{
+    padding: 8px 12px;
+    font-size: 13px;
+ }
+/* hex/opacity table */
+table{
+	float:right;
+}
+/* hex & opacity header*/
+th{
+	max-width: 123px;
+    overflow: visible;
+    text-overflow: ellipsis;
+    padding-left: 66px;
+}
+/* hack to fit the word 'opacity' */
+th div{
+	float: right;
+	margin-right: -5px;
+}
+table td{
+	padding-left: 4px;
+}
+table .hex-text{
+	width: 77px;
+}
+table .opacity-text{
+	width: 38px;
+}
+table .btn,
+table .form-control{
+	font-size: 14px;
+}
+table .btn{
+	padding: 4px 8px;
+}
+table .form-control{
+	padding: 4px;
+}
+/* color picker and slider input */
+#poly .col-md-4{
+	padding-top: 18px;
+	text-align: center;
 }
 
 /*----------------------
@@ -413,6 +495,18 @@ footer input, footer textarea{
 	.navbar-nav a.nav-link{
 		width: 33%;
 		text-align: center;
+	}
+
+	/* edit polygon control panel */
+	#poly{
+		min-width: 462px;
+		max-width: 462px;
+	}
+	#poly .col-md-4{
+		padding-top: 12px;
+	}
+	#poly .col-xs-6{
+		padding-bottom: 14px;
 	}
 }
 

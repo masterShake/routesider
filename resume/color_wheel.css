@@ -1,0 +1,114 @@
+/*------------------------------------
+
+		   	  color wheel
+
+  ------------------------------------*/
+
+/*----------------------
+	color wheel
+----------------------*/
+
+.color-wheel{
+    width: 104px;
+    margin-left: -3px;
+}
+.color-wheel>div{
+	text-align: center;
+	max-height: 18px
+}
+.color-wheel>div button{  
+	padding: 7px 8px;
+	margin-left: -1px;
+}
+/* row 1 */
+.color-wheel>div:nth-child(1)>button:nth-child(1){
+	background-color: #FF007F;
+}
+.color-wheel>div:nth-child(1)>button:nth-child(2){
+	background-color: #FF0000;
+}
+.color-wheel>div:nth-child(1)>button:nth-child(3){
+	background-color: #FF7F00;
+}
+/* row 2 */
+.color-wheel>div:nth-child(2)>button:nth-child(1){
+	background-color: #FF00FF;
+}
+.color-wheel>div:nth-child(2)>button:nth-child(2){
+	background-color: #FF99CC;
+}
+.color-wheel>div:nth-child(2)>button:nth-child(3){
+	background-color: #FFCC99;
+}
+.color-wheel>div:nth-child(2)>button:nth-child(4){
+	background-color: #FFFF00;
+}
+/* row 3 */
+.color-wheel>div:nth-child(3)>button:nth-child(1){
+	background-color: #7F00FF;
+}
+.color-wheel>div:nth-child(3)>button:nth-child(2){
+	background-color: #CC99FF;
+}
+.color-wheel>div:nth-child(3)>button:nth-child(3){
+	background-color: #FFFFFF;
+	border: 1px solid #444;
+}
+.color-wheel>div:nth-child(3)>button:nth-child(4){
+	background-color: #CCFF99;
+}
+.color-wheel>div:nth-child(3)>button:nth-child(5){
+	background-color: #7FFF00;
+}
+/* row 4 */
+.color-wheel>div:nth-child(4)>button:nth-child(1){
+	background-color: #0000FF;
+}
+.color-wheel>div:nth-child(4)>button:nth-child(2){
+	background-color: #99CCFF;
+}
+.color-wheel>div:nth-child(4)>button:nth-child(3){
+	background-color: #99FFCC;
+}
+.color-wheel>div:nth-child(4)>button:nth-child(4){
+	background-color: #00FF00;
+}
+/* row 5 */
+.color-wheel>div:nth-child(5)>button:nth-child(1){
+	background-color: #007FFF;
+}
+.color-wheel>div:nth-child(5)>button:nth-child(2){
+	background-color: #00FFFF;
+}
+.color-wheel>div:nth-child(5)>button:nth-child(3){
+	background-color: #00FF7F;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

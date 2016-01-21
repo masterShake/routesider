@@ -30,7 +30,7 @@ var R = function(){
 
 //-----------------------------------------------
 // - toggle mobile navbar
-R.prototype.togNav = function(){ console.log('togNav called');
+R.prototype.togNav = function(){
 
 	// if the navigation menu is showing
 	if(navLinks.offsetParent !== null){
@@ -240,7 +240,7 @@ MM.prototype.selPlace = function(){
 //
 //-----------------------------------------------
 
-var MB = function(){ console.log('created new MB object');
+var MB = function(){ 
 
 	// keep track of the active editor state
 	as = this.as = null;
@@ -270,7 +270,7 @@ var MB = function(){ console.log('created new MB object');
 //-----------------------------------------------
 // - toggle display of the corresponding control
 //   panel
-MB.prototype.togPan = function(){ console.log('togPan called');
+MB.prototype.togPan = function(){ 
 
 	// if there is an open/active control panel
 	if(mb.panel >= 0)
