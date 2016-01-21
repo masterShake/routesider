@@ -4,6 +4,7 @@ var rApp, 	// resume app
 	mb,		// map builder root node
 	as,		// active state
 	pm,		// pin mode
+	ui,		// upload image
 	layout;	// sets position of #pageContent 
 
 
@@ -377,6 +378,9 @@ var PM = function(){
 	this.u,
 	this.v = null;
 
+	// init the upload image object
+	ui = new UI();
+
 	// initialize the pin editor button
 	mapTools.children[0].addEventListener('click', this.init);
 
@@ -417,7 +421,8 @@ PM.prototype.drop = function(e){
 			({
 			    position: {lat:e.latLng.lat(),lng:e.latLng.lng()},
 				animation: google.maps.Animation.DROP,
-			    map: gm
+			    map: gm,
+			    icon : ui.src
 			});
 
 	// give the pin an id
@@ -437,9 +442,6 @@ PM.prototype.createIW = function(){
 
 	// create a div
 	this.u = document.createElement('div');
-
-	// set the .info-window class
-	this.u.className = 'info-window';
 
 	// set the inner HTML
 	this.u.innerHTML = '<div class="window-text">'+
@@ -504,10 +506,12 @@ PM.prototype.togWin = function(){
 	if(this.checked){
 		pm.t.style.zIndex = '-1';
 		pm.t.style.opacity = '0';
+		this.parentElement.children[1].className = 'icon-eye';
 	// show the veil
 	}else{
 		pm.t.style.zIndex = 
 		pm.t.style.opacity = '1';
+		this.parentElement.children[1].className = 'icon-eye-blocked';
 	}
 }
 
@@ -525,6 +529,211 @@ PM.prototype.del = function(){
 	pm.pins[this.dataset.i] = null;
 	delete pm.pins[this.dataset.i];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				 UI (image uploader)				
+//			   -----------------------
+//
+// - drag and drop upload events
+//
+// - traditional upload events
+//
+// - activate properties toolbar
+//
+//-----------------------------------------------
+
+/* CONSTRUCTOR */
+
+var UI = function(){
+
+	// .current-icon element
+	this.iconElem = cPanels.getElementsByClassName('current-icon')[0]
+						.children[0];
+
+	// add the delete icon event
+	this.iconElem.children[0].addEventListener('click', this.delIcon);
+
+	// current icon source
+	this.src = 
+
+	// ajax object
+	this.xhr = 
+
+	// file for upload
+	this.file = null;
+
+	// temp variable, the the upload image element
+	this.t = cPanels.getElementsByClassName('upload-img')[0];
+
+	// apply file dragover event
+	this.t.addEventListener("dragover", this.fh, false);
+
+	// apply file dragleave event
+	this.t.addEventListener("dragleave", this.fh, false);
+
+	// apply file drop event
+	this.t.addEventListener("drop", this.fs, false);
+
+	// apply traditional upload fileselect event
+	this.t.children[0].children[1]
+		.addEventListener("change", this.fs, false);
+
+}
+
+/* METHODS */
+
+//-----------------------------------------------
+// - file hover, dragover file to drop 
+UI.prototype.fh = function(e){
+	e.stopPropagation();
+	e.preventDefault();
+	e.currentTarget.className = (e.type == "dragover" ? "upload-img hover" : "upload-img");
+}
+
+//-----------------------------------------------
+// - file selection event listener
+UI.prototype.fs = function(e) {
+
+	// cancel event and hover styling
+	ui.fh(e);
+
+	// fetch FileList object
+	ui.file = e.target.files || e.dataTransfer.files;// process all File objects
+	ui.file = ui.file[0];
+
+	// upload the file
+	ui.uploadFile();
+}
+
+//-----------------------------------------------
+// - upload image
+UI.prototype.uploadFile = function(){
+
+	// keep track of the image source
+
+	// append a loading gif spinner
+	// this.l();
+
+	// - delete the previous xhr object
+	// - it will be properly garbage collected
+	this.xhr = null;
+
+	// create a new one
+	this.xhr = new XMLHttpRequest();
+
+	// if file is the correct type and size
+	if( (this.file.type == "image/jpeg" || 
+		 this.file.type == "image/jpg"  ||
+		 this.file.type == "image/png"  ||
+		 this.file.type == "image/gif") && 
+		 this.file.size < 9999999999999999
+	  ){
+
+	  	// add an event listener to the ajax request
+	  	this.xhr.onreadystatechange = ui.uploadCB;
+
+		// ajax
+		this.xhr.open("POST", document.URL, true);
+		this.xhr.setRequestHeader("X-file-name", this.file.name);
+		this.xhr.send(this.file);
+	}
+}
+
+//-----------------------------------------------
+// - append a loading gif spinner to indicate 
+//   that the file is being uploaded
+UI.prototype.l = function(){ return false;
+	// this.t = document.createElement('div');
+	// this.t.className = 'uploading';
+	// this.t.innerHTML = '<span class="glyphicon glyphicon-refresh loading"></span>';
+	// this.io.a.children[3].appendChild(this.t);
+}
+
+//-----------------------------------------------
+// - img file upload callback 
+UI.prototype.uploadCB = function(){
+	
+	if (this.readyState != 4) return; console.log(this.responseText);
+
+	// set the pin mode icon property
+	ui.src = this.responseText;
+
+	// set the current icon element
+	ui.iconElem.removeChild(ui.iconElem.children[1]);
+
+	// append a new image
+	ui.iconElem.appendChild(document.createElement('img'));
+
+	// set the image source
+	ui.iconElem.children[1].src = this.responseText;
+}
+
+//-----------------------------------------------
+// - delete current icon
+UI.prototype.delIcon = function(){
+
+	// if there is no user uploaded icon
+	if(!ui.src) return;
+
+	// reset the src property
+	ui.src = null;
+
+	// remove the image element
+	this.parentElement.removeChild(
+		this.parentElement.children[1]
+	);
+
+	// set the default element
+	ui.iconElem.appendChild(
+		document.createElement('span')
+	);
+
+	// set the class
+	ui.iconElem.children[1].className = 'icon-location';
+}
+
+
+
+
+
+
+
+
 
 
 

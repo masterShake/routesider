@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('fonts/icomoon.eot?jf6sou');
-    src:    url('fonts/icomoon.eot?jf6sou#iefix') format('embedded-opentype'),
-        url('fonts/icomoon.ttf?jf6sou') format('truetype'),
-        url('fonts/icomoon.woff?jf6sou') format('woff'),
-        url('fonts/icomoon.svg?jf6sou#icomoon') format('svg');
+    src:    url('fonts/icomoon.eot?9cbt6z');
+    src:    url('fonts/icomoon.eot?9cbt6z#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?9cbt6z') format('truetype'),
+        url('fonts/icomoon.woff?9cbt6z') format('woff'),
+        url('fonts/icomoon.svg?9cbt6z#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -100,27 +100,33 @@
     content: "\e918";
 }
 .icon-eye:before {
-    content: "\e920";
-}
-.icon-contrast:before {
     content: "\e919";
 }
-.icon-brightness-contrast:before {
+.icon-eye-blocked:before {
     content: "\e91a";
 }
-.icon-blocked:before {
+.icon-sun:before {
     content: "\e91b";
 }
-.icon-circle-up:before {
+.icon-contrast:before {
     content: "\e91c";
 }
-.icon-embed2:before {
+.icon-brightness-contrast:before {
     content: "\e91d";
 }
-.icon-tumblr2:before {
+.icon-blocked:before {
     content: "\e91e";
 }
-.icon-linkedin:before {
+.icon-circle-up:before {
     content: "\e91f";
+}
+.icon-embed2:before {
+    content: "\e920";
+}
+.icon-tumblr2:before {
+    content: "\e921";
+}
+.icon-linkedin:before {
+    content: "\e922";
 }
 

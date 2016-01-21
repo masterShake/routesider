@@ -198,6 +198,11 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 .current-icon button{
 	margin-top: -6px;
 }
+.current-icon img{
+	width: auto;
+	max-height: 36px;
+	margin-top: -8px;
+}
 .current-icon h6{
 	padding-left: 25px;
 	font-weight: 600;
@@ -208,6 +213,12 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	border-radius: 6px;
 	text-align: center;
 	padding: 4px;
+}
+.upload-img:hover{
+	border-color: #444;
+}
+.upload-img.hover{
+	border: 2px solid #5CB85C;
 }
 .upload-img>div{
 	text-align: left;
