@@ -760,6 +760,256 @@ UI.prototype.delIcon = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				 NP (new polygon)
+//			   --------------------
+//
+// - add points
+//
+// - undo and redo functions
+//
+// - complete polygon
+//
+// - init edit polygon mode
+//
+//-----------------------------------------------
+
+var NP = function(){
+
+	// coordinates of a polygon under construction
+	this.a = [];
+
+	// - branch of coordinates that have been removed
+	//	 from the polyline via the undo button
+	this.b = [];
+
+	// - keep track of the google maps polyline obj
+	this.p = null;
+
+	// temp variable, get the buttons
+	this.t = cPanel.querySelectorAll('.new-poly button');
+
+	// undo button
+	this.u = this.p[0];
+	this.u.addEventListener('click', this.undo);
+
+	// redo button
+	this.r = this.p[1];
+	this.r.addEventListener('click', this.redo);
+
+	// complete button
+	this.c = this.p[2];
+	this.c.addEventListener('click', this.fin);
+}
+
+//-----------------------------------------------	
+// - set event listeners for google maps draw 
+//   polygon
+NP.prototype.init = function(){
+
+	// change the cursor on the map to a crosshair
+	gm.setOptions({ 
+					draggableCursor : "crosshair"
+				  });
+	
+	// reset the polyCoords array
+	this.a = [];
+
+	// reset the polyCoordsRedo array to redo undos
+	this.b = [];
+
+	// if the polyline property is set to null
+	if( this.p === null ){
+		// create it
+		this.p = new google.maps.Polyline({ editable : true });
+		// set the map
+		this.p.setMap( gm );
+	}
+
+	// apply event listener when location is selected with click
+	gm.addListener('click', this.draw);
+
+	// user clicks last node to complete polygon
+	this.p.addListener('click', this.pFin);
+}
+
+//-----------------------------------------------	
+// - click map, add a coordinate to new polygon
+NP.prototype.draw = function(e){
+
+	// clear redo branch of coordinates
+	np.b = [];
+
+	// change the class of the redo button
+
+	// push to coordinates array e.latLng
+
+	// set the new path
+	np.p.setPath( np.a );
+
+	// maybe change the class of the complete button
+
+	// defintely change the class of the undo button
+}
+
+//-----------------------------------------------	
+// - undo line event listener
+NP.prototype.undo = function(){
+
+	// if there are no coords
+	if( !np.a.length ) return false;
+
+	// pop off last point and add it to the undo array
+
+	// set class of redo button
+
+	// now if polyCoords is empty, grey out the undo btn
+	if( !np.a.length )
+		this.className = "btn";
+
+	// maybe change the class of the complete button
+
+	// redraw the polyline
+	np.p.setPath( np.a );
+}
+
+//-----------------------------------------------	
+// - redo line event listener
+NP.prototype.redo = function(){
+
+	// if polyCoords is empty, return false
+	if( !np.b.length ) return false;
+
+	// - Pop off the last object in the polyCoords array
+	// - Push it to the polyCoordsRedo array
+	np.a.push( np.b.pop() );
+
+	// If polyCoords is now empty, grey out the redo btn
+	if( !np.b.length )
+		this.className = "btn";
+
+	// maybe change the class of the complete button
+
+	// polyCoords is definitely full so undo needs the correct class
+
+	// redraw the polyline
+	np.p.setPath( np.a );
+}
+
+//-----------------------------------------------
+// - event listener for polyline
+// - if user clicks the last node, call the 
+//   complete polygon method
+NP.prototype.pFin = function(e){
+	// if this is the last node
+	if( e.latLng.A === np.a[0].A && 
+		e.latLng.F === np.a[0].F )
+		// complete the polygon
+		np.fin();
+}
+
+//-----------------------------------------------
+// - click complete button
+NP.prototype.cFin = function(){
+
+	// if there are fewer than 3 polyCoords, do nothing
+	if( np.a.length < 3 ) return;
+
+	// complete the polygon
+	np.fin();
+
+}
+
+//-----------------------------------------------	
+// - complete the polygon
+NP.prototype.fin = function(){
+
+	// change the class of the complete-polygon btn back to grey
+
+	// remove the polyline overlay from our map
+	this.a.setMap(null);
+
+	// delete the polyline object
+	this.p = null;
+
+	// remove event listeners np.draw() click event
+
+	// create a new polygon object
+	this.t = this.cnp();
+
+	// clear the undo and redo btns
+
+	// terminate new poly mode
+
+	// initialize edit poly mode
+}
+
+//-----------------------------------------------
+// - create new polygon object
+NP.prototype.cnp = function(){
+
+	// create the new google maps polygon object
+	this.t = new google.maps.Polygon
+					({
+					    paths: np.a,
+					    strokeColor: '#5CB85C',
+					    strokeOpacity: '0.8',
+					    strokeWeight: 3,
+					    fillColor: '#5CB85C',
+					    fillOpacity: '0.3',
+					    editable : true
+					});
+
+	// push it onto the array of polygons
+	ep.gons.push(this.t);
+
+	// put that bad boy on the map
+	this.t.setMap(gm);	
+
+	// return the fresh polygon
+	return this.t;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 //				L (layout object)
 //			  ---------------------
