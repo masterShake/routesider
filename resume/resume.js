@@ -5,8 +5,10 @@ var rApp, 	// resume app
 	as,		// active state
 	pm,		// pin mode
 	ui,		// upload image
-	layout;	// sets position of #pageContent 
-
+	drawPoly,		// new polygon
+	editPoly,
+	layout	// sets position of #pageContent 
+	= null;
 
 
 
@@ -147,6 +149,10 @@ MM.prototype.initMap = function(){
 
 	// init the pin object
 	pm = mb.pm = new PM();
+
+	// init the polygon objects
+	drawPoly = mb.drawPoly = new DrawPoly();
+
 }
 
 //-----------------------------------------------
@@ -242,26 +248,35 @@ MM.prototype.selPlace = function(){
 
 var MB = function(){ 
 
-	// keep track of the active editor state
-	as = this.as = null;
+	// - keep track of the active editor state
+	// - values include:
+	//	  + pm (pin mode)
+	//	  + drawPoly (new polygon mode)
+	//	  + ep (edit polygon mode)
 
 	// keep track of the pin mode object
-	this.pm = null;
+	this.pm = 
+	// keep track of the polygon mode objects
+	this.drawPoly = 
+	this.ep = null;
 
-	// get the toolbar buttons
+	// loop through the toolbar buttons
 	this.p = mapTools.children;
-	// toggle the cooresponding control panel
-	this.p[0].addEventListener('click', this.togPan);
-	this.p[1].addEventListener('click', this.togPan);
-	this.p[2].addEventListener('click', this.togPan);
-	this.p[3].addEventListener('click', this.togPan);
+	for(var i = 0; i < this.p.length; i++){
+
+		// toggle the cooresponding control panel
+		this.p[i].addEventListener('click', this.togPan);
+
+		// init and/or terminate the active state
+		this.p[i].addEventListener('click', this.IorT);
+	}
 
 	// get the control panel buttons
 	this.p = cPanels.getElementsByClassName('close');
 	// set the toggle event listener
 	this.p[0].addEventListener('click', this.shrink);
-	// this.p[1].addEventListener('click', this.shrink);
-	// this.p[2].addEventListener('click', this.shrink);
+	this.p[1].addEventListener('click', this.shrink);
+	this.p[2].addEventListener('click', this.shrink);
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -315,6 +330,30 @@ MB.prototype.shrink = function(){
 }
 
 
+
+//-----------------------------------------------
+// - toolbar buttons init and/or terminate active
+//   state
+MB.prototype.IorT = function(){
+
+	// if any mode is active, terminate it
+	if(as) mb[as].term();
+	
+	// if this button is the current active state
+	if(this.dataset.as == as){
+		
+		// reset the active state variable
+		as = null;
+
+		return;
+	}
+	
+	// set the current active state
+	as = this.dataset.as;
+
+	// initialize the editor mode
+	mb[as].init();
+}
 
 
 
@@ -380,21 +419,11 @@ var PM = function(){
 
 	// init the upload image object
 	ui = new UI();
-
-	// initialize the pin editor button
-	mapTools.children[0].addEventListener('click', this.init);
-
 }
 
 //-----------------------------------------------
 // - initialize pin editor mode
 PM.prototype.init = function(){
-
-	// if pin mode is already initialized
-	if(as == 'pin'){
-		// terminate pin mode
-		pm.end(); return;
-	}
 	// change map cursor to crosshair
 	gm.setOptions({draggableCursor:'crosshair'});
 	// set the click event
@@ -403,7 +432,7 @@ PM.prototype.init = function(){
 
 //-----------------------------------------------
 // - terminate pin editor mode
-PM.prototype.end = function(){
+PM.prototype.term = function(){
 	// remove the google maps listener
 	gm.removeListener('click', this.drop);
 	// reset the cursors
@@ -776,7 +805,7 @@ UI.prototype.delIcon = function(){
 
 
 //-----------------------------------------------
-//				 NP (new polygon)
+//				 DrawPoly (new polygon)
 //			   --------------------
 //
 // - add points
@@ -789,38 +818,38 @@ UI.prototype.delIcon = function(){
 //
 //-----------------------------------------------
 
-var NP = function(){
+var DrawPoly = function(){
 
 	// coordinates of a polygon under construction
-	this.a = [];
+	this.coords = [];
 
 	// - branch of coordinates that have been removed
 	//	 from the polyline via the undo button
-	this.b = [];
+	this.coordsUndone = [];
 
 	// - keep track of the google maps polyline obj
-	this.p = null;
+	this.polyline = null;
 
 	// temp variable, get the buttons
 	this.t = cPanel.querySelectorAll('.new-poly button');
 
 	// undo button
-	this.u = this.p[0];
-	this.u.addEventListener('click', this.undo);
+	this.undoBtn = this.t[0];
+	this.undoBtn.addEventListener('click', this.undo);
 
 	// redo button
-	this.r = this.p[1];
-	this.r.addEventListener('click', this.redo);
+	this.redoBtn = this.t[1];
+	this.redoBtn.addEventListener('click', this.redo);
 
 	// complete button
-	this.c = this.p[2];
-	this.c.addEventListener('click', this.fin);
+	this.compBtn = this.t[2];
+	this.compBtn.addEventListener('click', this.completePolygon);
 }
 
 //-----------------------------------------------	
 // - set event listeners for google maps draw 
 //   polygon
-NP.prototype.init = function(){
+DrawPoly.prototype.init = function(){
 
 	// change the cursor on the map to a crosshair
 	gm.setOptions({ 
@@ -828,145 +857,226 @@ NP.prototype.init = function(){
 				  });
 	
 	// reset the polyCoords array
-	this.a = [];
+	this.coords = [];
 
 	// reset the polyCoordsRedo array to redo undos
-	this.b = [];
+	this.coordsUndone = [];
 
 	// if the polyline property is set to null
-	if( this.p === null ){
+	if( this.polyline === null ){
 		// create it
-		this.p = new google.maps.Polyline({ editable : true });
+		this.polyline = new google.maps.Polyline({ editable : true });
 		// set the map
-		this.p.setMap( gm );
+		this.polyline.setMap( gm );
 	}
 
 	// apply event listener when location is selected with click
 	gm.addListener('click', this.draw);
 
 	// user clicks last node to complete polygon
-	this.p.addListener('click', this.pFin);
+	this.polyline.addListener('click', this.lineComplete);
+}
+
+//-----------------------------------------------
+// - terminate new polygon mode
+DrawPoly.prototype.term = function(){ return false;
+
+	// if the user has an incomplete polygon
+	if(this.coords.length){
+
+		// cue confirmation modal
+
+		return;
+	}
+
+	// remove the draw event
+	gm.removeListener('click', this.draw)
+
+	// delete the polyline
+	this.polyline.setMap(null);
+	this.polyline = null;
+
 }
 
 //-----------------------------------------------	
 // - click map, add a coordinate to new polygon
-NP.prototype.draw = function(e){
+DrawPoly.prototype.draw = function(e){
+
+	// push the latLng object onto the coords array
+	drawPoly.coords.push(e.latLng);
 
 	// clear redo branch of coordinates
-	np.b = [];
+	drawPoly.coordsUndone = [];
 
-	// change the class of the redo button
-
-	// push to coordinates array e.latLng
-
-	// set the new path
-	np.p.setPath( np.a );
-
-	// maybe change the class of the complete button
-
-	// defintely change the class of the undo button
+	// call the draw function to make shit faster
+	drawPoly.updatePolyline();
 }
 
 //-----------------------------------------------	
 // - undo line event listener
-NP.prototype.undo = function(){
+DrawPoly.prototype.undo = function(){
 
 	// if there are no coords
-	if( !np.a.length ) return false;
+	if( !drawPoly.coords.length ) return false;
 
 	// pop off last point and add it to the undo array
+	drawPoly.coordsUndone.push( drawPoly.coords.pop() );
 
-	// set class of redo button
-
-	// now if polyCoords is empty, grey out the undo btn
-	if( !np.a.length )
-		this.className = "btn";
-
-	// maybe change the class of the complete button
-
-	// redraw the polyline
-	np.p.setPath( np.a );
+	// update the polyline
+	drawPoly.updatePolyline();
 }
 
 //-----------------------------------------------	
 // - redo line event listener
-NP.prototype.redo = function(){
+DrawPoly.prototype.redo = function(){
 
 	// if polyCoords is empty, return false
-	if( !np.b.length ) return false;
+	if( !drawPoly.coordsUndone.length ) return false;
 
 	// - Pop off the last object in the polyCoords array
 	// - Push it to the polyCoordsRedo array
-	np.a.push( np.b.pop() );
+	drawPoly.coords.push( drawPoly.coordsUndone.pop() );
 
-	// If polyCoords is now empty, grey out the redo btn
-	if( !np.b.length )
-		this.className = "btn";
+	// update the polyline
+	drawPoly.updatePolyline();
+}
 
-	// maybe change the class of the complete button
+//-----------------------------------------------
+// - set the coordinates of the polyline object
+// - set the css properties of the elements
+DrawPoly.prototype.updatePolyline = function(){
 
-	// polyCoords is definitely full so undo needs the correct class
+	// set the new path
+	this.polyline.setPath( this.coords );
 
-	// redraw the polyline
-	np.p.setPath( np.a );
+	// set complete button class based on coord count
+	this.compBtn.className = (this.coords.length > 2) ? 'btn btn-success' : 'btn';
+
+	// redo button class if any coords have been undone
+	this.redoBtn.className = (this.coordsUndone.length) ? 'btn btn-success' : 'btn';
+
+	// undo button green if coords array is not empty
+	this.undoBtn.className = (this.coords.length) ? 'btn btn-success' : 'btn';
 }
 
 //-----------------------------------------------
 // - event listener for polyline
 // - if user clicks the last node, call the 
 //   complete polygon method
-NP.prototype.pFin = function(e){
+DrawPoly.prototype.lineComplete = function(e){
 	// if this is the last node
-	if( e.latLng.A === np.a[0].A && 
-		e.latLng.F === np.a[0].F )
+	if( e.latLng.A === drawPoly.coords[0].A && 
+		e.latLng.F === drawPoly.coords[0].F )
 		// complete the polygon
-		np.fin();
+		drawPoly.completePolygon();
 }
 
 //-----------------------------------------------
 // - click complete button
-NP.prototype.cFin = function(){
+DrawPoly.prototype.btnComplete = function(){
 
 	// if there are fewer than 3 polyCoords, do nothing
-	if( np.a.length < 3 ) return;
+	if( drawPoly.coords.length < 3 ) return;
 
 	// complete the polygon
-	np.fin();
+	drawPoly.completePolygon();
 
 }
 
 //-----------------------------------------------	
 // - complete the polygon
-NP.prototype.fin = function(){
+DrawPoly.prototype.completePolygon = function(){
 
-	// change the class of the complete-polygon btn back to grey
+	// if there are fewer than 3 coords, do nothing
+	if(drawPoly.coords.length < 3) return;
 
-	// remove the polyline overlay from our map
-	this.a.setMap(null);
+	// terminate draw polygon mode
+	drawPoly.term();
 
-	// delete the polyline object
-	this.p = null;
+	// create new polygon
+	editPoly.createPolygon();
+}
 
-	// remove event listeners np.draw() click event
 
-	// create a new polygon object
-	this.t = this.cnp();
 
-	// clear the undo and redo btns
 
-	// terminate new poly mode
 
-	// initialize edit poly mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				EditPoly (edit polygon)
+//			  ---------------------
+//
+// - init edit mode, make active polygon editable
+//
+// - color hex, button, picker input
+//
+// - opacity input & slider
+//
+//-----------------------------------------------
+
+var EditPoly = function(){
+
+	// indexer
+	this.i = 0;
+
+	// hashmap of google maps Polygon objects
+	this.gons = {};
+
+	// hashmap of google maps InfoWindow objects
+	this.wins = {};
+
+	// keep track of the active polygon
+	this.a = null;
+
+	// - keep track of the active property
+	// - 0 => border, 1 => fill
+	this.bf = 0;
+
+	// init polygon color object
+	this.polyColor = new PolyColor(this);
+
+	// init polygon opacity object
+	this.polyOpacity = new PolyOpacity();
 }
 
 //-----------------------------------------------
 // - create new polygon object
-NP.prototype.cnp = function(){
+// - array of latLng object to create a polygon with
+EditPoly.prototype.createPolygon = function(){
 
 	// create the new google maps polygon object
-	this.t = new google.maps.Polygon
+	this.a = new google.maps.Polygon
 					({
-					    paths: np.a,
+					    paths: drawPoly.coords,
 					    strokeColor: '#5CB85C',
 					    strokeOpacity: '0.8',
 					    strokeWeight: 3,
@@ -976,14 +1086,290 @@ NP.prototype.cnp = function(){
 					});
 
 	// push it onto the array of polygons
-	ep.gons.push(this.t);
+	this.gons.push(this.a);
 
 	// put that bad boy on the map
-	this.t.setMap(gm);	
+	this.a.setMap(gm);	
 
-	// return the fresh polygon
-	return this.t;
+	// add event listeners and init InfoWindow
+	this.setPolyEvents();
 }
+
+//-----------------------------------------------
+// - set polygon events
+EditPoly.prototype.setPolyEvents = function(){ return false;
+
+	// click event, display InfoWindow
+
+	// init polygon editor mode
+
+}
+
+//-----------------------------------------------
+// - toggle active fill/border 
+// - the target of the color buttons, color 
+//   input, & opacity slider
+EditPoly.prototype.togFill = function(){
+
+	// set the active property
+
+	// give the button an active class
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				PolyColor (polygon color)
+//			  -----------------------
+//
+// - set border/fill button color
+//
+// - hex text input
+//
+// - color wheel buttons
+//
+// - set the color of the map
+//
+// - ep --> EditPolygon object
+//
+//-----------------------------------------------
+
+var PolyColor = function(ep){
+
+	// get the fill/border buttons
+	this.btns = poly.querySelectorAll('table button');
+
+	// get the hex text inputs
+	this.htxt = poly.getElementsByClassName('hex-text');
+
+	// get the color picker input
+	this.pikr = querySelectorAll('input[type="color"]')[0];
+
+	// toggle fill/border
+	this.btns[0].addEventListener('click', ep.togFill);
+	this.btns[1].addEventListener('click', ep.togFill);
+
+	// apply hextext events
+	this.htxt[0].addEventListener('keyup', hexText);
+	this.htxt[1].addEventListener('keyup', hexText);
+
+	// this.t --> temp variable
+	// loop through the color wheel buttons, set listener
+	this.t = poly.querySelectorAll('[data-hex]');
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].addEventListener('click', this.wheelBtn);
+}
+
+//-----------------------------------------------
+// - algorithm to determine if a hex value is 
+//   light or dark.
+// - @rgbObj -> object with r, g, & b values as
+//   returned by hext to rgb function
+// - returns a value between 0 and 1
+// - #000 would return a value of 0
+// - #FFF would return a value of 1
+// - all other colors would be somewhere
+//   inbetween
+// - values below .6 should be overlaid with
+//   white text
+// - values above .6, overlaid with black
+PolyColor.prototype.hexBright = function( rgbObj ){
+	// calculate & return weighted average
+	return (( rgbObj.r*0.299 + rgbObj.g*0.587 + rgbObj.b*0.114 ) / 256 > 0.6);
+}
+//-----------------------------------------------
+// - algorithm to convert hex to rgb
+// - @hex -> hexidecimal as string
+// - returns object with r, g, & b values
+PolyColor.prototype.hexToRgb = function(hex) {
+	// convert to array of hex vals
+	this.t = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+	// return the results as an object
+    return this.t ? {
+        r: parseInt(this.t[1], 16),
+        g: parseInt(this.t[2], 16),
+        b: parseInt(this.t[3], 16)
+    } : null;
+}
+
+//-----------------------------------------------
+// - keyup event change background color hex text
+// - make sure that first character is always a
+//   hashtag
+// - if legit hex value, display color
+PolyColor.prototype.hexText = function(){
+	
+	// if the first character is not a #
+	if(this.value.charAt(0) != "#")
+		// put the hashtag in front of the text
+		this.value = "#" + this.value;
+
+	// remove any input that is not 0-9, A-F
+	this.value = "#" + this.value.substr(1,6).replace(/[^0-9a-f]+/gi, '');
+
+	// if the input is now the proper length & format
+	if(this.value.length == 7){
+
+		// set the color elements
+
+		// set the embed properties
+	}
+}
+
+//-----------------------------------------------
+// - HTML5 color pick change event
+PolyColor.prototype.colorPick = function(){
+
+	// set the color elements
+
+	// set the embed property
+}
+
+//-----------------------------------------------
+// - user clicks one of the color wheel colors
+// - set text
+// - set color icon
+// - set html5 color picker
+// - set background
+PolyColor.prototype.wheelBtn = function(){
+
+	// tc.setElems(this.ddataset.hex, this.parentElement.parentElement.dataset.i);
+
+	// set the property
+}
+
+//-----------------------------------------------
+// - set color elements of control panel
+// - i => index of elements in array
+PolyColor.prototype.setElems = function(hex, i){
+
+	// set the text input
+	jApp[as].c.texti[i].value = 
+
+	// set the color picker input
+	jApp[as].c.picki[i].value = 
+
+	// set the icon background color
+	jApp[as].c.icon[i].style.backgroundColor = hex;
+
+	// set the icon color
+	jApp[as].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) );
+
+	// uncheck the transparency checkbox
+	jApp[as].c.checki[i].checked = false;
+	jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//			   PolyOpacity (polygon opacity)
+//			 ------------------------
+//
+// - opacity input
+//
+// - oapcity slider
+//
+//-----------------------------------------------
+
+var PolyOpacity = function(){
+
+	// get the opacity slider
+	this.sldr = querySelectorAll('input[type="range"]')[0];
+
+	// get the opacity text inputs
+	this.otxt = poly.getElementsByClassName('opacity-text');
+
+}
+
+//-----------------------------------------------
+// - change opacity slider change event
+PolyOpacity.prototype.oSlide = function(){
+
+}
+
+//-----------------------------------------------
+// - keyup opacity text input
+PolyOpacity.prototype.oText = function(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

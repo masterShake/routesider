@@ -32,6 +32,24 @@ button:active{
 button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
 	outline: none;
 }
+
+/* colored buttons */
+.btn-success{
+	color: #3c763d;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+}
+.btn-info{
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.btn-danger{
+	color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
 /*----------------------
 	google map
 ----------------------*/

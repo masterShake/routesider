@@ -166,7 +166,7 @@ if ($fn) {
                         </div><!-- /popover-content container -->
                     </div><!-- / drop pin -->
 
-                    <!-- new polygon -->
+                    <!-- draw polygon -->
                     <div class="popover popover-top">
                         <div class="popover-arrow"></div>
                         <div class="popover-title map">
@@ -300,10 +300,10 @@ if ($fn) {
 
                 <!-- toolbar -->
                 <div class="btn-group" id="mapTools" role="create map" aria-label="map builder toolbar">
-                    <button type="button" class="btn" data-panel="0" aria-label="drop new pin">
+                    <button type="button" class="btn" data-panel="0" data-as="dropPin" aria-label="drop new pin">
                         <span class="icon-location"></span>
                     </button>
-                    <button type="button" class="btn" data-panel="1" aria-label="draw new polygon">
+                    <button type="button" class="btn" data-panel="1" data-as="drawPoly" aria-label="draw new polygon">
                         <span class="icon-map"></span>
                     </button>
                     <button type="button" class="btn" data-panel aria-label="get code">
