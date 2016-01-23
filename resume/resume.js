@@ -946,7 +946,7 @@ DrawPoly.prototype.init = function(){
 	}
 
 	// apply event listener when location is selected with click
-	gm.addListener('click', this.draw);
+	this.eHandle = gm.addListener('click', this.draw);
 
 	// user clicks last node to complete polygon
 	this.polyline.addListener('click', this.lineComplete);
@@ -957,7 +957,7 @@ DrawPoly.prototype.init = function(){
 DrawPoly.prototype.term = function(){
 
 	// if there is a polyline
-	if(this.coords.length){
+	if(this.polyline){
 
 		// cue confirmation modal
 
@@ -965,17 +965,13 @@ DrawPoly.prototype.term = function(){
 	}
 
 	// remove the draw event
-	gm.removeListener('click', this.draw)
-
-	// delete the polyline
-	this.polyline.setMap(null);
-	this.polyline = null;
+	this.eHandle.remove();
 
 }
 
 //-----------------------------------------------	
 // - click map, add a coordinate to new polygon
-DrawPoly.prototype.draw = function(e){ console.log(e.latLng);
+DrawPoly.prototype.draw = function(e){
 
 	// push the latLng object onto the coords array
 	drawPoly.coords.push(e.latLng);
@@ -1065,8 +1061,15 @@ DrawPoly.prototype.btnComplete = function(){
 // - complete the polygon
 DrawPoly.prototype.completePolygon = function(){
 
+	// delete the polygon
+	this.polyline.setMap(null);
+	this.polyline = null;
+
 	// terminate draw polygon mode
-	drawPoly.term();
+	this.term();
+
+	// hide the control panel
+	cPanels.children[1].style.display = 'none';
 
 	// create new polygon
 	editPoly.createPolygon();
@@ -1131,10 +1134,55 @@ var EditPoly = function(){
 	this.bf = 0;
 
 	// init polygon color object
-	this.polyColor = new PolyColor(this);
+	this.polyColor = new PolyColor();
 
 	// init polygon opacity object
 	this.polyOpacity = new PolyOpacity();
+}
+
+EditPoly.prototype.init = function(){
+
+	// set the active state
+	as = 'editPoly';
+
+	// display the control panel
+	cPanels.children[2].style.display = 'block';
+
+	// set the active panel
+	mapBuilder.panel = 2;
+
+}
+
+EditPoly.prototype.term = function(){
+
+	// active polygone no longer editable
+	this.a.set({editable : false});
+
+	// reset active polygone
+	this.a = null;
+
+	// hide the control panel
+	cPanels.children[2].style.display = 'block';
+}
+
+//-----------------------------------------------
+// - click on polygon, toggle active
+EditPoly.prototype.togPoly = function(){
+
+	// if this is the active polygon, do nothing
+	if(editPoly.i === editPoly.h[this.i]) return;
+
+	// make the active polygon uneditable
+	editPoly.a.set({editable:false});
+
+	// set the new active polygon
+	editPoly.a = editPoly.h[this.i];
+
+	// make the newly activated polygon editable
+	editPoly.a.set({editable:true});
+
+	// fit polygon within map bounds
+	gm.setBounds(editPoly.a.getBounds());
 }
 
 //-----------------------------------------------
@@ -1163,36 +1211,25 @@ EditPoly.prototype.createPolygon = function(){
 	// push it onto the hashmap of polygons
 	this.h[mapBuilder.i] = this.a;
 
-	// put that bad boy on the map
-	this.a.setMap(gm);	
-
 	// add event listeners and init InfoWindow
 	this.setPolyEvents();
 }
 
 //-----------------------------------------------
 // - set polygon events
-EditPoly.prototype.setPolyEvents = function(){ return false;
+EditPoly.prototype.setPolyEvents = function(){
+
+	// put that bad boy on the map
+	this.a.setMap(gm);	
 
 	// create a new info window
-
-	// push it to the hashmap
+	iWin.createWin(this.a);
 
 	// apply the click event
+	this.a.setListener('click', this.togPoly);
 
 	// init polygon editor mode
-}
-
-//-----------------------------------------------
-// - toggle active fill/border 
-// - the target of the color buttons, color 
-//   input, & opacity slider
-EditPoly.prototype.togFill = function(){
-
-	// set the active property
-
-	// give the button an active class
-
+	this.init();
 }
 
 
@@ -1245,20 +1282,13 @@ EditPoly.prototype.togFill = function(){
 //
 //-----------------------------------------------
 
-var PolyColor = function(editPoly){
-
-	// get the fill/border buttons
-	this.btns = poly.querySelectorAll('table button');
+var PolyColor = function(){
 
 	// get the hex text inputs
 	this.htxt = poly.getElementsByClassName('hex-text');
 
 	// get the color picker input
 	this.pikr = poly.querySelectorAll('input[type="color"]')[0];
-
-	// toggle fill/border
-	this.btns[0].addEventListener('click', editPoly.togFill);
-	this.btns[1].addEventListener('click', editPoly.togFill);
 
 	// apply hextext events
 	this.htxt[0].addEventListener('keyup', this.hexText);
@@ -1421,6 +1451,12 @@ var PolyOpacity = function(){
 	// get the opacity text inputs
 	this.otxt = poly.getElementsByClassName('opacity-text');
 
+	// get the fill/border buttons
+	this.btns = poly.querySelectorAll('table button');
+
+	// toggle fill/border
+	this.btns[0].addEventListener('click', this.togFill);
+	this.btns[1].addEventListener('click', this.togFill);
 }
 
 //-----------------------------------------------
@@ -1432,6 +1468,18 @@ PolyOpacity.prototype.oSlide = function(){ return false;
 //-----------------------------------------------
 // - keyup opacity text input
 PolyOpacity.prototype.oText = function(){ return false;
+
+}
+
+//-----------------------------------------------
+// - toggle active fill/border 
+// - the target of the color buttons, color 
+//   input, & opacity slider
+EditPoly.prototype.togFill = function(){
+
+	// set the active property
+
+	// give the button an active class
 
 }
 
