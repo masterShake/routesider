@@ -1,9 +1,10 @@
 var rApp, 	// resume app
 	gm,   	// google map object
 	mm,		// map methods object
-	mb,		// map builder root node
+	mapBuilder,		// map builder root node
 	as,		// active state
-	pm,		// pin mode
+	iWin,		// info window manager
+	dropPin,		// pin mode
 	ui,		// upload image
 	drawPoly,		// new polygon
 	editPoly,
@@ -148,11 +149,11 @@ MM.prototype.initMap = function(){
 	this.autoComp2.addListener('place_changed', this.selPlace);
 
 	// init the pin object
-	pm = mb.pm = new PM();
+	dropPin = mapBuilder.dropPin = new DropPin();
 
 	// init the polygon objects
-	drawPoly = mb.drawPoly = new DrawPoly();
-
+	drawPoly = mapBuilder.drawPoly = new DrawPoly();
+	editPoly = mapBuilder.editPoly = new EditPoly();
 }
 
 //-----------------------------------------------
@@ -237,7 +238,7 @@ MM.prototype.selPlace = function(){
 
 
 //-----------------------------------------------
-//				 MB (map builder)
+//				 MapBuilder (map builder)
 //			   --------------------
 //
 // - root node for map builder objects
@@ -246,19 +247,22 @@ MM.prototype.selPlace = function(){
 //
 //-----------------------------------------------
 
-var MB = function(){ 
+var MapBuilder = function(){ 
+
+	// iterator
+	this.i = 0;
 
 	// - keep track of the active editor state
 	// - values include:
-	//	  + pm (pin mode)
+	//	  + dropPin (pin mode)
 	//	  + drawPoly (new polygon mode)
-	//	  + ep (edit polygon mode)
+	//	  + editPoly (edit polygon mode)
 
 	// keep track of the pin mode object
-	this.pm = 
+	this.dropPin = 
 	// keep track of the polygon mode objects
 	this.drawPoly = 
-	this.ep = null;
+	this.editPoly = null;
 
 	// loop through the toolbar buttons
 	this.p = mapTools.children;
@@ -285,17 +289,17 @@ var MB = function(){
 //-----------------------------------------------
 // - toggle display of the corresponding control
 //   panel
-MB.prototype.togPan = function(){ 
+MapBuilder.prototype.togPan = function(){ 
 
 	// if there is an open/active control panel
-	if(mb.panel >= 0)
+	if(mapBuilder.panel >= 0)
 		// close it
-		cPanels.children[mb.panel].style.display = 'none';
+		cPanels.children[mapBuilder.panel].style.display = 'none';
 
 	// if this panel was already open
-	if(!this.dataset.panel || this.dataset.panel == mb.panel){
+	if(!this.dataset.panel || this.dataset.panel == mapBuilder.panel){
 		// reset active panel index
-		mb.panel = -1;
+		mapBuilder.panel = -1;
 		// do nothing
 		return;
 	}
@@ -303,12 +307,12 @@ MB.prototype.togPan = function(){
 	// display the proper control panel
 	cPanels.children[this.dataset.panel].style.display = 'block';
 	// set the new panel index
-	mb.panel = this.dataset.panel;
+	mapBuilder.panel = this.dataset.panel;
 }
 
 //-----------------------------------------------
 // - shrink or expand popover content
-MB.prototype.shrink = function(){
+MapBuilder.prototype.shrink = function(){
 	
 	// if the popover content is already shrunk
 	if(this.parentElement.parentElement.children[3].offsetHeight == 45){
@@ -334,10 +338,10 @@ MB.prototype.shrink = function(){
 //-----------------------------------------------
 // - toolbar buttons init and/or terminate active
 //   state
-MB.prototype.IorT = function(){
+MapBuilder.prototype.IorT = function(){
 
 	// if any mode is active, terminate it
-	if(as) mb[as].term();
+	if(as) mapBuilder[as].term();
 	
 	// if this button is the current active state
 	if(this.dataset.as == as){
@@ -352,7 +356,7 @@ MB.prototype.IorT = function(){
 	as = this.dataset.as;
 
 	// initialize the editor mode
-	mb[as].init();
+	mapBuilder[as].init();
 }
 
 
@@ -394,28 +398,23 @@ MB.prototype.IorT = function(){
 
 
 //-----------------------------------------------
-//				   PM (pin mode)
+//				   DropPin (pin mode)
 //				 -----------------
 //
 // - methods related to dropping and edition pin
 //
 //-----------------------------------------------
 
-var PM = function(){
+var DropPin = function(){
 
-	// iterator
-	this.i = 0;
+	// keep hashmap of pins
+	this.h = {};
 
-	// keep track of the array of pins
-	this.pins = {};
+	// keep track of the click event handler
+	this.eHandle =
 
-	// keep track of the corresponding infowindows
-	this.wins = {};
-
-	// temp variables
-	this.t,
-	this.u,
-	this.v = null;
+	// temp variable
+	this.t = null;
 
 	// init the upload image object
 	ui = new UI();
@@ -423,30 +422,30 @@ var PM = function(){
 
 //-----------------------------------------------
 // - initialize pin editor mode
-PM.prototype.init = function(){
+DropPin.prototype.init = function(){
 	// change map cursor to crosshair
 	gm.setOptions({draggableCursor:'crosshair'});
 	// set the click event
-	gm.addListener('click', pm.drop);
+	this.eHandle = gm.addListener('click', this.drop);
 }
 
 //-----------------------------------------------
 // - terminate pin editor mode
-PM.prototype.term = function(){
+DropPin.prototype.term = function(){
 	// remove the google maps listener
-	gm.removeListener('click', this.drop);
+	this.eHandle.remove();
 	// reset the cursors
-	gm.setOptions({draggableCursor:'drag'});
+	gm.setOptions({draggableCursor:'draggable'});
 	// close any open wins
-	for(var i = 0; i < this.wins.length; i++)
-		this.wins[i].close();
+	for(var i = 0; i < iWin.h.length; i++)
+		iWin.h[i].close();
 }
 
 //-----------------------------------------------
 // - click drop pin
-PM.prototype.drop = function(e){
+DropPin.prototype.drop = function(e){
 	// create & drop new pin
-	pm.t = new google.maps.Marker
+	dropPin.t = new google.maps.Marker
 			({
 			    position: {lat:e.latLng.lat(),lng:e.latLng.lng()},
 				animation: google.maps.Animation.DROP,
@@ -455,19 +454,86 @@ PM.prototype.drop = function(e){
 			});
 
 	// give the pin an id
-	pm.i++;
-	pm.t.set('i', pm.i);
+	mapBuilder.i++;
+	dropPin.t.set('i', mapBuilder.i);
 
 	// push it onto the hashmap
-	pm.pins[pm.i] = pm.t;
+	dropPin.h[mapBuilder.i] = dropPin.t;
 
 	// create the info window
-	pm.createIW();
+	iWin.createWin(dropPin.t);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//						IWin
+//					  --------
+//
+// - create new google maps InfoWindow object
+//
+// - set info window html, apply event listeners
+//
+// - method to toggle display window display
+//
+// - method to delete info window and target obj
+//
+//-----------------------------------------------
+
+var IWin = function(){
+
+	// keep track of all the InfoWindows
+	this.h = {};
+
+	// temp variables
+	this.t = 		// mapObj || veil element
+	this.u = 		// mapObj content element
+	this.v = null;  // new info window object
 }
 
 //-----------------------------------------------
 // - create info window element
-PM.prototype.createIW = function(){
+// - mapObj --> google maps pin or polygon object
+IWin.prototype.createWin = function(mapObj){
+
+	// set the temp map object
+	this.t = mapObj;
 
 	// create a div
 	this.u = document.createElement('div');
@@ -479,7 +545,10 @@ PM.prototype.createIW = function(){
 						   '<textarea placeholder="description"></textarea>'+
 					   '</div>'+
 					   '<div class="window-buttons">'+
-						   '<button class="btn btn-danger" data-i="'+this.i+'"><span class="icon-bin"></span></button>'+
+						   '<button class="btn btn-danger" data-i="'+this.t.i+'" '+ // hashmap key & object type
+						   								  'data-obj="'+(this.t.hasOwnProperty('icon') ? 'dropPin' : 'editPolygon')+'" >'+
+						   		'<span class="icon-bin"></span>'+
+						   '</button>'+
 					   	   '<label>'+
 							   '<input type="checkbox" class="form-control" checked />'+
 							   '<span class="icon-eye"></span>'+
@@ -493,7 +562,7 @@ PM.prototype.createIW = function(){
 
 //-----------------------------------------------
 // - init the new info window javascript
-PM.prototype.initIW = function(){
+IWin.prototype.initIW = function(){
 	
 	// create the infoWindow object
 	this.v = new google.maps.InfoWindow({
@@ -501,10 +570,10 @@ PM.prototype.initIW = function(){
 			 });
 
 	// set the info window id
-	this.v.set('i', this.i);
+	this.v.set('i', this.t.i);
 
 	// push it onto the array
-	this.wins[this.i] = this.v;					   
+	this.h[this.t.i] = this.v;					   
 
 	// apply the info window to the new pin
 	this.t.addListener('click', this.openIW);
@@ -519,51 +588,54 @@ PM.prototype.initIW = function(){
 
 //-----------------------------------------------
 // - open info window
-PM.prototype.openIW = function(){
-	pm.wins[this.i].open(gm, this);
+IWin.prototype.openIW = function(){
+	iWin.h[this.i].open(gm, this);
 }
 
 //-----------------------------------------------
 // - toggle info window display
-PM.prototype.togWin = function(){
+IWin.prototype.togWin = function(){
 
 	// get the veil element
-	pm.t = this.parentElement.parentElement
+	iWin.t = this.parentElement.parentElement
 				.parentElement.children[0].children[0];
 
 	// hide veil
 	if(this.checked){
-		pm.t.style.zIndex = '-1';
-		pm.t.style.opacity = '0';
+		iWin.t.style.zIndex = '-1';
+		iWin.t.style.opacity = '0';
 		this.parentElement.children[1].className = 'icon-eye';
 	// show the veil
 	}else{
-		pm.t.style.zIndex = 
-		pm.t.style.opacity = '1';
+		iWin.t.style.zIndex = 
+		iWin.t.style.opacity = '1';
 		this.parentElement.children[1].className = 'icon-eye-blocked';
 	}
 }
 
+
 //-----------------------------------------------
-// - delete a pin 
-PM.prototype.del = function(){
+// - delete iWindow and cooresponding map object
+IWin.prototype.del = function(){
 
-	// delete the info window object
-	pm.wins[this.dataset.i].setMap(null);
-	pm.wins[this.dataset.i] = null;
-	delete pm.wins[this.dataset.i];
+	// delete the cooresponding map object
+	mapBuilder[this.dataset.obj].h[this.dataset.i].setMap(null);
+	mapBuilder[this.dataset.obj].h[this.dataset.i] = null;
+	delete mapBuilder[this.dataset.obj].h[this.dataset.i];
 
-	// delete pin
-	pm.pins[this.dataset.i].setMap(null);
-	pm.pins[this.dataset.i] = null;
-	delete pm.pins[this.dataset.i];
+	// set the i
+	iWin.t = this.dataset.i;
+
+	// delete the iWindow
+	iWin.delWin();
 }
+IWin.prototype.delWin = function(){
 
-
-
-
-
-
+	this.h[this.t].set({content:''});
+	this.h[this.t].setMap(null);
+	this.h[this.t] = null;
+	delete this.h[this.t];
+}
 
 
 
@@ -828,10 +900,13 @@ var DrawPoly = function(){
 	this.coordsUndone = [];
 
 	// - keep track of the google maps polyline obj
-	this.polyline = null;
+	this.polyline = 
+
+	// keep track of event handler for easy removal later
+	this.eHandle = null;
 
 	// temp variable, get the buttons
-	this.t = cPanel.querySelectorAll('.new-poly button');
+	this.t = cPanels.querySelectorAll('.new-poly button');
 
 	// undo button
 	this.undoBtn = this.t[0];
@@ -879,9 +954,9 @@ DrawPoly.prototype.init = function(){
 
 //-----------------------------------------------
 // - terminate new polygon mode
-DrawPoly.prototype.term = function(){ return false;
+DrawPoly.prototype.term = function(){
 
-	// if the user has an incomplete polygon
+	// if there is a polyline
 	if(this.coords.length){
 
 		// cue confirmation modal
@@ -900,7 +975,7 @@ DrawPoly.prototype.term = function(){ return false;
 
 //-----------------------------------------------	
 // - click map, add a coordinate to new polygon
-DrawPoly.prototype.draw = function(e){
+DrawPoly.prototype.draw = function(e){ console.log(e.latLng);
 
 	// push the latLng object onto the coords array
 	drawPoly.coords.push(e.latLng);
@@ -950,7 +1025,7 @@ DrawPoly.prototype.updatePolyline = function(){
 	this.polyline.setPath( this.coords );
 
 	// set complete button class based on coord count
-	this.compBtn.className = (this.coords.length > 2) ? 'btn btn-success' : 'btn';
+	this.compBtn.className = (this.coords.length > 2) ? 'btn btn-info' : 'btn';
 
 	// redo button class if any coords have been undone
 	this.redoBtn.className = (this.coordsUndone.length) ? 'btn btn-success' : 'btn';
@@ -964,6 +1039,9 @@ DrawPoly.prototype.updatePolyline = function(){
 // - if user clicks the last node, call the 
 //   complete polygon method
 DrawPoly.prototype.lineComplete = function(e){
+	// if fewer than 3 coords do nothing
+	if(drawPoly.coords.length < 3) return;
+
 	// if this is the last node
 	if( e.latLng.A === drawPoly.coords[0].A && 
 		e.latLng.F === drawPoly.coords[0].F )
@@ -986,9 +1064,6 @@ DrawPoly.prototype.btnComplete = function(){
 //-----------------------------------------------	
 // - complete the polygon
 DrawPoly.prototype.completePolygon = function(){
-
-	// if there are fewer than 3 coords, do nothing
-	if(drawPoly.coords.length < 3) return;
 
 	// terminate draw polygon mode
 	drawPoly.term();
@@ -1045,14 +1120,8 @@ DrawPoly.prototype.completePolygon = function(){
 
 var EditPoly = function(){
 
-	// indexer
-	this.i = 0;
-
 	// hashmap of google maps Polygon objects
-	this.gons = {};
-
-	// hashmap of google maps InfoWindow objects
-	this.wins = {};
+	this.h = {};
 
 	// keep track of the active polygon
 	this.a = null;
@@ -1085,8 +1154,14 @@ EditPoly.prototype.createPolygon = function(){
 					    editable : true
 					});
 
-	// push it onto the array of polygons
-	this.gons.push(this.a);
+	// increment the indexer
+	mapBuilder.i++;
+
+	// set the i property
+	this.a.set('i', mapBuilder.i);
+
+	// push it onto the hashmap of polygons
+	this.h[mapBuilder.i] = this.a;
 
 	// put that bad boy on the map
 	this.a.setMap(gm);	
@@ -1099,10 +1174,13 @@ EditPoly.prototype.createPolygon = function(){
 // - set polygon events
 EditPoly.prototype.setPolyEvents = function(){ return false;
 
-	// click event, display InfoWindow
+	// create a new info window
+
+	// push it to the hashmap
+
+	// apply the click event
 
 	// init polygon editor mode
-
 }
 
 //-----------------------------------------------
@@ -1163,11 +1241,11 @@ EditPoly.prototype.togFill = function(){
 //
 // - set the color of the map
 //
-// - ep --> EditPolygon object
+// - editPoly --> EditPolygon object
 //
 //-----------------------------------------------
 
-var PolyColor = function(ep){
+var PolyColor = function(editPoly){
 
 	// get the fill/border buttons
 	this.btns = poly.querySelectorAll('table button');
@@ -1176,15 +1254,15 @@ var PolyColor = function(ep){
 	this.htxt = poly.getElementsByClassName('hex-text');
 
 	// get the color picker input
-	this.pikr = querySelectorAll('input[type="color"]')[0];
+	this.pikr = poly.querySelectorAll('input[type="color"]')[0];
 
 	// toggle fill/border
-	this.btns[0].addEventListener('click', ep.togFill);
-	this.btns[1].addEventListener('click', ep.togFill);
+	this.btns[0].addEventListener('click', editPoly.togFill);
+	this.btns[1].addEventListener('click', editPoly.togFill);
 
 	// apply hextext events
-	this.htxt[0].addEventListener('keyup', hexText);
-	this.htxt[1].addEventListener('keyup', hexText);
+	this.htxt[0].addEventListener('keyup', this.hexText);
+	this.htxt[1].addEventListener('keyup', this.hexText);
 
 	// this.t --> temp variable
 	// loop through the color wheel buttons, set listener
@@ -1251,7 +1329,7 @@ PolyColor.prototype.hexText = function(){
 
 //-----------------------------------------------
 // - HTML5 color pick change event
-PolyColor.prototype.colorPick = function(){
+PolyColor.prototype.colorPick = function(){ return false;
 
 	// set the color elements
 
@@ -1264,7 +1342,7 @@ PolyColor.prototype.colorPick = function(){
 // - set color icon
 // - set html5 color picker
 // - set background
-PolyColor.prototype.wheelBtn = function(){
+PolyColor.prototype.wheelBtn = function(){ return false;
 
 	// tc.setElems(this.ddataset.hex, this.parentElement.parentElement.dataset.i);
 
@@ -1338,7 +1416,7 @@ PolyColor.prototype.setElems = function(hex, i){
 var PolyOpacity = function(){
 
 	// get the opacity slider
-	this.sldr = querySelectorAll('input[type="range"]')[0];
+	this.sldr = poly.querySelectorAll('input[type="range"]')[0];
 
 	// get the opacity text inputs
 	this.otxt = poly.getElementsByClassName('opacity-text');
@@ -1347,13 +1425,13 @@ var PolyOpacity = function(){
 
 //-----------------------------------------------
 // - change opacity slider change event
-PolyOpacity.prototype.oSlide = function(){
+PolyOpacity.prototype.oSlide = function(){ return false;
 
 }
 
 //-----------------------------------------------
 // - keyup opacity text input
-PolyOpacity.prototype.oText = function(){
+PolyOpacity.prototype.oText = function(){ return false;
 
 }
 
@@ -1523,12 +1601,15 @@ L.prototype.actBtn = function(){
 mm = new MM();
 
 // init map builder
-mb = new MB();
+mapBuilder = new MapBuilder();
 
 document.addEventListener("DOMContentLoaded", function(){
 
 	// init the page object
 	rApp = new R();
+
+	// init the info window object
+	iWin = new IWin();
 
 	// set the layout
 	layout = new L();
