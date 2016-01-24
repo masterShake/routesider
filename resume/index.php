@@ -196,7 +196,7 @@ if ($fn) {
 
                     <!-- edit polygon -->
                     <div class="popover popover-top" id="poly">
-                        <div class="popover-arrow"></div>
+                        <div class="popover-arrow" style="display:none;"></div>
                         <div class="popover-title map">
                             <div class="icon-map" style="margin-top:1px;"></div>
                             <div class="icon-pencil" style="font-size:10px;margin-top:4px;"></div>Edit Polygon
@@ -223,8 +223,9 @@ if ($fn) {
                                             <tr>
                                                 <td>
                                                     <button type="button" 
-                                                            class="btn" 
+                                                            class="btn active" 
                                                             style="background-color:#5CB85C;color:#FFF;"
+                                                            data-bf="0"
                                                             aria-label="edit polygon border">
                                                         <span class="icon-checkbox-unchecked"></span>
                                                     </button>
@@ -233,6 +234,7 @@ if ($fn) {
                                                     <input type="text" 
                                                            value="#5CB85C" 
                                                            class="form-control hex-text" 
+                                                           data-bf="0"
                                                            aria-label="polygon stroke hexidecimal color value">
                                                 </td>
                                                 <td>
@@ -240,6 +242,7 @@ if ($fn) {
                                                            value="0.8"
                                                            class="form-control opacity-text" 
                                                            max-length="4"
+                                                           data-bf="0"
                                                            aria-label="polygon stroke opacity between 0 and 1">
                                                 </td>
                                             </tr>
@@ -249,6 +252,7 @@ if ($fn) {
                                                     <button type="button" 
                                                             class="btn" 
                                                             style="background-color:#FFF;color:#444;"
+                                                            data-bf="1"
                                                             aria-label="edit polygon fill">
                                                         <span class="icon-droplet"></span>
                                                     </button>
@@ -257,6 +261,7 @@ if ($fn) {
                                                     <input type="text" 
                                                            value="#DFF0D8"
                                                            class="form-control hex-text" 
+                                                           data-bf="1"
                                                            aria-label="polygon fill hexidecimal color value">
                                                 </td>
                                                 <td>
@@ -264,6 +269,7 @@ if ($fn) {
                                                            value="0.5"
                                                            class="form-control opacity-text" 
                                                            max-length="4"
+                                                           data-bf="1"
                                                            aria-label="polygon fill opacity between 0 and 1">
                                                 </td>
                                             </tr>

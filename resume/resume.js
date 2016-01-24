@@ -280,7 +280,7 @@ var MapBuilder = function(){
 	// set the toggle event listener
 	this.p[0].addEventListener('click', this.shrink);
 	this.p[1].addEventListener('click', this.shrink);
-	this.p[2].addEventListener('click', this.shrink);
+	this.p[3].addEventListener('click', this.shrink);
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -546,7 +546,7 @@ IWin.prototype.createWin = function(mapObj){
 					   '</div>'+
 					   '<div class="window-buttons">'+
 						   '<button class="btn btn-danger" data-i="'+this.t.i+'" '+ // hashmap key & object type
-						   								  'data-obj="'+(this.t.hasOwnProperty('icon') ? 'dropPin' : 'editPolygon')+'" >'+
+						   								  'data-obj="'+(this.t.hasOwnProperty('icon') ? 'dropPin' : 'editPoly')+'" >'+
 						   		'<span class="icon-bin"></span>'+
 						   '</button>'+
 					   	   '<label>'+
@@ -566,7 +566,8 @@ IWin.prototype.initIW = function(){
 	
 	// create the infoWindow object
 	this.v = new google.maps.InfoWindow({
-			    content: this.u
+			    content: this.u,
+			    position: (this.t.hasOwnProperty('bounds') ? this.t.bounds.getCenter() : this.t.latLng)
 			 });
 
 	// set the info window id
@@ -1062,11 +1063,11 @@ DrawPoly.prototype.btnComplete = function(){
 DrawPoly.prototype.completePolygon = function(){
 
 	// delete the polygon
-	this.polyline.setMap(null);
-	this.polyline = null;
+	drawPoly.polyline.setMap(null);
+	drawPoly.polyline = null;
 
-	// terminate draw polygon mode
-	this.term();
+	// terminate draw polygon mode by clicking
+	mapTools.children[1].click();
 
 	// hide the control panel
 	cPanels.children[1].style.display = 'none';
@@ -1134,10 +1135,19 @@ var EditPoly = function(){
 	this.bf = 0;
 
 	// init polygon color object
-	this.polyColor = new PolyColor();
+	this.polyColor = new PolyColor(this);
 
 	// init polygon opacity object
-	this.polyOpacity = new PolyOpacity();
+	this.polyOpacity = new PolyOpacity(this);
+
+	// get the fill/border buttons
+	this.btns = poly.querySelectorAll('table button');
+
+	// temp variable, get all the bf inputs
+	this.t = cPanels.children[2].querySelectorAll('[data-bf]');
+	// set the focus event
+	for(var i = 0; i < this.t.length; i++)
+		this.t[i].addEventListener('click', this.tf, false);
 }
 
 EditPoly.prototype.init = function(){
@@ -1162,7 +1172,7 @@ EditPoly.prototype.term = function(){
 	this.a = null;
 
 	// hide the control panel
-	cPanels.children[2].style.display = 'block';
+	cPanels.children[2].style.display = 'none';
 }
 
 //-----------------------------------------------
@@ -1170,7 +1180,7 @@ EditPoly.prototype.term = function(){
 EditPoly.prototype.togPoly = function(){
 
 	// if this is the active polygon, do nothing
-	if(editPoly.i === editPoly.h[this.i]) return;
+	if(this === editPoly.a) return;
 
 	// make the active polygon uneditable
 	editPoly.a.set({editable:false});
@@ -1208,6 +1218,9 @@ EditPoly.prototype.createPolygon = function(){
 	// set the i property
 	this.a.set('i', mapBuilder.i);
 
+	// set the bounds so we don't need to loop for them later
+	this.a.set('coords', drawPoly.coords);
+
 	// push it onto the hashmap of polygons
 	this.h[mapBuilder.i] = this.a;
 
@@ -1222,19 +1235,54 @@ EditPoly.prototype.setPolyEvents = function(){
 	// put that bad boy on the map
 	this.a.setMap(gm);	
 
-	// create a new info window
-	iWin.createWin(this.a);
+	// set some geometric property of the poly
+	this.setGeometry();
 
 	// apply the click event
-	this.a.setListener('click', this.togPoly);
+	this.a.addListener('click', this.togPoly);
 
 	// init polygon editor mode
 	this.init();
 }
 
+//-----------------------------------------------
+// - calculate some geometric properties of the
+//   newly created polygon
+EditPoly.prototype.setGeometry = function(){
 
+	// create a bounds object
+	this.t = new google.maps.LatLngBounds();
 
+	// loop through the coords to create bounds
+	for(var i = 0; i < this.a.coords.length; i++)
+		this.t.extend(this.a.coords[i]);
 
+	// set the bounds property
+	this.a.set('bounds', this.t);
+
+	// create a new info window
+	iWin.createWin(this.a);
+}
+
+//-----------------------------------------------
+// - toggle fill/stroke of polygon
+EditPoly.prototype.tf = function(){
+
+	// set the active property
+	editPoly.bf = parseInt(this.dataset.bf);
+
+	// give the button an active class
+	editPoly.btns[this.dataset.bf].className = 'btn active';
+
+	// remove the active class from the other button
+	editPoly.btns[(this.dataset.bf == '0' ? 1 : 0)].className = 'btn';
+
+	// set the color input
+	editPoly.polyColor.pikr.value = editPoly.polyColor.htxt[this.dataset.bf].value;
+
+	// set the opacity slider
+	editPoly.polyOpacity.sldr.value = editPoly.polyOpacity.otxt[this.dataset.bf].value;
+}
 
 
 
@@ -1282,7 +1330,10 @@ EditPoly.prototype.setPolyEvents = function(){
 //
 //-----------------------------------------------
 
-var PolyColor = function(){
+var PolyColor = function(ep){
+
+	// reference to editPoly object
+	this.ep = ep;
 
 	// get the hex text inputs
 	this.htxt = poly.getElementsByClassName('hex-text');
@@ -1293,6 +1344,9 @@ var PolyColor = function(){
 	// apply hextext events
 	this.htxt[0].addEventListener('keyup', this.hexText);
 	this.htxt[1].addEventListener('keyup', this.hexText);
+
+	// apply the color picker events
+	this.pikr.addEventListener('change', this.colorPick);
 
 	// this.t --> temp variable
 	// loop through the color wheel buttons, set listener
@@ -1352,18 +1406,15 @@ PolyColor.prototype.hexText = function(){
 	if(this.value.length == 7){
 
 		// set the color elements
-
-		// set the embed properties
+		editPoly.polyColor.setElems(this.value);
 	}
 }
 
 //-----------------------------------------------
 // - HTML5 color pick change event
-PolyColor.prototype.colorPick = function(){ return false;
+PolyColor.prototype.colorPick = function(){
 
-	// set the color elements
-
-	// set the embed property
+	editPoly.polyColor.setElems(this.value);
 }
 
 //-----------------------------------------------
@@ -1372,33 +1423,34 @@ PolyColor.prototype.colorPick = function(){ return false;
 // - set color icon
 // - set html5 color picker
 // - set background
-PolyColor.prototype.wheelBtn = function(){ return false;
+PolyColor.prototype.wheelBtn = function(){
 
-	// tc.setElems(this.ddataset.hex, this.parentElement.parentElement.dataset.i);
-
-	// set the property
+	editPoly.polyColor.setElems(this.dataset.hex);
 }
 
 //-----------------------------------------------
 // - set color elements of control panel
-// - i => index of elements in array
-PolyColor.prototype.setElems = function(hex, i){
+PolyColor.prototype.setElems = function(hex){
 
 	// set the text input
-	jApp[as].c.texti[i].value = 
+	this.htxt[this.ep.bf].value = 
 
 	// set the color picker input
-	jApp[as].c.picki[i].value = 
+	this.pikr.value = 
 
 	// set the icon background color
-	jApp[as].c.icon[i].style.backgroundColor = hex;
+	this.ep.btns[this.ep.bf].style.backgroundColor = hex;
 
 	// set the icon color
-	jApp[as].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) );
+	this.ep.btns[this.ep.bf].style.color = this.hexBright( this.hexToRgb( hex ) ) ? '#444' : '#FFF';
 
-	// uncheck the transparency checkbox
-	jApp[as].c.checki[i].checked = false;
-	jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
+	// set the polygon property
+	this.ep.a.setOptions(
+		( this.ep.bf == 1	? 
+		  {fillColor : hex}  : 
+		  {strokeColor : hex}
+		)
+	);
 }
 
 
@@ -1441,9 +1493,14 @@ PolyColor.prototype.setElems = function(hex, i){
 //
 // - oapcity slider
 //
+// - ep --> EditPoly object
+//
 //-----------------------------------------------
 
-var PolyOpacity = function(){
+var PolyOpacity = function(ep){
+
+	// edit polygon object
+	this.ep = ep;
 
 	// get the opacity slider
 	this.sldr = poly.querySelectorAll('input[type="range"]')[0];
@@ -1451,43 +1508,48 @@ var PolyOpacity = function(){
 	// get the opacity text inputs
 	this.otxt = poly.getElementsByClassName('opacity-text');
 
-	// get the fill/border buttons
-	this.btns = poly.querySelectorAll('table button');
-
-	// toggle fill/border
-	this.btns[0].addEventListener('click', this.togFill);
-	this.btns[1].addEventListener('click', this.togFill);
+	// set the events
+	this.sldr.addEventListener('change', this.oSlide);
+	this.otxt[0].addEventListener('keyup', this.tSlide);
+	this.otxt[1].addEventListener('keyup', this.tSlide);
 }
 
 //-----------------------------------------------
 // - change opacity slider change event
-PolyOpacity.prototype.oSlide = function(){ return false;
+PolyOpacity.prototype.oSlide = function(){ 
 
+	// set the text input
+	editPoly.polyOpacity.setOpactiy(this.value);
 }
 
 //-----------------------------------------------
 // - keyup opacity text input
-PolyOpacity.prototype.oText = function(){ return false;
+PolyOpacity.prototype.oText = function(){ 
 
+	// if there is no input, return 
+	if( !this.value) return;
+
+	// remove anything that doesnt conform to [0,1] range
+	this.value = this.value.replace(/[^(0(\.\d+)?|1(\.0+)?)$]/, '');
+
+	// set the value
+	editPoly.polyOpacity.setOpactiy(this.value);
 }
 
 //-----------------------------------------------
-// - toggle active fill/border 
-// - the target of the color buttons, color 
-//   input, & opacity slider
-EditPoly.prototype.togFill = function(){
+// - set the text and slider values
+// - set the properties of the polygon
+PolyOpacity.prototype.setOpactiy = function(o){
 
-	// set the active property
+	// set the slider
+	this.sldr.value = 
 
-	// give the button an active class
+	// set the text input
+	this.otxt[this.ep.bf].value = o;
 
+	// set the properties of the polygon
+	this.ep.a.setOptions((this.ep.bf == 0 ? {strokeOpacity:o} : {fillOpacity:o} ));
 }
-
-
-
-
-
-
 
 
 
