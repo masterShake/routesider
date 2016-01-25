@@ -300,12 +300,23 @@ if ($fn) {
                         </div><!-- /popover-content container -->
                     </div><!-- /edit-polygon -->
 
+                    <!-- embed preview -->
+                    <div class="container" id="prev">
+                        <div>
+                            <div class="icon-eye" style="float:left;font-size:18px;margin-top:3px;margin-right:4px;"></div>
+                            <b>embed preview</b>
+                            <button type="button" class="close" data-panel="3" data-as="embedView" aria-label="close embed preview mode">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- embed code -->
                     <div class="popover popover-top">
                         <div class="popover-arrow"></div>
                         <h3 class="popover-title">
                             <span class="icon-embed2" style="padding-right:3px;"></span>Embed Code
-                            <button type="button" class="close" data-panel="3" aria-label="shrink or grow">
+                            <button type="button" class="close" data-panel="4" aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
                             </button>
                         </h3>
@@ -333,10 +344,10 @@ if ($fn) {
                     <button type="button" class="btn" data-panel="1" data-as="drawPoly" aria-label="draw new polygon">
                         <span class="icon-map"></span>
                     </button>
-                    <button type="button" class="btn" data-panel aria-label="get code">
+                    <button type="button" class="btn" data-panel="3" data-as="embedView" aria-label="get code">
                         <span class="icon-eye"></span>
                     </button>
-                    <button type="button" class="btn" data-panel="3" aria-label="get code">
+                    <button type="button" class="btn" data-panel="4" aria-label="get code">
                         <span class="icon-embed2"></span>
                     </button>
                 </div><!-- /toolbar -->

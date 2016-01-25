@@ -154,6 +154,8 @@ MM.prototype.initMap = function(){
 	// init the polygon objects
 	drawPoly = mapBuilder.drawPoly = new DrawPoly();
 	editPoly = mapBuilder.editPoly = new EditPoly();
+
+	mapBuilder.embedView = new EmbedView();
 }
 
 //-----------------------------------------------
@@ -262,7 +264,8 @@ var MapBuilder = function(){
 	this.dropPin = 
 	// keep track of the polygon mode objects
 	this.drawPoly = 
-	this.editPoly = null;
+	this.editPoly = 
+	this.embedView = null;
 
 	// loop through the toolbar buttons
 	this.p = mapTools.children;
@@ -279,8 +282,11 @@ var MapBuilder = function(){
 	this.p = cPanels.getElementsByClassName('close');
 	// set the toggle event listener
 	this.p[0].addEventListener('click', this.shrink);
-	this.p[1].addEventListener('click', this.shrink);
+	this.p[2].addEventListener('click', this.shrink);
 	this.p[3].addEventListener('click', this.shrink);
+	this.p[4].addEventListener('click', this.togPan);
+	this.p[4].addEventListener('click', this.IorT);
+	this.p[5].addEventListener('click', this.shrink);
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -539,21 +545,27 @@ IWin.prototype.createWin = function(mapObj){
 	this.u = document.createElement('div');
 
 	// set the inner HTML
-	this.u.innerHTML = '<div class="window-text">'+
-						   '<div></div>'+
-						   '<input type="text" class="form-control" placeholder="Title" aria-describedby="include info window for this pin" />'+
-						   '<textarea placeholder="description"></textarea>'+
+	this.u.innerHTML = '<div>'+    
+						   '<div class="window-text">'+
+							   '<div></div>'+
+							   '<input type="text" class="form-control" placeholder="Title" aria-describedby="include info window for this pin" />'+
+							   '<textarea placeholder="description"></textarea>'+
+						   '</div>'+
+						   '<div class="window-buttons">'+
+							   '<button class="btn btn-danger" data-i="'+this.t.i+'" '+ // hashmap key & object type
+							   								  'data-obj="'+(this.t.hasOwnProperty('icon') ? 'dropPin' : 'editPoly')+'" >'+
+							   		'<span class="icon-bin"></span>'+
+							   '</button>'+
+						   	   '<label>'+
+								   '<input type="checkbox" data-i="'+this.t.i+'" class="form-control" checked />'+
+								   '<span class="icon-eye"></span>'+
+							   '</label>'+
+							   '<div>display window</div>'+
+						   '</div>'+
 					   '</div>'+
-					   '<div class="window-buttons">'+
-						   '<button class="btn btn-danger" data-i="'+this.t.i+'" '+ // hashmap key & object type
-						   								  'data-obj="'+(this.t.hasOwnProperty('icon') ? 'dropPin' : 'editPoly')+'" >'+
-						   		'<span class="icon-bin"></span>'+
-						   '</button>'+
-					   	   '<label>'+
-							   '<input type="checkbox" class="form-control" checked />'+
-							   '<span class="icon-eye"></span>'+
-						   '</label>'+
-						   '<div>display window</div>'+
+					   '<div style="display:none;">'+
+					       '<h4></h4>'+
+					       '<p></p>'+
 					   '</div>';
 
 	// init the new info window javascript
@@ -573,6 +585,9 @@ IWin.prototype.initIW = function(){
 	// set the info window id
 	this.v.set('i', this.t.i);
 
+	// set the info window active
+	this.v.set('active', 1);
+
 	// push it onto the array
 	this.h[this.t.i] = this.v;					   
 
@@ -580,16 +595,29 @@ IWin.prototype.initIW = function(){
 	this.t.addListener('click', this.openIW);
 
 	// add the display infowindow event
-	this.u.children[1].children[1].children[0]
+	this.u.children[0].children[1].children[1].children[0]
 		.addEventListener('change', this.togWin);
 
+	// keyup events set the read only elements
+	this.u.children[0].children[0].children[1]
+		.addEventListener('keyup', this.setTitle);
+	this.u.children[0].children[0].children[2]
+		.addEventListener('keyup', this.setP);
+
 	// add the delete event
-	this.u.children[1].children[0].addEventListener('click', this.del);
+	this.u.children[0].children[1].children[0].addEventListener('click', this.del);
 }
 
 //-----------------------------------------------
 // - open info window
 IWin.prototype.openIW = function(){
+
+	iWin.t = iWin.h[this.i].getContent().children[1];
+
+	// if window not active or empty
+	if(as == 'embedView' && (!iWin.h[this.i].active || (!iWin.t.children[0].innerHTML && !iWin.t.children[1].innerHTML))) return;
+
+	// open the window
 	iWin.h[this.i].open(gm, this);
 }
 
@@ -606,11 +634,13 @@ IWin.prototype.togWin = function(){
 		iWin.t.style.zIndex = '-1';
 		iWin.t.style.opacity = '0';
 		this.parentElement.children[1].className = 'icon-eye';
+		iWin.h[this.dataset.i].active = 1;
 	// show the veil
 	}else{
 		iWin.t.style.zIndex = 
 		iWin.t.style.opacity = '1';
 		this.parentElement.children[1].className = 'icon-eye-blocked';
+		iWin.h[this.dataset.i].active = 0;
 	}
 }
 
@@ -637,6 +667,25 @@ IWin.prototype.delWin = function(){
 	this.h[this.t] = null;
 	delete this.h[this.t];
 }
+
+//-----------------------------------------------
+// - keyup set title value
+IWin.prototype.setTitle = function(){
+	this.parentElement.parentElement.parentElement
+		.children[1].children[0].innerHTML = this.value;
+}
+
+//-----------------------------------------------
+// - keyup set paragraph value
+IWin.prototype.setP = function(){
+	this.parentElement.parentElement.parentElement
+		.children[1].children[1].innerHTML = this.value;
+}
+
+
+
+
+
 
 
 
@@ -1605,19 +1654,37 @@ var EmbedView = function(){
 
 	// google maps Bounds object
 	this.bounds = null;
-
 }
 
 EmbedView.prototype.init = function(){
 
+	// if there are no info windows
+	if(!Object.keys(iWin.h).length){  
+
+		mapTools.children[2].click(); 
+
+		return;
+	}
+
+	// set the bounds of the map
+	this.setBounds();
+
 	// loop through the windows
+	for(var x in iWin.h){
 
-		// hide the preview html
+		// close all open windows
+		iWin.h[x].close();
 
-		// show the editable inputs & buttons
+		// hide the editable fields
+		iWin.h[x].getContent().children[0].style.display = 'none';
+
+		// show the view-only content
+		iWin.h[x].getContent().children[1].style.display = 'block';
+	}
 
 	// display the close button element
-
+	prev.style.display = 'block';
+	setTimeout(this.fadeIn, 20);
 }
 
 //-----------------------------------------------
@@ -1626,29 +1693,49 @@ EmbedView.prototype.init = function(){
 EmbedView.prototype.setBounds = function(){
 
 	// create a new google maps bounds object
+	this.bounds = new google.maps.LatLngBounds();
 
 	// loop through the pins
+	for(var x in dropPin.h)
 
 		// add them to the bounds
+		this.bounds.extend(dropPin.h[x].position);
 
 	// loop through the polygons
+	for(var x in editPoly.h)
 
 		// loop though the latlng objects
+		for(var i = 0; i < editPoly.h[x].coords; i++)
 
 			// add them to the bounds
+			this.bounds.extend(this.editPoly.h[x].coords[i]);
 
+	// set the bounds of the map
+	gm.fitBounds(this.bounds);
+}
+
+EmbedView.prototype.fadeIn = function(){
+	prev.children[0].style.opacity = '1';
 }
 
 EmbedView.prototype.term = function(){
 
 	// loop through the windows
+	for(var x in iWin.h){
 
 		// hide the preview html
+		iWin.h[x].getContent().children[1].style.display = 'none';
 
 		// show the editable inputs & buttons
+		iWin.h[x].getContent().children[0].style.display = 'block';
+	}
 
 	// hide the close button element
+	prev.style.display = 'none';
+	prev.children[0].style.opacity = '0';
 
+	// make sure the button is deactivated
+	mapTools.children[2].className = 'btn';
 }
 
 

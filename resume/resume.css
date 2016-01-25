@@ -12,7 +12,8 @@
 .navbar form,
 #lead,
 .popover-title button,
-.upload-img{
+.upload-img,
+#prev>div{
 	-webkit-transition: .3s;
 	-ms-transition: .3s;
 	transition: .3s;
@@ -332,6 +333,25 @@ table .form-control{
 #poly .col-md-4{
 	padding-top: 18px;
 	text-align: center;
+}
+
+/*----------------------
+	  embed preview
+------------------------*/
+
+#prev{
+	display: none;
+	position: absolute;
+    top: -58px;
+}
+#prev>div{
+	opacity: 0;
+	background-color: rgba(255,255,255,0.9);
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+#prev .close{
+	margin-left: 10px;
 }
 
 /*----------------------
