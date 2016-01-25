@@ -43,6 +43,7 @@ composer.lock
 
 #other folders
 documents
+docs
 other
 neo4j
 classes/composer

@@ -301,6 +301,27 @@ if ($fn) {
                     </div><!-- /edit-polygon -->
 
                     <!-- embed code -->
+                    <div class="popover popover-top">
+                        <div class="popover-arrow"></div>
+                        <h3 class="popover-title">
+                            <span class="icon-embed2" style="padding-right:3px;"></span>Embed Code
+                            <button type="button" class="close" data-panel="3" aria-label="shrink or grow">
+                                <span aria-hidden="true">&#171;</span>
+                            </button>
+                        </h3>
+                        <div class="popover-fade"></div>
+                        <div class="popover-content">
+                            <textarea style="width:100%;height:150px;">
+                            </textarea>
+                            <div style="text-align:right;">
+                                <button type="button" class="btn btn-info" aria-label="copy code">
+                                    <span class="icon-paste" aria-hidden="true"></span> copy
+                                </button>
+                            </div>
+                        </div><!-- /popover-content -->
+                    </div><!-- /embed code -->
+
+                    <!-- embed code -->
 
                 </div><!-- /control panels -->
 
@@ -315,7 +336,7 @@ if ($fn) {
                     <button type="button" class="btn" data-panel aria-label="get code">
                         <span class="icon-eye"></span>
                     </button>
-                    <button type="button" class="btn" data-panel="2" aria-label="get code">
+                    <button type="button" class="btn" data-panel="3" aria-label="get code">
                         <span class="icon-embed2"></span>
                     </button>
                 </div><!-- /toolbar -->
@@ -336,7 +357,7 @@ if ($fn) {
                             <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300">
                         </div>
                         <div class="col-md-8">
-                            <h3><strong>Step 1:</strong> Lorem ipsum dolor sit amet</h3>
+                            <h3><strong>Step 1:</strong> Create new Google developer project</h3>
                             <p>Sit vel vitae blandit, duis suspendisse in, placerat mauris ligula, luctus porttitor tortor proin. Ac neque id eget luctus sem, justo et ligula id urna. Tempor orci placerat neque eget id. Sed rhoncus purus at amet quis fusce, nisl rhoncus. Eget commodo in sociis duis placerat at, lacinia porta risus urna consectetuer id suspendisse. Ullamcorper tristique eu bibendum per quis, duis purus aptent scelerisque dapibus sed, a enim consectetuer nulla nulla, mi sem metus vestibulum ut ante.</p>
                         </div>
                     </article>

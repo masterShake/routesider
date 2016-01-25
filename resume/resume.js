@@ -1173,6 +1173,9 @@ EditPoly.prototype.term = function(){
 
 	// hide the control panel
 	cPanels.children[2].style.display = 'none';
+
+	// map dragable cursor
+	gm.setOptions({draggableCursor:'draggable'});
 }
 
 //-----------------------------------------------
@@ -1561,6 +1564,215 @@ PolyOpacity.prototype.setOpactiy = function(o){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				embed preview mode
+//			  ----------------------
+//
+// - set bounds to fit polygon
+//
+// - reveal html version of info window
+//
+//-----------------------------------------------
+
+var EmbedView = function(){
+
+	// google maps Bounds object
+	this.bounds = null;
+
+}
+
+EmbedView.prototype.init = function(){
+
+	// loop through the windows
+
+		// hide the preview html
+
+		// show the editable inputs & buttons
+
+	// display the close button element
+
+}
+
+//-----------------------------------------------
+// - helper function for init
+// - set the bounds object
+EmbedView.prototype.setBounds = function(){
+
+	// create a new google maps bounds object
+
+	// loop through the pins
+
+		// add them to the bounds
+
+	// loop through the polygons
+
+		// loop though the latlng objects
+
+			// add them to the bounds
+
+}
+
+EmbedView.prototype.term = function(){
+
+	// loop through the windows
+
+		// hide the preview html
+
+		// show the editable inputs & buttons
+
+	// hide the close button element
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				embed code class
+//           ---------------------
+//
+//
+//-----------------------------------------------
+
+var EmbedCode = function(){
+
+	// keep track of text area
+	this.codeArea = cPanels.children[3]
+						.getElementsByTagName('textarea')[0];
+
+	// temp variables
+	this.t = 
+	this.u = 
+	this.v = 
+	this.w = null;
+
+	// apply copy event to the copy button
+	// this.codeArea.parentElement.children[1].children[0]
+	// 	.addEventListener('click', this.copy);
+
+}
+
+EmbedCode.prototype.init = function(){
+
+}
+
+EmbedCode.prototype.term = function(){
+
+}
+
+//-----------------------------------------------
+// - generate the embedable code
+EmbedCode.prototype.generateCode = function(){
+
+}
+
+//-----------------------------------------------
+// - generate codes to create pins
+EmbedCode.prototype.pinCode = function(){
+
+	// clear the temp variable
+
+	// loop through all the pins
+
+		// concat to string
+
+	// return the string
+
+}
+
+//-----------------------------------------------
+// - generate codes to create pins
+EmbedCode.prototype.polyCode = function(){
+
+	// clear the temp variable
+
+	// loop through all the polygons
+
+		// concat to string
+
+	// return the string
+
+}
+
+//-----------------------------------------------
+// - generate codes to attach info windows
+EmbedCode.prototype.iWinCode = function(){
+
+	// clear the temp variable
+
+	// loop through all the info windows
+
+		// concat to string
+
+	// return the string
+
+}
+
+//-----------------------------------------------
+// - click button for quick copypasta
+EmbedCode.prototype.copy = function(){
+
+}
 
 
 
