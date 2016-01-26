@@ -163,6 +163,7 @@ MM.prototype.initMap = function(){
 	editPoly = mapBuilder.editPoly = new EditPoly();
 
 	mapBuilder.embedView = new EmbedView();
+	mapBuilder.embedCode = new EmbedCode();
 }
 
 //-----------------------------------------------
@@ -272,7 +273,8 @@ var MapBuilder = function(){
 	// keep track of the polygon mode objects
 	this.drawPoly = 
 	this.editPoly = 
-	this.embedView = null;
+	this.embedView = 
+	this.embedCode = null;
 
 	// loop through the toolbar buttons
 	this.p = mapTools.children;
@@ -1865,7 +1867,7 @@ EmbedCode.prototype.polyCode = function(){
 
 		this.v.push({
 			coords 			: this.getCoords(editPoly.h[x].coords),
-			centroid		: {lat:editPoly.h[x].bounds.getCenter().lat(),lng:editPoly.h[x].getCenter().lng()},
+			centroid		: {lat:editPoly.h[x].bounds.getCenter().lat(),lng:editPoly.h[x].bounds.getCenter().lng()},
 			i 				: editPoly.h[x].i,
 			fillColor 		: editPoly.h[x].fillColor,
 			fillOpacity 	: editPoly.h[x].fillOpacity,
@@ -1887,17 +1889,14 @@ EmbedCode.prototype.polyCode = function(){
 // - c --> array of google maps LatLng objects
 EmbedCode.prototype.getCoords = function(c){
 
-	//create an empty array
-	this.x = [];
-
 	// loop through the coords
 	for(var i = 0; i < c.length; i++)
 
 		// push the object literals onto the array
-		this.x.push({lat:c[i].lat(),lng:c[i].lng()});
+		c[i] = {lat:c[i].lat(),lng:c[i].lng()};
 
 	// return the array of object literals
-	return this.x;
+	return c;
 }
 
 //-----------------------------------------------
@@ -1917,11 +1916,10 @@ EmbedCode.prototype.iWinCode = function(){
 		if(iWin.h[x].active && (this.y.children[0].innerHTML || this.y.children[1].innerHTML)){
 
 			// add the object literal to the hash map
-			this.w[iWin.h[x].i] = {
-									content : '<div><h4>'+this.y.children[0].innerHTML+'</h4><p>'+this.y.children[1].innerHTML+'</p></div>',
-									position: iWin.h[x].position,
-									i 		: iWin.h[x].i
-								  };
+			this.w[x] = {
+				content : '<div><h4>'+this.y.children[0].innerHTML+'</h4><p>'+this.y.children[1].innerHTML+'</p></div>',
+				position: iWin.h[x].position
+			};
 		}
 	}
 
