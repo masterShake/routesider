@@ -172,12 +172,12 @@ if ($fn) {
                         <div class="popover-title map">
                             <div class="icon-map"></div>
                             <div class="icon-plus"></div>New Polygon
-                            <button type="button" class="close" data-panel="1" aria-label="shrink or grow">
+                            <button type="button" class="close" data-h="134" aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
                             </button>
                         </div>
                         <div class="popover-fade"></div>
-                        <div class="popover-content new-poly">
+                        <div class="popover-content new-poly" style="height:134px;">
                             <ul>
                                 <li>tap to add points</li>
                                 <li>press the "complete" button to connect the dots</li>
@@ -198,14 +198,17 @@ if ($fn) {
                     <div class="popover popover-top" id="poly">
                         <div class="popover-arrow" style="display:none;"></div>
                         <div class="popover-title map">
+                            <button type="button" class="close" data-panel="2" data-as="editPoly" style="float:left;" aria-label="close edit polygon mode">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <div class="icon-map" style="margin-top:1px;"></div>
                             <div class="icon-pencil" style="font-size:10px;margin-top:4px;"></div>Edit Polygon
-                            <button type="button" class="close" data-panel="2" aria-label="shrink or grow">
+                            <button type="button" class="close" data-h="154" aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
                             </button>
                         </div>
                         <div class="popover-fade"></div>
-                        <div class="popover-content container">
+                        <div class="popover-content container" style="height:154px;">
                             <div class="row">
                                 <div class="col-md-8">
                                     <!-- hex table -->
@@ -316,12 +319,12 @@ if ($fn) {
                         <div class="popover-arrow"></div>
                         <h3 class="popover-title">
                             <span class="icon-embed2" style="padding-right:3px;"></span>Embed Code
-                            <button type="button" class="close" data-panel="4" aria-label="shrink or grow">
+                            <button type="button" class="close" data-h="212" aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
                             </button>
                         </h3>
                         <div class="popover-fade"></div>
-                        <div class="popover-content">
+                        <div class="popover-content" style="height:212px;">
                             <textarea style="width:100%;height:150px;">
                             </textarea>
                             <div style="text-align:right;">

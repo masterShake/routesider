@@ -29,6 +29,13 @@ var R = function(){
 	// set the togNav event listener
 	document.querySelectorAll('.navbar .hidden-md-up')[0]
 		.addEventListener('click', this.togNav, false);
+
+	// temp variable, determine if mobile layout
+	this.t = (window.innerWidth < 767);
+
+	// height of this element must be set with js
+	cPanels.children[0].children[3].style.height = (this.t) ? '241px' : '156px';
+	cPanels.children[0].children[1].children[1].setAttribute('data-h', (this.t ? 241 : 156));
 }
 
 //-----------------------------------------------
@@ -281,12 +288,14 @@ var MapBuilder = function(){
 	// get the control panel buttons
 	this.p = cPanels.getElementsByClassName('close');
 	// set the toggle event listener
-	this.p[0].addEventListener('click', this.shrink);
-	this.p[2].addEventListener('click', this.shrink);
-	this.p[3].addEventListener('click', this.shrink);
-	this.p[4].addEventListener('click', this.togPan);
-	this.p[4].addEventListener('click', this.IorT);
-	this.p[5].addEventListener('click', this.shrink);
+	this.p[0].addEventListener('click', this.shrink); // drop pin control panel
+	this.p[2].addEventListener('click', this.shrink); // draw poly
+	this.p[3].addEventListener('click', this.togPan); // close editPoly control panel
+	this.p[3].addEventListener('click', this.IorT);   // close editPoly control panel
+	this.p[4].addEventListener('click', this.shrink); // shrink editPoly control panel
+	this.p[5].addEventListener('click', this.togPan); // close embedView
+	this.p[5].addEventListener('click', this.IorT);   // close embedView
+	this.p[6].addEventListener('click', this.shrink); // shrink embedCode control panel
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -327,7 +336,7 @@ MapBuilder.prototype.shrink = function(){
 		// hide the fade
 		this.parentElement.parentElement.children[2].style.display = 'none';
 		// shrink the popover content
-		this.parentElement.parentElement.children[3].style.height = 'auto';
+		this.parentElement.parentElement.children[3].style.height = this.dataset.h+'px';
 		// money
 		return;
 	}
@@ -1212,10 +1221,10 @@ EditPoly.prototype.init = function(){
 
 }
 
-EditPoly.prototype.term = function(){
+EditPoly.prototype.term = function(){ console.log('editPoly term called');
 
 	// active polygone no longer editable
-	this.a.set({editable : false});
+	this.a.setOptions({editable : false});
 
 	// reset active polygone
 	this.a = null;
@@ -1235,16 +1244,16 @@ EditPoly.prototype.togPoly = function(){
 	if(this === editPoly.a) return;
 
 	// make the active polygon uneditable
-	editPoly.a.set({editable:false});
+	editPoly.a.setOptions({editable:false});
 
 	// set the new active polygon
 	editPoly.a = editPoly.h[this.i];
 
 	// make the newly activated polygon editable
-	editPoly.a.set({editable:true});
+	editPoly.a.setOptions({editable:true});
 
 	// fit polygon within map bounds
-	gm.setBounds(editPoly.a.getBounds());
+	gm.fitBounds(editPoly.a.bounds);
 }
 
 //-----------------------------------------------
