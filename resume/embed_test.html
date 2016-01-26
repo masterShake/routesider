@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <!-- embedable javascript maps code -->
+    <script>
+
+    // global variables
+    var gm,
+        pins,
+        polygons,
+        infoWindows;
+
+    // init map on script load
+    function init(){
+
+        // init the google map
+        gm = new google.maps.Map( 
+            // map element
+            document.getElementById("map-canvas"),
+            // map options, default silicon valley
+            { center: {lat: 37.65120864327176, lng: -122.091064453125;}, zoom: 9 }
+        );
+
+        // init the pins
+        initPins();
+
+        // init the polygons
+        initPolys()
+
+        // init the info windows
+
+    }
+
+    // init all the pins
+    function initPins(){
+
+    }
+
+    // init all the polygons
+    function initPolys(){
+        
+    }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=YOUR_API_KEY_HERE&amp;libraries=places,drawing&amp;callback=init"></script>
+    <!-- /embed code -->
+
+  </body>
+</html>

@@ -1791,7 +1791,8 @@ var EmbedCode = function(){
 	this.t = 
 	this.u = 
 	this.v = 
-	this.w = null;
+	this.w = 
+	this.x = null;
 
 	// apply copy event to the copy button
 	// this.codeArea.parentElement.children[1].children[0]
@@ -1811,6 +1812,12 @@ EmbedCode.prototype.term = function(){
 // - generate the embedable code
 EmbedCode.prototype.generateCode = function(){
 
+	// start the code
+	this.t = "var gm = null;\n";
+
+	// add the array of pins
+
+
 }
 
 //-----------------------------------------------
@@ -1818,13 +1825,26 @@ EmbedCode.prototype.generateCode = function(){
 EmbedCode.prototype.pinCode = function(){
 
 	// clear the temp variable
+	this.u = '[';
 
 	// loop through all the pins
+	for(var x in dropPin.h){
 
 		// concat to string
+		this.u += JSON.stringify({
+			position: {lat: dropPin.h[x].position.lat(), lng: dropPin.h[x].position.lng()},
+			icon : dropPin.h[x].icon,
+			i : dropPin.h[x].i
+		}) + ',';
+	}
+
+	// remove the trailing comma
+	this.u = this.u.substr(0, this.u.length - 1);
+
+	this.u += "]\n";
 
 	// return the string
-
+	return this.u;
 }
 
 //-----------------------------------------------
@@ -1832,13 +1852,53 @@ EmbedCode.prototype.pinCode = function(){
 EmbedCode.prototype.polyCode = function(){
 
 	// clear the temp variable
+	this.v = 'polygons = [';
 
 	// loop through all the polygons
+	for(var x in editPoly.h){
 
-		// concat to string
+		this.v += JSON.stringify({
+			coords 			: this.getCoords(editPoly.h[x].coords),
+			centroid		: editPoly.h[x].bounds.getCenter(),
+			i 				: editPoly.h[x].i,
+			fillColor 		: editPoly.h[x].fillColor,
+			fillOpacity 	: editPoly.h[x].fillOpacity,
+			strokeColor 	: editPoly.h[x].strokeColor,
+			strokeOpacity	: editPoly.h[x].strokeOpacity
+		});
+
+		this.v += ',';
+
+	}
+
+	// remove the trailing comma
+	this.v = this.v.substr(0, this.v.length - 1);
+
+	// complete the array
+	this.v += ']';
 
 	// return the string
+	return this.v;
+}
 
+//-----------------------------------------------
+// - generate the array of polygon coords by
+//   converting the google maps LatLng class 
+//   objects to object literals
+// - c --> array of google maps LatLng objects
+EmbedCode.prototype.getCoords = function(c){
+
+	//create an empty array
+	this.x = [];
+
+	// loop through the coords
+	for(var i = 0; i < c.length; i++)
+
+		// push the object literals onto the array
+		this.x.push({lat:c[i].lat(),lng:c[i].lng()});
+
+	// return the array of object literals
+	return this.x;
 }
 
 //-----------------------------------------------
