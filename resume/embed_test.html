@@ -15,11 +15,19 @@
     <!-- embedable javascript maps code -->
     <script>
 
+    // obejct literals
+    var pinLits,
+        polyLits,
+        winLits;
+
     // global variables
-    var gm,
-        pins,
-        polygons,
-        infoWindows;
+    var gm = 
+        bounds = null,
+        pins = [],
+        polygons = [],
+        infoWindows = {},
+        pinTrigger = 
+        polyTrigger = false;
 
     // init map on script load
     function init(){
@@ -32,24 +40,130 @@
             { center: {lat: 37.65120864327176, lng: -122.091064453125;}, zoom: 9 }
         );
 
+        // init the bounds object
+        bounds = new google.maps.LatLngBounds();
+
         // init the pins
         initPins();
 
         // init the polygons
-        initPolys()
+        initPolys();
 
         // init the info windows
-
+        initWins();
     }
 
     // init all the pins
     function initPins(){
 
+        // loop through the pin literals
+        for(var i = 0; i < pinLits.length; i++){
+
+            // pin marker to map, push it to the 'pins' array
+            pins.push( new google.maps.Marker({
+                position: pinLits[i].position,
+                map : gm
+            }));
+
+            // set the i property
+            pins[i].set('i', pinLits[i].i);
+
+            // extend the map bounds
+            bounds.extend(pins[i].position);
+
+            // if this pin has a cooresponding info window
+            if(winLits.hasOwnProperty(pinLits[i].i))
+                // add the click event
+                pins[i].addListener('click', showWin);
+        }
+
+        // set the pinTrigger
+        pinTrigger = true;
+
+        // set the map bounds
+        setBounds();
     }
 
     // init all the polygons
     function initPolys(){
-        
+
+        // loop through the polygon literals
+        for(var i = 0; i < polyLits.length; i++){
+
+            // add polygon to the map, push it to the 'polys' array
+            polygons.push( new google.maps.Polygon({
+                paths         : latLngObjs(polyLits.coords),
+                strokeColor   : polyLits[i].strokeColor,
+                strokeOpacity : polyLits[i].strokeOpacity,
+                strokeWeight  : 3,
+                fillColor     : polyLits[i].fillColor,
+                fillOpacity   : polyLits[i].fillOpacity
+            }));
+
+            // set the i property
+            polygons[i].set('i', polyLits[i].i);
+
+            // if this polygon has a cooresponding info window
+            if(winLits.hasOwnProperty(polyLits[i].i))
+                // add the click event
+                polygons[i].addListener('click', showWin);
+        }
+
+        // set the pinTrigger
+        polyTrigger = true;
+
+        // set the map bounds
+        setBounds();
+    }
+
+    // convert an array of LatLng literals to google maps LatLng objects
+    function latLngObjs(a){
+
+        // temp variable
+        var t = null;
+
+        // loop through the array of object literals
+        for(var i = 0; i < a.length; i++){}\
+
+            // create the new LatLng Object
+            t = new google.maps.LatLng(a.pop());
+
+            // push it back onto the a array
+            a.push(t);
+
+            // extend the bounds
+            bounds.extend(t);
+        }
+
+        // return the array
+        return a;
+    }
+
+    // init the info windows
+    function initWins = function(){
+
+        // loop through the info window object literals
+        for(var x in winLits){
+
+            // create google maps info window objects
+            infoWindows[x] = new google.maps.InfoWindow({
+                content : winLits[x].content,
+                position: winLits[x].position
+            });
+        }
+    }
+
+    // create a LatLngBounds object to set map bounds
+    function setBounds(){
+        // if we are done setting all the polygons and pins
+        if(pinTrigger && polyTrigger)
+            // set the map bounds
+            gm.setBounds(bounds);
+    }
+
+    // click event display cooresponding info window
+    function showWin(){
+        infoWindows[this.i].open(gm, this);
     }
 
     </script>

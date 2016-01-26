@@ -1801,7 +1801,8 @@ var EmbedCode = function(){
 	this.u = 
 	this.v = 
 	this.w = 
-	this.x = null;
+	this.x =
+	this.y = null;
 
 	// apply copy event to the copy button
 	// this.codeArea.parentElement.children[1].children[0]
@@ -1834,26 +1835,22 @@ EmbedCode.prototype.generateCode = function(){
 EmbedCode.prototype.pinCode = function(){
 
 	// clear the temp variable
-	this.u = '[';
+	this.u = [];
 
 	// loop through all the pins
 	for(var x in dropPin.h){
 
 		// concat to string
-		this.u += JSON.stringify({
+		this.u.push({
 			position: {lat: dropPin.h[x].position.lat(), lng: dropPin.h[x].position.lng()},
 			icon : dropPin.h[x].icon,
 			i : dropPin.h[x].i
-		}) + ',';
+		})
 	}
-
-	// remove the trailing comma
-	this.u = this.u.substr(0, this.u.length - 1);
-
-	this.u += "]\n";
 
 	// return the string
 	return this.u;
+	// return "var pins = "+JSON.stringify(this.u)+"\n";
 }
 
 //-----------------------------------------------
@@ -1861,14 +1858,14 @@ EmbedCode.prototype.pinCode = function(){
 EmbedCode.prototype.polyCode = function(){
 
 	// clear the temp variable
-	this.v = 'polygons = [';
+	this.v = [];
 
 	// loop through all the polygons
 	for(var x in editPoly.h){
 
-		this.v += JSON.stringify({
+		this.v.push({
 			coords 			: this.getCoords(editPoly.h[x].coords),
-			centroid		: editPoly.h[x].bounds.getCenter(),
+			centroid		: {lat:editPoly.h[x].bounds.getCenter().lat(),lng:editPoly.h[x].getCenter().lng()},
 			i 				: editPoly.h[x].i,
 			fillColor 		: editPoly.h[x].fillColor,
 			fillOpacity 	: editPoly.h[x].fillOpacity,
@@ -1876,18 +1873,11 @@ EmbedCode.prototype.polyCode = function(){
 			strokeOpacity	: editPoly.h[x].strokeOpacity
 		});
 
-		this.v += ',';
-
 	}
-
-	// remove the trailing comma
-	this.v = this.v.substr(0, this.v.length - 1);
-
-	// complete the array
-	this.v += ']';
 
 	// return the string
 	return this.v;
+	// return "var polygons = "+JSON.stringify(this.v)+"\n";
 }
 
 //-----------------------------------------------
@@ -1915,13 +1905,29 @@ EmbedCode.prototype.getCoords = function(c){
 EmbedCode.prototype.iWinCode = function(){
 
 	// clear the temp variable
+	this.w = {};
 
 	// loop through all the info windows
+	for(var x in iWin.h){
 
-		// concat to string
+		// get the content of the window
+		this.y = iWin.h[x].getContent().children[1];
+
+		// if the window is active & has content
+		if(iWin.h[x].active && (this.y.children[0].innerHTML || this.y.children[1].innerHTML)){
+
+			// add the object literal to the hash map
+			this.w[iWin.h[x].i] = {
+									content : '<div><h4>'+this.y.children[0].innerHTML+'</h4><p>'+this.y.children[1].innerHTML+'</p></div>',
+									position: iWin.h[x].position,
+									i 		: iWin.h[x].i
+								  };
+		}
+	}
 
 	// return the string
-
+	return this.w;
+	// return JSON.stringify(this.w);
 }
 
 //-----------------------------------------------
