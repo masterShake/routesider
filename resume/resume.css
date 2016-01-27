@@ -469,16 +469,25 @@ table .form-control{
     padding-top: 12px;
     font-size: 20px;
 }
-#how-to-install article{
+/*#how-to-install article>div{
+	margin-bottom: 15px;
+}*/
+#how-to-install div.col-md-4{
 	margin-bottom: 10px;
 }
-#how-to-install article img{
+#how-to-install div.col-md-4>div{
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+#how-to-install img{
 	max-width: 100%;
 }
-#how-to-install article>div{
-	margin-bottom: 15px;
+/* hr that divides sections */
+hr.article-divider{
+	width: 50%;
+	margin-top: 10px;
+	margin-bottom: 30px;
 }
-
 
 /* -------- footer ------------------ */
 footer{
@@ -565,7 +574,7 @@ footer input, footer textarea{
 
 	/* lead */
 	#lead{
-		top:; -568px;
+		top: -568px;
 	}
 
 	/* drop-pin control panel */
@@ -584,6 +593,26 @@ footer input, footer textarea{
 	}
 	#poly .col-xs-6{
 		padding-bottom: 14px;
+	}
+
+	/* how to embed section */
+	hr.article-divider{
+		border-color: #fff;
+	}
+	#how-to-install .img-left{
+		padding-left: 15px;
+		padding-right: 0;
+	}
+	#how-to-install .img-right{
+		padding-left: 0;
+		padding-right: 15px;
+		float:right;
+	}
+	.step{
+		margin-bottom: 6px !important;
+	}
+	.step.step-right{
+		float:right;
 	}
 }
 
@@ -649,6 +678,14 @@ footer input, footer textarea{
 	/* logo */
 	#logo.starting{
 		transform: scale(2.1,2.1) translate(0px, 70px);
+	}
+
+	/* how to embed section */
+	#how-to-install>div{
+		margin: 20px 0;
+	}
+	hr.article-divider{
+		display: none;
 	}
 
 }

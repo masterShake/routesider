@@ -532,27 +532,109 @@ if ($fn) {
                     <div class="pull-tab">
                         <span class="icon-circle-up"></span>
                     </div>
-                    <hr>
-                    <!-- step 1: -->
-                    <article class="row">
-                        <div class="col-md-4">
-                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300" alt="placeholder">
-                        </div>
-                        <div class="col-md-8">
-                            <h3><strong>Step 1:</strong> Create new Google developer project</h3>
-                            <p>Sit vel vitae blandit, duis suspendisse in, placerat mauris ligula, luctus porttitor tortor proin. Ac neque id eget luctus sem, justo et ligula id urna. Tempor orci placerat neque eget id. Sed rhoncus purus at amet quis fusce, nisl rhoncus. Eget commodo in sociis duis placerat at, lacinia porta risus urna consectetuer id suspendisse. Ullamcorper tristique eu bibendum per quis, duis purus aptent scelerisque dapibus sed, a enim consectetuer nulla nulla, mi sem metus vestibulum ut ante.</p>
-                        </div>
-                    </article>
-                    <!-- step 2: -->
-                    <article class="row">
-                        <div class="col-md-4" style="float:right;">
-                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300" alt="placeholder">
-                        </div>
-                        <div class="col-md-8">
-                            <h3><strong>Step 2:</strong> Lorem ipsum dolor sit amet</h3>
-                            <p>Sit vel vitae blandit, duis suspendisse in, placerat mauris ligula, luctus porttitor tortor proin. Ac neque id eget luctus sem, justo et ligula id urna. Tempor orci placerat neque eget id. Sed rhoncus purus at amet quis fusce, nisl rhoncus. Eget commodo in sociis duis placerat at, lacinia porta risus urna consectetuer id suspendisse. Ullamcorper tristique eu bibendum per quis, duis purus aptent scelerisque dapibus sed, a enim consectetuer nulla nulla, mi sem metus vestibulum ut ante.</p>
-                        </div>
-                    </article>
+
+                    <hr style="margin-bottom:28px;">
+
+                    <div class="row">
+                    
+                        <!-- step 1 -->
+                        <article class="col-xl-6">
+                            <div class="row">
+                                <div class="col-md-8 step step-right">
+                                    <h4><strong>Step 1:</strong> Create new Google developer project</h4>
+                                </div>
+                                <div class="col-md-4 img-left">
+                                    <div>
+                                        <img src="http://localhost/routesider/resume/imgs/step_1.PNG" alt="Create new Google developer project" />
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        Sign up for a <a href="https://developers.google.com/">Google developer account</a> if you don't alread have one. 
+                                        Create a new project. 
+                                        Give your new project a name, call it whatever you'd like.
+                                    </p>
+                                </div>
+                            </div>
+                        </article><!-- /step 1 -->
+
+                        <hr class="article-divider">
+                        
+                        <!-- step 2 -->
+                        <article class="col-xl-6">
+                            <div class="row">
+                                <div class="col-md-8 step">
+                                    <h4><strong>Step 2:</strong> Enable maps JavaScript API</h4>
+                                </div>
+                                <div class="col-md-4 img-right">
+                                    <div>
+                                        <img src="http://localhost/routesider/resume/imgs/google_maps_javascript_api.PNG" alt="Enable the Google Maps JavaScript API" />
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        On the <a href="https://console.developers.google.com/home/dashboard">Dashboard</a> page of the developer console, click "Enable &amp; manage APIs". 
+                                        Under "Google Maps APIs" click <a href="https://console.developers.google.com/apis/api/maps_backend/overview">Google Maps JavaScript API</a>. 
+                                        Click the "Enable API" button.
+                                    </p>
+                                </div>
+                            </div>
+                        </article><!-- /step 2 -->
+                    
+                    </div><!-- /row -->
+
+                    <div class="row">
+
+                        <hr class="article-divider">
+                        
+                        <!-- step 3 -->
+                        <article class="col-xl-6">
+                            <div class="row">
+                                <div class="col-md-8 step step-right">
+                                    <h4><strong>Step 3:</strong> Generate new API key</h4>
+                                </div>
+                                <div class="col-md-4 img-left">
+                                    <div>
+                                        <img src="http://localhost/routesider/resume/imgs/new_credentials.PNG" alt="Generate a new API key" />
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        On the <a href="https://console.developers.google.com/apis/credentials">Credentials</a> page click the 'new credentials' button. 
+                                        In the dropdown menu, select the first option, "API key". 
+                                        In the popup modal, select "browser key". 
+                                        In the 'Create browser API key" panel enter your domain name as an accepted HTTP referrer. This prevents other people from using your API key. You can also enter "http://localhost/*" or leave it blank.
+                                    </p>
+                                </div>
+                            </div><!-- /row -->
+                        </article><!-- /step 3 -->
+                        
+                        <hr class="article-divider">
+
+                        <!-- step 4 -->
+                        <article class="col-xl-6">
+                            <div class="row">
+                                <div class="col-md-8 step">
+                                    <h4><strong>Step 4:</strong> Copy and paste</h4>
+                                </div>
+                                <div class="col-md-4 img-right">
+                                    <div>
+                                        <img src="http://localhost/routesider/resume/imgs/your_api_key_here.PNG" alt="placeholder">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        Once you're finished building your custom map on Routesider, click the embed code button <button type="button" class="btn" style="background-color:#dedede;padding:0 10px;padding-top:3px;"><span class="icon-embed2" style="color:#5CB85C;"></span></button>. 
+                                        Copy the embedable code &amp; paste it into your web page. The map is propogated in the #map-canvas element. The JavaScript can go anywhere. 
+                                        Add your API key to the bottom-most script tag. 
+                                        Now you're good to go! Enjoy your custom embeded map. Adjust the JavaScript as you see fit.
+                                    </p>
+                                </div>
+                            </div><!-- /row -->
+                        </article><!-- /step 4 -->
+
+                    </div><!-- /row -->
+
                 </section><!-- /how-to-install -->
             </div><!-- /container -->
 
