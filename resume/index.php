@@ -50,6 +50,163 @@ if ($fn) {
     </head>
     <body>
 
+        <!-- embedable code -->
+        <textarea id="embed-code" style="display:none;">
+            // global variables
+            var gm = 
+                bounds = null,
+                pins = [],
+                polygons = [],
+                infoWindows = {},
+                pinTrigger = 
+                polyTrigger = false;
+
+            // init map on script load
+            function init(){
+
+                // init the google map
+                gm = new google.maps.Map( 
+                    // map element
+                    document.getElementById("map-canvas"),
+                    // map options, default silicon valley
+                    { center: {lat: 37.65120864327176, lng: -122.091064453125}, zoom: 9 }
+                );
+
+                // init the bounds object
+                bounds = new google.maps.LatLngBounds();
+
+                // init the info windows
+                initWins();
+
+                // init the pins
+                initPins();
+
+                // init the polygons
+                initPolys();
+            }
+
+            // init all the pins
+            function initPins(){
+
+                // parse the json
+                pinLits = JSON.parse(pinLits);
+
+                // loop through the pin literals
+                for(var i = 0; i < pinLits.length; i++){
+
+                    // pin marker to map, push it to the 'pins' array
+                    pins.push( new google.maps.Marker({
+                        position: pinLits[i].position,
+                        icon : pinLits[i].icon,
+                        map : gm
+                    }));
+
+                    // set the i property
+                    pins[i].set('i', pinLits[i].i);
+
+                    // extend the map bounds
+                    bounds.extend(pins[i].position);
+
+                    // if this pin has a cooresponding info window
+                    if(winLits.hasOwnProperty(pinLits[i].i))
+                        // add the click event
+                        pins[i].addListener('click', showWin);
+                }
+
+                // set the pinTrigger
+                pinTrigger = true;
+
+                // set the map bounds
+                setBounds();
+            }
+
+            // init all the polygons
+            function initPolys(){
+
+                // parse the json
+                polyLits = JSON.parse(polyLits);
+
+                // loop through the polygon literals
+                for(var i = 0; i < polyLits.length; i++){ console.log(polyLits[i].coords);
+
+                    // add polygon to the map, push it to the 'polys' array
+                    polygons.push( new google.maps.Polygon({
+                        paths         : latLngObjs(polyLits[i].coords),
+                        strokeColor   : polyLits[i].strokeColor,
+                        strokeOpacity : polyLits[i].strokeOpacity,
+                        strokeWeight  : 3,
+                        fillColor     : polyLits[i].fillColor,
+                        fillOpacity   : polyLits[i].fillOpacity,
+                        map           : gm
+                    }));
+
+                    // set the i property
+                    polygons[i].set('i', polyLits[i].i);
+
+                    // if this polygon has a cooresponding info window
+                    if(winLits.hasOwnProperty(polyLits[i].i))
+                        // add the click event
+                        polygons[i].addListener('click', showWin);
+                }
+
+                // set the pinTrigger
+                polyTrigger = true;
+
+                // set the map bounds
+                setBounds();
+            }
+
+            // convert an array of LatLng literals to google maps LatLng objects
+            function latLngObjs(a){
+
+                // temp variable
+                var t = null;
+
+                // loop through the array of object literals
+                for(var i = 0; i < a.length; i++){
+
+                    // create the new LatLng Object
+                    a[i] = new google.maps.LatLng(a[i]);
+
+                    // extend the bounds
+                    bounds.extend(a[i]);
+                }
+
+                // return the array
+                return a;
+            }
+
+            // init the info windows
+            function initWins(){
+
+                // parse the json
+                winLits = JSON.parse(winLits);
+
+                // loop through the info window object literals
+                for(var x in winLits){
+
+                    // create google maps info window objects
+                    infoWindows[x] = new google.maps.InfoWindow({
+                        content : winLits[x].content,
+                        position: winLits[x].position
+                    });
+                }
+            }
+
+            // create a LatLngBounds object to set map bounds
+            function setBounds(){
+                // if we are done setting all the polygons and pins
+                if(pinTrigger && polyTrigger)
+                    // set the map bounds
+                    gm.fitBounds(bounds);
+            }
+
+            // click event display cooresponding info window
+            function showWin(){
+                infoWindows[this.i].open(gm, this);
+            }
+        </textarea>
+
         <!-- google map -->
         <div id="map-canvas"></div>
 
@@ -350,7 +507,7 @@ if ($fn) {
                     <button type="button" class="btn" data-panel="3" data-as="embedView" aria-label="get code">
                         <span class="icon-eye"></span>
                     </button>
-                    <button type="button" class="btn" data-panel="4" aria-label="get code">
+                    <button type="button" class="btn" data-panel="4" data-as="embedCode" aria-label="get code">
                         <span class="icon-embed2"></span>
                     </button>
                 </div><!-- /toolbar -->

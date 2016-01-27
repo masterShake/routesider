@@ -21,169 +21,163 @@
   </head>
   <body>
     <h1>Hello, world!</h1>
+<div id='map-canvas'></div><script>
+pinLits = '[{"position":{"lat":37.73162487017297,"lng":-122.46734619140625},"icon":null,"i":1},{"position":{"lat":37.898697801966094,"lng":-122.12127685546875},"icon":null,"i":2},{"position":{"lat":37.63380988687157,"lng":-121.9207763671875},"icon":null,"i":3},{"position":{"lat":38.29424797320529,"lng":-122.40966796875},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":4},{"position":{"lat":38.08268954483802,"lng":-122.62115478515625},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":5},{"position":{"lat":38.134556577054134,"lng":-122.18719482421875},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":6},{"position":{"lat":37.97234987199528,"lng":-122.2998046875},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":7},{"position":{"lat":37.716417678476226,"lng":-122.2503662109375},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":8},{"position":{"lat":37.92686760148135,"lng":-122.6458740234375},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":9},{"position":{"lat":38.06322991452765,"lng":-121.95648193359375},"icon":"http://localhost/routesider/resume/uploads/1453856647_45.png","i":10}]';
+polyLits = '[{"coords":[{"lat":38.09133660751176,"lng":-122.78045654296875},{"lat":38.26190641637658,"lng":-122.27508544921875},{"lat":37.87051721701939,"lng":-121.95098876953125},{"lat":37.87051721701939,"lng":-122.48931884765625}],"centroid":{"lat":38.06621181669799,"lng":-122.36572265625},"i":11,"fillColor":"#99CCFF","fillOpacity":"0.3","strokeColor":"#7F00FF","strokeOpacity":"0.8"}]';
+winLits = '{"1":{"content":"<div><h4>bitches</h4><p>they aint shit</p></div>","position":{"lat":37.73162487017297,"lng":-122.46734619140625}},"11":{"content":"<div><h4>diamonds</h4><p>are forever</p></div>","position":{"lat":38.06621181669799,"lng":-122.36572265625}}}';
+            // global variables
+            var gm = 
+                bounds = null,
+                pins = [],
+                polygons = [],
+                infoWindows = {},
+                pinTrigger = 
+                polyTrigger = false;
 
-    <div id="map-canvas"></div>
+            // init map on script load
+            function init(){
 
-    <!-- embedable javascript maps code -->
-    <script>
+                // init the google map
+                gm = new google.maps.Map( 
+                    // map element
+                    document.getElementById("map-canvas"),
+                    // map options, default silicon valley
+                    { center: {lat: 37.65120864327176, lng: -122.091064453125}, zoom: 9 }
+                );
 
-    // obejct literals
-    var pinLits = '[{"position":{"lat":37.72945260537779,"lng":-122.47833251953125},"icon":null,"i":1},{"position":{"lat":37.78808138412046,"lng":-122.003173828125},"icon":null,"i":2},{"position":{"lat":37.37452264407724,"lng":-121.83837890625},"icon":null,"i":3}]',
-        polyLits = '[{"coords":[{"lat":38.25974980039479,"lng":-122.56622314453125},{"lat":38.244651696093634,"lng":-122.10479736328125},{"lat":37.97884504049713,"lng":-122.2283935546875}],"centroid":{"lat":38.11929742044596,"lng":-122.33551025390625},"i":4,"fillColor":"#5CB85C","fillOpacity":"0.3","strokeColor":"#5CB85C","strokeOpacity":"0.8"},{"coords":[{"lat":38.23386541556983,"lng":-122.64862060546875},{"lat":37.93769926732864,"lng":-122.27508544921875},{"lat":38.004819966413194,"lng":-122.6568603515625}],"centroid":{"lat":38.08578234144923,"lng":-122.46597290039062},"i":5,"fillColor":"#5CB85C","fillOpacity":"0.3","strokeColor":"#5CB85C","strokeOpacity":"0.8"}]',
-        winLits = '{"1":{"content":"<div><h4>bitches</h4><p>aint shit</p></div>","position":{"lat":37.72945260537779,"lng":-122.47833251953125}},"5":{"content":"<div><h4>holla</h4><p>if you got a dolla</p></div>","position":{"lat":38.08578234144923,"lng":-122.46597290039062}}}';
+                // init the bounds object
+                bounds = new google.maps.LatLngBounds();
 
-    // global variables
-    var gm = 
-        bounds = null,
-        pins = [],
-        polygons = [],
-        infoWindows = {},
-        pinTrigger = 
-        polyTrigger = false;
+                // init the info windows
+                initWins();
 
-    // init map on script load
-    function init(){
+                // init the pins
+                initPins();
 
-        // init the google map
-        gm = new google.maps.Map( 
-            // map element
-            document.getElementById("map-canvas"),
-            // map options, default silicon valley
-            { center: {lat: 37.65120864327176, lng: -122.091064453125}, zoom: 9 }
-        );
+                // init the polygons
+                initPolys();
+            }
 
-        // init the bounds object
-        bounds = new google.maps.LatLngBounds();
+            // init all the pins
+            function initPins(){
 
-        // init the info windows
-        initWins();
+                // parse the json
+                pinLits = JSON.parse(pinLits);
 
-        // init the pins
-        initPins();
+                // loop through the pin literals
+                for(var i = 0; i < pinLits.length; i++){
 
-        // init the polygons
-        initPolys();
-    }
+                    // pin marker to map, push it to the 'pins' array
+                    pins.push( new google.maps.Marker({
+                        position: pinLits[i].position,
+                        icon : pinLits[i].icon,
+                        map : gm
+                    }));
 
-    // init all the pins
-    function initPins(){
+                    // set the i property
+                    pins[i].set('i', pinLits[i].i);
 
-        // parse the json
-        pinLits = JSON.parse(pinLits);
+                    // extend the map bounds
+                    bounds.extend(pins[i].position);
 
-        // loop through the pin literals
-        for(var i = 0; i < pinLits.length; i++){
+                    // if this pin has a cooresponding info window
+                    if(winLits.hasOwnProperty(pinLits[i].i))
+                        // add the click event
+                        pins[i].addListener('click', showWin);
+                }
 
-            // pin marker to map, push it to the 'pins' array
-            pins.push( new google.maps.Marker({
-                position: pinLits[i].position,
-                map : gm
-            }));
+                // set the pinTrigger
+                pinTrigger = true;
 
-            // set the i property
-            pins[i].set('i', pinLits[i].i);
+                // set the map bounds
+                setBounds();
+            }
 
-            // extend the map bounds
-            bounds.extend(pins[i].position);
+            // init all the polygons
+            function initPolys(){
 
-            // if this pin has a cooresponding info window
-            if(winLits.hasOwnProperty(pinLits[i].i))
-                // add the click event
-                pins[i].addListener('click', showWin);
-        }
+                // parse the json
+                polyLits = JSON.parse(polyLits);
 
-        // set the pinTrigger
-        pinTrigger = true;
+                // loop through the polygon literals
+                for(var i = 0; i < polyLits.length; i++){ console.log(polyLits[i].coords);
 
-        // set the map bounds
-        setBounds();
-    }
+                    // add polygon to the map, push it to the 'polys' array
+                    polygons.push( new google.maps.Polygon({
+                        paths         : latLngObjs(polyLits[i].coords),
+                        strokeColor   : polyLits[i].strokeColor,
+                        strokeOpacity : polyLits[i].strokeOpacity,
+                        strokeWeight  : 3,
+                        fillColor     : polyLits[i].fillColor,
+                        fillOpacity   : polyLits[i].fillOpacity,
+                        map           : gm
+                    }));
 
-    // init all the polygons
-    function initPolys(){
+                    // set the i property
+                    polygons[i].set('i', polyLits[i].i);
 
-        // parse the json
-        polyLits = JSON.parse(polyLits);
+                    // if this polygon has a cooresponding info window
+                    if(winLits.hasOwnProperty(polyLits[i].i))
+                        // add the click event
+                        polygons[i].addListener('click', showWin);
+                }
 
-        // loop through the polygon literals
-        for(var i = 0; i < polyLits.length; i++){ console.log(polyLits[i].coords);
+                // set the pinTrigger
+                polyTrigger = true;
 
-            // add polygon to the map, push it to the 'polys' array
-            polygons.push( new google.maps.Polygon({
-                paths         : latLngObjs(polyLits[i].coords),
-                strokeColor   : polyLits[i].strokeColor,
-                strokeOpacity : polyLits[i].strokeOpacity,
-                strokeWeight  : 3,
-                fillColor     : polyLits[i].fillColor,
-                fillOpacity   : polyLits[i].fillOpacity,
-                map           : gm
-            }));
+                // set the map bounds
+                setBounds();
+            }
 
-            // set the i property
-            polygons[i].set('i', polyLits[i].i);
+            // convert an array of LatLng literals to google maps LatLng objects
+            function latLngObjs(a){
 
-            // if this polygon has a cooresponding info window
-            if(winLits.hasOwnProperty(polyLits[i].i))
-                // add the click event
-                polygons[i].addListener('click', showWin);
-        }
+                // temp variable
+                var t = null;
 
-        // set the pinTrigger
-        polyTrigger = true;
+                // loop through the array of object literals
+                for(var i = 0; i < a.length; i++){
 
-        // set the map bounds
-        setBounds();
-    }
+                    // create the new LatLng Object
+                    a[i] = new google.maps.LatLng(a[i]);
 
-    // convert an array of LatLng literals to google maps LatLng objects
-    function latLngObjs(a){
+                    // extend the bounds
+                    bounds.extend(a[i]);
+                }
 
-        // temp variable
-        var t = null;
+                // return the array
+                return a;
+            }
 
-        // loop through the array of object literals
-        for(var i = 0; i < a.length; i++){
+            // init the info windows
+            function initWins(){
 
-            // create the new LatLng Object
-            a[i] = new google.maps.LatLng(a[i]);
+                // parse the json
+                winLits = JSON.parse(winLits);
 
-            // extend the bounds
-            bounds.extend(a[i]);
-        }
+                // loop through the info window object literals
+                for(var x in winLits){
 
-        // return the array
-        return a;
-    }
+                    // create google maps info window objects
+                    infoWindows[x] = new google.maps.InfoWindow({
+                        content : winLits[x].content,
+                        position: winLits[x].position
+                    });
+                }
+            }
 
-    // init the info windows
-    function initWins(){
+            // create a LatLngBounds object to set map bounds
+            function setBounds(){
+                // if we are done setting all the polygons and pins
+                if(pinTrigger && polyTrigger)
+                    // set the map bounds
+                    gm.fitBounds(bounds);
+            }
 
-        // parse the json
-        winLits = JSON.parse(winLits);
-
-        // loop through the info window object literals
-        for(var x in winLits){
-
-            // create google maps info window objects
-            infoWindows[x] = new google.maps.InfoWindow({
-                content : winLits[x].content,
-                position: winLits[x].position
-            });
-        }
-    }
-
-    // create a LatLngBounds object to set map bounds
-    function setBounds(){
-        // if we are done setting all the polygons and pins
-        if(pinTrigger && polyTrigger)
-            // set the map bounds
-            gm.fitBounds(bounds);
-    }
-
-    // click event display cooresponding info window
-    function showWin(){
-        infoWindows[this.i].open(gm, this);
-    }
+            // click event display cooresponding info window
+            function showWin(){
+                infoWindows[this.i].open(gm, this);
+            }
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyCCV74W4fbd9w1PVxD-OviILs9MPFqFdis&amp;libraries=places,drawing&amp;callback=init"></script>

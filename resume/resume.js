@@ -1795,8 +1795,7 @@ EmbedView.prototype.term = function(){
 var EmbedCode = function(){
 
 	// keep track of text area
-	this.codeArea = cPanels.children[3]
-						.getElementsByTagName('textarea')[0];
+	this.codeArea = cPanels.children[4].children[3].children[0];
 
 	// temp variables
 	this.t = 
@@ -1814,21 +1813,23 @@ var EmbedCode = function(){
 
 EmbedCode.prototype.init = function(){
 
+	// start the code
+	this.codeArea.innerHTML = "<div id='map-canvas'></div><script>\n"+
+
+	// add the data
+	"var pinLits = '" + this.pinCode() + "';\n"+
+	"var polyLits = '" + this.polyCode() + "';\n"+
+	"var winLits = '" + this.iWinCode() + "';\n"+
+
+	// add the remainder of the code
+	document.getElementById('embed-code').innerHTML + 
+
+	// add the script tags
+	"<script>\n"+
+	'<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=YOUR_API_KEY_HERE&amp;libraries=places,drawing&amp;callback=init"></script>';
 }
 
 EmbedCode.prototype.term = function(){
-
-}
-
-//-----------------------------------------------
-// - generate the embedable code
-EmbedCode.prototype.generateCode = function(){
-
-	// start the code
-	this.t = "var gm = null;\n";
-
-	// add the array of pins
-
 
 }
 
@@ -1851,8 +1852,7 @@ EmbedCode.prototype.pinCode = function(){
 	}
 
 	// return the string
-	return this.u;
-	// return "var pins = "+JSON.stringify(this.u)+"\n";
+	return JSON.stringify(this.u);
 }
 
 //-----------------------------------------------
@@ -1878,8 +1878,7 @@ EmbedCode.prototype.polyCode = function(){
 	}
 
 	// return the string
-	return this.v;
-	// return "var polygons = "+JSON.stringify(this.v)+"\n";
+	return JSON.stringify(this.v);
 }
 
 //-----------------------------------------------
@@ -1924,8 +1923,7 @@ EmbedCode.prototype.iWinCode = function(){
 	}
 
 	// return the string
-	return this.w;
-	// return JSON.stringify(this.w);
+	return JSON.stringify(this.w);
 }
 
 //-----------------------------------------------
