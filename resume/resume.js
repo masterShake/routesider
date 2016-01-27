@@ -262,42 +262,26 @@ var MapBuilder = function(){
 	// iterator
 	this.i = 0;
 
-	// - keep track of the active editor state
-	// - values include:
-	//	  + dropPin (pin mode)
-	//	  + drawPoly (new polygon mode)
-	//	  + editPoly (edit polygon mode)
-
-	// keep track of the pin mode object
+	// - keep track of the editor mode objects
 	this.dropPin = 
-	// keep track of the polygon mode objects
 	this.drawPoly = 
 	this.editPoly = 
 	this.embedView = 
 	this.embedCode = null;
 
-	// loop through the toolbar buttons
-	this.p = mapTools.children;
+	// loop through buttons that toggle control panels
+	this.p = pageContent.children[3].querySelectorAll('[data-panel]');
 	for(var i = 0; i < this.p.length; i++){
-
 		// toggle the cooresponding control panel
 		this.p[i].addEventListener('click', this.togPan);
-
 		// init and/or terminate the active state
 		this.p[i].addEventListener('click', this.IorT);
 	}
 
-	// get the control panel buttons
-	this.p = cPanels.getElementsByClassName('close');
-	// set the toggle event listener
-	this.p[0].addEventListener('click', this.shrink); // drop pin control panel
-	this.p[2].addEventListener('click', this.shrink); // draw poly
-	this.p[3].addEventListener('click', this.togPan); // close editPoly control panel
-	this.p[3].addEventListener('click', this.IorT);   // close editPoly control panel
-	this.p[4].addEventListener('click', this.shrink); // shrink editPoly control panel
-	this.p[5].addEventListener('click', this.togPan); // close embedView
-	this.p[5].addEventListener('click', this.IorT);   // close embedView
-	this.p[6].addEventListener('click', this.shrink); // shrink embedCode control panel
+	// loop through the control panel shrink buttons
+	this.p = cPanels.querySelectorAll('[data-h]');
+	for(var i = 0; i < this.p.length; i++)
+		this.p[i].addEventListener('click', this.shrink);
 
 	// keep track of active control panel
 	this.panel = -1;
@@ -456,6 +440,8 @@ DropPin.prototype.term = function(){
 	// close any open wins
 	for(var i = 0; i < iWin.h.length; i++)
 		iWin.h[i].close();
+	// make sure the button is deactivated
+	mapTools.children[0].className = 'btn';
 }
 
 //-----------------------------------------------
@@ -1017,17 +1003,15 @@ DrawPoly.prototype.init = function(){
 // - terminate new polygon mode
 DrawPoly.prototype.term = function(){
 
-	// if there is a polyline
-	if(this.polyline){
-
-		// cue confirmation modal
-
-		return;
-	}
-
 	// remove the draw event
 	this.eHandle.remove();
 
+	// make sure the button is deactivated
+	mapTools.children[1].className = 'btn';
+
+	// delete the polyline
+	this.polyline.setMap(null);
+	this.polyline = null;
 }
 
 //-----------------------------------------------	
@@ -1830,7 +1814,8 @@ EmbedCode.prototype.init = function(){
 }
 
 EmbedCode.prototype.term = function(){
-
+	// make sure the button is deactivated
+	mapTools.children[3].className = 'btn';
 }
 
 //-----------------------------------------------
@@ -1989,10 +1974,10 @@ var L = function(){
 L.prototype.resize = function(){
 
 	// set the position of the page content
-	pageContent.style.top = (window.innerHeight - 60) + 'px';
+	pageContent.style.top = window.innerHeight + 'px';
 
 	// set the position of the navbar
-	pageContent.children[0].style.top =
+	pageContent.children[0].style.top = - window.innerHeight + 'px';
 	pageContent.children[1].style.top = -(window.innerHeight - 60) + 'px';
 }
 

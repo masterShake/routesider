@@ -253,6 +253,7 @@ if ($fn) {
 
             <!-- lead -->
             <section class="container">
+                <h2 style="display:none;">lead</h2>
                 <div id="lead">
                     <button type="button" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -274,16 +275,20 @@ if ($fn) {
 
             <!-- map builder -->
             <section class="container">
+                <h2 style="display:none;">control panels</h2>
 
                 <!-- control panels -->
                 <div id="cPanels">
 
                     <!-- drop pin -->
-                    <div class="popover popover-top">
+                    <div class="popover popover-top drop-pin">
                         <div class="popover-arrow"></div>
                         <h3 class="popover-title">
+                            <button type="button" class="close" data-panel="0" data-as="dropPin" aria-label="close drop pin control panel">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <span class="icon-location"></span>Drop Pin
-                            <button type="button" class="close" data-panel="0" aria-label="shrink or grow">
+                            <button type="button" class="close" data-h aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
                             </button>
                         </h3>
@@ -327,6 +332,9 @@ if ($fn) {
                     <div class="popover popover-top">
                         <div class="popover-arrow"></div>
                         <div class="popover-title map">
+                            <button type="button" class="close" data-panel="1" data-as="drawPoly" aria-label="shrink or grow">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <div class="icon-map"></div>
                             <div class="icon-plus"></div>New Polygon
                             <button type="button" class="close" data-h="134" aria-label="shrink or grow">
@@ -401,7 +409,7 @@ if ($fn) {
                                                     <input type="text"
                                                            value="0.8"
                                                            class="form-control opacity-text" 
-                                                           max-length="4"
+                                                           maxlength="4"
                                                            data-bf="0"
                                                            aria-label="polygon stroke opacity between 0 and 1">
                                                 </td>
@@ -428,7 +436,7 @@ if ($fn) {
                                                     <input type="text" 
                                                            value="0.5"
                                                            class="form-control opacity-text" 
-                                                           max-length="4"
+                                                           maxlength="4"
                                                            data-bf="1"
                                                            aria-label="polygon fill opacity between 0 and 1">
                                                 </td>
@@ -444,15 +452,15 @@ if ($fn) {
                                     <div class="row">
                                         <!-- color picker -->
                                         <div class="col-xs-6 col-md-12">
-                                            <lable>
+                                            <label>
                                                 <span>more<span class="hidden-xs-down"> colors</span>:</span> 
                                                 <input type="color" class="form-control" aria-label="full HTML5 color wheel" style="max-width:40px;padding:3px 7px;display:inline;" value="#5CB85C"/>
-                                            </lable>
+                                            </label>
                                         </div>
                                         <!-- opacity slider -->
                                         <div class="col-xs-6 col-md-12">
                                             <span class="icon-brightness-contrast" style="font-size:18px;max-width:11%;"></span>
-                                            <input type="range" type="range" min="0" max="1" step="0.01" value="0.8" style="width:calc(100% - 30px);margin-left:5px;"/>
+                                            <input type="range" min="0" max="1" step="0.01" value="0.8" style="width:calc(100% - 30px);margin-left:5px;"/>
                                         </div>
                                     </div><!-- /row -->
                                 </div>
@@ -475,6 +483,9 @@ if ($fn) {
                     <div class="popover popover-top">
                         <div class="popover-arrow"></div>
                         <h3 class="popover-title">
+                            <button type="button" class="close" data-panel="4" data-as="embedCode" aria-label="shrink or grow">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <span class="icon-embed2" style="padding-right:3px;"></span>Embed Code
                             <button type="button" class="close" data-h="212" aria-label="shrink or grow">
                                 <span aria-hidden="true">&#171;</span>
@@ -497,7 +508,7 @@ if ($fn) {
                 </div><!-- /control panels -->
 
                 <!-- toolbar -->
-                <div class="btn-group" id="mapTools" role="create map" aria-label="map builder toolbar">
+                <div class="btn-group" id="mapTools" aria-label="map builder toolbar">
                     <button type="button" class="btn" data-panel="0" data-as="dropPin" aria-label="drop new pin">
                         <span class="icon-location"></span>
                     </button>
@@ -512,7 +523,7 @@ if ($fn) {
                     </button>
                 </div><!-- /toolbar -->
 
-            </section><!-- /map-maker -->
+            </section><!-- /map builder -->
 
             <!-- embed instructions -->
             <div class="container">
@@ -525,7 +536,7 @@ if ($fn) {
                     <!-- step 1: -->
                     <article class="row">
                         <div class="col-md-4">
-                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300">
+                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300" alt="placeholder">
                         </div>
                         <div class="col-md-8">
                             <h3><strong>Step 1:</strong> Create new Google developer project</h3>
@@ -535,7 +546,7 @@ if ($fn) {
                     <!-- step 2: -->
                     <article class="row">
                         <div class="col-md-4" style="float:right;">
-                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300">
+                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&amp;txt=400%C3%97300&amp;w=400&amp;h=300" alt="placeholder">
                         </div>
                         <div class="col-md-8">
                             <h3><strong>Step 2:</strong> Lorem ipsum dolor sit amet</h3>
@@ -546,7 +557,9 @@ if ($fn) {
             </div><!-- /container -->
 
             <!-- my resume -->
-            <section></section>   
+            <section>
+                <h2 style="display:none;">michael giannini</h2>
+            </section>   
 
             <?php include '../components/footer.php'; ?>
 
