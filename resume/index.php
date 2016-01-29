@@ -667,9 +667,10 @@ if ($fn) {
                         <!-- nav content -->
                         <div class="resume-content">
                             <!-- skills -->
-                            <div>
+                            <div style="display:none;">
                                 <!-- title -->
                                 <h4><span class="icon-equalizer"></span> Skills</h4>
+                                <hr style="width:40%;">
                                 <!-- list -->
                                 <ul>
                                     <li>Full stack web developer, HTML5, SCSS, JavaScript, PHP, MySQL, Neo4j</li>
@@ -683,21 +684,72 @@ if ($fn) {
                             <div style="display:none;">
                                 <!-- title -->
                                 <h4><span class="icon-keyboard"></span> Experience</h4>
+                                <hr style="width:40%;">
                                 <!-- routesider -->
                                 <article>
-                                    <span>April 2015 &#8212; present</span>
-                                    <h5>Founder, Routesider.com [startup]</h5>
-                                    <h6>San Francisco, CA</h6>
+                                    <h5>Founder, Routesider.com <span class="hidden-xs-down">[startup]</span></h5>
+                                    <h6>San Francisco, CA <span>April 2015 &#8212; present</span></h6>
                                     <ul>
                                         <li>Developing e-commerce platform for products, producers, distributors, and retailers; fusion of an inventory management system &amp; social network</li>
                                         <li>Features include extensive Google Maps API integration, interaction with social media, asynchronous file uploads, responsive design, unique application of touch gestures, content management system, etc.</li>
                                     </ul>
                                 </article>
+                                <!-- marius -->
+                                <article>
+                                    <h5>Founder, CEO Marius Industries Inc. <span class="hidden-xs-down">[startup]</span></h5>
+                                    <h6>San Francisco, CA <span>Oct 2014 &#8212; April 2015</span></h6>
+                                    <ul>
+                                        <li>Developed custom e-commerce website with secure document upload system, integrated automated text messaging features for customer updates</li>
+                                        <li>Handled business administration, oversaw legal compliance.</li>
+                                        <li>Negotiated partner marketing, managed producer relationships, coordinated supply chain</li>
+                                        <li>Developed and executed business plan, investor disclosure materials</li>
+                                        <li>Designed and produced print &amp; digital marketing materials and strategies</li>
+                                        <li>Managed employee operations and implemented customer relations protocol</li>
+                                    </ul>
+                                </article>
+                                <!-- communityleader -->
+                                <article>
+                                    <h5>Lead mobile developer, CommunityLeader.com</h5>
+                                    <h6>San Mateo, CA <span>May 2014 &#8212; October 2015</span></h6>
+                                    <ul>
+                                        <li>Lead developer of “Investor App,” written in JavaScript using Framework7, ported for iPhone using PhoneGap</li>
+                                        <li>Implemented responsive CSS design on top of existing code base</li>
+                                        <li>Contributed to development of front end blockchain-based escrow service</li>
+                                    </ul>
+                                </article>
+                                <!-- funhouse theatrical -->
+                                <article>
+                                    <h5>Web developer, Funhouse Theatrical</h5>
+                                    <h6>Mountain View, CA <span>July 2012 &#8212; October 2012</span></h6>
+                                    <ul>
+                                        <li>Rolled out new design for subsidiary company flaghouseonline.com, improved JavaScript, graphics, and marketing materials</li>
+                                        <li>nstalled new payment processor across multiple e-commerce websites, negotiated terms of the deal with gateway provider</li>
+                                    </ul>
+                                </article>
+                                <!-- campaing consultant -->
+                                <article>
+                                    <h5>Political campaign consultant, Americans for Prosperity PAC &amp; others</h5>
+                                    <h6>Burlingame, CA <span>2010 &#8212; 2012</span></h6>
+                                    <ul>
+                                        <li>Canvassed neighborhoods, distributed voter information, one-on-one political marketing</li>
+                                        <li>Campaigned via telephone marketing, was promoted to manager of phone bank</li>
+                                        <li>Registered voters and collected signatures for more than 2 dozen California ballot initiatives</li>
+                                        <li>Oversaw data entry of voter responses</li>
+                                    </ul>
+                                </article>
                             </div>
                             <!-- education -->
-                            <div style="display:none;">
+                            <div>
                                 <!-- title -->
                                 <h4><span class="icon-books"></span> Education</h4>
+                                <hr style="width:40%">
+                                <h5 style="font-size:1.05rem;">California State University, Humboldt</h5>
+                                <h6>Arcata, CA <span>2008 &#8212; 2009</span></h6>
+                                <h5 style="font-size:1.05rem;">University of California, Berkeley</h5>
+                                <h6>Berkeley, CA <span>2013</span></h6>
+                                <ul>
+                                    <li>Completed over 150 course units with an emphasis  on business/economics, political &amp; computer sciences</li>
+                                </ul>
                             </div>
                         </div>
                     </div>

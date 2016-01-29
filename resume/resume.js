@@ -70,6 +70,9 @@ R.prototype.hideNav = function(){
 	navLinks.style.display = 'none';
 }
 
+//-----------------------------------------------
+// - resume nav tabs
+
 
 
 
