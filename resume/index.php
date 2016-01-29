@@ -655,19 +655,19 @@ if ($fn) {
                         <!-- nav tabs -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">Skills</a>
+                                <a class="nav-link active" href="#" data-tab="0">Skills</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Experience</a>
+                                <a class="nav-link" href="#" data-tab="1">Experience</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Education</a>
+                                <a class="nav-link" href="#" data-tab="2">Education</a>
                             </li>
                         </ul>
                         <!-- nav content -->
                         <div class="resume-content">
                             <!-- skills -->
-                            <div style="display:none;">
+                            <div>
                                 <!-- title -->
                                 <h4><span class="icon-equalizer"></span> Skills</h4>
                                 <hr style="width:40%;">
@@ -739,7 +739,7 @@ if ($fn) {
                                 </article>
                             </div>
                             <!-- education -->
-                            <div>
+                            <div style="display:none;">
                                 <!-- title -->
                                 <h4><span class="icon-books"></span> Education</h4>
                                 <hr style="width:40%">

@@ -26,6 +26,15 @@ var rApp, 	// resume app
 
 var R = function(){
 
+	// keep track of the active nav tab
+	this.activeTab = 0;
+
+	// keep track of the resume nav tabs
+	this.tabs = document.getElementsByClassName('nav-tabs')[0].children;
+
+	// keep track of the resume content container
+	this.resumeContent = document.getElementsByClassName('resume-content')[0].children;
+
 	// set the togNav event listener
 	document.querySelectorAll('.navbar .hidden-md-up')[0]
 		.addEventListener('click', this.togNav, false);
@@ -36,6 +45,11 @@ var R = function(){
 	// height of this element must be set with js
 	cPanels.children[0].children[3].style.height = (this.t) ? '241px' : '156px';
 	cPanels.children[0].children[1].children[1].setAttribute('data-h', (this.t ? 241 : 156));
+
+	// navtab event listeners
+	this.tabs[0].children[0].addEventListener('click', this.navTab);
+	this.tabs[1].children[0].addEventListener('click', this.navTab);
+	this.tabs[2].children[0].addEventListener('click', this.navTab);
 }
 
 //-----------------------------------------------
@@ -72,8 +86,29 @@ R.prototype.hideNav = function(){
 
 //-----------------------------------------------
 // - resume nav tabs
+R.prototype.navTab = function(e){ e.preventDefault();
 
+	// if this navtab is already active, do nothing
+	if(this.className == 'nav-link active') return;
 
+	// deactivate the active navtab
+	rApp.deactTab(parseInt(this.dataset.tab));
+
+	// activate this tab
+	this.className = 'nav-link active';
+	rApp.resumeContent[this.dataset.tab].style.display = 'block';
+}
+//-----------------------------------------------
+// - hide tab 
+// - n --> tab index
+R.prototype.deactTab = function(n){
+	// deactivate the a.nav-link class
+	this.tabs[this.activeTab].children[0].className = 'nav-link';
+	// hide the resume section
+	this.resumeContent[this.activeTab].style.display = 'none';
+	// set the new active tab
+	this.activeTab = n;
+}
 
 
 
