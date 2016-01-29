@@ -639,8 +639,89 @@ if ($fn) {
             </div><!-- /container -->
 
             <!-- my resume -->
-            <section>
+            <section class="container">
                 <h2 style="display:none;">michael giannini</h2>
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-block">
+                        <!-- mug shot -->
+                        <img src="http://localhost/routesider/resume/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
+                        <!-- name -->
+                        <h4 class="card-title">MICHAEL GIANNINI</h4>
+                        <h6>programmer&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;entrepreneur&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;philosopher</h6>
+                        <hr>
+                        <!-- about me -->
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <!-- nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Skills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Experience</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Education</a>
+                            </li>
+                        </ul>
+                        <!-- nav content -->
+                        <div class="resume-content">
+                            <!-- skills -->
+                            <div>
+                                <!-- title -->
+                                <h4><span class="icon-equalizer"></span> Skills</h4>
+                                <!-- list -->
+                                <ul>
+                                    <li>Full stack web developer, HTML5, SCSS, JavaScript, PHP, MySQL, Neo4j</li>
+                                    <li>JavaScript consultant, highly proficient in object-oriented software pattern design</li>
+                                    <li>Neo4j developer, highly proficient in graph database management, implementation, and data science</li>
+                                    <li>API developer, extensive experience with social media logins (Facebook, Instagram, Tumblr, Twitter, LinkedIn, Google+, Google Maps, etc.), RESTful communication &amp; JSON</li>
+                                    <li>Deep understanding of financial markets &amp; products, macroeconomics, forecasting,  analytical research</li>
+                                </ul>
+                            </div>
+                            <!-- experience -->
+                            <div style="display:none;">
+                                <!-- title -->
+                                <h4><span class="icon-keyboard"></span> Experience</h4>
+                                <!-- routesider -->
+                                <article>
+                                    <span>April 2015 &#8212; present</span>
+                                    <h5>Founder, Routesider.com [startup]</h5>
+                                    <h6>San Francisco, CA</h6>
+                                    <ul>
+                                        <li>Developing e-commerce platform for products, producers, distributors, and retailers; fusion of an inventory management system &amp; social network</li>
+                                        <li>Features include extensive Google Maps API integration, interaction with social media, asynchronous file uploads, responsive design, unique application of touch gestures, content management system, etc.</li>
+                                    </ul>
+                                </article>
+                            </div>
+                            <!-- education -->
+                            <div style="display:none;">
+                                <!-- title -->
+                                <h4><span class="icon-books"></span> Education</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted container">
+                        <div class="row">
+                            <!-- linked in -->
+                            <div class="col-xs-3">
+                                <a href="#"><span class="icon-linkedin"></span></a>
+                            </div>
+                            <!-- tumblr -->
+                            <div class="col-xs-3">
+                                <a href="#"><span class="icon-tumblr2"></span></a>
+                            </div>
+                            <!-- email -->
+                            <div class="col-xs-3">
+                                <a href="#"><span class="icon-envelop"></span></a>
+                            </div>
+                            <!-- phone -->
+                            <div class="col-xs-3">
+                                <a href="#"><span class="icon-mobile"></span></a>
+                            </div>
+                        </div><!-- /row -->
+                    </div><!-- /card-footer container -->
+                </div><!-- /card -->
             </section>   
 
             <?php include '../components/footer.php'; ?>

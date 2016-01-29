@@ -489,6 +489,60 @@ hr.article-divider{
 	margin-bottom: 30px;
 }
 
+/*----------------------
+	 resume section
+  ----------------------*/
+
+/* banner image */
+.card-header{
+	height: 160px;
+	background-image: url('imgs/bg.jpg');
+	background-position: center center;
+	background-size: 135%;
+}
+/* image of me */
+.card-block{
+	text-align: center;
+}
+.card-block img{
+	border-radius: 50%;
+	height: 140px;
+	width: 140px;
+	margin-top: -90px;
+}
+/* title */|
+.card-block h6{
+	font-size: 0.85rem;
+}
+/* navtabs */
+.nav-tabs .nav-link{
+	padding: 0.5em 0.8em;
+}
+/* resume content */
+.resume-content{
+	text-align: left;
+}
+/* resume section headers */
+.resume-content h4{
+	text-align: center;
+	color: #ccc;
+	margin-top: 20px;
+}
+.card-block ul{
+	font-size: 0.85rem;
+}
+/* card footer */
+.card-footer>div{
+	text-align: center;
+}
+/* icon links */
+.card-footer a{
+	font-size: 18px;
+	/*color: #818a91;*/
+	text-decoration: none !important;
+}
+
+
 /* -------- footer ------------------ */
 footer{
 	background-color: #5f5f5f;
