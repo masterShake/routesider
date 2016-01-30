@@ -211,7 +211,7 @@ if ($fn) {
         <div id="map-canvas"></div>
 
         <!-- page content -->
-        <div id="pageContent">
+        <div id="page-content">
 
             <!-- navbar -->
             <nav class="navbar">
@@ -642,7 +642,42 @@ if ($fn) {
             <section class="container">
                 <h2 style="display:none;">michael giannini</h2>
                 <div class="card">
-                    <div class="card-header"></div>
+                    <div class="card-header">
+                        <div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
                     <div class="card-block">
                         <!-- mug shot -->
                         <img src="http://localhost/routesider/resume/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >

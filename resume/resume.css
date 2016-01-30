@@ -57,14 +57,14 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 ----------------------*/
 
 #map-canvas,
-#pageContent{
+#page-content{
 	height: 100%;
 	width: 100%;
 }
 #map-canvas{
 	position: fixed !important;
 }
-#pageContent{
+#page-content{
 	position: absolute;
 	top: 500px;
 }
@@ -493,15 +493,36 @@ hr.article-divider{
 	 resume section
   ----------------------*/
 
-/* banner image */
+.card{
+	background-color: transparent;
+	border: 0px;
+}
+.card-block,
+.card-footer{
+	border: 1px solid #e5e5e5;
+	border-top: 0px;
+}
+/* banner stripes */
 .card-header{
 	height: 160px;
-	background-image: url('imgs/bg.jpg');
-	background-position: center center;
-	background-size: 135%;
+	overflow: hidden;
+	background-color: transparent;
+}
+.card-header>div{    
+	width: 200%;
+    margin-left: -50%;
+    margin-top: -50%;
+    transform: rotate(315deg);
+}
+.card-header>div>div{
+	height: 6px;
+	margin-bottom: 6px;
+	width: 100%;
+	background-color: orange;
 }
 /* image of me */
 .card-block{
+	background-color: #ffffff;
 	text-align: center;
 }
 .card-block img{
@@ -509,6 +530,7 @@ hr.article-divider{
 	height: 140px;
 	width: 140px;
 	margin-top: -90px;
+	transform: scale(1,1);
 }
 /* title */|
 .card-block h6{

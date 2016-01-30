@@ -1,14 +1,15 @@
-var rApp, 	// resume app
-	gm,   	// google map object
-	mm,		// map methods object
-	mapBuilder,		// map builder root node
-	as,		// active state
+var rApp, 		// resume app
+	gm,   		// google map object
+	mm,			// map methods object
+	mapBuilder,	// map builder root node
+	as,			// active state
 	iWin,		// info window manager
-	dropPin,		// pin mode
-	ui,		// upload image
-	drawPoly,		// new polygon
-	editPoly,
-	layout	// sets position of #pageContent 
+	dropPin,	// pin mode
+	ui,			// upload image
+	drawPoly,	// new polygon
+	editPoly,	// existing polygon
+	resMap, 	// Resume Map object
+	layout		// sets position of #page-content
 	= null;
 
 
@@ -202,6 +203,9 @@ MM.prototype.initMap = function(){
 
 	mapBuilder.embedView = new EmbedView();
 	mapBuilder.embedCode = new EmbedCode();
+
+	// init the resume map functions
+	resMap = new ResumeMap();
 }
 
 //-----------------------------------------------
@@ -308,7 +312,7 @@ var MapBuilder = function(){
 	this.embedCode = null;
 
 	// loop through buttons that toggle control panels
-	this.p = pageContent.children[3].querySelectorAll('[data-panel]');
+	this.p = document.getElementById('page-content').children[3].querySelectorAll('[data-panel]');
 	for(var i = 0; i < this.p.length; i++){
 		// toggle the cooresponding control panel
 		this.p[i].addEventListener('click', this.togPan);
@@ -1977,6 +1981,179 @@ EmbedCode.prototype.copy = function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//					ResumeMap
+//				  -------------
+//
+// - track of user scroll, toggle map background
+//
+// - keep array of exotic google maps places
+//
+// - shrink the resume card for full map function
+//
+//-----------------------------------------------
+
+var ResumeMap = function(){
+
+	// exotic google maps street views
+	this.streets = [];
+
+	// google maps street view object
+	this.panorama =  
+
+	// timer to limit callback function
+	this.timer = 
+
+	// temp variable
+	this.t = null;
+
+	// - keep track of current view
+	// - map = 0, street = 1
+	this.view = 0;
+
+	// get the page content element
+	this.page = document.getElementById('page-content');
+
+	// get the card element
+	this.card = this.page.children[5].children[1];
+
+	// scroll event listener
+	window.addEventListener('scroll', this.scrollCheck);
+}
+
+//-----------------------------------------------
+// - event listener for scroll, toggle map
+ResumeMap.prototype.scrollCheck = function(e){ 
+
+	// if the timer is running
+	if(resMap.timer)
+		// clear the timer
+		clearTimeout(resMap.timer);
+	
+	// reset the timer
+	resMap.timer = setTimeout(resMap.togMap, 100);
+}
+
+//-----------------------------------------------
+// - determine if resume element is visibe
+// - call functions accordingly
+ResumeMap.prototype.togMap = function(){
+
+	// if the resume elem is visible, set street view
+	if(resMap.card.offsetTop + resMap.page.offsetTop < window.pageYOffset + window.innerHeight)
+		// maybe set street view
+		resMap.streetView();
+	else
+		// maybe set map view
+		resMap.mapView();
+}
+
+//-----------------------------------------------
+// - set street view if not already set
+ResumeMap.prototype.streetView = function(){
+
+	// if already at top of page or currently in street view
+	if(!window.pageYOffset || this.view) return; // do nothing
+
+	// set the street view 
+	console.log('set street view');
+
+	this.view = 1;	
+}
+
+//-----------------------------------------------
+// - set the map view if not already set
+ResumeMap.prototype.mapView = function(){
+
+	// if background is already map view, do nothing 
+	if(!this.view) return;
+
+	console.log('set map view');
+
+	this.view = 0
+
+}
+
+//-----------------------------------------------
+// - set street view
+ResumeMap.prototype.setView = function(){
+
+	// pick a street view with random number
+	new google.maps.StreetViewPanorama(
+      document.getElementById('map'), {
+        position: {lat: 42.345573, lng: -71.098326},
+        addressControlOptions: {
+          position: google.maps.ControlPosition.BOTTOM_CENTER
+        },
+        linksControl: false,
+        panControl: false,
+        enableCloseButton: false
+  });
+	// set the class color
+
+}
+
+//-----------------------------------------------
+// - toggle resume section to reveal google map
+ResumeMap.prototype.togResume = function(){ return false;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //-----------------------------------------------
 //				L (layout object)
 //			  ---------------------
@@ -1991,7 +2168,7 @@ var L = function(){
 	// temp variable
 	this.t = null;
 
-	// set the position of the pageContent & navbar
+	// set the position of the page-content & navbar
 	this.resize();
 
 	// apply a resize event to the window
@@ -2012,11 +2189,11 @@ var L = function(){
 L.prototype.resize = function(){
 
 	// set the position of the page content
-	pageContent.style.top = window.innerHeight + 'px';
+	document.getElementById('page-content').style.top = window.innerHeight + 'px';
 
 	// set the position of the navbar
-	pageContent.children[0].style.top = - window.innerHeight + 'px';
-	pageContent.children[1].style.top = -(window.innerHeight - 60) + 'px';
+	document.getElementById('page-content').children[0].style.top = - window.innerHeight + 'px';
+	document.getElementById('page-content').children[1].style.top = -(window.innerHeight - 60) + 'px';
 }
 
 //-----------------------------------------------
