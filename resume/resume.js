@@ -2012,10 +2012,22 @@ EmbedCode.prototype.copy = function(){
 var ResumeMap = function(){
 
 	// exotic google maps street views
-	this.streets = [];
+	this.streets = [
+
+		// machu picchu
+		{
+			position : {lat:-13.16256499761987, lng:-72.54534585073043},
+			pov : {heading: -173.63649013599152, pitch: -19.03834385796491, zoom: 1},
+			color : 'orange'
+		}
+
+	];
 
 	// google maps street view object
-	this.panorama =  
+	this.panorama = new google.maps.StreetViewPanorama(
+						 document.getElementById('map-canvas'), 
+						 {visible:false}
+						);
 
 	// timer to limit callback function
 	this.timer = 
@@ -2071,8 +2083,19 @@ ResumeMap.prototype.streetView = function(){
 	// if already at top of page or currently in street view
 	if(!window.pageYOffset || this.view) return; // do nothing
 
-	// set the street view 
-	console.log('set street view');
+	// generate random number
+	this.t = 0;
+
+	// set the street view position
+	this.panorama.setPosition(this.streets[this.t].position);
+
+	// set the pov
+	this.panorama.setPov(this.streets[this.t].pov);
+
+	// set the colors
+
+	// display the street view
+	this.panorama.setVisible(true);
 
 	this.view = 1;	
 }
@@ -2086,26 +2109,11 @@ ResumeMap.prototype.mapView = function(){
 
 	console.log('set map view');
 
+	// hide the panorama
+	this.panorama.setVisible(false);
+
+	// set the view property
 	this.view = 0
-
-}
-
-//-----------------------------------------------
-// - set street view
-ResumeMap.prototype.setView = function(){
-
-	// pick a street view with random number
-	new google.maps.StreetViewPanorama(
-      document.getElementById('map'), {
-        position: {lat: 42.345573, lng: -71.098326},
-        addressControlOptions: {
-          position: google.maps.ControlPosition.BOTTOM_CENTER
-        },
-        linksControl: false,
-        panControl: false,
-        enableCloseButton: false
-  });
-	// set the class color
 
 }
 
