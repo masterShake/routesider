@@ -504,24 +504,32 @@ if ($fn) {
                     </div><!-- /embed code -->
 
                     <!-- embed code -->
-
                 </div><!-- /control panels -->
 
-                <!-- toolbar -->
-                <div class="btn-group" id="mapTools" aria-label="map builder toolbar">
-                    <button type="button" class="btn" data-panel="0" data-as="dropPin" aria-label="drop new pin">
-                        <span class="icon-location"></span>
-                    </button>
-                    <button type="button" class="btn" data-panel="1" data-as="drawPoly" aria-label="draw new polygon">
-                        <span class="icon-map"></span>
-                    </button>
-                    <button type="button" class="btn" data-panel="3" data-as="embedView" aria-label="get code">
-                        <span class="icon-eye"></span>
-                    </button>
-                    <button type="button" class="btn" data-panel="4" data-as="embedCode" aria-label="get code">
-                        <span class="icon-embed2"></span>
-                    </button>
-                </div><!-- /toolbar -->
+                <!-- pull tab & toolbar -->
+                <div class="btn-toolbar" role="toolbar" aria-label="map builder toolbar">
+                    <!-- toolbar -->
+                    <div class="btn-group" id="mapTools" role="group" aria-label="map builder toolbar">
+                        <button type="button" class="btn" data-panel="0" data-as="dropPin" aria-label="drop new pin">
+                            <span class="icon-location"></span>
+                        </button>
+                        <button type="button" class="btn" data-panel="1" data-as="drawPoly" aria-label="draw new polygon">
+                            <span class="icon-map"></span>
+                        </button>
+                        <button type="button" class="btn" data-panel="3" data-as="embedView" aria-label="get code">
+                            <span class="icon-eye"></span>
+                        </button>
+                        <button type="button" class="btn" data-panel="4" data-as="embedCode" aria-label="get code">
+                            <span class="icon-embed2"></span>
+                        </button>
+                    </div><!-- /toolbar -->
+                    <!-- pull tab -->
+                    <div class="pull-tab btn-group" role="group" aria-label="embed instructions">
+                        <button type="button" class="btn" aria-label="embed instructions">
+                            <span class="icon-circle-up"></span>
+                        </button>
+                    </div>
+                </div><!-- /pull tab & toolbar -->
 
             </section><!-- /map builder -->
 
@@ -529,9 +537,6 @@ if ($fn) {
             <div class="container">
                 <section id="how-to-install">
                     <h2>How to embed map</h2>
-                    <div class="pull-tab">
-                        <span class="icon-circle-up"></span>
-                    </div>
 
                     <hr style="margin-bottom:28px;">
 
@@ -719,7 +724,7 @@ if ($fn) {
                             <img src="http://localhost/routesider/resume/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
                             <!-- name -->
                             <h4 class="card-title">MICHAEL GIANNINI</h4>
-                            <h6>programmer&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;entrepreneur&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;philosopher</h6>
+                            <h6>programmer &nbsp;&nbsp;&bull;&nbsp;&nbsp; entrepreneur &nbsp;&nbsp;&bull;&nbsp;&nbsp; philosopher</h6>
                             <hr>
                             <!-- about me -->
                             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>

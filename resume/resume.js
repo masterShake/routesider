@@ -2217,9 +2217,6 @@ L.prototype.resize = function(){
 		// translate the logo
 		logo.style.top = -window.innerHeight - 5 + 'px';
 	}
-	// logo.style.display = 'none';
-	console.log(lead.offsetTop);
-	console.log(logo.offsetTop);
 }
 
 //-----------------------------------------------

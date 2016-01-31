@@ -116,7 +116,7 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	margin-right: 0px;
 	left: 50%;
 	position: absolute;
-	transform: scale(1.1,1.1) translate(18px, 12px);
+	transform: scale(1.05,1.05) translate(24px, 12px);
 }
 #logo>div{
 	text-transform: uppercase;
@@ -176,6 +176,48 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	text-align:left;
 	font-size:14px;
 }
+
+
+
+
+/*----------------------
+		toolbar
+  ----------------------*/
+
+.btn-toolbar{
+	position:relative;
+	top:-80px;
+	max-width: calc(100% - 32px);
+	text-align:center;
+    max-height: 44px;
+    overflow: hidden;
+}
+/* pull tab */
+.pull-tab{
+    float:right !important;
+}
+.pull-tab>button{
+	font-size: 20px;
+}
+#mapTools{
+	float: none;
+	z-index: 1;
+}
+#cPanels,{
+    position: relative;
+}
+#mapTools button{
+	border: 1px solid #ABABAB;
+	background-color: #dedede;
+	font-size: 20px;
+	width: 57px;
+}
+#cPanels{
+	top:-65px;
+}
+
+
+
 
 /*----------------------
 	 control panels
@@ -374,31 +416,6 @@ table .form-control{
 }
 
 /*----------------------
-		toolbar
-  ----------------------*/
-
-#cPanels,
-#mapTools{
-    max-width: 85%;
-    position: relative;
-}
-#mapTools{
-    left: 50%;
-    margin-left: -162px;
-    max-width: 80%;
-    top: -75px;
-}
-#mapTools button{
-	border: 1px solid #ABABAB;
-	background-color: #dedede;
-	font-size: 20px;
-	width: 57px;
-}
-#cPanels{
-	top:-65px;
-}
-
-/*----------------------
 	   info winodw 
 ------------------------*/
 
@@ -450,7 +467,7 @@ table .form-control{
 		instructions
   ----------------------*/
 #lead,
-.pull-tab,
+.pull-tab>button,
 #how-to-install
 {
 	background: rgba(255,255,255,0.9);
@@ -460,19 +477,7 @@ table .form-control{
 	padding: 10px 15px;
 	border-radius: 6px;
 	position: relative;
-	top: -60px;
-}
-.pull-tab{
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    right: 35px;
-    top: -50px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    text-align: center;
-    padding-top: 12px;
-    font-size: 20px;
+	top: -46px;
 }
 /*#how-to-install article>div{
 	margin-bottom: 15px;
