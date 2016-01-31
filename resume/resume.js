@@ -45,7 +45,7 @@ var R = function(){
 
 	// height of this element must be set with js
 	cPanels.children[0].children[3].style.height = (this.t) ? '241px' : '156px';
-	cPanels.children[0].children[1].children[1].setAttribute('data-h', (this.t ? 241 : 156));
+	cPanels.children[0].children[1].children[2].setAttribute('data-h', (this.t ? 241 : 156));
 
 	// navtab event listeners
 	this.tabs[0].children[0].addEventListener('click', this.navTab);
@@ -334,13 +334,47 @@ var MapBuilder = function(){
 //   panel
 MapBuilder.prototype.togPan = function(){ 
 
+	// show or hide the panel
+	mapBuilder.showPan(this.dataset.panel);
+
+	// get the offset amount
+	mapBuilder.p = this.offsetLeft - 
+				   this.offsetWidth/2 +
+				   this.parentElement.offsetLeft + 
+				   this.parentElement.parentElement.offsetLeft+
+				   this.parentElement.parentElement.parentElement.offsetLeft; console.log(mapBuilder.p); console.log(this.parentElement.parentElement.parentElement.offsetLeft);
+
+	// if the window is wider than 992
+	if(window.innerWidth > 991){
+		cPanels.children[this.dataset.panel].style.left = 
+			this.offsetLeft + 
+				   this.offsetWidth/2 +
+				   this.parentElement.offsetLeft  - cPanels.children[this.dataset.panel].offsetWidth/2 - 5 + 'px';
+
+	// if the window is wider than 500px
+	}else if(window.innerWidth > 767){		
+		// offset the control panel
+		cPanels.children[this.dataset.panel].style.left = 
+			mapBuilder.p - cPanels.children[this.dataset.panel].offsetWidth/2 + 'px';
+	}else{
+		// set the panel arrow caret
+		cPanels.children[this.dataset.panel].children[0].style.left = 
+			mapBuilder.p + 40 + 'px';
+	}
+}
+
+//-----------------------------------------------
+// - hide or show the control panel
+// - i --> panel index
+MapBuilder.prototype.showPan = function(i){
+
 	// if there is an open/active control panel
 	if(mapBuilder.panel >= 0)
 		// close it
 		cPanels.children[mapBuilder.panel].style.display = 'none';
 
 	// if this panel was already open
-	if(!this.dataset.panel || this.dataset.panel == mapBuilder.panel){
+	if(!i || i == mapBuilder.panel){
 		// reset active panel index
 		mapBuilder.panel = -1;
 		// do nothing
@@ -348,9 +382,9 @@ MapBuilder.prototype.togPan = function(){
 	}
 
 	// display the proper control panel
-	cPanels.children[this.dataset.panel].style.display = 'block';
+	cPanels.children[i].style.display = 'block';
 	// set the new panel index
-	mapBuilder.panel = this.dataset.panel;
+	mapBuilder.panel = i;
 }
 
 //-----------------------------------------------
