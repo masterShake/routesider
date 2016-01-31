@@ -14,7 +14,8 @@
 .popover-title button,
 .popover-content,
 .upload-img,
-#prev>div{
+#prev>div,
+.card-header>div>div{
 	-webkit-transition: .3s;
 	-ms-transition: .3s;
 	transition: .3s;
@@ -108,16 +109,16 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 
 /* ------ logo ---------------------- */
 /* routesider logo */
-.navbar-brand{
+#logo.navbar-brand{
 	z-index: 1;
 	width: 128px;
 	margin-left: -65px;
 	margin-right: 0px;
 	left: 50%;
 	position: absolute;
-	transform: translate(19px, -52px) scale(1.3,1.3);
+	transform: scale(1.1,1.1) translate(18px, 7px);
 }
-.logo{
+#logo>div{
 	text-transform: uppercase;
 	text-align: left;
 	font-weight: 600;
@@ -125,15 +126,15 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	height: 30px;
 	background: rgba(255,255,255,0.9);
 }
-.logo div{
+#logo>div div{
 	color:#333;
 	line-height: 167%;
 }
-.logo .route{
+#logo .route{
 	max-width: 70px;
 }
 #logo.starting{
-	transform: scale(2.1,2.1) translate(0px, 45px);
+	transform: scale(2.05,2.05) translate(0, 12px);
 }
 
 /* ------ end logo ------------------ */
@@ -141,14 +142,14 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 /* lead */
 #lead{
 	position: absolute;
-	top: -500px;
-	height: 300px;
-	width: 300px;
+	/*top: -500px;*/
+	height: 290px;
+	width: 290px;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -145px;
     text-align: center;
     padding: 12px;
-    padding-top: 85px;
+    padding-top: 79px;
 }
 #lead button{
     position: absolute;
@@ -162,6 +163,10 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 }
 #lead input{
 	border-right: 0px;
+}
+#lead p{
+	font-size: 0.9rem;
+	font-weight: 600;
 }
 #lead span.input-group-addon:hover,
 #lead ol span{
@@ -518,7 +523,7 @@ hr.article-divider{
 	height: 6px;
 	margin-bottom: 6px;
 	width: 100%;
-	background-color: orange;
+	background-color: #e5e5e5;
 }
 /* image of me */
 .card-block{
@@ -531,6 +536,7 @@ hr.article-divider{
 	width: 140px;
 	margin-top: -90px;
 	transform: scale(1,1);
+	margin-bottom: 1em;
 }
 /* title */|
 .card-block h6{
@@ -540,6 +546,11 @@ hr.article-divider{
 .nav-tabs .nav-link{
 	padding: 0.5em 0.8em;
 }
+/* about me/objective */
+.card-block p{
+    margin: 1.5rem 0;
+    text-align: center;
+}
 /* resume content */
 .resume-content{
 	text-align: left;
@@ -548,7 +559,7 @@ hr.article-divider{
 .resume-content h4{
 	text-align: center;
 	color: #8a8a8a;
-	margin-top: 20px;
+	margin-top: 1.5rem;
 }
 .resume-content h6{
 	font-weight: 600;
@@ -557,6 +568,11 @@ hr.article-divider{
 }
 .resume-content h6 span{
 	float:right;
+}
+.resume-content hr{
+	margin-top: 0;
+	width: 40%;
+	margin-bottom: 1.5rem;
 }
 .card-block ul{
 	font-size: 0.85rem;
@@ -692,12 +708,19 @@ footer input, footer textarea{
 		padding-right: 15px;
 		float:right;
 	}
+	/* embed instruction steps */
 	.step{
 		margin-bottom: 6px !important;
 	}
 	.step.step-right{
 		float:right;
 	}
+
+	/* resume */
+	.resume-content{
+		padding: 0 1rem;
+	}
+
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -772,6 +795,10 @@ footer input, footer textarea{
 		display: none;
 	}
 
+	/* resume content */
+	.resume-content{
+		padding: 0 1.5rem;
+	}
 }
 
 

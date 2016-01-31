@@ -237,7 +237,7 @@ if ($fn) {
 
             <!-- brand -->
             <a class="navbar-brand starting" id="logo" href="#">
-                <div class="logo" >
+                <div>
                     <div style="float:right;padding-right:2px;">sider</div>
                     <svg viewbox="0 0 70 30" class="route">
                       <defs>
@@ -258,7 +258,7 @@ if ($fn) {
                     <button type="button" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <p><b>A place for products - coming soon!</b></p>
+                    <p>A place for products - coming soon!</p>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="search" aria-label="search the world to start you map">
                         <span class="input-group-addon"><span class="icon-search"></span></span>
@@ -641,175 +641,212 @@ if ($fn) {
             <!-- my resume -->
             <section class="container">
                 <h2 style="display:none;">michael giannini</h2>
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <!-- mug shot -->
-                        <img src="http://localhost/routesider/resume/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
-                        <!-- name -->
-                        <h4 class="card-title">MICHAEL GIANNINI</h4>
-                        <h6>programmer&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;entrepreneur&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;philosopher</h6>
-                        <hr>
-                        <!-- about me -->
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <!-- nav tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#" data-tab="0">Skills</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-tab="1">Experience</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-tab="2">Education</a>
-                            </li>
-                        </ul>
-                        <!-- nav content -->
-                        <div class="resume-content">
-                            <!-- skills -->
+                <div class="row">
+                    <div class="card col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+                        <div class="card-header">
                             <div>
-                                <!-- title -->
-                                <h4><span class="icon-equalizer"></span> Skills</h4>
-                                <hr style="width:40%;">
-                                <!-- list -->
-                                <ul>
-                                    <li>Full stack web developer, HTML5, SCSS, JavaScript, PHP, MySQL, Neo4j</li>
-                                    <li>JavaScript consultant, highly proficient in object-oriented software pattern design</li>
-                                    <li>Neo4j developer, highly proficient in graph database management, implementation, and data science</li>
-                                    <li>API developer, extensive experience with social media logins (Facebook, Instagram, Tumblr, Twitter, LinkedIn, Google+, Google Maps, etc.), RESTful communication &amp; JSON</li>
-                                    <li>Deep understanding of financial markets &amp; products, macroeconomics, forecasting,  analytical research</li>
-                                </ul>
-                            </div>
-                            <!-- experience -->
-                            <div style="display:none;">
-                                <!-- title -->
-                                <h4><span class="icon-keyboard"></span> Experience</h4>
-                                <hr style="width:40%;">
-                                <!-- routesider -->
-                                <article>
-                                    <h5>Founder, Routesider.com <span class="hidden-xs-down">[startup]</span></h5>
-                                    <h6>San Francisco, CA <span>April 2015 &#8212; present</span></h6>
-                                    <ul>
-                                        <li>Developing e-commerce platform for products, producers, distributors, and retailers; fusion of an inventory management system &amp; social network</li>
-                                        <li>Features include extensive Google Maps API integration, interaction with social media, asynchronous file uploads, responsive design, unique application of touch gestures, content management system, etc.</li>
-                                    </ul>
-                                </article>
-                                <!-- marius -->
-                                <article>
-                                    <h5>Founder, CEO Marius Industries Inc. <span class="hidden-xs-down">[startup]</span></h5>
-                                    <h6>San Francisco, CA <span>Oct 2014 &#8212; April 2015</span></h6>
-                                    <ul>
-                                        <li>Developed custom e-commerce website with secure document upload system, integrated automated text messaging features for customer updates</li>
-                                        <li>Handled business administration, oversaw legal compliance.</li>
-                                        <li>Negotiated partner marketing, managed producer relationships, coordinated supply chain</li>
-                                        <li>Developed and executed business plan, investor disclosure materials</li>
-                                        <li>Designed and produced print &amp; digital marketing materials and strategies</li>
-                                        <li>Managed employee operations and implemented customer relations protocol</li>
-                                    </ul>
-                                </article>
-                                <!-- communityleader -->
-                                <article>
-                                    <h5>Lead mobile developer, CommunityLeader.com</h5>
-                                    <h6>San Mateo, CA <span>May 2014 &#8212; October 2015</span></h6>
-                                    <ul>
-                                        <li>Lead developer of “Investor App,” written in JavaScript using Framework7, ported for iPhone using PhoneGap</li>
-                                        <li>Implemented responsive CSS design on top of existing code base</li>
-                                        <li>Contributed to development of front end blockchain-based escrow service</li>
-                                    </ul>
-                                </article>
-                                <!-- funhouse theatrical -->
-                                <article>
-                                    <h5>Web developer, Funhouse Theatrical</h5>
-                                    <h6>Mountain View, CA <span>July 2012 &#8212; October 2012</span></h6>
-                                    <ul>
-                                        <li>Rolled out new design for subsidiary company flaghouseonline.com, improved JavaScript, graphics, and marketing materials</li>
-                                        <li>nstalled new payment processor across multiple e-commerce websites, negotiated terms of the deal with gateway provider</li>
-                                    </ul>
-                                </article>
-                                <!-- campaing consultant -->
-                                <article>
-                                    <h5>Political campaign consultant, Americans for Prosperity PAC &amp; others</h5>
-                                    <h6>Burlingame, CA <span>2010 &#8212; 2012</span></h6>
-                                    <ul>
-                                        <li>Canvassed neighborhoods, distributed voter information, one-on-one political marketing</li>
-                                        <li>Campaigned via telephone marketing, was promoted to manager of phone bank</li>
-                                        <li>Registered voters and collected signatures for more than 2 dozen California ballot initiatives</li>
-                                        <li>Oversaw data entry of voter responses</li>
-                                    </ul>
-                                </article>
-                            </div>
-                            <!-- education -->
-                            <div style="display:none;">
-                                <!-- title -->
-                                <h4><span class="icon-books"></span> Education</h4>
-                                <hr style="width:40%">
-                                <h5 style="font-size:1.05rem;">California State University, Humboldt</h5>
-                                <h6>Arcata, CA <span>2008 &#8212; 2009</span></h6>
-                                <h5 style="font-size:1.05rem;">University of California, Berkeley</h5>
-                                <h6>Berkeley, CA <span>2013</span></h6>
-                                <ul>
-                                    <li>Completed over 150 course units with an emphasis  on business/economics, political &amp; computer sciences</li>
-                                </ul>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer text-muted container">
-                        <div class="row">
-                            <!-- linked in -->
-                            <div class="col-xs-3">
-                                <a href="#"><span class="icon-linkedin"></span></a>
+                        <div class="card-block">
+                            <!-- mug shot -->
+                            <img src="http://localhost/routesider/resume/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
+                            <!-- name -->
+                            <h4 class="card-title">MICHAEL GIANNINI</h4>
+                            <h6>programmer&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;entrepreneur&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;philosopher</h6>
+                            <hr>
+                            <!-- about me -->
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <!-- nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#" data-tab="0">Skills</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-tab="1">Experience</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-tab="2">Education</a>
+                                </li>
+                            </ul>
+                            <!-- nav content -->
+                            <div class="resume-content">
+                                <!-- skills -->
+                                <div>
+                                    <!-- title -->
+                                    <h4><span class="icon-equalizer"></span> Skills</h4>
+                                    <hr>
+                                    <!-- list -->
+                                    <ul>
+                                        <li>Full stack web developer, HTML5, SCSS, JavaScript, PHP, MySQL, Neo4j</li>
+                                        <li>JavaScript consultant, highly proficient in object-oriented software pattern design</li>
+                                        <li>Neo4j developer, highly proficient in graph database management, implementation, and data science</li>
+                                        <li>API developer, extensive experience with social media logins (Facebook, Instagram, Tumblr, Twitter, LinkedIn, Google+, Google Maps, etc.), RESTful communication &amp; JSON</li>
+                                        <li>Deep understanding of financial markets &amp; products, macroeconomics, forecasting,  analytical research</li>
+                                    </ul>
+                                </div>
+                                <!-- experience -->
+                                <div style="display:none;">
+                                    <!-- title -->
+                                    <h4><span class="icon-keyboard"></span> Experience</h4>
+                                    <hr>
+                                    <!-- routesider -->
+                                    <article>
+                                        <h5>Founder, Routesider.com <span class="hidden-xs-down">[startup]</span></h5>
+                                        <h6>San Francisco, CA <span>April 2015 &#8212; present</span></h6>
+                                        <ul>
+                                            <li>Developing e-commerce platform for products, producers, distributors, and retailers; fusion of an inventory management system &amp; social network</li>
+                                            <li>Features include extensive Google Maps API integration, interaction with social media, asynchronous file uploads, responsive design, unique application of touch gestures, content management system, etc.</li>
+                                        </ul>
+                                    </article>
+                                    <!-- marius -->
+                                    <article>
+                                        <h5>Founder, CEO Marius Industries Inc. <span class="hidden-xs-down">[startup]</span></h5>
+                                        <h6>San Francisco, CA <span>Oct 2014 &#8212; April 2015</span></h6>
+                                        <ul>
+                                            <li>Developed custom e-commerce website with secure document upload system, integrated automated text messaging features for customer updates</li>
+                                            <li>Handled business administration, oversaw legal compliance.</li>
+                                            <li>Negotiated partner marketing, managed producer relationships, coordinated supply chain</li>
+                                            <li>Developed and executed business plan, investor disclosure materials</li>
+                                            <li>Designed and produced print &amp; digital marketing materials and strategies</li>
+                                            <li>Managed employee operations and implemented customer relations protocol</li>
+                                        </ul>
+                                    </article>
+                                    <!-- communityleader -->
+                                    <article>
+                                        <h5>Lead mobile developer, CommunityLeader.com</h5>
+                                        <h6>San Mateo, CA <span>May 2014 &#8212; October 2015</span></h6>
+                                        <ul>
+                                            <li>Lead developer of “Investor App,” written in JavaScript using Framework7, ported for iPhone using PhoneGap</li>
+                                            <li>Implemented responsive CSS design on top of existing code base</li>
+                                            <li>Contributed to development of front end blockchain-based escrow service</li>
+                                        </ul>
+                                    </article>
+                                    <!-- funhouse theatrical -->
+                                    <article>
+                                        <h5>Web developer, Funhouse Theatrical</h5>
+                                        <h6>Mountain View, CA <span>July 2012 &#8212; October 2012</span></h6>
+                                        <ul>
+                                            <li>Rolled out new design for subsidiary company flaghouseonline.com, improved JavaScript, graphics, and marketing materials</li>
+                                            <li>nstalled new payment processor across multiple e-commerce websites, negotiated terms of the deal with gateway provider</li>
+                                        </ul>
+                                    </article>
+                                    <!-- campaing consultant -->
+                                    <article>
+                                        <h5>Political campaign consultant, Americans for Prosperity PAC &amp; others</h5>
+                                        <h6>Burlingame, CA <span>2010 &#8212; 2012</span></h6>
+                                        <ul>
+                                            <li>Canvassed neighborhoods, distributed voter information, one-on-one political marketing</li>
+                                            <li>Campaigned via telephone marketing, was promoted to manager of phone bank</li>
+                                            <li>Registered voters and collected signatures for more than 2 dozen California ballot initiatives</li>
+                                            <li>Oversaw data entry of voter responses</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                                <!-- education -->
+                                <div style="display:none;">
+                                    <!-- title -->
+                                    <h4><span class="icon-books"></span> Education</h4>
+                                    <hr>
+                                    <h5 style="font-size:1.05rem;">California State University, Humboldt</h5>
+                                    <h6>Arcata, CA <span>2008 &#8212; 2009</span></h6>
+                                    <h5 style="font-size:1.05rem;">University of California, Berkeley</h5>
+                                    <h6>Berkeley, CA <span>2013</span></h6>
+                                    <ul>
+                                        <li>Completed over 150 course units with an emphasis  on business/economics, political &amp; computer sciences</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <!-- tumblr -->
-                            <div class="col-xs-3">
-                                <a href="#"><span class="icon-tumblr2"></span></a>
-                            </div>
-                            <!-- email -->
-                            <div class="col-xs-3">
-                                <a href="#"><span class="icon-envelop"></span></a>
-                            </div>
-                            <!-- phone -->
-                            <div class="col-xs-3">
-                                <a href="#"><span class="icon-mobile"></span></a>
-                            </div>
-                        </div><!-- /row -->
-                    </div><!-- /card-footer container -->
-                </div><!-- /card -->
-            </section>   
+                        </div>
+                        <div class="card-footer text-muted container">
+                            <div class="row">
+                                <!-- linked in -->
+                                <div class="col-xs-3">
+                                    <a href="#"><span class="icon-linkedin"></span></a>
+                                </div>
+                                <!-- tumblr -->
+                                <div class="col-xs-3">
+                                    <a href="#"><span class="icon-tumblr2"></span></a>
+                                </div>
+                                <!-- email -->
+                                <div class="col-xs-3">
+                                    <a href="#"><span class="icon-envelop"></span></a>
+                                </div>
+                                <!-- phone -->
+                                <div class="col-xs-3">
+                                    <a href="#"><span class="icon-mobile"></span></a>
+                                </div>
+                            </div><!-- /row -->
+                        </div><!-- /card-footer container -->
+                    </div><!-- /card -->
+                </div><!-- /row -->
+            </section><!-- /my resume .container -->
 
             <?php include '../components/footer.php'; ?>
 

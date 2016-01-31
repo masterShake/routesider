@@ -232,7 +232,7 @@ MM.prototype.locationSuccess = function(position){
 	if(!gm) return;
 
 	// set the google map center and zoom
-	gm.panTo({ lat: mm.userLat, lng: mm.userLng });
+	gm.panTo({ lat: mm.userLat, lng: mm.userLng })
 }
 
 //-----------------------------------------------
@@ -2045,6 +2045,9 @@ var ResumeMap = function(){
 	// get the card element
 	this.card = this.page.children[5].children[1];
 
+	// card banner stripes
+	this.stripes = this.card.children[0].children[0].children[0].children;
+
 	// scroll event listener
 	window.addEventListener('scroll', this.scrollCheck);
 }
@@ -2092,11 +2095,14 @@ ResumeMap.prototype.streetView = function(){
 	// set the pov
 	this.panorama.setPov(this.streets[this.t].pov);
 
-	// set the colors
+	// set the stripes background color to compliment google map
+	for(var i = 0; i < this.stripes.length; i++)
+		this.stripes[i].style.backgroundColor = this.streets[this.t].color;
 
 	// display the street view
 	this.panorama.setVisible(true);
 
+	// set the view
 	this.view = 1;	
 }
 
@@ -2113,7 +2119,7 @@ ResumeMap.prototype.mapView = function(){
 	this.panorama.setVisible(false);
 
 	// set the view property
-	this.view = 0
+	this.view = 0;
 
 }
 
@@ -2176,7 +2182,7 @@ var L = function(){
 	// temp variable
 	this.t = null;
 
-	// set the position of the page-content & navbar
+	// set the position of the page-content, navbar, and lead
 	this.resize();
 
 	// apply a resize event to the window
@@ -2201,7 +2207,19 @@ L.prototype.resize = function(){
 
 	// set the position of the navbar
 	document.getElementById('page-content').children[0].style.top = - window.innerHeight + 'px';
-	document.getElementById('page-content').children[1].style.top = -(window.innerHeight - 60) + 'px';
+
+	// if the lead still exist
+	if(document.getElementById('lead')){
+		// set the position of the lead, based on the height of the window
+		lead.style.top =  
+		logo.style.top = - (window.innerHeight/2) - 200  + 'px';
+	}else{
+		// translate the logo
+		logo.style.top = -window.innerHeight + 'px';
+	}
+	// logo.style.display = 'none';
+	console.log(lead.offsetTop);
+	console.log(logo.offsetTop);
 }
 
 //-----------------------------------------------
@@ -2209,6 +2227,7 @@ L.prototype.resize = function(){
 L.prototype.buryLead = function(){
 	// set the logo back into position
 	logo.className = 'navbar-brand';
+	logo.style.top = -window.innerHeight + 'px';
 	// if there is a lead
 	if(document.getElementById('lead')){
 		// kill the opacity
