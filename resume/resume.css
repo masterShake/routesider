@@ -116,7 +116,7 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	margin-right: 0px;
 	left: 50%;
 	position: absolute;
-	transform: scale(1.1,1.1) translate(18px, 7px);
+	transform: scale(1.1,1.1) translate(18px, 12px);
 }
 #logo>div{
 	text-transform: uppercase;
@@ -134,7 +134,7 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	max-width: 70px;
 }
 #logo.starting{
-	transform: scale(2.05,2.05) translate(0, 12px);
+	transform: scale(2.05,2.05) translate(0, 12px) !important;
 }
 
 /* ------ end logo ------------------ */
@@ -639,14 +639,11 @@ footer input, footer textarea{
 		width:420px;
 		right: 0px;
 	}
-	#logo{
-		transform: translate(-150px, -42px) scale(1.8,1.8);
-	}
-	#logo.starting{
-		transform: scale(2.1,2.1) translate(0px, 70px);
+	#logo.navbar-brand{
+		transform: translate(-150px, 20px) scale(1.8,1.8);
 	}
 	#navLinks{
-		text-align: none;    
+		text-align: center;    
 		background: none;
 	    padding: 0;
 	    border-radius: none;
@@ -670,11 +667,6 @@ footer input, footer textarea{
 	.navbar-nav a.nav-link{
 		width: 33%;
 		text-align: center;
-	}
-
-	/* lead */
-	#lead{
-		top: -568px;
 	}
 
 	/* drop-pin control panel */
@@ -734,24 +726,26 @@ footer input, footer textarea{
 		width: calc(100% - 480px);
 		max-width: 300px;
 	}
+	.navbar input{
+		border: 1px solid #ccc;
+	}
 	.navbar-nav>div{
 		float: right;
-		background: transparent;
 		border-radius: 0px;
-		padding: 0;
+		padding: 5px;
 		width: 320px;
 	}
 	.navbar-nav a.nav-link{
 		width:auto;
-		background: rgba(255,255,255,0.9);
-		border-radius: 6px;
+		/*background: rgba(255,255,255,0.9);
+		border-radius: 6px;*/
 		padding: 6px 10px;
 	}
 	.navbar-nav a.nav-link:not(:first-child){
 		margin-left: 16px !important;
 	}
-	#logo{
-		transform: translate(-277px, -49px) scale(1.4,1.4);
+	#logo.navbar-brand{
+		transform: translate(-277px, 17px) scale(1.55,1.55);
 	}
 
 	/*----------------------
@@ -783,8 +777,8 @@ footer input, footer textarea{
 @media (min-width: 1200px) {
 
 	/* logo */
-	#logo.starting{
-		transform: scale(2.1,2.1) translate(0px, 70px);
+	#logo.navbar-brand{
+		transform: translate(-175px, 17px) scale(1.55,1.55);
 	}
 
 	/* how to embed section */

@@ -2215,7 +2215,7 @@ L.prototype.resize = function(){
 		logo.style.top = - (window.innerHeight/2) - 200  + 'px';
 	}else{
 		// translate the logo
-		logo.style.top = -window.innerHeight + 'px';
+		logo.style.top = -window.innerHeight - 5 + 'px';
 	}
 	// logo.style.display = 'none';
 	console.log(lead.offsetTop);
@@ -2227,7 +2227,7 @@ L.prototype.resize = function(){
 L.prototype.buryLead = function(){
 	// set the logo back into position
 	logo.className = 'navbar-brand';
-	logo.style.top = -window.innerHeight + 'px';
+	logo.style.top = -window.innerHeight - 5 + 'px';
 	// if there is a lead
 	if(document.getElementById('lead')){
 		// kill the opacity
