@@ -342,7 +342,7 @@ MapBuilder.prototype.togPan = function(){
 				   this.offsetWidth/2 +
 				   this.parentElement.offsetLeft + 
 				   this.parentElement.parentElement.offsetLeft+
-				   this.parentElement.parentElement.parentElement.offsetLeft; console.log(mapBuilder.p); console.log(this.parentElement.parentElement.parentElement.offsetLeft);
+				   this.parentElement.parentElement.parentElement.offsetLeft;
 
 	// if the window is wider than 992
 	if(window.innerWidth > 991){
@@ -1085,9 +1085,12 @@ DrawPoly.prototype.term = function(){
 	// make sure the button is deactivated
 	mapTools.children[1].className = 'btn';
 
-	// delete the polyline
-	this.polyline.setMap(null);
-	this.polyline = null;
+	// if there is still a polyline
+	if(this.polyLine){
+		// delete the polyline
+		this.polyline.setMap(null);
+		this.polyline = null;
+	}
 }
 
 //-----------------------------------------------	
@@ -1305,8 +1308,10 @@ EditPoly.prototype.togPoly = function(){
 	// if this is the active polygon, do nothing
 	if(this === editPoly.a) return;
 
-	// make the active polygon uneditable
-	editPoly.a.setOptions({editable:false});
+	// if there is already an active polygon
+	if(editPoly.a)
+		// make the active polygon uneditable
+		editPoly.a.setOptions({editable:false});
 
 	// set the new active polygon
 	editPoly.a = editPoly.h[this.i];
@@ -2077,10 +2082,10 @@ var ResumeMap = function(){
 	this.page = document.getElementById('page-content');
 
 	// get the card element
-	this.card = this.page.children[5].children[1];
+	this.card = document.getElementById('my-resume');
 
 	// card banner stripes
-	this.stripes = this.card.children[0].children[0].children[0].children;
+	this.stripes = this.card.children[1].children[0].children[0].children[0].children;
 
 	// scroll event listener
 	window.addEventListener('scroll', this.scrollCheck);
@@ -2102,7 +2107,7 @@ ResumeMap.prototype.scrollCheck = function(e){
 //-----------------------------------------------
 // - determine if resume element is visibe
 // - call functions accordingly
-ResumeMap.prototype.togMap = function(){
+ResumeMap.prototype.togMap = function(){ 
 
 	// if the resume elem is visible, set street view
 	if(resMap.card.offsetTop + resMap.page.offsetTop < window.pageYOffset + window.innerHeight)
@@ -2195,6 +2200,83 @@ ResumeMap.prototype.togResume = function(){ return false;
 
 
 
+//-----------------------------------------------
+//					  EmailMe
+//					-----------
+//
+// - ensure that the use provided a legit email
+//   address
+//
+// - keep a count of the number of characters
+//
+// - submit the form asynchronously
+//
+// - output success message
+//
+//-----------------------------------------------
+
+var EmailMe = function(){
+
+	// reuse the ajax object
+	this.xhr = null;
+
+}
+
+//-----------------------------------------------
+// - blur, validate the email address
+EmailMe.prototype.validEmail = function(){
+
+}
+
+//-----------------------------------------------
+// - blur/focus display the character count
+EmailMe.prototype.togCount = function(){
+
+}
+
+//-----------------------------------------------
+// - keyup, keep a counter of the number of
+//   characters in the email
+// - limit the email to 500 characters
+EmailMe.prototype.limitChars = function(){
+
+}
+
+//-----------------------------------------------
+// - click submit button
+// - ensure that email is valid before sending
+// - ensure that character count within limit
+EmailMe.prototype.submit = function(){
+
+}
+
+//-----------------------------------------------
+// - ajax callback function, alert success
+EmailMe.prototype.callback = function(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2213,9 +2295,6 @@ ResumeMap.prototype.togResume = function(){ return false;
 
 var L = function(){
 
-	// temp variable
-	this.t = null;
-
 	// set the position of the page-content, navbar, and lead
 	this.resize();
 
@@ -2230,6 +2309,10 @@ var L = function(){
 	mapTools.children[1].addEventListener('click', this.actBtn);
 	mapTools.children[2].addEventListener('click', this.actBtn);
 	mapTools.children[3].addEventListener('click', this.actBtn);
+
+	// temp variable, get the tooltips
+	this.t = document.querySelectorAll('[data-tooltip]');
+	// this.t[0].addEventListener('touchstart', this.togTip);
 }
 
 //-----------------------------------------------
@@ -2302,7 +2385,11 @@ L.prototype.actBtn = function(){
 	this.className = this.className + " active";
 }
 
-
+//-----------------------------------------------
+// - mouseover/mouseout, toggle the tooltip
+L.prototype.togTip = function(e){ e.preventDefault();
+	this.parentElement.children[0].style.display = e.type == 'mouseover' ? 'block' : 'none';
+}
 
 
 

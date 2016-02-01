@@ -534,17 +534,17 @@ if ($fn) {
             </section><!-- /map builder -->
 
             <!-- embed instructions -->
-            <div class="container">
-                <section id="how-to-install">
-                    <h2>How to embed map</h2>
-
-                    <hr style="margin-bottom:28px;">
-
+            <section id="how-to-install">
+                <div class="container">
                     <div class="row">
+                        <div class="col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
+
+                            <h2>How to embed map</h2>
+
+                            <hr style="margin-bottom:28px;">
                     
-                        <!-- step 1 -->
-                        <article class="col-xl-6">
-                            <div class="row">
+                            <!-- step 1 -->
+                            <article class="row">
                                 <div class="col-md-8 step step-right">
                                     <h4><strong>Step 1:</strong> Create new Google developer project</h4>
                                 </div>
@@ -560,14 +560,12 @@ if ($fn) {
                                         Give your new project a name, call it whatever you'd like.
                                     </p>
                                 </div>
-                            </div>
-                        </article><!-- /step 1 -->
+                            </article><!-- /step 1 -->
 
-                        <hr class="article-divider">
-                        
-                        <!-- step 2 -->
-                        <article class="col-xl-6">
-                            <div class="row">
+                            <hr class="article-divider">
+                            
+                            <!-- step 2 -->
+                            <article class="row">
                                 <div class="col-md-8 step">
                                     <h4><strong>Step 2:</strong> Enable maps JavaScript API</h4>
                                 </div>
@@ -583,18 +581,12 @@ if ($fn) {
                                         Click the "Enable API" button.
                                     </p>
                                 </div>
-                            </div>
-                        </article><!-- /step 2 -->
-                    
-                    </div><!-- /row -->
+                            </article><!-- /step 2 -->
 
-                    <div class="row">
-
-                        <hr class="article-divider">
-                        
-                        <!-- step 3 -->
-                        <article class="col-xl-6">
-                            <div class="row">
+                            <hr class="article-divider">
+                            
+                            <!-- step 3 -->
+                            <article class="row">
                                 <div class="col-md-8 step step-right">
                                     <h4><strong>Step 3:</strong> Generate new API key</h4>
                                 </div>
@@ -611,14 +603,12 @@ if ($fn) {
                                         In the 'Create browser API key" panel enter your domain name as an accepted HTTP referrer. This prevents other people from using your API key. You can also enter "http://localhost/*" or leave it blank.
                                     </p>
                                 </div>
-                            </div><!-- /row -->
-                        </article><!-- /step 3 -->
-                        
-                        <hr class="article-divider">
+                            </article><!-- /step 3 -->
+                            
+                            <hr class="article-divider">
 
-                        <!-- step 4 -->
-                        <article class="col-xl-6">
-                            <div class="row">
+                            <!-- step 4 -->
+                            <article class="row">
                                 <div class="col-md-8 step">
                                     <h4><strong>Step 4:</strong> Copy and paste</h4>
                                 </div>
@@ -635,16 +625,15 @@ if ($fn) {
                                         Now you're good to go! Enjoy your custom embeded map. Adjust the JavaScript as you see fit.
                                     </p>
                                 </div>
-                            </div><!-- /row -->
-                        </article><!-- /step 4 -->
+                            </article><!-- /step 4 -->
 
+                        </div><!-- /col -->
                     </div><!-- /row -->
-
-                </section><!-- /how-to-install -->
-            </div><!-- /container -->
+                </div><!-- /container -->
+            </section><!-- /how-to-install -->
 
             <!-- my resume -->
-            <section class="container">
+            <section class="container" id="my-resume">
                 <h2 style="display:none;">michael giannini</h2>
                 <div class="row">
                     <div class="card col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
@@ -832,20 +821,34 @@ if ($fn) {
                         <div class="card-footer text-muted container">
                             <div class="row">
                                 <!-- linked in -->
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 col-md-2">
                                     <a href="#"><span class="icon-linkedin"></span></a>
                                 </div>
                                 <!-- tumblr -->
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 col-md-2">
                                     <a href="#"><span class="icon-tumblr2"></span></a>
                                 </div>
                                 <!-- email -->
-                                <div class="col-xs-3">
-                                    <a href="#"><span class="icon-envelop"></span></a>
+                                <div class="col-xs-3 col-md-5">
+                                    <div class="tooltip top" role="tooltip">
+                                        <div class="tooltip-arrow"></div>
+                                        <div class="tooltip-inner">
+                                            therealmichaelgiannini@gmail.com
+                                        </div>
+                                    </div>
+                                    <a href="#" data-tooltip><span class="icon-envelop"></span></a>
+                                    <div class="hidden-sm-down">therealmichaelgiannini@gmail.com</div>
                                 </div>
                                 <!-- phone -->
-                                <div class="col-xs-3">
-                                    <a href="#"><span class="icon-mobile"></span></a>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="tooltip top" role="tooltip">
+                                        <div class="tooltip-arrow"></div>
+                                        <div class="tooltip-inner">
+                                            (650) 678-1777
+                                        </div>
+                                    </div>
+                                    <a href="#" data-tooltip><span class="icon-mobile"></span></a>
+                                    <div class="hidden-sm-down">(650) 678-1777</div>
                                 </div>
                             </div><!-- /row -->
                         </div><!-- /card-footer container -->
@@ -853,7 +856,7 @@ if ($fn) {
                 </div><!-- /row -->
             </section><!-- /my resume .container -->
 
-            <?php include '../components/footer.php'; ?>
+            <?php include 'resume_footer.php'; ?>
 
         </div>
                 
