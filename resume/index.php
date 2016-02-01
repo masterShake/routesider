@@ -526,7 +526,7 @@ if ($fn) {
                     <!-- pull tab -->
                     <div class="pull-tab btn-group" role="group" aria-label="embed instructions">
                         <button type="button" class="btn" aria-label="embed instructions">
-                            <span class="icon-circle-up"></span>
+                            <a href="#how-to-install"><span class="icon-circle-up"></span></a>
                         </button>
                     </div>
                 </div><!-- /pull tab & toolbar -->

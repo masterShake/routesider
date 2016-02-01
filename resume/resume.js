@@ -2223,9 +2223,13 @@ var EmailMe = function(){
 }
 
 //-----------------------------------------------
-// - blur, validate the email address
-EmailMe.prototype.validEmail = function(){
+// - focus & blur, validate the email address
+EmailMe.prototype.validEmail = function(e){
 
+	// if this is a focus event
+	if(e.type == 'focus') return false;
+
+		// hide the alert
 }
 
 //-----------------------------------------------
@@ -2312,7 +2316,9 @@ var L = function(){
 
 	// temp variable, get the tooltips
 	this.t = document.querySelectorAll('[data-tooltip]');
-	// this.t[0].addEventListener('touchstart', this.togTip);
+	this.t[0].addEventListener('touchstart', this.togTip);
+	this.t[1].addEventListener('touchstart', this.togTip);
+
 }
 
 //-----------------------------------------------
@@ -2388,7 +2394,7 @@ L.prototype.actBtn = function(){
 //-----------------------------------------------
 // - mouseover/mouseout, toggle the tooltip
 L.prototype.togTip = function(e){ e.preventDefault();
-	this.parentElement.children[0].style.display = e.type == 'mouseover' ? 'block' : 'none';
+	this.parentElement.children[0].style.display = (this.parentElement.children[0].offsetParent) ? 'none' : 'block';
 }
 
 
