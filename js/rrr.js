@@ -47,7 +47,7 @@ r.prototype.mt = function(e){ e.preventDefault();
 // - insert into 7th stylesheet
 // - tablet @media > 768px
 // - desktop @media > 1200px
-// - r => rrrMap object key
+// - el --> the element
 r.prototype.newRules = function(){
 
 	// default: scale 1, rotate 0, element centered
@@ -57,8 +57,6 @@ r.prototype.newRules = function(){
 				'  top: calc(50% - '+(jApp[as].a.offsetHeight/2)+'px);' +
 				'  z-index: '+this.z+';' +
 				'  display: block;}';
-window.boner = document.styleSheets[7].cssRules[this.i + 1];
-console.log(boner);
 	// mobile
 	document.styleSheets[7]
 		.insertRule(this.u, this.i);
@@ -239,7 +237,7 @@ rr.prototype.extractMatrix = function(){
 
 	// get the matrix properties, use ia as temp var
 	this.ia = window.getComputedStyle(this.el, null)
-				.getPropertyValue('transform'); 
+				.getPropertyValue('transform') || this.el.style.transform; // console.log(this.ia);
 
 	if(this.ia == 'none')
 		this.ia = this.el.style.transform;

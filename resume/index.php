@@ -550,7 +550,7 @@ if ($fn) {
                                 </div>
                                 <div class="col-md-4 img-left">
                                     <div>
-                                        <img src="http://localhost/routesider/resume/imgs/step_1.PNG" alt="Create new Google developer project" />
+                                        <img src="/imgs/step_1.PNG" alt="Create new Google developer project" />
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -571,7 +571,7 @@ if ($fn) {
                                 </div>
                                 <div class="col-md-4 img-right">
                                     <div>
-                                        <img src="http://localhost/routesider/resume/imgs/google_maps_javascript_api.PNG" alt="Enable the Google Maps JavaScript API" />
+                                        <img src="/imgs/google_maps_javascript_api.PNG" alt="Enable the Google Maps JavaScript API" />
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -592,7 +592,7 @@ if ($fn) {
                                 </div>
                                 <div class="col-md-4 img-left">
                                     <div>
-                                        <img src="http://localhost/routesider/resume/imgs/new_credentials.PNG" alt="Generate a new API key" />
+                                        <img src="/imgs/new_credentials.PNG" alt="Generate a new API key" />
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -614,7 +614,7 @@ if ($fn) {
                                 </div>
                                 <div class="col-md-4 img-right">
                                     <div>
-                                        <img src="http://localhost/routesider/resume/imgs/your_api_key_here.PNG" alt="placeholder">
+                                        <img src="/imgs/your_api_key_here.PNG" alt="placeholder">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -710,7 +710,7 @@ if ($fn) {
                         </div>
                         <div class="card-block">
                             <!-- mug shot -->
-                            <img src="http://localhost/routesider/resume/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
+                            <img src="/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
                             <!-- name -->
                             <h4 class="card-title">MICHAEL GIANNINI</h4>
                             <h6>programmer &nbsp;&nbsp;&bull;&nbsp;&nbsp; entrepreneur &nbsp;&nbsp;&bull;&nbsp;&nbsp; philosopher</h6>

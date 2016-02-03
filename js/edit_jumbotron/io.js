@@ -69,36 +69,6 @@ IO.prototype.newElem = function(e){ e.preventDefault();
 
 	// create the new image uploader overlay elem
 	imgs.a = imgs.createElem();
-
-	// append the new textbox to the drag canvas
-	dragCanvas.appendChild(imgs.a);
-
-	// create & activate the rr object
-	rm.i++;
-	rm.z++;
-	rm.h[rm.i] = new rr(imgs.a);
-	rm.a = rm.h[rm.i];
-
-	// add the new textbox to the nVals
-	jApp.nVals.imgs[imgs.i] = {
-		src : '',
-		color : 'transparent',
-		opacity : 1,
-		blur: 0,
-		z : rm.z,
-		round : 0,
-		borderwidth: 0,
-		bordercolor: '#FFFFFF',
-		shadow : {active : 0, color : '#444444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
-		layout : {
-			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
-			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
-			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 }
-		}
-	};
-
-	// attribtue referrence to rr index
-	imgs.a.setAttribute('data-r', rm.i);
 }
 
 //-----------------------------------------------
@@ -142,8 +112,11 @@ IO.prototype.createElem = function(){
 	                        '<div class="text"><span>-or-</span><br>Drag &amp; Drop</div>'+
 	                    '</div>';
 
+	// append the new textbox to the drag canvas
+	dragCanvas.appendChild(imgs.a);
+
 	// apply the event listeners
-	imgs.ae();
+	this.ae();
 
 	return this.a;
 }
@@ -161,15 +134,49 @@ IO.prototype.ae = function(){
 	// toggle editor
 	this.a.children[0].addEventListener('click', cs.tog, false);
 
-	// insert new style sheet rules
-	rm.newRules();
-
 	// set visibility checkboxes
 	this.c.v[0].checked = 
 	this.c.v[1].checked = 
 	this.c.v[2].checked = true;
 
+	// create & activate the rr object
+	rm.i++;
+	rm.z++;
+	rm.h[rm.i] = new rr(this.a);
+	rm.a = rm.h[rm.i];
+
+	// attribtue referrence to rr index
+	this.a.setAttribute('data-r', rm.i);
+
+	// insert new style sheet rules
+	rm.newRules();
+
+	// update the nVals
+	this.updateVals()
 }
+
+//-----------------------------------------------
+// - update the nVals new values obejcts
+IO.prototype.updateVals = function(){
+
+	// add the new image overlay to the nVals
+	jApp.nVals.imgs[this.i] = {
+		src : '',
+		color : 'transparent',
+		opacity : 1,
+		blur: 0,
+		z : rm.z,
+		round : 0,
+		borderwidth: 0,
+		bordercolor: '#FFFFFF',
+		shadow : {active : 0, color : '#444444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
+		layout : {
+			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
+			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
+			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 }
+		}
+	};
+}    
 
 //-----------------------------------------------
 // - confirm delete active image overlay
