@@ -169,7 +169,7 @@ IO.prototype.updateVals = function(){
 		round : 0,
 		borderwidth: 0,
 		bordercolor: '#FFFFFF',
-		shadow : {active : 0, color : '#444444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
+		shadow : {active : 1, color : '#676767', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
 		layout : {
 			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
 			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },

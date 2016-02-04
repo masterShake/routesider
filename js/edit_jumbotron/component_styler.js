@@ -411,25 +411,36 @@ TC.prototype.wheelBtn = function(){
 // - change the opacity
 // - set execCommand or background color
 // - keep track of previous color, possibly reset
-TC.prototype.trans = function(){
+TC.prototype.trans = function(){ console.log(this.checked);
 	
 	// if checked --> unchecked
-	if(!this.checked){
+	if(this.checked){
+
+		// update the active drag element
+		if(this.dataset.func)
+			tc[this.dataset.func]('transparent');
+
+		// update the control panel elements
+		tc.makeTrans(this.dataset.i);
+
+		// set the lasthex attribute
+		this.setAttribute('data-lasthex', this.dataset.lasthex );
+
+		// set the opacity of the parent element
+		this.parentElement.style.opacity = '1';
+	
+	// unchecked --> checked
+	}else{
 
 		// set the last color
 		tc.setElems(this.dataset.lasthex, this.dataset.i);
 
 		// set the active element
-		if(this.datafunc)
+		if(this.dataset.func)
 			tc[this.dataset.func](this.dataset.lasthex);
 
 		// set the opacity of the parent element
 		this.parentElement.style.opacity = '0.5';
-	
-	// unchecked --> checked
-	}else{
-
-		tc.makeTrans()
 	}
 }
 //-----------------------------------------------
@@ -439,21 +450,14 @@ TC.prototype.trans = function(){
 TC.prototype.makeTrans = function(i){
 
 		// clear the colors
-		jApp[as].c.icon[this.dataset.i].style.color = '#444';
-		jApp[as].c.icon[this.dataset.i].style.backgroundColor = '#FFF';
-
-		// set the lasthex attribute
-		this.setAttribute('data-lasthex', jApp[as].c.texti[i].value);
+		jApp[as].c.icon[i].style.color = '#444';
+		jApp[as].c.icon[i].style.backgroundColor = '#FFF';
 
 		// clear the text
 		jApp[as].c.texti[i].value = '';
 
 		// white out the html5 color picker
 		jApp[as].c.picki[i].value = '#FFFFFF';
-
-		// update the active drag element
-		if(this.datafunc)
-			tc[this.dataset.func]('transparent');
 }
 
 //-----------------------------------------------
@@ -474,8 +478,11 @@ TC.prototype.setElems = function(hex, i){
 	jApp[as].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) );
 
 	// uncheck the transparency checkbox
-	jApp[as].c.checki[i].checked = false;
-	jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
+	if(hex != 'transparent'){
+		jApp[as].c.checki[i].checked = false;
+		jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
+		jApp[as].c.checki[i].setAttribute('data-lasthex', hex);
+	}
 }
 
 //-----------------------------------------------
@@ -599,12 +606,35 @@ TC.prototype.bg = function(hex){
 
 //-----------------------------------------------
 // - set the shadow color property
-// - call for update
-TC.prototype.shadowColor = function(hex){
+// - only deal with color
+TC.prototype.shadowColor = function(hex){ console.log(hex);
+
+	if(hex == 'transparent'){
+		// set the nVals
+		ss.t.active = 0;
+		
+		// remove the box shadow css rule
+		if(as == 'imgs')
+			imgs.a.style.boxShadow = 'none';
+		else
+			jApp[as].a.children[2].style.boxShadow = 'none';
+	}
+
+	// // if the color is transparent
+	// if(hex == 'transparent'){
+	// 	// remove the shadow from the lement
+	// 	if(as == 'imgs')
+	// 		jApp[as].a.style.boxShadow = 'none';
+	// 	else
+	// 		jApp[as].a.children[2].style.boxShadow = 'none';
+	// 	// deactivate the shadow obj
+	// 	jApp.nVals[as][jApp[as].a.dataset.key].shadow.active = 0;
+
+	// 	return;
+	// }
+	// // update nVals
 	ss.t = jApp.nVals[as][jApp[as].a.dataset.key].shadow;
-	// update nVals
 	ss.t.color = hex;
-	// update the shadow css
 	ss.update();
 }
 
@@ -694,7 +724,8 @@ var SS = function(){
 	// loop through the checkboxes
 	this.t = document.querySelectorAll('.shadow input[type="checkbox"]');
 	for(var i = 0; i < this.t.length; i++)
-		this.t[i].addEventListener('change', this.tog, false);
+		this.t.checked = false;
+	// 	this.t[i].addEventListener('change', this.tog, false);
 }
 
 //-----------------------------------------------
@@ -703,17 +734,22 @@ SS.prototype.update = function(i){
 	// make sure we got an i variable, or use last checkbox in array
 	i = i || jApp[as].c.checki.length - 1;
 	// set the checkbox
-	jApp[as].c.checki[i].checked = false;
-	jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
+	// jApp[as].c.checki[i].checked = false;
+	// jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
 	// set the nVal as active
 	this.t.active = 1;
+	// assemble the shadow css string
+	this.t = this.t.x + 'px '+ 
+			 this.t.y + 'px '+ 
+			 this.t.softness + 'px '+
+			 this.t.spread + 'px '+
+			 this.t.color + 
+			 ((this.t.inset) ? ' inset' : '');
 	// get the nVals of the shadow
-	jApp[as].a.children[2].style.boxShadow = this.t.x + 'px '+ 
-											 this.t.y + 'px '+ 
-											 this.t.softness + 'px '+
-											 this.t.spread + 'px '+
-											 this.t.color + 
-											 ((this.t.inset) ? ' inset' : '');
+	if(as == 'imgs')
+		jApp[as].a.style.boxShadow = this.t;
+	else
+		jApp[as].a.children[2].style.boxShadow = this.t;
 	// prompt save
 	jApp.deltaVals();
 }
@@ -801,25 +837,20 @@ SS.prototype.inset = function(e){ e.preventDefault();
 
 //-----------------------------------------------
 // - toggle box shadow css rule
-SS.prototype.tog = function(e){ e.preventDefault();
-	// set the t variable
-	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
-	// if no shadow
-	if(this.checked){
-		// make the parent full opaque
-		this.parentElement.style.opacity = '1';
-		// set the nVals
-		ss.t.active = 0;
-		// remove the box shadow css rule
+// - only deals with removing the shadow
+SS.prototype.tog = function(){
+
+	// let another function set the color
+	if(!this.checked) return;
+
+	// set the nVals
+	ss.t.active = 0;
+	
+	// remove the box shadow css rule
+	if(as == 'imgs')
+		jApp[as].a.style.boxShadow = 'none';
+	else
 		jApp[as].a.children[2].style.boxShadow = 'none';
-	}else{ console.log('show the shadow');
-		// make the parent semi transparent
-		this.parentElement.style.opacity = '0.5';
-		// set the nVals
-		ss.t.active = 1;
-		// update with previous values
-		ss.update();
-	}
 }
 
 

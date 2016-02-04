@@ -402,7 +402,7 @@ tbody button.btn-color-selected{
 .image-overlay{
 	border-style: solid;
 	border-width: 0px;
-	border-color: transparent;
+	border-color: #000;
 }
 .background{
 	position: absolute;
@@ -470,7 +470,7 @@ label.vis>div{
 	overflow: hidden;
 }
 .image-overlay.active{
-	box-shadow: 0 0 6px #676767;
+	box-shadow: 0 0 4px 4px #676767;
 }
 /* before user uploads an image */
 .image-overlay.empty{

@@ -292,7 +292,7 @@
                                         </td>
                                         <td>
                                             <input type="text" 
-                                                   value='#000000' 
+                                                   value='#676767' 
                                                    class="form-control colorize" 
                                                    maxlength="7"
                                                    style="text-transform:uppercase"
@@ -309,16 +309,16 @@
                                 <label>more colors:</label>
                                 <input type="color" 
                                        class="colorize"
-                                       value='#444444'
+                                       value='#676767'
                                        data-func="shadowColor"
                                        data-i="2"
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
-                            <!-- no color (transparent) textbox -->
-                            <div style="margin-top:10px;">
-                                <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
-                                <input type="checkbox" class="form-control colorize" checked>
+                            <!-- no shadow -->
+                            <div style="margin-top:10px;opacity:0.5">
+                                <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> shadow</label>
+                                <input type="checkbox" class="form-control colorize" data-i="2" data-lasthex="#676767" data-func="shadowColor">
                             </div>
                         </div>
                         <!-- color wheel -->
