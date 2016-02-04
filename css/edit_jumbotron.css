@@ -475,6 +475,7 @@ label.vis>div{
 	border-radius: 8px;
 	width: 250px;
 	height: 250px;
+	outline: 0px;
 }
 .image-overlay.empty:hover{
 	border-color: #999;

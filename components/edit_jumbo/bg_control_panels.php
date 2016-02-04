@@ -125,8 +125,8 @@
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" data-elem="child" maxlength="4" value='<?= ($jumbo["bg"][0]["opacity"]) ?>'>
-                            <input type="range" class="range-slider" data-elem="child" min="0" max="1" step="0.01" value="<?= ($jumbo["bg"][0]["opacity"]) ?>">
+                            <input type="text" class="form-control" data-elem maxlength="4" value='<?= ($jumbo["bg"][0]["opacity"]) ?>'>
+                            <input type="range" class="range-slider" data-elem min="0" max="1" step="0.01" value="<?= ($jumbo["bg"][0]["opacity"]) ?>">
                         </form>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->

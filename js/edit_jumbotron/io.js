@@ -22,7 +22,7 @@ var IO = function(){
 	this.rBtn = imgsToolbar.children[0].children[2];
 
 	// init the upload image object
-	this.ui = new UI();
+	this.ui = new UI(this);
 
 	// init the c object
 	this.c = new IOC();
@@ -509,8 +509,9 @@ IOC.prototype.act = function(){
 	this.v[2].className = 'btn btn-default';
 	this.v[3].className = 'btn btn-default';
 	this.v[4].className = 'btn btn-default';
+	this.v[5].className = 'btn btn-default';
 
-	imgsToolbar.children[0].children[5].style.display = 'none';
+	imgsToolbar.children[0].children[6].style.display = 'none';
 
 }
 
@@ -527,6 +528,7 @@ IOC.prototype.dAct = function(){
 	this.v[2].className = 'btn btn-default inactive';
 	this.v[3].className = 'btn btn-default inactive';
 	this.v[4].className = 'btn btn-default inactive';
+	this.v[5].className = 'btn btn-default inactive';
 
 	imgsToolbar.children[0].children[5].style.display = 'block';
 }

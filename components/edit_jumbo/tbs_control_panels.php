@@ -179,7 +179,7 @@
                     <!-- no color (transparent) textbox -->
                     <div style="margin-top:10px;">
                         <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                        <input type="checkbox" class="form-control colorize" data-func="backColor" data-i="1" checked>
+                        <input type="checkbox" class="form-control colorize" data-func="backColor" data-i="1" data-lasthex="#FFFFFF" checked>
                     </div>
                 </div>
 
@@ -482,10 +482,10 @@
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
-                            <!-- no color (transparent) textbox -->
+                            <!-- no shadow (transparent) textbox -->
                             <div style="margin-top:10px;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
-                                <input type="checkbox" class="form-control colorize" checked>
+                                <input type="checkbox" class="form-control colorize" data-i="4" data-lasthex="#000000" data-func checked>
                             </div>
                         </div>
                         <!-- color wheel -->

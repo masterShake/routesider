@@ -357,7 +357,10 @@ TC.prototype.compToHex = function(c) {
 // - make sure that first character is always a
 //   hashtag
 // - if legit hex value, display color
-TC.prototype.hexText = function(){
+TC.prototype.hexText = function(e){
+
+	// if the user hit the left or right array
+	if(e.keyCode == 37 || e.keyCode == 39) return;
 	
 	// if the first character is not a #
 	if(this.value.charAt(0) != "#")
@@ -410,8 +413,39 @@ TC.prototype.wheelBtn = function(){
 // - keep track of previous color, possibly reset
 TC.prototype.trans = function(){
 	
-	this.parentElement.style.opacity = (this.checked) ? '1' : '0.5';
+	// if checked --> unchecked
+	if(!this.checked){
 
+		// set the last color
+		tc.setElems(this.dataset.lasthex, this.dataset.i);
+
+		// set the active element
+		if(this.datafunc)
+			tc[this.dataset.func](this.dataset.lasthex);
+
+		// set the opacity of the parent element
+		this.parentElement.style.opacity = '0.5';
+	
+	// unchecked --> checked
+	}else{
+
+		// clear the colors
+		jApp[as].c.icon[this.dataset.i].style.color = '#444';
+		jApp[as].c.icon[this.dataset.i].style.backgroundColor = '#FFF';
+
+		// set the lasthex attribute
+		this.setAttribute('data-lasthex', jApp[as].c.texti[this.dataset.i].value);
+
+		// clear the text
+		jApp[as].c.texti[this.dataset.i].value = '';
+
+		// white out the html5 color picker
+		jApp[as].c.picki[this.dataset.i].value = '#FFFFFF';
+
+		// update the active drag element
+		if(this.datafunc)
+			tc[this.dataset.func]('transparent')
+	}
 }
 
 //-----------------------------------------------

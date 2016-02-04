@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>
                                             <button type="button" 
-                                                    class="btn paint-btn" 
+                                                    class="btn paint-btn colorize" 
                                                     style='background-color: #FFFFFF;'>
                                                 <span class="glyphicon glyphicon-tint"></span>
                                             </button>
@@ -65,7 +65,7 @@
                                         <td>
                                             <input type="text" 
                                                    value='' 
-                                                   class="form-control" 
+                                                   class="form-control colorize" 
                                                    maxlength="7"
                                                    data-func="bgColor"
                                                    data-i="0"
@@ -80,6 +80,7 @@
                             <div style="text-align:center;margin-top:14px;">
                                 <label>more colors:</label>
                                 <input type="color" 
+                                       class="colorize" 
                                        value='#FFFFFF'
                                        data-func="bgColor"
                                        data-i="0"
@@ -89,7 +90,7 @@
                             <!-- no color (transparent) textbox -->
                             <div style="margin-top:10px;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                                <input type="checkbox" class="form-control colorize" data-func="bgColor" data-i="0" checked>
+                                <input type="checkbox" class="form-control colorize" data-func="bgColor" data-i="0" data-lasthex="#FFFFFF" checked>
                             </div>
 
                         </div>
@@ -135,25 +136,25 @@
 
                     <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 right-panel">
                         <!-- textbox blur -->
-                        <div class="half-slider" style="padding-left:10px;float:right;">
+                        <form class="half-slider blur-form" style="padding-left:10px;float:right;">
                             <label>
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 blur
                             </label>
                             <input type="text" class="form-control" maxlength="2" value='0'>
                             <input type="range" class="range-slider" min="0" max="10" step="1" value='0'>
-                        </div>
+                        </form>
                         <!-- background image opacity -->
-                        <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                        <form class="half-slider opacity-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
                             <label>
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" maxlength="4" value='1'>
-                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                        </div>
+                            <input type="text" class="form-control" data-elem="3" maxlength="4" value='1'>
+                            <input type="range" class="range-slider" data-elem="3" min="0" max="1" step="0.01" value="1">
+                        </form>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
