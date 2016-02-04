@@ -429,23 +429,31 @@ TC.prototype.trans = function(){
 	// unchecked --> checked
 	}else{
 
+		tc.makeTrans()
+	}
+}
+//-----------------------------------------------
+// - helper function to set control panel and
+//   active element transparent styles & props
+// - i --> control panel index
+TC.prototype.makeTrans = function(i){
+
 		// clear the colors
 		jApp[as].c.icon[this.dataset.i].style.color = '#444';
 		jApp[as].c.icon[this.dataset.i].style.backgroundColor = '#FFF';
 
 		// set the lasthex attribute
-		this.setAttribute('data-lasthex', jApp[as].c.texti[this.dataset.i].value);
+		this.setAttribute('data-lasthex', jApp[as].c.texti[i].value);
 
 		// clear the text
-		jApp[as].c.texti[this.dataset.i].value = '';
+		jApp[as].c.texti[i].value = '';
 
 		// white out the html5 color picker
-		jApp[as].c.picki[this.dataset.i].value = '#FFFFFF';
+		jApp[as].c.picki[i].value = '#FFFFFF';
 
 		// update the active drag element
 		if(this.datafunc)
-			tc[this.dataset.func]('transparent')
-	}
+			tc[this.dataset.func]('transparent');
 }
 
 //-----------------------------------------------
@@ -542,19 +550,18 @@ TC.prototype.bgColor = function(hex){
 TC.prototype.borderColor = function(hex){
 
 	// if there is no border thickness
-	if(!jApp.nVals[as][jApp[as].a.dataset.key].borderwidth){
+	if(!jApp.nVals[as][jApp[as].a.dataset.key].borderwidth)
+		// set the border thickness to 1
+		this.border1();
+	
+	// if this is a textbox
+	if(as == 'imgs')
+		// set the element background color
+		imgs.a.style.borderColor = hex;
+	else
+		// set the element background color
+		jApp[as].a.children[2].style.borderColor = hex;
 
-		tc.t = document.getElementById(as + 'Cpanels')
-				.getElementsByClassName('thickness-form')[0]
-					.children[1];
-		tc.t.value = 
-		tc.t.parentElement.children[2].value = 
-		jApp.nVals[as][jApp[as].a.dataset.key].borderwidth = 1;
-		jApp[as].a.children[2].style.borderWidth = '1px';
-	}
-
-	// set the element background color
-	jApp[as].a.children[2].style.borderColor = 
 
 	// update the nVals obejct
 	jApp.nVals[as][jApp[as].a.dataset.key]['bordercolor'] = hex;
@@ -562,6 +569,17 @@ TC.prototype.borderColor = function(hex){
 	// prompt save 
 	jApp.deltaVals();
 
+}
+//-----------------------------------------------
+// - border color thickness helper
+TC.prototype.border1 = function(){
+	this.t = document.getElementById(as + 'Cpanels')
+			.getElementsByClassName('thickness-form')[0]
+				.children[1];
+	this.t.value = 
+	this.t.parentElement.children[2].value = 
+	jApp.nVals[as][jApp[as].a.dataset.key].borderwidth = 1;
+	cs.elemThick(1);
 }
 
 //-----------------------------------------------
@@ -1002,11 +1020,21 @@ CS.prototype.tSlide = function(){
 	// update the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
 
-	// set the inline styles
-	jApp[as].a.children[2].style.borderWidth = this.value + 'px';
+	// set the elem thickness
+	cs.elemThick(this.value);
 
 	// prompt save
 	jApp.deltaVals();
+}
+
+//-----------------------------------------------
+// - helper function to set border thickness
+// - val --> thickness in px (int or str)
+CS.prototype.elemThick = function(val){
+	if(as == 'imgs')
+		imgs.a.style.borderWidth = val + 'px';
+	else
+		jApp[as].a.children[2].style.borderWidth = val + 'px';
 }
 
 //-----------------------------------------------
@@ -1105,8 +1133,7 @@ CS.prototype.tText = function(){
 	// update the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
 
-	// set the inline css
-	jApp[as].a.children[2].style.borderWidth = this.value + 'px';
+	cs.elemThick();
 
 	// prompt save
 	jApp.deltaVals();
@@ -1267,7 +1294,7 @@ CS.prototype.rUp = function(){
 	this.parentElement.children[2].value = this.value;
 
 	// set the roundness of the active dragable
-	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+	cs.elemRound(parseInt(this.value));
 
 	// set the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key].round = parseInt(this.value);
@@ -1301,7 +1328,7 @@ CS.prototype.rDo = function(e){
 	this.parentElement.children[2].value = this.value;
 
 	// set the roundness of the active dragable
-	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+	cs.elemRound(parseInt(this.value));
 }
 
 //-----------------------------------------------
@@ -1314,9 +1341,17 @@ CS.prototype.rSlide = function(){
 	// update the nVals
 	jApp.nVals[as][jApp[as].a.dataset.key]['round'] = parseInt(this.value);
 
-	// set the inline styles
-	jApp[as].a.children[2].style.borderRadius = (parseInt(this.value)/2) + '%';
+	cs.elemRound(parseInt(this.value));
 
 	// prompt save
 	jApp.deltaVals();
+}
+//-----------------------------------------------
+// - set the roundness of the correct active elem
+CS.prototype.elemRound = function(val){
+	// set the inline styles
+	if(as == 'imgs')
+		imgs.a.style.borderRadius = (val/2) + '%';
+	else
+		jApp[as].a.children[2].style.borderRadius = (val/2) + '%';
 }

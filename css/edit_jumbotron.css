@@ -398,10 +398,13 @@ tbody button.btn-color-selected{
 	border-color: #AAA !important;
 }
 /* dragable element background */
-.background{
+.background,
+.image-overlay{
 	border-style: solid;
 	border-width: 0px;
 	border-color: transparent;
+}
+.background{
 	position: absolute;
 	height:100%;
 	width:100%;
@@ -464,10 +467,10 @@ label.vis>div{
 	top: calc(50% - 125px);
 	left: calc(50% - 125px);
 	transform: matrix(1, 0, 0, 1, 0, 0);
+	overflow: hidden;
 }
 .image-overlay.active{
 	box-shadow: 0 0 6px #676767;
-	outline: 1px solid #5CB85C;
 }
 /* before user uploads an image */
 .image-overlay.empty{
