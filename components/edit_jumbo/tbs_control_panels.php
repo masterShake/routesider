@@ -483,9 +483,9 @@
                             </div><!-- /full color wheel -->
 
                             <!-- no shadow (transparent) textbox -->
-                            <div style="margin-top:10px;">
+                            <div style="margin-top:10px;opacity:0.5;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
-                                <input type="checkbox" class="form-control colorize" data-i="4" data-lasthex="#000000" data-func checked>
+                                <input type="checkbox" class="form-control colorize" data-i="4" data-lasthex="#000000" data-func="shadowColor">
                             </div>
                         </div>
                         <!-- color wheel -->

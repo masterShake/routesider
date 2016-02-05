@@ -7,6 +7,8 @@
 //    + TS
 //    + TC
 //
+// - toggle between elements
+//
 //-----------------------------------------------
 
 var CM = function(){
@@ -29,6 +31,12 @@ var CM = function(){
 	// keep track of selection and range
 	this.sel = null;
 	this.range = null;
+
+	// loop through existing user defined elements
+	this.t = dragCanvas.children;
+	for(var i = 0; i < this.t.length; i++)
+		// apply the tog event listener
+		this.t[i].children[0].addEventListener('click', this.tog, false);
 }
 
 //-----------------------------------------------
@@ -42,6 +50,73 @@ CM.prototype.setEnd = function(){
     this.range.collapse(false);//collapse the this.range to the end point. false means collapse to end rather than the start
     this.sel.removeAllRanges();//remove any selections already made
     this.sel.addRange(this.range);//make the this.range you have just created the visible this.sel
+}
+
+//-----------------------------------------------
+// - toggle editor mode for a dragable element
+CM.prototype.tog = function(){
+
+	// display the correct properties toolbar
+
+	// set the "active" element/object where approprate
+
+	// set the background color control panel
+
+	// set the border control panel
+
+	// set the shadow control panel
+
+	// set the visibility control panel
+
+
+
+
+
+
+
+
+
+
+	// if this is not the active state/properties toolbar hidden
+	if(this.dataset.as !== as){
+
+		// remove the new element event listener
+		jApp[this.dataset.as].compBtn
+			.removeEventListener('click', jApp[this.dataset.as].newElem, false);
+
+		// trigger the click event to show the toolbar/initialize
+		jApp[this.dataset.as].compBtn.click();
+	
+	// else if the correct toolbar is already showing
+	}else{
+
+		// remove the active class from the previously active elem
+		jApp[as].a.className = jApp[as].a.className
+									.substr(0, jApp[as].a.className.length - 7);
+
+		// hide the drag buttons												
+		cs.rOff();
+
+		// display the toggle editor elem
+		jApp[as].a.children[0].style.display = 'block';
+	}
+
+	// set the active element, use dataset for race conditions
+	jApp[this.dataset.as].a = this.parentElement;
+
+	// set the active class
+	this.parentElement.className = this.parentElement.className + ' active';
+
+	// set the active rrr element
+	rm.a = rm.h[this.parentElement.dataset.r];
+
+	// hide the toggler element
+	this.style.display = 'none';
+
+	// set the visibility checkboxes
+	cs.setVis();
+
+	// set the background and border color checkboxes
 }
 
 
@@ -411,7 +486,7 @@ TC.prototype.wheelBtn = function(){
 // - change the opacity
 // - set execCommand or background color
 // - keep track of previous color, possibly reset
-TC.prototype.trans = function(){ console.log(this.checked);
+TC.prototype.trans = function(){
 	
 	// if checked --> unchecked
 	if(this.checked){
@@ -607,7 +682,7 @@ TC.prototype.bg = function(hex){
 //-----------------------------------------------
 // - set the shadow color property
 // - only deal with color
-TC.prototype.shadowColor = function(hex){ console.log(hex);
+TC.prototype.shadowColor = function(hex){
 
 	if(hex == 'transparent'){
 		// set the nVals
@@ -733,9 +808,6 @@ var SS = function(){
 SS.prototype.update = function(i){
 	// make sure we got an i variable, or use last checkbox in array
 	i = i || jApp[as].c.checki.length - 1;
-	// set the checkbox
-	// jApp[as].c.checki[i].checked = false;
-	// jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
 	// set the nVal as active
 	this.t.active = 1;
 	// assemble the shadow css string
@@ -992,13 +1064,6 @@ var CS = function(){
 
 		// add the event listener to the checkbox
 		this.t[i].children[0].addEventListener('change', this.vis, false);
-
-	// loop through existing dragable elements
-	this.t = dragCanvas.children;
-	for(var i = 0; i < this.t.length; i++)
-
-		// apply the tog event listener
-		this.t[i].children[0].addEventListener('click', this.tog, false);
 }
 
 //-----------------------------------------------
@@ -1195,52 +1260,6 @@ CS.prototype.rOff = function(){
 	jApp[as].a.children[1].style.display = 'none';
 	// button default
 	jApp[as].rBtn.className = 'btn btn-default';
-}
-
-//-----------------------------------------------
-// - toggle editor mode for a dragable element
-CS.prototype.tog = function(){
-
-	// if this is not the active state/properties toolbar hidden
-	if(this.dataset.as !== as){
-
-		// remove the new element event listener
-		jApp[this.dataset.as].compBtn
-			.removeEventListener('click', jApp[this.dataset.as].newElem, false);
-
-		// trigger the click event to show the toolbar/initialize
-		jApp[this.dataset.as].compBtn.click();
-	
-	// else if the correct toolbar is already showing
-	}else{
-
-		// remove the active class from the previously active elem
-		jApp[as].a.className = jApp[as].a.className
-									.substr(0, jApp[as].a.className.length - 7);
-
-		// hide the drag buttons												
-		cs.rOff();
-
-		// display the toggle editor elem
-		jApp[as].a.children[0].style.display = 'block';
-	}
-
-	// set the active element, use dataset for race conditions
-	jApp[this.dataset.as].a = this.parentElement;
-
-	// set the active class
-	this.parentElement.className = this.parentElement.className + ' active';
-
-	// set the active rrr element
-	rm.a = rm.h[this.parentElement.dataset.r];
-
-	// hide the toggler element
-	this.style.display = 'none';
-
-	// set the visibility checkboxes
-	cs.setVis();
-
-	// set the background and border color checkboxes
 }
 
 //-----------------------------------------------

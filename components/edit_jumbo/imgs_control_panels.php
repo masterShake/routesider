@@ -459,7 +459,7 @@
             </button>
             <!-- [4] resize, reposition, rotate -->
             <button type="button" class="btn btn-default inactive" data-panel aria-label="resize, reposition, rotate">
-                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
             </button>
             <!-- [5] visibility -->
             <button type="button" class="btn btn-default inactive" data-panel="3" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
