@@ -39,6 +39,12 @@ var CM = function(){
 	for(var i = 0; i < this.t.length; i++)
 		// apply the tog event listener
 		this.t[i].children[0].addEventListener('click', this.tog, false);
+
+	// move to front buttons
+	this.t = document.querySelectorAll('.icon-stack');
+	this.t[0].addEventListener('click', this.move2front);
+	this.t[1].addEventListener('click', this.move2front);
+	this.t[2].addEventListener('click', this.move2front);
 }
 
 //-----------------------------------------------
@@ -111,7 +117,24 @@ CM.prototype.setTools = function(state, elem){
 	jApp[state].a = elem;
 }
 
+//-----------------------------------------------
+// - move active textbox to the front of all 
+//   elements in the dragCanvas
+CM.prototype.move2front = function(){
 
+	// incriment the rm z-index property
+	rm.z++;
+
+	// set the nVals property
+	jApp.nVals[as][jApp[as].a.dataset.key].z = 
+
+	// set the active textbox z index
+	rm.a.el.style.zIndex = 
+
+	// set the z index for the stylesheet
+	document.styleSheets[7].cssRules[rm.a.el.dataset.r]
+		.style.zIndex = rm.z;
+}
 
 
 
@@ -931,7 +954,7 @@ SS.prototype.keyA = function(){
 SS.prototype.keyB = function(){
 
 	// replace all non numeric characters
-	this.value = this.value.replace(/(\-?)[^\d]/g, '');
+	this.value = this.value.replace(/[^\-?\d]/g, '');
 
 	// if there is no input return
 	if(!this.value ) return;
