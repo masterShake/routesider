@@ -368,6 +368,14 @@ var TBC = function(tbs){
 		justifyFull	  : this.b[3]
 	};
 
+	// opacity, blur, border roundness, border thickness
+	this.s = {
+		opacity : tbsCpanels.querySelectorAll('opacity-form input'),
+		blur : tbsCpanels.querySelectorAll('blur-form input'),
+		round : tbsCpanels.querySelectorAll('roundness-form input'),
+		borderwidth : tbsCpanels.querySelectorAll('thickness-form input'),
+	}
+
 	// track visibility checkboxes
 	this.v = tbsCpanels.children[7].getElementsByTagName('input');
 

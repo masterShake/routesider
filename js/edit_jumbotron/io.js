@@ -493,7 +493,18 @@ var IOC = function(){
 	this.icon = imgsCpanels.querySelectorAll('button.colorize[type="button"]');
 
 	// get the trasparency checkboxes
-	this.checki = imgsCpanels.querySelectorAll('input.colorize[type="checkbox"]');	
+	this.checki = imgsCpanels.querySelectorAll('input.colorize[type="checkbox"]');
+
+	// opacity, blur, border roundness, border thickness
+	this.s = {
+		opacity : imgsCpanels.querySelectorAll('opacity-form input'),
+		blur : imgsCpanels.querySelectorAll('blur-form input'),
+		round : imgsCpanels.querySelectorAll('roundness-form input'),
+		borderwidth : imgsCpanels.querySelectorAll('thickness-form input'),
+	}
+
+	// visibility checkboxes
+	this.v = imgsCpanels.querySelectorAll('.vis input');
 }
 
 //-----------------------------------------------

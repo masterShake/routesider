@@ -3,9 +3,11 @@
 // 		 	 --------------------------
 //
 // - keep track of styler objects:
-//    + CS
-//    + TS
-//    + TC
+//    + CS (component style)
+//    + SS (shadow style)
+//    + TS (text style)
+//    + TC (text color)
+//	  + SC (set color)
 //
 // - toggle between elements
 //
@@ -54,69 +56,59 @@ CM.prototype.setEnd = function(){
 
 //-----------------------------------------------
 // - toggle editor mode for a dragable element
-CM.prototype.tog = function(){
-
-	// display the correct properties toolbar
-
-	// set the "active" element/object where approprate
-
-	// set the background color control panel
-
-	// set the border control panel
-
-	// set the shadow control panel
-
-	// set the visibility control panel
-
-
-
-
-
-
-
-
-
-
-	// if this is not the active state/properties toolbar hidden
-	if(this.dataset.as !== as){
-
-		// remove the new element event listener
-		jApp[this.dataset.as].compBtn
-			.removeEventListener('click', jApp[this.dataset.as].newElem, false);
-
-		// trigger the click event to show the toolbar/initialize
-		jApp[this.dataset.as].compBtn.click();
-	
-	// else if the correct toolbar is already showing
-	}else{
-
-		// remove the active class from the previously active elem
-		jApp[as].a.className = jApp[as].a.className
-									.substr(0, jApp[as].a.className.length - 7);
-
-		// hide the drag buttons												
-		cs.rOff();
-
-		// display the toggle editor elem
-		jApp[as].a.children[0].style.display = 'block';
-	}
-
-	// set the active element, use dataset for race conditions
-	jApp[this.dataset.as].a = this.parentElement;
+CM.prototype.tog = function(){	
 
 	// set the active class
 	this.parentElement.className = this.parentElement.className + ' active';
+
+	// display the correct properties toolbar
+	cm.setTools(this.dataset.as, this.parentElement);
+
+	// set the necessary control panels
+	tc.setPanels(this.dataset.as, jApp.nVals[this.dataset.as][this.parentElement.dataset.key]);
 
 	// set the active rrr element
 	rm.a = rm.h[this.parentElement.dataset.r];
 
 	// hide the toggler element
 	this.style.display = 'none';
+}
 
-	// set the visibility checkboxes
-	cs.setVis();
+//-----------------------------------------------
+// - display the correct toolbar when toggling 
+//   between user defined elements
+// - state --> active state of clicked elem (str)
+// - elem --> activated elem
+CM.prototype.setTools = function(state, elem){
 
-	// set the background and border color checkboxes
+	if(as){
+		// remove the active class from the previously active elem
+		jApp[as].a.className = jApp[as].a.className
+								.substr(0, jApp[as].a.className.length - 7);
+		// display the toggle editor elem
+		jApp[as].a.children[0].style.display = 'block';
+	}
+
+	// if this is not the active state/properties toolbar hidden
+	if(state !== as){
+
+		// remove the new element event listener
+		jApp[state].compBtn
+			.removeEventListener('click', jApp[state].newElem, false);
+
+		// trigger the click event to show the toolbar/initialize
+		jApp[state].compBtn.click();
+	
+	// else if the correct toolbar is already showing
+	}else{
+		// hide the rrr element
+		jApp[as].a.children[1].style.display = 'none';
+		// button default
+		jApp[as].rBtn.className = 'btn btn-default';
+	}
+
+	// set the active element, use dataset for race conditions
+	jApp[state].a = elem;
 }
 
 
@@ -382,6 +374,10 @@ var TC = function(){
 	this.t = dragCanvas.getElementsByClassName('content-edit');
 	for(var i = 0; i < this.t.length; i++)
 		this.t[i].addEventListener('keyup', this.qCol, false);
+
+	// temp variable
+	this.t = 
+	this.u = null;
 }
 
 //-----------------------------------------------
@@ -449,10 +445,10 @@ TC.prototype.hexText = function(e){
 	if(this.value.length == 7){
 
 		// set the color elements
-		tc.setElems(this.value, this.dataset.i);
+		tc.setElems(this.value, this.dataset.i, as);
 
 		// set the property
-		tc[this.dataset.func](this.value);
+		sc[this.dataset.func](this.value);
 	}
 }
 
@@ -461,10 +457,10 @@ TC.prototype.hexText = function(e){
 TC.prototype.colorPick = function(){
 
 	// set the color elements
-	tc.setElems(this.value, this.dataset.i);
+	tc.setElems(this.value, this.dataset.i, as);
 
 	// set the property
-	tc[this.dataset.func](this.value);
+	sc[this.dataset.func](this.value);
 }
 
 //-----------------------------------------------
@@ -475,10 +471,10 @@ TC.prototype.colorPick = function(){
 // - set background
 TC.prototype.wheelBtn = function(){
 
-	tc.setElems(this.dataset.hex, this.parentElement.parentElement.dataset.i);
+	tc.setElems(this.dataset.hex, this.parentElement.parentElement.dataset.i, as);
 
 	// set the property
-	tc[this.parentElement.parentElement.dataset.func](this.dataset.hex);
+	sc[this.parentElement.parentElement.dataset.func](this.dataset.hex);
 }
 
 //-----------------------------------------------
@@ -496,7 +492,7 @@ TC.prototype.trans = function(){
 			tc[this.dataset.func]('transparent');
 
 		// update the control panel elements
-		tc.makeTrans(this.dataset.i);
+		tc.makeTrans(this.dataset.i, as);
 
 		// set the lasthex attribute
 		this.setAttribute('data-lasthex', this.dataset.lasthex );
@@ -508,11 +504,11 @@ TC.prototype.trans = function(){
 	}else{
 
 		// set the last color
-		tc.setElems(this.dataset.lasthex, this.dataset.i);
+		tc.setElems(this.dataset.lasthex, this.dataset.i, as);
 
 		// set the active element
 		if(this.dataset.func)
-			tc[this.dataset.func](this.dataset.lasthex);
+			sc[this.dataset.func](this.dataset.lasthex);
 
 		// set the opacity of the parent element
 		this.parentElement.style.opacity = '0.5';
@@ -522,41 +518,41 @@ TC.prototype.trans = function(){
 // - helper function to set control panel and
 //   active element transparent styles & props
 // - i --> control panel index
-TC.prototype.makeTrans = function(i){
+TC.prototype.makeTrans = function(i, state){
 
 		// clear the colors
-		jApp[as].c.icon[i].style.color = '#444';
-		jApp[as].c.icon[i].style.backgroundColor = '#FFF';
+		jApp[state].c.icon[i].style.color = '#444';
+		jApp[state].c.icon[i].style.backgroundColor = '#FFF';
 
 		// clear the text
-		jApp[as].c.texti[i].value = '';
+		jApp[state].c.texti[i].value = '';
 
 		// white out the html5 color picker
-		jApp[as].c.picki[i].value = '#FFFFFF';
+		jApp[state].c.picki[i].value = '#FFFFFF';
 }
 
 //-----------------------------------------------
 // - set color elements of control panel
 // - i => index of elements in array
-TC.prototype.setElems = function(hex, i){
+TC.prototype.setElems = function(hex, i, state){
 
 	// set the text input
-	jApp[as].c.texti[i].value = 
+	jApp[state].c.texti[i].value = 
 
 	// set the color picker input
-	jApp[as].c.picki[i].value = 
+	jApp[state].c.picki[i].value = 
 
 	// set the icon background color
-	jApp[as].c.icon[i].style.backgroundColor = hex;
+	jApp[state].c.icon[i].style.backgroundColor = hex;
 
 	// set the icon color
-	jApp[as].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) );
+	jApp[state].c.icon[i].style.color = this.hexBright( this.hexToRgb( hex ) ) ? '#444' : '#FFF';
 
 	// uncheck the transparency checkbox
 	if(hex != 'transparent'){
-		jApp[as].c.checki[i].checked = false;
-		jApp[as].c.checki[i].parentElement.style.opacity = '0.5';
-		jApp[as].c.checki[i].setAttribute('data-lasthex', hex);
+		jApp[state].c.checki[i].checked = false;
+		jApp[state].c.checki[i].parentElement.style.opacity = '0.5';
+		jApp[state].c.checki[i].setAttribute('data-lasthex', hex);
 	}
 }
 
@@ -570,7 +566,8 @@ TC.prototype.qCol = function(){
 			document.queryCommandValue('foreColor')
 				.split('(')[1].split(')')[0].split(',')
 		),
-		0
+		0,
+		as
 	);
 
 	// set the backColor control panel
@@ -579,13 +576,75 @@ TC.prototype.qCol = function(){
 			document.queryCommandValue('backColor')
 				.split('(')[1].split(')')[0].split(',')
 		),
-		1
+		1,
+		as
 	);
 }
 
 //-----------------------------------------------
+// - set the applicable control panels
+// - state --> active state of clicked elem
+// - props --> corresponding nVals properties obj
+TC.prototype.setPanels = function(state, props){
+
+	// get the starting index of the control panel elems
+	this.u = (state == 'imgs') ? 0 : 2;
+
+	// if the background color is transparent
+	if(props.color == 'transparent')
+		// make the color properties transparent
+		this.makeTrans(this.u, state);
+	else
+		// set the color properties elems
+		this.setElems(props.color, this.u, state);
+
+	// set the border control panel
+	this.setElems(props.bordercolor, this.u + 1, state);  // border
+
+	// set the sliders and text inputs
+	cs.setSliders(state, props);
+
+	// set the shadow control panel
+	ss.shadowPan(state, this.u+2, props.shadow);
+
+	// set the visibility checkboxes
+	cs.setVis(state, props.layout);
+
+	// if btns, set the link panel
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+//				  SC (set colors)
+//				-------------------
+//
+// - set color properties of user defined elems
+//
+//-----------------------------------------------
+
+var SC = function(){
+
+	// temp variable
+	this.t = null;
+}
+
+//-----------------------------------------------
 // - set foreColor of content editable
-TC.prototype.foreColor = function(hex){
+SC.prototype.foreColor = function(hex){
 
 	// focus on the active element
 	jApp[as].a.children[3].focus(); 
@@ -599,7 +658,7 @@ TC.prototype.foreColor = function(hex){
 
 //-----------------------------------------------
 // - set backColor of content editable
-TC.prototype.backColor = function(hex){
+SC.prototype.backColor = function(hex){
 
 	// focus on the active element
 	jApp[as].a.children[3].focus(); 
@@ -614,7 +673,7 @@ TC.prototype.backColor = function(hex){
 
 //-----------------------------------------------
 // - set border color of active element
-TC.prototype.bgColor = function(hex){
+SC.prototype.bgColor = function(hex){
 
 	// set the element background color
 	jApp[as].a.children[2].style.backgroundColor = 
@@ -629,7 +688,7 @@ TC.prototype.bgColor = function(hex){
 
 //-----------------------------------------------
 // - set border color of active element
-TC.prototype.borderColor = function(hex){
+SC.prototype.borderColor = function(hex){
 
 	// if there is no border thickness
 	if(!jApp.nVals[as][jApp[as].a.dataset.key].borderwidth)
@@ -652,9 +711,10 @@ TC.prototype.borderColor = function(hex){
 	jApp.deltaVals();
 
 }
+
 //-----------------------------------------------
 // - border color thickness helper
-TC.prototype.border1 = function(){
+SC.prototype.border1 = function(){
 	this.t = document.getElementById(as + 'Cpanels')
 			.getElementsByClassName('thickness-form')[0]
 				.children[1];
@@ -667,7 +727,7 @@ TC.prototype.border1 = function(){
 //-----------------------------------------------
 // - set background color of active element
 // - only used for the background component
-TC.prototype.bg = function(hex){
+SC.prototype.bg = function(hex){
 
 	// set preview background color
 	bgElem.parentElement.style.backgroundColor = 
@@ -682,7 +742,7 @@ TC.prototype.bg = function(hex){
 //-----------------------------------------------
 // - set the shadow color property
 // - only deal with color
-TC.prototype.shadowColor = function(hex){
+SC.prototype.shadowColor = function(hex){
 
 	if(hex == 'transparent'){
 		// set the nVals
@@ -693,6 +753,8 @@ TC.prototype.shadowColor = function(hex){
 			imgs.a.style.boxShadow = 'none';
 		else
 			jApp[as].a.children[2].style.boxShadow = 'none';
+
+		return;
 	}
 
 	// // if the color is transparent
@@ -712,8 +774,6 @@ TC.prototype.shadowColor = function(hex){
 	ss.t.color = hex;
 	ss.update();
 }
-
-
 
 
 
@@ -871,7 +931,7 @@ SS.prototype.keyA = function(){
 SS.prototype.keyB = function(){
 
 	// replace all non numeric characters
-	this.value = this.value.replace(/-?\d?\d?/, '');
+	this.value = this.value.replace(/(\-?)[^\d]/g, '');
 
 	// if there is no input return
 	if(!this.value ) return;
@@ -908,23 +968,79 @@ SS.prototype.inset = function(e){ e.preventDefault();
 }
 
 //-----------------------------------------------
-// - toggle box shadow css rule
-// - only deals with removing the shadow
-SS.prototype.tog = function(){
+// - set the corresponding shadow control panel 
+//   values when user toggles between elements
+// state --> clicked elem obj type active state
+// i --> control panel index
+// shadow --> nVals shadow props object literal
+SS.prototype.shadowPan = function(state, i, shadow){
 
-	// let another function set the color
-	if(!this.checked) return;
+	// get all the shadow inputs
+	this.t = document.getElementById(state + 'Cpanels')
+				.querySelectorAll('.shadow input');
 
-	// set the nVals
-	ss.t.active = 0;
-	
-	// remove the box shadow css rule
-	if(as == 'imgs')
-		jApp[as].a.style.boxShadow = 'none';
-	else
-		jApp[as].a.children[2].style.boxShadow = 'none';
+	// set the inputs
+	this.setInput(shadow);
+
+	// set the color
+	if(props.color == 'transparent'){
+		// make the color properties transparent
+		tc.makeTrans(i, state);
+		// set the transparency checkbox
+		this.t[2].checked = true; 
+		this.t[2].parentElement.style.opacity = '1';
+		this.t[2].setAttribute('data-lasthex', shadow.color);
+	}else{
+		// set the color properties elems
+		tc.setElems(shadow.color, i, state);
+		// set the transparency checkbox
+		this.t[2].checked = true; 
+		this.t[2].parentElement.style.opacity = '1';
+	}
 }
 
+//-----------------------------------------------
+// - helper function for shadowPan
+// - set the inputs elements of new or toggled
+//   user defined object shadow
+// - assume t is already set
+SS.prototype.setInput = function(shadow){
+	// set the softness
+	this.t[3].value = 
+	this.t[4].value = shadow.softness;
+	// set the spread
+	this.t[5].value = 
+	this.t[6].value = shadow.spread;
+	// set the x positioning
+	this.t[7].value = 
+	this.t[8].value = shadow.x;
+	// set the y positioning
+	this.t[9].value = 
+	this.t[10].value = shadow.y;
+	// set the inset
+	if(shadow.inset)
+		this.t[12].checked = true;
+	else
+		this.t[11].checked = true;
+}
+
+//-----------------------------------------------
+// - toggle box shadow css rule
+// - only deals with removing the shadow
+// SS.prototype.tog = function(){
+
+// 	// let another function set the color
+// 	if(!this.checked) return;
+
+// 	// set the nVals
+// 	ss.t.active = 0;
+	
+// 	// remove the box shadow css rule
+// 	if(as == 'imgs')
+// 		jApp[as].a.style.boxShadow = 'none';
+// 	else
+// 		jApp[as].a.children[2].style.boxShadow = 'none';
+// }
 
 
 
@@ -1064,6 +1180,10 @@ var CS = function(){
 
 		// add the event listener to the checkbox
 		this.t[i].children[0].addEventListener('change', this.vis, false);
+
+	// temp variables
+	this.t = 
+	this.u = null;
 }
 
 //-----------------------------------------------
@@ -1308,15 +1428,17 @@ CS.prototype.vis = function(){
 //-----------------------------------------------
 // - set checkboxes of cPanel when user activates
 //   an dragable object
-CS.prototype.setVis = function(){
+// - state --> object type of toggled element
+// - layout --> cooresponding layout object
+CS.prototype.setVis = function(state, layout){
 	
 	// get the checkboxes of the active state toolbar
-	this.t = jApp[as].c.v;
+	this.t = jApp[state].c.v;
 
 	// set them in accordance with the user defined values
-	this.t[0].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.mobile.v);
-	this.t[1].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.tablet.v);
-	this.t[2].checked = (jApp.nVals[as][jApp[as].a.dataset.key].layout.desktop.v);
+	this.t[0].checked = (layout.mobile.v);
+	this.t[1].checked = (layout.tablet.v);
+	this.t[2].checked = (layout.desktop.v);
 }
 
 //-----------------------------------------------
@@ -1404,4 +1526,36 @@ CS.prototype.elemRound = function(val){
 		imgs.a.style.borderRadius = (val/2) + '%';
 	else
 		jApp[as].a.children[2].style.borderRadius = (val/2) + '%';
+}
+
+//-----------------------------------------------
+// - set sliders and inputs when user toggles or
+//   defines new element
+// - sets:
+//	  + opacity
+//	  + blur
+//	  + border roundness
+//	  + border thickness
+// - state --> actived state/obj type
+// - props --> properties of actived element
+CS.prototype.setSliders = function(state, props){
+
+	// get the range/text elements
+	this.u = jApp[state].c.s;
+
+	// set the opacity
+	this.u.opacity[0] = 
+	this.u.opacity[1] = props.opacity;
+
+	// set the blur
+	this.u.blur[0] = 
+	this.u.blur[1] = props.blur;
+
+	// set the border roundness
+	this.u.round[0] = 
+	this.u.round[1] = props.round;
+
+	// set border width
+	this.u.borderwidth[0] = 
+	this.u.borderwidth[1] = props.borderwidth;
 }

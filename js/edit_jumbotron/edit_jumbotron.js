@@ -10,6 +10,7 @@ var jApp,	// Jumbo app
 	ts,		// text styler
 	ss,		// shadow styler
 	tc,		// text color
+	sc,		// set color
 	bg,		// background
 	tbs,	// textbox
 	imgs,	// image overlay
