@@ -48,13 +48,20 @@ r.prototype.mt = function(e){ e.preventDefault();
 // - tablet @media > 768px
 // - desktop @media > 1200px
 // - el --> the element
-r.prototype.newRules = function(){
+// - callback --> callback function
+r.prototype.newRules = function(el, callback){
+
+	// create & activate the rr object
+	this.i++;
+	this.z++;
+	this.h[this.i] = new rr(el);
+	this.a = this.h[this.i];
 
 	// default: scale 1, rotate 0, element centered
 	this.u = '#dragCanvas>div:nth-child('+this.i+')'+
 				'{ transform: scale(1,1) rotate3d(0,0,1,0deg); ' +
-				'  left: calc(50% - '+(jApp[as].a.offsetWidth/2)+'px);' +
-				'  top: calc(50% - '+(jApp[as].a.offsetHeight/2)+'px);' +
+				'  left: calc(50% - '+(el.offsetWidth/2)+'px);' +
+				'  top: calc(50% - '+(el.offsetHeight/2)+'px);' +
 				'  z-index: '+this.z+';' +
 				'  display: block;}';
 	// mobile
@@ -66,6 +73,11 @@ r.prototype.newRules = function(){
 	// desktop
 	document.styleSheets[7].cssRules[this.i + 2]
 		.insertRule(this.u, this.i);
+
+	// attribtue referrence to rr index
+	el.setAttribute('data-r', this.i);
+
+	callback(this.i);
 }
 
 //-----------------------------------------------

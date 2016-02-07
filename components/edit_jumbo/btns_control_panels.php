@@ -1,6 +1,6 @@
 <!-- btns options control panels -->
 <div id="btnsProps">
-    
+
     <hr>
     
     <!-- title -->
@@ -15,13 +15,11 @@
     <div id="btnsCpanels" style="position:relative;z-index:1;">
 
         <!-- text size -->
-        <div class="popover top control-panel tier-2" style="max-width:250px;">
+        <div class="popover top control-panel" style="max-width:250px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-text-size" style="margin-right:5px;margin-top:1px;"></div>
                 <div><b>Font Size</b></div>
@@ -42,21 +40,19 @@
                         </ul>
                     </div><!-- /btn-group -->
                 </div><!-- /input-group -->
-            </div><!-- /popover-content -->
-            <div class="arrow" style="left:20px"></div>
+            </div>
+            <div class="arrow"></div>
         </div><!-- /text size -->
 
         <!-- text color -->
-        <div class="popover top control-panel tier-2">
+        <div class="popover top control-panel" style="max-width:310px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-text-color" style="font-size:17px;margin-right:5px;margin-top:1px;"></div>
-                <div><b>Text Color</b></div>
+                <div><b>Font Color</b></div>
             </div>
             <div class="popover-content">
 
@@ -75,7 +71,7 @@
                             <tr>
                                 <td>
                                     <button type="button" 
-                                            class="btn" 
+                                            class="btn paint-btn colorize" 
                                             style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
                                             aria-label="edit jumbotron background color, use color wheel to select colors">
                                         <span class="glyphicon glyphicon-text-color" style="font-size:17px;"></span>
@@ -83,10 +79,12 @@
                                 </td>
                                 <td>
                                     <input type="text" 
-                                           value='' 
-                                           class="form-control" 
-                                           maxlength="7"
+                                           value='#000000' 
+                                           class="form-control colorize" 
                                            style="text-transform:uppercase" 
+                                           maxlength="7"
+                                           data-func="foreColor"
+                                           data-i="0"
                                            aria-label="background color hexidecimal color value">
                                 </td>
                             </tr>
@@ -97,62 +95,37 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label>more colors:</label>
                         <input type="color" 
-                               value='#444444'
+                               value='#FFFFFF'
+                               class="colorize"
+                               data-func="foreColor"
+                               data-i="0"
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
+
+                    <!-- transparency checkbox -->
+                    <div style="display:none;">
+                        <input type="checkbox" class="colorize"/>
+                    </div>
 
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel">
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                    </div>
-                    <!-- 5 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                    </div>
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                    </div>
+                <div class="color-wheel" data-i="0" data-func="foreColor">
+
+                    <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+
                 </div><!-- /hexigon color wheel -->
 
             </div>
-            <div class="arrow" style="left:63px"></div>
+            <div class="arrow"></div>
         </div><!-- /text color -->
 
         <!-- text background -->
-        <div class="popover top control-panel tier-2">
-           <div class="popover-title"> 
+        <div class="popover top control-panel" style="max-width:310px;">
+            <div class="popover-title"> 
                 <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-text-background" style="font-size:17px;margin-right:5px;margin-top:1px;"></div>
                 <div><b>Highlight</b></div>
@@ -174,7 +147,7 @@
                             <tr>
                                 <td>
                                     <button type="button" 
-                                            class="btn paint-btn" 
+                                            class="btn paint-btn colorize" 
                                             style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
                                             aria-label="edit jumbotron background color, use color wheel to select colors">
                                         <span class="glyphicon glyphicon-text-background" style="font-size:17px;"></span>
@@ -183,10 +156,10 @@
                                 <td>
                                     <input type="text" 
                                            value='' 
-                                           class="form-control" 
+                                           class="form-control colorize" 
                                            style="text-transform:uppercase" 
                                            maxlength="7"
-                                           data-com="backColor"
+                                           data-func="backColor"
                                            data-i="1"
                                            aria-label="background color hexidecimal color value">
                                 </td>
@@ -198,69 +171,36 @@
                     <div style="text-align:center;margin-top:14px;">
                         <label>more colors:</label>
                         <input type="color" 
+                               class="colorize"
                                value='#FFFFFF'
-                               data-i="1" 
-                               data-com="backColor" 
+                               data-func="backColor"
+                               data-i="1"  
                                aria-label="select from complete color wheel">
                     </div><!-- /full color wheel -->
 
                     <!-- no color (transparent) textbox -->
                     <div style="margin-top:10px;">
                         <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                        <input type="checkbox" class="form-control" data-i="1" checked>
+                        <input type="checkbox" class="form-control colorize" data-func="backColor" data-i="1" data-lasthex="#FFFFFF" checked>
                     </div>
                 </div>
 
                 <!-- color wheel -->
-                <div class="color-wheel" style="height:122px;padding-top:12px;" data-i="1" data-com="backColor">
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                    </div>
-                    <!-- 5 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                    </div>
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                    </div>
+                <div class="color-wheel" style="height:122px;padding-top:12px;" data-i="1" data-func="backColor">
+                    <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
                 </div><!-- /hexigon color wheel -->
 
             </div>
-            <div class="arrow" style="left:107px"></div>
+            <div class="arrow"></div>
         </div><!-- /text color -->
 
         <!-- background color control panel -->
-        <div class="popover top control-panel tier-2">
+        <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
+                
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="colorwheel-icon" style="margin-top:-1px;">
                     <div>
@@ -281,7 +221,7 @@
                 <div><b>Background</b></div>
             </div>
 
-            <div class="popover-content container" style="max-width:100%;">
+            <div class="popover-content container">
                 <div class="row">
 
                     <div class="col-sm-6 left-panel">
@@ -300,7 +240,7 @@
                                     <tr>
                                         <td>
                                             <button type="button" 
-                                                    class="btn paint-btn" 
+                                                    class="btn paint-btn colorize" 
                                                     style='background-color: #FFFFFF;'>
                                                 <span class="glyphicon glyphicon-tint"></span>
                                             </button>
@@ -308,9 +248,9 @@
                                         <td>
                                             <input type="text" 
                                                    value='' 
-                                                   class="form-control" 
+                                                   class="form-control colorize" 
                                                    maxlength="7"
-                                                   data-com 
+                                                   data-func="bgColor"
                                                    data-i="2"
                                                    style="text-transform:uppercase" 
                                                    aria-label="background color hexidecimal color value">
@@ -323,219 +263,278 @@
                             <div style="text-align:center;margin-top:14px;">
                                 <label>more colors:</label>
                                 <input type="color" 
+                                       class="colorize"
                                        value='#FFFFFF'
                                        data-i="2"
-                                       data-com 
+                                       data-func="bgColor"
                                        aria-label="select from complete color wheel">
                             </div><!-- /full color wheel -->
 
                             <!-- no color (transparent) textbox -->
                             <div style="margin-top:10px;">
                                 <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> transparent</label>
-                                <input type="checkbox" class="form-control" data-i="2" checked>
+                                <input type="checkbox" class="form-control colorize" data-i="2" data-func="bgColor" checked>
                             </div>
 
                         </div>
 
                         <!-- color wheel -->
-                        <div class="color-wheel" style="height:126px;padding-top:13px;" data-i="2" data-com>
-                            <!-- 3 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                                <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                                <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                            </div>
-                            <!-- 4 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                                <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                                <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                                <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                            </div>
-                            <!-- 5 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                                <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                                <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                                <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                                <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                            </div>
-                            <!-- 4 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                                <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                                <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                                <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                            </div>
-                            <!-- 3 -->
-                            <div>
-                                <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                                <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                                <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                            </div>
+                        <div class="color-wheel" style="height:126px;padding-top:13px;" data-i="2" data-func="bgColor">
+                            <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
                         </div><!-- /hexigon color wheel -->
                     </div><!-- /col-md-6 -->
 
                     <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 right-panel">
                         <!-- textbox blur -->
-                        <div class="half-slider" style="padding-left:10px;float:right;">
+                        <form class="half-slider blur-form" style="padding-left:10px;float:right;">
                             <label>
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 blur
                             </label>
                             <input type="text" class="form-control" maxlength="2" value='0'>
                             <input type="range" class="range-slider" min="0" max="10" step="1" value='0'>
-                        </div>
+                        </form>
                         <!-- background image opacity -->
-                        <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                        <form class="half-slider opacity-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
                             <label>
                                 <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
                                 opacity
                             </label>
-                            <input type="text" class="form-control" maxlength="4" value='1'>
-                            <input type="range" class="range-slider" min="0" max="1" step="0.01" value="1">
-                        </div>
+                            <input type="text" class="form-control" data-elem="parent" maxlength="4" value='1'>
+                            <input type="range" class="range-slider" data-elem="parent" min="0" max="1" step="0.01" value="1">
+                        </form>
                     </div><!-- /col-md-6 -->
                 </div><!-- /row -->
             </div><!-- /content container -->
-            <div class="arrow" style="left:161px"></div>
+            <div class="arrow"></div>
         </div><!-- /backgroung color control panel -->
 
         <!-- border color -->
-        <div class="popover top control-panel tier-2">
+        <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="glyphicon glyphicon-unchecked" style="font-size:20px;margin-right:5px;margin-top:-3px;"></div>
+                <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;"></div>
                 <div><b>Border</b></div>
             </div>
-            <div class="popover-content">
+            <div class="popover-content container">
+                <div class="row">
 
-                <div style="width:135px;float:right;">
+                    <div class="col-sm-6 left-panel">
+                        <div style="width:135px;float:right;">
             
-                    <!-- hex table -->
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>hex</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- fill -->
-                            <tr>
-                                <td>
-                                    <button type="button" 
-                                            class="btn" 
-                                            style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
-                                            aria-label="edit button border color, use color wheel to select colors">
-                                        <span class="glyphicon glyphicon-unchecked" style="font-size:17px;"></span>
-                                    </button>
-                                </td>
-                                <td>
-                                    <input type="text" 
-                                           value='' 
-                                           class="form-control" 
-                                           maxlength="7"
-                                           style="text-transform:uppercase" 
-                                           aria-label="background color hexidecimal color value">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table><!-- /hex table -->
+                            <!-- hex table -->
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>hex</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- fill -->
+                                    <tr>
+                                        <td>
+                                            <button type="button" 
+                                                    class="btn colorize" 
+                                                    style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
+                                                    aria-label="edit button border color, use color wheel to select colors">
+                                                <span class="icon-checkbox-unchecked" style="font-size:17px;"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <input type="text" 
+                                                   value='#000000' 
+                                                   class="form-control colorize" 
+                                                   maxlength="7"
+                                                   style="text-transform:uppercase"
+                                                   data-func="borderColor"
+                                                   data-i="3" 
+                                                   aria-label="background color hexidecimal color value">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table><!-- /hex table -->
 
-                    <!-- HTML5 color picker -->
-                    <div style="text-align:center;margin-top:14px;">
-                        <label>more colors:</label>
-                        <input type="color" 
-                               value='#444444'
-                               aria-label="select from complete color wheel">
-                    </div><!-- /full color wheel -->
+                            <!-- HTML5 color picker -->
+                            <div style="text-align:center;margin-top:14px;">
+                                <label>more colors:</label>
+                                <input type="color" 
+                                       class="colorize"
+                                       value='#444444'
+                                       data-func="borderColor"
+                                       data-i="3"
+                                       aria-label="select from complete color wheel">
+                            </div><!-- /full color wheel -->
 
-                </div>
+                            <!-- transparency checkbox -->
+                            <div style="display:none;">
+                                <input type="checkbox" class="colorize"/>
+                            </div>
 
-                <!-- color wheel -->
-                <div class="color-wheel">
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Red Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF0000" aria-label="Red #FF0000"></button>
-                        <button type="button" class="btn" data-hex="#FF7F00" aria-label="Orange #FF7F00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#FF00FF" aria-label="Magenta #FF00FF"></button>
-                        <button type="button" class="btn" data-hex="#FF99CC" aria-label="Lilac #FF99CC"></button>
-                        <button type="button" class="btn" data-hex="#FFCC99" aria-label="Apricot #FFCC99"></button>
-                        <button type="button" class="btn" data-hex="#FFFF00" aria-label="Yellow #FFFF00"></button>
-                    </div>
-                    <!-- 5 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#7F00FF" aria-label="Blue Magenta #7F00FF"></button>
-                        <button type="button" class="btn" data-hex="#CC99FF" aria-label="Lavendar #CC99FF"></button>
-                        <button type="button" class="btn" data-hex="#FFFFFF" aria-label="White #FFFFFF"></button>
-                        <button type="button" class="btn" data-hex="#CCFF99" aria-label="Celadon #CCFF99"></button>
-                        <button type="button" class="btn" data-hex="#7FFF00" aria-label="Green Yellow #7FFF00"></button>
-                    </div>
-                    <!-- 4 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#0000FF" aria-label="Blue #0000FF"></button>
-                        <button type="button" class="btn" data-hex="#99CCFF" aria-label="Cornflower Blue #99CCFF"></button>
-                        <button type="button" class="btn" data-hex="#99FFCC" aria-label="Sea Foam Green #99FFCC"></button>
-                        <button type="button" class="btn" data-hex="#00FF00" aria-label="Green #00FF00"></button>
-                    </div>
-                    <!-- 3 -->
-                    <div>
-                        <button type="button" class="btn" data-hex="#007FFF" aria-label="Blue Cyan #007FFF"></button>
-                        <button type="button" class="btn" data-hex="#00FFFF" aria-label="Cyan #00FFFF"></button>
-                        <button type="button" class="btn" data-hex="#00FF7F" aria-label="Green Cyan #00FF7F"></button>
-                    </div>
-                </div><!-- /hexigon color wheel -->
+                        </div>
 
-                <hr>
+                        <!-- color wheel -->
+                        <div class="color-wheel" data-func="borderColor" data-i="3">
+                            <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+                        </div><!-- /hexigon color wheel -->
+                    </div><!-- /left-panel -->
 
-                <!-- opacity -->
-                <div class="color-o">
-                    <div class="glyphicon glyphicon-minus"></div>
-                    <label>thickness</label>
-                    <input type="text" class="form-control" value="1">
-                    <input type="range" class="range-slider" min="0" max="10" step="1" value="1">
-                </div>
+                    <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
 
-            </div>
-            <div class="arrow" style="left:205px"></div>
+                    <div class="col-sm-6 right-panel">
+                        <!-- thickness -->
+                        <form class="half-slider thickness-form" style="padding-left:10px;float:right;">
+                            <label><span class="glyphicon glyphicon-minus"></span> thickness</label>
+                            <input type="text" class="form-control" maxlength="2" value="0">
+                            <input type="range" class="range-slider" min="0" max="10" step="1" value="0">
+                        </form>
+                        <!-- roundness -->
+                        <form class="half-slider roundness-form" style="border-right: 1px solid #ccc; padding-right: 10px;">
+                            <label><span class="icon-radio-unchecked"></span> roundness</label>
+                            <input type="text" class="form-control" maxlength="3" value="0">
+                            <input type="range" class="range-slider" min="0" max="100" step="1" value="0">
+                        </form>
+                    </div><!-- /right panel -->
+                </div><!-- /row -->
+            </div><!-- /popover-content container -->
+            <div class="arrow"></div>
         </div><!-- /border color -->
 
-        <!-- element roundness -->
-        <div class="popover top control-panel tier-2" style="max-width:264px;">
-           <div class="popover-title"> 
+        <!-- shadow -->
+        <div class="popover top control-panel" style="width:719px;">
+            <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-radio-unchecked" style="font-size:17px;margin-right:5px;"></div>
-                <div><b>Roundness</b></div>
+                <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;text-shadow: 1px 1px 4px #343434;"></div>
+                <div><b>Shadow</b></div>
             </div>
-            <div class="popover-content roundness">
-                <div></div>
-                <div class="input-group">
-                    <input type="text" class="form-control" maxlength="3" value="0">
-                    <span class="input-group-addon">%</span>
-                </div>
+            <div class="popover-content container shadow">
+                <div class="row">
+
+                    <div class="col-sm-5 left-panel">
+                        <!-- shadow color -->
+                        <div style="width:135px;float:right;">
+                            <!-- hex table -->
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>hex</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- fill -->
+                                    <tr>
+                                        <td>
+                                            <button type="button" 
+                                                    class="btn colorize" 
+                                                    style='background-color: #FFF; color: #444; padding: 7px 12px 4px;'
+                                                    aria-label="edit button border color, use color wheel to select colors">
+                                                <span class="icon-checkbox-unchecked" style="font-size:17px;"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <input type="text" 
+                                                   value='#000000' 
+                                                   class="form-control colorize" 
+                                                   maxlength="7"
+                                                   style="text-transform:uppercase"
+                                                   data-func="shadowColor"
+                                                   data-i="4" 
+                                                   aria-label="background color hexidecimal color value">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table><!-- /hex table -->
+
+                            <!-- HTML5 color picker -->
+                            <div style="text-align:center;margin-top:14px;">
+                                <label>more colors:</label>
+                                <input type="color" 
+                                       class="colorize"
+                                       value='#444444'
+                                       data-func="shadowColor"
+                                       data-i="4"
+                                       aria-label="select from complete color wheel">
+                            </div><!-- /full color wheel -->
+
+                            <!-- no shadow (transparent) textbox -->
+                            <div style="margin-top:10px;opacity:0.5;">
+                                <label style="margin-bottom:0px;margin-top:4px;"><span class="glyphicon glyphicon-ban-circle" style="color:#d9534f;"></span> no shadow</label>
+                                <input type="checkbox" class="form-control colorize" data-i="4" data-lasthex="#000000" data-func="shadowColor">
+                            </div>
+                        </div>
+                        <!-- color wheel -->
+                        <div class="color-wheel" style="height:127px;padding-top:13px;" data-func="shadowColor" data-i="4">
+                            <?php include 'components/edit_jumbo/color_wheel_btns.php'; ?>
+                        </div><!-- /hexigon color wheel -->
+                    </div><!-- /left-panel -->
+
+                    <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
+
+                    <!-- adjust levels -->
+                    <div class="col-sm-5 center-panel">
+                        <!-- softness -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="softness" data-i="4">
+                                <label>softness <span class="icon-brightness-contrast" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="2" value="4" />
+                                <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
+                            </div>
+                        </form>
+                        <!-- spread -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="spread" data-i="4">
+                                <label>spread <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="2" value="4" />
+                                <input type="range" class="range-slider" min="0" max="99" step="1" value="4">
+                            </div>
+                        </form>
+                        <!-- shadow x -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="x" data-i="4">
+                                <label>x <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="3" value="0" />
+                                <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
+                            </div>
+                        </form>
+                        <!-- shadow y -->
+                        <form class="form-inline full-slider">
+                            <div class="form-group" data-prop="y" data-i="4">
+                                <label>y <span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span></label>
+                                <input type="text" class="form-control" maxlength="3" value="0" />
+                                <input type="range" class="range-slider" min="-99" max="99" step="1" value="0">
+                            </div>
+                        </form>
+                    </div>
+                    <hr class="visible-xs" style="margin-top:13px;margin-bottom:15px;">
+                    <!-- inset -->
+                    <div class="col-sm-2">
+                        <form class="row inset-form">
+                            <div class="col-xs-6 col-sm-12">
+                                <label style="float:left;height:22px;width:22px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888;float: left;"></label>
+                                <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;" name="tb-inset" value="0" checked>
+                            </div>
+                            <div class="col-xs-6 col-sm-12">
+                                <label style="float:left;height:23px;width:23px;margin-left:28%;margin-right: 16px;margin-bottom: 0;box-shadow: 1px 1px 2px 2px #888 inset;float: left;"></label>
+                                <input type="radio" class="form-control" data-i="4" style="max-width: 22px;height: 24px;margin-top:0;" name="tb-inset" value="1">
+                            </div>
+                        </form>
+                    </div><!-- /inset -->
+                </div><!-- /row -->
             </div>
-            <div class="arrow" style="left:249px"></div>
+            <div class="arrow"></div>
         </div>
 
         <!-- URL -->
-        <div class="popover top control-panel tier-3">
+        <div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -547,14 +546,15 @@
                 <div><b>Link</b></div>
             </div>
             <div class="popover-content">
+                <button type="button" class="btn btn-info" style="float:right;">done</button>
                 <label style="margin-top:6px;">url</label>
-                <input type="text" class="form-control" style="width:calc(100% - 28px);float:right;" placeholder="http://">
+                <input type="text" class="form-control" style="margin-right:8px;width:calc(100% - 93px);;float:right;" placeholder="http://">
             </div>
-            <div class="arrow" style="left:63px"></div>
+            <div class="arrow"></div>
         </div><!-- /URL -->
     	
     	<!-- padding -->
-    	<div class="popover top control-panel tier-3">
+    	<div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
@@ -595,13 +595,11 @@
         </div><!-- /padding -->
 
         <!-- element visibility -->
-        <div class="popover top control-panel" style="margin-bottom:-96px;max-width:264px;">
+        <div class="popover top control-panel" style="max-width:264px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="8" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
+                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
+                <div><b>Textbox</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-eye-open" style="font-size:17px;margin-right:5px;"></div>
                 <div><b>Visibility</b></div>
@@ -609,26 +607,26 @@
             <div class="popover-content" style="padding-top:16px;padding-bottom:3px;">
                 <form class="form-inline">
                     <!-- mobile -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="mobile" checked>
                         <span class="icon-mobile"></span>
                         <div>mobile</div>
                     </label>
                     <!-- tablet -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="tablet" checked>
                         <span class="icon-mobile2"></span>
                         <div>tablet</div>
                     </label>
                     <!-- desktop -->
-                    <label class="checkbox-inline">
+                    <label class="checkbox-inline vis">
                         <input type="checkbox" value="desktop" checked>
                         <span class="icon-laptop"></span>
                         <div>desktop</div>
                     </label>
                 </form>
             </div>
-            <div class="arrow" style="left:107px"></div>
+            <div class="arrow"></div>
         </div><!-- /element visibility control panel -->
 
     </div>
@@ -706,9 +704,9 @@
             <button type="button" class="btn btn-default" data-panel="4" aria-label="border style">
                 <span class="icon-checkbox-unchecked" aria-hidden="true"></span>
             </button>
-            <!-- element roundness -->
-            <button type="button" class="btn btn-default" data-panel="5" aria-label="element roundess">
-                <span class="icon-radio-unchecked" aria-hidden="true"></span>
+            <!-- [2] shadow -->
+            <button type="button" class="btn btn-default" data-panel="5" aria-label="shadow">
+                <span class="icon-checkbox-unchecked" style="text-shadow: 1px 1px 4px #343434;" aria-hidden="true"></span>
             </button>
         </div><!-- /toolbar 3 -->
 

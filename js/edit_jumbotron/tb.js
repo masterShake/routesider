@@ -68,16 +68,10 @@ TB.prototype.close = function(){
 TB.prototype.newElem = function(e){ e.preventDefault();
 
 	// set this to active textbox status
-	tbs.a = tbs.createElem();
+	tbs.createElem();
 
-	// append the new textbox to the drag canvas
-	dragCanvas.appendChild(tbs.a);
-
-	// create & activate the rr object
-	rm.i++;
-	rm.z++;
-	rm.h[rm.i] = new rr(tbs.a);
-	rm.a = rm.h[rm.i];
+	// remove this event listener
+	this.removeEventListener('click', tbs.newElem);
 
 	// add the new textbox to the nVals
 	jApp.nVals.tbs[tbs.i] = {
@@ -103,12 +97,6 @@ TB.prototype.newElem = function(e){ e.preventDefault();
 			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 }
 		}
 	};
-
-	// attribtue referrence to rr index
-	tbs.a.setAttribute('data-r', rm.i);
-
-	// apply the event listeners
-	tbs.ae();
 }
 
 //-----------------------------------------------
@@ -144,12 +132,24 @@ TB.prototype.createElem = function(){
 					   document.getElementById('drag-btns-html').value+
 					   '<div class="background"></div>'+
 					   '<div class="content-edit" contenteditable="true"></div>';
-	return this.a;
+	
+
+	// append the new textbox to the drag canvas
+	dragCanvas.appendChild(tbs.a);
+
+	// apply the event listeners
+	this.ae();
+
+	// insert new style sheet rules
+	rm.newRules(this.a, this.updateVals);
 }
 
 //-----------------------------------------------
 // - add event listeners to new textbox element
 TB.prototype.ae = function(){
+
+	// focus on the element
+	this.a.children[3].focus();
 
 	// remove newElem event listener
 	this.compBtn.removeEventListener('click', this.newElem, false);
@@ -162,19 +162,47 @@ TB.prototype.ae = function(){
 	this.a.children[3].addEventListener('keyup', tc.qCol, false);
 
 	// toggle editor
-	this.a.children[0].addEventListener('click', cs.tog, false);
+	this.a.children[0].addEventListener('click', cm.tog, false);
 
 	// re-dimension event
 	this.a.children[3].addEventListener('touchend', this.c.reDim, false);
 	this.a.children[3].addEventListener('mouseup', this.c.reDim, false);
-
-	// insert new style sheet rules
-	rm.newRules();
-
+	
 	// set visibility checkboxes
 	this.c.v[0].checked = 
 	this.c.v[1].checked = 
 	this.c.v[2].checked = true;
+}
+
+//-----------------------------------------------
+// - update the nVals new values obejcts
+// - zi --> z-index assigned by the rrr object
+TB.prototype.updateVals = function(zi){
+	
+	// add the new textbox to the nVals
+	jApp.nVals.tbs[this.i] = {
+		html : '',
+		color : 'transparent',
+		opacity : 1,
+		blur: 0,
+		z : zi,
+		round : 0,
+		borderwidth: 0,
+		bordercolor: '#FFFFFF',
+		shadow : {active : 0, color : '#444444', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
+		layout : {
+			// w => width
+			// h => height
+			// x => left
+			// y => top
+			// s => scale
+			// a => angle
+			// v => visible
+			mobile  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
+			tablet  : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 },
+			desktop : { w : 80, h : 27, x : 48, y : 44, s : 1, a : 0, v : 1 }
+		}
+	};
 }
 
 //-----------------------------------------------
@@ -352,7 +380,7 @@ var TBC = function(tbs){
 	tbs.a = null;
 
 	// keep a map of all the execCom buttons
-	this.b = document.querySelectorAll('[data-excom]');
+	this.b = tbsProps.querySelectorAll('[data-excom]');
 
 	// keep track of the buttons for textbox
 	this.b = {

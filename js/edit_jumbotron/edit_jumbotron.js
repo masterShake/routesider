@@ -106,7 +106,7 @@ Jumbo = function(){
 	// init image overlay editor
 	imgs = this.imgs = new IO();
 	// init button editor
-	// btns = this.btns = new BTN();
+	btns = this.btns = new BTN();
 }
 
 /* METHODS */

@@ -268,7 +268,7 @@ TS.prototype.qCom = function(e){
 // - theoretically should run a tinsy bit faster
 TS.prototype.qch = function(){
 	// temp variable get the text style buttons hashmap
-	this.t = jApp[as].c.b;
+	this.t = jApp[as].c.b; console.log(this.t);
 	// set the class on the wysiwyg btns
 	for(var x in this.t)
 		this.t[x].className = (document.queryCommandState(x)) ?

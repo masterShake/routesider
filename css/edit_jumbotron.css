@@ -529,6 +529,35 @@ label.vis>div{
 }
 
 /*----------------------
+	   link button
+------------------------*/
+
+.link-button{
+	position: absolute;
+	top:calc(50% - 17px);
+	left: calc(50% - 35px);
+	transform: matrix(1, 0, 0, 1, 0, 0);
+	overflow: visible;
+	width: 70px;
+	height:40px;
+}
+/* url popover */
+.link-button .popover{
+	display: block;
+	position:relative;
+	min-width: 275px;
+	top: -132px;
+	left: -102px;
+}
+.link-button .content-edit{
+	width: 70px;
+}
+.link-button .content-edit .glyphicon-link{
+	color: #5CB85C;
+}
+
+
+/*----------------------
 	   save alert
 ----------------------*/
 

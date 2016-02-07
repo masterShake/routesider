@@ -68,7 +68,7 @@ IO.prototype.newElem = function(e){ e.preventDefault();
 	imgs.c.dAct();
 
 	// create the new image uploader overlay elem
-	imgs.a = imgs.createElem();
+	imgs.createElem();
 }
 
 //-----------------------------------------------
@@ -118,7 +118,8 @@ IO.prototype.createElem = function(){
 	// apply the event listeners
 	this.ae();
 
-	return this.a;
+	// insert new style sheet rules
+	rm.newRules(this.a, this.updateVals);
 }
 
 //-----------------------------------------------
@@ -132,32 +133,18 @@ IO.prototype.ae = function(){
 	this.compBtn.removeEventListener('click', this.newElem, false);
 
 	// toggle editor
-	this.a.children[0].addEventListener('click', cs.tog, false);
+	this.a.children[0].addEventListener('click', cm.tog, false);
 
 	// set visibility checkboxes
 	this.c.v[0].checked = 
 	this.c.v[1].checked = 
 	this.c.v[2].checked = true;
-
-	// create & activate the rr object
-	rm.i++;
-	rm.z++;
-	rm.h[rm.i] = new rr(this.a);
-	rm.a = rm.h[rm.i];
-
-	// attribtue referrence to rr index
-	this.a.setAttribute('data-r', rm.i);
-
-	// insert new style sheet rules
-	rm.newRules();
-
-	// update the nVals
-	this.updateVals()
 }
 
 //-----------------------------------------------
 // - update the nVals new values obejcts
-IO.prototype.updateVals = function(){
+// - zi --> z-index assigned by the rrr object
+IO.prototype.updateVals = function(zi){
 
 	// add the new image overlay to the nVals
 	jApp.nVals.imgs[this.i] = {
@@ -165,7 +152,7 @@ IO.prototype.updateVals = function(){
 		color : 'transparent',
 		opacity : 1,
 		blur: 0,
-		z : rm.z,
+		z : zi,
 		round : 0,
 		borderwidth: 0,
 		bordercolor: '#FFFFFF',
