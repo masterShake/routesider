@@ -101,6 +101,7 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
     padding: 20px;
     border-radius: 4px;
     display:none;
+    -webkit-transform: translate(129px, -93px) scale(0.1,0.1) rotateY(180deg);
     transform: translate(129px, -93px) scale(0.1,0.1) rotateY(180deg);
 }
 .navbar-nav a.nav-link{
@@ -112,11 +113,12 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 /* routesider logo */
 #logo.navbar-brand{
 	z-index: 1;
-	width: 128px;
-	margin-left: -65px;
+	width: 131px;
+	margin-left: -55px;
 	margin-right: 0px;
 	left: 50%;
 	position: absolute;
+	-webkit-transform: scale(1.05,1.05) translate(24px, 12px);
 	transform: scale(1.05,1.05) translate(24px, 12px);
 }
 #logo>div{
@@ -135,7 +137,8 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 	max-width: 70px;
 }
 #logo.starting{
-	transform: scale(2.05,2.05) translate(0, 12px) !important;
+	-webkit-transform: scale(2.05,2.05) translate(-5px, 12px) !important;
+	transform: scale(2.05,2.05) translate(-5px, 12px) !important;
 }
 
 /* ------ end logo ------------------ */
@@ -143,8 +146,8 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 /* lead */
 #lead{
 	position: absolute;
-	/*top: -500px;*/
-	height: 290px;
+	top: -500px;
+	height: 310px;
 	width: 290px;
     left: 50%;
     margin-left: -145px;
@@ -254,6 +257,7 @@ button:focus, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focu
 }
 /* close button */
 .popover-title button{
+	-webkit-transform: rotate(270deg);
 	transform: rotate(270deg);
     margin-top: -3px;
 }
@@ -528,6 +532,7 @@ hr.article-divider{
 	width: 200%;
     margin-left: -50%;
     margin-top: -50%;
+    -webkit-transform: rotate(315deg);
     transform: rotate(315deg);
 }
 .card-header>div>div{
@@ -546,6 +551,7 @@ hr.article-divider{
 	height: 140px;
 	width: 140px;
 	margin-top: -90px;
+	-webkit-transform: scale(1,1);
 	transform: scale(1,1);
 	margin-bottom: 1em;
 }
@@ -630,6 +636,7 @@ footer{
     max-width: 200px;
     margin: auto;
     margin-bottom: 1.6em;
+    -webkit-transform: translate(0, 30px);
     transform: translate(0, 30px);
 }
 .logo .route{
@@ -699,6 +706,7 @@ footer form li{
 		right: 0px;
 	}
 	#logo.navbar-brand{
+		-webkit-transform: translate(-150px, 20px) scale(1.8,1.8);
 		transform: translate(-150px, 20px) scale(1.8,1.8);
 	}
 	#navLinks{
@@ -707,6 +715,7 @@ footer form li{
 	    padding: 0;
 	    border-radius: none;
 	    display: block !important;
+	    -webkit-transform: translate(0px, 0px) scale(1,1) rotateY(0deg) !important;
 	    transform: translate(0px, 0px) scale(1,1) rotateY(0deg) !important;
 	}
 	.navbar-nav a.nav-link,
@@ -791,6 +800,7 @@ footer form li{
 		padding-top: 40px;
 	}
 	footer .logo{
+		-webkit-transform: none;
 		transform: none;
 	}
 }
@@ -825,6 +835,7 @@ footer form li{
 		margin-left: 16px !important;
 	}
 	#logo.navbar-brand{
+		-webkit-transform: translate(-277px, 17px) scale(1.55,1.55);
 		transform: translate(-277px, 17px) scale(1.55,1.55);
 	}
 }
@@ -834,6 +845,7 @@ footer form li{
 
 	/* logo */
 	#logo.navbar-brand{
+		-webkit-transform: translate(-175px, 17px) scale(1.55,1.55);
 		transform: translate(-175px, 17px) scale(1.55,1.55);
 	}
 

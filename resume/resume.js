@@ -61,6 +61,7 @@ R.prototype.togNav = function(){
 	if(navLinks.offsetParent !== null){
 
 		// shrink the navigation
+		navLinks.style.webkitTransform = 
 		navLinks.style.transform = 'translate(129px, -93px) scale(0.1,0.1) rotateY(180deg)';
 		// set timeout to hide it
 		setTimeout(rApp.hideNav, 300);
@@ -77,6 +78,7 @@ R.prototype.togNav = function(){
 //-----------------------------------------------
 // - animate in the navbar
 R.prototype.showNav = function(){
+	navLinks.style.webkitTransform =
 	navLinks.style.transform = 'translate(0px, 55px) scale(1,1) rotateY(0deg)';
 }
 //-----------------------------------------------
@@ -369,14 +371,14 @@ MapBuilder.prototype.togPan = function(){
 MapBuilder.prototype.showPan = function(i){
 
 	// if there is an open/active control panel
-	if(mapBuilder.panel >= 0)
+	if(this.panel >= 0)
 		// close it
-		cPanels.children[mapBuilder.panel].style.display = 'none';
+		cPanels.children[this.panel].style.display = 'none';
 
 	// if this panel was already open
-	if(!i || i == mapBuilder.panel){
+	if(!i || i == this.panel){
 		// reset active panel index
-		mapBuilder.panel = -1;
+		this.panel = -1;
 		// do nothing
 		return;
 	}
@@ -384,7 +386,7 @@ MapBuilder.prototype.showPan = function(i){
 	// display the proper control panel
 	cPanels.children[i].style.display = 'block';
 	// set the new panel index
-	mapBuilder.panel = i;
+	this.panel = i;
 }
 
 //-----------------------------------------------
@@ -394,6 +396,7 @@ MapBuilder.prototype.shrink = function(){
 	// if the popover content is already shrunk
 	if(this.parentElement.parentElement.children[3].offsetHeight == 45){
 		// rotate the button
+		this.style.webkitTransform = 
 		this.style.transform = 'rotate(270deg)';
 		// hide the fade
 		this.parentElement.parentElement.children[2].style.display = 'none';
@@ -403,14 +406,13 @@ MapBuilder.prototype.shrink = function(){
 		return;
 	}
 	// rotate the button
+	this.style.webkitTransform = 
 	this.style.transform = 'rotate(90deg)';
 	// hide the fade
 	this.parentElement.parentElement.children[2].style.display = 'block';
 	// shrink the popover content
 	this.parentElement.parentElement.children[3].style.height = '45px';
 }
-
-
 
 //-----------------------------------------------
 // - toolbar buttons init and/or terminate active
@@ -1100,11 +1102,11 @@ DrawPoly.prototype.draw = function(e){
 	// push the latLng object onto the coords array
 	drawPoly.coords.push(e.latLng);
 
-	// clear redo branch of coordinates
-	drawPoly.coordsUndone = [];
-
 	// call the draw function to make shit faster
 	drawPoly.updatePolyline();
+
+	// clear redo branch of coordinates
+	drawPoly.coordsUndone = [];
 }
 
 //-----------------------------------------------	

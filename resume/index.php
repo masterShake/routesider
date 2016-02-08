@@ -710,13 +710,13 @@ if ($fn) {
                         </div>
                         <div class="card-block">
                             <!-- mug shot -->
-                            <img src="/imgs/mug.jpg" alt="michael giannini silicon valley javascript web developer" >
+                            <img src="/imgs/selfie_square.jpg" alt="michael giannini silicon valley javascript web developer" >
                             <!-- name -->
                             <h4 class="card-title">MICHAEL GIANNINI</h4>
                             <h6>programmer &nbsp;&nbsp;&bull;&nbsp;&nbsp; entrepreneur &nbsp;&nbsp;&bull;&nbsp;&nbsp; philosopher</h6>
                             <hr>
                             <!-- about me -->
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text" style="text-align:left;">I code for the joy of problem solving, and the advancement of the human race. Some play for the money, but I play for the love of the game.</p>
                             <!-- nav tabs -->
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
@@ -822,11 +822,11 @@ if ($fn) {
                             <div class="row">
                                 <!-- linked in -->
                                 <div class="col-xs-3 col-md-2">
-                                    <a href="#"><span class="icon-linkedin"></span></a>
+                                    <a href="https://www.linkedin.com/in/michael-giannini-512b98112"><span class="icon-linkedin"></span></a>
                                 </div>
                                 <!-- tumblr -->
                                 <div class="col-xs-3 col-md-2">
-                                    <a href="#"><span class="icon-tumblr2"></span></a>
+                                    <a href="http://il-fattore.tumblr.com/"><span class="icon-tumblr2"></span></a>
                                 </div>
                                 <!-- email -->
                                 <div class="col-xs-3 col-md-5">
