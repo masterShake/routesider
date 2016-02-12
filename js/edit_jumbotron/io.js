@@ -492,22 +492,22 @@ var IOC = function(){
 
 	// visibility checkboxes
 	this.v = imgsCpanels.querySelectorAll('.vis input');
+
+	// toolbar buttons
+	this.t = imgsToolbar.children[0].children;
 }
 
 //-----------------------------------------------
 // - activate image overly property toolbar btns
 IOC.prototype.act = function(){ 
-
-	// get the toolbar btns
-	this.v = imgsToolbar.children[0].children;
 	
 	// set the inactive class
-	this.v[0].className = 'btn btn-default';
-	this.v[1].className = 'btn btn-default';
-	this.v[2].className = 'btn btn-default';
-	this.v[3].className = 'btn btn-default';
-	this.v[4].className = 'btn btn-default';
-	this.v[5].className = 'btn btn-default';
+	this.t[0].className = 'btn btn-default';
+	this.t[1].className = 'btn btn-default';
+	this.t[2].className = 'btn btn-default';
+	this.t[3].className = 'btn btn-default';
+	this.t[4].className = 'btn btn-default';
+	this.t[5].className = 'btn btn-default';
 
 	imgsToolbar.children[0].children[6].style.display = 'none';
 
@@ -516,19 +516,16 @@ IOC.prototype.act = function(){
 //-----------------------------------------------
 // - deactivate toolbar btns
 IOC.prototype.dAct = function(){
-
-	// get the toolbar btns
-	this.v = imgsToolbar.children[0].children;
 	
 	// set the inactive class
-	this.v[0].className = 'btn btn-default inactive';
-	this.v[1].className = 'btn btn-default inactive';
-	this.v[2].className = 'btn btn-default inactive';
-	this.v[3].className = 'btn btn-default inactive';
-	this.v[4].className = 'btn btn-default inactive';
-	this.v[5].className = 'btn btn-default inactive';
+	this.t[0].className = 'btn btn-default inactive';
+	this.t[1].className = 'btn btn-default inactive';
+	this.t[2].className = 'btn btn-default inactive';
+	this.t[3].className = 'btn btn-default inactive';
+	this.t[4].className = 'btn btn-default inactive';
+	this.t[5].className = 'btn btn-default inactive';
 
-	imgsToolbar.children[0].children[5].style.display = 'block';
+	imgsToolbar.children[0].children[6].style.display = 'block';
 }
 
 

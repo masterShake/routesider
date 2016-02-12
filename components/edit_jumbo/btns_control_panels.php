@@ -545,10 +545,15 @@
                 <div class="glyphicon glyphicon-link" style="font-size:18px;margin-right:5px;"></div>
                 <div><b>Link</b></div>
             </div>
-            <div class="popover-content">
-                <button type="button" class="btn btn-info" style="float:right;">done</button>
-                <label style="margin-top:6px;">url</label>
-                <input type="text" class="form-control" style="margin-right:8px;width:calc(100% - 93px);;float:right;" placeholder="http://">
+            <div class="popover-content url-panel">
+                <div>
+                    <button type="button" class="btn btn-info">done</button>
+                    <label>url</label>
+                    <input type="text" class="form-control" data-n placeholder="http://">
+                </div>
+                <span style="display:none;">
+                    &#42;Not a valid URL
+                </span>
             </div>
             <div class="arrow"></div>
         </div><!-- /URL -->
@@ -637,29 +642,31 @@
         <!-- toolbar 1 -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="font style">
             <!-- bold -->
-            <button type="button" class="btn btn-default" data-panel data-excom="bold" onmousedown="event.preventDefault()" aria-label="bold">
+            <button type="button" class="btn btn-default" data-panel data-excom="bold" aria-label="bold">
                 <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
             </button>
             <!-- italic -->
-            <button type="button" class="btn btn-default" data-panel data-excom="italic" onmousedown="event.preventDefault()" aria-label="italic">
+            <button type="button" class="btn btn-default" data-panel data-excom="italic" aria-label="italic">
                 <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
             </button>
             <!-- underline -->
-            <button type="button" class="btn btn-default" data-panel data-excom="underline" onmousedown="event.preventDefault()" aria-label="underline">
+            <button type="button" class="btn btn-default" data-panel data-excom="underline" aria-label="underline">
                 <span class="icon-underline" aria-hidden="true"></span>
             </button>
             <!-- strikethrough -->
-            <button type="button" class="btn btn-default" data-panel data-excom="strikeThrough" onmousedown="event.preventDefault()" aria-label="strike through">
+            <button type="button" class="btn btn-default" data-panel data-excom="strikeThrough" aria-label="strike through">
                 <span class="icon-strikethrough" aria-hidden="true"></span>
             </button>
             <!-- subscript -->
-            <button type="button" class="btn btn-default" data-panel data-excom="subscript" onmousedown="event.preventDefault()" aria-label="subscript">
+            <button type="button" class="btn btn-default" data-panel data-excom="subscript" aria-label="subscript">
                 <span class="glyphicon glyphicon-subscript" aria-hidden="true"></span>
             </button>
             <!-- superscript -->
-            <button type="button" class="btn btn-default" data-panel data-excom="superscript" onmousedown="event.preventDefault()" aria-label="superscript">
+            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel data-excom="superscript" aria-label="superscript">
                 <span class="glyphicon glyphicon-superscript" aria-hidden="true"></span>
             </button>
+            <!-- toolbar cover -->
+            <div class="toolbar-cover"></div>
         </div><!-- /toolbar 1 -->
 
         <!-- toolbar 2 -->
@@ -673,9 +680,11 @@
                 <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
             </button>
             <!-- text background-->
-            <button type="button" class="btn btn-default" data-panel="2" aria-label="text-background">
+            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="2" aria-label="text-background">
                 <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             </button>
+            <!-- toolbar cover -->
+            <div class="toolbar-cover"></div>
         </div>
 
         <!-- toolbar 3 -->
@@ -705,9 +714,11 @@
                 <span class="icon-checkbox-unchecked" aria-hidden="true"></span>
             </button>
             <!-- [2] shadow -->
-            <button type="button" class="btn btn-default" data-panel="5" aria-label="shadow">
+            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="5" aria-label="shadow">
                 <span class="icon-checkbox-unchecked" style="text-shadow: 1px 1px 4px #343434;" aria-hidden="true"></span>
             </button>
+            <!-- toolbar cover -->
+            <div class="toolbar-cover"></div>
         </div><!-- /toolbar 3 -->
 
         <!-- toolbar 4 -->
@@ -729,9 +740,11 @@
                 <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
             </button>
             <!-- visibility -->
-            <button type="button" class="btn btn-default" data-panel="8" aria-label="layout visibility">
+            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="8" aria-label="layout visibility">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
+            <!-- toolbar cover -->
+            <div class="toolbar-cover"></div>
 	    </div><!-- /toolbar 4 -->
 
 	    <!-- delete button -->

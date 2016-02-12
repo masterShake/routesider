@@ -42,6 +42,22 @@ if ($fn) {
 
         <title>routesider - coming soon</title>
 
+<!--
+
+    THANK YOU FOR VISITING ROUTESIDER
+            _______________
+    
+    + This web app was created in approx. 60 hours,
+      including server setup
+
+    + Please take a look at resume.js to view the quality
+      of my JavaScript as well
+
+        - Michael Giannini
+          (650) 678-1777
+
+ -->
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" href="icomoon.css">
@@ -228,8 +244,8 @@ if ($fn) {
                         </div>
                         <div>
                             <a class="nav-item nav-link active" href="#">map builder <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="#install">installation</a>
-                            <a class="nav-item nav-link" href="#">resume</a>
+                            <a class="nav-item nav-link" href="#how-to-install">installation</a>
+                            <a class="nav-item nav-link" href="#my-resume">resume</a>
                         </div>
                     </div>
                 </div><!-- /container -->

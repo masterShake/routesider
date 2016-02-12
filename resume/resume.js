@@ -1,3 +1,26 @@
+//-----------------------------------------------
+//
+//	Thank you for visiting routesider. 
+//
+//	Some facts about this web app:
+//		
+//		+ Completed in approximatedly 60 hours
+//
+//		+ As you can see I prefer to code using
+//		  raw JS to improve performance.
+//
+//		+ Built to be as memory efficient as
+//		  possible to accomodate the Google Maps 
+//		  API
+//
+//		+ Not fully optimized to provide a 
+//		  benchmark measure of my coding quality
+//		  vs. speed.
+//
+//-----------------------------------------------
+
+
+
 var rApp, 		// resume app
 	gm,   		// google map object
 	mm,			// map methods object

@@ -136,6 +136,28 @@ CM.prototype.move2front = function(){
 		.style.zIndex = rm.z;
 }
 
+//-----------------------------------------------
+// - set events on new content editable elements
+// - ce --> content editable element
+CM.prototype.conEdit = function(ce){
+
+	// remove link icon
+	ce.innerHTML = '';
+
+	// set content editable
+	ce.contentEditable = true;
+
+	// focus on the element
+	ce.focus();
+
+	// event to determine active exec commands
+	ce.addEventListener('keyup', this.ts.qCom, false);
+	ce.addEventListener('focus', this.ts.qCom, false);
+
+	// set control panel properties of foreColor & backColor
+	ce.addEventListener('keyup', this.tc.qCol, false);
+
+}
 
 
 
@@ -1180,7 +1202,7 @@ var CS = function(){
 	for(var i = 0; i < this.t.length; i++){
 
 		// get the buttons
-		this.u = this.t[i].children;
+		this.u = this.t[i].getElementsByClassName('btn');
 
 		// loop through the buttons
 		for(var j = 0; j < this.u.length; j++){ 

@@ -132,13 +132,12 @@ TB.prototype.createElem = function(){
 					   document.getElementById('drag-btns-html').value+
 					   '<div class="background"></div>'+
 					   '<div class="content-edit" contenteditable="true"></div>';
-	
-
-	// append the new textbox to the drag canvas
-	dragCanvas.appendChild(tbs.a);
 
 	// apply the event listeners
 	this.ae();
+	
+	// append the new textbox to the drag canvas
+	dragCanvas.appendChild(tbs.a);
 
 	// insert new style sheet rules
 	rm.newRules(this.a, this.updateVals);
@@ -148,18 +147,11 @@ TB.prototype.createElem = function(){
 // - add event listeners to new textbox element
 TB.prototype.ae = function(){
 
-	// focus on the element
-	this.a.children[3].focus();
+	// set the content editable
+	cm.conEdit(this.a.children[3]);
 
 	// remove newElem event listener
 	this.compBtn.removeEventListener('click', this.newElem, false);
-
-	// active/deactivate execCommand buttons as user types
-	this.a.children[3].addEventListener('keyup', ts.qCom, false);
-	this.a.children[3].addEventListener('focus', ts.qCom, false);
-
-	// set control panel properties of foreColor & backColor
-	this.a.children[3].addEventListener('keyup', tc.qCol, false);
 
 	// toggle editor
 	this.a.children[0].addEventListener('click', cm.tog, false);
@@ -180,7 +172,7 @@ TB.prototype.ae = function(){
 TB.prototype.updateVals = function(zi){
 	
 	// add the new textbox to the nVals
-	jApp.nVals.tbs[this.i] = {
+	jApp.nVals.tbs[tbs.i] = {
 		html : '',
 		color : 'transparent',
 		opacity : 1,
@@ -220,7 +212,7 @@ TB.prototype.confirmDel = function(){
 
 	// set the modal title
 	modal.title.innerHTML = '<div class="dash-box" aria-hidden="true">Aa</div>' + 
-    				 'Delete background image';
+    				 'Delete textbox';
 
    	// set modal body
    	modal.body.innerHTML = '<p>Are you sure you want to delete this textbox?</p>';

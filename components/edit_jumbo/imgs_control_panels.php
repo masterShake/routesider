@@ -465,7 +465,7 @@
             <button type="button" class="btn btn-default inactive" data-panel="3" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" aria-label="move to front">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
-            <div style="height:42px;width:100%;position:relative;display:block;"><span></span></div>
+            <div class="toolbar-cover"></div>
         </div>
 
         <!-- group 2 -->
