@@ -73,6 +73,15 @@ button.colorize{
     float: left;
     margin-right: 5px;
 }
+/* dash box for button icon */
+.dash-box.dash-button{
+	outline: 0px;
+	margin-top:-3px;
+	border-radius: 6px;
+	background-color: #eee;
+	border: 1px solid;
+	padding: 2px 4px 0px;
+}
 /* canvas layout title */
 #layoutD1>div{
 	font-size: 24px;
@@ -159,9 +168,16 @@ button.colorize{
 	display: block;
 }
 
+
 /*----------------------
 	control panel
 ----------------------*/
+
+#tbsCpanels,
+#btnsCpanels{
+	position:relative;
+	z-index:3;
+}
 .control-panel{
 	position: inherit;
 	max-width: none;

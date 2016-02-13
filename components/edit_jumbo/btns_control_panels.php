@@ -12,44 +12,16 @@
     </div>
 
     <!-- control panels -->
-    <div id="btnsCpanels" style="position:relative;z-index:1;">
-
-        <!-- text size -->
-        <div class="popover top control-panel" style="max-width:250px;">
-            <div class="popover-title"> 
-                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
-                <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="glyphicon glyphicon-text-size" style="margin-right:5px;margin-top:1px;"></div>
-                <div><b>Font Size</b></div>
-            </div>
-            <div class="popover-content" style="text-align:center;">
-                <div class="input-group text-size" style="max-width:70px;position:relative;left:50%;margin-left:-50px;">
-                    <input type="text" class="form-control" value="2" maxlength="1" aria-label="font size">
-                    <div class="input-group-btn dropup">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-fs="1">1</a></li>
-                            <li><a href="#" data-fs="2">2</a></li>
-                            <li><a href="#" data-fs="3">3</a></li>
-                            <li><a href="#" data-fs="4">4</a></li>
-                            <li><a href="#" data-fs="5">5</a></li>
-                            <li><a href="#" data-fs="6">6</a></li>
-                            <li><a href="#" data-fs="7">7</a></li>
-                        </ul>
-                    </div><!-- /btn-group -->
-                </div><!-- /input-group -->
-            </div>
-            <div class="arrow"></div>
-        </div><!-- /text size -->
+    <div id="btnsCpanels">
 
         <!-- text color -->
         <div class="popover top control-panel" style="max-width:310px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
+                <button type="button" class="close" data-panel="0" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-text-color" style="font-size:17px;margin-right:5px;margin-top:1px;"></div>
                 <div><b>Font Color</b></div>
@@ -123,9 +95,11 @@
         <!-- text background -->
         <div class="popover top control-panel" style="max-width:310px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
+                <button type="button" class="close" data-panel="1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-text-background" style="font-size:17px;margin-right:5px;margin-top:1px;"></div>
                 <div><b>Highlight</b></div>
@@ -194,13 +168,45 @@
             <div class="arrow"></div>
         </div><!-- /text color -->
 
+        <!-- button size -->
+        <div class="popover top control-panel" style="max-width:240px;">
+            <div class="popover-title"> 
+                <button type="button" class="close" data-panel="2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
+                <div class="glyphicon glyphicon-chevron-right"></div>
+                <div class="glyphicon glyphicon-zoom-in" style="font-size:18px;margin-right:5px;margin-top:-1px;"></div>
+                <div><b>Size</b></div>
+            </div>
+            <div class="popover-content" style="text-align:center;">
+                <button type="button" class="btn btn-default" aria-label="example button size">
+                    <span class="glyphicon glyphicon-link" style="color:#5CB85C;"></span>
+                </button>
+                <div class="dropdown" style="display:inline-block;">
+                    <div class="btn-group" aria-haspopup="true">
+                        <button class="btn btn-default" type="button">medium</button>
+                        <button class="btn btn-default" type="button" ><span class="caret"></span></button>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">small</a></li>
+                        <li><a href="#">medium</a></li>
+                        <li><a href="#">large</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="arrow"></div>
+        </div>
+
         <!-- background color control panel -->
         <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
-                
                 <button type="button" class="close" data-panel="3" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="colorwheel-icon" style="margin-top:-1px;">
                     <div>
@@ -315,8 +321,10 @@
         <div class="popover top control-panel" style="width:600px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="4" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;"></div>
                 <div><b>Border</b></div>
@@ -409,8 +417,10 @@
         <div class="popover top control-panel" style="width:719px;">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="5" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="icon-checkbox-unchecked" style="font-size:18px;margin-right:5px;text-shadow: 1px 1px 4px #343434;"></div>
                 <div><b>Shadow</b></div>
@@ -537,7 +547,7 @@
         <div class="popover top control-panel">
             <div class="popover-title"> 
                 <button type="button" class="close" data-panel="6" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
+                <div class="dash-box dash-button">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </div>
                 <div><b>Button</b></div>
@@ -557,54 +567,15 @@
             </div>
             <div class="arrow"></div>
         </div><!-- /URL -->
-    	
-    	<!-- padding -->
-    	<div class="popover top control-panel">
-            <div class="popover-title"> 
-                <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="outline: 0px;margin-top:-3px;border-radius: 6px;background-color: #eee;border: 1px solid;padding: 2px 4px 0px;">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </div>
-                <div><b>Button</b></div>
-                <div class="glyphicon glyphicon-chevron-right"></div>
-                <div class="icon-enlarge" style="font-size:18px;margin-right:5px;"></div>
-                <div><b>Padding</b></div>
-            </div>
-            <div class="popover-content">
-                <!-- background image blur -->
-                <div class="half-slider" style="padding-left:10px;float:right;">
-                	<label>
-                        <span class="glyphicon glyphicon-resize-horizontal" style="margin-right:6px;" aria-hidden="true"></span>
-                        left/right
-                    </label>
-                    <div>
-                    	<span style="float:right;margin-left:3px;">px</span>
-                        <input type="text" class="form-control" maxlength="2" value="12">
-                    </div>
-                    <input type="range" class="range-slider" min="0" max="25" step="1" value="12">
-                </div>
-                <!-- background image opacity -->
-                <div class="half-slider" style="border-right: 1px solid #ccc; padding-right: 10px;">
-                    <label>
-                        <span class="glyphicon glyphicon-resize-vertical" style="margin-right:1px;"></span>
-                        top/bottom
-                    </label>
-                    <div>
-                    	<span style="float:right;margin-left:3px;">px</span>
-                    	<input type="text" class="form-control" maxlength="2" value="10">
-                    </div>
-                    <input type="range" class="range-slider" min="0" max="25" step="1" value="10">
-                </div>
-            </div>
-            <div class="arrow" style="left:20px"></div>
-        </div><!-- /padding -->
 
         <!-- element visibility -->
         <div class="popover top control-panel" style="max-width:264px;">
             <div class="popover-title"> 
-                <button type="button" class="close" data-panel="8" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="dash-box" style="padding:1px 2px;font-size:11px;" aria-hidden="true">Aa</div>
-                <div><b>Textbox</b></div>
+                <button type="button" class="close" data-panel="7" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="dash-box dash-button">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </div>
+                <div><b>Button</b></div>
                 <div class="glyphicon glyphicon-chevron-right"></div>
                 <div class="glyphicon glyphicon-eye-open" style="font-size:17px;margin-right:5px;"></div>
                 <div><b>Visibility</b></div>
@@ -671,16 +642,12 @@
 
         <!-- toolbar 2 -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;" role="group" aria-label="text style">
-            <!-- text-size -->
-            <button type="button" class="btn btn-default" data-panel="0" aria-label="text-size">
-                <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
-            </button>
             <!-- text color -->
-            <button type="button" class="btn btn-default" data-panel="1" aria-label="text-color">
+            <button type="button" class="btn btn-default" data-panel="0" aria-label="text-color">
                 <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
             </button>
             <!-- text background-->
-            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="2" aria-label="text-background">
+            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="1" aria-label="text-background">
                 <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             </button>
             <!-- toolbar cover -->
@@ -689,6 +656,10 @@
 
         <!-- toolbar 3 -->
         <div class="btn-group opts-toolbar" style="margin-bottom:10px;margin-left:10px;" role="group" aria-label="button style">
+            <!-- button size -->
+            <button type="button" class="btn btn-default" data-panel="2" aria-label="button size">
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+            </button>
             <!-- edit background color -->
             <div role="button" class="btn btn-default" data-panel="3" aria-label="edit background color">
                 <!-- color wheel icon -->
@@ -727,7 +698,7 @@
             <button type="button" class="btn btn-default" data-panel="6" aria-label="button link">
                 <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
             </button>
-	    	<!-- padding -->
+	    	<!-- resize, reposition, rotate -->
 	    	<button type="button" class="btn btn-default" data-panel="7" aria-label="button padding">
 	    		<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 	    	</button>
@@ -735,10 +706,6 @@
 	    	<button type="button" class="btn btn-default" data-panel aria-label="move to front">
 	    		<span class="icon-stack" aria-hidden="true"></span>
 	    	</button>
-            <!-- resize, reposition, rotate -->
-            <button type="button" class="btn btn-default" data-panel aria-label="resize, reposition, rotate">
-                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
-            </button>
             <!-- visibility -->
             <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="8" aria-label="layout visibility">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>

@@ -226,20 +226,13 @@ var TS = function(c){
 	// add keyup event listener to the input
 	this.t[0].children[0]
 		.addEventListener('keyup', this.keyFS, false);
-	this.t[1].children[0]
-		.addEventListener('keyup', this.keyFS, false);
 
 	// init the dropdown
 	this.t[0].children[1].children[0]
 		.addEventListener("click", rsApp.toggleDropdown, false);
-	this.t[1].children[1].children[0]
-		.addEventListener("click", rsApp.toggleDropdown, false);
 
 	// add click event to font sizes
 	this.u = this.t[0].children[1].children[1].children;
-	for(var i = 0; i < this.u.length; i++)
-		this.u[i].children[0].addEventListener('click', this.clickFS, false);
-	this.u = this.t[1].children[1].children[1].children;
 	for(var i = 0; i < this.u.length; i++)
 		this.u[i].children[0].addEventListener('click', this.clickFS, false);
 
@@ -290,7 +283,7 @@ TS.prototype.qCom = function(e){
 // - theoretically should run a tinsy bit faster
 TS.prototype.qch = function(){
 	// temp variable get the text style buttons hashmap
-	this.t = jApp[as].c.b; console.log(this.t);
+	this.t = jApp[as].c.b;
 	// set the class on the wysiwyg btns
 	for(var x in this.t)
 		this.t[x].className = (document.queryCommandState(x)) ?
