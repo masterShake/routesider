@@ -561,21 +561,39 @@ label.vis>div{
 	left: calc(50% - 35px);
 	transform: matrix(1, 0, 0, 1, 0, 0);
 	overflow: visible;
-	height:40px;
-	width: 70px;
+	height:42px;
+	width: 52px;
+}
+.link-button.btn-sm{
+	height: 38px;
+}
+.link-button.btn-lg{
+	height: 48px;
 }
 /* url popover */
 .link-button .popover{
 	display: block;
 	position:relative;
 	min-width: 275px;
-	top: -132px;
-	left: -102px;
+    top: -128px;
+    left: -124px;
+}
+.link-button .background{
+	display: none;
 }
 .link-button .content-edit{
 	width: auto;
-	min-width: 70px;
+	min-width: 24px;
 	cursor: text;
+	margin-top: 4px;
+
+}
+.link-button.btn-lg .content-edit{
+	margin-top: 0;
+}
+.content-edit:focus,
+.content-edit:active{
+	outline: none;
 }
 .link-button .content-edit .glyphicon-link{
 	color: #5CB85C;

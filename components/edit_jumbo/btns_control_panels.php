@@ -190,9 +190,9 @@
                         <button class="btn btn-default" type="button" ><span class="caret"></span></button>
                     </div>
                     <ul class="dropdown-menu">
-                        <li><a href="#">small</a></li>
-                        <li><a href="#">medium</a></li>
-                        <li><a href="#">large</a></li>
+                        <li><a href="#" data-s=" btn-sm">small</a></li>
+                        <li><a href="#" data-s="">medium</a></li>
+                        <li><a href="#" data-s=" btn-lg">large</a></li>
                     </ul>
                 </div>
             </div>

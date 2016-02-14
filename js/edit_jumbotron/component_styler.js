@@ -29,6 +29,7 @@ var CM = function(){
 
 	// init text color objects
 	tc = this.tc = new TC();
+	sc = new SC();
 
 	// keep track of selection and range
 	this.sel = null;
@@ -220,6 +221,21 @@ var TS = function(c){
 	for(var i = 0; i < this.t.length; i++)
 		this.t[i].addEventListener('click', this.exCom, false);
 
+	// add keyup event to existing content-editable divs
+	this.t = dragCanvas.getElementsByClassName('content-edit');
+	for(var i = 0; i < this.t.length; i++){
+		this.t[i].addEventListener('keyup', this.qCom, false);
+		this.t[i].addEventListener('focus', this.qCom, false);
+	}
+
+	// init the font size
+	this.initFS();
+}
+
+//-----------------------------------------------
+// - init font size events
+TS.prototype.initFS = function(){
+
 	// get the text size input group/dropdown menu
 	this.t = document.getElementsByClassName('text-size');
 
@@ -236,12 +252,6 @@ var TS = function(c){
 	for(var i = 0; i < this.u.length; i++)
 		this.u[i].children[0].addEventListener('click', this.clickFS, false);
 
-	// add keyup event to existing content-editable divs
-	this.t = dragCanvas.getElementsByClassName('content-edit');
-	for(var i = 0; i < this.t.length; i++){
-		this.t[i].addEventListener('keyup', this.qCom, false);
-		this.t[i].addEventListener('focus', this.qCom, false);
-	}
 }
 
 //-----------------------------------------------
@@ -525,32 +535,23 @@ TC.prototype.trans = function(){
 	// if checked --> unchecked
 	if(this.checked){
 
-		// update the active drag element
-		if(this.dataset.func)
-			tc[this.dataset.func]('transparent');
+		// unset the colors
+		tc.colorUnset(this, this.dataset); 
 
-		// update the control panel elements
-		tc.makeTrans(this.dataset.i, as);
-
-		// set the lasthex attribute
-		this.setAttribute('data-lasthex', this.dataset.lasthex );
-
-		// set the opacity of the parent element
-		this.parentElement.style.opacity = '1';
+		return;
 	
 	// unchecked --> checked
-	}else{
-
-		// set the last color
-		tc.setElems(this.dataset.lasthex, this.dataset.i, as);
-
-		// set the active element
-		if(this.dataset.func)
-			sc[this.dataset.func](this.dataset.lasthex);
-
-		// set the opacity of the parent element
-		this.parentElement.style.opacity = '0.5';
 	}
+
+	// set the last color
+	tc.setElems(this.dataset.lasthex, this.dataset.i, as);
+
+	// set the active element
+	if(this.dataset.func)
+		sc[this.dataset.func](this.dataset.lasthex);
+
+	// set the opacity of the parent element
+	this.parentElement.style.opacity = '0.5';
 }
 //-----------------------------------------------
 // - helper function to set control panel and
@@ -567,6 +568,24 @@ TC.prototype.makeTrans = function(i, state){
 
 		// white out the html5 color picker
 		jApp[state].c.picki[i].value = '#FFFFFF';
+}
+//-----------------------------------------------
+// - unset to the contorl panel colors to blank
+// - vals --> the dataset object 
+TC.prototype.colorUnset = function(elem, vals){
+
+		// update the active drag element
+		if(vals.func)
+			sc[vals.func]('transparent');
+
+		// update the control panel elements
+		tc.makeTrans(vals.i, as);
+
+		// set the lasthex attribute
+		elem.setAttribute('data-lasthex', vals.lasthex );
+
+		// set the opacity of the parent element
+		elem.parentElement.style.opacity = '1';
 }
 
 //-----------------------------------------------

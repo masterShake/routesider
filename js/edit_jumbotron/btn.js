@@ -96,7 +96,7 @@ BTN.prototype.createElem = function(){
 	this.a.setAttribute('data-key', this.i);
 
 	// apply the textbox class
-	this.a.className = 'link-button active';
+	this.a.className = 'link-button btn btn-default';
 
 	// set the transform style
 	this.a.style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
@@ -118,7 +118,7 @@ BTN.prototype.setElem = function(){
 					   '</div>'+ 
 					   document.getElementById('drag-btns-html').value+
 					   '<div class="background"></div>'+
-					   '<div class="content-edit btn btn-default">'+
+					   '<div class="content-edit">'+
 					   		'<span class="glyphicon glyphicon-link" style="color:#5CB85C;"></span>'+
 					   '</div>';
 
@@ -167,6 +167,7 @@ BTN.prototype.updateVals = function(zi){
 	jApp.nVals.btns[btns.i] = {
 		html : '',
 		href : '',
+		size : '',
 		color : 'transparent',
 		opacity : 1,
 		blur: 0,
@@ -283,6 +284,12 @@ BTN.prototype.del = function(){
 //
 // - keep track of important control panel elems
 //
+// - activate and deactive the options toolbar
+//
+// - set the initial href of the button
+//
+// - handle the button size dropdown selection
+//
 //-----------------------------------------------
 
 var BTNC = function(btn){ // btn --> BTN object
@@ -323,6 +330,9 @@ var BTNC = function(btn){ // btn --> BTN object
 
 	// track visibility checkboxes
 	this.v = btnsCpanels.children[7].getElementsByTagName('input');
+
+	// init button dropdown
+	this.initDD(btnsCpanels.getElementsByClassName('dropdown')[0].children);
 }
 
 //-----------------------------------------------
@@ -403,9 +413,30 @@ BTNC.prototype.doneNew = function(elem){
 	this.btn.a.style.width = 'auto';
 }
 
+//-----------------------------------------------
+// - init the button drop down
+// - ddKids --> children of the .dropdown element
+BTNC.prototype.initDD = function(ddKids){
+	
+	// add the dropdown event
+	ddKids[0].addEventListener('click', rsApp.toggleDropdown);
 
+	// loop through the dropdown list
+	for(var i = 0; i < ddKids[1].children.length; i++)
+		// add the button size select event
+		ddKids[1].children[i].children[0].addEventListener('click', this.btnSize);
+}
 
-
+//-----------------------------------------------
+// - select button size from the dropdown
+BTNC.prototype.btnSize = function(e){ e.preventDefault();
+	// set the active button class
+	btns.a.className = 'link-button btn btn-default' + this.dataset.s;
+	// set the nVals
+	jApp.nVals.btns[btns.a.dataset.key].size = this.dataset.s;
+	// promp save changes
+	jApp.deltaVals();
+}
 
 
 
