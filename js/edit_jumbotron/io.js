@@ -18,6 +18,9 @@ var IO = function(){
 	// active image overlay
 	this.a = null;
 
+	// active index
+	this.ai = -1;
+
 	// toggle rrr button
 	this.rBtn = imgsToolbar.children[0].children[2];
 
@@ -44,7 +47,10 @@ IO.prototype.close = function(){
 	this.compBtn.addEventListener('click', this.newImg, false);
 
 	// if there is no active image overlay, return
-	if(!this.a) return;
+	if(this.ai == -1 || !this.a) return;
+
+	// reset the active index
+	this.ai = -1;
 
 	// remove the active class
 	this.a.className = 'image-overlay';
@@ -222,8 +228,8 @@ IO.prototype.del = function(){
 	imgs.a.innerHTML = '';
 
 	// remove it from the nVals
-	jApp.nVals.imgs[imgs.a.dataset.key] = null;
-	delete jApp.nVals.imgs[imgs.a.dataset.key];
+	jApp.nVals.imgs[imgs.ai] = null;
+	delete jApp.nVals.imgs[imgs.ai];
 
 	// hide it, but do not delete to maintain order
 	imgs.a.style.display = 'none';
@@ -393,7 +399,7 @@ UI.prototype.uploadCB = function(){
 	);
 
 	// set the nVals
-	jApp.nVals.imgs[imgs.a.dataset.key].src = 
+	jApp.nVals.imgs[imgs.ai].src = 
 
 	// set the img src
 	imgs.a.children[3].src = jApp.temp["image"];

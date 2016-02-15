@@ -13,23 +13,26 @@
 //
 //-----------------------------------------------
 
-var CM = function(){
+var CM = function(j){ // jApp 
+
+	// keep track of the jApp object
+	this.j = j;
 
 	// keep track of the active index (0 || 1)
 	this.a = -1;
 
 	// init component stylers
-	cs = this.cs = new CS();
+	cs = this.cs = new CS(j);
 
 	// init shadow styler
-	ss = this.ss = new SS();
+	ss = this.ss = new SS(j);
 
 	// init the text stylers
 	ts =  this.ts = new TS();
 
 	// init text color objects
 	tc = this.tc = new TC();
-	sc = new SC();
+	sc = new SC(j);
 
 	// keep track of selection and range
 	this.sel = null;
@@ -90,32 +93,33 @@ CM.prototype.setTools = function(state, elem){
 
 	if(as){
 		// remove the active class from the previously active elem
-		jApp[as].a.className = jApp[as].a.className
-								.substr(0, jApp[as].a.className.length - 7);
+		this.j[as].a.className = this.j[as].a.className
+								.substr(0, this.j[as].a.className.length - 7);
 		// display the toggle editor elem
-		jApp[as].a.children[0].style.display = 'block';
+		this.j[as].a.children[0].style.display = 'block';
 	}
 
 	// if this is not the active state/properties toolbar hidden
 	if(state !== as){
 
 		// remove the new element event listener
-		jApp[state].compBtn
-			.removeEventListener('click', jApp[state].newElem, false);
+		this.j[state].compBtn
+			.removeEventListener('click', this.j[state].newElem, false);
 
 		// trigger the click event to show the toolbar/initialize
-		jApp[state].compBtn.click();
+		this.j[state].compBtn.click();
 	
 	// else if the correct toolbar is already showing
 	}else{
 		// hide the rrr element
-		jApp[as].a.children[1].style.display = 'none';
+		this.j[as].a.children[1].style.display = 'none';
 		// button default
-		jApp[as].rBtn.className = 'btn btn-default';
+		this.j[as].rBtn.className = 'btn btn-default';
 	}
 
 	// set the active element, use dataset for race conditions
-	jApp[state].a = elem;
+	this.j[state].a = elem;
+	this.j[state].ai = elem.dataset.key;
 }
 
 //-----------------------------------------------
@@ -127,7 +131,7 @@ CM.prototype.move2front = function(){
 	rm.z++;
 
 	// set the nVals property
-	jApp.nVals[as][jApp[as].a.dataset.key].z = 
+	jApp.nVals[as][jApp[as].ai].z = 
 
 	// set the active textbox z index
 	rm.a.el.style.zIndex = 
@@ -508,7 +512,7 @@ TC.prototype.colorPick = function(){
 	tc.setElems(this.value, this.dataset.i, as);
 
 	// set the property
-	sc[this.dataset.func](this.value);
+	sc[this.dataset.func](this.value, as);
 }
 
 //-----------------------------------------------
@@ -522,7 +526,7 @@ TC.prototype.wheelBtn = function(){
 	tc.setElems(this.dataset.hex, this.parentElement.parentElement.dataset.i, as);
 
 	// set the property
-	sc[this.parentElement.parentElement.dataset.func](this.dataset.hex);
+	sc[this.parentElement.parentElement.dataset.func](this.dataset.hex, as);
 }
 
 //-----------------------------------------------
@@ -548,7 +552,7 @@ TC.prototype.trans = function(){
 
 	// set the active element
 	if(this.dataset.func)
-		sc[this.dataset.func](this.dataset.lasthex);
+		sc[this.dataset.func](this.dataset.lasthex, as);
 
 	// set the opacity of the parent element
 	this.parentElement.style.opacity = '0.5';
@@ -576,7 +580,7 @@ TC.prototype.colorUnset = function(elem, vals){
 
 		// update the active drag element
 		if(vals.func)
-			sc[vals.func]('transparent');
+			sc[vals.func]('transparent', as);
 
 		// update the control panel elements
 		tc.makeTrans(vals.i, as);
@@ -693,18 +697,21 @@ TC.prototype.setPanels = function(state, props){
 //
 //-----------------------------------------------
 
-var SC = function(){
+var SC = function(j){ // j --> this.j object
 
 	// temp variable
 	this.t = null;
+
+	// reference to this.j
+	this.j = j;
 }
 
 //-----------------------------------------------
 // - set foreColor of content editable
-SC.prototype.foreColor = function(hex){
+SC.prototype.foreColor = function(hex, state){
 
 	// focus on the active element
-	jApp[as].a.children[3].focus(); 
+	this.j[state].a.children[3].focus(); 
 
 	// set the cursor to the end
 	cm.setEnd();
@@ -715,10 +722,10 @@ SC.prototype.foreColor = function(hex){
 
 //-----------------------------------------------
 // - set backColor of content editable
-SC.prototype.backColor = function(hex){
+SC.prototype.backColor = function(hex, state){
 
 	// focus on the active element
-	jApp[as].a.children[3].focus(); 
+	this.j[state].a.children[3].focus(); 
 
 	// set the cursor to the end
 	cm.setEnd();
@@ -730,106 +737,95 @@ SC.prototype.backColor = function(hex){
 
 //-----------------------------------------------
 // - set border color of active element
-SC.prototype.bgColor = function(hex){
+SC.prototype.bgColor = function(hex, state){
 
-	// set the element background color
-	jApp[as].a.children[2].style.backgroundColor = 
+	// if this is a button
+	if(state == 'btns')
+		// set the element background color
+		this.j[state].a.style.backgroundColor = hex;
+	else
+		this.j[state].a.children[2].style.backgroundColor = hex;
 
 	// update the nVals obejct
-	jApp.nVals[as][jApp[as].a.dataset.key].color = hex;
+	this.j.nVals[state][this.j[state].ai].color = hex;
 
 	// prompt save 
-	jApp.deltaVals();
+	this.j.deltaVals();
 
 }
 
 //-----------------------------------------------
 // - set border color of active element
-SC.prototype.borderColor = function(hex){
+SC.prototype.borderColor = function(hex, state){
 
 	// if there is no border thickness
-	if(!jApp.nVals[as][jApp[as].a.dataset.key].borderwidth)
+	if(!this.j.nVals[state][this.j[state].ai].borderwidth)
 		// set the border thickness to 1
-		this.border1();
+		this.border1(state);
 	
 	// if this is a textbox
-	if(as == 'imgs')
+	if(state == 'tbs')
 		// set the element background color
-		imgs.a.style.borderColor = hex;
+		this.j.tbs.a.children[2].style.borderColor = hex;
 	else
 		// set the element background color
-		jApp[as].a.children[2].style.borderColor = hex;
-
+		this.j[state].a.style.borderColor = hex;
 
 	// update the nVals obejct
-	jApp.nVals[as][jApp[as].a.dataset.key]['bordercolor'] = hex;
+	this.j.nVals[state][this.j[state].ai]['bordercolor'] = hex;
 
 	// prompt save 
-	jApp.deltaVals();
-
+	this.j.deltaVals();
 }
 
 //-----------------------------------------------
 // - border color thickness helper
-SC.prototype.border1 = function(){
-	this.t = document.getElementById(as + 'Cpanels')
+SC.prototype.border1 = function(state){
+	this.t = document.getElementById(state + 'Cpanels')
 			.getElementsByClassName('thickness-form')[0]
 				.children[1];
 	this.t.value = 
 	this.t.parentElement.children[2].value = 
-	jApp.nVals[as][jApp[as].a.dataset.key].borderwidth = 1;
-	cs.elemThick(1);
+	this.j.nVals[state][this.j[state].ai].borderwidth = 1;
+	cs.setT(1, as);
 }
 
 //-----------------------------------------------
 // - set background color of active element
 // - only used for the background component
-SC.prototype.bg = function(hex){
+SC.prototype.bg = function(hex, state){
 
 	// set preview background color
 	bgElem.parentElement.style.backgroundColor = 
 
 	// & update the new values object
-	jApp.nVals.bg[0].color = hex;
+	this.j.nVals.bg[0].color = hex;
 
 	// notify root node that values have changed
-	jApp.deltaVals();
+	this.j.deltaVals();
 }
 
 //-----------------------------------------------
 // - set the shadow color property
 // - only deal with color
-SC.prototype.shadowColor = function(hex){
+SC.prototype.shadowColor = function(hex, state){
 
 	if(hex == 'transparent'){
 		// set the nVals
 		ss.t.active = 0;
 		
 		// remove the box shadow css rule
-		if(as == 'imgs')
-			imgs.a.style.boxShadow = 'none';
+		if(state == 'tbs')
+			this.j.tbs.a.children[2].style.boxShadow = 'none';
 		else
-			jApp[as].a.children[2].style.boxShadow = 'none';
+			this.j[state].a.style.boxShadow = 'none';
 
 		return;
 	}
-
-	// // if the color is transparent
-	// if(hex == 'transparent'){
-	// 	// remove the shadow from the lement
-	// 	if(as == 'imgs')
-	// 		jApp[as].a.style.boxShadow = 'none';
-	// 	else
-	// 		jApp[as].a.children[2].style.boxShadow = 'none';
-	// 	// deactivate the shadow obj
-	// 	jApp.nVals[as][jApp[as].a.dataset.key].shadow.active = 0;
-
-	// 	return;
-	// }
 	// // update nVals
-	ss.t = jApp.nVals[as][jApp[as].a.dataset.key].shadow;
+	ss.t = this.j.nVals[state][this.j[state].ai].shadow;
 	ss.t.color = hex;
-	ss.update();
+	ss.update(state);
 }
 
 
@@ -884,7 +880,10 @@ SC.prototype.shadowColor = function(hex){
 //
 //-----------------------------------------------
 
-var SS = function(){
+var SS = function(j){
+
+	// keep a reference to the jApp obejct
+	this.j = j;
 
 	// temp variable, loop through all the sliders
 	this.t = document.querySelectorAll('.shadow .range-slider');
@@ -917,14 +916,14 @@ var SS = function(){
 	this.t = document.querySelectorAll('.shadow input[type="checkbox"]');
 	for(var i = 0; i < this.t.length; i++)
 		this.t.checked = false;
-	// 	this.t[i].addEventListener('change', this.tog, false);
+	
 }
 
 //-----------------------------------------------
 // - update the shadow of the active element
-SS.prototype.update = function(i){
+SS.prototype.update = function(state, i){
 	// make sure we got an i variable, or use last checkbox in array
-	i = i || jApp[as].c.checki.length - 1;
+	i = i || this.j[state].c.checki.length - 1;
 	// set the nVal as active
 	this.t.active = 1;
 	// assemble the shadow css string
@@ -935,12 +934,12 @@ SS.prototype.update = function(i){
 			 this.t.color + 
 			 ((this.t.inset) ? ' inset' : '');
 	// get the nVals of the shadow
-	if(as == 'imgs')
-		jApp[as].a.style.boxShadow = this.t;
+	if(as == 'tbs')
+		this.j.tbs.a.children[2].style.boxShadow = this.t;
 	else
-		jApp[as].a.children[2].style.boxShadow = this.t;
+		this.j[state].a.style.boxShadow = this.t;
 	// prompt save
-	jApp.deltaVals();
+	this.j.deltaVals();
 }
 
 //-----------------------------------------------
@@ -949,13 +948,13 @@ SS.prototype.update = function(i){
 // - update the shadow
 SS.prototype.slide = function(){
 	// set the nVals object
-	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
+	ss.t = jApp.nVals[as][jApp[as].ai]['shadow'];
 	// set the cooresponding property
 	ss.t[this.parentElement.dataset.prop] = 
 	// set the text input
 	this.parentElement.children[1].value = parseInt(this.value);
 	// update
-	ss.update(this.parentElement.dataset.i);
+	ss.update(as, this.parentElement.dataset.i);
 }
 
 //-----------------------------------------------
@@ -970,7 +969,7 @@ SS.prototype.keyA = function(){
 	if(!this.value) return;
 
 	// set the nVals temp variable
-	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
+	ss.t = jApp.nVals[as][jApp[as].ai]['shadow'];
 
 	// update the slider input
 	this.parentElement.children[2].value = 
@@ -979,7 +978,7 @@ SS.prototype.keyA = function(){
 	ss.t[this.parentElement.dataset.prop] = parseInt(this.value);
 
 	// update
-	ss.update(this.parentElement.dataset.i);
+	ss.update(as, this.parentElement.dataset.i);
 }
 
 //-----------------------------------------------
@@ -994,7 +993,7 @@ SS.prototype.keyB = function(){
 	if(!this.value ) return;
 
 	// set the nVals temp variable
-	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];
+	ss.t = jApp.nVals[as][jApp[as].ai]['shadow'];
 
 	// update the slider input
 	this.parentElement.children[2].value = 
@@ -1003,25 +1002,25 @@ SS.prototype.keyB = function(){
 	ss.t[this.parentElement.dataset.prop] = parseInt(this.value);	
 
 	// update
-	ss.update(this.parentElement.dataset.i);
+	ss.update(as, this.parentElement.dataset.i);
 }
 
 //-----------------------------------------------
 // - blur empty text input
 SS.prototype.sBlur = function(){
 	// reset the value
-	this.value = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'][this.parentElement.dataset.prop];
+	this.value = jApp.nVals[as][jApp[as].ai]['shadow'][this.parentElement.dataset.prop];
 }
 
 //-----------------------------------------------
 // - change event, radio buttons shadow inset
 SS.prototype.inset = function(e){ e.preventDefault();
 	// set the nVals object
-	ss.t = jApp.nVals[as][jApp[as].a.dataset.key]['shadow'];	
+	ss.t = jApp.nVals[as][jApp[as].ai]['shadow'];	
 	// set the inset value
 	ss.t.inset = parseInt(this.value);
 	// update the shadow
-	ss.update(this.dataset.i);
+	ss.update(as, this.dataset.i);
 }
 
 //-----------------------------------------------
@@ -1150,7 +1149,10 @@ SS.prototype.setInput = function(shadow){
 //
 //-----------------------------------------------
 
-var CS = function(){
+var CS = function(j){ // j --> referrence to jApp obj
+
+	// jApp
+	this.j = j;
 
 	// opacity
 
@@ -1176,19 +1178,6 @@ var CS = function(){
 
 		// slider event
 		this.t[i].children[2].addEventListener('change', this.bSlide, false);
-	}
-
-	// border thickness
-
-	// loop through all the border forms
-	this.t = document.getElementsByClassName('thickness-form');
-	for(var i = 0; i < this.t.length; i++){
-
-		// keyup event
-		this.t[i].children[1].addEventListener('keyup', this.tText, false);
-
-		// slider event
-		this.t[i].children[2].addEventListener('change', this.tSlide, false);
 	}
 
 	// border roundness
@@ -1217,52 +1206,118 @@ var CS = function(){
 		this.u = this.t[i].getElementsByClassName('btn');
 
 		// loop through the buttons
-		for(var j = 0; j < this.u.length; j++){ 
+		for(var k = 0; k < this.u.length; k++){ 
 
 			// if this is the toggle button
-			if(this.u[j].children[0].className == 'glyphicon glyphicon-fullscreen')
+			if(this.u[k].children[0].className == 'glyphicon glyphicon-fullscreen')
 				// toggle rrr event
-				this.u[j].addEventListener('click', this.rrr, false);
+				this.u[k].addEventListener('click', this.rrr, false);
 			else
 				// hide the rrr element event
-				this.u[j].addEventListener('click', this.rOff, false);
+				this.u[k].addEventListener('click', this.rOff, false);
 		}
 	}
 
-	// visibility checkboxes
+	// init the border thickness events
+	this.initThik();
+
+	// init the visibility checkbox events
+	this.initVis();
+}
+
+//-----------------------------------------------
+// - init border thickness
+CS.prototype.initThik = function(){
+
+	// loop through all the border forms
+	this.t = document.getElementsByClassName('thickness-form');
+	for(var i = 0; i < this.t.length; i++){
+
+		// keyup event
+		this.t[i].children[1].addEventListener('keyup', this.tText, false);
+
+		// slider event
+		this.t[i].children[2].addEventListener('change', this.tSlide, false);
+	}
+}
+
+//-----------------------------------------------
+// - init visibility checkboxes
+CS.prototype.initVis = function(){
 
 	// loop through all the visibility checkboxes
-	this.t = document.getElementsByClassName('vis');
-	for(var i = 0; i < this.t.length; i++)
+	this.u = document.getElementsByClassName('vis');
+	for(var i = 0; i < this.u.length; i++)
 
 		// add the event listener to the checkbox
-		this.t[i].children[0].addEventListener('change', this.vis, false);
+		this.u[i].children[0].addEventListener('change', this.vis, false);
+}
 
-	// temp variables
-	this.t = 
-	this.u = null;
+//-----------------------------------------------
+// - set the opacity properties
+// - o --> opacity value [0 - 1]
+// - state --> active state
+CS.prototype.setO = function(o, state){
+
+	if(state == 'imgs')
+		// change the opacity of the image only
+		this.j[state].a.children[3].style.opacity = parseFloat(o);
+	else
+		// change the opacity of the active textbox
+		this.j[state].a.style.opacity = parseFloat(o);
+
+	// update values
+	this.j.nVals[state][this.j[state].ai]["opacity"] = parseFloat(o);
+
+	// prompt save
+	this.j.deltaVals();
+}
+
+//-----------------------------------------------
+// - set the blur properties
+// - b --> blur value [0 - 1]
+// - state --> active state
+CS.prototype.setB = function(b, state){
+
+	// update values
+	this.j.nVals[state][this.j[state].ai]["blur"] = parseInt(b);
+
+	// change the blur of the background img
+	this.j[state].a.style.filter = 
+	this.j[state].a.style.webkitFilter = (b == 0) ? 'none' : 'blur('+b+'px)'; 
+
+	// prompt save
+	this.j.deltaVals();
+
+}
+
+//-----------------------------------------------
+// - set border thickness
+// - t --> thickness in px (int or str)
+// - state --> active state
+CS.prototype.setT = function(t, state){
+	
+	if(state == 'tbs')
+		this.j.tbs.a.children[2].style.borderWidth = t + 'px';
+	else
+		this.j[state].a.style.borderWidth = t + 'px';
+		
+	// update the nVals
+	this.j.nVals[state][this.j[state].ai]['borderwidth'] = parseInt(t);
+
+	// prompt save
+	this.j.deltaVals();
 }
 
 //-----------------------------------------------
 // - when user slides opacity slider
 CS.prototype.oSlide = function(){
 
-	if(this.dataset.elem == 'parent')
-		// change the opacity of the active textbox
-		jApp[as].a.style.opacity = parseFloat(this.value);
-
-	else
-		// change the opacity of the active textbox
-		jApp[as].a.children[3].style.opacity = parseFloat(this.value);
-
 	// set the value of the text input
-	this.parentElement.children[1].value = 
+	this.parentElement.children[1].value = this.value;
 
-	// update values
-	jApp.nVals[as][jApp[as].a.dataset.key]["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
+	// set the opacity properties
+	cs.setO(this.value, as);
 }
 
 //-----------------------------------------------
@@ -1270,17 +1325,10 @@ CS.prototype.oSlide = function(){
 CS.prototype.bSlide = function(){
 
 	// set the value of the text input
-	this.parentElement.children[1].value = 
+	this.parentElement.children[1].value = this.value;
 
-	// update values
-	jApp.nVals[as][jApp[as].a.dataset.key]["blur"] = parseInt(this.value);
-
-	// change the blur of the background img
-	jApp[as].a.style.filter = 
-	jApp[as].a.style.webkitFilter = (this.value == 0) ? 'none' : 'blur('+this.value+'px)'; 
-
-	// prompt save
-	jApp.deltaVals();
+	// set the blur properties
+	cs.setB(this.value, as);
 }
 
 //-----------------------------------------------
@@ -1288,26 +1336,10 @@ CS.prototype.bSlide = function(){
 CS.prototype.tSlide = function(){
 
 	// set the value of the text input
-	this.parentElement.children[1].value = 
-
-	// update the nVals
-	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
+	this.parentElement.children[1].value = this.value;
 
 	// set the elem thickness
-	cs.elemThick(this.value);
-
-	// prompt save
-	jApp.deltaVals();
-}
-
-//-----------------------------------------------
-// - helper function to set border thickness
-// - val --> thickness in px (int or str)
-CS.prototype.elemThick = function(val){
-	if(as == 'imgs')
-		imgs.a.style.borderWidth = val + 'px';
-	else
-		jApp[as].a.children[2].style.borderWidth = val + 'px';
+	cs.setT(this.value, as);
 }
 
 //-----------------------------------------------
@@ -1336,23 +1368,8 @@ CS.prototype.oText = function(){
 			this.value = "0." + this.value.substring(1, 3);
 	}
 
-	// determine if change affects parent or child 2
-	if(this.dataset.elem == 'parent')
-		// change the opacity of the background
-		jApp[as].a.style.opacity = parseFloat(this.value); 
-
-	else
-		// change the opacity of the background
-		jApp[as].a.children[3].style.opacity = parseFloat(this.value); 
-
-	// update slider input
-	this.parentElement.children[2].value = 
-
-	// update values
-	jApp.nVals[as][jApp[as].a.dataset.key]["opacity"] = parseFloat(this.value);
-
-	// prompt save
-	jApp.deltaVals();
+	// set the opacity properties
+	cs.setO(this.value, as);
 }
 
 //-----------------------------------------------
@@ -1372,17 +1389,10 @@ CS.prototype.bText = function(){
 		this.value = this.value.substr(0,1);
 
 	// update the slider input
-	this.parentElement.children[2].value = 
+	this.parentElement.children[2].value = this.value;
 
-	// update the nVals
-	jApp.nVals[as][jApp[as].a.dataset.key]["blur"] = parseInt(this.value);
-
-	// set the blur
-	jApp[as].a.style.filter = 
-	jApp[as].a.style.webkitFilter = "blur("+this.value+"px)"; 
-
-	// prompt save
-	jApp.deltaVals();
+	// set the object properties
+	cs.setB(this.value, as);
 }
 
 //-----------------------------------------------
@@ -1401,15 +1411,10 @@ CS.prototype.tText = function(){
 		this.value = this.value.substr(0,1);
 
 	// update the slider input
-	this.parentElement.children[2].value = 
+	this.parentElement.children[2].value = this.value;
 
-	// update the nVals
-	jApp.nVals[as][jApp[as].a.dataset.key]['borderwidth'] = parseInt(this.value);
-
-	cs.elemThick();
-
-	// prompt save
-	jApp.deltaVals();
+	// update the object properties
+	cs.setT(this.value, as);
 }
 
 //-----------------------------------------------
@@ -1445,7 +1450,7 @@ CS.prototype.rOff = function(){
 CS.prototype.vis = function(){
 
 	// set the nVals
-	jApp.nVals[as][jApp[as].a.dataset.key].layout[this.value].v = (this.checked) ? 1 : 0;
+	jApp.nVals[as][jApp[as].ai].layout[this.value].v = (this.checked) ? 1 : 0;
 
 	// get the checkbox of the active state object
 	cs.u = jApp[as].c.v;
@@ -1523,11 +1528,7 @@ CS.prototype.rUp = function(){
 	this.parentElement.children[2].value = this.value;
 
 	// set the roundness of the active dragable
-	cs.elemRound(parseInt(this.value));
-
-	// set the nVals
-	jApp.nVals[as][jApp[as].a.dataset.key].round = parseInt(this.value);
-	jApp.deltaVals();
+	cs.elemRound(parseInt(this.value), as);
 }
 
 //-----------------------------------------------
@@ -1557,7 +1558,7 @@ CS.prototype.rDo = function(e){
 	this.parentElement.children[2].value = this.value;
 
 	// set the roundness of the active dragable
-	cs.elemRound(parseInt(this.value));
+	cs.elemRound(parseInt(this.value), as);
 }
 
 //-----------------------------------------------
@@ -1565,24 +1566,24 @@ CS.prototype.rDo = function(e){
 CS.prototype.rSlide = function(){
 
 	// set the value of the text input
-	this.parentElement.children[1].value = 
+	this.parentElement.children[1].value = this.value;
 
-	// update the nVals
-	jApp.nVals[as][jApp[as].a.dataset.key]['round'] = parseInt(this.value);
-
-	cs.elemRound(parseInt(this.value));
-
-	// prompt save
-	jApp.deltaVals();
+	cs.elemRound(parseInt(this.value), as);
 }
 //-----------------------------------------------
 // - set the roundness of the correct active elem
-CS.prototype.elemRound = function(val){
+CS.prototype.elemRound = function(val, state){
 	// set the inline styles
-	if(as == 'imgs')
-		imgs.a.style.borderRadius = (val/2) + '%';
+	if(as == 'tbs')
+		this.j.tbs.a.children[2].style.borderRadius = (val/2) + '%';
 	else
-		jApp[as].a.children[2].style.borderRadius = (val/2) + '%';
+		this.j[state].a.style.borderRadius = (val/2) + '%';
+
+	// update the nVals
+	this.j.nVals[state][this.j[state].ai]['round'] = parseInt(this.value);
+
+	// prompt save
+	this.j.deltaVals();
 }
 
 //-----------------------------------------------

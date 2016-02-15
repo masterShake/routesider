@@ -19,6 +19,9 @@ var BTN = function(){
 	// active button element
 	this.a = null;
 
+	// active index
+	this.ai = -1;
+
 	// init the components object
 	this.c = new BTNC(this);
 
@@ -33,6 +36,9 @@ var BTN = function(){
 	btnsToolbar.children[4].children[0]
 		.addEventListener('click', this.confirmDel, false);
 
+	// temp variable
+	this.t = null;
+
 }
 
 /* METHODS */
@@ -43,7 +49,10 @@ BTN.prototype.close = function(){
 	this.compBtn.addEventListener('click', this.newElem, false);
 
 	// if there is no active link button, return
-	if(!this.a) return;
+	if(this.ai == -1 || !this.a) return;
+
+	// clear the active index
+	this.ai = -1;
 
 	// remove the active class
 	this.a.className = 'link-button';
@@ -92,6 +101,9 @@ BTN.prototype.createElem = function(){
 	// set it to active
 	this.a = this.h[this.i];
 
+	// set the active index
+	this.ai = this.i
+
 	// give the element an index key
 	this.a.setAttribute('data-key', this.i);
 
@@ -125,8 +137,14 @@ BTN.prototype.setElem = function(){
 	// clone the url popover and append to the content editable
 	this.a.appendChild(btnsCpanels.children[6].cloneNode(true));
 
+	// get the data-n elements
+	this.t = this.a.querySelectorAll('[data-n]');
+
 	// give the done button a data-n attribute (denotes new button)
-	this.a.getElementsByClassName('btn-info')[0].setAttribute('data-n', 'true');
+	this.t[0].setAttribute('data-n', 'true');
+
+	// give the done button a data-n attribute (denotes new button)
+	this.t[1].setAttribute('data-n', 'true');
 
 	// append the new textbox to the drag canvas
 	dragCanvas.appendChild(this.a);
@@ -147,7 +165,8 @@ BTN.prototype.ae = function(){
 	this.a.children[0].addEventListener('click', cm.tog, false);
 
 	// done button event
-	this.a.getElementsByClassName('btn-info')[0].addEventListener('click', this.c.done);
+	this.t[0].addEventListener('click', this.c.done);
+	this.t[1].addEventListener('keyup', this.c.done);
 
 	// cancel new button x event
 	this.a.getElementsByClassName('close')[0].addEventListener('click', this.del);
@@ -172,7 +191,7 @@ BTN.prototype.updateVals = function(zi){
 		opacity : 1,
 		blur: 0,
 		z : zi,
-		round : 0,
+		round : 20,
 		borderwidth: 0,
 		bordercolor: '#FFFFFF',
 		shadow : {active : 1, color : '#676767', softness : 4, spread : 4, x : 0, y : 0, inset : 0},
@@ -193,7 +212,7 @@ BTN.prototype.updateVals = function(zi){
 BTN.prototype.confirmDel = function(){
 
 	// if there is no link and no text
-	if(!jApp.nVals.btns[btns.a.dataset.key].href && !jApp.nVals.btns[btns.a.dataset.key].html){
+	if(!jApp.nVals.btns[btns.ai].href && !jApp.nVals.btns[btns.ai].html){
 		// delete the button without asking
 		btns.del(); return;
 	}
@@ -229,8 +248,8 @@ BTN.prototype.del = function(){
 	btns.a.innerHTML = '';
 
 	// remove it from the nVals
-	jApp.nVals.btns[btns.a.dataset.key] = null;
-	delete jApp.nVals.btns[btns.a.dataset.key];
+	jApp.nVals.btns[btns.ai] = null;
+	delete jApp.nVals.btns[btns.ai];
 
 	// hide it, but do not delete to maintain order
 	btns.a.style.display = 'none';
@@ -322,9 +341,6 @@ var BTNC = function(btn){ // btn --> BTN object
 		superscript	  : this.t[5]
 	};
 
-	// get all the toolbar buttons
-	this.t = btnsToolbar.querySelectorAll('.btn.btn-default');
-
 	// get all the toolbar covers
 	this.u = btnsToolbar.getElementsByClassName('toolbar-cover');
 
@@ -333,6 +349,14 @@ var BTNC = function(btn){ // btn --> BTN object
 
 	// init button dropdown
 	this.initDD(btnsCpanels.getElementsByClassName('dropdown')[0].children);
+
+	// add the url "done" button event listener
+	this.t = btnsCpanels.querySelectorAll('[data-n]');
+	this.t[0].addEventListener('click', this.done);
+	this.t[1].addEventListener('keyup', this.done);
+
+	// get all the toolbar buttons
+	this.t = btnsToolbar.querySelectorAll('.btn.btn-default');
 }
 
 //-----------------------------------------------
@@ -369,7 +393,10 @@ BTNC.prototype.dAct = function(){
 
 //-----------------------------------------------
 // - done button click, user done entering url
-BTNC.prototype.done = function(){
+BTNC.prototype.done = function(e){ 
+
+	// if this was a keydown event but not the enter key, do nothing
+	if(e.type == 'keyup' && e.keyCode != 13) return;
 
 	// if this is not a valid URL
 	if(!this.parentElement.children[2].value || this.parentElement.children[2].value.match(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/i)){
@@ -386,8 +413,12 @@ BTNC.prototype.done = function(){
 		btns.c.doneNew(this.parentElement);
 
 	else
-		// hide the popover
-		this.parentElement.parentElement.parentElement.style.display = 'none';
+		// trigger click of the url link button
+		btnsToolbar.children[3].children[0].click(); console.log(btnsCpanels.children[3].children[0]);
+
+	// set the nVals
+	jApp.nVals.btns[btns.ai].href = this.parentElement.children[2].value;
+	jApp.deltaVals();
 	
 }
 
@@ -433,7 +464,7 @@ BTNC.prototype.btnSize = function(e){ e.preventDefault();
 	// set the active button class
 	btns.a.className = 'link-button btn btn-default' + this.dataset.s;
 	// set the nVals
-	jApp.nVals.btns[btns.a.dataset.key].size = this.dataset.s;
+	jApp.nVals.btns[btns.ai].size = this.dataset.s;
 	// promp save changes
 	jApp.deltaVals();
 }

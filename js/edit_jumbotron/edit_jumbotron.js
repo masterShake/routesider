@@ -107,6 +107,8 @@ Jumbo = function(){
 	imgs = this.imgs = new IO();
 	// init button editor
 	btns = this.btns = new BTN();
+	// init cm 
+	cm = new CM(this);
 }
 
 /* METHODS */
@@ -581,8 +583,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	layout = new L();
 	// init confirmation modal
 	modal = new cModal();
-	// init the component styler
-	cm = new CM();
     // create new Jumbo (edit jumbotron) object
     jApp = new Jumbo();
 

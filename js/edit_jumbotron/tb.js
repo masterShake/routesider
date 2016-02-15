@@ -21,6 +21,9 @@ var TB = function(){
 	// active textbox
 	this.a = null;
 
+	// active index
+	this.ai = -1;
+
 	// toggle rrr button
 	this.rBtn = tbsToolbar.children[3].children[1];
 
@@ -44,7 +47,10 @@ TB.prototype.close = function(){
 	this.compBtn.addEventListener('click', this.newElem, false);
 
 	// if there is no active textbox, return
-	if(!this.a) return;
+	if(this.ai == -1 || !this.a) return;
+
+	// remove active index
+	this.ai = -1
 
 	// remove the active class
 	this.a.className = 'textbox';
@@ -113,6 +119,9 @@ TB.prototype.createElem = function(){
 
 	// set it to active
 	this.a = this.h[this.i];
+
+	// set the active index
+	this.ai = i;
 
 	// give the element an index key
 	this.a.setAttribute('data-key', this.i);
@@ -275,8 +284,8 @@ TB.prototype.del = function(){
 	tbs.a.innerHTML = '';
 
 	// remove it from the nVals
-	jApp.nVals.tbs[tbs.a.dataset.key] = null;
-	delete jApp.nVals.tbs[tbs.a.dataset.key];
+	jApp.nVals.tbs[tbs.ai] = null;
+	delete jApp.nVals.tbs[tbs.ai];
 
 	// hide it, but do not delete to maintain order
 	tbs.a.style.display = 'none';

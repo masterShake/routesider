@@ -557,7 +557,7 @@
             </div>
             <div class="popover-content url-panel">
                 <div>
-                    <button type="button" class="btn btn-info">done</button>
+                    <button type="button" class="btn btn-info" data-n >done</button>
                     <label>url</label>
                     <input type="text" class="form-control" data-n placeholder="http://">
                 </div>
@@ -699,7 +699,7 @@
                 <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
             </button>
 	    	<!-- resize, reposition, rotate -->
-	    	<button type="button" class="btn btn-default" data-panel="7" aria-label="button padding">
+	    	<button type="button" class="btn btn-default" data-panel aria-label="button padding">
 	    		<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 	    	</button>
 	    	<!-- move to front -->
@@ -707,7 +707,7 @@
 	    		<span class="icon-stack" aria-hidden="true"></span>
 	    	</button>
             <!-- visibility -->
-            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="8" aria-label="layout visibility">
+            <button type="button" class="btn btn-default" style="border-top-right-radius:4px;border-bottom-right-radius:4px;" data-panel="7" aria-label="layout visibility">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </button>
             <!-- toolbar cover -->
