@@ -678,7 +678,7 @@ var ESM, esmApp;
 		// 		   );
 		
 		// 
-		window.open( "http://localhost/routesider/scripts/ra.php?n="+this.dataset.network, 
+		window.open( "http://localhost/routesider/scripts/edit_social_media/ra.php?n="+this.dataset.network, 
 					 "Connect to "+this.dataset.network,
 					 "scrollbars=yes,width=475,height=425"
 				   );

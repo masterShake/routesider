@@ -18,62 +18,22 @@
     //   functionality
     if( isset($_POST["checkchange"]) ){
 
-        $db = neoDB::getInstance();
+        include "scripts/edit_social_media/check_change.php";
 
-        $user = new User();
-
-        $business = $user->business()[0];
-
-        $checked = ($_POST["val"] == "true") ? 1 : 0; echo $checked . " ";
-
-        $cypher = "MATCH (b:Business) WHERE b.id=".$business->data("id")." ".
-                  "MATCH (b)-[l:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='".$_POST["network"]."' ";
-
-        if( $_POST["checkchange"] == "login" )
-
-            $cypher .= "SET l.login=".$checked;
-
-        else
-
-            $cypher .= "SET s.auto_update=".$checked;
-
-        $db->query($cypher);
-
-        exit();
     }
     //-----------------------------------------------
     // - remove network
     else if( isset($_POST["delnet"]) ){
 
-        $user = new User();
-
-        $business = $user->business()[0];
-
-        $db = neoDB::getInstance();
-
-        $cypher = "MATCH (b:Business) WHERE b.id=".$business->data("id")." ".
-                  "MATCH (b)-[l:LINKED_TO]->(s)<-[:HAS_MEMBER]-(n) WHERE n.name='".$_POST["delnet"]."' ".
-                  "SET l.active = 0";
-
-        $db->query( $cypher );
-
-        echo "network inactive"; exit();
+        include "scripts/edit_social_media/remove_network.php";
 
     }
     
-
     //-----------------------------------------------
     // delete a post
     else if(isset($_POST["post_id"])){
 
-        $db = neoDB::getInstance();
-
-        $cypher = "MATCH (s)-[r:POSTED]->(p:Post) WHERE p.id = '" . $_POST["post_id"] . "' " .
-                  "SET r.deleted = 1";
-
-        $db->query( $cypher );
-
-        exit("1");
+        include "scripts/edit_social_media/delete_post.php";
 
     } 
 
@@ -82,7 +42,7 @@
     else if(isset($_POST["q"])){
 
         // edit social media query script
-        include "scripts/esm_query.php";
+        include "scripts/edit_social_media/esm_query.php";
 
     }
 
@@ -290,13 +250,13 @@
                             <div class="col-xs-4 col-sm-2 col-md-6" id="activate-twit">
                                 
                                 <div>
-                                   <button type="button" class="btn activate-btn <?= in_array("twitter", $netNames) ? "active" : "not-active"; ?>" aria-label="activate twitter"><span class="icon-twitter2" aria-hidden="true"></span></button>
+                                   <button type="button" class="btn activate-btn <?= in_array("twitter", $netNames) ? "active" : "not-active"; ?>" aria-label="activate twitter"><span class="icon-twitter" aria-hidden="true"></span></button>
                                    <h5>Twitter</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("twitter", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-twitter2"></span> Twitter</h3>
+                                    <h3 class="popover-title"><span class="icon-twitter"></span> Twitter</h3>
                                     <div class="popover-content">
 
                                         <div <?= in_array("twitter", $netNames)? "" : "style='display:none;'"; ?>>

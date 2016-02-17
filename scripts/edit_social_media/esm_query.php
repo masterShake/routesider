@@ -205,11 +205,10 @@ if( $_POST["a"] ){
 		preg_match($pattern, $post->getProperty("text"), $matches, PREG_OFFSET_CAPTURE);
 
 		// wrap the matches in <span class="match"></span>
-		$text = wrapMatches( $post->getProperty("text"), $matches );
+		$text = wrapMatches( $post->getProperty("text"), $matches ); 
 
 
 		?>
-		
         <li class="list-group-item" data-pid='<?= $post->getProperty("id"); ?>'>
             <div data-pid='<?= $post->getProperty("id"); ?>'>
                 <div class="date"><?= date("m.d.Y", $post->getProperty("created_time")); ?></div>
@@ -301,13 +300,13 @@ if( !is_null($singlePost) && count($posts) > 1){ ?>
 <?php }
 
 // loop through the posts and assemble the HTML
-foreach ($posts as $post) { 
+foreach ($posts as $post) { // echo '<pre>'; print_r($post); echo '</pre>';
 		
 	// get all the media objects
     $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
 
     // if this is a duplicate
-    if( !is_null($singlePost) && $post->getProperty("id") == $singlePost[0]->getProperty("id")){
+    if( !is_null($singlePost) && $post->getProperty("net_id") == $singlePost[0]->getProperty("net_id")){
 
     	// do nothing
     
@@ -315,8 +314,8 @@ foreach ($posts as $post) {
 
     ?>
 
-		<div class="thumbnail social-media-post" id='<?= $post->getProperty("id"); ?>' data-loading="0">
-		    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("id"); ?>'></div>
+		<div class="thumbnail social-media-post" id='<?= $post->getProperty("net_id"); ?>' data-loading="0">
+		    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("net_id"); ?>'></div>
 		    <?php // if the post has at least 1 media object
 		          if( count($media) ){
 

@@ -20,13 +20,15 @@
 	// keep all the keys here i guess
 	$creds = [ "tumblr"   => [ "client_id" 	  => "aWWWsdicEuin5zGcICL7bt5AOI9cBJf5Fq6m303KBEdFEzwQPA",
 							  "client_secret" => "gXVlxHAjUu7pllr8p7CsWjH1wfFLGWbuFfIaFD6Mpx9vt4mSOk",
-							  "url" => "http://api.tumblr.com/v2/user/info"],
+							  "url" => "http://api.tumblr.com/v2/user/info",
+							  "scope" => ""],
 			   "twitter"  => [ "client_id" 	  => "vJvNzGoaIAAvSptz7ogR7JCrf",
 			  				  "client_secret" => "MkVDp05HlDo1HUryt2H2fhmBozjeeePXKhnTtT4O36gEyN1K6l"],
 			   "linkedin" => [ "client_id" 	  => "75vclbfv2gi86o",
 			  				  "client_secret" => "BoICgYPZ2gbAleyv"],
 			   "instagram"=> [ "client_id" 	  => "e500697f93794161b09ab35a8e05d405",
-			  				  "client_secret" => "f7264f1c5b934055adadc71d19536712"],
+			  				  "client_secret" => "f7264f1c5b934055adadc71d19536712",
+			  				  "scope" => "basic+likes"],
 			   "facebook" => [ "client_id" 	  => "",
 			  				  "client_secret" => ""],
 			   "google"   => [ "client_id" 	  => "130924136799",
@@ -86,7 +88,7 @@
 	 * Set this to the name of the permissions you need to access the
 	 * application API
 	 */
-	$client->scope = '';
+	$client->scope = $creds[$_GET["n"]]["scope"];
 
 	// if ajax post username
 	if( isset($_POST["u"]) ){
@@ -102,30 +104,29 @@
 		$account = null;
 		$avatar = null;
 		$posts = null;
-
-		//-----------------------------------------------
-		// tumblr
-		if( $_POST["n"] == "tumblr" ){
-
-			// set the icon
-			$icon = "tumblr2";
-
-			// make api call for tumblr blog info
-			$account = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/info?api_key={$client->client_id}");
-			$account = json_decode($account);
-			$account = $account->response->blog;
-
-			// call for avatar
-			$avatar = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/avatar/512");
-			$avatar = json_decode($avatar);
-			$avatar = $avatar->response->avatar_url;
-
-			// call for tumblr post data
-			$posts = Curl::get("http://api.tumblr.com/v2/blog/".$_POST["u"].".tumblr.com/posts?api_key=".$creds[$_GET["n"]]["client_id"]."&notes_info=true");
-			$posts = json_decode($posts);
-			$posts = $posts->response->posts; // print_r($posts); exit();
-		}
 		
+		// curl and format the data based on network type
+		switch ( $_POST["n"] ){
+
+			// facebook
+			case "facebook": include "curl_facebook.php"; break;
+
+			// instagram
+			case "instagram": include "curl_instagram.php"; break;
+
+			// tumblr
+			case "tumblr": include "curl_tumblr.php"; break;
+
+			// linkedin
+			case "linkedin": include "curl_linkedin.php"; break;
+
+			// twitter
+			case "twitter": include "curl_twitter.php"; break;
+
+			// google+
+			case "google": include "curl_google.php"; break;
+		}
+
 		// if user has connected to this network before
 		$cypher = "MATCH (b:Business)-[l:LINKED_TO]->(s)<-[h:HAS_MEMBER]-(n) ".
 				  "WHERE b.id=" . $business->data("id") . " AND n.name='" . $_POST["n"] . "' " .
@@ -167,7 +168,7 @@
 
 			// if the post already exists
 			$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
-					  "WHERE p.id='".$post->id."' ".
+					  "WHERE p.net_id='".$post->id."' ".
 					  "RETURN p";
 
 			$results = $db->query($cypher);
@@ -176,7 +177,7 @@
 
 				// update the post info
 				$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
-					  	  "WHERE p.id='".$post->id."' ".
+					  	  "WHERE p.net_id='".$post->id."' ".
 					  	  "SET p.text='".((property_exists($post, "body")) ? $post->body : "")."', ".
 					  	  "p.title='".((property_exists($post, "title")) ? $post->title : "")."', ".
 					  	  "p.likes=".$post->note_count;
@@ -213,7 +214,7 @@
 					foreach($post->photos as $photo){
 
 						$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
-					  	  		  "WHERE p.id='".$post->id."' ".
+					  	  		  "WHERE p.net_id='".$post->id."' ".
 					  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
 					  	  		  	"width : ".$photo->alt_sizes[0]->width.", ".
 					  	  		  	"height : ".$photo->alt_sizes[0]->height.", ".
@@ -243,21 +244,23 @@
 					$db->query($cypher);					
 				
 				// if the post contains an audio clip
-				}else if($post->type == "audio"){
-
-						$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
-					  	  		  "WHERE p.id='".$post->id."' ".
-					  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
-					  	  		  	"width : NULL, ".
-					  	  		  	"height : NULL, ".
-					  	  		  	"url : '".$post->player."', ".
-					  	  		  	"thumbnail : NULL, ".
-					  	  		  	"type : 'audio'".
-					  	  		  "})";
-						
-						// merge nodes
-						$db->query($cypher);
 				}
+
+				// else if($post->type == "audio"){
+
+				// 		$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
+				// 	  	  		  "WHERE p.id='".$post->id."' ".
+				// 	  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
+				// 	  	  		  	"width : NULL, ".
+				// 	  	  		  	"height : NULL, ".
+				// 	  	  		  	"url : '".$post->player."', ".
+				// 	  	  		  	"thumbnail : NULL, ".
+				// 	  	  		  	"type : 'audio'".
+				// 	  	  		  "})";
+						
+				// 		// merge nodes
+				// 		$db->query($cypher);
+				// }
 				// answer
 				// chat
 				// quote
@@ -308,7 +311,7 @@
 	    // output HTML checkbox for dropdown and query
 	    echo "  <input type='checkbox' class='form-control' value='".$_POST["n"]."' data-icon='".$icon."' checked>
 	            <span class='icon-".$icon."'></span>
-	            &nbsp;".ucfirst($_POST["n"]);
+	            &nbsp;".ucfirst($_POST["n"]); print_r($post->type);
 
 		exit();
 	}
