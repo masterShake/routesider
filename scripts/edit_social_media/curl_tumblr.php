@@ -48,11 +48,78 @@ $client->CallAPI( "http://api.tumblr.com/v2/blog/{$socialite->name}.tumblr.com/p
 				);
 
 // get the results data
-$results = $results->response;
+$results = $results->response->posts;
+
+// create an empty posts array
+$posts = [];
+
+// loop through each of the posts
+foreach($results as $post){
+
+	// create an empty post object
+	$p = new stdClass();
+
+	// set the properties
+	$p->type = $post->type;
+	$p->created_time = $post->timestamp;
+	$p->likes = $post->note_count;
+	$p->link = $post->post_url;
+	$p->tags = $post->tags;
+	$p->net_id = $post->id;
+	$p->media = [];
+
+	// if this is a text post
+	if($p->type == "text"){
+
+		// make sure it has a title and a body
+		$p->title = $post->title;
+		$p->body = $post->body;
+	}
+
+	// if this post includes photos
+	if($p->type == "photo"){
+
+		// loop through all the photos
+		foreach ($post->photos as $photo) {
+			
+			// create a new std class object
+			$q = new stdClass();
+
+			// set the properties
+			$q->caption = $photo->caption;
+			$q->height = $photo->alt_sizes[0]->height;
+			$q->width = $photo->alt_sizes[0]->width;
+			$q->url = $photo->alt_sizes[0]->url;
+			$q->thumbnail = $photo->alt_sizes[count($photo->alt_sizes) - 1]->url;
+
+			// push the new object onto the media array
+			$p->media []= $q;
+		}
+
+	// if this post has a video
+	}else if($p->type == "video"){
+
+		// create a new std class object
+		$q = new stdClass();
+
+		// set the properties
+		$q->caption = $p->caption;
+		$q->height = null;
+		$q->width = $p->player[count($p->player) - 1]->width;
+		$q->url = $p->player[count($p->player) - 1]->embed_code;
+		$q->thumbnail = null;
+
+		// push the new object onto the media array
+		$p->media []= $q;
+	}
+
+	// push the new post object onto the array
+	$posts []= $p;
+}
 
 echo "<pre>";
 
-print_r($results);
+print_r($posts);
 
 echo "</pre>";
 
@@ -78,19 +145,19 @@ exit();
 
 
 // set the icon
-$icon = "tumblr2";
+// $icon = "tumblr2";
 
-// make api call for tumblr blog info
-$account = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/info?api_key={$client->client_id}");
-$account = json_decode($account);
-$account = $account->response->blog;
+// // make api call for tumblr blog info
+// $account = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/info?api_key={$client->client_id}");
+// $account = json_decode($account);
+// $account = $account->response->blog;
 
-// call for avatar
-$avatar = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/avatar/512");
-$avatar = json_decode($avatar);
-$avatar = $avatar->response->avatar_url;
+// // call for avatar
+// $avatar = Curl::get("http://api.tumblr.com/v2/blog/{$_POST["u"]}.tumblr.com/avatar/512");
+// $avatar = json_decode($avatar);
+// $avatar = $avatar->response->avatar_url;
 
-// call for tumblr post data
-$posts = Curl::get("http://api.tumblr.com/v2/blog/".$_POST["u"].".tumblr.com/posts?api_key=".$creds[$_GET["n"]]["client_id"]."&notes_info=true");
-$posts = json_decode($posts);
-$posts = $posts->response->posts; // print_r($posts); exit();
+// // call for tumblr post data
+// $posts = Curl::get("http://api.tumblr.com/v2/blog/".$_POST["u"].".tumblr.com/posts?api_key=".$creds[$_GET["n"]]["client_id"]."&notes_info=true");
+// $posts = json_decode($posts);
+// $posts = $posts->response->posts; // print_r($posts); exit();
