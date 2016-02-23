@@ -274,7 +274,7 @@ if ($fn) {
                     <button type="button" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <p>A place for products - coming soon!</p>
+                    <p>Built in 60 hours, no debugging</p>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="search" aria-label="search the world to start you map">
                         <span class="input-group-addon"><span class="icon-search"></span></span>
