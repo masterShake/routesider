@@ -14,7 +14,7 @@
 	require('../../classes/OAuth/http.php');
 	require('../../classes/OAuth/oauth_client.php');
 
-	// load the api keys
+	// get the api credentials
 	require("credentials.php");
 
 	/* Create the OAuth authentication client class */ 
@@ -76,7 +76,7 @@
 	$client->scope = $creds[$_GET["n"]]["scope"];
 
 	// if ajax post username
-	if( isset($_POST["u"]) ){
+	if( isset($_POST["t"]) ){
 
 		// instantiate some vars
 		$db = neoDB::getInstance();
@@ -91,11 +91,11 @@
 		$posts = null;
 
 		// initialize the client
-		if(($success = $client->Initialize())){
-			// process the client call
-			$success = $client->Process();
-			// ensure that the access token was recaptured
-			if(strlen($client->access_token)){
+		// if(($success = $client->Initialize())){
+		// 	// process the client call
+		// 	$success = $client->Process();
+		// 	// ensure that the access token was recaptured
+		// 	if(strlen($client->access_token)){
 
 				// curl and format the data based on network type
 				switch ( $_POST["n"] ){
@@ -118,8 +118,8 @@
 					// google+
 					case "google": include "curl_google.php"; break;
 				}
-			} // ensure we received the access token
-		} // initialize the client
+		// 	} // ensure we received the access token
+		// } // initialize the client
 
 		// if user has connected to this network before
 		$cypher = "MATCH (b:Business)-[l:LINKED_TO]->(s)<-[h:HAS_MEMBER]-(n) ".
@@ -322,139 +322,76 @@
 		$success = $client->Process();
 		// Make sure the access token was successfully obtained before making
 		// API calls
-		if(strlen($client->access_token)){
-
-				$client->CallAPI( $creds[$_GET["n"]]["url"],
-											 "GET",
-											 ["api_key" => $creds[$_GET["n"]]["client_id"]],
-											 [],
-											 $results
-						   				   );
-
-
-				// $success = Curl::get("http://api.tumblr.com/v2/user/info?access_token=".$client->access_token);
-
-		 	}
-		 
+		if(strlen($client->access_token)){ ?>
 		
-		/* Internal cleanup call
-		 */
-		$success = $client->Finalize($success);
-	}
-	/*
-	 * If the exit variable is true, the script must not output anything
-	 * else and exit immediately
-	 */
-	if($client->exit)
-		exit;
-	
-	if( !is_null($results) )
-	{ 
+			<!DOCTYPE html>
+			<html lang="en">
+			  <head>
+			    <meta charset="utf-8">
+			    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+			    <meta name="viewport" content="width=device-width, initial-scale=1">
+			    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+			    <title>Bootstrap 101 Template</title>
+			    <!-- Bootstrap -->
+			    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+			    <link href="../../css/main.css" rel="stylesheet">
 
-		$uname = ""; // blogname
-		$atoken = $client->access_token;
+			    <style>
+			        h1, h5{
+			            text-align:center;
+			            color:#5cb85c;
+			        }
+			        h1{
+			            margin-top:150px;
+			        }
+			        h5{
+			            margin-top: 30px;
+			        }
+			    </style>
 
-		// format the data based on the network
-		switch($_GET["n"]){
+			  </head>
+			  <body>
 
-			case "instagram":
-				$uname = $results->data->username;
-				break;
+				<!-- hour glass spinner -->
+			    <h1>
+			        <span class="glyphicon glyphicon-hourglass loading" aria-label="loading animation"></span>
+			    </h1>
 
-			case "tumblr":
-				$uname = $results->response->user->blogs[0]->name;
-				break;
+			    <h5>Retrieving posts, please wait...</h5>
 
-		}
+			    <!-- javascript -->
+			    <script>
 
+			        (function(){
+			            document.addEventListener("DOMContentLoaded", function(){
 
-		// echo "<pre>";
+			                // var n = '<?= $_GET["n"]; ?>';
 
-		// print_r($results);
+			                var ajax = new XMLHttpRequest();
+			                ajax.open("POST", "", true);
+			                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			                ajax.onreadystatechange = function() {
+			                    if(this.readyState == 4 && this.status == 200) {
+			                    	document.body.innerHTML = this.responseText;
+			                        // console.log( this.responseText );
+			                        // console.log( JSON.parse(this.responseText) );
+			                        // window.opener.esmApp.smPosts.authorize( this.responseText );
+			                        // window.close();
+			                    }
+			                }
+			                ajax.send('n=<?= $_GET["n"]; ?>&t=<?= $client->access_token; ?>');
 
-		// echo "</pre>"; exit();
+			            }, true);   
+			        })();
 
-		/*
-		 * The Output function call is here just for debugging purposes
-		 * It is not necessary to call it in real applications
-		 */
+			    </script>
 
-		// get the user
-		// $u = $results->response->user;
+			  </body>
+			</html>
 
-		// // get the first blog
-		// $name = $u->blogs[0]->name;
-
-		?>
-		
-		<!DOCTYPE html>
-		<html lang="en">
-		  <head>
-		    <meta charset="utf-8">
-		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		    <meta name="viewport" content="width=device-width, initial-scale=1">
-		    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		    <title>Bootstrap 101 Template</title>
-		    <!-- Bootstrap -->
-		    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-		    <link href="../../css/main.css" rel="stylesheet">
-
-		    <style>
-		        h1, h5{
-		            text-align:center;
-		            color:#5cb85c;
-		        }
-		        h1{
-		            margin-top:150px;
-		        }
-		        h5{
-		            margin-top: 30px;
-		        }
-		    </style>
-
-		  </head>
-		  <body>
-
-			<!-- hour glass spinner -->
-		    <h1>
-		        <span class="glyphicon glyphicon-hourglass loading" aria-label="loading animation"></span>
-		    </h1>
-
-		    <h5>Retrieving posts, please wait...</h5>
-
-		    <!-- javascript -->
-		    <script>
-
-		        (function(){
-		            document.addEventListener("DOMContentLoaded", function(){
-
-		                // var n = '<?= $_GET["n"]; ?>';
-
-		                var ajax = new XMLHttpRequest();
-		                ajax.open("POST", "", true);
-		                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		                ajax.onreadystatechange = function() {
-		                    if(this.readyState == 4 && this.status == 200) {
-		                    	document.body.innerHTML = this.responseText;
-		                        // console.log( this.responseText );
-		                        // console.log( JSON.parse(this.responseText) );
-		                        // window.opener.esmApp.smPosts.authorize( this.responseText );
-		                        // window.close();
-		                    }
-		                }
-		                ajax.send('n=<?= $_GET["n"]; ?>&u=<?= $uname; ?>&t=<?= $atoken; ?>');
-
-		            }, true);   
-		        })();
-
-		    </script>
-
-		  </body>
-		</html><?php
-
-		// use the results to get the blog posts
-
-	}else{
+		<?php 
+		// if we did not receive an access token
+		}else{
 		/* 
 		 * If there was an unexpected error, display to the user
 		 * some useful information
@@ -471,6 +408,16 @@
 			</body>
 		</html>
 		<?php
+		}
+		 
+		/* Internal cleanup call
+		 */
+		$success = $client->Finalize($success);
 	}
-
+	/*
+	 * If the exit variable is true, the script must not output anything
+	 * else and exit immediately
+	 */
+	if($client->exit)
+		exit;
 ?>
