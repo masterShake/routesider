@@ -435,9 +435,9 @@
 		                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		                ajax.onreadystatechange = function() {
 		                    if(this.readyState == 4 && this.status == 200) {
-		                    	document.body.innerHTML = this.responseText;
+		                    	// document.body.innerHTML = this.responseText;
 		                        // console.log( this.responseText );
-		                        // console.log( JSON.parse(this.responseText) );
+		                        console.log( JSON.parse(this.responseText) );
 		                        // window.opener.esmApp.smPosts.authorize( this.responseText );
 		                        // window.close();
 		                    }

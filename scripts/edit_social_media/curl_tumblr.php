@@ -60,10 +60,11 @@ foreach($results as $post){
 	$p = new stdClass();
 
 	// set the properties
+	$p->network = "tumblr";
 	$p->type = $post->type;
-	$p->created_time = $post->timestamp;
+	$p->timestamp = $post->timestamp;
 	$p->likes = $post->note_count;
-	$p->link = $post->post_url;
+	$p->permalink = $post->post_url;
 	$p->tags = $post->tags;
 	$p->net_id = $post->id;
 	$p->media = [];
@@ -86,11 +87,12 @@ foreach($results as $post){
 			$q = new stdClass();
 
 			// set the properties
+			$q->type = "photo";
 			$q->caption = $photo->caption;
 			$q->height = $photo->alt_sizes[0]->height;
 			$q->width = $photo->alt_sizes[0]->width;
 			$q->url = $photo->alt_sizes[0]->url;
-			$q->thumbnail = $photo->alt_sizes[count($photo->alt_sizes) - 1]->url;
+			$q->thumbnail = $photo->alt_sizes[count($photo->alt_sizes) - 2]->url; // i like the size of 2nd to last one
 
 			// push the new object onto the media array
 			$p->media []= $q;
@@ -103,6 +105,7 @@ foreach($results as $post){
 		$q = new stdClass();
 
 		// set the properties
+		$q->type = "video";
 		$q->caption = $p->caption;
 		$q->height = null;
 		$q->width = $p->player[count($p->player) - 1]->width;
