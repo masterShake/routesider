@@ -37,7 +37,7 @@ if( !empty( $results ) ){
 }
 
 // loop through all the posts
-foreach($posts as $post){ echo $post->type." ";
+foreach($posts as $post){
 
 	// if the post already exists
 	$cypher = "MATCH (p:Post)<-[:HAS_POST]-(n {name : '".$_POST["n"]."'}) ".
@@ -78,7 +78,7 @@ foreach($posts as $post){ echo $post->type." ";
 		$db->query($cypher);
 
 		// If the post contains image(s)
-		if($post->type == "photo"){ echo "photo \n";
+		if($post->type == "photo"){
 
 			// loop through the photos
 			foreach($post->media as $photo){
@@ -104,7 +104,7 @@ foreach($posts as $post){ echo $post->type." ";
 		  	  		  "MERGE (p)-[:HAS_MEDIA]->(m:Media { ".
 		  	  		  	"width : ".(int)$post->media[0]->width.", ".
 		  	  		  	"height : ".(int)$post->media[0]->height.", ".
-		  	  		  	"url : '".$post->media[0]->embed_code."', ".
+		  	  		  	"embed_code : '".addslashes($post->media[0]->embed_code)."', ".
 		  	  		  	"thumbnail : '".$post->media[0]->thumbnail."', ".
 		  	  		  	"type : 'video', ".
 		  	  		  	"caption : '".addslashes($post->media[0]->caption)."' ".
