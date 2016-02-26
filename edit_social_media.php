@@ -118,13 +118,13 @@
                             <div class="col-xs-4 col-sm-2 col-md-6" id="activate-face">
                                 
                                 <div>
-                                    <button type="button" class="btn activate-btn <?= in_array("facebook", $netNames) ? "active" : "not-active"; ?>"  aria-label="activate facebook"><span class="icon-facebook2" aria-hidden="true"></span></button>
+                                    <button type="button" class="btn activate-btn <?= in_array("facebook", $netNames) ? "active" : "not-active"; ?>"  aria-label="activate facebook"><span class="icon-facebook" aria-hidden="true"></span></button>
                                     <h5>Facebook</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("facebook", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-facebook2"></span> Facebook</h3>
+                                    <h3 class="popover-title"><span class="icon-facebook"></span> Facebook</h3>
                                     <div class="popover-content">
 
                                         <div <?= in_array("facebook", $netNames)? "" : "style='display:none;'"; ?>>
@@ -184,13 +184,13 @@
                             <div class="col-xs-4 col-sm-2 col-md-6" id="activate-tumb">
                                 
                                 <div>
-                                   <button type="button" class="btn activate-btn <?= in_array("tumblr", $netNames) ? "active" : "not-active"; ?>" aria-label="activate tumblr"><span class="icon-tumblr2" aria-hidden="true"></span></button>
+                                   <button type="button" class="btn activate-btn <?= in_array("tumblr", $netNames) ? "active" : "not-active"; ?>" aria-label="activate tumblr"><span class="icon-tumblr" aria-hidden="true"></span></button>
                                    <h5>Tumblr</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("tumblr", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-tumblr2" ></span> Tumblr</h3>
+                                    <h3 class="popover-title"><span class="icon-tumblr" ></span> Tumblr</h3>
                                     <div class="popover-content">
 
                                         <div <?= in_array("tumblr", $netNames)? "" : "style='display:none;'"; ?>>
@@ -283,13 +283,13 @@
                             <div class="col-xs-4 col-sm-2 col-md-6" id="activate-goog">
 
                                 <div>
-                                   <button type="button" class="btn activate-btn <?= in_array("google", $netNames) ? "active" : "not-active"; ?>" aria-label="activate google"><span class="icon-google-plus2" aria-hidden="true"></span></button>
+                                   <button type="button" class="btn activate-btn <?= in_array("google", $netNames) ? "active" : "not-active"; ?>" aria-label="activate google"><span class="icon-google-plus" aria-hidden="true"></span></button>
                                    <h5>Google</h5>
                                 </div>
 
                                 <div class='popover top <?= in_array("google", $netNames) ? "active" : ""; ?>'>
                                     <div class="arrow"></div>
-                                    <h3 class="popover-title"><span class="icon-google-plus2"></span> Google</h3>
+                                    <h3 class="popover-title"><span class="icon-google-plus"></span> Google</h3>
                                     <div class="popover-content">
 
                                         <div <?= in_array("google", $netNames)? "" : "style='display:none;'"; ?>>
@@ -394,66 +394,24 @@
                             <?php 
 
                             // if we have any posts
-                            if( count($networks) ){
+                            if( count($posts) ){
 
                                 foreach($posts->getNodes("Post") as $post){ 
 
                                     // get all the media objects
                                     $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
 
-                                    ?>
+                                    // output html based on network type
+                                    switch($post->getProperty("network")){
 
-                                <div class="thumbnail social-media-post" id='<?= $post->getProperty("net_id"); ?>' data-loading="0">
-                                    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("net_id"); ?>'></div>
-                                    <?php // if the post has at least 1 media object
-                                          if( count($media) ){
+                                        case "instagram": include "scripts/edit_social_media/instagram_post_editable.php"; break;
 
-                                            // if the post has a video
-                                            if( $media[0]->getProperty("type") == "video" ){ ?>
+                                        case "tumblr": include "scripts/edit_social_media/tumblr_post_editable.php"; break;
 
-                                    <!-- temp image to iframe -->
-                                    <div class="top-img" data-url='<?= $media[0]->getProperty("url"); ?>'>
-                                        <img src='<?= $media[0]->getProperty("cover_image"); ?>' alt="social media post">
-                                        <h1><span class="glyphicon glyphicon-play-circle"></span></h1>
-                                    </div>
-                                    
-                                            <?php // if the post has more than 1 image
-                                            }else if( count($media) > 1 ){  ?>
+                                    }
+                                } 
 
-                                    <!-- gallery -->
-
-                                            <?php // if there is only 1 image
-                                            }else{ ?>
-
-                                    <!-- single image -->
-                                    <img src='<?= $media[0]->getProperty("url"); ?>' alt="social media post">
-                                    
-                                    <?php } } ?>
-
-                                    <div class="caption">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
-                                                </td>
-                                                <td>
-                                                    <p>
-                                                        <a href='https://instagram.com/<?= $post->getProperty("username"); ?>'>
-                                                            <span>&#64;<?= $post->getProperty("username"); ?></span>
-                                                        </a>
-                                                        <?= ($post->hasProperty("text")) ? $post->getProperty("text") : ""; ?>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="social-post-link"><a href='<?= $post->getProperty("link"); ?>'><span class='icon-<?= $post->getProperty("icon"); ?>'></span></a></div>
-                                    <div class="likes">
-                                        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post->getProperty("likes"); ?></div>
-                                    </div>
-                                </div>
-
-                            <?php } }else{ ?>
+                            }else{ ?>
 
                                 <hr style="margin-top: 0px;">
                                 <h5 style="text-align:center;"><i>no social networks connected</i></h5>

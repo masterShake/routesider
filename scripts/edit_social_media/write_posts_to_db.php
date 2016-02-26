@@ -106,6 +106,7 @@ foreach($posts as $post){
 		  	  		  	"height : ".(int)$post->media[0]->height.", ".
 		  	  		  	"embed_code : '".addslashes($post->media[0]->embed_code)."', ".
 		  	  		  	"thumbnail : '".$post->media[0]->thumbnail."', ".
+		  	  		  	"url : '".$post->media[0]->url."', ".
 		  	  		  	"type : 'video', ".
 		  	  		  	"caption : '".addslashes($post->media[0]->caption)."' ".
 		  	  		  "})";
@@ -154,4 +155,4 @@ foreach($posts as $post){
 	// 		}
 	// 	}
 	// }
-}exit;
+}

@@ -267,11 +267,11 @@
 		                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		                ajax.onreadystatechange = function() {
 		                    if(this.readyState == 4 && this.status == 200) {
-		                    	document.getElementById('bonus-jonas').innerHTML = this.responseText;
+		                    	// document.getElementById('bonus-jonas').innerHTML = this.responseText;
 		                        // console.log( this.responseText );
 		                        // console.log( JSON.parse(this.responseText) );
-		                        // window.opener.esmApp.smPosts.authorize( this.responseText );
-		                        // window.close();
+		                        window.opener.esmApp.smPosts.authorize( this.responseText );
+		                        window.close();
 		                    }
 		                }
 		                ajax.send('n=<?= $_GET["n"]; ?>&u=<?= $uname; ?>&t=<?= $atoken; ?>');

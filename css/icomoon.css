@@ -90,10 +90,10 @@
 .icon-page-break:before {
     content: "\e914";
 }
-.icon-google-plus2:before {
+.icon-google-plus:before {
     content: "\e915";
 }
-.icon-facebook2:before {
+.icon-facebook:before {
     content: "\e916";
 }
 .icon-instagram:before {
@@ -102,7 +102,7 @@
 .icon-twitter:before {
     content: "\e918";
 }
-.icon-tumblr2:before {
+.icon-tumblr:before {
     content: "\e919";
 }
 .icon-linkedin:before {

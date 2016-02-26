@@ -868,7 +868,7 @@ var ESM, esmApp;
 		// scroll to the posts
 		document.getElementById("social-feed").scrollIntoView();
 
-		// add the network to the , reuse this.temp temp var
+		// add the network to the dropdown, reuse this.temp temp var
 		this.temp = document.createElement("li");
 		this.temp.className = "list-group-item";
 		this.temp.innerHTML = strElems;
@@ -877,10 +877,10 @@ var ESM, esmApp;
 
 		// add the event listener to the checkbox
 		this.temp.getElementsByTagName("input")[0]
-			.addEventListener("change", esmApp.searchBar.netBox, false);
+			.addEventListener("change", esmApp.searchBar.netBox);
 
 		// ajax query
-		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
+		// esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
 
 		// change the html of the freshly added network button
 		esmApp.smBtns.actBtn();
