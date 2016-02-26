@@ -36,7 +36,7 @@
                   <div>
                     <b>Total:</b>
                     <span ng-repeat="c in invoice.currencies">
-                      {{invoice.total(c) | currency:c}}
+                      {{ invoice.total(c) | currency:c }}
                     </span>
                     <button class="btn" ng-click="invoice.pay()">Pay</button>
                   </div>

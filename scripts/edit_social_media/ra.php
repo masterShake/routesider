@@ -415,12 +415,16 @@
 		  </head>
 		  <body>
 
-			<!-- hour glass spinner -->
-		    <h1>
-		        <span class="glyphicon glyphicon-hourglass loading" aria-label="loading animation"></span>
-		    </h1>
+		  	<div id="bonus-jonas">
 
-		    <h5>Retrieving posts, please wait...</h5>
+				<!-- hour glass spinner -->
+			    <h1>
+			        <span class="glyphicon glyphicon-hourglass loading" aria-label="loading animation"></span>
+			    </h1>
+
+			    <h5>Retrieving posts, please wait...</h5>
+
+			</div>
 
 		    <!-- javascript -->
 		    <script>
@@ -435,9 +439,9 @@
 		                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		                ajax.onreadystatechange = function() {
 		                    if(this.readyState == 4 && this.status == 200) {
-		                    	// document.body.innerHTML = this.responseText;
+		                    	document.getElementById('bonus-jonas').innerHTML = this.responseText;
 		                        // console.log( this.responseText );
-		                        console.log( JSON.parse(this.responseText) );
+		                        // console.log( JSON.parse(this.responseText) );
 		                        // window.opener.esmApp.smPosts.authorize( this.responseText );
 		                        // window.close();
 		                    }
