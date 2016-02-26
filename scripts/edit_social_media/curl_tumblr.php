@@ -106,10 +106,10 @@ foreach($results as $post){
 
 		// set the properties
 		$q->type = "video";
-		$q->caption = $p->caption;
+		$q->caption = $post->caption;
 		$q->height = null;
-		$q->width = $p->player[count($p->player) - 1]->width;
-		$q->url = $p->player[count($p->player) - 1]->embed_code;
+		$q->width = $post->player[count($post->player) - 1]->width;
+		$q->embed_code = $post->player[count($post->player) - 1]->embed_code;
 		$q->thumbnail = null;
 
 		// push the new object onto the media array
@@ -119,14 +119,6 @@ foreach($results as $post){
 	// push the new post object onto the array
 	$posts []= $p;
 }
-
-echo "<pre>";
-
-print_r($posts);
-
-echo "</pre>";
-
-exit();
 
 
 

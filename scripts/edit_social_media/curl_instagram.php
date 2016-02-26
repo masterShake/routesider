@@ -41,10 +41,6 @@ $posts = [];
 
 // loop throught the posts
 foreach ($results->data as $post) { 
-
-	echo $post->caption->text; exit();
-
-	// echo json_encode($post->caption); exit;
 	
 	// formatted stdObject
 	$p = new stdClass();
@@ -62,25 +58,21 @@ foreach ($results->data as $post) {
 	$p->media = new stdClass();
 
 	// set the media properties
-	$p->media->type = ($post->type == "image") ? "photo" : "video";
 	$p->media->width = $post->images->standard_resolution->width;
 	$p->media->height = $post->images->standard_resolution->height;
 	$p->media->url = $post->images->standard_resolution->url;
 	$p->media->thumbnail = $post->images->thumbnail->url;
-	$p->media->caption = $post->caption->text;
+	
+	$p->media->caption = gettype($post->caption) == "object" ? $post->caption->text : null;
 
 	// if there is a video
-    if( property_exists($post, "videos"))
+    if( property_exists($post, "videos")){
     	$p->media->embed_code = $post->videos->standard_resolution->url;
+    	$p->media->type = "video";
+    }else{
+    	$p->media->type = "photo";
+    }
 
     // push the new post object onto the array
 	$posts []= $p;
 }
-
-echo "<pre>";
-
-print_r($posts);
-
-echo "</pre>";
-
-exit();
