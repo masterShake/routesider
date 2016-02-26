@@ -47,7 +47,7 @@ foreach ($results->data as $post) {
 
 	// set the properties
 	$p->network = "instagram";
-	$p->type = (property_exists($post, "videos")) ? "video" : "image";
+	$p->type = (property_exists($post, "videos")) ? "video" : "photo";
 	$p->timestamp = $post->created_time;
 	$p->likes = $post->likes->count;
 	$p->permalink = $post->link;
@@ -55,23 +55,28 @@ foreach ($results->data as $post) {
 	$p->net_id = $post->id;
 
 	// formatted media object
-	$p->media = new stdClass();
+	$p->media = [];
+
+	$q = new stdClass();
 
 	// set the media properties
-	$p->media->width = $post->images->standard_resolution->width;
-	$p->media->height = $post->images->standard_resolution->height;
-	$p->media->url = $post->images->standard_resolution->url;
-	$p->media->thumbnail = $post->images->thumbnail->url;
+	$q->width = $post->images->standard_resolution->width;
+	$q->height = $post->images->standard_resolution->height;
+	$q->url = $post->images->standard_resolution->url;
+	$q->thumbnail = $post->images->thumbnail->url;
 	
-	$p->media->caption = gettype($post->caption) == "object" ? $post->caption->text : null;
+	$q->caption = gettype($post->caption) == "object" ? $post->caption->text : null;
 
 	// if there is a video
     if( property_exists($post, "videos")){
-    	$p->media->embed_code = $post->videos->standard_resolution->url;
-    	$p->media->type = "video";
+    	$q->embed_code = $post->videos->standard_resolution->url;
+    	$q->type = "video";
     }else{
-    	$p->media->type = "photo";
+    	$q->type = "photo";
     }
+
+    // push the media object onto the array
+    $p->media []= $q;
 
     // push the new post object onto the array
 	$posts []= $p;
