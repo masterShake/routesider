@@ -8,6 +8,7 @@
 
 class Curl{
 
+        // post
 	public static function post($URL, $params){
 
 		//cURL shit
