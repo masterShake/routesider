@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <style>
+
+    h1{
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    div.col-sm-6{
+        border-top: 1px solid #444;
+    }
+
+    h1, div.col-sm-6{
+        padding: 20px 0;
+    }
+
+    </style>
+</head>
+<body>
+
+    <h1>Learn Angular</h1>
+
+    <!-- myApp -->
+    <div class="container" ng-app="myApp" ng-controller="myController">
+        <div class="row">
+            
+            <!-- binding -->
+            <div class="col-sm-6">
+                <h3>binding</h3>
+                <label>first <input type="text" ng-model="firstname"></label>
+                <label>last <input type="text" ng-model="lastname"></label>
+                <pre>{{ firstname + ' ' + lastname }}</pre>
+            </div>
+
+            <!-- expressions -->
+            <div class="col-sm-6">
+                <h3>expressions</h3>
+                <ul>
+                    <li>using double braces: <pre>{{ firstname }}</pre></li>
+                    <li>using a directive <pre ng-bind="firstname"></pre></li>
+                </ul>
+                <hr>
+                <p>The model can also be the view and controller</p>
+                <input style="background-color:{{bgCol}}" ng-model="bgCol" value="{{bgCol}}">
+            </div>
+
+        </div>
+        <div class="row">
+
+            <!-- objects -->
+            <div class="col-sm-6">
+                <h3>objects</h3>
+                <span>fatass.height: <strong>{{ fatass.height }}</strong></span>
+                <br>
+                <span>fatass.weight: <strong>{{ fatass.weight }}</strong></span>
+            </div>
+
+            <!-- arrays -->
+            <div class="col-sm-6">
+                <h3>arrays</h3>
+                <ul>
+                    <li>{{ cars[0] }}</li>
+                    <li>{{ cars[1] }}</li>
+                    <li>{{ cars[2] }}</li>
+                    <li>{{ cars[3] }}</li>
+                </ul>
+                <input type="text" class="form-control" value="{{cars[0]}}" ng-model="cars[0]">
+                <input type="text" class="form-control" value="{{cars[1]}}" ng-model="cars[1]">
+                <input type="text" class="form-control" value="{{cars[2]}}" ng-model="cars[2]">
+                <input type="text" class="form-control" value="{{cars[3]}}" ng-model="cars[3]">
+            </div>
+
+        </div>
+        <div class="row">
+            
+            <!-- repeat -->
+            <div class="col-sm-6">
+                <h3>repeat directives</h3>
+                <ul>
+                    <li ng-repeat="c in countries">
+                        <span>name: <strong>{{ c.name }}</strong>, </span>
+                        <span>population: <strong>{{ c.pop }}</strong></span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- custom directives -->
+            <div class="col-sm-6">
+                <h3>custom directives</h3>
+                <custom-tag></custom-tag>
+            </div>
+
+        </div>
+
+    </div><!-- /myApp -->
+
+    <script src="angular.js"></script>
+    <script src="angular-sanitize.js"></script>
+    <script>
+        
+    (function(angular){
+
+        'use strict';
+
+        // init the module
+        var app = angular.module('myApp', ['ngSanitize']); // include the sanitize service in module dependencies
+
+        // init the controller
+        app.controller('myController', function($scope){
+
+            $scope.firstname = 'john';
+            $scope.lastname = 'doe';
+
+            $scope.bgCol = 'red';
+
+            // objects
+            $scope.fatass = {
+                height: 70,
+                weight: 350
+            };
+
+            // arrays
+            $scope.cars = ['ferrari', 'bugatti', 'lotus', 'lamborghini'];
+
+            // array of objects
+            $scope.countries = [
+                {
+                    name: 'angola',
+                    pop: 25783928
+                },
+                {
+                    name: 'morocco',
+                    pop: 15959040
+                },
+                {
+                    name: 'yemen',
+                    pop: 19876253 
+                }
+            ];
+
+        });
+
+        // create a directive
+        app.directive('customTag', function(){ // camel case here, but snake hyphen case for element
+            return {
+                restrict : 'E',
+                template : 'made by a directive!'
+            };
+        });
+
+    })(window.angular);
+
+    </script>
+</body>
+</html>
