@@ -70,7 +70,7 @@ RS.prototype.toggleMobileMenu = function(){
 
 var ESM, esmApp;
 
-(function(){
+(function(document){
 
 	//-----------------------------------------------
 	//			  ESM - edit social media			
@@ -1007,7 +1007,7 @@ var ESM, esmApp;
 
 	}, true);	
 
-})();
+})(window.document);
 
 
 
