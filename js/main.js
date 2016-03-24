@@ -15,7 +15,7 @@
 
 var RS, rsApp;
 
-// (function(){
+// (function(document, RS, rsApp){
 
 	RS = function(){
 
@@ -27,6 +27,7 @@ var RS, rsApp;
 		this.map = null;
 		// ajax variables
 		this.tempObjs = {};
+		this.ajaxOpts = {};
 		this.indexer = 1;
 		// keep track of which dropdown is open
 		this.activeDropdown = null;
@@ -62,6 +63,7 @@ var RS, rsApp;
 	//	
 	RS.prototype.ajax = function( ajaxOpts ){
 	    var i = this.indexer++;
+	    this.ajaxOpts = ajaxOpts;
 	    this.tempObjs[i] = new XMLHttpRequest();
 	    this.tempObjs[i].open(ajaxOpts.method, ajaxOpts.url, true);
 	    this.tempObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -223,5 +225,8 @@ var RS, rsApp;
 		this.parentElement.parentElement.removeChild(this.parentElement);
 	}
 
-// })();
+	// create new RS object
+	rsApp = new RS();
+
+// })(window.document, window.RS, window.rsApp);
 

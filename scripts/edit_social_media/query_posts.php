@@ -74,7 +74,7 @@ $cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ".
 			// include posts with images
 			if( $_POST["i"] ){
 
-				$cypher .=	"m.type='image' ";
+				$cypher .=	"m.type='photo' ";
 
 				// if video too
 				if( $_POST["v"] )
@@ -109,7 +109,7 @@ if( !$results->getNodesCount() ){
 }
 
 // get all the :Post nodes
-$posts = $results->getNodes('Post');
+$posts = $results->getNodes('Post'); // echo '<pre>'; print_r($posts); echo '</pre>'; exit();
 
 //-----------------------------------------------
 // if the user requested a single post 
@@ -299,73 +299,30 @@ if( !is_null($singlePost) && count($posts) > 1){ ?>
 
 <?php }
 
-// loop through the posts and assemble the HTML
-foreach ($posts as $post) { // echo '<pre>'; print_r($post); echo '</pre>';
-		
-	// get all the media objects
-    $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
+// if we have any posts
+if( count($posts) ){ 
 
-    // if this is a duplicate
-    if( !is_null($singlePost) && $post->getProperty("net_id") == $singlePost[0]->getProperty("net_id")){
+    foreach($posts as $post){ 
 
-    	// do nothing
-    
-    }else{
+        // get all the media objects
+        $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
 
-    ?>
+        // output html based on network type
+        switch($post->getProperty("network")){
 
-		<div class="thumbnail social-media-post" id='<?= $post->getProperty("net_id"); ?>' data-loading="0">
-		    <div class="glyphicon glyphicon-remove-circle" aria-label="remove social media post" data-network='<?= $post->getProperty("network"); ?>' data-id='<?= $post->getProperty("net_id"); ?>'></div>
-		    <?php // if the post has at least 1 media object
-		          if( count($media) ){
+            case "instagram": include "components/edit_social_media/instagram_post_editable.php"; break;
 
-		            // if the post has a video
-		            if( $media[0]->getProperty("type") == "video" ){ ?>
+            case "tumblr": include "components/edit_social_media/tumblr_post_editable.php"; break;
 
-		    <!-- temp image to iframe -->
-		    <div class="top-img" data-url='<?= $media[0]->getProperty("url"); ?>'>
-		        <img src='<?= $media[0]->getProperty("cover_image"); ?>' alt="social media post">
-		        <h1><span class="glyphicon glyphicon-play-circle"></span></h1>
-		    </div>
-		    
-		            <?php // if the post has more than 1 image
-		            }else if( count($media) > 1 ){  ?>
+        }
+    } 
 
-		    <!-- gallery -->
+}else{ ?>
 
-		            <?php // if there is only 1 image
-		            }else{ ?>
+    <hr style="margin-top: 0px;">
+    <h5 style="text-align:center;"><i>no social networks connected</i></h5>
 
-		    <!-- single image -->
-		    <img src='<?= $media[0]->getProperty("url"); ?>' alt="social media post">
-		    
-		    <?php } } ?>
-
-		    <div class="caption">
-		        <table>
-		            <tr>
-		                <td>
-		                    <img src='img/business/<?= $profile->data("avatar"); ?>' class='avatar <?= $profile->data("avatar_shape"); ?>' alt='business avatar/logo'>
-		                </td>
-		                <td>
-		                    <p>
-		                        <a href='https://instagram.com/<?= $post->getProperty("username"); ?>'>
-		                            <span>&#64;<?= $post->getProperty("username"); ?></span>
-		                        </a>
-		                        <?= ($post->hasProperty("text")) ? $post->getProperty("text") : ""; ?>
-		                    </p>
-		                </td>
-		            </tr>
-		        </table>
-		    </div>
-		    <div class="social-post-link"><a href='<?= $post->getProperty("link"); ?>'><span class='icon-<?= $post->getProperty("icon"); ?>'></span></a></div>
-		    <div class="likes">
-		        <div class="glyphicon glyphicon-heart"></div><div style="font-size:10px">&nbsp;&nbsp;<?= $post->getProperty("likes"); ?></div>
-		    </div>
-		</div>
-
-
-<?php } }
+<?php }
 
 
 exit();

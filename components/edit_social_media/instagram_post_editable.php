@@ -37,7 +37,7 @@
                         <a href='https://instagram.com/<?= $post->getProperty("username"); ?>'>
                             <span>&#64;<?= $post->getProperty("username"); ?></span>
                         </a>
-                        <?= ($post->hasProperty("text")) ? $post->getProperty("text") : ""; ?>
+                        <?= $media[0]->getProperty("caption"); ?>
                     </p>
                 </td>
             </tr>

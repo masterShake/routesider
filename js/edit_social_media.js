@@ -28,28 +28,28 @@
 //----------------------------------------------
 // - Event listener toggle slide out menu for
 //   pages with no map
-RS.prototype.toggleMobileMenu = function(){
-	// set the max width of the content cover
-	// if the menu is hidden and the window is mobile-sized
-	if( document.getElementById("page-content").style.transform != "translate(270px, 0px)"
-		&& window.innerWidth < 768 ){
-		// open the menu
-		document.getElementById("page-content").style.transform = "translate(270px, 0px)";
-		document.getElementById("content-cover").style.transform = "translate(270px, 0px)";
-		// cover the content
-		document.getElementById("content-cover").style.display = "block";
-		// set timer to reveal #content-cover
-		setTimeout( rsApp.showContentCover , 200 );
-	}else{
-		// close the menu
-		document.getElementById("page-content").style.transform = "translate(0px, 0px)";
-		document.getElementById("content-cover").style.transform = "translate(0px, 0px)";
-		// reveal the content
-		document.getElementById("content-cover").style.opacity = "0";
-		// set timer to hide #content-cover
-		setTimeout( rsApp.hideContentCover , 300 );
-	}
-}	
+// RS.prototype.toggleMobileMenu = function(){
+// 	// set the max width of the content cover
+// 	// if the menu is hidden and the window is mobile-sized
+// 	if( document.getElementById("page-content").style.transform != "translate(270px, 0px)"
+// 		&& window.innerWidth < 768 ){
+// 		// open the menu
+// 		document.getElementById("page-content").style.transform = "translate(270px, 0px)";
+// 		document.getElementById("content-cover").style.transform = "translate(270px, 0px)";
+// 		// cover the content
+// 		document.getElementById("content-cover").style.display = "block";
+// 		// set timer to reveal #content-cover
+// 		setTimeout( rsApp.showContentCover , 200 );
+// 	}else{
+// 		// close the menu
+// 		document.getElementById("page-content").style.transform = "translate(0px, 0px)";
+// 		document.getElementById("content-cover").style.transform = "translate(0px, 0px)";
+// 		// reveal the content
+// 		document.getElementById("content-cover").style.opacity = "0";
+// 		// set timer to hide #content-cover
+// 		setTimeout( rsApp.hideContentCover , 300 );
+// 	}
+// }	
 
 
 
@@ -70,7 +70,7 @@ RS.prototype.toggleMobileMenu = function(){
 
 var ESM, esmApp;
 
-(function(document){
+(function(document, RS, rsApp){
 
 	//-----------------------------------------------
 	//			  ESM - edit social media			
@@ -90,13 +90,13 @@ var ESM, esmApp;
 		/* properties */
 
 		// initialize the searchbar
-		this.searchBar = new SB();
+		this.searchBar = new SearchBar();
 
 		// initialize the social media buttons
-		this.smBtns = new SMB();
+		this.smBtns = new SocialMediaButtons();
 
 		// initialize the social media posts
-		this.smPosts = new SMP();
+		this.smPosts = new SocialMediaPosts();
 
 		// random temp variable
 		this.temp = null;
@@ -133,7 +133,7 @@ var ESM, esmApp;
 
 
 	//-----------------------------------------------
-	//					SB - search bar
+	//					SearchBar - search bar
 	//				  -------------------
 	//
 	// - initialize new autocomplete object
@@ -145,7 +145,7 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var SB = function(){
+	var SearchBar = function(){
 
 		/* properties */
 
@@ -159,7 +159,7 @@ var ESM, esmApp;
 				.getElementsByTagName("input");
 
 		// acomp object
-		this.acomp = new AC();
+		this.acomp = new AutoComplete();
 
 		/* event listeners */
 
@@ -189,7 +189,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - handle "all networks" textbox change event
 	// - only change the other textboxes on check
-	SB.prototype.allNet = function(){
+	SearchBar.prototype.allNet = function(){
 
 		// if checked --> unchecked
 		if( !this.checked )
@@ -212,7 +212,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - handle social network textbox change events
-	SB.prototype.netBox = function(){
+	SearchBar.prototype.netBox = function(){
 
 		// if [x] --> [ ] unchecked
 		if( !this.checked ){
@@ -261,7 +261,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - helper function get all the checked networks
-	SB.prototype.getNets = function(){
+	SearchBar.prototype.getNets = function(){
 
 		// clear the nets array
 		this.nets = [];
@@ -284,7 +284,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - toggle image & video buttons event listener
 	// - set searchbar properties
-	SB.prototype.toglBtns = function(){
+	SearchBar.prototype.toglBtns = function(){
 
 		// if button is active
 		if( this.className.substr( this.className.length - 6 ) == "active" ){
@@ -315,7 +315,7 @@ var ESM, esmApp;
 	// - @ c -> callback (function)
 	// - @ pid -> post ID (string)
 	// - callback performed by esmApp
-	SB.prototype.query = function(q, c, a, pid){
+	SearchBar.prototype.query = function(q, c, a, pid){
 
 		// clear all other ajax calls
 		rsApp.tempObjs = {};
@@ -339,7 +339,7 @@ var ESM, esmApp;
 	// - ajax callback
 	// - populate the social media posts feed
 	// - @ r -> ajax response (string)
-	SB.prototype.popFeed = function(r){
+	SearchBar.prototype.popFeed = function(r){
 
 		// get the feed elem
 		esmApp.temp = document.getElementById("social-posts");
@@ -368,7 +368,7 @@ var ESM, esmApp;
 
 
 	//-----------------------------------------------
-	//				  AC - autocomplete
+	//				  AutoComplete - autocomplete
 	//				---------------------
 	//
 	// - add keyup & other event listeners
@@ -381,7 +381,7 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var AC = function(){
+	var AutoComplete = function(){
 
 		/* properties */
 
@@ -407,7 +407,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - acomp keyup event listener
-	AC.prototype.ku = function(event){ // console.log(event.keyCode);
+	AutoComplete.prototype.ku = function(event){ // console.log(event.keyCode);
 
 		// if the user typed the down key
 		if(event.keyCode == 40 || event.keyCode == 38){
@@ -449,7 +449,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - down key selection event
 	// - k is for keynumber +1 for up, -1 for down
-	AC.prototype.sel = function(k){
+	AutoComplete.prototype.sel = function(k){
 
 		// get the current count
 		this.count = this.ad.children.length;
@@ -479,7 +479,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - enter key event listener
-	AC.prototype.ntr = function(pid){
+	AutoComplete.prototype.ntr = function(pid){
 
 		// clear the feed
 		document.getElementById("social-posts").innerHTML = 
@@ -504,7 +504,7 @@ var ESM, esmApp;
 	//   results
 	// - max results : 4
 	// - @r - results string json
-	AC.prototype.popFields = function(r){
+	AutoComplete.prototype.popFields = function(r){
 		// reset the active number
 		this.active = -1;
 		// insert hmtl response
@@ -517,7 +517,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - helper function for popFields
 	// - add event listeners to the newly inserted content
-	AC.prototype.addLstnrs = function(){
+	AutoComplete.prototype.addLstnrs = function(){
 
 		// if no suggestions
 		if( this.ad.children[0].children[0].tagName == "SPAN" )
@@ -534,7 +534,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - blur search posts event listener
 	// - hide the acomp dropdown
-	AC.prototype.blr = function(event){ console.log("cupcakes! tehehe");
+	AutoComplete.prototype.blr = function(event){
 
 		// if we clicked on the autocomplete dropdown
 		if( event.target.hasAttribute("data-pid") || event.target.parentElement.hasAttribute("data-pid") || event.target === document.getElementById("search-posts").children[0] )
@@ -551,7 +551,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - focus search posts event listener
 	// - show the autocomplete dropdown
-	AC.prototype.fcs = function(){
+	AutoComplete.prototype.fcs = function(){
 
 		// attach click event listener to body
 		document.body.addEventListener("click", esmApp.searchBar.acomp.blr, true);
@@ -565,7 +565,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - click suggestion results event listener
 	// - ajax to retrieve post
-	AC.prototype.clkSug = function(){ console.log("suggestion clicked!");
+	AutoComplete.prototype.clkSug = function(){ console.log("suggestion clicked!");
 
 		// clear the feed
 		document.getElementById("social-posts").innerHTML = 
@@ -596,7 +596,7 @@ var ESM, esmApp;
 
 
 	//-----------------------------------------------
-	//			 SMB - social media buttons
+	//			 SocialMediaButtons - social media buttons
 	//		   ------------------------------
 	//
 	// - toggle media controls popover
@@ -609,7 +609,7 @@ var ESM, esmApp;
 	//
 	//-----------------------------------------------
 
-	var SMB = function(){
+	var SocialMediaButtons = function(){
 
 		/* properties */
 
@@ -665,7 +665,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - open a new window and send an authorization
 	//   request
-	SMB.prototype.reqAuth = function(){
+	SocialMediaButtons.prototype.reqAuth = function(){
 
 		// set the current network property
 		esmApp.smBtns.aNet = this.dataset.network;
@@ -688,7 +688,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - change the classes and popover html of newly
 	//   added activion button
-	SMB.prototype.actBtn = function(){
+	SocialMediaButtons.prototype.actBtn = function(){
 
 		// get the active network btn
 		this.temp = document.getElementById(
@@ -711,7 +711,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - remove social network event listener
-	SMB.prototype.removeNet = function(){
+	SocialMediaButtons.prototype.removeNet = function(){
 
 		// set the active network
 		esmApp.smBtns.aNet = this.dataset.network;
@@ -728,7 +728,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - revert styles to default add listeners
-	SMB.prototype.deactBtn = function(){
+	SocialMediaButtons.prototype.deactBtn = function(){
 
 		// get the active network btn
 		this.temp = document.getElementById(
@@ -752,7 +752,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - ajax call remove network
-	SMB.prototype.ajaxRemNet = function(){
+	SocialMediaButtons.prototype.ajaxRemNet = function(){
 
 		// change the activation button class
 		esmApp.smBtns.deactBtn();
@@ -776,13 +776,13 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - ajax callback after removing network
 	// - query to repopulate feed.
-	SMB.prototype.reFeed = function(){
+	SocialMediaButtons.prototype.reFeed = function(){
 		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
 	}
 
 	//-----------------------------------------------
 	// - event listener for the checkboxes
-	SMB.prototype.chex = function(){
+	SocialMediaButtons.prototype.chex = function(){
 
 		rsApp.ajax({
 			method : "POST",
@@ -799,7 +799,7 @@ var ESM, esmApp;
 
 
 	//-----------------------------------------------
-	//			 SMP - social media Posts
+	//			 SocialMediaPosts - social media Posts
 	//		   -----------------------------
 	//
 	// - populate fields 
@@ -812,7 +812,7 @@ var ESM, esmApp;
 
 	/* CONSTRUCTOR */
 
-	var SMP = function(){
+	var SocialMediaPosts = function(){
 
 		/* properties */
 
@@ -857,7 +857,7 @@ var ESM, esmApp;
 	// - perform an ajax call to retrieve the data
 	// - scroll to social feed if mobile
 	// - query updated content
-	SMP.prototype.authorize = function( strElems ){
+	SocialMediaPosts.prototype.authorize = function( strElems ){
 
 		// show the loading animation
 		document.getElementById("social-posts")
@@ -880,7 +880,7 @@ var ESM, esmApp;
 			.addEventListener("change", esmApp.searchBar.netBox);
 
 		// ajax query
-		// esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
+		esmApp.searchBar.query("", esmApp.searchBar.popFeed, 0, 0);
 
 		// change the html of the freshly added network button
 		esmApp.smBtns.actBtn();
@@ -891,7 +891,7 @@ var ESM, esmApp;
 	//   from the feed
 	// - ajax call to remove the post from the db, 
 	//   no callback
-	SMP.prototype.deletePost = function(){
+	SocialMediaPosts.prototype.deletePost = function(){
 
 		// remove the selected
 		document.getElementById(esmApp.smPosts.confId)
@@ -910,7 +910,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - launches modal to confirm deletion of post
-	SMP.prototype.confirmDel = function(){
+	SocialMediaPosts.prototype.confirmDel = function(){
 		// set the modal properties
 		esmApp.smPosts.confNet = this.dataset.network;
 		esmApp.smPosts.confId = this.dataset.id;
@@ -920,7 +920,7 @@ var ESM, esmApp;
 
 	//-----------------------------------------------
 	// - display instagram video event listener
-	SMP.prototype.showVid = function(){
+	SocialMediaPosts.prototype.showVid = function(){
 
 		// if we are already loading the video
 		if( this.dataset.loading == 1 )
@@ -952,7 +952,7 @@ var ESM, esmApp;
 	//-----------------------------------------------
 	// - showVid helper event listener
 	// - called when video is loaded
-	SMP.prototype.swap = function(){
+	SocialMediaPosts.prototype.swap = function(){
 
 		// if this has already been swapped
 		if( !this.dataset.postid )
@@ -999,15 +999,14 @@ var ESM, esmApp;
 
 	document.addEventListener("DOMContentLoaded", function(){
 
-	    // create new RS object
-	    rsApp = new RS();
+	    
 
 	    // create new ESM (edit social media) object
 	    esmApp = new ESM();
 
 	}, true);	
 
-})(window.document);
+})(window.document, window.RS, window.rsApp);
 
 
 

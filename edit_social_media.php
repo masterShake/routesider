@@ -42,7 +42,7 @@
     else if(isset($_POST["q"])){
 
         // edit social media query script
-        include "scripts/edit_social_media/esm_query.php";
+        include "scripts/edit_social_media/query_posts.php";
 
     }
 
@@ -394,7 +394,7 @@
                             <?php 
 
                             // if we have any posts
-                            if( count($posts) ){
+                            if( count($posts->getNodes("Post")) ){ 
 
                                 foreach($posts->getNodes("Post") as $post){ 
 
@@ -404,9 +404,9 @@
                                     // output html based on network type
                                     switch($post->getProperty("network")){
 
-                                        case "instagram": include "scripts/edit_social_media/instagram_post_editable.php"; break;
+                                        case "instagram": include "components/edit_social_media/instagram_post_editable.php"; break;
 
-                                        case "tumblr": include "scripts/edit_social_media/tumblr_post_editable.php"; break;
+                                        case "tumblr": include "components/edit_social_media/tumblr_post_editable.php"; break;
 
                                     }
                                 } 
