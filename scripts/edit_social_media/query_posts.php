@@ -6,17 +6,19 @@
 //
 // - query social media for a given user
 //
-// - $_POST["q"] -> (string) user input
+// @ $_POST["q"] {string} user input
 //
-// - $_POST["n"] -> (json) array of networks to 
-//						   include, default null
+// @ $_POST["n"] {json} array of networks to include
+//						default null
 //
-// - $_POST["i"] -> (bool) include posts w/ images
+// @ $_POST["i"] {bool} include posts w/ images
 //
-// - $_POST["v"] -> (bool) include posts w/ video
+// @ $_POST["v"] {bool} include posts w/ video
 //
-// - $_POST["a"] -> (bool) 1 = assemble autocomplete 
-//						   HTML, 0 = post HTML
+// @ $_POST["a"] {bool} 1 = assemble autocomplete HTML 
+//						0 = post HTML
+// 
+// @ $_POST["index"] {int} index of posts to return
 //
 //-----------------------------------------------
 
@@ -30,73 +32,8 @@ $profile = $business->profile();
 
 $db = neoDB::getInstance();
 
-// assemble the query
-		  
-			// match the business 
-$cypher = 	"MATCH (b:Business) WHERE b.id=". $business->data("id") ." ". 
-		  	// match the socialite(s) linked to the business act.
-		  	"OPTIONAL MATCH (b)-[:LINKED_TO {active : 1}]->(s)<-[:HAS_MEMBER]-(n) ";
-
-			// decode the json
-			$networks = json_decode($_POST["n"]);
-
-			if( count($networks) ){
-
-				$cypher .= "WHERE ";
-
-				// loop through the networks
-				foreach ($networks as $network) {
-				
-					// add the parameter to the query
-					$cypher .= "n.name='". $network ."' OR ";
-				}
-
-				$cypher = substr($cypher, 0, -3);
-
-			}
-
-			// match the posts associated with our business socialite
-			$cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p:Post) ";
-
-			// if querying for text
-			if( !empty($_POST["q"]) ){
-
-				$cypher .= "WHERE p.text =~ '(?i).*".$_POST["q"].".*' ";
-
-			}
-
-			// if we want images and/or videos
-			if( $_POST["i"] || $_POST["v"])
-
-				$cypher .=	"OPTIONAL MATCH (p)-[h:HAS_MEDIA]->(m:Media) WHERE ";
-
-
-			// include posts with images
-			if( $_POST["i"] ){
-
-				$cypher .=	"m.type='photo' ";
-
-				// if video too
-				if( $_POST["v"] )
-
-					$cypher .= "OR ";
-
-			}
-
-			// exclude posts with media objects
-			if( $_POST["v"] ){
-
-				$cypher .=	"m.type='video' ";
-
-			}
-
-			$cypher .= "RETURN p, h, m LIMIT ";
-
-			// if this is an autocomplete request
-			$cypher .= ($_POST["a"]) ? "4" : "10";
-
-// execute the query
-$results = $db->q( $cypher );
+// query for the posts
+$results = $business->getPosts( json_decode($_POST["params"]) );
 
 // if we got no results
 if( !$results->getNodesCount() ){
@@ -302,20 +239,7 @@ if( !is_null($singlePost) && count($posts) > 1){ ?>
 // if we have any posts
 if( count($posts) ){ 
 
-    foreach($posts as $post){ 
-
-        // get all the media objects
-        $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
-
-        // output html based on network type
-        switch($post->getProperty("network")){
-
-            case "instagram": include "components/edit_social_media/instagram_post_editable.php"; break;
-
-            case "tumblr": include "components/edit_social_media/tumblr_post_editable.php"; break;
-
-        }
-    } 
+    include "components/edit_social_media/output_posts.php";
 
 }else{ ?>
 

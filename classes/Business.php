@@ -51,24 +51,87 @@ class Business{
 		return $this->_profile;
 	}
 
-	// retrieve social media posts
-	public function getPosts($network = ""){
+	//----------------------------------------------- 
+	// - retrieve social media posts
+	// @ params {object}
+	//		+ networks {array} array of networks. Null = all networks
+	// 		+ query {string} user input text
+	//		+ photos {bool} include posts w/ photos
+	//		+ videos {bool} include posts w/ videos
+	//		+ index {int} Neo4j SKIP clause
+	public function getPosts($params){
+		  
+		// match the business 
+		$cypher = 	"MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." ". 
 
-		$cypher = "MATCH (b:Business) WHERE b.id=". $this->_data["id"] ." ";
+	  	// match the socialite(s) linked to the business act.
+	  	"OPTIONAL MATCH (b)-[:LINKED_TO {active : 1}]->(s)<-[:HAS_MEMBER]-(n) ";
 
-                  // if there is a network variable
-        if($network)
-            $cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s)<-[:HAS_MEMBER]-(n) WHERE l.active=1 AND n.name='". $network ."' ";
-        else
-            $cypher .= "OPTIONAL MATCH (b)-[l:LINKED_TO ]->(s) WHERE l.active=1 ";
-                  
-        $cypher .= "OPTIONAL MATCH (s)-[r:POSTED {deleted : 0}]->(p) ".
-        		   "OPTIONAL MATCH (p)-[hm:HAS_MEDIA]->(m) ".
-        // 		   // "OPTIONAL MATCH (p)<-[l:LIKED]-(t) ".
-                   "RETURN p, hm, m ORDER BY p.created_time DESC";
+	  	// if networks are specified
+		if( !is_null($params->networks) ){
 
-        $this->_social_media_posts = $this->_db->q( $cypher );
+			$cypher .= "WHERE ";
 
+			// loop through the networks
+			foreach ($params->networks as $network) {
+			
+				// add the parameter to the query
+				$cypher .= "n.name='". $network ."' OR ";
+			}
+
+			$cypher = substr($cypher, 0, -3);
+
+		}
+
+		// match the posts associated with our business socialite
+		$cypher .= "OPTIONAL MATCH (s)-[:POSTED]->(p:Post) ";
+
+		// if querying for text
+		if( !empty($params->query) ){
+
+			$cypher .= "WHERE p.title =~ '(?i).*".$params->query.".*' OR p.body =~ '(?i).*".$params->query.".*' ";
+
+		}
+
+		// if we want media object as well
+		if( $params->photos || $params->videos )
+
+			$cypher .=	"OPTIONAL MATCH (p)-[h:HAS_MEDIA]->(m:Media) WHERE ";
+
+
+		// include posts with photos
+		if( $params->photos ){
+
+			$cypher .=	"m.type='photo' ";
+
+			// if video too
+			if( $params->videos )
+
+				$cypher .= "OR ";
+
+		}
+
+		// exclude posts with media objects
+		if( $params->videos ){
+
+			$cypher .=	"m.type='video' ";
+
+		}
+
+		$cypher .= "RETURN p, h, m ORDER BY p.timestamp DESC ";
+
+		// if the user provided an index
+		if( $params->index )
+
+			// skip to that index
+			$cypher .= "SKIP ".$params->index." ";
+
+		$cypher .= "LIMIT 10";
+
+		// execute the query
+		$this->_social_media_posts = $this->_db->q( $cypher );
+
+		// return the social media posts
 		return $this->_social_media_posts;
 	}
 

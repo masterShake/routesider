@@ -67,7 +67,15 @@
     foreach($networks as $key => $n)
         $netNames[] = $key;
 
-    $posts = $business->getPosts();   
+    // create the post query params
+    $params = new stdClass();
+    $params->networks = null;
+    $params->query = "";
+    $params->photos = 1;
+    $params->videos = 1;
+    $params->index = 0;
+
+    $posts = $business->getPosts($params);   
 
 ?>
 <!DOCTYPE html>
@@ -396,20 +404,9 @@
                             // if we have any posts
                             if( count($posts->getNodes("Post")) ){ 
 
-                                foreach($posts->getNodes("Post") as $post){ 
+                                $posts = $posts->getNodes("Post");
 
-                                    // get all the media objects
-                                    $media = $post->getConnectedNodes("OUT", "HAS_MEDIA");
-
-                                    // output html based on network type
-                                    switch($post->getProperty("network")){
-
-                                        case "instagram": include "components/edit_social_media/instagram_post_editable.php"; break;
-
-                                        case "tumblr": include "components/edit_social_media/tumblr_post_editable.php"; break;
-
-                                    }
-                                } 
+                                include "components/edit_social_media/output_posts.php";
 
                             }else{ ?>
 

@@ -13,11 +13,13 @@
 //   new RS object must be named rsApp.
 //
 
-var RS, rsApp;
+window.rsApp;
 
-// (function(document, RS, rsApp){
+(function(document){
 
-	RS = function(){
+	var rsApp;
+
+	var RS = function(){
 
 		/* properties */
 
@@ -27,7 +29,6 @@ var RS, rsApp;
 		this.map = null;
 		// ajax variables
 		this.tempObjs = {};
-		this.ajaxOpts = {};
 		this.indexer = 1;
 		// keep track of which dropdown is open
 		this.activeDropdown = null;
@@ -63,14 +64,14 @@ var RS, rsApp;
 	//	
 	RS.prototype.ajax = function( ajaxOpts ){
 	    var i = this.indexer++;
-	    this.ajaxOpts = ajaxOpts;
 	    this.tempObjs[i] = new XMLHttpRequest();
 	    this.tempObjs[i].open(ajaxOpts.method, ajaxOpts.url, true);
 	    this.tempObjs[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	    if(ajaxOpts.hasOwnProperty("callback"))
 		    this.tempObjs[i].onreadystatechange = function() {
 		        if(rsApp.tempObjs.hasOwnProperty(i) && rsApp.tempObjs[i].readyState == 4 && rsApp.tempObjs[i].status == 200) {
-		            ajaxOpts.callback(rsApp.tempObjs[i].responseText);
+		            if(ajaxOpts.callback)
+		            	ajaxOpts.callback(rsApp.tempObjs[i].responseText);
 		            rsApp.tempObjs[i] = null;
 		        	delete rsApp.tempObjs[i];
 		        }
@@ -226,7 +227,7 @@ var RS, rsApp;
 	}
 
 	// create new RS object
-	rsApp = new RS();
+	window.rsApp = rsApp = new RS();
 
-// })(window.document, window.RS, window.rsApp);
+})(window.document);
 
