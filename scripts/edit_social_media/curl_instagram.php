@@ -46,7 +46,7 @@ foreach ($results->data as $post) {
 	$p = new stdClass();
 
 	// set the properties
-	$p->network = "instagram";
+	$p->network = "Instagram";
 	$p->type = (property_exists($post, "videos")) ? "video" : "photo";
 	$p->timestamp = $post->created_time;
 	$p->likes = $post->likes->count;

@@ -60,7 +60,7 @@ foreach($results as $post){
 	$p = new stdClass();
 
 	// set the properties
-	$p->network = "tumblr";
+	$p->network = "Tumblr";
 	$p->type = $post->type;
 	$p->timestamp = $post->timestamp;
 	$p->likes = $post->note_count;
