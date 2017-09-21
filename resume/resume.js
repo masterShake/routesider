@@ -208,7 +208,7 @@ MM.prototype.initMap = function(){
 					// map element
 					document.getElementById("map-canvas"),
 					// map options
-					{ center: {lat: this.userLat, lng: this.userLng}, zoom: 9 }
+					{ center: {lat: this.userLat, lng: this.userLng}, zoom: 13 }
 			     );
 
 	// init the autocomplete objects

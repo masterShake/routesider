@@ -755,10 +755,15 @@ if ($fn) {
                                     <!-- list -->
                                     <ul>
                                         <li>Full stack web developer, HTML5, SCSS, JavaScript, PHP, MySQL, Neo4j</li>
-                                        <li>JavaScript consultant, highly proficient in object-oriented software pattern design</li>
-                                        <li>Neo4j developer, highly proficient in graph database management, implementation, and data science</li>
-                                        <li>API developer, extensive experience with social media logins (Facebook, Instagram, Tumblr, Twitter, LinkedIn, Google+, Google Maps, etc.), RESTful communication &amp; JSON</li>
-                                        <li>Deep understanding of financial markets &amp; products, macroeconomics, forecasting,  analytical research</li>
+                                        <li>JavaScript specialist, highly proficient in object-oriented software pattern design, many of the most popular front end frameworks including React, jQuery, framework7, D3</li>
+                                        <li>Certified Neo4j professional, highly proficient in graph database management, implementation, data modeling and graph theory. Experience managing large datasets using Neo4j high availability tools. Attended many Neo4j developer conferences, personally acquainted with Neo4j CEO Emile Ifrem and other members of the Neo4j team</li>
+                                        <li>API developer, extensive experience with social media logins (Facebook, Instagram, Tumblr, Twitter, LinkedIn, Google+, Salesforce, etc.), RESTful communication &amp; JSON</li>
+                                        <li>Especially experienced with Google APIs including Maps JavaScript API, Street View Image, Maps Embedded, Places web service, Geocoding, &amp; Maps Directions. Also worked with Google Adsense, Google developer tools, and professional products</li>
+                                        <li>Deep understanding of financial markets &amp; products, macroeconomics, forecasting, &amp; analytical research</li>
+                                        <li>5 years' experience trading cryptocurrency</li>
+                                        <li>Experience with PhoneGap (Cordova), porting JavaScript apps for IOS</li>
+                                        <li>Training in algorithmic efficiency, mathematical proofs, runtime analysis, benchmark testing</li>
+                                        <li>Experience with Wordpress administration, server setup, installing themes &amp; plugins, creating custom plugins</li>
                                     </ul>
                                 </div>
                                 <!-- experience -->
@@ -766,10 +771,25 @@ if ($fn) {
                                     <!-- title -->
                                     <h4><span class="icon-keyboard"></span> Experience</h4>
                                     <hr>
+                                    <!-- Barracuda -->
+                                    <article>
+                                        <h5>Web Developer, Barracuda Networks Inc.</h5>
+                                        <h6>Campbell, CA <span>April 2016 &#8212; June 2017</span></h6>
+                                        <ul>
+                                            <li>Created custom JavaScript Library to replace inefficient jQuery and related plugins</li>
+                                            <li>Constructed a host of new components including navbar, buttons, forms, and new webpages such as homepage, product pages, various marketing pages, signnow.com, etc.</li>
+                                            <li>Organized and refactored PHP controllers, reduced complexity of backend codebase, implemented object oriented software design pattern, improved backend performance</li>
+                                            <li>Built a number of web apps such as pricing calculator, product comparison tools, swipers, form validations, search filters</li>
+                                            <li>Integrated popular JS frameworks such as isotope.js, hammer.js, &amp; idangerous swiper</li>
+                                            <li>Improved site performance, load time, & SEO using Google page speed insights</li>
+                                            <li>Expansive cross browser testing and polyfilling, QA</li>
+                                            <li>Developed HTML email templates for Pardot platform, integrated Saleforce API</li>
+                                        </ul>
+                                    </article>
                                     <!-- routesider -->
                                     <article>
                                         <h5>Founder, Routesider.com <span class="hidden-xs-down">[startup]</span></h5>
-                                        <h6>San Francisco, CA <span>April 2015 &#8212; present</span></h6>
+                                        <h6>San Francisco, CA <span>April 2015 &#8212; April 2016</span></h6>
                                         <ul>
                                             <li>Developing e-commerce platform for products, producers, distributors, and retailers; fusion of an inventory management system &amp; social network</li>
                                             <li>Features include extensive Google Maps API integration, interaction with social media, asynchronous file uploads, responsive design, unique application of touch gestures, content management system, etc.</li>

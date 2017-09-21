@@ -60,7 +60,7 @@
 
                 <div class="icon-clock"></div>
                 <div style="font-size:10px;">phone hours</div>
-                <div>8 - 8 <span style="font-size:8px;">(Silicon Valley)</span></div>
+                <div>8 - 8 <span style="font-size:8px;">(Central)</span></div>
                 <div>everyday</div>
 
                 <hr class="hidden-md-up">
